@@ -1,3 +1,14 @@
+/**
+ * @file piloteI2C1.ino
+ * @author CamFo Camille Fortin (camfortin2022@gmail.com)
+ * @brief   Fichier conteneant le code des du pilote I2C
+ * @version 0.1
+ * @date 2022-11-14
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
+
 //piloteI2C1:
 //Historique: 
 // 2021-04-19, Yves Roy, creation
