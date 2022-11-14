@@ -4,11 +4,10 @@
 
 //INCLUSIONS
 #include "xmain.h"
+#include "xpiloteUART2.h"
 #include "xpiloteEntree1.h"
-#include "xpiloteIOT1.h"
 #include "xpiloteAnalogue0.h"
 #include "xpiloteAnalogue1.h"
-#include "xpiloteI2C1.h"
 #include "xserviceTaskServer.h"
 #include "xserviceBaseDeTemps.h"
 #include "xinterfaceEntree1.h"
@@ -17,16 +16,12 @@
 
 
 //Definitions privees
-//pas de definitions privees
+static const int RX_BUF_SIZE = 1024;
+int num = 0;
 
 //Declarations de fonctions privees:
 void main_faitUnTest(void)
 {
-//  processusMoteurPasAPas.pasRequis = PROCESSUSMOTEURPASAPAS_ARRET;
-//  processusMoteurPasAPas.pasRequis = PROCESSUSMOTEURPASAPAS_SENS_HORAIRE_PAR_DEMI_PAS;
-//  processusMoteurPasAPas.pasRequis = PROCESSUSMOTEURPASAPAS_SENS_ANTI_HORAIRE_PAR_DEMI_PAS;
-//  processusMoteurPasAPas.pasRequis = PROCESSUSMOTEURPASAPAS_SENS_HORAIRE_PAR_DEMI_PAS;
-
 
 }
 void main_initialise(void);
@@ -39,11 +34,10 @@ void main_initialise(void);
 //Definitions de fonctions privees:
 void main_initialise(void)
 {
+  piloteUART2_initialise();
   piloteEntree1_initialise();
-  piloteIOT1_initialise();
   piloteAnalogue0_initialise();
   piloteAnalogue1_initialise();  
-  piloteI2C1_initialise();
   serviceTaskServer_initialise();
   serviceBaseDeTemps_initialise();
   interfaceEntree1_initialise();
@@ -61,6 +55,15 @@ void setup(void)
 
 void loop(void) 
 {
+  unsigned char ucRead = 0x00;
+
+  if (Serial2.available()) 
+  {
+    ucRead = Serial2.read();
+    Serial2.write(ucRead); // write test
+  }
+  Serial2.write(ucRead); // write test
+    // Read valeur sur buffeur
   serviceTaskServer_gestion.execute();
   serviceBaseDeTemps_gereDansLoop();   
 }
@@ -70,3 +73,4 @@ void loop(void)
 
 //Definitions de fonctions publiques:
 //pas de fonctions publiques
+
