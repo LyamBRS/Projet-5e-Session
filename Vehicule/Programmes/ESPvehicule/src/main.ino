@@ -1,3 +1,17 @@
+//#############################################################################
+/**
+ * @file main.c
+ * @author CamFo Camille Fortin
+ * @brief
+ * Program file containing the code defined in xmain.h
+ * Please refer to this other file for information necessary in order to make this work.
+ * @version 0.1
+ * @date 2022-11-14
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
+//#############################################################################
 //247-527Atelier3a: programme de depart pour faire operer le ESP32 en mode cooperatif
 //Historique:
 // 2022-10-18, Yves Roy, creation a partir du programme 247-527Atelier3a

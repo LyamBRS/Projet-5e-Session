@@ -1,7 +1,20 @@
+/**
+ * @file xmain.h
+ * @author CamFo Camille Fortin (camfortin2022@gmail.com)
+ * @brief This file contains the inclusion needed for the code to wok
+ *       Le main est nécessaire pour les includions global
+ *      Contien les defines essentiel au fonctionnement
+ * @version 0.1
+ * @date 2022-11-14
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
+
 #ifndef MAIN_H
 #define MAIN_H
 
-//PROGRAMME: 247-527Atelier3a
+//PROGRAMME: ESP véhicule Projet 5e Session
 //DESCRIPTION: programme qui sert de base pour l'introduction au HTML, Javascript, etc
 
 //HISTORIQUE:
@@ -15,16 +28,19 @@
 #define PILOTEENTREE1_BROCHE 21
 #define PILOTEIOT1_BROCHE 13
 #define PILOTEIOT1_ETAT_INITIAL_A_ZERO
-#define PILOTEIOFILBLEU_BROCHE 27
-#define PILOTEIOFILBLEU_ETAT_INITIAL_A_ZERO
-#define PILOTEIOFILROSE_BROCHE 33
-#define PILOTEIOFILROSE_ETAT_INITIAL_A_ZERO
-#define PILOTEIOFILJAUNE_BROCHE 15
-#define PILOTEIOFILJAUNE_ETAT_INITIAL_A_ZERO
-#define PILOTEIOFILORANGE_BROCHE 32
-#define PILOTEIOFILORANGE_ETAT_INITIAL_A_ZERO
+#define PILOTEIOFEUAVANTD_BROCHE 14  // A définir
+#define PILOTEIOFEUAVANTD_ETAT_INITIAL_A_ZERO
+#define PILOTEIOFEUAVANTG_BROCHE 15  // A définir
+#define PILOTEIOFEUAVANTG_ETAT_INITIAL_A_ZERO
+#define PILOTEIOFEUARRIERED_BROCHE 16  // A définir
+#define PILOTEIOFEUARRIERED_ETAT_INITIAL_A_ZERO
+#define PILOTEIOFEUARRIEREG_BROCHE 17  // A définir
+#define PILOTEIOFEUARRIEREG_ETAT_INITIAL_A_ZERO
+
+
 #define PILOTEANALOGUE0_BROCHE A2
 #define PILOTEANALOGUE1_BROCHE A3
+
 #define PILOTEI2C1_SCL    19
 #define PILOTEI2C1_SDA    18
 #define PILOTEI2C1_FREQUENCE_D_HORLOGE_EN_HZ 400000
