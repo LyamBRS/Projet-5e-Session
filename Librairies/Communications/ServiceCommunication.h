@@ -71,12 +71,12 @@
  * @brief The address allocated in the Time Base's execution buffer used by
  * this library for receptions parsings.
  */
-#define SCOMMS_BUFFER_ADR_PARSE_RX
+#define SCOMMS_PARSE_RX_BUFFER_ADR
 /**
  * @brief The address allocated in the Time Base's execution buffer used by
  * this library for Transmitting checks.
  */
-#define SCOMMS_BUFFER_ADR_PARSE_TX
+#define SCOMMS_PARSE_TX_BUFFER_ADR
 /**
  * @brief The allocated slot for your module considering that the 
  * synchronisation slot is 0. Please refer to the datasheet available on
@@ -120,13 +120,27 @@
 #pragma region PUBLIC_FUNCTIONS
 //-----------------------------------------------------------------------------
 /**
-* @brief Function periodically called via the time  base's interrupt function 
-* pointers buffer.
+* @brief Function periodically called via the time base's interruptions. It is
+* important to allocate a buffer address in your time base for this function.
+* Do this via your main.h file, and ServiceCommunication.h.
+* You will need to set SCOMMS_PARSE_RX_BUFFER_ADR to the appropriated number
+* in your buffer.
 * @author Lyam / Shawn Couture
 * @date 14/11/2022
 * @param void Time base functions take no parameters
 */
-void ServiceCommunication_Handler(void);
+void ServiceCommunication_RXParsingHandler(void);
+/**
+* @brief Function periodically called via the time base's interruptions. It is
+* important to allocate a buffer address in your time base for this function.
+* Do this via your main.h file, and ServiceCommunication.h.
+* You will need to set SCOMMS_PARSE_TX_BUFFER_ADR to the appropriated number
+* in your buffer.
+* @author Lyam / Shawn Couture
+* @date 15/11/2022
+* @param void Time base functions take no parameters
+*/
+void ServiceCommunication_TXParsingHandler(void);
 /**
 * @brief Function called which initialises all the structures necessary.
 * @author Lyam / Shawn Couture
@@ -134,6 +148,27 @@ void ServiceCommunication_Handler(void);
 * @param void Initialisation functions take no parameters
 */
 void ServiceCommunication_initialise(void);
+//-----------------------------------------------------------------------------
+/******************************************************************************
+* @brief Sets the received command structure (ModuleData.CommandsReceived) to
+* the same input value. Useful to reset any received commands when a new mode
+* has been received from the master.
+* @author Lyam / Shawn Couture
+* @date 15/11/2022
+* @param ValueAppliedToAll Value which will be applied to all commands not
+* equal to UNUSED
+*/
+void ModuleData_SetAll_ReceivedCommands(unsigned char ValueAppliedToAll);
+/******************************************************************************
+* @brief Sets the queued command structure (ModuleData.CommandsToSend) to
+* the same input value. Useful to reset any queued commands when a new mode
+* has been received from the master.
+* @author Lyam / Shawn Couture
+* @date 15/11/2022
+* @param ValueAppliedToAll Value which will be applied to all commands not
+* equal to UNUSED
+*/
+void ModuleData_SetAll_SentCommands(unsigned char ValueAppliedToAll);
 #pragma endregion PUBLIC_FUNCTIONS
 //#############################################################################
 #pragma region REFERENCE_STRUCTURES
@@ -182,7 +217,7 @@ typedef struct
 }stModes;
 /**
  * @brief Struct containing all the possible states that a module can have.
- * This is a list of states and must not be changed, but only refered to.
+ * This is a list of states and must not be changed, but only referred to.
  */
 typedef struct
 {
@@ -269,7 +304,7 @@ typedef struct
 }stStates;
 /**
  * @brief Struct containing all the possible commands that a module can have.
- * This is a list of commands and must not be changed, but only refered to.
+ * This is a list of commands and must not be changed, but only referred to.
  */
 typedef struct
 {
@@ -468,9 +503,9 @@ typedef struct
      * in a transmission. To specify you want to send a value, set it to
      * QUEUE. Only set it to QUEUE if you read that it is AVAILABLE.
      */
-    stValues Values;
+    stValues ValuesToSend;
     /**
-     * @brief Structure of all the commands a module can support and receive.
+     * @brief Structure of all the commands a module can send.
      * To specify you want to send a command, set it to
      * QUEUE. Only set it to QUEUE if you read that it is AVAILABLE.
      * If a command is set to RECEIVED, it means a module communicated a
@@ -478,7 +513,22 @@ typedef struct
      * to execute it, set it to PARSED to tell the system that you parsed it.
      * If a command is equal to NO_DATA, it means it has not been received.
      */
-    stCommands Commands;
+    stCommands CommandsToSend;
+    /**
+     * @brief Structure which contains all the values your module has received
+     * If a specific value was received, you'll read RECEIVED. If this is the
+     * case, and you needed to read this value, set it to PARSED once you
+     * executed whatever was needed. These are set to NO_DATA by default.
+     */
+    stValues ValuesReceived;
+    /**
+     * @brief Structure of all the commands a module can receive.
+     * A command set to RECEIVED means a module communicated a
+     * command request to you. If you support the command, before you start
+     * to execute it, set it to PARSED to tell the system that you executed it.
+     * If the command is equal to NO_DATA, it means it wasn't received.
+     */
+    stCommands CommandsReceived;
     /**
      * @brief Indication of this module's state according to the communication
      * data sheet. This is sent each communication no matter what's

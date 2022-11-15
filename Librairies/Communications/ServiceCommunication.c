@@ -23,15 +23,33 @@
 #pragma endregion INCLUDES
 //#############################################################################
 #pragma region STRUCTURES
-/** @brief Declaration of the Modes structure defined in ServiceCommunication.h */
+/**
+ * @brief Struct containing all the possible states that a module can have.
+ * This is a list of states and must not be changed, but only referred to.
+ */
 stModes Modes;
-/** @brief Declaration of the States structure defined in ServiceCommunication.h */
+/**
+ * @brief Struct containing all the possible states that a module can have.
+ * This is a list of states and must not be changed, but only referred to.
+ */
 stStates States;
-/** @brief Declaration of the Commands structure defined in ServiceCommunication.h */
+/**
+ * @brief Struct containing all the possible commands that a module can have.
+ * This is a list of commands and must not be changed, but only referred to.
+ */
 stCommands Commands;
-/** @brief Declaration of the Value structure defined in ServiceCommunication.h */
+/**
+ * @brief Struct containing all the possible values that a module can transmit.
+ * This is a list of values and must not be changed, Only refer to it when you
+ * need to set or change your module's structure values.
+ */
 stValues Values;
-/** @brief Declaration of the ModuleData structure defined in ServiceCommunication.h */
+/**
+ * @brief The actual structure used by the module. Used to get/set different
+ * values and commands. For example, reading the Mode that the master sent.
+ * Checking if receiving info from the CAN etc. Use DEFINES present in this
+ * file in order to set Commands or values of such.
+ */
 stModuleData ModuleData;
 #pragma endregion STRUCTURES
 //#############################################################################
@@ -53,8 +71,26 @@ void Parse_CanBusTransmission(unsigned char *Buffer);
 * @param Buffer Pointer pointing the address of an 8 bytes unsigned char array.
 */
 void Parse_CanBusReceptions(unsigned char *Buffer);
-
+/******************************************************************************
+* @brief Function handling the count of interrupts and slot allocations for
+* CAN communications made for this project. It is important to properly
+* define clock speeds and oscillator speeds in ServiceCommunication.h
+* @author Lyam / Shawn Couture
+* @date 15/11/2022
+* @param void
+*/
 void Count_Interrupts(void);
+/******************************************************************************
+* @brief Private function checking if a variable is equal to UNUSED. If not, it
+* sets it to a new value.
+* @author Lyam / Shawn Couture
+* @date 15/11/2022
+* @param void
+*/
+void CheckIfUnused(unsigned char *checkedValue, unsigned char wantedNewValue)
+{
+    if(*checkedValue != UNUSED) {*checkedValue = wantedNewValue;}
+}
 #pragma endregion PRIVATE_FUNCTIONS
 
 
@@ -62,17 +98,103 @@ void Count_Interrupts(void);
 #pragma region PUBLIC_FUNCTIONS_CODE
 //-----------------------------------------------------------------------------
 /******************************************************************************
-* @brief Function periodically called via the time  base's interrupt function
-* pointers buffer.
+* @brief Sets the received command structure (ModuleData.CommandsReceived) to
+* the same input value. Useful to reset any received commands when a new mode
+* has been received from the master.
+* @author Lyam / Shawn Couture
+* @date 15/11/2022
+* @param ValueAppliedToAll Value which will be applied to all commands not
+* equal to UNUSED
+*/
+void ModuleData_SetAll_ReceivedCommands(unsigned char ValueAppliedToAll)
+{
+    CheckIfUnused(&ModuleData.CommandsReceived.discharge, ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.CommandsReceived.goto_SortingStation, ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.CommandsReceived.goto_WeightStation, ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.CommandsReceived.light_A_OFF, ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.CommandsReceived.light_A_ON, ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.CommandsReceived.light_B_OFF, ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.CommandsReceived.light_B_ON, ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.CommandsReceived.light_C_OFF, ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.CommandsReceived.light_C_ON, ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.CommandsReceived.light_D_OFF, ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.CommandsReceived.light_D_ON, ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.CommandsReceived.move_left, ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.CommandsReceived.move_right, ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.CommandsReceived.move_forward, ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.CommandsReceived.move_backward, ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.CommandsReceived.move_up, ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.CommandsReceived.move_down, ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.CommandsReceived.start_Sorting, ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.CommandsReceived.start_Weighting, ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.CommandsReceived.suction_OFF, ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.CommandsReceived.suction_ON, ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.CommandsReceived.units_Imperial, ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.CommandsReceived.units_Metric, ValueAppliedToAll);
+}
+/******************************************************************************
+* @brief Sets the queued command structure (ModuleData.CommandsToSend) to
+* the same input value. Useful to reset any queued commands when a new mode
+* has been received from the master.
+* @author Lyam / Shawn Couture
+* @date 15/11/2022
+* @param ValueAppliedToAll Value which will be applied to all commands not
+* equal to UNUSED
+*/
+void ModuleData_SetAll_SentCommands(unsigned char ValueAppliedToAll)
+{
+    CheckIfUnused(&ModuleData.CommandsToSend.discharge, ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.CommandsToSend.goto_SortingStation, ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.CommandsToSend.goto_WeightStation, ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.CommandsToSend.light_A_OFF, ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.CommandsToSend.light_A_ON, ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.CommandsToSend.light_B_OFF, ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.CommandsToSend.light_B_ON, ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.CommandsToSend.light_C_OFF, ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.CommandsToSend.light_C_ON, ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.CommandsToSend.light_D_OFF, ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.CommandsToSend.light_D_ON, ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.CommandsToSend.move_left, ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.CommandsToSend.move_right, ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.CommandsToSend.move_forward, ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.CommandsToSend.move_backward, ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.CommandsToSend.move_up, ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.CommandsToSend.move_down, ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.CommandsToSend.start_Sorting, ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.CommandsToSend.start_Weighting, ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.CommandsToSend.suction_OFF, ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.CommandsToSend.suction_ON, ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.CommandsToSend.units_Imperial, ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.CommandsToSend.units_Metric, ValueAppliedToAll);
+}
+/******************************************************************************
+* @brief Function periodically called via the time base's interruptions. It is
+* important to allocate a buffer address in your time base for this function.
+* Do this via your main.h file, and ServiceCommunication.h.
+* You will need to set SCOMMS_PARSE_RX_BUFFER_ADR to the appropriated number
+* in your buffer.
 * @author Lyam / Shawn Couture
 * @date 14/11/2022
 * @param void Time base functions take no parameters
 */
-void ServiceCommunication_Handler(void)
+void ServiceCommunication_RXParsingHandler(void)
 {
 
 }
-//-----------------------------------------------------------------------------
+/******************************************************************************
+* @brief Function periodically called via the time base's interruptions. It is
+* important to allocate a buffer address in your time base for this function.
+* Do this via your main.h file, and ServiceCommunication.h.
+* You will need to set SCOMMS_PARSE_TX_BUFFER_ADR to the appropriated number
+* in your buffer.
+* @author Lyam / Shawn Couture
+* @date 15/11/2022
+* @param void Time base functions take no parameters
+*/
+void ServiceCommunication_TXParsingHandler(void)
+{
+
+}
 /******************************************************************************
 * @brief Function called which initialises all the structures necessary. it is
 * important to call this function before main execution of the program starts
@@ -144,6 +266,10 @@ void ServiceCommunication_initialise(void)
     Values.disc_CouldNotBeFound        = 0x06;
     Values.unit_Metric                 = 0x07;
     Values.unit_Imperial               = 0x08;
+
+    //Initialization of ModuleData. This will change depending on your module.
+    ModuleData_SetAll_ReceivedCommands(NO_DATA);
+    ModuleData_SetAll_SentCommands(AVAILABLE);
 }
 //-----------------------------------------------------------------------------
 #pragma endregion PUBLIC_FUNCTIONS_CODE
@@ -151,9 +277,11 @@ void ServiceCommunication_initialise(void)
 
 
 
-
+/*
 int main(void)
 {
-
+    printf("%i",ModuleData.CommandsToSend.discharge);
+    CheckIfUnused(&ModuleData.CommandsToSend.discharge,7);
     return 0;
 }
+*/
