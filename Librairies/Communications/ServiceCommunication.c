@@ -55,7 +55,7 @@ stModuleData ModuleData;
 //#############################################################################
 #pragma region PRIVATE_FUNCTIONS
 //-----------------------------------------------------------------------------
-/******************************************************************************
+/**
 * @brief Parsing function decorticating structures into 8 bytes CAN data to be
 * sent later.
 * @author Lyam / Shawn Couture
@@ -63,7 +63,7 @@ stModuleData ModuleData;
 * @param Buffer Pointer pointing the address of an 8 bytes unsigned char array.
 */
 void Parse_CanBusTransmission(unsigned char *Buffer);
-/******************************************************************************
+/**
 * @brief Parsing function decorticating an 8 bytes array into the service's
 * structures.
 * @author Lyam / Shawn Couture
@@ -71,7 +71,7 @@ void Parse_CanBusTransmission(unsigned char *Buffer);
 * @param Buffer Pointer pointing the address of an 8 bytes unsigned char array.
 */
 void Parse_CanBusReceptions(unsigned char *Buffer);
-/******************************************************************************
+/**
 * @brief Function handling the count of interrupts and slot allocations for
 * CAN communications made for this project. It is important to properly
 * define clock speeds and oscillator speeds in ServiceCommunication.h
@@ -80,12 +80,13 @@ void Parse_CanBusReceptions(unsigned char *Buffer);
 * @param void
 */
 void Count_Interrupts(void);
-/******************************************************************************
+/**
 * @brief Private function checking if a variable is equal to UNUSED. If not, it
 * sets it to a new value.
 * @author Lyam / Shawn Couture
 * @date 15/11/2022
-* @param void
+* @param checkedValue pointer (&variable) pointing to a data in a structure
+* @param wantedNewValue value which the data pointed will be set to if not UNUSED
 */
 void CheckIfUnused(unsigned char *checkedValue, unsigned char wantedNewValue)
 {
@@ -97,7 +98,7 @@ void CheckIfUnused(unsigned char *checkedValue, unsigned char wantedNewValue)
 //#############################################################################
 #pragma region PUBLIC_FUNCTIONS_CODE
 //-----------------------------------------------------------------------------
-/******************************************************************************
+/**
 * @brief Sets the received command structure (ModuleData.CommandsReceived) to
 * the same input value. Useful to reset any received commands when a new mode
 * has been received from the master.
@@ -132,7 +133,7 @@ void ModuleData_SetAll_ReceivedCommands(unsigned char ValueAppliedToAll)
     CheckIfUnused(&ModuleData.CommandsReceived.units_Imperial, ValueAppliedToAll);
     CheckIfUnused(&ModuleData.CommandsReceived.units_Metric, ValueAppliedToAll);
 }
-/******************************************************************************
+/**
 * @brief Sets the queued command structure (ModuleData.CommandsToSend) to
 * the same input value. Useful to reset any queued commands when a new mode
 * has been received from the master.
@@ -167,7 +168,7 @@ void ModuleData_SetAll_SentCommands(unsigned char ValueAppliedToAll)
     CheckIfUnused(&ModuleData.CommandsToSend.units_Imperial, ValueAppliedToAll);
     CheckIfUnused(&ModuleData.CommandsToSend.units_Metric, ValueAppliedToAll);
 }
-/******************************************************************************
+/**
 * @brief Sets the values to send structure of the ModuleData to the same value.
 * @author Lyam / Shawn Couture
 * @date 15/11/2022
@@ -186,7 +187,7 @@ void ModuleData_SetAll_ValuesToSend(unsigned char ValueAppliedToAll)
     CheckIfUnused(&ModuleData.ValuesToSend.unit_Metric,ValueAppliedToAll);
     CheckIfUnused(&ModuleData.ValuesToSend.disc_Lost,ValueAppliedToAll);
 }
-/******************************************************************************
+/**
 * @brief Sets all the received value structure to the same value.
 * @author Lyam / Shawn Couture
 * @date 15/11/2022
@@ -205,7 +206,7 @@ void ModuleData_SetAll_ValuesReceived(unsigned char ValueAppliedToAll)
     CheckIfUnused(&ModuleData.ValuesReceived.unit_Metric,ValueAppliedToAll);
     CheckIfUnused(&ModuleData.ValuesReceived.disc_Lost,ValueAppliedToAll);
 }
-/******************************************************************************
+/**
 * @brief Function periodically called via the time base's interruptions. It is
 * important to allocate a buffer address in your time base for this function.
 * Do this via your main.h file, and ServiceCommunication.h.
@@ -219,7 +220,7 @@ void ServiceCommunication_RXParsingHandler(void)
 {
 
 }
-/******************************************************************************
+/**
 * @brief Function periodically called via the time base's interruptions. It is
 * important to allocate a buffer address in your time base for this function.
 * Do this via your main.h file, and ServiceCommunication.h.
@@ -233,7 +234,7 @@ void ServiceCommunication_TXParsingHandler(void)
 {
     Count_Interrupts();
 }
-/******************************************************************************
+/**
 * @brief Function called which initialises all the structures necessary. it is
 * important to call this function before main execution of the program starts
 * as it is necessary to initialise all the data structure used by this service.

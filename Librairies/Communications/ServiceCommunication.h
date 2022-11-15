@@ -142,14 +142,16 @@ void ServiceCommunication_RXParsingHandler(void);
 */
 void ServiceCommunication_TXParsingHandler(void);
 /**
-* @brief Function called which initialises all the structures necessary.
+* @brief Function called which initialises all the structures necessary. it is
+* important to call this function before main execution of the program starts
+* as it is necessary to initialise all the data structure used by this service.
 * @author Lyam / Shawn Couture
 * @date 14/11/2022
 * @param void Initialisation functions take no parameters
 */
 void ServiceCommunication_initialise(void);
 //-----------------------------------------------------------------------------
-/******************************************************************************
+/**
 * @brief Sets the received command structure (ModuleData.CommandsReceived) to
 * the same input value. Useful to reset any received commands when a new mode
 * has been received from the master.
@@ -159,7 +161,7 @@ void ServiceCommunication_initialise(void);
 * equal to UNUSED
 */
 void ModuleData_SetAll_ReceivedCommands(unsigned char ValueAppliedToAll);
-/******************************************************************************
+/**
 * @brief Sets the queued command structure (ModuleData.CommandsToSend) to
 * the same input value. Useful to reset any queued commands when a new mode
 * has been received from the master.
@@ -169,6 +171,15 @@ void ModuleData_SetAll_ReceivedCommands(unsigned char ValueAppliedToAll);
 * equal to UNUSED
 */
 void ModuleData_SetAll_SentCommands(unsigned char ValueAppliedToAll);
+/**
+* @brief Function checking if a variable is equal to UNUSED. If not, it
+* sets it to a new value.
+* @author Lyam / Shawn Couture
+* @date 15/11/2022
+* @param checkedValue pointer (&variable) pointing to a data in a structure
+* @param wantedNewValue value which the data pointed will be set to if not UNUSED
+*/
+void CheckIfUnused(unsigned char *checkedValue, unsigned char wantedNewValue);
 #pragma endregion PUBLIC_FUNCTIONS
 //#############################################################################
 #pragma region REFERENCE_STRUCTURES
