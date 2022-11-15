@@ -1,6 +1,14 @@
-//piloteEntree1:
-//Historique: 
-// 2021-04-04, Yves Roy, creation
+/**
+ * @file piloteEntree1.ino
+ * @author CamFo Camille Fortin (camfortin2022@gmail.com)
+ * @brief Pilote de la limite switch de la benne du véhicule
+ * 
+ * @version 0.1
+ * @date 2022-11-15
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 
 //INCLUSIONS
 #include "xmain.h"

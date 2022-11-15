@@ -1,17 +1,13 @@
 /**
  * @file piloteIOFeuAvantD.ino
  * @author CamFo Camille Fortin (camfortin2022@gmail.com)
- * @brief 
+ * @brief Fichier pilote qui sert au contrôle du clignotant avant Droit
  * @version 0.1
  * @date 2022-11-14
  * 
  * @copyright Copyright (c) 2022
  * 
  */
-
-//piloteIOFeuAvantD:
-//Historique: 
-// 2021-04-07, Yves Roy, creation
 
 //INCLUSIONS
 #include "xmain.h"

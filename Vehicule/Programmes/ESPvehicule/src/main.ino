@@ -29,8 +29,6 @@
 #include "xpilotePWMGaucheBas.h"
 #include "xpiloteEntree1.h"
 #include "xpiloteIOT1.h"
-#include "xpiloteAnalogue0.h"
-#include "xpiloteAnalogue1.h"
 #include "xpiloteI2C1.h"
 
 // Include des interfaces

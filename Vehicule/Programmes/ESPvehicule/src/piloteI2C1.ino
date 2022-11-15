@@ -9,10 +9,6 @@
  * 
  */
 
-//piloteI2C1:
-//Historique: 
-// 2021-04-19, Yves Roy, creation
-
 //INCLUSIONS
 #include <Wire.h>
 #include "xmain.h"

@@ -1,6 +1,13 @@
-//interfaceT1:
-//Historique: 
-// 2018-09-08, Yves Roy, creation
+/**
+ * @file interfaceT1.ino
+ * @author CamFo Camille Fortin (camfortin2022@gmail.com)
+ * @brief Interface qui contrôle la del su Board Adafruit ESP32 feather
+ * @version 0.1
+ * @date 2022-11-15
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 
 //INCLUSIONS
 #include "xmain.h"

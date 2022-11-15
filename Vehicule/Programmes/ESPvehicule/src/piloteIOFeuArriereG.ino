@@ -1,17 +1,13 @@
 /**
  * @file piloteIOFeuArriereG.ino
  * @author CamFo Camille Fortin (camfortin2022@gmail.com)
- * @brief 
+ * @brief Fichier pilote qui sert au contrôle du clignotant Arrière Gauche
  * @version 0.1
  * @date 2022-11-14
  * 
  * @copyright Copyright (c) 2022
  * 
  */
-
-//piloteIOFeuArriereG:
-//Historique: 
-// 2021-04-07, Yves Roy, creation
 
 //INCLUSIONS
 #include "xmain.h"
