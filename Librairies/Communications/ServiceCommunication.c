@@ -231,7 +231,7 @@ void ServiceCommunication_RXParsingHandler(void)
 */
 void ServiceCommunication_TXParsingHandler(void)
 {
-
+    Count_Interrupts();
 }
 /******************************************************************************
 * @brief Function called which initialises all the structures necessary. it is
@@ -311,8 +311,16 @@ void ServiceCommunication_initialise(void)
     ModuleData_SetAll_ValuesReceived(NO_DATA);
     ModuleData_SetAll_ValuesToSend(UNUSED);
 
+    // Keep set to unused or the program will constantly send Weight data on
+    // the CAN bus.
     ModuleData.Weight = UNUSED;
+
+    // The initial state of modules is "waiting" as they are "waiting" for
+    // Synchronisation detection.
     ModuleData.State = States.waiting;
+
+    // The initial state for modules is Initialisation. In this mode, your
+    // module simply sets itself to it's initial state.
     ModuleData.Mode = Modes.reinitialisation;
 }
 //-----------------------------------------------------------------------------
@@ -321,10 +329,13 @@ void ServiceCommunication_initialise(void)
 
 
 
-
+/*
 int main(void)
 {
-    printf("%i",ModuleData.CommandsToSend.discharge);
+    ServiceCommunication_initialise();
+
+    printf("%i",ModuleData.ValuesToSend.disc_Black);
     CheckIfUnused(&ModuleData.CommandsToSend.discharge,7);
     return 0;
 }
+*/
