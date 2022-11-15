@@ -168,6 +168,44 @@ void ModuleData_SetAll_SentCommands(unsigned char ValueAppliedToAll)
     CheckIfUnused(&ModuleData.CommandsToSend.units_Metric, ValueAppliedToAll);
 }
 /******************************************************************************
+* @brief Sets the values to send structure of the ModuleData to the same value.
+* @author Lyam / Shawn Couture
+* @date 15/11/2022
+* @param ValueAppliedToAll Value which will be applied to all commands not
+* equal to UNUSED
+*/
+void ModuleData_SetAll_ValuesToSend(unsigned char ValueAppliedToAll)
+{
+    CheckIfUnused(&ModuleData.ValuesToSend.disc_Black,ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.ValuesToSend.disc_Red,ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.ValuesToSend.disc_Silver,ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.ValuesToSend.disc_CouldNotBeFound,ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.ValuesToSend.disc_NoColor,ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.ValuesToSend.disc_Detected,ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.ValuesToSend.unit_Imperial,ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.ValuesToSend.unit_Metric,ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.ValuesToSend.disc_Lost,ValueAppliedToAll);
+}
+/******************************************************************************
+* @brief Sets all the received value structure to the same value.
+* @author Lyam / Shawn Couture
+* @date 15/11/2022
+* @param ValueAppliedToAll Value which will be applied to all commands not
+* equal to UNUSED
+*/
+void ModuleData_SetAll_ValuesReceived(unsigned char ValueAppliedToAll)
+{
+    CheckIfUnused(&ModuleData.ValuesReceived.disc_Black,ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.ValuesReceived.disc_Red,ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.ValuesReceived.disc_Silver,ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.ValuesReceived.disc_CouldNotBeFound,ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.ValuesReceived.disc_NoColor,ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.ValuesReceived.disc_Detected,ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.ValuesReceived.unit_Imperial,ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.ValuesReceived.unit_Metric,ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.ValuesReceived.disc_Lost,ValueAppliedToAll);
+}
+/******************************************************************************
 * @brief Function periodically called via the time base's interruptions. It is
 * important to allocate a buffer address in your time base for this function.
 * Do this via your main.h file, and ServiceCommunication.h.
@@ -270,6 +308,12 @@ void ServiceCommunication_initialise(void)
     //Initialization of ModuleData. This will change depending on your module.
     ModuleData_SetAll_ReceivedCommands(NO_DATA);
     ModuleData_SetAll_SentCommands(AVAILABLE);
+    ModuleData_SetAll_ValuesReceived(NO_DATA);
+    ModuleData_SetAll_ValuesToSend(UNUSED);
+
+    ModuleData.Weight = UNUSED;
+    ModuleData.State = States.waiting;
+    ModuleData.Mode = Modes.reinitialisation;
 }
 //-----------------------------------------------------------------------------
 #pragma endregion PUBLIC_FUNCTIONS_CODE
@@ -277,11 +321,10 @@ void ServiceCommunication_initialise(void)
 
 
 
-/*
+
 int main(void)
 {
     printf("%i",ModuleData.CommandsToSend.discharge);
     CheckIfUnused(&ModuleData.CommandsToSend.discharge,7);
     return 0;
 }
-*/
