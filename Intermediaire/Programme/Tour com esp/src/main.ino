@@ -4,6 +4,7 @@
 
 //INCLUSIONS
 #include "xmain.h"
+#include "piloteUDP.h"
 #include "xpiloteUART2.h"
 #include "xpiloteEntree1.h"
 #include "xpiloteAnalogue0.h"
@@ -13,6 +14,7 @@
 #include "xinterfaceEntree1.h"
 #include "xinterfaceT1.h"
 #include "xprocessusClignotant.h"
+#include <WiFi.h>
 
 
 //Definitions privees
@@ -34,6 +36,7 @@ void main_initialise(void);
 //Definitions de fonctions privees:
 void main_initialise(void)
 {
+  piloteUDP_initialise();
   piloteUART2_initialise();
   piloteEntree1_initialise();
   piloteAnalogue0_initialise();
@@ -62,7 +65,7 @@ void loop(void)
     ucRead = Serial2.read();
     Serial2.write(ucRead); // write test
   }
-  Serial2.write(ucRead); // write test
+  ServiceUDP();
     // Read valeur sur buffeur
   serviceTaskServer_gestion.execute();
   serviceBaseDeTemps_gereDansLoop();   
