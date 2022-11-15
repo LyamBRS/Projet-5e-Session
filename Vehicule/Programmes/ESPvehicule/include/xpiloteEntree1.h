@@ -1,3 +1,14 @@
+/**
+ * @file xpiloteEntree1.h
+ * @author CamFo Camille Fortin (camfortin2022@gmail.com)
+ * @brief 
+ * @version 0.1
+ * @date 2022-11-15
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
+
 #ifndef PILOTEENTREE1_H
 #define PILOTEENTREE1_H
 

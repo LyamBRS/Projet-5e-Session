@@ -70,9 +70,7 @@ void main_initialise(void);
 void main_initialise(void)
 {
   piloteEntree1_initialise();
-  piloteIOT1_initialise();
-  piloteAnalogue0_initialise();
-  piloteAnalogue1_initialise();  
+  piloteIOT1_initialise(); 
   piloteI2C1_initialise();
   serviceTaskServer_initialise();
   serviceBaseDeTemps_initialise();
