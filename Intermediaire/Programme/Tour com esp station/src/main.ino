@@ -4,7 +4,7 @@
 
 //INCLUSIONS
 #include "xmain.h"
-#include "piloteUDP.h"
+#include "piloteUDPStation.h"
 #include "xpiloteUART2.h"
 #include "xpiloteEntree1.h"
 #include "xpiloteAnalogue0.h"
@@ -37,7 +37,7 @@ void main_initialise(void);
 //Definitions de fonctions privees:
 void main_initialise(void)
 {
-  piloteUDP_initialise();
+  piloteUDPStation_initialise();
   piloteUART2_initialise();
   piloteEntree1_initialise();
   piloteAnalogue0_initialise();
@@ -66,7 +66,7 @@ void loop(void)
     ucRead = Serial2.read();
     Serial2.write(ucRead); // write test
   }
-  ServiceUDP();
+  ServiceUDPStation();
     // Read valeur sur buffeur
   serviceTaskServer_gestion.execute();
   serviceBaseDeTemps_gereDansLoop();   

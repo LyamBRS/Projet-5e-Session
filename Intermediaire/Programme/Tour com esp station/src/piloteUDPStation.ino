@@ -64,6 +64,7 @@ void receiveUDP(void)
   {
     ERUDP.read(readBuf, 20);
     readBuf[len] = 0;
+    Serial.print("readBuf = ");
     Serial.print(readBuf);
   }
 }
