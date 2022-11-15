@@ -108,8 +108,8 @@
 #pragma region CODE_DEFINES
 //-----------------------------------------------------------------------------
 /**
- * @brief Defines a statement which is true only if a CAN message comming from
- * supported addresses is available. This is true if a message comming from
+ * @brief Defines a statement which is true only if a CAN message coming from
+ * supported addresses is available. This is true if a message coming from
  * any supported addresses by the module is available. It is false if no
  * messages have been received.
  * MUST CORRESPOND TO SYNC_CAN_RX_BUFFER
@@ -163,7 +163,7 @@ typedef struct
      * @brief Mode sent by the master to initiate the maintance proceedure. Full detailed description available at : 
      * @link https://docs.google.com/spreadsheets/d/1BgSps-8e4IBZYXIF8JcprH0LhlybmtSgL7DJWUX4dDQ/edit#gid=977381857&range=D9 @endlink
      */
-    unsigned char maintnance;
+    unsigned char maintenance;
     /**
      * @brief Mode sent by the master to initiate the autonomous operation mode. Full detailed description available at : 
      * @link https://docs.google.com/spreadsheets/d/1BgSps-8e4IBZYXIF8JcprH0LhlybmtSgL7DJWUX4dDQ/edit#gid=977381857&range=D10 @endlink
@@ -180,7 +180,6 @@ typedef struct
      */
     unsigned char reinitialisation;
 }stModes;
-
 /**
  * @brief Struct containing all the possible states that a module can have.
  * This is a list of states and must not be changed, but only refered to.
@@ -196,7 +195,7 @@ typedef struct
      * @brief Indicates that the module is paused during autonomous operations. Full detailed description available at : 
      * @link https://docs.google.com/spreadsheets/d/1BgSps-8e4IBZYXIF8JcprH0LhlybmtSgL7DJWUX4dDQ/edit#gid=977381857&range=D19 @endlink
      */
-    unsigned char stopped;
+    unsigned char paused;
     /**
      * @brief Indicates that the module is in a testing proceedure. Full detailed description available at : 
      * @link https://docs.google.com/spreadsheets/d/1BgSps-8e4IBZYXIF8JcprH0LhlybmtSgL7DJWUX4dDQ/edit#gid=977381857&range=D20 @endlink
@@ -223,7 +222,7 @@ typedef struct
      */
     unsigned char waiting;
     /**
-     * @brief Indicates that the module is safe to handle (Maintnance mode). Full detailed description available at : 
+     * @brief Indicates that the module is safe to handle (maintenancemode). Full detailed description available at : 
      * @link https://docs.google.com/spreadsheets/d/1BgSps-8e4IBZYXIF8JcprH0LhlybmtSgL7DJWUX4dDQ/edit#gid=977381857&range=D25 @endlink
      */
     unsigned char safe;
@@ -416,7 +415,7 @@ typedef struct
      * @brief Value outputed on the bus to indicate that there is no colour data available. Full detailed description available at : 
      * @link https://docs.google.com/spreadsheets/d/1BgSps-8e4IBZYXIF8JcprH0LhlybmtSgL7DJWUX4dDQ/edit#gid=977381857&range=D66 @endlink
      */
-    unsigned char disc_NoData;
+    unsigned char disc_NoColor;
     /**
      * @brief Value outputed on the bus to indicate the detection of a disc by the module. Full detailed description available at : 
      * @link https://docs.google.com/spreadsheets/d/1BgSps-8e4IBZYXIF8JcprH0LhlybmtSgL7DJWUX4dDQ/edit#gid=977381857&range=D67 @endlink
@@ -453,7 +452,6 @@ extern stValues Values;
 #pragma endregion EXTERNS
 //-----------------------------------------------------------------------------
 #pragma endregion REFERENCE_STRUCTURES
-
 //#############################################################################
 #pragma region MODULE_STRUCTURES
 //-----------------------------------------------------------------------------
@@ -463,14 +461,14 @@ extern stValues Values;
  * Checking if receiving info from the CAN etc. Use DEFINES present in this
  * file in order to set Commands or values of such.
  */
-typedef struct stModuleData
+typedef struct
 {
     /**
      * @brief Structure which contains all the values a module can support
      * in a transmission. To specify you want to send a value, set it to
      * QUEUE. Only set it to QUEUE if you read that it is AVAILABLE.
      */
-    struct stValues Values;
+    stValues Values;
     /**
      * @brief Structure of all the commands a module can support and receive.
      * To specify you want to send a command, set it to
@@ -480,17 +478,17 @@ typedef struct stModuleData
      * to execute it, set it to PARSED to tell the system that you parsed it.
      * If a command is equal to NO_DATA, it means it has not been received.
      */
-    struct stCommands Commands;  
+    stCommands Commands;
     /**
      * @brief Indication of this module's state according to the communication
-     * datasheet. This is sent each communication no matter what's
-     * happenning.
+     * data sheet. This is sent each communication no matter what's
+     * happening.
      */
     unsigned char State;
     /**
      * @brief Contains the received Mode from the MASTER synchronisation
      * slot. DO NOT CHANGE THIS VALUE. The code changes it by itself
-     * uppon receptions.
+     * upon receptions.
      */
     unsigned char Mode;
     /**
@@ -499,6 +497,13 @@ typedef struct stModuleData
      * CAN slots.
      */
     unsigned char Weight;
-}
+}stModuleData;
+//#############################################################################
+#pragma region MODULE_EXTERNS
+//-----------------------------------------------------------------------------
+extern stModuleData ModuleData;
+#pragma endregion MODULE_EXTERNS
+//-----------------------------------------------------------------------------
 #pragma endregion MODULE_STRUCTURES
+
 #endif
