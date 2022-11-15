@@ -28,6 +28,16 @@
 #include "xinterfaceEntree1.h"
 #include "xinterfaceT1.h"
 #include "xprocessusClignotant.h"
+#include "xpiloteIOBenne.h"
+#include "xpiloteIOFeuArriereD.h"
+#include "xpiloteIOFeuArriereG.h"
+#include "xpiloteIOFeuAvantD.h"
+#include "xpiloteIOFeuAvantG.h"
+#include "xpilotePWMDroitHaut.h"
+#include "xpilotePWMDroitBas.h"
+#include "xpilotePWMGaucheHaut.h"
+#include "xpilotePWMGaucheBas.h"
+
 
 
 //Definitions privees

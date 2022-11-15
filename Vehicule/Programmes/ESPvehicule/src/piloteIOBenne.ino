@@ -1,6 +1,6 @@
 /**
  * @file piloteIOBenne.ino
- * @author your name (you@domain.com)
+ * @author CamFo Camille Fortin (camfortin2022@gmail.com)
  * @brief 
  * @version 0.1
  * @date 2022-11-14
@@ -52,11 +52,11 @@ void piloteIOBenne_initialise(void)
 {
   pinMode(PILOTEIOBENNE_BROCHE,OUTPUT);
 
-#ifdef PILOTEIOFEUAVANTD_ETAT_INITIAL_A_UN
+#ifdef PILOTEIOBENNE_ETAT_INITIAL_A_UN
 	digitalWrite(PILOTEIOBENNE_BROCHE,HIGH);	
 #endif
 
-#ifdef PILOTEIOFEUAVANTD_ETAT_INITIAL_A_ZERO
+#ifdef PILOTEIOBENNE_ETAT_INITIAL_A_ZERO
 	digitalWrite(PILOTEIOBENNE_BROCHE,LOW);
 #endif
 }
