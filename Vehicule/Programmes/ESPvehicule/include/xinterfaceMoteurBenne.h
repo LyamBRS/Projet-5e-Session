@@ -1,18 +1,18 @@
 /**
- * @file xinterfaceT1.h
+ * @file xinterfaceMoteurBenne.h
  * @author CamFo Camille Fortin (camfortin2022@gmail.com)
- * @brief pour s'interfacer avec le temoin lumineux T1. 
+ * @brief 
  * @version 0.1
  * @date 2022-11-15
  * 
  * @copyright Copyright (c) 2022
  * 
  */
-#ifndef INTERFACET1_H
-#define INTERFACET1_H
+#ifndef INTERFACEMoteurBenne_H
+#define INTERFACEMoteurBenne_H
 
-//MODULE: interfaceT1
-//DESCRIPTION: pour s'interfacer avec le temoin lumineux T1. 
+//MODULE: interfaceMoteurBenne
+//DESCRIPTION: pour s'interfacer avec le moteur de la benne du véhicule.
 
 //HISTORIQUE:
 // 2018-09-08, Yves Roy, creation
@@ -21,8 +21,8 @@
 //DEFINITIONS REQUISES PAR LE MODULE:
 //Dependances materielles
 //(copiez et adaptez ce qui suit dans "main.h")
-//#define INTERFACET1_VALEUR_POUR_ALLUMER  1   
-//#define INTERFACET1_VALEUR_POUR_ETEINDRE 0
+//#define INTERFACEMoteurBenne_VALEUR_POUR_ALLUMER  1   
+//#define INTERFACEMoteurBenne_VALEUR_POUR_ETEINDRE 0
 
 //Dependances logicielles
 //(copiez et adaptez ce qui suit dans "main.h")
@@ -33,9 +33,9 @@
 //pas de definitions publiques
 
 //Fonctions publiques:
-void interfaceT1_allume(void);
-void interfaceT1_eteint(void);
-void interfaceT1_initialise(void);
+void interfaceMoteurBenne_allume(void);
+void interfaceMoteurBenne_eteint(void);
+void interfaceMoteurBenne_initialise(void);
 
 //Variables publiques:
 //pas de variables publiques

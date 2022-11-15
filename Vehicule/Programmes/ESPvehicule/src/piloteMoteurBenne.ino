@@ -1,5 +1,5 @@
 /**
- * @file piloteIOBenne.ino
+ * @file piloteMoteurBenne.ino
  * @author CamFo Camille Fortin (camfortin2022@gmail.com)
  * @brief 
  * @version 0.1
@@ -9,13 +9,13 @@
  * 
  */
 
-//piloteIOBenne:
+//piloteMoteurBenne:
 //Historique: 
 // 2021-04-07, Yves Roy, creation
 
 //INCLUSIONS
 #include "xmain.h"
-#include "xpiloteIOBenne.h"
+#include "xpiloteMoteurBenne.h"
 
 //Definitions privees
 //pas de definitions privees
@@ -33,31 +33,31 @@
 //pas de variables publiques
 
 //Definitions de fonctions publiques:
-void piloteIOBenne_metAUn(void)
+void piloteMoteurBenne_metAUn(void)
 {
-  digitalWrite(PILOTEIOBENNE_BROCHE, HIGH);
+  digitalWrite(PILOTEMOTEURBENNE_BROCHE, HIGH);
 }
 
-void piloteIOBenne_metAZero(void)
+void piloteMoteurBenne_metAZero(void)
 {
-  digitalWrite(PILOTEIOBENNE_BROCHE, LOW);
+  digitalWrite(PILOTEMOTEURBENNE_BROCHE, LOW);
 }
 
-void piloteIOBenne_metA(unsigned char Niveau)
+void piloteMoteurBenne_metA(unsigned char Niveau)
 {
-  digitalWrite(PILOTEIOBENNE_BROCHE, Niveau);
+  digitalWrite(PILOTEMOTEURBENNE_BROCHE, Niveau);
 }
 
-void piloteIOBenne_initialise(void)
+void piloteMoteurBenne_initialise(void)
 {
-  pinMode(PILOTEIOBENNE_BROCHE,OUTPUT);
+  pinMode(PILOTEMOTEURBENNE_BROCHE,OUTPUT);
 
-#ifdef PILOTEIOBENNE_ETAT_INITIAL_A_UN
-	digitalWrite(PILOTEIOBENNE_BROCHE,HIGH);	
+#ifdef PILOTEMOTEURBENNE_ETAT_INITIAL_A_UN
+	digitalWrite(PILOTEMOTEURBENNE_BROCHE,HIGH);	
 #endif
 
-#ifdef PILOTEIOBENNE_ETAT_INITIAL_A_ZERO
-	digitalWrite(PILOTEIOBENNE_BROCHE,LOW);
+#ifdef PILOTEMOTEURBENNE_ETAT_INITIAL_A_ZERO
+	digitalWrite(PILOTEMOTEURBENNE_BROCHE,LOW);
 #endif
 }
 

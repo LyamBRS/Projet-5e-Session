@@ -1,7 +1,7 @@
 //#############################################################################
 /**
  * @file main.c
- * @author CamFo Camille Fortin
+ * @author CamFo Camille Fortin (camfortin2022@gmail.com)
  * @brief
  * Program file containing the code defined in xmain.h
  * Please refer to this other file for information necessary in order to make this work.
@@ -12,23 +12,13 @@
  * 
  */
 //#############################################################################
-//247-527Atelier3a: programme de depart pour faire operer le ESP32 en mode cooperatif
-//Historique:
-// 2022-10-18, Yves Roy, creation a partir du programme 247-527Atelier3a
+
 
 //INCLUSIONS
 #include "xmain.h"
-#include "xpiloteEntree1.h"
-#include "xpiloteIOT1.h"
-#include "xpiloteAnalogue0.h"
-#include "xpiloteAnalogue1.h"
-#include "xpiloteI2C1.h"
-#include "xserviceTaskServer.h"
-#include "xserviceBaseDeTemps.h"
-#include "xinterfaceEntree1.h"
-#include "xinterfaceT1.h"
-#include "xprocessusClignotant.h"
-#include "xpiloteIOBenne.h"
+
+// inlcude des pilotes
+#include "xpiloteMoteurBenne.h"
 #include "xpiloteIOFeuArriereD.h"
 #include "xpiloteIOFeuArriereG.h"
 #include "xpiloteIOFeuAvantD.h"
@@ -37,6 +27,24 @@
 #include "xpilotePWMDroitBas.h"
 #include "xpilotePWMGaucheHaut.h"
 #include "xpilotePWMGaucheBas.h"
+#include "xpiloteEntree1.h"
+#include "xpiloteIOT1.h"
+#include "xpiloteAnalogue0.h"
+#include "xpiloteAnalogue1.h"
+#include "xpiloteI2C1.h"
+
+// Include des interfaces
+#include "xserviceTaskServer.h"
+#include "xserviceBaseDeTemps.h"
+
+// Inlude des interfaces
+#include "xinterfaceEntree1.h"
+#include "xinterfaceT1.h"
+#include "xinterfaceMoteurBenne.h"
+
+// Include des processus
+#include "xprocessusClignotant.h"
+
 
 
 
