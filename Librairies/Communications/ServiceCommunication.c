@@ -576,13 +576,19 @@ void ServiceCommunication_initialise(void)
 
 
 
-/*
+
 int main(void)
 {
+    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n SUS");
     ServiceCommunication_initialise();
-
     printf("%i",ModuleData.ValuesToSend.disc_Black);
     CheckIfUnused(&ModuleData.CommandsToSend.discharge,7);
+    printf("%i",ModuleData.ValuesToSend.disc_Black);
+
+    while(1)
+    {
+        print("Bruh");
+    }
+
     return 0;
 }
-*/

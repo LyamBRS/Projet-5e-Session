@@ -13,6 +13,7 @@
  * @copyright Copyright (c) 2022
  * 
  */
+
 //#############################################################################
 #pragma region SERVICECOMMUNICATION_ERROR_DEFINES
 //-----------------------------------------------------------------------------
@@ -180,14 +181,14 @@ unsigned char temporaryMasterBuffer[8];
  * It is false if no messages have been received.
  * MUST CORRESPOND TO \ref MODULE_CAN_RX_BUFFER
  */
-#define CHECK_MODULE_CAN_RECEPTION pCAN1_messageDisponible()
+#define CHECK_MODULE_CAN_RECEPTION 0xFF
 /**
  * @brief Statement which is true only if a CAN message addressed to your
  * module is available.
  * It is false if no messages have been received.
  * MUST CORRESPOND TO \ref MASTER_CAN_RX_BUFFER
  */
-#define CHECK_MASTER_CAN_RECEPTION pCAN1_messageDisponible()
+#define CHECK_MASTER_CAN_RECEPTION 0xFF
 #pragma endregion CODE_DEFINES
 //#############################################################################
 #pragma region PUBLIC_FUNCTIONS
@@ -244,6 +245,14 @@ void ModuleData_SetAll_ReceivedCommands(unsigned char ValueAppliedToAll);
 * equal to UNUSED
 */
 void ModuleData_SetAll_SentCommands(unsigned char ValueAppliedToAll);
+/**
+* @brief Sets all the states in a \ref stStates structure to the same value.
+* @author Lyam / Shawn Couture
+* @date 15/11/2022
+* @param ValueAppliedToAll Value which will be applied to all commands not
+* equal to \ref UNUSED
+*/
+void ModuleData_SetAll_StatesReceived(unsigned char ValueAppliedToAll);
 
 void CheckIfUnused(unsigned char *checkedValue, unsigned char wantedNewValue);
 /**
