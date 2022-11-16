@@ -53,6 +53,26 @@ stValues Values;
 stModuleData ModuleData;
 #pragma endregion STRUCTURES
 //#############################################################################
+#pragma region PRIVATE_VARIABLES
+/**
+ * @brief Variable keeping track of the amount of interrupt which hapenned
+ * since the reception of a \ref stModes by the synchronisation CAN tram.
+ */
+unsigned char interruptCount = 0;
+/**
+ * @brief Variable which indicates which slots in the CAN protocol the count
+ * is current at. This is used to keep track of which person needs to
+ * communicate next.\n
+ * 0: Synchronisation\n
+ * 1: Sorting center\n
+ * 2: Weighting center\n
+ * 3: Vehicule\n
+ * 4: Reserved\n
+ * 5: Reserved
+ */
+unsigned char currentSlot = 0;
+#pragma endregion PRIVATE_VARIABLES
+//#############################################################################
 #pragma region PRIVATE_FUNCTIONS
 //-----------------------------------------------------------------------------
 /**
@@ -62,7 +82,10 @@ stModuleData ModuleData;
 * @date 14/11/2022
 * @param Buffer Pointer pointing the address of an 8 bytes unsigned char array.
 */
-void Parse_CanBusTransmission(unsigned char *Buffer);
+void Parse_CanBusTransmission(unsigned char *Buffer)
+{
+
+}
 /**
 * @brief Parsing function decorticating an 8 bytes array into the service's
 * structures.
@@ -70,7 +93,160 @@ void Parse_CanBusTransmission(unsigned char *Buffer);
 * @date 14/11/2022
 * @param Buffer Pointer pointing the address of an 8 bytes unsigned char array.
 */
-void Parse_CanBusReceptions(unsigned char *Buffer);
+void Parse_CanBusReceptions(unsigned char *Buffer)
+{
+    for(int i=0; i<8; i+=2)
+    {
+        switch(Buffer[i])
+        {
+            case('M'):
+                        switch(Buffer[i+1])
+                        {
+                            // Don't forget you need to set your ModuleData.State yourself.
+                            // This is done so that other modules can be fully sure that you
+                            // successfully entered the desired mode.
+                            case(0x00): ModuleData.Mode = Modes.emergencyStop;    break;
+                            case(0x01): ModuleData.Mode = Modes.pause;            break;
+                            case(0x02): ModuleData.Mode = Modes.testing;          break;
+                            case(0x03): ModuleData.Mode = Modes.maintenance;      break;
+                            case(0x04): ModuleData.Mode = Modes.operation;        break;
+                            case(0x05): ModuleData.Mode = Modes.calibration;      break;
+                            case(0x06): ModuleData.Mode = Modes.reinitialisation; break;
+                            default:
+                                        //If received mode matched nothing, an error occured.
+                                        ModuleData.State = States.error;
+                            break;                  
+                        }
+            break;
+            case('C'):
+                        switch(Buffer[i+1])
+                        {
+                            // Parsing of received commands in a CAN tram
+                            case(0x00): ModuleData.CommandsReceived.move_left     = RECEIVED; break;
+                            case(0x01): ModuleData.CommandsReceived.move_right    = RECEIVED; break;
+                            case(0x02): ModuleData.CommandsReceived.move_forward  = RECEIVED; break;
+                            case(0x03): ModuleData.CommandsReceived.move_backward = RECEIVED; break;
+                            case(0x04): ModuleData.CommandsReceived.move_up       = RECEIVED; break;
+                            case(0x05): ModuleData.CommandsReceived.move_down     = RECEIVED; break;
+
+                            case(0x06): ModuleData.CommandsReceived.suction_ON    = RECEIVED; break;
+                            case(0x07): ModuleData.CommandsReceived.suction_OFF   = RECEIVED; break;
+
+                            case(0x08): ModuleData.CommandsReceived.light_A_ON    = RECEIVED; break;
+                            case(0x09): ModuleData.CommandsReceived.light_A_OFF   = RECEIVED; break;
+                            case(0x0A): ModuleData.CommandsReceived.light_B_ON    = RECEIVED; break;
+                            case(0x0B): ModuleData.CommandsReceived.light_B_OFF   = RECEIVED; break;
+                            case(0x0C): ModuleData.CommandsReceived.light_C_ON    = RECEIVED; break;
+                            case(0x0D): ModuleData.CommandsReceived.light_C_OFF   = RECEIVED; break;
+                            case(0x0E): ModuleData.CommandsReceived.light_D_ON    = RECEIVED; break;
+                            case(0x0F): ModuleData.CommandsReceived.light_D_OFF   = RECEIVED; break;
+
+                            case(0x10): ModuleData.CommandsReceived.goto_SortingStation = RECEIVED; break;
+                            case(0x11): ModuleData.CommandsReceived.goto_WeightStation  = RECEIVED; break;
+
+                            case(0x12): ModuleData.CommandsReceived.start_Sorting       = RECEIVED; break;
+                            case(0x13): ModuleData.CommandsReceived.start_Weighting     = RECEIVED; break;
+
+                            case(0x14): ModuleData.CommandsReceived.discharge           = RECEIVED; break;
+                            case(0x16): ModuleData.CommandsReceived.units_Metric        = RECEIVED; break;
+                            case(0x17): ModuleData.CommandsReceived.units_Imperial      = RECEIVED; break;
+                            default:
+                                        //If received mode matched nothing, an error occured.
+                                        ModuleData.State = States.error;
+                            break;                  
+                        }
+            break;
+            case('V'):
+                        switch(Buffer[i+1])
+                        {
+                            // Parsing of received values in a CAN tram
+                            case(0x00): ModuleData.ValuesReceived.disc_Red        = RECEIVED;
+                                        ModuleData.ValuesReceived.disc_Black      = NO_DATA;
+                                        ModuleData.ValuesReceived.disc_Silver     = NO_DATA;
+                                        ModuleData.ValuesReceived.disc_NoColor    = NO_DATA;
+                                        break;
+                            case(0x01): ModuleData.ValuesReceived.disc_Silver     = RECEIVED;
+                                        ModuleData.ValuesReceived.disc_Red        = NO_DATA;
+                                        ModuleData.ValuesReceived.disc_Black      = NO_DATA;
+                                        ModuleData.ValuesReceived.disc_NoColor    = NO_DATA;
+                                        break;
+                            case(0x02): ModuleData.ValuesReceived.disc_Black      = RECEIVED;
+                                        ModuleData.ValuesReceived.disc_Red        = NO_DATA;
+                                        ModuleData.ValuesReceived.disc_Silver     = NO_DATA;
+                                        ModuleData.ValuesReceived.disc_NoColor    = NO_DATA;
+                                        break;
+                            case(0x03): ModuleData.ValuesReceived.disc_NoColor    = RECEIVED;
+                                        ModuleData.ValuesReceived.disc_Red        = NO_DATA;
+                                        ModuleData.ValuesReceived.disc_Silver     = NO_DATA;
+                                        ModuleData.ValuesReceived.disc_Black      = NO_DATA;
+                                        break;
+
+                            case(0x04): ModuleData.ValuesReceived.disc_Detected        = RECEIVED;
+                                        ModuleData.ValuesReceived.disc_Lost            = NO_DATA;
+                                        ModuleData.ValuesReceived.disc_CouldNotBeFound = NO_DATA;
+                                        break;
+                            case(0x05): ModuleData.ValuesReceived.disc_Lost            = RECEIVED;
+                                        ModuleData.ValuesReceived.disc_Detected        = NO_DATA;
+                                        ModuleData.ValuesReceived.disc_CouldNotBeFound = NO_DATA;
+                                        break;
+                            case(0x06): ModuleData.ValuesReceived.disc_CouldNotBeFound = RECEIVED;
+                                        ModuleData.ValuesReceived.disc_Detected        = NO_DATA;
+                                        ModuleData.ValuesReceived.disc_Lost            = NO_DATA;
+                                        break;
+
+                            case(0x07): ModuleData.ValuesReceived.unit_Metric          = RECEIVED;
+                                        ModuleData.ValuesReceived.unit_Imperial        = NO_DATA;
+                                        break;
+                            case(0x08): ModuleData.ValuesReceived.unit_Metric          = NO_DATA;
+                                        ModuleData.ValuesReceived.unit_Imperial        = RECEIVED;
+                                        break;
+                            default:
+                                        //If received mode matched nothing, an error occured.
+                                        ModuleData.State = States.error;
+                            break;                  
+                        }
+            break;
+            case('S'):
+                        switch(Buffer[i+1])
+                        {
+                            // Parsing of received states from the communicating module
+                            case(0x00): ModuleData.StatesReceived.emergencyStop               = RECEIVED;
+                                        // AUTOMATICALLY SWITCH TO EMERGENCY MODE WHEN A MODULE STATE SAYS IT'S IN THIS STATE
+                                        if(ModuleData.Mode != Modes.emergencyStop)
+                                        {
+                                            ModuleData.Mode = Modes.emergencyStop;
+                                        }
+                            break;
+                            case(0x01): ModuleData.StatesReceived.paused                      = RECEIVED; break;
+                            case(0x02): ModuleData.StatesReceived.testing                     = RECEIVED; break;
+                            case(0x03): ModuleData.StatesReceived.processing                  = RECEIVED; break;
+                            case(0x04):                                                                   break;
+                            case(0x05): ModuleData.StatesReceived.calibrating                 = RECEIVED; break;
+                            case(0x06): ModuleData.StatesReceived.calibrated                  = RECEIVED; break;
+                            case(0x07): ModuleData.StatesReceived.waiting                     = RECEIVED; break;
+                            case(0x08): ModuleData.StatesReceived.safe                        = RECEIVED; break;
+                            case(0x09): ModuleData.StatesReceived.error                       = RECEIVED; break;
+
+                            case(0x0A): ModuleData.StatesReceived.atSortingFactory            = RECEIVED;
+                                        ModuleData.StatesReceived.atWeightStation             = NO_DATA; 
+                                        break;
+                            case(0x0B): ModuleData.StatesReceived.atWeightStation             = RECEIVED;
+                                        ModuleData.StatesReceived.atSortingFactory            = NO_DATA;
+                                        break;
+                            case(0x0C): ModuleData.StatesReceived.finishedSortingAndHasLoaded = RECEIVED; break;
+                            case(0x0D): ModuleData.StatesReceived.waitingToSort               = RECEIVED; break;
+                            case(0x0E): ModuleData.StatesReceived.waitingToWeight             = RECEIVED; break;
+                            case(0x0F): ModuleData.StatesReceived.finishedWeighting           = RECEIVED; break;
+                            case(0x10): ModuleData.StatesReceived.empty                       = RECEIVED; break;
+                            default:
+                                        //If received mode matched nothing, an error occured.
+                                        ModuleData.State = States.error;
+                            break;                  
+                        }
+            break;
+        }
+    }
+}
 /**
 * @brief Function handling the count of interrupts and slot allocations for
 * CAN communications made for this project. It is important to properly
@@ -79,14 +255,17 @@ void Parse_CanBusReceptions(unsigned char *Buffer);
 * @date 15/11/2022
 * @param void
 */
-void Count_Interrupts(void);
+void Parse_Interrupts(void)
+{
+    
+}
 /**
-* @brief Private function checking if a variable is equal to UNUSED. If not, it
+* @brief Private function checking if a variable is equal to \ref UNUSED. If not, it
 * sets it to a new value.
 * @author Lyam / Shawn Couture
 * @date 15/11/2022
 * @param checkedValue pointer (&variable) pointing to a data in a structure
-* @param wantedNewValue value which the data pointed will be set to if not UNUSED
+* @param wantedNewValue value which the data pointed will be set to if not \ref UNUSED
 */
 void CheckIfUnused(unsigned char *checkedValue, unsigned char wantedNewValue)
 {
@@ -105,7 +284,7 @@ void CheckIfUnused(unsigned char *checkedValue, unsigned char wantedNewValue)
 * @author Lyam / Shawn Couture
 * @date 15/11/2022
 * @param ValueAppliedToAll Value which will be applied to all commands not
-* equal to UNUSED
+* equal to \ref UNUSED
 */
 void ModuleData_SetAll_ReceivedCommands(unsigned char ValueAppliedToAll)
 {
@@ -207,10 +386,32 @@ void ModuleData_SetAll_ValuesReceived(unsigned char ValueAppliedToAll)
     CheckIfUnused(&ModuleData.ValuesReceived.disc_Lost,ValueAppliedToAll);
 }
 /**
+* @brief Sets all the states in a \ref stStates structure to the same value.
+* @author Lyam / Shawn Couture
+* @date 15/11/2022
+* @param ValueAppliedToAll Value which will be applied to all commands not
+* equal to \ref UNUSED
+*/
+void ModuleData_SetAll_StatesReceived(unsigned char ValueAppliedToAll)
+{
+    CheckIfUnused(&ModuleData.StatesReceived.calibrating,ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.StatesReceived.calibrated,ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.StatesReceived.waiting,ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.StatesReceived.safe,ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.StatesReceived.error,ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.StatesReceived.atSortingFactory,ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.StatesReceived.atWeightStation,ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.StatesReceived.finishedSortingAndHasLoaded,ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.StatesReceived.waitingToSort,ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.StatesReceived.waitingToWeight,ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.StatesReceived.finishedWeighting,ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.StatesReceived.empty,ValueAppliedToAll);
+}
+/**
 * @brief Function periodically called via the time base's interruptions. It is
 * important to allocate a buffer address in your time base for this function.
 * Do this via your main.h file, and ServiceCommunication.h.
-* You will need to set SCOMMS_PARSE_RX_BUFFER_ADR to the appropriated number
+* You will need to set \ref SCOMMS_PARSE_RX_BUFFER_ADR to the appropriated number
 * in your buffer.
 * @author Lyam / Shawn Couture
 * @date 14/11/2022
@@ -218,7 +419,19 @@ void ModuleData_SetAll_ValuesReceived(unsigned char ValueAppliedToAll)
 */
 void ServiceCommunication_RXParsingHandler(void)
 {
+    //########################################## LOCAL VAR
+    //##########################################
 
+    // CAN DATA IS AVAILABLE
+    if(CHECK_MODULE_CAN_RECEPTION)
+    {
+        Parse_CanBusReceptions(MODULE_CAN_RX_BUFFER);
+    }
+
+    if(CHECK_MASTER_CAN_RECEPTION)
+    {
+        Parse_CanBusReceptions(MASTER_CAN_RX_BUFFER);        
+    }
 }
 /**
 * @brief Function periodically called via the time base's interruptions. It is
@@ -308,8 +521,10 @@ void ServiceCommunication_initialise(void)
 
     //Initialization of ModuleData. This will change depending on your module.
     ModuleData_SetAll_ReceivedCommands(NO_DATA);
-    ModuleData_SetAll_SentCommands(AVAILABLE);
     ModuleData_SetAll_ValuesReceived(NO_DATA);
+    ModuleData_SetAll_StatesReceived(NO_DATA);
+
+    ModuleData_SetAll_SentCommands(AVAILABLE);
     ModuleData_SetAll_ValuesToSend(UNUSED);
 
     // Keep set to unused or the program will constantly send Weight data on

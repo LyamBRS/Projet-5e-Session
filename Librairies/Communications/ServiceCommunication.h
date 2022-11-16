@@ -14,6 +14,12 @@
  * 
  */
 //#############################################################################
+#pragma region SERVICECOMMUNICATION_ERROR_DEFINES
+
+#pragma endregion SERVICECOMMUNICATION_ERROR_DEFINES
+//-----------------------------------------------------------------------------
+#pragma endregion SERVICECOMMUNICATION_DEFINES
+//#############################################################################
 #pragma region SERVICECOMMUNICATION_DEFINES
 //-----------------------------------------------------------------------------
 /**
@@ -87,34 +93,49 @@
 //#############################################################################
 #pragma region CAN_DEFINE
 //-----------------------------------------------------------------------------
+unsigned char temporaryModuleBuffer[8];
+unsigned char temporaryMasterBuffer[8];
 /**
  * @brief Specify how to access the unsigned char array of 8 bytes which
- * contains the received CAN data from the global SYNCHRONISATION address.
+ * contains your module's received CAN data.\n
+ * this unique buffer must contain whatever info was received by your module's.
+ * address
  */
-#define SYNC_CAN_RX_BUFFER
+#define MODULE_CAN_RX_BUFFER temporaryModuleBuffer
 /**
  * @brief Specify how to access the unsigned char array of 8 bytes which
- * contains the received CAN data from the your module's own address
+ * contains received CAN data from the MASTER's address\n
+ * this unique buffer must contain whatever info was received from the master's
+ * address
  */
-#define MODULE_CAN_RX_BUFFER
+#define MASTER_CAN_RX_BUFFER temporaryMasterBuffer
 /**
  * @brief Specify how to access the unsigned char array of 8 bytes which
  * is used to send CAN data during the allocated time frame for your
- * module
+ * module.\n
+ * The function must have a CAN address as an input parameter, and an
+ * buffer of 8 unsigned chars.\n
+ * functionToSendCan(adr, array, array_size);
  */
-#define MODULE_CAN_TX_BUFFER
+#define MODULE_CAN_TX
 #pragma endregion CAN_BUFFERS
 //#############################################################################
 #pragma region CODE_DEFINES
 //-----------------------------------------------------------------------------
 /**
- * @brief Defines a statement which is true only if a CAN message coming from
- * supported addresses is available. This is true if a message coming from
- * any supported addresses by the module is available. It is false if no
- * messages have been received.
- * MUST CORRESPOND TO SYNC_CAN_RX_BUFFER
+ * @brief Statement which is true only if a CAN message addressed to your
+ * module is available.
+ * It is false if no messages have been received.
+ * MUST CORRESPOND TO \ref MODULE_CAN_RX_BUFFER
  */
-#define CHECK_CAN_RECEPTION pCAN1_messageDisponible()
+#define CHECK_MODULE_CAN_RECEPTION pCAN1_messageDisponible()
+/**
+ * @brief Statement which is true only if a CAN message addressed to your
+ * module is available.
+ * It is false if no messages have been received.
+ * MUST CORRESPOND TO \ref MASTER_CAN_RX_BUFFER
+ */
+#define CHECK_MASTER_CAN_RECEPTION pCAN1_messageDisponible()
 #pragma endregion CODE_DEFINES
 //#############################################################################
 #pragma region PUBLIC_FUNCTIONS
@@ -171,15 +192,17 @@ void ModuleData_SetAll_ReceivedCommands(unsigned char ValueAppliedToAll);
 * equal to UNUSED
 */
 void ModuleData_SetAll_SentCommands(unsigned char ValueAppliedToAll);
+
+void CheckIfUnused(unsigned char *checkedValue, unsigned char wantedNewValue);
 /**
-* @brief Function checking if a variable is equal to UNUSED. If not, it
-* sets it to a new value.
+* @brief Function handling the count of interrupts and slot allocations for
+* CAN communications made for this project. It is important to properly
+* define clock speeds and oscillator speeds in ServiceCommunication.h
 * @author Lyam / Shawn Couture
 * @date 15/11/2022
-* @param checkedValue pointer (&variable) pointing to a data in a structure
-* @param wantedNewValue value which the data pointed will be set to if not UNUSED
+* @param void
 */
-void CheckIfUnused(unsigned char *checkedValue, unsigned char wantedNewValue);
+void Parse_Interrupts(void);
 #pragma endregion PUBLIC_FUNCTIONS
 //#############################################################################
 #pragma region REFERENCE_STRUCTURES
@@ -512,34 +535,42 @@ typedef struct
     /**
      * @brief Structure which contains all the values a module can support
      * in a transmission. To specify you want to send a value, set it to
-     * QUEUE. Only set it to QUEUE if you read that it is AVAILABLE.
+     * \ref QUEUE. Only set it to \ref QUEUE if you read that it is \ref AVAILABLE.
      */
     stValues ValuesToSend;
     /**
      * @brief Structure of all the commands a module can send.
      * To specify you want to send a command, set it to
-     * QUEUE. Only set it to QUEUE if you read that it is AVAILABLE.
-     * If a command is set to RECEIVED, it means a module communicated a
+     * \ref QUEUE. Only set it to \ref QUEUE if you read that it is \ref AVAILABLE.
+     * If a command is set to \ref RECEIVED, it means a module communicated a
      * command request to you. If you support the command, before you start
-     * to execute it, set it to PARSED to tell the system that you parsed it.
-     * If a command is equal to NO_DATA, it means it has not been received.
+     * to execute it, set it to \ref PARSED to tell the system that you parsed it.
+     * If a command is equal to \ref NO_DATA, it means it has not been received.
      */
     stCommands CommandsToSend;
     /**
      * @brief Structure which contains all the values your module has received
-     * If a specific value was received, you'll read RECEIVED. If this is the
-     * case, and you needed to read this value, set it to PARSED once you
-     * executed whatever was needed. These are set to NO_DATA by default.
+     * If a specific value was received, you'll read \ref RECEIVED. If this is 
+     * the case, and you needed to read this value, set it to \ref PARSED once 
+     * you executed whatever was needed. These are set to \ref NO_DATA by 
+     * default.
      */
     stValues ValuesReceived;
     /**
      * @brief Structure of all the commands a module can receive.
-     * A command set to RECEIVED means a module communicated a
+     * A command set to \ref RECEIVED means a module communicated a
      * command request to you. If you support the command, before you start
-     * to execute it, set it to PARSED to tell the system that you executed it.
-     * If the command is equal to NO_DATA, it means it wasn't received.
+     * to execute it, set it to \ref PARSED to tell the system that you 
+     * executed it. If the command is equal to \ref NO_DATA, it means 
+     * it wasn't received.
      */
     stCommands CommandsReceived;
+    /**
+     * @brief Structure containing all the states that your module has received
+     * from other modules or from the MASTER. These are reset to \ref NO_DATA 
+     * when the \ref stModes received from the MASTER changes.
+     */
+    stStates StatesReceived;
     /**
      * @brief Indication of this module's state according to the communication
      * data sheet. This is sent each communication no matter what's
@@ -553,8 +584,8 @@ typedef struct
      */
     unsigned char Mode;
     /**
-     * @brief Value from 0 to 254 either in KG or in Lbs. Set to UNUSED
-     * by default. If not set to UNUSED, it will be sent each available
+     * @brief Value from 0 to 254 either in KG or in Lbs. Set to \ref UNUSED
+     * by default. If not set to \ref UNUSED, it will be sent each available
      * CAN slots.
      */
     unsigned char Weight;
