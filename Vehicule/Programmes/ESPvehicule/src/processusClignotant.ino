@@ -5,6 +5,13 @@
 //INCLUSIONS
 #include "xmain.h"
 #include "xinterfaceT1.h"
+#include "xinterfaceMoteurBenne.h"
+
+#include "xpilotePWMDroitBas.h"
+#include "xpilotePWMDroitHaut.h"
+#include "xpilotePWMGaucheBas.h"
+#include "xpilotePWMGaucheHaut.h"
+
 #include "xserviceBaseDeTemps.h"
 #include "xprocessusClignotant.h"
 #include <stdio.h>
@@ -39,10 +46,8 @@ void processusClignotant_attendAvantDAllumerLeTemoinLumineux(void)
   {
     return;
   }
-
-  
-  printf("OK voici un test \n");
   interfaceT1_allume();
+
   processusClignotant_compteur = 0;
   serviceBaseDeTemps_execute[PROCESSUSCLIGNOTANT_PHASE] = processusClignotant_attendAvantDEteindreLeTemoinLumineux;
 }

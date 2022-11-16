@@ -77,6 +77,12 @@ void main_initialise(void)
   interfaceEntree1_initialise();
   interfaceT1_initialise();
   processusClignotant_initialise();
+
+  pilotePWMDroitBas_initialise();
+  pilotePWMDroitHaut_initialise();
+  pilotePWMGaucheBas_initialise();
+  pilotePWMGaucheHaut_initialise();
+  interfaceMoteurBenne_initialise();
 }
 
 void setup(void) 
@@ -84,6 +90,13 @@ void setup(void)
   Serial.begin(115200);
   main_initialise();
   main_faitUnTest();
+
+// Parti pour tester les pilote PWM
+  //pilotePWMDroitBas_setPWM(250);
+  //pilotePWMDroitHaut_setPWM(250);
+  //pilotePWMGaucheBas_setPWM(250);
+  //pilotePWMGaucheHaut_setPWM(250);
+  
   serviceTaskServer_DemarreLesTachesALaTouteFinDeSetup();
 }
 

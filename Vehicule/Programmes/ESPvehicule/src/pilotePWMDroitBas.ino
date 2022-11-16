@@ -42,7 +42,7 @@ void pilotePWMDroitBas_initialise(void)
 {
   ledcSetup(PILOTEPWMDROITBAS_CHANNEL, PILOTEPWM_FREQUENCE, PILOTEPWM_RESOLUTION);
   ledcAttachPin(PILOTEPWMDROITBAS_PIN, PILOTEPWMDROITBAS_CHANNEL);
-  //ledcWrite(PILOTEPWMDROITBAS_CHANNEL, 0);
+  ledcWrite(PILOTEPWMDROITBAS_CHANNEL, 0); // Pour éteindre le moteur a l'initialisation
 }
 
 
