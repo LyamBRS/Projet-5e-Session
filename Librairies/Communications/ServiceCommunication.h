@@ -15,10 +15,60 @@
  */
 //#############################################################################
 #pragma region SERVICECOMMUNICATION_ERROR_DEFINES
+//-----------------------------------------------------------------------------
+/**
+ * @brief Indicates that the library is not currently in any errors.
+ */
+#define NO_ERROR 0
+/**
+ * @brief Indicates that there was an error when parsing a received \ref stModes
+ * from a communicating module. The received \ref stModes didn't match availables
+ * \ref stModes and couldn't be put in \ref ModuleData
+ */
+#define ERROR_RX_MODE_DOESNT_EXIST 1
+/**
+ * @brief Indicates that there was an error when parsing a received \ref stStates
+ * from a communicating module. The received \ref stStates didn't match availables
+ * \ref stStates and couldn't be put in \ref ModuleData
+ */
+#define ERROR_RX_STATE_DOESNT_EXIST 2
+/**
+ * @brief Indicates that there was an error when parsing a received \ref stCommands
+ * from a communicating module. The received \ref stCommands didn't match availables
+ * \ref stCommands and couldn't be put in \ref ModuleData
+ */
+#define ERROR_RX_COMMAND_DOESNT_EXIST 3
+/**
+ * @brief Indicates that there was an error when parsing a received \ref stValues
+ * from a communicating module. The received \ref stValues didn't match availables
+ * \ref stValues and couldn't be put in \ref stValues
+ */
+#define ERROR_RX_VALUE_DOESNT_EXIST 4
+/**
+ * @brief The library timed out and could not receive an \ref stModes from a CAN
+ * slot in the given time.
+ */
+#define ERROR_TIMEDOUT 5
+/**
+ * @brief Indicates that the module using this library encountered an error due to
+ * factors outside of this library.
+ */
+#define ERROR_SPECIFIC_TO_MODULE 6
+
+/**
+ * @brief Global extern variable which purpose is to indicate to other portions
+ * of the code which state this library is currently in. See:\n
+ * \ref NO_ERROR .\n
+ * \ref ERROR_RX_MODE_DOESNT_EXIST .\n
+ * \ref ERROR_RX_STATE_DOESNT_EXIST .\n
+ * \ref ERROR_RX_COMMAND_DOESNT_EXIST .\n
+ * \ref ERROR_RX_VALUE_DOESNT_EXIST .\n
+ * \ref ERROR_TIMEDOUT .\n
+ * \ref ERROR_SPECIFIC_TO_MODULE .\n
+ */
+extern unsigned char serviceCommunication_ErrorState;
 
 #pragma endregion SERVICECOMMUNICATION_ERROR_DEFINES
-//-----------------------------------------------------------------------------
-#pragma endregion SERVICECOMMUNICATION_DEFINES
 //#############################################################################
 #pragma region SERVICECOMMUNICATION_DEFINES
 //-----------------------------------------------------------------------------
@@ -30,31 +80,33 @@
 #define UNUSED 0xFF
 //-----------------------------------------------------------------------------
 /**
- * @brief Specifies that you want this specific command queued for transmission
+ * @brief Specifies that you want a specific command inside \ref stCommands 
+ * queued for the next CAN transmission
  */
 #define QUEUE 0xFE
 /**
- * @brief Specifies that the command is already in queue for transmission.
+ * @brief Indicates that the \ref stCommands is already in queue for transmission.
  * DO NOT PUT IT BACK IN QUEUE WHEN THE COMMAND IS EQUAL TO THIS.
  */
 #define IN_QUEUE 0xFD
 /**
- * @brief tells you that this command is AVAILABLE for a QUEUE request.
+ * @brief tells you that this \ref stCommands is AVAILABLE for a \ref QUEUE request.
  */
 #define AVAILABLE 0xAA
 //-----------------------------------------------------------------------------
 /**
  * @brief Tells you that you received a request for the execution of this
- * specific command.
+ * specific \ref stCommands.
  */
 #define RECEIVED 0xBB
 /**
- * @brief Tells the program that you parsed the RECEIVED command
+ * @brief Tells the program that you parsed the \ref RECEIVED command in 
+ * \ref stModuleData
  */
 #define PARSED 0xAA
 /**
  * @brief Tells you that no requests have been received for this specific
- * command.
+ * command. If there was a request, the command would be equal to \ref RECEIVED.
  */
 #define NO_DATA 0x00
 //-----------------------------------------------------------------------------

@@ -22,7 +22,7 @@
 //#include "piloteCAN1.h"
 #pragma endregion INCLUDES
 //#############################################################################
-#pragma region STRUCTURES
+#pragma region EXTERN_DECLARATIONS
 /**
  * @brief Struct containing all the possible states that a module can have.
  * This is a list of states and must not be changed, but only referred to.
@@ -51,7 +51,19 @@ stValues Values;
  * file in order to set Commands or values of such.
  */
 stModuleData ModuleData;
-#pragma endregion STRUCTURES
+/**
+ * @brief Global extern variable which purpose is to indicate to other portions
+ * of the code which state this library is currently in. See:\n
+ * \ref NO_ERROR .\n
+ * \ref ERROR_RX_MODE_DOESNT_EXIST .\n
+ * \ref ERROR_RX_STATE_DOESNT_EXIST .\n
+ * \ref ERROR_RX_COMMAND_DOESNT_EXIST .\n
+ * \ref ERROR_RX_VALUE_DOESNT_EXIST .\n
+ * \ref ERROR_TIMEDOUT .\n
+ * \ref ERROR_SPECIFIC_TO_MODULE .\n
+ */
+unsigned char serviceCommunication_ErrorState = NO_ERROR;
+#pragma endregion EXTERN_DECLARATIONS
 //#############################################################################
 #pragma region PRIVATE_VARIABLES
 /**
@@ -95,6 +107,9 @@ void Parse_CanBusTransmission(unsigned char *Buffer)
 */
 void Parse_CanBusReceptions(unsigned char *Buffer)
 {
+    //############################################ LOCAL VARS
+    static unsigned char oldReceivedMode;
+    //############################################
     for(int i=0; i<8; i+=2)
     {
         switch(Buffer[i])
@@ -115,8 +130,21 @@ void Parse_CanBusReceptions(unsigned char *Buffer)
                             default:
                                         //If received mode matched nothing, an error occured.
                                         ModuleData.State = States.error;
+                                        serviceCommunication_ErrorState = ERROR_RX_MODE_DOESNT_EXIST;
                             break;                  
                         }
+                        // The mode changed from the previous one!
+                        if(oldReceivedMode != ModuleData.Mode)
+                        {
+                            oldReceivedMode = ModuleData.Mode;
+                            ModuleData_SetAll_ReceivedCommands(NO_DATA);
+                            ModuleData_SetAll_StatesReceived(NO_DATA);
+                            ModuleData_SetAll_StatesReceived(NO_DATA);
+                        }
+
+                        // Reset counts and slots indentifications
+                        interruptCount = 0;
+                        currentSlot = 0;
             break;
             case('C'):
                         switch(Buffer[i+1])
@@ -153,6 +181,7 @@ void Parse_CanBusReceptions(unsigned char *Buffer)
                             default:
                                         //If received mode matched nothing, an error occured.
                                         ModuleData.State = States.error;
+                                        serviceCommunication_ErrorState = ERROR_RX_COMMAND_DOESNT_EXIST;
                             break;                  
                         }
             break;
@@ -203,6 +232,7 @@ void Parse_CanBusReceptions(unsigned char *Buffer)
                             default:
                                         //If received mode matched nothing, an error occured.
                                         ModuleData.State = States.error;
+                                        serviceCommunication_ErrorState = ERROR_RX_VALUE_DOESNT_EXIST;
                             break;                  
                         }
             break;
@@ -241,6 +271,7 @@ void Parse_CanBusReceptions(unsigned char *Buffer)
                             default:
                                         //If received mode matched nothing, an error occured.
                                         ModuleData.State = States.error;
+                                        serviceCommunication_ErrorState = ERROR_RX_STATE_DOESNT_EXIST;
                             break;                  
                         }
             break;
