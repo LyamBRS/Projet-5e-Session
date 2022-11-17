@@ -194,6 +194,15 @@ unsigned char temporaryMasterBuffer[8];
 #pragma region PUBLIC_FUNCTIONS
 //-----------------------------------------------------------------------------
 /**
+* @brief Parsing function decorticating structures into 8 bytes CAN data to be
+* sent later.
+* @author Lyam / Shawn Couture
+* @date 17/11/2022
+* @param Buffer Pointer pointing the address of the buffer to update.
+* @param sizeOfBuffer How big is the buffer to referenced.
+*/
+void CB_UpdateBuffer(unsigned char* Buffer, unsigned char sizeOfBuffer);
+/**
 * @brief Function periodically called via the time base's interruptions. It is
 * important to allocate a buffer address in your time base for this function.
 * Do this via your main.h file, and ServiceCommunication.h.

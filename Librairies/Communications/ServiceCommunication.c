@@ -83,10 +83,52 @@ unsigned char interruptCount = 0;
  * 5: Reserved
  */
 unsigned char currentSlot = 0;
+/**
+ * @brief This buffer is used to store which commands or values were \ref QUEUE
+ * by he program, to send them x by x amount each time the CAN slot is equal to
+ * your module's appropriated slot.\n
+ * Do not use this buffer outside of this file. The program handles it by itself.\n
+ * You need 24 bytes of memory to store this buffer.\n\n
+ * If no value is stored in at an index, it will be 0xFF.\n
+ * Otherwise, the value of the \ref stCommands is stored in it.
+ */
+unsigned char CircularCommandsBuffer[24];
+/**
+ * @brief This buffer is used to store which valus were \ref QUEUE
+ * by he program, to send them x by x amount each time the CAN slot is equal to
+ * your module's appropriated slot.\n
+ * Do not use this buffer outside of this file. The program handles it by itself.\n
+ * You need 10 bytes of memory to store this buffer.\n\n
+ * If no value is stored in at an index, it will be 0xFF.\n
+ * Otherwise, the value of the \ref stValues is stored in it.
+ */
+unsigned char CircularValuesBuffer[10];
 #pragma endregion PRIVATE_VARIABLES
 //#############################################################################
 #pragma region PRIVATE_FUNCTIONS
 //-----------------------------------------------------------------------------
+/**
+* @brief Parsing function decorticating structures into 8 bytes CAN data to be
+* sent later.
+* @author Lyam / Shawn Couture
+* @date 17/11/2022
+* @param Buffer Pointer pointing the address of the buffer to update.
+* @param sizeOfBuffer How big is the buffer to referenced.
+*/
+void CB_UpdateBuffer(unsigned char* Buffer, unsigned char sizeOfBuffer)
+{
+    for(int i=sizeOfBuffer-1;i>0;--i)
+    {
+        //If the current address is empty.
+        if(Buffer[i] == 0xFF)
+        {
+            //Set this buffer index to be equal to the one before it.
+            Buffer[i] = Buffer[i-1];
+            //Set slot to empty as it was moved to this one.
+            Buffer[i-1] = 0xFF;
+        }
+    }
+}
 /**
 * @brief Parsing function decorticating structures into 8 bytes CAN data to be
 * sent later.
@@ -96,7 +138,9 @@ unsigned char currentSlot = 0;
 */
 void Parse_CanBusTransmission(unsigned char *Buffer)
 {
-
+    //############################################ LOCAL VARS
+    static unsigned char oldReceivedMode;
+    //############################################
 }
 /**
 * @brief Parsing function decorticating an 8 bytes array into the service's
