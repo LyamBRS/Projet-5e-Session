@@ -194,14 +194,26 @@ unsigned char temporaryMasterBuffer[8];
 #pragma region PUBLIC_FUNCTIONS
 //-----------------------------------------------------------------------------
 /**
-* @brief Parsing function decorticating structures into 8 bytes CAN data to be
-* sent later.
+* @brief Function compressing data downwards in a buffer. It slides data downwards
+* by 1 index if the one below the data is equal to 0xFF.
 * @author Lyam / Shawn Couture
 * @date 17/11/2022
 * @param Buffer Pointer pointing the address of the buffer to update.
-* @param sizeOfBuffer How big is the buffer to referenced.
+* @param sizeOfBuffer How big is the buffer referenced.
 */
 void CB_UpdateBuffer(unsigned char* Buffer, unsigned char sizeOfBuffer);
+/**
+* @brief Adds an unsigned char to the referenced buffer at whichever index is
+* first available for it (0xFF). If it's all 0xFF, it will be added at the
+* bottom of the buffer.
+* @author Lyam / Shawn Couture
+* @date 17/11/2022
+* @param Buffer Pointer pointing the address of the buffer to queue.
+* @param sizeOfBuffer How big is the buffer referenced.
+* @param DataToCheck Pointer to the data that potentially needs queuing. (in ModuleData)
+* @param DataValueFromRefStruct Value associated to this commands or value (\ref stCommands or \ref stValues)
+*/
+void CB_QueueDataInBuffer(unsigned char* Buffer, unsigned char sizeOfBuffer, unsigned char* DataToCheck, unsigned char DataValueFromRefStruct);
 /**
 * @brief Function periodically called via the time base's interruptions. It is
 * important to allocate a buffer address in your time base for this function.

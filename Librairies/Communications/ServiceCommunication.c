@@ -108,27 +108,119 @@ unsigned char CircularValuesBuffer[10];
 #pragma region PRIVATE_FUNCTIONS
 //-----------------------------------------------------------------------------
 /**
-* @brief Parsing function decorticating structures into 8 bytes CAN data to be
-* sent later.
+* @brief Function compressing data downwards in a buffer. It slides data downwards
+* by 1 index if the one below the data is equal to 0xFF.
 * @author Lyam / Shawn Couture
 * @date 17/11/2022
 * @param Buffer Pointer pointing the address of the buffer to update.
-* @param sizeOfBuffer How big is the buffer to referenced.
+* @param sizeOfBuffer How big is the buffer referenced.
 */
 void CB_UpdateBuffer(unsigned char* Buffer, unsigned char sizeOfBuffer)
 {
-    for(int i=sizeOfBuffer-1;i>0;--i)
+    unsigned char dataNeedsShifting = 2;
+    while(dataNeedsShifting==2)
     {
-        //If the current address is empty.
-        if(Buffer[i] == 0xFF)
+        dataNeedsShifting = 0;
+        for(int i=sizeOfBuffer-1;i>0;i--)
         {
-            //Set this buffer index to be equal to the one before it.
-            Buffer[i] = Buffer[i-1];
-            //Set slot to empty as it was moved to this one.
-            Buffer[i-1] = 0xFF;
+            if(Buffer[i-1] == 0xFF)
+            {
+                if(dataNeedsShifting==0) {dataNeedsShifting=1;}
+            }
+            else
+            {
+                if(dataNeedsShifting==1) {dataNeedsShifting=2;}
+            }            
+            
+            //If the current address is empty.
+            if(Buffer[i] == 0xFF)
+            {
+                //Set this buffer index to be equal to the one before it.
+                Buffer[i] = Buffer[i-1];
+                //Set slot to empty as it was moved to this one.
+                Buffer[i-1] = 0xFF;
+            }        
         }
     }
 }
+/**
+* @brief Adds an unsigned char to the referenced buffer at whichever index is
+* first available for it (0xFF). If it's all 0xFF, it will be added at the
+* bottom of the buffer.
+* @author Lyam / Shawn Couture
+* @date 17/11/2022
+* @param Buffer Pointer pointing the address of the buffer to queue.
+* @param sizeOfBuffer How big is the buffer referenced.
+* @param DataToCheck Pointer to the data that potentially needs queuing. (in ModuleData)
+* @param DataValueFromRefStruct Value associated to this commands or value (\ref stCommands or \ref stValues)
+*/
+void CB_QueueDataInBuffer(unsigned char* Buffer, unsigned char sizeOfBuffer, unsigned char* DataToCheck, unsigned char DataValueFromRefStruct)
+{
+    if(*DataToCheck != UNUSED && *DataToCheck == QUEUE)
+    {
+        for(int i=sizeOfBuffer-1;i>0;--i)
+        {
+            //If the current address is empty.
+            if(Buffer[i] == 0xFF)
+            {
+                //Store the structure reference at that address
+                Buffer[i] = DataValueFromRefStruct;
+                *DataToCheck = IN_QUEUE;
+                i=0;
+            }
+        }
+    }
+}
+/**
+* @brief Takes \ref CircularValuesBuffer and parses it into the CAN transmission
+* buffer. It checks for the first \ref AVAILABLE slots in the latter and puts the
+* first element \ref IN_QUEUE in it. Each elements added to the referenced buffer
+* is automatically set back to \ref AVAILABLE to be ready for the next placement
+* in \ref CircularValuesBuffer.
+* @author Lyam / Shawn Couture
+* @date 17/11/2022
+* @param Buffer Pointer to the CAN transmission buffer.
+*/
+void TX_PutValueQueueInBuffer(unsigned char* Buffer)
+{
+    //############################################ LOCAL VARS
+    unsigned char QueueIndex = 9;
+    //############################################
+
+    //Doesn't bother doing anything if there is no values in the queue buffer
+    if(CircularValuesBuffer[QueueIndex] != UNUSED)
+    {
+        for(int i=0; i<8;i+=2)
+        {
+            //check if Command slot is AVAILABLE
+            if(Buffer[i] == AVAILABLE)
+            {
+                //If data at the index location isn't equal to 0xFF, it gets placed in the CAN tram to be sent.
+                if(CircularValuesBuffer[QueueIndex] != UNUSED)
+                {
+                    Buffer[i] = 'V';
+                    Buffer[i+1] = CircularValuesBuffer[QueueIndex];
+
+                    switch(CircularValuesBuffer[QueueIndex])
+                    {
+                        case(0x00): ModuleData.ValuesToSend.disc_Red             = AVAILABLE; break;
+                        case(0x01): ModuleData.ValuesToSend.disc_Silver          = AVAILABLE; break;
+                        case(0x02): ModuleData.ValuesToSend.disc_Black           = AVAILABLE; break;
+                        case(0x03): ModuleData.ValuesToSend.disc_NoColor         = AVAILABLE; break;
+                        case(0x04): ModuleData.ValuesToSend.disc_Detected        = AVAILABLE; break;
+                        case(0x05): ModuleData.ValuesToSend.disc_Lost            = AVAILABLE; break;
+                        case(0x06): ModuleData.ValuesToSend.disc_CouldNotBeFound = AVAILABLE; break;
+                        case(0x07): ModuleData.ValuesToSend.unit_Metric          = AVAILABLE; break;
+                        case(0x08): ModuleData.ValuesToSend.unit_Imperial        = AVAILABLE; break;
+                    }
+                    CircularValuesBuffer[QueueIndex] = UNUSED;
+                    QueueIndex--;
+                }
+            }
+        }
+    }
+}
+
 /**
 * @brief Parsing function decorticating structures into 8 bytes CAN data to be
 * sent later.
@@ -141,6 +233,50 @@ void Parse_CanBusTransmission(unsigned char *Buffer)
     //############################################ LOCAL VARS
     static unsigned char oldReceivedMode;
     //############################################
+    // Reset of buffer values
+    for(int i=0;i<8;++i) {Buffer[i] = AVAILABLE;}
+
+    // Updating circular buffers
+    CB_UpdateBuffer(CircularCommandsBuffer,24);
+    CB_UpdateBuffer(CircularValuesBuffer,24);
+
+    // Putting Module State in referenced buffer
+    Buffer[6] = 'S';
+    Buffer[7] = ModuleData.State;
+
+    // Weight parsing
+    if(ModuleData.WeightToSend != UNUSED)
+    {
+        Buffer[4] = 'W';
+        Buffer[5] = ModuleData.WeightToSend;    
+    }
+
+    // Check for values and add them to their buffers if equal to QUEUE
+    CB_QueueDataInBuffer(CircularValuesBuffer,10,&ModuleData.ValuesToSend.disc_Black,              Values.disc_Black);
+    CB_QueueDataInBuffer(CircularValuesBuffer,10,&ModuleData.ValuesToSend.disc_Red,                Values.disc_Red);
+    CB_QueueDataInBuffer(CircularValuesBuffer,10,&ModuleData.ValuesToSend.disc_Silver,             Values.disc_Silver);
+    CB_QueueDataInBuffer(CircularValuesBuffer,10,&ModuleData.ValuesToSend.disc_NoColor,            Values.disc_NoColor);
+    CB_QueueDataInBuffer(CircularValuesBuffer,10,&ModuleData.ValuesToSend.disc_Detected,           Values.disc_Detected);
+    CB_QueueDataInBuffer(CircularValuesBuffer,10,&ModuleData.ValuesToSend.disc_Lost,               Values.disc_Lost);
+    CB_QueueDataInBuffer(CircularValuesBuffer,10,&ModuleData.ValuesToSend.disc_CouldNotBeFound,    Values.disc_CouldNotBeFound);
+    CB_QueueDataInBuffer(CircularValuesBuffer,10,&ModuleData.ValuesToSend.unit_Imperial,           Values.unit_Imperial);
+    CB_QueueDataInBuffer(CircularValuesBuffer,10,&ModuleData.ValuesToSend.unit_Metric,             Values.unit_Metric);
+
+    // Prepare values to be sent on can bus
+    TX_PutValueQueueInBuffer(Buffer);
+
+    CB_QueueDataInBuffer(CircularValuesBuffer,24,&ModuleData.CommandsToSend.discharge,             Commands.discharge);
+    CB_QueueDataInBuffer(CircularValuesBuffer,24,&ModuleData.CommandsToSend.goto_SortingStation,   Commands.goto_SortingStation);
+    CB_QueueDataInBuffer(CircularValuesBuffer,24,&ModuleData.CommandsToSend.goto_WeightStation,    Commands.goto_WeightStation);
+    CB_QueueDataInBuffer(CircularValuesBuffer,24,&ModuleData.CommandsToSend.light_A_OFF,           Commands.light_A_OFF);
+    CB_QueueDataInBuffer(CircularValuesBuffer,24,&ModuleData.CommandsToSend.light_A_ON,            Commands.light_A_ON);
+    CB_QueueDataInBuffer(CircularValuesBuffer,24,&ModuleData.CommandsToSend.light_B_OFF,           Commands.light_B_OFF);
+    CB_QueueDataInBuffer(CircularValuesBuffer,24,&ModuleData.CommandsToSend.light_B_ON,            Commands.light_B_ON);
+    CB_QueueDataInBuffer(CircularValuesBuffer,24,&ModuleData.CommandsToSend.light_C_OFF,           Commands.light_C_OFF);
+    CB_QueueDataInBuffer(CircularValuesBuffer,24,&ModuleData.CommandsToSend.light_C_ON,            Commands.light_C_ON);
+    CB_QueueDataInBuffer(CircularValuesBuffer,24,&ModuleData.CommandsToSend.light_D_OFF,           Commands.light_D_OFF);
+    CB_QueueDataInBuffer(CircularValuesBuffer,24,&ModuleData.CommandsToSend.light_D_ON,            Commands.light_D_ON);
+    CB_QueueDataInBuffer(CircularValuesBuffer,24,&ModuleData.CommandsToSend.light_D_ON,            Commands.light_D_ON);      
 }
 /**
 * @brief Parsing function decorticating an 8 bytes array into the service's
