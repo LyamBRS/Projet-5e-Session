@@ -139,7 +139,7 @@ void Parse_CanBusReceptions(unsigned char *Buffer)
                             oldReceivedMode = ModuleData.Mode;
                             ModuleData_SetAll_ReceivedCommands(NO_DATA);
                             ModuleData_SetAll_StatesReceived(NO_DATA);
-                            ModuleData_SetAll_StatesReceived(NO_DATA);
+                            ModuleData_SetAll_ValuesReceived(NO_DATA);
                         }
 
                         // Reset counts and slots indentifications
@@ -157,27 +157,59 @@ void Parse_CanBusReceptions(unsigned char *Buffer)
                             case(0x04): ModuleData.CommandsReceived.move_up       = RECEIVED; break;
                             case(0x05): ModuleData.CommandsReceived.move_down     = RECEIVED; break;
 
-                            case(0x06): ModuleData.CommandsReceived.suction_ON    = RECEIVED; break;
-                            case(0x07): ModuleData.CommandsReceived.suction_OFF   = RECEIVED; break;
+                            case(0x06): ModuleData.CommandsReceived.suction_ON    = RECEIVED;
+                                        ModuleData.CommandsReceived.suction_OFF   = NO_DATA; 
+                                        break;
+                            case(0x07): ModuleData.CommandsReceived.suction_OFF   = RECEIVED;
+                                        ModuleData.CommandsReceived.suction_ON    = NO_DATA; 
+                                        break;
 
-                            case(0x08): ModuleData.CommandsReceived.light_A_ON    = RECEIVED; break;
-                            case(0x09): ModuleData.CommandsReceived.light_A_OFF   = RECEIVED; break;
-                            case(0x0A): ModuleData.CommandsReceived.light_B_ON    = RECEIVED; break;
-                            case(0x0B): ModuleData.CommandsReceived.light_B_OFF   = RECEIVED; break;
-                            case(0x0C): ModuleData.CommandsReceived.light_C_ON    = RECEIVED; break;
-                            case(0x0D): ModuleData.CommandsReceived.light_C_OFF   = RECEIVED; break;
-                            case(0x0E): ModuleData.CommandsReceived.light_D_ON    = RECEIVED; break;
-                            case(0x0F): ModuleData.CommandsReceived.light_D_OFF   = RECEIVED; break;
+                            case(0x08): ModuleData.CommandsReceived.light_A_ON    = RECEIVED;
+                                        ModuleData.CommandsReceived.light_A_OFF   = NO_DATA;
+                                        break;
+                            case(0x09): ModuleData.CommandsReceived.light_A_OFF   = RECEIVED;
+                                        ModuleData.CommandsReceived.light_A_ON    = NO_DATA;
+                                        break;
 
-                            case(0x10): ModuleData.CommandsReceived.goto_SortingStation = RECEIVED; break;
-                            case(0x11): ModuleData.CommandsReceived.goto_WeightStation  = RECEIVED; break;
+                            case(0x0A): ModuleData.CommandsReceived.light_B_ON    = RECEIVED;
+                                        ModuleData.CommandsReceived.light_B_OFF   = NO_DATA;
+                                        break;
+                            case(0x0B): ModuleData.CommandsReceived.light_B_OFF   = RECEIVED;
+                                        ModuleData.CommandsReceived.light_B_ON    = NO_DATA;
+                                        break;
+
+                            case(0x0C): ModuleData.CommandsReceived.light_C_ON    = RECEIVED;
+                                        ModuleData.CommandsReceived.light_C_OFF   = NO_DATA;
+                                        break;
+                            case(0x0D): ModuleData.CommandsReceived.light_C_OFF   = RECEIVED;
+                                        ModuleData.CommandsReceived.light_C_ON    = NO_DATA;
+                                        break;
+
+                            case(0x0E): ModuleData.CommandsReceived.light_D_ON    = RECEIVED;
+                                        ModuleData.CommandsReceived.light_D_OFF   = NO_DATA;
+                                        break;
+                            case(0x0F): ModuleData.CommandsReceived.light_D_OFF   = RECEIVED;
+                                        ModuleData.CommandsReceived.light_D_ON    = NO_DATA;
+                                        break;
+
+                            case(0x10): ModuleData.CommandsReceived.goto_SortingStation = RECEIVED;
+                                        ModuleData.CommandsReceived.goto_WeightStation  = NO_DATA;
+                                        break;
+                            case(0x11): ModuleData.CommandsReceived.goto_WeightStation  = RECEIVED;
+                                        ModuleData.CommandsReceived.goto_SortingStation = NO_DATA;
+                                        break;
 
                             case(0x12): ModuleData.CommandsReceived.start_Sorting       = RECEIVED; break;
                             case(0x13): ModuleData.CommandsReceived.start_Weighting     = RECEIVED; break;
 
                             case(0x14): ModuleData.CommandsReceived.discharge           = RECEIVED; break;
-                            case(0x16): ModuleData.CommandsReceived.units_Metric        = RECEIVED; break;
-                            case(0x17): ModuleData.CommandsReceived.units_Imperial      = RECEIVED; break;
+
+                            case(0x16): ModuleData.CommandsReceived.units_Metric        = RECEIVED;
+                                        ModuleData.CommandsReceived.units_Imperial      = NO_DATA;  
+                                        break;
+                            case(0x17): ModuleData.CommandsReceived.units_Imperial      = RECEIVED;
+                                        ModuleData.CommandsReceived.units_Metric        = NO_DATA;  
+                                        break;
                             default:
                                         //If received mode matched nothing, an error occured.
                                         ModuleData.State = States.error;
@@ -437,6 +469,9 @@ void ModuleData_SetAll_StatesReceived(unsigned char ValueAppliedToAll)
     CheckIfUnused(&ModuleData.StatesReceived.waitingToWeight,ValueAppliedToAll);
     CheckIfUnused(&ModuleData.StatesReceived.finishedWeighting,ValueAppliedToAll);
     CheckIfUnused(&ModuleData.StatesReceived.empty,ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.StatesReceived.processing,ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.StatesReceived.paused,ValueAppliedToAll);
+    CheckIfUnused(&ModuleData.StatesReceived.emergencyStop,ValueAppliedToAll);
 }
 /**
 * @brief Function periodically called via the time base's interruptions. It is
@@ -476,7 +511,7 @@ void ServiceCommunication_RXParsingHandler(void)
 */
 void ServiceCommunication_TXParsingHandler(void)
 {
-    Count_Interrupts();
+
 }
 /**
 * @brief Function called which initialises all the structures necessary. it is
@@ -572,11 +607,7 @@ void ServiceCommunication_initialise(void)
 }
 //-----------------------------------------------------------------------------
 #pragma endregion PUBLIC_FUNCTIONS_CODE
-
-
-
-
-
+/*
 int main(void)
 {
     printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n SUS");
@@ -587,8 +618,9 @@ int main(void)
 
     while(1)
     {
-        print("Bruh");
+        printf("Bruh");
     }
 
     return 0;
 }
+*/

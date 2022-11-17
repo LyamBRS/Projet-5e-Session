@@ -104,7 +104,7 @@ extern unsigned char serviceCommunication_ErrorState;
  * @brief Tells the program that you parsed the \ref RECEIVED command in 
  * \ref stModuleData
  */
-#define PARSED 0xAA
+#define PARSED 0xCC
 /**
  * @brief Tells you that no requests have been received for this specific
  * command. If there was a request, the command would be equal to \ref RECEIVED.
