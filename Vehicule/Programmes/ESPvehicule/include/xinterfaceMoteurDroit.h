@@ -29,7 +29,8 @@
 //pas de definitions publiques
 
 //Fonctions publiques:
-
+void interfaceMoteurDroit_Avance(unsigned char value);
+void interfaceMoteurDroit_Recule(unsigned char value);
 void interfaceMoteurDroit_initialise(void);
 
 //Variables publiques:

@@ -47,7 +47,7 @@ void processusClignotant_attendAvantDAllumerLeTemoinLumineux(void)
     return;
   }
   interfaceT1_allume();
-
+  interfaceMoteurBenne_eteint();
   processusClignotant_compteur = 0;
   serviceBaseDeTemps_execute[PROCESSUSCLIGNOTANT_PHASE] = processusClignotant_attendAvantDEteindreLeTemoinLumineux;
 }

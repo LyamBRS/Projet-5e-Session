@@ -31,8 +31,8 @@
 // pas de definitions publiques
 
 //Fonctions publiques:
-void piloteMoteurBenne_metAUn(void);
-void piloteMoteurBenne_metAZero(void);
+void piloteMoteurBenne_Allume(void);
+void piloteMoteurBenne_Eteint(void);
 void piloteMoteurBenne_metA(unsigned char Niveau);
 void piloteMoteurBenne_initialise(void);
 

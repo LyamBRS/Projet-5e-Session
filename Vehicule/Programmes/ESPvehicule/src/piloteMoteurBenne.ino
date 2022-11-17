@@ -33,32 +33,25 @@
 //pas de variables publiques
 
 //Definitions de fonctions publiques:
-void piloteMoteurBenne_metAUn(void)
+void piloteMoteurBenne_Allume(void)
 {
-  digitalWrite(PILOTEMOTEURBENNE_BROCHE, HIGH);
+  digitalWrite(PILOTEMOTEURBENNEHAUT_BROCHE, HIGH);
+  digitalWrite(PILOTEMOTEURBENNEBAS_BROCHE, LOW);
 }
 
-void piloteMoteurBenne_metAZero(void)
+void piloteMoteurBenne_Eteint(void)
 {
-  digitalWrite(PILOTEMOTEURBENNE_BROCHE, LOW);
-}
-
-void piloteMoteurBenne_metA(unsigned char Niveau)
-{
-  digitalWrite(PILOTEMOTEURBENNE_BROCHE, Niveau);
+  digitalWrite(PILOTEMOTEURBENNEHAUT_BROCHE, LOW);
+  digitalWrite(PILOTEMOTEURBENNEBAS_BROCHE, LOW);
 }
 
 void piloteMoteurBenne_initialise(void)
 {
-  pinMode(PILOTEMOTEURBENNE_BROCHE,OUTPUT);
+  pinMode(PILOTEMOTEURBENNEHAUT_BROCHE,OUTPUT);
+  pinMode(PILOTEMOTEURBENNEBAS_BROCHE,OUTPUT);
+	digitalWrite(PILOTEMOTEURBENNEHAUT_BROCHE,LOW);
+  digitalWrite(PILOTEMOTEURBENNEBAS_BROCHE,LOW);
 
-#ifdef PILOTEMOTEURBENNE_ETAT_INITIAL_A_UN
-	digitalWrite(PILOTEMOTEURBENNE_BROCHE,HIGH);	
-#endif
-
-#ifdef PILOTEMOTEURBENNE_ETAT_INITIAL_A_ZERO
-	digitalWrite(PILOTEMOTEURBENNE_BROCHE,LOW);
-#endif
 }
 
 

@@ -23,10 +23,6 @@
 #include "xpiloteIOFeuArriereG.h"
 #include "xpiloteIOFeuAvantD.h"
 #include "xpiloteIOFeuAvantG.h"
-#include "xpilotePWMDroitHaut.h"
-#include "xpilotePWMDroitBas.h"
-#include "xpilotePWMGaucheHaut.h"
-#include "xpilotePWMGaucheBas.h"
 #include "xpiloteEntree1.h"
 #include "xpiloteIOT1.h"
 #include "xpiloteI2C1.h"
@@ -39,6 +35,7 @@
 #include "xinterfaceEntree1.h"
 #include "xinterfaceT1.h"
 #include "xinterfaceMoteurBenne.h"
+#include "xinterfaceMoteurDroit.h"
 
 // Include des processus
 #include "xprocessusClignotant.h"
@@ -72,17 +69,16 @@ void main_initialise(void)
   piloteEntree1_initialise();
   piloteIOT1_initialise(); 
   piloteI2C1_initialise();
+
   serviceTaskServer_initialise();
   serviceBaseDeTemps_initialise();
+
   interfaceEntree1_initialise();
   interfaceT1_initialise();
-  processusClignotant_initialise();
-
-  pilotePWMDroitBas_initialise();
-  pilotePWMDroitHaut_initialise();
-  pilotePWMGaucheBas_initialise();
-  pilotePWMGaucheHaut_initialise();
+  interfaceMoteurDroit_initialise();
   interfaceMoteurBenne_initialise();
+
+  processusClignotant_initialise();
 }
 
 void setup(void) 
@@ -92,10 +88,8 @@ void setup(void)
   main_faitUnTest();
 
 // Parti pour tester les pilote PWM
-  //pilotePWMDroitBas_setPWM(250);
-  //pilotePWMDroitHaut_setPWM(250);
-  //pilotePWMGaucheBas_setPWM(250);
-  //pilotePWMGaucheHaut_setPWM(250);
+  //interfaceMoteurDroit_Avance(240);
+  interfaceMoteurBenne_allume();
   
   serviceTaskServer_DemarreLesTachesALaTouteFinDeSetup();
 }
