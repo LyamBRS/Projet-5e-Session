@@ -649,7 +649,14 @@ typedef struct
      * by default. If not set to \ref UNUSED, it will be sent each available
      * CAN slots.
      */
-    unsigned char Weight;
+    unsigned char WeightToSend;
+    /**
+     * @brief Value from 0 to 254 either in KG or in Lbs. Set to \ref NO_DATA
+     * by default. It will keep the last received weight in store until a new
+     * Weight was received from an other module.
+     */
+    unsigned char ReceivedWeight;
+
 }stModuleData;
 //#############################################################################
 #pragma region MODULE_EXTERNS

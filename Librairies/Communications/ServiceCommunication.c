@@ -92,7 +92,7 @@ unsigned char currentSlot = 0;
 * sent later.
 * @author Lyam / Shawn Couture
 * @date 14/11/2022
-* @param Buffer Pointer pointing the address of an 8 bytes unsigned char array.
+* @param Buffer Pointer pointing the address of the CAN TX 8 bytes unsigned char array.
 */
 void Parse_CanBusTransmission(unsigned char *Buffer)
 {
@@ -103,7 +103,7 @@ void Parse_CanBusTransmission(unsigned char *Buffer)
 * structures.
 * @author Lyam / Shawn Couture
 * @date 14/11/2022
-* @param Buffer Pointer pointing the address of an 8 bytes unsigned char array.
+* @param Buffer Pointer pointing the address of a CAN RX 8 bytes unsigned char array.
 */
 void Parse_CanBusReceptions(unsigned char *Buffer)
 {
@@ -306,6 +306,9 @@ void Parse_CanBusReceptions(unsigned char *Buffer)
                                         serviceCommunication_ErrorState = ERROR_RX_STATE_DOESNT_EXIST;
                             break;                  
                         }
+            break;
+            case('W'):  // A weight was received.
+                        ModuleData.ReceivedWeight = Buffer[i+1];
             break;
         }
     }
@@ -595,7 +598,10 @@ void ServiceCommunication_initialise(void)
 
     // Keep set to unused or the program will constantly send Weight data on
     // the CAN bus.
-    ModuleData.Weight = UNUSED;
+    ModuleData.WeightToSend = UNUSED;
+
+    // If equal to NO_DATA, no weights were received from the module.
+    ModuleData.ReceivedWeight = NO_DATA;
 
     // The initial state of modules is "waiting" as they are "waiting" for
     // Synchronisation detection.
