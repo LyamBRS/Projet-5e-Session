@@ -35,8 +35,8 @@
 //Definitions de fonctions publiques:
 void piloteMoteurBenne_Allume(void)
 {
-  digitalWrite(PILOTEMOTEURBENNEHAUT_BROCHE, HIGH);
-  digitalWrite(PILOTEMOTEURBENNEBAS_BROCHE, LOW);
+  digitalWrite(PILOTEMOTEURBENNEHAUT_BROCHE, LOW);
+  digitalWrite(PILOTEMOTEURBENNEBAS_BROCHE, HIGH);
 }
 
 void piloteMoteurBenne_Eteint(void)

@@ -26,6 +26,7 @@
 #include "xpiloteEntree1.h"
 #include "xpiloteIOT1.h"
 #include "xpiloteI2C1.h"
+#include "piloteUDP.h"
 
 // Include des interfaces
 #include "xserviceTaskServer.h"
@@ -69,6 +70,7 @@ void main_initialise(void)
   piloteEntree1_initialise();
   piloteIOT1_initialise(); 
   piloteI2C1_initialise();
+  piloteUDP_initialise();
 
   serviceTaskServer_initialise();
   serviceBaseDeTemps_initialise();
@@ -89,7 +91,6 @@ void setup(void)
 
 // Parti pour tester les pilote PWM
   //interfaceMoteurDroit_Avance(240);
-  interfaceMoteurBenne_allume();
   
   serviceTaskServer_DemarreLesTachesALaTouteFinDeSetup();
 }
