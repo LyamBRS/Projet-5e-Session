@@ -108,6 +108,19 @@ unsigned char CircularValuesBuffer[10];
 #pragma region PRIVATE_FUNCTIONS
 //-----------------------------------------------------------------------------
 /**
+* @brief Function setting all values in an array to the same input value.
+* @author Lyam / Shawn Couture
+* @date 18/11/2022
+* @param Buffer Pointer pointing the address of the buffer to set.
+* @param sizeOfBuffer How big is the buffer referenced.
+* @param ValueAppliedToAll What value should the buffer have.
+*/
+void Utils_SetAll_Buffer(unsigned char *Buffer, unsigned char sizeOfBuffer, unsigned char ValueAppliedToAll)
+{
+    for(int i=0; i<sizeOfBuffer; ++i) {Buffer[i] = ValueAppliedToAll;}
+}
+
+/**
 * @brief Function compressing data downwards in a buffer. It slides data downwards
 * by 1 index if the one below the data is equal to 0xFF.
 * @author Lyam / Shawn Couture
@@ -198,7 +211,7 @@ void TX_PutValueQueueInBuffer(unsigned char* Buffer)
                 //If data at the index location isn't equal to 0xFF, it gets placed in the CAN tram to be sent.
                 if(CircularValuesBuffer[QueueIndex] != UNUSED)
                 {
-                    Buffer[i] = 'V';
+                    Buffer[i] = CHAR_VALUE;
                     Buffer[i+1] = CircularValuesBuffer[QueueIndex];
 
                     switch(CircularValuesBuffer[QueueIndex])
@@ -220,67 +233,170 @@ void TX_PutValueQueueInBuffer(unsigned char* Buffer)
         }
     }
 }
-
 /**
-* @brief Parsing function decorticating structures into 8 bytes CAN data to be
-* sent later.
+* @brief Takes \ref CircularCommandsBuffer and parses it into the CAN transmission
+* buffer. It checks for the first \ref AVAILABLE slots in the latter and puts the
+* first element \ref IN_QUEUE at that index. Each elements added to the Buffer
+* is automatically set back to \ref AVAILABLE to be ready for the next placement
+* in \ref CircularCommandsBuffer.\n
+* This function is bypassed internally if \ref CircularCommandsBuffer first
+* element is empty. (Meaning no commands are \ref IN_QUEUE for transmission).
+* @author Lyam / Shawn Couture
+* @date 18/11/2022
+* @param Buffer Pointer to the CAN transmission buffer.
+*/
+void TX_PutCommandQueueInBuffer(unsigned char* Buffer)
+{
+    //############################################ LOCAL VARS
+    unsigned char QueueIndex = 23;
+    //############################################
+
+    //Doesn't bother doing anything if there is no values in the queue buffer
+    if(CircularCommandsBuffer[QueueIndex] != UNUSED)
+    {
+        for(int i=0; i<8;i+=2)
+        {
+            //check if Command slot is AVAILABLE
+            if(Buffer[i] == AVAILABLE)
+            {
+                //If data at the index location isn't equal to 0xFF, it gets placed in the CAN tram to be sent.
+                if(CircularCommandsBuffer[QueueIndex] != UNUSED)
+                {
+                    Buffer[i] = CHAR_COMMAND;
+                    Buffer[i+1] = CircularCommandsBuffer[QueueIndex];
+
+                    switch(CircularCommandsBuffer[QueueIndex])
+                    {
+                        case(0x00): ModuleData.CommandsToSend.move_left            = AVAILABLE; break;
+                        case(0x01): ModuleData.CommandsToSend.move_right           = AVAILABLE; break;
+                        case(0x02): ModuleData.CommandsToSend.move_forward         = AVAILABLE; break;
+                        case(0x03): ModuleData.CommandsToSend.move_backward        = AVAILABLE; break;
+                        case(0x04): ModuleData.CommandsToSend.move_up              = AVAILABLE; break;
+                        case(0x05): ModuleData.CommandsToSend.move_down            = AVAILABLE; break;
+                        case(0x06): ModuleData.CommandsToSend.suction_ON           = AVAILABLE; break;
+                        case(0x07): ModuleData.CommandsToSend.suction_OFF          = AVAILABLE; break;
+                        case(0x08): ModuleData.CommandsToSend.light_A_ON           = AVAILABLE; break;
+                        case(0x09): ModuleData.CommandsToSend.light_A_OFF          = AVAILABLE; break;
+                        case(0x0A): ModuleData.CommandsToSend.light_B_ON           = AVAILABLE; break;
+                        case(0x0B): ModuleData.CommandsToSend.light_B_OFF          = AVAILABLE; break;
+                        case(0x0C): ModuleData.CommandsToSend.light_C_ON           = AVAILABLE; break;
+                        case(0x0D): ModuleData.CommandsToSend.light_C_OFF          = AVAILABLE; break;
+                        case(0x0E): ModuleData.CommandsToSend.light_D_ON           = AVAILABLE; break;
+                        case(0x0F): ModuleData.CommandsToSend.light_D_OFF          = AVAILABLE; break;
+                        case(0x10): ModuleData.CommandsToSend.goto_SortingStation  = AVAILABLE; break;
+                        case(0x11): ModuleData.CommandsToSend.goto_WeightStation   = AVAILABLE; break;
+                        case(0x12): ModuleData.CommandsToSend.start_Sorting        = AVAILABLE; break;
+                        case(0x13): ModuleData.CommandsToSend.start_Weighting      = AVAILABLE; break;
+                        case(0x14): ModuleData.CommandsToSend.discharge            = AVAILABLE; break;
+                        //case(0x15): ModuleData.CommandsToSend.RESERVED           = AVAILABLE; break;
+                        case(0x16): ModuleData.CommandsToSend.units_Metric         = AVAILABLE; break;
+                        case(0x17): ModuleData.CommandsToSend.units_Imperial       = AVAILABLE; break;
+                    }
+                    CircularCommandsBuffer[QueueIndex] = UNUSED;
+                    QueueIndex--;
+                }
+            }
+        }
+    }
+}
+/**
+* @brief Function compressing data downwards in a buffer. It slides data downwards
+* by 1 index if the one below the data is equal to 0xFF.
+* @author Lyam / Shawn Couture
+* @date 18/11/2022
+* @param Buffer Pointer to the address of \ref MODULE_CAN_TX
+*/
+void TX_BuildCANBuffer(unsigned char* Buffer)
+{
+    //Reset of buffer's data.
+    Utils_SetAll_Buffer(Buffer,8,AVAILABLE);
+
+    //Put module state in the buffer
+    Buffer[6] = CHAR_STATE;
+    Buffer[7] = ModuleData.State;
+
+    //Put weight in buffer.
+    if(ModuleData.WeightToSend != UNUSED)
+    {
+        Buffer[4] = CHAR_WEIGHT;
+        Buffer[5] =  ModuleData.WeightToSend;
+    }
+
+    //Put QUEUE in buffer
+    TX_PutValueQueueInBuffer(Buffer);
+    TX_PutCommandQueueInBuffer(Buffer);
+}
+/**
+* @brief Function putting \ref IN_QUEUE datas from \ref stModuleData whenever
+* it is called.
 * @author Lyam / Shawn Couture
 * @date 14/11/2022
-* @param Buffer Pointer pointing the address of the CAN TX 8 bytes unsigned char array.
+* @param void
 */
-void Parse_CanBusTransmission(unsigned char *Buffer)
+void Parse_ModuleDataForTransmission(void)
 {
     //############################################ LOCAL VARS
     static unsigned char oldReceivedMode;
     //############################################
-    // Reset of buffer values
-    for(int i=0;i<8;++i) {Buffer[i] = AVAILABLE;}
 
     // Updating circular buffers
     CB_UpdateBuffer(CircularCommandsBuffer,24);
-    CB_UpdateBuffer(CircularValuesBuffer,24);
+    CB_UpdateBuffer(CircularValuesBuffer,10);
 
-    // Putting Module State in referenced buffer
-    Buffer[6] = 'S';
-    Buffer[7] = ModuleData.State;
-
-    // Weight parsing
-    if(ModuleData.WeightToSend != UNUSED)
-    {
-        Buffer[4] = 'W';
-        Buffer[5] = ModuleData.WeightToSend;    
-    }
-
-    // Check for values and add them to their buffers if equal to QUEUE
+    // Check for values equal to QUEUE and add them to a circular buffer.
+    // To optimise the code, put unused commands in comments.
+    #pragma region VALUE_TX
+    // Disc color specific values
     CB_QueueDataInBuffer(CircularValuesBuffer,10,&ModuleData.ValuesToSend.disc_Black,              Values.disc_Black);
     CB_QueueDataInBuffer(CircularValuesBuffer,10,&ModuleData.ValuesToSend.disc_Red,                Values.disc_Red);
     CB_QueueDataInBuffer(CircularValuesBuffer,10,&ModuleData.ValuesToSend.disc_Silver,             Values.disc_Silver);
     CB_QueueDataInBuffer(CircularValuesBuffer,10,&ModuleData.ValuesToSend.disc_NoColor,            Values.disc_NoColor);
+    // Colorless disc detection specific values
     CB_QueueDataInBuffer(CircularValuesBuffer,10,&ModuleData.ValuesToSend.disc_Detected,           Values.disc_Detected);
     CB_QueueDataInBuffer(CircularValuesBuffer,10,&ModuleData.ValuesToSend.disc_Lost,               Values.disc_Lost);
     CB_QueueDataInBuffer(CircularValuesBuffer,10,&ModuleData.ValuesToSend.disc_CouldNotBeFound,    Values.disc_CouldNotBeFound);
+    // Balance specific units used values.
     CB_QueueDataInBuffer(CircularValuesBuffer,10,&ModuleData.ValuesToSend.unit_Imperial,           Values.unit_Imperial);
     CB_QueueDataInBuffer(CircularValuesBuffer,10,&ModuleData.ValuesToSend.unit_Metric,             Values.unit_Metric);
+    #pragma endregion VALUE_TX
 
-    // Prepare values to be sent on can bus
-    TX_PutValueQueueInBuffer(Buffer);
-
-    CB_QueueDataInBuffer(CircularValuesBuffer,24,&ModuleData.CommandsToSend.discharge,             Commands.discharge);
-    CB_QueueDataInBuffer(CircularValuesBuffer,24,&ModuleData.CommandsToSend.goto_SortingStation,   Commands.goto_SortingStation);
-    CB_QueueDataInBuffer(CircularValuesBuffer,24,&ModuleData.CommandsToSend.goto_WeightStation,    Commands.goto_WeightStation);
-    CB_QueueDataInBuffer(CircularValuesBuffer,24,&ModuleData.CommandsToSend.light_A_OFF,           Commands.light_A_OFF);
-    CB_QueueDataInBuffer(CircularValuesBuffer,24,&ModuleData.CommandsToSend.light_A_ON,            Commands.light_A_ON);
-    CB_QueueDataInBuffer(CircularValuesBuffer,24,&ModuleData.CommandsToSend.light_B_OFF,           Commands.light_B_OFF);
-    CB_QueueDataInBuffer(CircularValuesBuffer,24,&ModuleData.CommandsToSend.light_B_ON,            Commands.light_B_ON);
-    CB_QueueDataInBuffer(CircularValuesBuffer,24,&ModuleData.CommandsToSend.light_C_OFF,           Commands.light_C_OFF);
-    CB_QueueDataInBuffer(CircularValuesBuffer,24,&ModuleData.CommandsToSend.light_C_ON,            Commands.light_C_ON);
-    CB_QueueDataInBuffer(CircularValuesBuffer,24,&ModuleData.CommandsToSend.light_D_OFF,           Commands.light_D_OFF);
-    CB_QueueDataInBuffer(CircularValuesBuffer,24,&ModuleData.CommandsToSend.light_D_ON,            Commands.light_D_ON);
-    CB_QueueDataInBuffer(CircularValuesBuffer,24,&ModuleData.CommandsToSend.light_D_ON,            Commands.light_D_ON);      
+    #pragma region COMMANDS_TX
+    // Vehicle specific commands 
+    // To optimise the code, put unused commands in comments.
+    CB_QueueDataInBuffer(CircularCommandsBuffer,24,&ModuleData.CommandsToSend.goto_SortingStation,   Commands.goto_SortingStation);
+    CB_QueueDataInBuffer(CircularCommandsBuffer,24,&ModuleData.CommandsToSend.goto_WeightStation,    Commands.goto_WeightStation);
+    CB_QueueDataInBuffer(CircularCommandsBuffer,24,&ModuleData.CommandsToSend.discharge,             Commands.discharge);
+    // Lights generic commands
+    CB_QueueDataInBuffer(CircularCommandsBuffer,24,&ModuleData.CommandsToSend.light_A_OFF,           Commands.light_A_OFF);
+    CB_QueueDataInBuffer(CircularCommandsBuffer,24,&ModuleData.CommandsToSend.light_A_ON,            Commands.light_A_ON);
+    CB_QueueDataInBuffer(CircularCommandsBuffer,24,&ModuleData.CommandsToSend.light_B_OFF,           Commands.light_B_OFF);
+    CB_QueueDataInBuffer(CircularCommandsBuffer,24,&ModuleData.CommandsToSend.light_B_ON,            Commands.light_B_ON);
+    CB_QueueDataInBuffer(CircularCommandsBuffer,24,&ModuleData.CommandsToSend.light_C_OFF,           Commands.light_C_OFF);
+    CB_QueueDataInBuffer(CircularCommandsBuffer,24,&ModuleData.CommandsToSend.light_C_ON,            Commands.light_C_ON);
+    CB_QueueDataInBuffer(CircularCommandsBuffer,24,&ModuleData.CommandsToSend.light_D_OFF,           Commands.light_D_OFF);
+    CB_QueueDataInBuffer(CircularCommandsBuffer,24,&ModuleData.CommandsToSend.light_D_ON,            Commands.light_D_ON);
+    CB_QueueDataInBuffer(CircularCommandsBuffer,24,&ModuleData.CommandsToSend.light_D_ON,            Commands.light_D_ON);
+    // Movement generic commands
+    CB_QueueDataInBuffer(CircularCommandsBuffer,24,&ModuleData.CommandsToSend.move_left,             Commands.move_left);
+    CB_QueueDataInBuffer(CircularCommandsBuffer,24,&ModuleData.CommandsToSend.move_right,            Commands.move_right); 
+    CB_QueueDataInBuffer(CircularCommandsBuffer,24,&ModuleData.CommandsToSend.move_forward,          Commands.move_forward); 
+    CB_QueueDataInBuffer(CircularCommandsBuffer,24,&ModuleData.CommandsToSend.move_backward,         Commands.move_backward); 
+    CB_QueueDataInBuffer(CircularCommandsBuffer,24,&ModuleData.CommandsToSend.move_up,               Commands.move_up); 
+    CB_QueueDataInBuffer(CircularCommandsBuffer,24,&ModuleData.CommandsToSend.move_down,             Commands.move_down);
+    // Pneumatic specific commands
+    CB_QueueDataInBuffer(CircularCommandsBuffer,24,&ModuleData.CommandsToSend.suction_ON,            Commands.suction_ON);
+    CB_QueueDataInBuffer(CircularCommandsBuffer,24,&ModuleData.CommandsToSend.suction_OFF,           Commands.suction_OFF);
+    // Stations specific commands
+    CB_QueueDataInBuffer(CircularCommandsBuffer,24,&ModuleData.CommandsToSend.start_Sorting,         Commands.start_Sorting);
+    CB_QueueDataInBuffer(CircularCommandsBuffer,24,&ModuleData.CommandsToSend.start_Weighting,       Commands.start_Weighting);
+    // Weight specific commands
+    CB_QueueDataInBuffer(CircularCommandsBuffer,24,&ModuleData.CommandsToSend.units_Imperial,        Commands.units_Imperial);
+    CB_QueueDataInBuffer(CircularCommandsBuffer,24,&ModuleData.CommandsToSend.units_Metric,          Commands.units_Metric);
+    #pragma endregion COMMANDS_TX
 }
 /**
 * @brief Parsing function decorticating an 8 bytes array into the service's
-* structures.
+* structures \ref stModuleData
 * @author Lyam / Shawn Couture
 * @date 14/11/2022
 * @param Buffer Pointer pointing the address of a CAN RX 8 bytes unsigned char array.
@@ -294,7 +410,7 @@ void Parse_CanBusReceptions(unsigned char *Buffer)
     {
         switch(Buffer[i])
         {
-            case('M'):
+            case(CHAR_MODE):
                         switch(Buffer[i+1])
                         {
                             // Don't forget you need to set your ModuleData.State yourself.
@@ -311,7 +427,7 @@ void Parse_CanBusReceptions(unsigned char *Buffer)
                                         //If received mode matched nothing, an error occured.
                                         ModuleData.State = States.error;
                                         serviceCommunication_ErrorState = ERROR_RX_MODE_DOESNT_EXIST;
-                            break;                  
+                                        break;                  
                         }
                         // The mode changed from the previous one!
                         if(oldReceivedMode != ModuleData.Mode)
@@ -325,8 +441,9 @@ void Parse_CanBusReceptions(unsigned char *Buffer)
                         // Reset counts and slots indentifications
                         interruptCount = 0;
                         currentSlot = 0;
+                        ModuleData.CantConnect = 0x00;
             break;
-            case('C'):
+            case(CHAR_COMMAND):
                         switch(Buffer[i+1])
                         {
                             // Parsing of received commands in a CAN tram
@@ -394,10 +511,10 @@ void Parse_CanBusReceptions(unsigned char *Buffer)
                                         //If received mode matched nothing, an error occured.
                                         ModuleData.State = States.error;
                                         serviceCommunication_ErrorState = ERROR_RX_COMMAND_DOESNT_EXIST;
-                            break;                  
+                                        break;                  
                         }
             break;
-            case('V'):
+            case(CHAR_VALUE):
                         switch(Buffer[i+1])
                         {
                             // Parsing of received values in a CAN tram
@@ -445,10 +562,10 @@ void Parse_CanBusReceptions(unsigned char *Buffer)
                                         //If received mode matched nothing, an error occured.
                                         ModuleData.State = States.error;
                                         serviceCommunication_ErrorState = ERROR_RX_VALUE_DOESNT_EXIST;
-                            break;                  
+                                        break;                  
                         }
             break;
-            case('S'):
+            case(CHAR_STATE):
                         switch(Buffer[i+1])
                         {
                             // Parsing of received states from the communicating module
@@ -458,7 +575,7 @@ void Parse_CanBusReceptions(unsigned char *Buffer)
                                         {
                                             ModuleData.Mode = Modes.emergencyStop;
                                         }
-                            break;
+                                        break;
                             case(0x01): ModuleData.StatesReceived.paused                      = RECEIVED; break;
                             case(0x02): ModuleData.StatesReceived.testing                     = RECEIVED; break;
                             case(0x03): ModuleData.StatesReceived.processing                  = RECEIVED; break;
@@ -484,10 +601,10 @@ void Parse_CanBusReceptions(unsigned char *Buffer)
                                         //If received mode matched nothing, an error occured.
                                         ModuleData.State = States.error;
                                         serviceCommunication_ErrorState = ERROR_RX_STATE_DOESNT_EXIST;
-                            break;                  
+                                        break;                  
                         }
             break;
-            case('W'):  // A weight was received.
+            case(CHAR_WEIGHT):  // A weight was received.
                         ModuleData.ReceivedWeight = Buffer[i+1];
             break;
         }
@@ -503,7 +620,25 @@ void Parse_CanBusReceptions(unsigned char *Buffer)
 */
 void Parse_Interrupts(void)
 {
-    
+    //Count active interrupts
+    interruptCount++;
+
+    //How long is an interrupt --> how long is a full buffer cycle.
+    float interruptDuration = ((((float)1)/((float)TIME_BASE_FREQUENCY_HZ)) * ((float)1000)) * ((float)TIME_BASE_BUFFER_SIZE);
+
+    //How long we've been running.
+    float timeSinceReset = interruptDuration * ((float)(interruptCount));
+
+    //Current slot.
+    if(ModuleData.CantConnect == 0x00)
+    {
+        currentSlot = ((unsigned char)(timeSinceReset)) / CAN_SLOT_DURATION_MS;
+    }
+
+    if(currentSlot > 10)
+    {
+        ModuleData.CantConnect = 0xFF;
+    }
 }
 /**
 * @brief Private function checking if a variable is equal to \ref UNUSED. If not, it
@@ -523,6 +658,274 @@ void CheckIfUnused(unsigned char *checkedValue, unsigned char wantedNewValue)
 //#############################################################################
 #pragma region PUBLIC_FUNCTIONS_CODE
 //-----------------------------------------------------------------------------
+/**
+* @brief handles the units value sending for you to avoid sending 2 at the time
+* and to automatically remove from QUEUE previous values.
+* @author Lyam / Shawn Couture
+* @date 18/11/2022
+* @param UnitsToPutInValues reference from \ref stValues Can also be \ref UNUSED
+*/
+void ModuleData_SetUnits(unsigned char UnitsToPutInValues)
+{
+    // Prevents sending and optimises the process of QUEUE
+    if(UnitsToPutInValues == UNUSED)
+    {
+        //Remove both from the circular buffer.
+        if(ModuleData.ValuesToSend.unit_Metric == IN_QUEUE || ModuleData.ValuesToSend.unit_Imperial == IN_QUEUE)
+        {
+            for(int i=0; i<10; ++i)
+            {
+                //QUEUE reset.
+                if(CircularValuesBuffer[i] == Values.unit_Metric) {CircularValuesBuffer[i] = UNUSED;}
+                if(CircularValuesBuffer[i] == Values.unit_Imperial) {CircularValuesBuffer[i] = UNUSED;}
+            }
+        }
+        ModuleData.ValuesToSend.unit_Imperial = UNUSED;
+        ModuleData.ValuesToSend.unit_Metric = UNUSED;
+    }
+    ////////////////////////////////////////////////////////////////////////////
+    if(UnitsToPutInValues == Values.unit_Imperial)
+    {
+        if(ModuleData.ValuesToSend.unit_Metric == IN_QUEUE)
+        {
+            for(int i=0; i<10; ++i)
+            {
+                //QUEUE reset.
+                if(CircularValuesBuffer[i] == Values.unit_Metric) {CircularValuesBuffer[i] = UNUSED;}
+            }
+        }
+        // Set Imperial to appropriated value
+        if(ModuleData.ValuesToSend.unit_Imperial != IN_QUEUE)
+        {
+            ModuleData.ValuesToSend.unit_Imperial = QUEUE;
+        }
+        ModuleData.ValuesToSend.unit_Metric = NO_DATA;
+    }
+    ////////////////////////////////////////////////////////////////////////////
+    if(UnitsToPutInValues == Values.unit_Metric)
+    {
+        if(ModuleData.ValuesToSend.unit_Imperial == IN_QUEUE)
+        {
+            for(int i=0; i<10; ++i)
+            {
+                //QUEUE reset.
+                if(CircularValuesBuffer[i] == Values.unit_Imperial) {CircularValuesBuffer[i] = UNUSED;}
+            }
+        }
+        // Set Metric to appropriated value
+        if(ModuleData.ValuesToSend.unit_Metric != IN_QUEUE)
+        {
+            ModuleData.ValuesToSend.unit_Metric = QUEUE;
+        }
+        ModuleData.ValuesToSend.unit_Imperial = NO_DATA;
+    }
+}
+/**
+* @brief handles the disc color value sending for you to avoid sending 2 at the time
+* and to automatically remove from QUEUE previous values.
+* @author Lyam / Shawn Couture
+* @date 18/11/2022
+* @param UnitsToPutInValues reference from \ref stValues Can also be \ref UNUSED
+*/
+void ModuleData_SetDiscColor(unsigned char ColorToPutInValues)
+{
+    // Prevents sending and optimises the process of QUEUE
+    if(ColorToPutInValues == UNUSED)
+    {
+        //Remove both from the circular buffer.
+        if(ModuleData.ValuesToSend.disc_Black == IN_QUEUE || ModuleData.ValuesToSend.disc_Red == IN_QUEUE || ModuleData.ValuesToSend.disc_Silver == IN_QUEUE || ModuleData.ValuesToSend.disc_NoColor == IN_QUEUE)
+        {
+            for(int i=0; i<10; ++i)
+            {
+                //QUEUE reset.
+                if(CircularValuesBuffer[i] == Values.disc_Black) {CircularValuesBuffer[i] = UNUSED;}
+                if(CircularValuesBuffer[i] == Values.disc_Red) {CircularValuesBuffer[i] = UNUSED;}
+                if(CircularValuesBuffer[i] == Values.disc_Silver) {CircularValuesBuffer[i] = UNUSED;}
+                if(CircularValuesBuffer[i] == Values.disc_NoColor) {CircularValuesBuffer[i] = UNUSED;}
+            }
+        }
+        ModuleData.ValuesToSend.disc_Black = UNUSED;
+        ModuleData.ValuesToSend.disc_Red = UNUSED;
+        ModuleData.ValuesToSend.disc_Silver = UNUSED;
+        ModuleData.ValuesToSend.disc_NoColor = UNUSED;
+    }
+    //////////////////////////////////////////////////////////////////////////// RED DISC
+    if(ColorToPutInValues == Values.disc_Red)
+    {
+        if(ModuleData.ValuesToSend.disc_Black == IN_QUEUE || ModuleData.ValuesToSend.disc_Silver == IN_QUEUE || ModuleData.ValuesToSend.disc_NoColor == IN_QUEUE)
+        {
+            for(int i=0; i<10; ++i)
+            {
+                //QUEUE reset.
+                if(CircularValuesBuffer[i] == Values.disc_Black) {CircularValuesBuffer[i] = UNUSED;}
+                if(CircularValuesBuffer[i] == Values.disc_Silver) {CircularValuesBuffer[i] = UNUSED;}
+                if(CircularValuesBuffer[i] == Values.disc_NoColor) {CircularValuesBuffer[i] = UNUSED;}
+            }
+        }
+        // Set Imperial to appropriated value
+        if(ModuleData.ValuesToSend.disc_Red != IN_QUEUE)
+        {
+            ModuleData.ValuesToSend.disc_Red = QUEUE;
+        }
+        ModuleData.ValuesToSend.disc_Black = NO_DATA;
+        ModuleData.ValuesToSend.disc_Silver = NO_DATA;
+        ModuleData.ValuesToSend.disc_NoColor = NO_DATA;
+    }
+    //////////////////////////////////////////////////////////////////////////// BLACK DISC
+    if(ColorToPutInValues == Values.disc_Black)
+    {
+        if(ModuleData.ValuesToSend.disc_Red == IN_QUEUE || ModuleData.ValuesToSend.disc_Silver == IN_QUEUE || ModuleData.ValuesToSend.disc_NoColor == IN_QUEUE)
+        {
+            for(int i=0; i<10; ++i)
+            {
+                //QUEUE reset.
+                if(CircularValuesBuffer[i] == Values.disc_Red) {CircularValuesBuffer[i] = UNUSED;}
+                if(CircularValuesBuffer[i] == Values.disc_Silver) {CircularValuesBuffer[i] = UNUSED;}
+                if(CircularValuesBuffer[i] == Values.disc_NoColor) {CircularValuesBuffer[i] = UNUSED;}
+            }
+        }
+        // Set Imperial to appropriated value
+        if(ModuleData.ValuesToSend.disc_Black != IN_QUEUE)
+        {
+            ModuleData.ValuesToSend.disc_Black = QUEUE;
+        }
+        ModuleData.ValuesToSend.disc_Red = NO_DATA;
+        ModuleData.ValuesToSend.disc_Silver = NO_DATA;
+        ModuleData.ValuesToSend.disc_NoColor = NO_DATA;
+    }
+    //////////////////////////////////////////////////////////////////////////// SILVER DISC
+    if(ColorToPutInValues == Values.disc_Silver)
+    {
+        if(ModuleData.ValuesToSend.disc_Red == IN_QUEUE || ModuleData.ValuesToSend.disc_Black == IN_QUEUE || ModuleData.ValuesToSend.disc_NoColor == IN_QUEUE)
+        {
+            for(int i=0; i<10; ++i)
+            {
+                //QUEUE reset.
+                if(CircularValuesBuffer[i] == Values.disc_Red) {CircularValuesBuffer[i] = UNUSED;}
+                if(CircularValuesBuffer[i] == Values.disc_Black) {CircularValuesBuffer[i] = UNUSED;}
+                if(CircularValuesBuffer[i] == Values.disc_NoColor) {CircularValuesBuffer[i] = UNUSED;}
+            }
+        }
+        // Set Imperial to appropriated value
+        if(ModuleData.ValuesToSend.disc_Silver != IN_QUEUE)
+        {
+            ModuleData.ValuesToSend.disc_Silver = QUEUE;
+        }
+        ModuleData.ValuesToSend.disc_Red = NO_DATA;
+        ModuleData.ValuesToSend.disc_Black = NO_DATA;
+        ModuleData.ValuesToSend.disc_NoColor = NO_DATA;
+    }
+    //////////////////////////////////////////////////////////////////////////// NO COLOR DISC
+    if(ColorToPutInValues == Values.disc_NoColor)
+    {
+        if(ModuleData.ValuesToSend.disc_Red == IN_QUEUE || ModuleData.ValuesToSend.disc_Black == IN_QUEUE || ModuleData.ValuesToSend.disc_Silver == IN_QUEUE)
+        {
+            for(int i=0; i<10; ++i)
+            {
+                //QUEUE reset.
+                if(CircularValuesBuffer[i] == Values.disc_Red) {CircularValuesBuffer[i] = UNUSED;}
+                if(CircularValuesBuffer[i] == Values.disc_Black) {CircularValuesBuffer[i] = UNUSED;}
+                if(CircularValuesBuffer[i] == Values.disc_Silver) {CircularValuesBuffer[i] = UNUSED;}
+            }
+        }
+        // Set Imperial to appropriated value
+        if(ModuleData.ValuesToSend.disc_NoColor != IN_QUEUE)
+        {
+            ModuleData.ValuesToSend.disc_NoColor = QUEUE;
+        }
+        ModuleData.ValuesToSend.disc_Red = NO_DATA;
+        ModuleData.ValuesToSend.disc_Black = NO_DATA;
+        ModuleData.ValuesToSend.disc_NoColor = NO_DATA;
+    }
+}
+/**
+* @brief handles the disc detection value sending for you to avoid sending 2 at the time
+* and to automatically remove from QUEUE previous values.
+* @author Lyam / Shawn Couture
+* @date 18/11/2022
+* @param DetectionToPutInValues reference from \ref stValues Can also be \ref UNUSED
+*/
+void ModuleData_SetDiscDetection(unsigned char DetectionToPutInValues)
+{
+    // Prevents sending and optimises the process of QUEUE
+    if(DetectionToPutInValues == UNUSED)
+    {
+        //Remove both from the circular buffer.
+        if(ModuleData.ValuesToSend.disc_Detected == IN_QUEUE || ModuleData.ValuesToSend.disc_Lost == IN_QUEUE || ModuleData.ValuesToSend.disc_CouldNotBeFound == IN_QUEUE)
+        {
+            for(int i=0; i<10; ++i)
+            {
+                //QUEUE reset.
+                if(CircularValuesBuffer[i] == Values.disc_Detected) {CircularValuesBuffer[i] = UNUSED;}
+                if(CircularValuesBuffer[i] == Values.disc_Lost) {CircularValuesBuffer[i] = UNUSED;}
+                if(CircularValuesBuffer[i] == Values.disc_CouldNotBeFound) {CircularValuesBuffer[i] = UNUSED;}
+            }
+        }
+        ModuleData.ValuesToSend.disc_Detected = UNUSED;
+        ModuleData.ValuesToSend.disc_Lost = UNUSED;
+        ModuleData.ValuesToSend.disc_CouldNotBeFound = UNUSED;
+    }
+    //////////////////////////////////////////////////////////////////////////// DETECTED DISC
+    if(DetectionToPutInValues == Values.disc_Detected)
+    {
+        if(ModuleData.ValuesToSend.disc_Lost == IN_QUEUE || ModuleData.ValuesToSend.disc_CouldNotBeFound == IN_QUEUE)
+        {
+            for(int i=0; i<10; ++i)
+            {
+                //QUEUE reset.
+                if(CircularValuesBuffer[i] == Values.disc_Lost) {CircularValuesBuffer[i] = UNUSED;}
+                if(CircularValuesBuffer[i] == Values.disc_CouldNotBeFound) {CircularValuesBuffer[i] = UNUSED;}
+            }
+        }
+        // Set Imperial to appropriated value
+        if(ModuleData.ValuesToSend.disc_Detected != IN_QUEUE)
+        {
+            ModuleData.ValuesToSend.disc_Detected = QUEUE;
+        }
+        ModuleData.ValuesToSend.disc_Lost = NO_DATA;
+        ModuleData.ValuesToSend.disc_CouldNotBeFound = NO_DATA;
+    }
+    //////////////////////////////////////////////////////////////////////////// LOST DISC
+    if(DetectionToPutInValues == Values.disc_Lost)
+    {
+        if(ModuleData.ValuesToSend.disc_Detected == IN_QUEUE || ModuleData.ValuesToSend.disc_CouldNotBeFound == IN_QUEUE)
+        {
+            for(int i=0; i<10; ++i)
+            {
+                //QUEUE reset.
+                if(CircularValuesBuffer[i] == Values.disc_Detected) {CircularValuesBuffer[i] = UNUSED;}
+                if(CircularValuesBuffer[i] == Values.disc_CouldNotBeFound) {CircularValuesBuffer[i] = UNUSED;}
+            }
+        }
+        // Set Imperial to appropriated value
+        if(ModuleData.ValuesToSend.disc_Lost != IN_QUEUE)
+        {
+            ModuleData.ValuesToSend.disc_Lost = QUEUE;
+        }
+        ModuleData.ValuesToSend.disc_Detected = NO_DATA;
+        ModuleData.ValuesToSend.disc_CouldNotBeFound = NO_DATA;
+    }
+    //////////////////////////////////////////////////////////////////////////// LOST DISC
+    if(DetectionToPutInValues == Values.disc_CouldNotBeFound)
+    {
+        if(ModuleData.ValuesToSend.disc_Detected == IN_QUEUE || ModuleData.ValuesToSend.disc_Lost == IN_QUEUE)
+        {
+            for(int i=0; i<10; ++i)
+            {
+                //QUEUE reset.
+                if(CircularValuesBuffer[i] == Values.disc_Detected) {CircularValuesBuffer[i] = UNUSED;}
+                if(CircularValuesBuffer[i] == Values.disc_Lost) {CircularValuesBuffer[i] = UNUSED;}
+            }
+        }
+        // Set Imperial to appropriated value
+        if(ModuleData.ValuesToSend.disc_CouldNotBeFound != IN_QUEUE)
+        {
+            ModuleData.ValuesToSend.disc_CouldNotBeFound = QUEUE;
+        }
+        ModuleData.ValuesToSend.disc_Detected = NO_DATA;
+        ModuleData.ValuesToSend.disc_Lost = NO_DATA;
+    }
+}
 /**
 * @brief Sets the received command structure (ModuleData.CommandsReceived) to
 * the same input value. Useful to reset any received commands when a new mode
@@ -694,7 +1097,19 @@ void ServiceCommunication_RXParsingHandler(void)
 */
 void ServiceCommunication_TXParsingHandler(void)
 {
+    //Check where we are in the CAN stuff.
+    Parse_Interrupts();
 
+    if(currentSlot == CAN_ALLOCATED_SLOT)
+    {
+        //Parses QUEUE into transmittable buffer
+        TX_BuildCANBuffer(MODULE_CAN_TX);
+    }
+    else
+    {
+        //Put structure in QUEUE buffers to transmit faster once the CAN slot is ours.
+        Parse_ModuleDataForTransmission();
+    }
 }
 /**
 * @brief Function called which initialises all the structures necessary. it is
@@ -773,7 +1188,7 @@ void ServiceCommunication_initialise(void)
     ModuleData_SetAll_ValuesReceived(NO_DATA);
     ModuleData_SetAll_StatesReceived(NO_DATA);
 
-    ModuleData_SetAll_SentCommands(AVAILABLE);
+    ModuleData_SetAll_SentCommands(UNUSED);
     ModuleData_SetAll_ValuesToSend(UNUSED);
 
     // Keep set to unused or the program will constantly send Weight data on
@@ -790,6 +1205,15 @@ void ServiceCommunication_initialise(void)
     // The initial state for modules is Initialisation. In this mode, your
     // module simply sets itself to it's initial state.
     ModuleData.Mode = Modes.reinitialisation;
+
+    ModuleData.CantConnect = 0x00;
+
+    Utils_SetAll_Buffer(MODULE_CAN_TX, 8, AVAILABLE);
+    Utils_SetAll_Buffer(CircularCommandsBuffer, 24, UNUSED);
+    Utils_SetAll_Buffer(CircularValuesBuffer, 10, UNUSED);
+
+    TIME_BASE_BUFFER[SCOMMS_PARSE_RX_BUFFER_ADR] = ServiceCommunication_RXParsingHandler;
+    TIME_BASE_BUFFER[SCOMMS_PARSE_TX_BUFFER_ADR] = ServiceCommunication_TXParsingHandler;
 }
 //-----------------------------------------------------------------------------
 #pragma endregion PUBLIC_FUNCTIONS_CODE

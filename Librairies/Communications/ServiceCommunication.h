@@ -55,6 +55,19 @@
  * factors outside of this library.
  */
 #define ERROR_SPECIFIC_TO_MODULE 6
+//-----------------------------------------------------------------------------
+/**
+ * @brief Indicates that there was an error when trying to parse \ref stModuleData
+ * into the CAN transmission buffer \ref MODULE_CAN_TX. The command \ref IN_QUEUE  
+ * did not exist in the @c switch @c case found in TX_PutCommandQueueInBuffer()
+ */
+#define ERROR_TX_COMMAND_DOESNT_EXIST 7
+/**
+ * @brief Indicates that there was an error when trying to parse \ref stModuleData
+ * into the CAN transmission buffer \ref MODULE_CAN_TX. The value \ref IN_QUEUE  
+ * did not exist in the @c switch @c case found in TX_PutValueQueueInBuffer()
+ */
+#define ERROR_TX_VALUE_DOESNT_EXIST 8
 
 /**
  * @brief Global extern variable which purpose is to indicate to other portions
@@ -76,7 +89,7 @@ extern unsigned char serviceCommunication_ErrorState;
 /**
  * @brief Means that the value or commands is not used by this specific module.
  * This is important as the functions use this to figure out which data needs
- * to be send when a CAN slot is available for the module
+ * to be send when a CAN slot is \ref AVAILABLE for the module
  */
 #define UNUSED 0xFF
 //-----------------------------------------------------------------------------
@@ -86,8 +99,9 @@ extern unsigned char serviceCommunication_ErrorState;
  */
 #define QUEUE 0xFE
 /**
- * @brief Indicates that the \ref stCommands is already in queue for transmission.
- * DO NOT PUT IT BACK IN QUEUE WHEN THE COMMAND IS EQUAL TO THIS.
+ * @brief Indicates that the \ref stCommands is already in queue for a transmission.
+ * @warning Do not put your \ref stCommands back to \ref QUEUE while it is equal to
+ * this.
  */
 #define IN_QUEUE 0xFD
 /**
@@ -96,7 +110,7 @@ extern unsigned char serviceCommunication_ErrorState;
 #define AVAILABLE 0xAA
 //-----------------------------------------------------------------------------
 /**
- * @brief Tells you that you received a request for the execution of this
+ * @brief Tells you that you received a request to execute this
  * specific \ref stCommands.
  */
 #define RECEIVED 0xBB
@@ -111,9 +125,48 @@ extern unsigned char serviceCommunication_ErrorState;
  */
 #define NO_DATA 0x00
 //-----------------------------------------------------------------------------
+/**
+ * @brief Defines the character needed to parse \ref stModes during 
+ * transmission or reception of data. Refer to P-S5_Communications for more 
+ * details.
+ */
+#define CHAR_MODE 'M'
+/**
+ * @brief Defines the character needed to parse \ref stStates during 
+ * transmission or reception of data. Refer to P-S5_Communications for more 
+ * details.
+ */
+#define CHAR_STATE 'S'
+/**
+ * @brief Defines the character needed to parse \ref stValues during 
+ * transmission or reception of data. Refer to P-S5_Communications for more 
+ * details.
+ */
+#define CHAR_VALUE 'V'
+/**
+ * @brief Defines the character needed to parse \ref stCommands during 
+ * transmission or reception of data. Refer to P-S5_Communications for more 
+ * details.
+ */
+#define CHAR_COMMAND 'C'
+/**
+ * @brief Defines the character needed to parse Weight during 
+ * transmission or reception of data. Refer to P-S5_Communications for more 
+ * details.
+ */
+#define CHAR_WEIGHT 'W'
+/**
+ * @brief Defines the character needed to parse a data tram during 
+ * transmission or reception of data when CAN isn't the medium used for the
+ * latter.
+ */
+#define CHAR_START '$'
+//-----------------------------------------------------------------------------
 #pragma endregion CAN_BUFFERS
 //#############################################################################
 #pragma region MAIN_REDEFINES
+
+unsigned char TemporaryFunctionBuffer[7];
 //-----------------------------------------------------------------------------
 /**
  * @brief The time base frequency. Usually defined in main.h
@@ -127,25 +180,38 @@ extern unsigned char serviceCommunication_ErrorState;
  */
 #define TIME_BASE_BUFFER_SIZE 7
 /**
- * @brief The address allocated in the Time Base's execution buffer used by
- * this library for receptions parsings.
+ * @brief The time base's functions buffer size. Usually defined in main.h.
+ * Used to figure out the intervals at which the execute function is called
+ * to calculate slot's time frames for the CAN protocol.
+ * @warning Don't put semi-colons after your define.
  */
-#define SCOMMS_PARSE_RX_BUFFER_ADR
+#define TIME_BASE_BUFFER TemporaryFunctionBuffer
 /**
- * @brief The address allocated in the Time Base's execution buffer used by
- * this library for Transmitting checks.
+ * @brief The address from the timebase buffer (index) which will be used to put
+ * \ref ServiceCommunication_RXParsingHandler() in
  */
-#define SCOMMS_PARSE_TX_BUFFER_ADR
+#define SCOMMS_PARSE_RX_BUFFER_ADR 0
+/**
+ * @brief The address from the timebase buffer (index) which will be used to put
+ * \ref ServiceCommunication_TXParsingHandler() in
+ */
+#define SCOMMS_PARSE_TX_BUFFER_ADR 1
 /**
  * @brief The allocated slot for your module considering that the 
  * synchronisation slot is 0. Please refer to the datasheet available on
  * google drive in order to figure out your module's time frame.
  */
-#define CAN_TIME_FRAME
+#define CAN_ALLOCATED_SLOT 0
+/**
+ * @brief Specifies the duration in milliseconds of a slot. See Google drive
+ * documentation to put the right value in this.
+ */
+#define CAN_SLOT_DURATION_MS 20
 #pragma endregion MAIN_REDEFINES
 //#############################################################################
 #pragma region CAN_DEFINE
 //-----------------------------------------------------------------------------
+unsigned char temporaryCANTXBuffer[8];
 unsigned char temporaryModuleBuffer[8];
 unsigned char temporaryMasterBuffer[8];
 /**
@@ -166,11 +232,30 @@ unsigned char temporaryMasterBuffer[8];
  * @brief Specify how to access the unsigned char array of 8 bytes which
  * is used to send CAN data during the allocated time frame for your
  * module.\n
- * The function must have a CAN address as an input parameter, and an
- * buffer of 8 unsigned chars.\n
- * functionToSendCan(adr, array, array_size);
+ * Example:
+ * @code
+ * #define MODULE_CAN_TX CANToTransmit
+ * @endcode
+ * @warning DO NOT PUT SEMI-COLONS IN THIS DEFINE
  */
-#define MODULE_CAN_TX
+#define MODULE_CAN_TX temporaryCANTXBuffer
+/**
+ * @brief Specify how to request a CAN transmission to the other TimeBase
+ * functions. This is either a flag or a function which tells other TimeBase
+ * functions that their \ref MODULE_CAN_TX buffer is ready to be sent.\n
+ * This can also be a function which sends the CAN directly through pilots
+ * made for it. the disadvantage of using a dedicated function, is the lack
+ * of address changing possibilities.
+ * @code
+ * // Example of Flag style:
+ * #define MODULE_SEND_CAN CAN.Requete = REQUETE_ACTIVE
+ * // Example of Function style:
+ * #define MODULE_SEND_CAN pCAN1_transmetDesDonnes(0x111, MODULE_CAN_TX, 8)
+ * @endcode
+ * @warning DO NOT PUT SEMI-COLONS IN THIS DEFINE
+ * @
+ */
+#define MODULE_SEND_CAN
 #pragma endregion CAN_BUFFERS
 //#############################################################################
 #pragma region CODE_DEFINES
@@ -253,7 +338,7 @@ void ServiceCommunication_initialise(void);
 * @author Lyam / Shawn Couture
 * @date 15/11/2022
 * @param ValueAppliedToAll Value which will be applied to all commands not
-* equal to UNUSED
+* equal to \ref UNUSED
 */
 void ModuleData_SetAll_ReceivedCommands(unsigned char ValueAppliedToAll);
 /**
@@ -267,6 +352,22 @@ void ModuleData_SetAll_ReceivedCommands(unsigned char ValueAppliedToAll);
 */
 void ModuleData_SetAll_SentCommands(unsigned char ValueAppliedToAll);
 /**
+* @brief Sets the values to send structure of the ModuleData to the same value.
+* @author Lyam / Shawn Couture
+* @date 15/11/2022
+* @param ValueAppliedToAll Value which will be applied to all commands not
+* equal to UNUSED
+*/
+void ModuleData_SetAll_ValuesToSend(unsigned char ValueAppliedToAll);
+/**
+* @brief Sets all the received value structure to the same value.
+* @author Lyam / Shawn Couture
+* @date 15/11/2022
+* @param ValueAppliedToAll Value which will be applied to all commands not
+* equal to UNUSED
+*/
+void ModuleData_SetAll_ValuesReceived(unsigned char ValueAppliedToAll);
+/**
 * @brief Sets all the states in a \ref stStates structure to the same value.
 * @author Lyam / Shawn Couture
 * @date 15/11/2022
@@ -274,6 +375,30 @@ void ModuleData_SetAll_SentCommands(unsigned char ValueAppliedToAll);
 * equal to \ref UNUSED
 */
 void ModuleData_SetAll_StatesReceived(unsigned char ValueAppliedToAll);
+/**
+* @brief handles the units value sending for you to avoid sending 2 at the time
+* and to automatically remove from QUEUE previous values.
+* @author Lyam / Shawn Couture
+* @date 18/11/2022
+* @param UnitsToPutInValues reference from \ref stValues Can also be \ref UNUSED
+*/
+void ModuleData_SetUnits(unsigned char UnitsToPutInValues);
+/**
+* @brief handles the disc color value sending for you to avoid sending 2 at the time
+* and to automatically remove from QUEUE previous values.
+* @author Lyam / Shawn Couture
+* @date 18/11/2022
+* @param UnitsToPutInValues reference from \ref stValues Can also be \ref UNUSED
+*/
+void ModuleData_SetDiscColor(unsigned char ColorToPutInValues);
+/**
+* @brief handles the disc detection value sending for you to avoid sending 2 at the time
+* and to automatically remove from QUEUE previous values.
+* @author Lyam / Shawn Couture
+* @date 18/11/2022
+* @param UnitsToPutInValues reference from \ref stValues Can also be \ref UNUSED
+*/
+void ModuleData_SetDiscDetection(unsigned char ColorToPutInValues);
 
 void CheckIfUnused(unsigned char *checkedValue, unsigned char wantedNewValue);
 /**
@@ -677,6 +802,14 @@ typedef struct
      * Weight was received from an other module.
      */
     unsigned char ReceivedWeight;
+
+    /**
+    * @brief if this is set to anything else than 0x00 it means that the module
+    * could not establish a connection with the synchronisation tram.
+    * To detect a connection, you need to receive a \ref stModes.\n
+    * When you receive an \ref stModes interrupt counts are reset to 0.
+    */
+    unsigned char CantConnect;
 
 }stModuleData;
 //#############################################################################
