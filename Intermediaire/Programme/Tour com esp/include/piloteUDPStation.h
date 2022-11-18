@@ -20,8 +20,6 @@
 //Fonctions publiques:
 void piloteUDPStation_initialise(void);
 void ServiceUDPStation(void);
-void receiveUDP(void);
-void transUDP(char cEtat);
 //Variables publiques:
 //pas de variables publiques
 

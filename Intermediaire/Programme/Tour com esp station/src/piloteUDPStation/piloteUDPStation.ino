@@ -3,8 +3,8 @@
 // 2021-04-07, Yves Roy, creation
 
 //INCLUSIONS
-#include "xmain.h"
-#include "piloteUDP.h"
+//#include "xmain.h"
+//#include "piloteUDP.h"
 #include <WiFi.h>
 #include <WiFiUdp.h>
 //Definitions privees
@@ -27,7 +27,8 @@ WiFiUDP ERUDP;
 char readBuf[20];
 
 //Definitions de fonctions publiques:
-void piloteUDPStation_initialise(void)
+//void piloteUDPStation_initialise(void)
+void setup()
 {
  Serial.begin(115200);
   // Connnection sur le réseau WIFI
@@ -51,17 +52,20 @@ void piloteUDPStation_initialise(void)
 }
 //************************************************************************************
 
-void ServiceUDPStation(void)
+//void ServiceUDPStation(void)
+void loop()
 {
   receiveUDP();
-  transUDP('A');
+  transUDP('M');
 }
 
 void receiveUDP(void)
 {
-  int len;
-  if (len = ERUDP.parsePacket())
+  int len = 0;
+   if (ERUDP.parsePacket())
   {
+    Serial.print("Afterif");
+    len = ERUDP.parsePacket();
     ERUDP.read(readBuf, 20);
     readBuf[len] = 0;
     Serial.print("readBuf = ");
