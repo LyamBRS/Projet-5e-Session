@@ -19,11 +19,9 @@
 //pas de definitions privees
 
 //Declarations de fonctions privees:
-void receiveUDP1(void);
-void transUDP1(char cEtat);
 
 //Definitions de variables privees:
-//pas de variables privees
+extern stPILOTEUDP piloteUDP;
 
 //Definitions de fonctions privees:
 //pas de fonctions privees
@@ -37,9 +35,8 @@ IPAddress GatewayAP (192,168,4,88);
 IPAddress SubnetAP (255,255,255,0);
 IPAddress IPCom4 (192,168,4,89);
 
-unsigned int localPort = 11104;
-char readBuf[255]; //buffer to hold incoming packet
-char ReplyBuffer[] = "acknowledged"; 
+unsigned int localPort = 11800;
+
 
 
 WiFiUDP Udp;
@@ -66,32 +63,36 @@ void piloteUDP_initialise(void)
 
     Udp.begin(localPort);
 }
-//************************************************************************************
-
-void ServiceUDP(void)
-{
-   transUDP1('D');
-   //receiveUDP1();
-}
 //*************************************************************************************
 void receiveUDP1(void)
 {
-  int len;
- if (len = Udp.parsePacket())
- {
-   Udp.read(readBuf, 20);
-   readBuf[len] = 0;
-   Serial.println("Recu:");
-   Serial.println(readBuf);
- }
-  
+    int len;
+    if (len = Udp.parsePacket())
+    {
+        Udp.read(piloteUDP.readBuffer, 255);
+        Serial.println("Recu:");
+        Serial.println(piloteUDP.readBuffer[0]);
+        Serial.println(piloteUDP.readBuffer[1]);
+        Serial.println(piloteUDP.readBuffer[2]);
+        Serial.println(piloteUDP.readBuffer[3]);
+    }
+
 }
 //*************************************************************************************
-void transUDP1(char cEtat)
+void transUDP1(unsigned char transmet[255])
 {
     Serial.println(IPCom4);
     Udp.beginPacket(IPCom4, 11000);  // Changer IPCom4 pour adresse ip de l'esp camion
-    Udp.write(cEtat);
+
+    Udp.write(transmet[0]);
+    Udp.write(transmet[1]);
+    Udp.write(transmet[2]);
+    Udp.write(transmet[3]);
+    Udp.write(transmet[4]);
+    Udp.write(transmet[5]);
+    Udp.write(transmet[6]);
+    Udp.write(transmet[7]);
+
     Udp.endPacket();
     Serial.println("Transmis:");
 }
