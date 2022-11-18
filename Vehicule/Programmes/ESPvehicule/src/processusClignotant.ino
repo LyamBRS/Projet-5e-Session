@@ -11,6 +11,7 @@
 #include "xpilotePWMDroitHaut.h"
 #include "xpilotePWMGaucheBas.h"
 #include "xpilotePWMGaucheHaut.h"
+#include "piloteUDP.h"
 
 #include "xserviceBaseDeTemps.h"
 #include "xprocessusClignotant.h"
@@ -46,8 +47,9 @@ void processusClignotant_attendAvantDAllumerLeTemoinLumineux(void)
   {
     return;
   }
-  interfaceT1_allume();
 
+  ServiceUDP();
+  interfaceT1_allume();
   processusClignotant_compteur = 0;
   serviceBaseDeTemps_execute[PROCESSUSCLIGNOTANT_PHASE] = processusClignotant_attendAvantDEteindreLeTemoinLumineux;
 }

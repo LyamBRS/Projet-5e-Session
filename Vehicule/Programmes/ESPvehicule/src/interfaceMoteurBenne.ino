@@ -32,15 +32,14 @@
 //Definitions de fonctions publiques:
 void interfaceMoteurBenne_allume(void)
 {
-  piloteMoteurBenne_metA(INTERFACEMOTEURBENNE_VALEUR_POUR_ALLUMER);
+  piloteMoteurBenne_Allume();
 }
 
 void interfaceMoteurBenne_eteint(void)
 {
-  piloteMoteurBenne_metA(INTERFACEMOTEURBENNE_VALEUR_POUR_ETEINDRE);
+  piloteMoteurBenne_Eteint();
 }
-
 void interfaceMoteurBenne_initialise(void)
 {
-  piloteMoteurBenne_metA(INTERFACEMOTEURBENNE_VALEUR_POUR_ETEINDRE);
+  piloteMoteurBenne_initialise();
 }
