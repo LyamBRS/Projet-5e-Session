@@ -88,10 +88,6 @@ void setup(void)
   Serial.begin(115200);
   main_initialise();
   main_faitUnTest();
-
-// Parti pour tester les pilote PWM
-  //interfaceMoteurDroit_Avance(240);
-  
   serviceTaskServer_DemarreLesTachesALaTouteFinDeSetup();
 }
 
