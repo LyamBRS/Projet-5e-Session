@@ -2,7 +2,7 @@
 
 "C:\IAR\ARM\8.50\arm\bin\armstlink2.dll" 
 
-"C:\Repos\Projet-5e-Session\Centre-De-Tri\Programmes\STM32\CentreDeTriS5\EWARM\CentreDeTriS5\Exe\CentreDeTriS5.out" 
+"C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\EWARM\CentreDeTriS5\Exe\CentreDeTriS5.out" 
 
 --plugin="C:\IAR\ARM\8.50\arm\bin\armbat.dll" 
 

@@ -1,6 +1,7 @@
 #ifndef PILOTEI2C_H
 #define PILOTEI2C_H
 
+#include "main.h"
 //MODULE: piloteIOB1
 //DESCRIPTION: pour lire l'entree IOB1
 //HISTORIQUE:
@@ -21,8 +22,8 @@
 //pas de definitions publiques
 
 //Fonctions publiques:
-unsigned char piloteI2C_Transmit(unsigned char ucAdresse, unsigned char ucDonnee);
-unsigned char piloteI2C_Recieve(unsigned char ucAdresse, unsigned char *ucDonnee);
+void piloteI2C_Transmit(unsigned char ucAdresse, unsigned char ucDonnee);
+void piloteI2C_Recieve(unsigned char ucAdresse, unsigned char *ucDonnee);
 void piloteI2C_initialise(void);
 
 

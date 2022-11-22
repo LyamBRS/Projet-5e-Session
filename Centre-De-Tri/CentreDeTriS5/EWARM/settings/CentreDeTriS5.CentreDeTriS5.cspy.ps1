@@ -23,9 +23,9 @@
 
 if ($debugfile -eq "")
 {
-& "C:\IAR\ARM\8.50\common\bin\cspybat" -f "C:\Repos\Projet-5e-Session\Centre-De-Tri\Programmes\STM32\CentreDeTriS5\EWARM\settings\CentreDeTriS5.CentreDeTriS5.general.xcl" --backend -f "C:\Repos\Projet-5e-Session\Centre-De-Tri\Programmes\STM32\CentreDeTriS5\EWARM\settings\CentreDeTriS5.CentreDeTriS5.driver.xcl" 
+& "C:\IAR\ARM\8.50\common\bin\cspybat" -f "C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\EWARM\settings\CentreDeTriS5.CentreDeTriS5.general.xcl" --backend -f "C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\EWARM\settings\CentreDeTriS5.CentreDeTriS5.driver.xcl" 
 }
 else
 {
-& "C:\IAR\ARM\8.50\common\bin\cspybat" -f "C:\Repos\Projet-5e-Session\Centre-De-Tri\Programmes\STM32\CentreDeTriS5\EWARM\settings\CentreDeTriS5.CentreDeTriS5.general.xcl" --debug_file=$debugfile --backend -f "C:\Repos\Projet-5e-Session\Centre-De-Tri\Programmes\STM32\CentreDeTriS5\EWARM\settings\CentreDeTriS5.CentreDeTriS5.driver.xcl" 
+& "C:\IAR\ARM\8.50\common\bin\cspybat" -f "C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\EWARM\settings\CentreDeTriS5.CentreDeTriS5.general.xcl" --debug_file=$debugfile --backend -f "C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\EWARM\settings\CentreDeTriS5.CentreDeTriS5.driver.xcl" 
 }

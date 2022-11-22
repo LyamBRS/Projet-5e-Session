@@ -105,7 +105,7 @@ void main_initialiseAvantLeHAL(void)
 {
   piloteTimer6Up_initialise();
   //piloteCAN1_initialise(); //irait ici en temps normal... mais il y a un bug dans le cube  
-  piloteUSART2_initialise();
+  //piloteUSART2_initialise();
   piloteIOB1_initialise();
   piloteIOT1_initialise();
   piloteIOT2_initialise();
@@ -274,7 +274,7 @@ static void MX_I2C1_Init(void)
 
   /* USER CODE END I2C1_Init 1 */
   hi2c1.Instance = I2C1;
-  hi2c1.Init.ClockSpeed = 100000;
+  hi2c1.Init.ClockSpeed = 19200;
   hi2c1.Init.DutyCycle = I2C_DUTYCYCLE_2;
   hi2c1.Init.OwnAddress1 = 0;
   hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
@@ -507,6 +507,7 @@ void Error_Handler(void)
   /* User can add his own implementation to report the HAL error return state */
   while(1) 
   {
+    
   }
   /* USER CODE END Error_Handler_Debug */
 }
