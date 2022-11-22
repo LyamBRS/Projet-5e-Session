@@ -1,0 +1,491 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1645AF84-C26A-4649-A122-559732F2DB5E}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>CommandCenter</RootNamespace>
+    <AssemblyName>CommandCenter</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Management.Instrumentation" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BRS_Dynamic_Buttons.cs" />
+    <Compile Include="BRS_Library.cs" />
+    <Compile Include="BeagleBone_Processes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1_Terminal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1_DynamicButtonsHandling.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DynamicButtonClasses.cs" />
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form1_Settings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Form1.en.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Devices\Global\Global_Available_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Devices\Global\Global_Available_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Devices\Global\Global_Disabled_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Devices\Global\Global_Disabled_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Devices\Global\Global_Error_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Devices\Global\Global_Error_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Devices\Global\Global_Warning_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Devices\Global\Global_Warning_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Devices\SortingStation\Sorting_Available_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Devices\SortingStation\Sorting_Available_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Devices\SortingStation\Sorting_Disabled_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Devices\SortingStation\Sorting_Disabled_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Devices\SortingStation\Sorting_Error_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Devices\SortingStation\Sorting_Error_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Devices\SortingStation\Sorting_Warning_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Devices\SortingStation\Sorting_Warning_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Devices\Vehicle\Vehicle_Available_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Devices\Vehicle\Vehicle_Available_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Devices\Vehicle\Vehicle_Disabled_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Devices\Vehicle\Vehicle_Disabled_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Devices\Vehicle\Vehicle_Error_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Devices\Vehicle\Vehicle_Error_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Devices\Vehicle\Vehicle_Warning_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Devices\Vehicle\Vehicle_Warning_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Devices\WeigthStation\Balance_Available_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Devices\WeigthStation\Balance_Available_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Devices\WeigthStation\Balance_Disabled_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Devices\WeigthStation\Balance_Disabled_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Devices\WeigthStation\Balance_Error_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Devices\WeigthStation\Balance_Error_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Devices\WeigthStation\Balance_Warning_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Devices\WeigthStation\Balance_Warning_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Modes\Calibration\Calibration_Available_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Modes\Calibration\Calibration_Available_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Modes\Calibration\Calibration_Disabled_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Modes\Calibration\Calibration_Disabled_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Modes\Calibration\Calibration_Error_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Modes\Calibration\Calibration_Error_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Modes\Calibration\Calibration_Warning_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Modes\Calibration\Calibration_Warning_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Modes\Maintenance\Maintenance_Available_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Modes\Maintenance\Maintenance_Available_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Modes\Maintenance\Maintenance_Disabled_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Modes\Maintenance\Maintenance_Disabled_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Modes\Maintenance\Maintenance_Error_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Modes\Maintenance\Maintenance_Error_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Modes\Maintenance\Maintenance_Warning_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Modes\Maintenance\Maintenance_Warning_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Modes\Operation\Operation_Available_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Modes\Operation\Operation_Available_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Modes\Operation\Operation_Disabled_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Modes\Operation\Operation_Disabled_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Modes\Operation\Operation_Error_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Modes\Operation\Operation_Error_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Modes\Operation\Operation_Warning_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Modes\Operation\Operation_Warning_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Modes\Technician\Tech_Available_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Modes\Technician\Tech_Available_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Modes\Technician\Tech_Disabled_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Modes\Technician\Tech_Disabled_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Modes\Technician\Tech_Error_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Modes\Technician\Tech_Error_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Modes\Technician\Tech_Warning_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Modes\Technician\Tech_Warning_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Settings\Settings_Available_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Settings\Settings_Available_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Settings\Settings_Disabled_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Settings\Settings_Disabled_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Settings\Settings_Error_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Settings\Settings_Error_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Settings\Settings_Warning_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Settings\Settings_Warning_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Generic\Loading\Generic_Loading.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Generic\Power\PowerButton_Active_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Generic\Power\PowerButton_Active_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Generic\Power\PowerButton_Disabled_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Generic\Power\PowerButton_Disabled_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Generic\Power\PowerButton_Error_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Generic\Power\PowerButton_Error_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Generic\Power\PowerButton_Warning_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Generic\Power\PowerButton_Warning_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Generic\Warning\Warning_Disabled_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Generic\Warning\Warning_Disabled_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Generic\Warning\Warning_Error_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Generic\Warning\Warning_Error_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Generic\Warning\Warning_Warning_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Generic\Warning\Warning_Warning_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\USB\USB_Available_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\USB\USB_Available_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\USB\USB_Disabled_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\USB\USB_Disabled_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\USB\USB_Error_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\USB\USB_Error_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\USB\USB_Warning_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\USB\USB_Warning_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Selection\QuitButon\X_Button_Available_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Selection\QuitButon\X_Button_Available_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Selection\QuitButon\X_Button_Disabled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Selection\QuitButon\X_Button_Warning_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Selection\QuitButon\X_Button_Warning_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Selection\Check\CheckMark_Available_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Selection\Check\CheckMark_Available_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Selection\Check\CheckMark_Disabled_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Selection\Check\CheckMark_Disabled_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Selection\Check\CheckMark_Error_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Selection\Check\CheckMark_Error_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Selection\Check\CheckMark_Warning_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Selection\Check\CheckMark_Warning_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Applications\Terminal\Terminal_Disabled_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Link\Link_Available_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Link\Link_Available_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Link\Link_Disabled_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Link\Link_Disabled_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Link\Link_Error_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Link\Link_Error_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Link\Link_Inactive_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Link\Link_Inactive_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Link\Link_Warning_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Link\Link_Warning_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Terminal\Terminal_Available_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Terminal\Terminal_Available_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Terminal\Terminal_Disabled_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Terminal\Terminal_Disabled_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Terminal\Terminal_Error_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Terminal\Terminal_Error_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Terminal\Terminal_Inactive_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Terminal\Terminal_Inactive_Filled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Terminal\Terminal_Warning_Empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\Terminal\Terminal_Warning_Filled.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
