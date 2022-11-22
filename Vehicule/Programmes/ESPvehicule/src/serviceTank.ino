@@ -16,11 +16,36 @@
 #include "xinterfaceMoteurGauche.h"
 #include "serviceTank.h"
 
-void initialise(void)
+void serviceTank_initialise(void)
 {
     interfaceMoteurDroit_initialise();
     interfaceMoteurGauche_initialise();
 
-
+}
+void serviceTank_arret(void)
+{
+    interfaceMoteurDroit_Avance(0);
+    interfaceMoteurGauche_Avance(0);
 }
 
+void serviceTank_tourneDroit(unsigned char vitesse)
+{
+    interfaceMoteurDroit_Avance(0);     // Moteur droit a 0
+    interfaceMoteurGauche_Avance(vitesse);  // Moteur gauche avant max
+}
+
+void serviceTank_tourneGauche(unsigned char vitesse)
+{
+    interfaceMoteurDroit_Avance(vitesse);  // Moteur droit avant max
+    interfaceMoteurGauche_Avance(0);   // Moteur gauche a 0
+}
+void serviceTank_uturnDroit(unsigned char vitesse)
+{
+    interfaceMoteurDroit_Recule(vitesse); 
+    interfaceMoteurGauche_Avance(vitesse);
+}
+void serviceTank_uturnGauche(unsigned char vitesse)
+{
+    interfaceMoteurDroit_Avance(vitesse);
+    interfaceMoteurGauche_Recule(vitesse);
+}
