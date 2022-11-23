@@ -1,3 +1,4 @@
+/*
 #ifndef PILOTEUDP_H
 #define PILOTEUDP_H
 
@@ -24,3 +25,4 @@ void ServiceUDP(void);
 //pas de variables publiques
 
 #endif
+*/
