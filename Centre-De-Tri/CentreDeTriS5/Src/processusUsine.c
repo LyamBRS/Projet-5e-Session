@@ -16,7 +16,8 @@
 #include "processusUsine.h"
 #include "piloteI2C.h"
 #include "interfaceT1.h"
-#include "interfaceT2.h"//tbk osti
+#include "interfaceT2.h"
+#include "interfaceUsine.h"
 //Definitions privees
 
 
@@ -51,7 +52,8 @@ void processusUsine_gere (void)
     if (flagLight)
     {
       interfaceT2_allume();
-      piloteI2C_Transmit(INTERFACEUSINE_ADRESSE_PCF1_W, 0xFF);
+      //piloteI2C_Transmit(INTERFACEUSINE_ADRESSE_PCF1_W, 0xFF);
+      interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_LED, ALLUME);
       interfaceT2_eteint();
       interfaceT1_eteint();
       flagLight = 0;
@@ -59,7 +61,8 @@ void processusUsine_gere (void)
     else 
     {
       interfaceT2_allume();
-      piloteI2C_Transmit(INTERFACEUSINE_ADRESSE_PCF1_W, 0xFE);
+      //piloteI2C_Transmit(INTERFACEUSINE_ADRESSE_PCF1_W, 0xFE);
+      interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_LED, ALLUME);
       interfaceT2_eteint();
       interfaceT1_allume();
       flagLight = 1;
@@ -75,6 +78,5 @@ void processusUsine_gere (void)
 
 void processusUsine_initialise(void)
 {
-  piloteI2C_Transmit(INTERFACEUSINE_ADRESSE_PCF2_W, 0xFF);
   serviceBaseDeTemps_execute[PROCESSUSUSINE_GERE] = processusUsine_gere;
 }

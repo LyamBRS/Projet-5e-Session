@@ -25,6 +25,8 @@
 void interfaceT4_allume(void);
 void interfaceT4_eteint(void);
 void interfaceT4_initialise(void);
+void interfaceUsine_EcritUnElement (unsigned char elementID, bool etatAEcrire);
+bool interfaceUsine_LitUnElement (unsigned char elementID);
 
 //Variables publiques:
 //pas de variables publiques

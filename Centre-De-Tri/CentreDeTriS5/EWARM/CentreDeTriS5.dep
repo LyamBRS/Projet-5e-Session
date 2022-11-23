@@ -237,7 +237,7 @@
             <outputs>
                 <tool>
                     <name>ILINK</name>
-                    <file> 81 213</file>
+                    <file> 213 81</file>
                 </tool>
             </outputs>
         </file>
@@ -628,7 +628,7 @@
             <inputs>
                 <tool>
                     <name>ICCARM</name>
-                    <file> 62 129 140 84 116 138 180 89 57 108 78 66 114 124 96 189 91 135 106 128 175 168 127 184 118 122 137 109 181 202 146 69 171 117 188 191 178 166 98 105 167 22 39 185 17 33 34</file>
+                    <file> 62 129 140 84 116 138 180 89 57 108 78 66 114 124 96 189 91 135 106 128 175 168 127 184 118 122 137 109 181 202 146 69 171 117 188 191 178 166 98 105 167 22 39 185 17 33 34 223</file>
                 </tool>
             </inputs>
         </file>
@@ -1065,7 +1065,7 @@
             <inputs>
                 <tool>
                     <name>ILINK</name>
-                    <file> 134 112 63 132 198 130 45 182 126 110 103 54 86 64 61 47 119 158 120 155 174 74 156 164 203 216 70 209 73 187 170 161 160 207 172 97 144 201 179 136 80 67 149 131</file>
+                    <file> 134 112 63 132 198 224 130 45 182 126 110 103 54 86 64 61 47 119 158 120 155 174 74 156 164 203 216 70 209 73 187 170 161 160 207 172 97 144 201 179 136 80 67 149 131</file>
                 </tool>
             </inputs>
         </file>
@@ -1142,22 +1142,20 @@
             <name>$PROJ_DIR$\..\Src\interfaceUsine.c</name>
             <outputs>
                 <tool>
-                    <name>ICCARM</name>
-                    <file> 224</file>
-                </tool>
-                <tool>
                     <name>BICOMP</name>
                     <file> 225</file>
                 </tool>
             </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 62 129 140 84 116 138 180 89 57 108 78 66 114 124 96 189 91 135 106 128 175 168 127 184 118 122 137 109 181 202 146 69 171 117 188 191 178 166 98 105 167 17 223</file>
+                </tool>
+            </inputs>
         </file>
         <forcedrebuild>
             <name>$PROJ_DIR$\..\Src\interfaceB1.c</name>
             <tool>ICCARM</tool>
-        </forcedrebuild>
-        <forcedrebuild>
-            <name>[MULTI_TOOL]</name>
-            <tool>ILINK</tool>
         </forcedrebuild>
     </configuration>
 </project>
