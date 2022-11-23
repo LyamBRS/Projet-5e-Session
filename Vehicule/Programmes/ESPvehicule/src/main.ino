@@ -40,7 +40,7 @@
 
 // Include des processus
 #include "xprocessusClignotant.h"
-
+#include "xprocessusConduite.h"
 
 
 
@@ -50,11 +50,7 @@
 //Declarations de fonctions privees:
 void main_faitUnTest(void)
 {
-//  processusMoteurPasAPas.pasRequis = PROCESSUSMOTEURPASAPAS_ARRET;
-//  processusMoteurPasAPas.pasRequis = PROCESSUSMOTEURPASAPAS_SENS_HORAIRE_PAR_DEMI_PAS;
-//  processusMoteurPasAPas.pasRequis = PROCESSUSMOTEURPASAPAS_SENS_ANTI_HORAIRE_PAR_DEMI_PAS;
-//  processusMoteurPasAPas.pasRequis = PROCESSUSMOTEURPASAPAS_SENS_HORAIRE_PAR_DEMI_PAS;
-
+  processusConduite.requete = PROCESSUSCONDUITE_REQUETEACTIVE;
 
 }
 void main_initialise(void);
@@ -77,10 +73,10 @@ void main_initialise(void)
 
   interfaceEntree1_initialise();
   interfaceT1_initialise();
-  interfaceMoteurDroit_initialise();
   interfaceMoteurBenne_initialise();
 
   processusClignotant_initialise();
+  processusConduite_initialise();
 }
 
 void setup(void) 

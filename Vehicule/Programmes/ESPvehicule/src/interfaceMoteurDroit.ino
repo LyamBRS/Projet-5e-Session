@@ -16,12 +16,14 @@
 
 void interfaceMoteurDroit_Avance(unsigned char value)
 {
-    pilotePWMDroitHaut_setPWM(value);
+    pilotePWMDroitBas_setPWM(value);  // Pour Avancer avec le moteur
+    pilotePWMDroitHaut_setPWM(0);
 }
 
 void interfaceMoteurDroit_Recule(unsigned char value)
 {
-    pilotePWMDroitBas_setPWM(value);
+    pilotePWMDroitHaut_setPWM(value); // Pour Reculer avec le moteur
+    pilotePWMDroitBas_setPWM(0);
 }
 
 void interfaceMoteurDroit_initialise(void)

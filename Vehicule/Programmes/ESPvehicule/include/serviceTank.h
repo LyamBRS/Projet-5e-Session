@@ -12,6 +12,8 @@
 #define SERVICETANK_H
 
 void serviceTank_initialise(void);
+void serviceTank_Arret(void);
+void serviceTank_Avance(unsigned char vitesse);
 void serviceTank_tourneDroit(unsigned char vitesse);
 void serviceTank_tourneGauche(unsigned char vitesse);
 void serviceTank_uturnDroit(unsigned char vitesse);

@@ -36,5 +36,6 @@ typedef struct
   unsigned char requete;
 } PROCESSUSCONDUITE;
 
+PROCESSUSCONDUITE processusConduite;
 
 #endif

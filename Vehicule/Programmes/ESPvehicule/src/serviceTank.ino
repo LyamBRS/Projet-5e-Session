@@ -22,12 +22,18 @@ void serviceTank_initialise(void)
     interfaceMoteurGauche_initialise();
 
 }
-void serviceTank_arret(void)
+void serviceTank_Arret(void)
 {
     interfaceMoteurDroit_Avance(0);
     interfaceMoteurGauche_Avance(0);
+    interfaceMoteurDroit_Recule(0);
+    interfaceMoteurGauche_Recule(0);
 }
-
+void serviceTank_Avance(unsigned char vitesse)
+{
+    interfaceMoteurDroit_Avance(vitesse);
+    interfaceMoteurGauche_Avance(vitesse);
+}
 void serviceTank_tourneDroit(unsigned char vitesse)
 {
     interfaceMoteurDroit_Avance(0);     // Moteur droit a 0
@@ -41,11 +47,15 @@ void serviceTank_tourneGauche(unsigned char vitesse)
 }
 void serviceTank_uturnDroit(unsigned char vitesse)
 {
+    interfaceMoteurDroit_Avance(0);
+    interfaceMoteurGauche_Recule(0);
     interfaceMoteurDroit_Recule(vitesse); 
     interfaceMoteurGauche_Avance(vitesse);
 }
 void serviceTank_uturnGauche(unsigned char vitesse)
 {
+    interfaceMoteurDroit_Recule(0);
+    interfaceMoteurGauche_Avance(0);
     interfaceMoteurDroit_Avance(vitesse);
     interfaceMoteurGauche_Recule(vitesse);
 }
