@@ -28,9 +28,10 @@
 #include "xpiloteI2C1.h"
 #include "piloteUDP.h"
 
-// Include des interfaces
+// Include des Services
 #include "xserviceTaskServer.h"
 #include "xserviceBaseDeTemps.h"
+#include "ServiceCommunication.h"
 
 // Inlude des interfaces
 #include "xinterfaceEntree1.h"
@@ -63,6 +64,8 @@ void main_initialise(void);
 //Definitions de fonctions privees:
 void main_initialise(void)
 {
+  ServiceCommunication_initialise();
+  
   piloteEntree1_initialise();
   piloteIOT1_initialise(); 
   piloteI2C1_initialise();
@@ -70,7 +73,7 @@ void main_initialise(void)
 
   serviceTaskServer_initialise();
   serviceBaseDeTemps_initialise();
-
+  
   interfaceEntree1_initialise();
   interfaceT1_initialise();
   interfaceMoteurBenne_initialise();

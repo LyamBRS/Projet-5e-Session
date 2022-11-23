@@ -55,70 +55,49 @@ void processusConduite_attendUneRequete(void)
 
 void processusConduite_Gere(void)
 {
+
+
   suiveurValue = interfaceSuiveur_litOctet();
-  
   switch (suiveurValue)
   {
   case 0xE1:  //1110 0001 0xE1 Grosse gauche (1111 1110) 0xFE
-    serviceBaseDeTemps_execute[PROCESSUSCONDUITE_PHASE] = processusConduite_UturnGauche;
+    serviceTank_uturnGauche(PROCESSUSCONDUITE_VITESSESTANDARD);
     break;
   case 0xE6:  //1110 0110 0xE6 Gauche  (1111 1001)  0xF9
-    serviceBaseDeTemps_execute[PROCESSUSCONDUITE_PHASE] = processusConduite_tourneGauche;
+    serviceTank_tourneGauche(PROCESSUSCONDUITE_VITESSESTANDARD);
     break;
   case 0xE2:  //1110 0010 0xE2 Gauche  (1111 1101) 0xFD
-    serviceBaseDeTemps_execute[PROCESSUSCONDUITE_PHASE] = processusConduite_tourneGauche;
+    serviceTank_tourneGauche(PROCESSUSCONDUITE_VITESSESTANDARD);
     break;
   case 0xE4:  //1110 0100 0xE4 Avant (1111 1011)  0xFB
-    serviceBaseDeTemps_execute[PROCESSUSCONDUITE_PHASE] = processusConduite_Avance; // ON AVANCE 
+    serviceTank_Avance(PROCESSUSCONDUITE_VITESSESTANDARD);  // On Avance
     break;
   case 0xE8:  //1110 1000 0xE8 Droite (1111 0111) 0xF7
-    serviceBaseDeTemps_execute[PROCESSUSCONDUITE_PHASE] = processusConduite_tourneDroit;
+    serviceTank_tourneDroit(PROCESSUSCONDUITE_VITESSESTANDARD);
     break;
   case 0xEC:  //1110 1100 0xEC Droite  (1110 0111) 0xE7
-    serviceBaseDeTemps_execute[PROCESSUSCONDUITE_PHASE] = processusConduite_tourneDroit;
+    serviceTank_tourneDroit(PROCESSUSCONDUITE_VITESSESTANDARD);
     break;
   case 0xF0:  //1111 0000 0xF0 Grosse droite (1110 1111) 0xEF
-    serviceBaseDeTemps_execute[PROCESSUSCONDUITE_PHASE] = processusConduite_UturnDroit; // 
+    serviceTank_uturnDroit(PROCESSUSCONDUITE_VITESSESTANDARD);
     break; 
-  case 0xFF:
-    serviceTank_Arret();
-    break;        
+  case 0xFF: //Si les 5 Capteur voit du NOIR, Le véhicule est arrivé
+    serviceBaseDeTemps_execute[PROCESSUSCONDUITE_PHASE] = processusConduite_Arrive;
+    break;
+  case 0xF5:  //1111 0101 Si les Capteur
+    serviceBaseDeTemps_execute[PROCESSUSCONDUITE_PHASE] = processusConduite_Arrive;
+    break;
   }
-
-  // if suiveur voit 4 témoin il considere arrivé a destination
-  //serviceBaseDeTemps_execute[PROCESSUSCONDUITE_PHASE] = processusConduite_Arrive;
 }
 
-void processusConduite_Avance(void)
+
+/// @brief Méthode qui arrête le véhicule et qui attend une requête de positionnement
+/// @param  
+void processusConduite_Arrive(void)
 {
-  serviceTank_Avance(PROCESSUSCONDUITE_VITESSESTANDARD);
-  serviceBaseDeTemps_execute[PROCESSUSCONDUITE_PHASE] = processusConduite_Gere;
-}
+  serviceTank_Arret();
 
-void processusConduite_UturnDroit(void)
-{
-  serviceTank_uturnDroit(PROCESSUSCONDUITE_VITESSESTANDARD);
-  serviceBaseDeTemps_execute[PROCESSUSCONDUITE_PHASE] = processusConduite_Gere;
 }
-
-void processusConduite_UturnGauche(void)
-{
-  serviceTank_uturnGauche(PROCESSUSCONDUITE_VITESSESTANDARD);
-  serviceBaseDeTemps_execute[PROCESSUSCONDUITE_PHASE] = processusConduite_Gere;
-}
-
-void processusConduite_tourneDroit(void)
-{
-  serviceTank_uturnDroit(PROCESSUSCONDUITE_VITESSESTANDARD);
-  serviceBaseDeTemps_execute[PROCESSUSCONDUITE_PHASE] = processusConduite_Gere;
-}
-
-void processusConduite_tourneGauche(void)
-{
-  serviceTank_tourneGauche(PROCESSUSCONDUITE_VITESSESTANDARD);
-  serviceBaseDeTemps_execute[PROCESSUSCONDUITE_PHASE] = processusConduite_Gere;
-}
-
 
 /// @brief Fonction d'initialisation du Processus Conduite 
 /// @param  
