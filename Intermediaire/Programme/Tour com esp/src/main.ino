@@ -63,8 +63,6 @@ void loop(void)
 
   if (Serial2.available()) 
   {
-    ucRead = Serial2.read();
-    Serial2.write(ucRead); // write test
   }
     // Read valeur sur buffeur
   serviceTaskServer_gestion.execute();

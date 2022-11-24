@@ -16,8 +16,6 @@
 //pas de variables privees
 
 //Definitions de fonctions privees:
-void receiveUDP(void);
-void transUDP(char cEtat);
 
 //Definitions de variables publiques:
 // Replace with your network credentials
@@ -25,7 +23,6 @@ const char* ssid = "LeWifiACam";
 const char* password = "pic16f88";
 
 WiFiUDP ERUDP;
-char readBuf[255];
 IPAddress IPCom6(192,168,4,88);
 
 //Definitions de fonctions publiques:
@@ -62,10 +59,15 @@ void ServiceUDPStation(void)
 //************************************************************************************
 void receiveUDP(void)
 {
+  int i = 0;
+  for(i=0;i<8;i++)
+  {
+    readBuf[i] = 0;
+  }
    int len;
  if (len = ERUDP.parsePacket())
  {
-   ERUDP.read(readBuf, 255);
+   ERUDP.read(readBuf, 8);
    Serial.println("Recu:");
    Serial.println(readBuf);
  }
