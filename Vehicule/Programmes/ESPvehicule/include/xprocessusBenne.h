@@ -1,5 +1,5 @@
 /**
- * @file xprocessusConduite.h
+ * @file xprocessusBenne.h
  * @author CamFo Camille Fortin (camfortin2022@gmail.com)
  * @brief 
  * @version 0.1
@@ -9,9 +9,8 @@
  * 
  */
 
-#ifndef PROCESSUSCONDUITE_H
-#define PROCESSUSCONDUITE_H
-
+#ifndef PROCESSUSBENNE_H
+#define PROCESSUSBENNE_H
 
 //DEFINITIONS REQUISES PAR LE MODULE:
 //Dependances materielles
@@ -27,7 +26,7 @@
 //pas de definitions publiques
 
 //Fonctions publiques:
-void processusConduite_initialise(void);
+void processusBenne_initialise(void);
 
 //Variables publiques:
 
@@ -36,8 +35,8 @@ typedef struct
   unsigned char etatDuModule;  
   unsigned char information;
   unsigned char requete;
-} PROCESSUSCONDUITE;
+} PROCESSUSBENNE;
 
-PROCESSUSCONDUITE processusConduite;
+PROCESSUSBENNE processusBenne;
 
 #endif

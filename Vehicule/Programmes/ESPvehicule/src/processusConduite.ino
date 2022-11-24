@@ -31,12 +31,6 @@ void processusConduite_attendUneRequete(void);
 void processusConduite_Reperage(void);
 void processusConduite_Gere(void);
 
-void processusConduite_Avance(void);
-void processusConduite_UturnDroit(void);
-void processusConduite_UturnGauche(void);
-void processusConduite_tourneDroit(void);
-void processusConduite_tourneGauche(void);
-
 void processusConduite_Arrive(void);
 void processusConduite_Positionnement(void);
 
@@ -84,7 +78,7 @@ void processusConduite_Gere(void)
   case 0xFF: //Si les 5 Capteur voit du NOIR, Le véhicule est arrivé
     serviceBaseDeTemps_execute[PROCESSUSCONDUITE_PHASE] = processusConduite_Arrive;
     break;
-  case 0xF5:  //1111 0101 Si les Capteur
+  case 0xF5:  //1111 0101 Valeur pour indiquer l'arrivé au centre de tri
     serviceBaseDeTemps_execute[PROCESSUSCONDUITE_PHASE] = processusConduite_Arrive;
     break;
   }

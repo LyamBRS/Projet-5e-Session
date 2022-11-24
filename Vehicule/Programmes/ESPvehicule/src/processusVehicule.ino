@@ -16,6 +16,12 @@
 #include "ServiceCommunication.h"
 
 
+//Définition Privé
+void processusVehicule_Gere(void);
+
+
+
+// Fonction du Processus
 void processusVehicule_initialise(void)
 {
     
@@ -30,7 +36,7 @@ void processusVehicule_Gere(void)
     if(ModuleData.Mode == Modes.operation)
     {
         
-
     }
+
 
 }
