@@ -32,6 +32,7 @@
 #include "xserviceTaskServer.h"
 #include "xserviceBaseDeTemps.h"
 #include "ServiceCommunication.h"
+#include "serviceTank.h"
 
 // Inlude des interfaces
 #include "xinterfaceEntree1.h"
@@ -42,8 +43,8 @@
 // Include des processus
 #include "xprocessusClignotant.h"
 #include "xprocessusConduite.h"
-
-
+#include "xprocessusBenne.h"
+#include "processusVehicule.h"
 
 //Definitions privees
 //pas de definitions privees
@@ -51,8 +52,8 @@
 //Declarations de fonctions privees:
 void main_faitUnTest(void)
 {
-  processusConduite.requete = PROCESSUSCONDUITE_REQUETEACTIVE;
-
+  //processusConduite.requete = PROCESSUSCONDUITE_REQUETEACTIVE;
+  
 }
 void main_initialise(void);
 
@@ -65,21 +66,23 @@ void main_initialise(void);
 void main_initialise(void)
 {
   ServiceCommunication_initialise();
-  
+  serviceTaskServer_initialise();
+  serviceBaseDeTemps_initialise();
+  serviceTank_initialise();
+
   piloteEntree1_initialise();
   piloteIOT1_initialise(); 
   piloteI2C1_initialise();
   piloteUDP_initialise();
-
-  serviceTaskServer_initialise();
-  serviceBaseDeTemps_initialise();
   
+  interfaceMoteurBenne_initialise();
   interfaceEntree1_initialise();
   interfaceT1_initialise();
-  interfaceMoteurBenne_initialise();
 
   processusClignotant_initialise();
   processusConduite_initialise();
+  processusBenne_initialise();
+  processusVehicule_initialise();
 }
 
 void setup(void) 

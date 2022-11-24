@@ -17,7 +17,7 @@
 #include "serviceTank.h"
 #include "xserviceBaseDeTemps.h"
 #include "xprocessusConduite.h"
-
+#include "xprocessusBenne.h"
 
 //Definitions privees
 
@@ -31,7 +31,8 @@ void processusConduite_attendUneRequete(void);
 void processusConduite_Reperage(void);
 void processusConduite_Gere(void);
 
-void processusConduite_Arrive(void);
+void processusConduite_ArriveTri(void);
+void processusConduite_ArrivePesage(void);
 void processusConduite_Positionnement(void);
 
 //Definitions de variables publiques:
@@ -44,7 +45,9 @@ void processusConduite_attendUneRequete(void)
   {
     return;
   }
+  processusConduite.etatDuModule = PROCESSUSCONDUITE_MODULE_EN_DEPLACEMENT;
   serviceBaseDeTemps_execute[PROCESSUSCONDUITE_PHASE] = processusConduite_Gere;
+  
 }
 
 void processusConduite_Gere(void)
@@ -76,10 +79,10 @@ void processusConduite_Gere(void)
     serviceTank_uturnDroit(PROCESSUSCONDUITE_VITESSESTANDARD);
     break; 
   case 0xFF: //Si les 5 Capteur voit du NOIR, Le véhicule est arrivé
-    serviceBaseDeTemps_execute[PROCESSUSCONDUITE_PHASE] = processusConduite_Arrive;
+    serviceBaseDeTemps_execute[PROCESSUSCONDUITE_PHASE] = processusConduite_ArrivePesage;
     break;
   case 0xF5:  //1111 0101 Valeur pour indiquer l'arrivé au centre de tri
-    serviceBaseDeTemps_execute[PROCESSUSCONDUITE_PHASE] = processusConduite_Arrive;
+    serviceBaseDeTemps_execute[PROCESSUSCONDUITE_PHASE] = processusConduite_ArriveTri;
     break;
   }
 }
@@ -87,9 +90,15 @@ void processusConduite_Gere(void)
 
 /// @brief Méthode qui arrête le véhicule et qui attend une requête de positionnement
 /// @param  
-void processusConduite_Arrive(void)
+void processusConduite_ArriveTri(void)
 {
   serviceTank_Arret();
+  processusConduite.etatDuModule = PROCESSUSCONDUITE_MODULE_ARRIVE_TRI;  
+}
+void processusConduite_ArrivePesage(void)
+{
+  serviceTank_Arret();
+  processusConduite.etatDuModule = PROCESSUSCONDUITE_MODULE_ARRIVE_PESAGE;
 
 }
 
@@ -99,5 +108,6 @@ void processusConduite_initialise(void)
 {
   serviceTank_initialise();
   serviceTank_Arret();
+  processusConduite.etatDuModule = PROCESSUSCONDUITE_MODULE_PAS_EN_FONCTION;
   serviceBaseDeTemps_execute[PROCESSUSCONDUITE_PHASE] = processusConduite_attendUneRequete;
 }

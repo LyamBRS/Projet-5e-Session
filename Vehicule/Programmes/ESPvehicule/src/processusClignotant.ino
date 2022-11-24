@@ -46,17 +46,7 @@ void processusClignotant_attendAvantDAllumerLeTemoinLumineux(void)
     return;
   }
   // Test Code Go here
-  unsigned char a;
-  a = interfaceSuiveur_litOctet();
-  printf(a&0x01 ? "1":"0");
-  printf(a&0x02 ? "1":"0");
-  printf(a&0x04 ? "1":"0");
-  printf(a&0x08 ? "1":"0");
-  printf(a&0x0F ? "1":"0"); 
-  printf(a&0x20 ? "1":"0");
-  printf(a&0x40 ? "1":"0");
-  printf(a&0x80 ? "1":"0");
-  printf("\n");
+
 
   // END test Code 
   interfaceT1_allume();
