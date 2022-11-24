@@ -38,7 +38,10 @@ void processusConduite_Positionnement(void);
 //Definitions de variables publiques:
 
 
-// Fontion d'état du processus conduite
+//FONCTION DU PROCESSUS
+
+/// @brief Méthode qui attend une requete pour suive la ligne
+/// @param  Aucun
 void processusConduite_attendUneRequete(void)
 { 
   if(processusConduite.requete != PROCESSUSCONDUITE_REQUETE_ACTIVE)
@@ -50,6 +53,8 @@ void processusConduite_attendUneRequete(void)
   
 }
 
+/// @brief Gere la lecture du suiveur et la direction dans lequel aller
+/// @param  Aucun
 void processusConduite_Gere(void)
 {
 
@@ -94,7 +99,7 @@ void processusConduite_Gere(void)
 }
 
 
-/// @brief Méthode qui arrête le véhicule et qui attend une requête de positionnement
+/// @brief Méthode qui arrête le véhicule et qui attend une requête
 /// @param  
 void processusConduite_ArriveTri(void)
 {
@@ -104,6 +109,8 @@ void processusConduite_ArriveTri(void)
   serviceBaseDeTemps_execute[PROCESSUSCONDUITE_PHASE] = processusConduite_attendUneRequete;
   
 }
+/// @brief Méthode qui arrête le véhicule et qui attend une requête
+/// @param  
 void processusConduite_ArrivePesage(void)
 {
   serviceTank_Arret();
