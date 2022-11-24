@@ -27,7 +27,7 @@ void processusBenne_TestEntree1(void);
 /// @param Aucun
 void processusBenne_initialise(void)
 {
-    processusBenne.requete = PROCESSUSBENNE_REQUETEINACTIVE;
+    processusBenne.requete = PROCESSUSBENNE_REQUETE_TRAITE;
     processusBenne.etatDuModule = PROCESSUSBENNE_MODULE_PAS_EN_FONCTION;
     serviceBaseDeTemps_execute[PROCESSUSBENNE_PHASE] = processusBenne_AttendBouttonEnFonction;
 }
@@ -71,6 +71,7 @@ void processusBenne_EnAjustement(void)
     }
     interfaceMoteurBenne_eteint();
     processusBenne.etatDuModule = PROCESSUSBENNE_MODULE_EN_FONCTION;
+    processusBenne.requete = PROCESSUSBENNE_REQUETE_TRAITE;
     serviceBaseDeTemps_execute[PROCESSUSBENNE_PHASE] = processusBenne_AttendUneRequete;
 }
 
@@ -80,7 +81,7 @@ void processusBenne_EnAjustement(void)
 /// @param  Aucun
 void processusBenne_AttendUneRequete(void)
 {
-    if(processusBenne.requete == PROCESSUSBENNE_REQUETEINACTIVE)
+    if(processusBenne.requete != PROCESSUSBENNE_REQUETE_ACTIVE)
     {
         return;
     }

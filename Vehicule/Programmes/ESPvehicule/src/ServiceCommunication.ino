@@ -1107,6 +1107,7 @@ void ServiceCommunication_TXParsingHandler(void)
     {
         //Parses QUEUE into transmittable buffer
         TX_BuildCANBuffer(MODULE_CAN_TX);
+        
         transUDP1(MODULE_CAN_TX);
     }
     else

@@ -12,13 +12,19 @@
 //INCUSIONS
 #include "xpiloteIOFeuArriereD.h"
 
+#include "xinterfaceSuiveur.h"
+
 #include "xmain.h"
 #include "xserviceBaseDeTemps.h"
 #include "processusVehicule.h"
+#include "serviceTank.h"
 #include "ServiceCommunication.h"
 #include "xprocessusBenne.h"
 #include "xprocessusConduite.h"
 
+// Variable Privé
+int compteurT = 0;
+int compteurR = 0;
 
 //Définition Privé
 void processusVehicule_AttendUneRequete(void);
@@ -26,34 +32,37 @@ void processusVehicule_AttendArriveTri(void);
 void processusVehicule_AttendFinChargement(void);
 void processusVehicule_Uturn(void);
 void processusVehicule_AttendArrivePesage(void);
+void processusVehicule_Repositionnement(void);
 void processusVehicule_AttendDechargementBenne(void);
 void processusVehicule_AttendPriseParRobot(void);
-void processusVehicule_Repositionnement(void);
+
 
 // Fonction du Processus
 void processusVehicule_initialise(void)
 {
     
-    if(processusBenne.etatDuModule != PROCESSUSBENNE_MODULE_EN_FONCTION)
-    {
-        return;
-    }
-    //piloteIOFeuArriereD_metAUn();
     serviceBaseDeTemps_execute[PROCESSUSVEHICULE_PHASE] = processusVehicule_AttendUneRequete;
 }
 void processusVehicule_AttendUneRequete(void)
 {
+    // Test si la benne est bien calibré
+    if(processusBenne.etatDuModule != PROCESSUSBENNE_MODULE_EN_FONCTION)
+    {
+        return;
+    }
+
+    // Test Pour la communication
     if(ModuleData.Mode == Modes.reinitialisation)
     {
         ModuleData.State = States.waiting;
     }
     if(ModuleData.Mode == Modes.operation)
     {
-        // processusConduite.requete = PROCESSUSCONDUITE_REQUETEACTIVE;
+        // Acive la requete de conduite
     }
 
-    // Pour faire des test
-    processusConduite.requete = PROCESSUSCONDUITE_REQUETEACTIVE;
+    // Pour faire des test normalement c'est les if de communication qui vont mettre la requete de Conduite active
+    processusConduite.requete = PROCESSUSCONDUITE_REQUETE_ACTIVE;
     serviceBaseDeTemps_execute[PROCESSUSVEHICULE_PHASE] = processusVehicule_AttendArriveTri;
 }
 
@@ -69,14 +78,85 @@ void processusVehicule_AttendArriveTri(void)
 }
 void processusVehicule_AttendFinChargement(void)
 {
-    if(ModuleData.StatesReceived.finishedSortingAndHasLoaded != RECEIVED)
+    if(ModuleData.StatesReceived.finishedSortingAndHasLoaded != RECEIVED)  
     {
-        return;
+        //return;
     }
     ModuleData.StatesReceived.finishedSortingAndHasLoaded = PARSED;
+
+    if(compteurT < 1000) //Calcul pour ajouter un delai pour les test c'est l'attente du chargement
+    {
+        compteurT++;
+        return;
+    }
+    compteurT = 0;
+    serviceTank_uturnGauche(PROCESSUSCONDUITE_VITESSESTANDARD);
     serviceBaseDeTemps_execute[PROCESSUSVEHICULE_PHASE] = processusVehicule_Uturn;
 }
 void processusVehicule_Uturn(void)
+{
+    if(compteurT < 100) //Un bref delais avant de checker le suiveur pour etre sur 
+    {                   //qu'il ne reprenne pas la ligne sans avoir fais de 180
+        compteurT++;
+        return;
+    }
+
+    unsigned char suiveurValue;
+    suiveurValue = interfaceSuiveur_litOctet();
+    if(suiveurValue != 0xE4)
+    {
+        return;
+    }
+    serviceTank_Arret(); // Si le suiveur a vu la ligne au milieu
+    processusConduite.requete = PROCESSUSCONDUITE_REQUETE_ACTIVE;
+    compteurT = 0;
+    serviceBaseDeTemps_execute[PROCESSUSVEHICULE_PHASE] = processusVehicule_AttendArrivePesage;
+}
+void processusVehicule_AttendArrivePesage(void)
+{
+    if(processusConduite.etatDuModule != PROCESSUSCONDUITE_MODULE_ARRIVE_PESAGE)
+    {
+        return;
+    }
+    serviceTank_uturnGauche(PROCESSUSCONDUITE_VITESSESTANDARD);
+    serviceBaseDeTemps_execute[PROCESSUSVEHICULE_PHASE] = processusVehicule_Repositionnement;
+}
+
+void processusVehicule_Repositionnement(void)
+{
+
+    // ############## 
+    if(compteurT < 100) //Un bref delais avant de checker le suiveur pour etre sur 
+    {                   //qu'il ne reprenne pas la ligne sans avoir fais de 180
+        compteurT++;
+        return;
+    }
+    // ##############
+
+
+    unsigned char suiveurValue;
+    suiveurValue = interfaceSuiveur_litOctet();
+    if(suiveurValue != 0xE4)
+    {
+        return;
+    }
+    serviceTank_Arret(); // Si le suiveur a vu la ligne au milieu il est en position
+
+    //serviceBaseDeTemps_execute[PROCESSUSVEHICULE_PHASE] = processusVehicule_AttendPriseParRobot;
+    processusBenne.requete = PROCESSUSBENNE_REQUETE_ACTIVE;
+    serviceBaseDeTemps_execute[PROCESSUSVEHICULE_PHASE] = processusVehicule_AttendDechargementBenne;
+}
+void processusVehicule_AttendDechargementBenne(void)
+{
+    if(processusBenne.etatDuModule != PROCESSUSBENNE_REQUETE_TRAITE)
+    {
+        return;
+    }
+
+    
+    // ON A fini de décharger
+}
+void processusVehicule_AttendPriseParRobot(void)
 {
 
 

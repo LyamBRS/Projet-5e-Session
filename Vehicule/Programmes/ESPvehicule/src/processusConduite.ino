@@ -41,7 +41,7 @@ void processusConduite_Positionnement(void);
 // Fontion d'état du processus conduite
 void processusConduite_attendUneRequete(void)
 { 
-  if(processusConduite.requete != PROCESSUSCONDUITE_REQUETEACTIVE)
+  if(processusConduite.requete != PROCESSUSCONDUITE_REQUETE_ACTIVE)
   {
     return;
   }
@@ -66,6 +66,9 @@ void processusConduite_Gere(void)
   case 0xE2:  //1110 0010 0xE2 Gauche  (1111 1101) 0xFD
     serviceTank_tourneGauche(PROCESSUSCONDUITE_VITESSESTANDARD);
     break;
+  case 0xE3:  //1110 0011 0xE2 Gauche  (1111 1101) 0xFD
+    serviceTank_tourneGauche(PROCESSUSCONDUITE_VITESSESTANDARD);
+    break;
   case 0xE4:  //1110 0100 0xE4 Avant (1111 1011)  0xFB
     serviceTank_Avance(PROCESSUSCONDUITE_VITESSESTANDARD);  // On Avance
     break;
@@ -73,6 +76,9 @@ void processusConduite_Gere(void)
     serviceTank_tourneDroit(PROCESSUSCONDUITE_VITESSESTANDARD);
     break;
   case 0xEC:  //1110 1100 0xEC Droite  (1110 0111) 0xE7
+    serviceTank_tourneDroit(PROCESSUSCONDUITE_VITESSESTANDARD);
+    break;
+  case 0xF8:  //1111 1000 0xE8 Droite (1111 0111) 0xF7
     serviceTank_tourneDroit(PROCESSUSCONDUITE_VITESSESTANDARD);
     break;
   case 0xF0:  //1111 0000 0xF0 Grosse droite (1110 1111) 0xEF
@@ -93,21 +99,25 @@ void processusConduite_Gere(void)
 void processusConduite_ArriveTri(void)
 {
   serviceTank_Arret();
-  processusConduite.etatDuModule = PROCESSUSCONDUITE_MODULE_ARRIVE_TRI;  
+  processusConduite.etatDuModule = PROCESSUSCONDUITE_MODULE_ARRIVE_TRI;
+  processusConduite.requete = PROCESSUSCONDUITE_REQUETE_TRAITE;
+  serviceBaseDeTemps_execute[PROCESSUSCONDUITE_PHASE] = processusConduite_attendUneRequete;
+  
 }
 void processusConduite_ArrivePesage(void)
 {
   serviceTank_Arret();
   processusConduite.etatDuModule = PROCESSUSCONDUITE_MODULE_ARRIVE_PESAGE;
-
+  processusConduite.requete = PROCESSUSCONDUITE_REQUETE_TRAITE;
+  serviceBaseDeTemps_execute[PROCESSUSCONDUITE_PHASE] = processusConduite_attendUneRequete;
 }
 
 /// @brief Fonction d'initialisation du Processus Conduite 
 /// @param  
 void processusConduite_initialise(void)
 {
-  serviceTank_initialise();
   serviceTank_Arret();
   processusConduite.etatDuModule = PROCESSUSCONDUITE_MODULE_PAS_EN_FONCTION;
+  processusConduite.requete = PROCESSUSCONDUITE_REQUETE_TRAITE;
   serviceBaseDeTemps_execute[PROCESSUSCONDUITE_PHASE] = processusConduite_attendUneRequete;
 }
