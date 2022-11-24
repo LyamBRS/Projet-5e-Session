@@ -95,7 +95,7 @@ void processusVehicule_AttendFinChargement(void)
 }
 void processusVehicule_Uturn(void)
 {
-    if(compteurT < 100) //Un bref delais avant de checker le suiveur pour etre sur 
+    if(compteurT < 400) //Un bref delais avant de checker le suiveur pour etre sur 
     {                   //qu'il ne reprenne pas la ligne sans avoir fais de 180
         compteurT++;
         return;
@@ -126,7 +126,7 @@ void processusVehicule_Repositionnement(void)
 {
 
     // ############## 
-    if(compteurT < 100) //Un bref delais avant de checker le suiveur pour etre sur 
+    if(compteurT < 400) //Un bref delais avant de checker le suiveur pour etre sur 
     {                   //qu'il ne reprenne pas la ligne sans avoir fais de 180
         compteurT++;
         return;
@@ -142,7 +142,11 @@ void processusVehicule_Repositionnement(void)
     }
     serviceTank_Arret(); // Si le suiveur a vu la ligne au milieu il est en position
 
+
+    // SI la rondelle est en Métal 
     //serviceBaseDeTemps_execute[PROCESSUSVEHICULE_PHASE] = processusVehicule_AttendPriseParRobot;
+    
+    //SI la rondelle est une rondelle Orange
     processusBenne.requete = PROCESSUSBENNE_REQUETE_ACTIVE;
     serviceBaseDeTemps_execute[PROCESSUSVEHICULE_PHASE] = processusVehicule_AttendDechargementBenne;
 }
@@ -152,12 +156,14 @@ void processusVehicule_AttendDechargementBenne(void)
     {
         return;
     }
-
     
+
+    serviceBaseDeTemps_execute[PROCESSUSVEHICULE_PHASE] = processusVehicule_AttendUneRequete;
     // ON A fini de décharger
 }
 void processusVehicule_AttendPriseParRobot(void)
 {
 
-
+    // SI le bras a bel et bien pris la rondelle
+    serviceBaseDeTemps_execute[PROCESSUSVEHICULE_PHASE] = processusVehicule_AttendUneRequete;
 }

@@ -68,8 +68,7 @@ void main_initialise(void)
   ServiceCommunication_initialise();
   serviceTaskServer_initialise();
   serviceBaseDeTemps_initialise();
-  serviceTank_initialise();
-
+  
   piloteEntree1_initialise();
   piloteIOT1_initialise(); 
   piloteI2C1_initialise();
@@ -87,6 +86,7 @@ void main_initialise(void)
 
 void setup(void) 
 {
+  serviceTank_initialise(); // Doit etre fais le plus vite possible a cause du bug des moteurs
   Serial.begin(115200);
   main_initialise();
   main_faitUnTest();

@@ -87,7 +87,7 @@ void processusConduite_Gere(void)
   case 0xFF: //Si les 5 Capteur voit du NOIR, Le véhicule est arrivé
     serviceBaseDeTemps_execute[PROCESSUSCONDUITE_PHASE] = processusConduite_ArrivePesage;
     break;
-  case 0xF5:  //1111 0101 Valeur pour indiquer l'arrivé au centre de tri
+  case 0xF1:  //1111 0001 Valeur pour indiquer l'arrivé au centre de tri
     serviceBaseDeTemps_execute[PROCESSUSCONDUITE_PHASE] = processusConduite_ArriveTri;
     break;
   }
