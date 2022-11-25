@@ -13,6 +13,7 @@
 #include "xserviceBaseDeTemps.h"
 #include "xinterfaceEntree1.h"
 #include "xinterfaceT1.h"
+#include "interfacePass.h"
 #include "xprocessusClignotant.h"
 #include <WiFi.h>
 #include <WiFiUdp.h>
@@ -25,7 +26,7 @@ int num = 0;
 //Declarations de fonctions privees:
 void main_faitUnTest(void)
 {
-
+interfacePassUartToUDP();
 }
 void main_initialise(void);
 
@@ -55,6 +56,7 @@ void setup(void)
   main_initialise();
   main_faitUnTest();
   serviceTaskServer_DemarreLesTachesALaTouteFinDeSetup();
+
 }
 
 void loop(void) 

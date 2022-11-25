@@ -21,7 +21,7 @@
 void piloteUDPStation_initialise(void);
 void ServiceUDPStation(void);
 void receiveUDP(void);
-void transUDP(char cEtat);
+void transUDP(unsigned char* transmitBuffer, char sizeOfBuffer);
 //Variables publiques:
 char readBuf[8];
 //pas de variables publiques
