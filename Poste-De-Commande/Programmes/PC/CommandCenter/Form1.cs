@@ -36,6 +36,8 @@ namespace CommandCenter
             CommandCenter.Buttons.USB = new GenericButton(Button_USB, USB_Icons.GetStatesColors(), USB_Icons.GetStatesBitmaps());
             CommandCenter.Buttons.Link = new GenericButton(Button_Link, Link_Icons.GetStatesColors(), Link_Icons.GetStatesBitmaps());
             CommandCenter.Buttons.Terminal = new GenericButton(Button_Terminal, Terminal_Icons.GetStatesColors(), Terminal_Icons.GetStatesBitmaps());
+            CommandCenter.Buttons.AutoConnection = new GenericButton(Button_AutoConnect, CheckBox_Icons.GetStatesColors(), CheckBox_Icons.GetStatesBitmaps());
+            CommandCenter.Buttons.CloseBeagle = new GenericButton(Button_CloseBeagleBone, X_Icons.GetStatesColors(), X_Icons.GetStatesBitmaps());
             Debug.Success("");
             //----------------------------------------------------------
             BRS.Debug.Comment("Toggeling Dynamic Buttons animations states...");
@@ -43,6 +45,8 @@ namespace CommandCenter
             CommandCenter.Buttons.USB.Animated = true;
             CommandCenter.Buttons.Link.Animated = true;
             CommandCenter.Buttons.Terminal.Animated = true;
+            CommandCenter.Buttons.AutoConnection.Animated = true;
+            CommandCenter.Buttons.CloseBeagle.Animated = true;
             Debug.Success("");
             //----------------------------------------------------------
             BRS.Debug.Comment("Setting Dynamic buttons initial values...");
@@ -50,6 +54,8 @@ namespace CommandCenter
             CommandCenter.Buttons.USB.State = ControlState.Inactive;
             CommandCenter.Buttons.Link.State = ControlState.Inactive;
             CommandCenter.Buttons.Terminal.State = ControlState.Inactive;
+            CommandCenter.Buttons.AutoConnection.State = ControlState.Inactive;
+            CommandCenter.Buttons.CloseBeagle.State = ControlState.Disabled;
             Debug.Success("");
             #endregion DynamicButtons
             /////////////////////////////////////////////////////////////
@@ -102,6 +108,9 @@ namespace CommandCenter
 
             DropDown_ScaleUnit.Text = Settings.Scale_Unit();
 
+            CommandCenter.Buttons.AutoConnection.State = (Settings.BeagleBone_AutoConnect().Equals("True") ? ControlState.Active : ControlState.Inactive);
+            AutoConnect = (Settings.BeagleBone_AutoConnect().Equals("True") ? true : false);
+
             Debug.Success();
             BRS.Debug.Header(false);
         }
@@ -153,6 +162,8 @@ namespace CommandCenter
             public static BRS.Buttons.GenericButton USB;
             public static BRS.Buttons.GenericButton Link;
             public static BRS.Buttons.GenericButton Terminal;
+            public static BRS.Buttons.GenericButton AutoConnection;
+            public static BRS.Buttons.GenericButton CloseBeagle;
         }
     }
 }

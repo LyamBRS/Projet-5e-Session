@@ -28,7 +28,8 @@ namespace CommandCenter
             CommandCenter.Buttons.Mode.Update();
             CommandCenter.Buttons.Link.Update();
             CommandCenter.Buttons.Terminal.Update();
-
+            CommandCenter.Buttons.AutoConnection.Update();
+            CommandCenter.Buttons.CloseBeagle.Update();
             #region UserInfo
             int R = UserInfo.ForeColor.R;
             int G = UserInfo.ForeColor.G;
@@ -66,6 +67,8 @@ namespace CommandCenter
                 CommandCenter.Buttons.USB.UpdateOriginalPositions(Button_USB.Location);
                 CommandCenter.Buttons.Link.UpdateOriginalPositions(Button_Link.Location);
                 CommandCenter.Buttons.Terminal.UpdateOriginalPositions(Button_Terminal.Location);
+                CommandCenter.Buttons.AutoConnection.UpdateOriginalPositions(Button_AutoConnect.Location);
+                CommandCenter.Buttons.CloseBeagle.UpdateOriginalPositions(Button_CloseBeagleBone.Location);
                 ButtonUpdateTimer.Enabled = true;
             }
         }
@@ -76,6 +79,8 @@ namespace CommandCenter
             CommandCenter.Buttons.USB.UpdateOriginalPositions(Button_USB.Location);
             CommandCenter.Buttons.Link.UpdateOriginalPositions(Button_Link.Location);
             CommandCenter.Buttons.Terminal.UpdateOriginalPositions(Button_Terminal.Location);
+            CommandCenter.Buttons.AutoConnection.UpdateOriginalPositions(Button_AutoConnect.Location);
+            CommandCenter.Buttons.CloseBeagle.UpdateOriginalPositions(Button_CloseBeagleBone.Location);
             HasStartedResize = 1;
         }
         private void Form_MainMenu_ResizeEnd(object sender, EventArgs e)
@@ -84,6 +89,8 @@ namespace CommandCenter
             CommandCenter.Buttons.USB.UpdateOriginalPositions(Button_USB.Location);
             CommandCenter.Buttons.Link.UpdateOriginalPositions(Button_Link.Location);
             CommandCenter.Buttons.Terminal.UpdateOriginalPositions(Button_Terminal.Location);
+            CommandCenter.Buttons.AutoConnection.UpdateOriginalPositions(Button_AutoConnect.Location);
+            CommandCenter.Buttons.CloseBeagle.UpdateOriginalPositions(Button_CloseBeagleBone.Location);
             ButtonUpdateTimer.Enabled = true;
             HasStartedResize = 0;
         }

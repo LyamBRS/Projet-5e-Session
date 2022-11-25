@@ -73,6 +73,9 @@ namespace CommandCenter
         /// </summary>
         public static bool oldPortState = false;
 
+        public bool AutoConnect = false;
+        public ControlState previousState = ControlState.Active;
+
         public class Settings
         {
             #region Variables
@@ -88,6 +91,14 @@ namespace CommandCenter
             public static Form_MainMenu formSettings;
             #endregion Variables
             #region Individual_Settings_Changes
+            #region BeagleBone_AutoConnect
+            /// <summary> Gets the value from Settings.xml </summary>
+            /// <returns>Value of AutoConnect</returns>
+            public static string BeagleBone_AutoConnect() { return ReadAppSettings("BeagleBone_AutoConnect"); }
+
+            /// <summary> Gets the value from Settings.xml </summary>
+            public static bool BeagleBone_AutoConnect(string valueToSave) { return (UpdateOrCreate("BeagleBone_AutoConnect", valueToSave)); }
+            #endregion BeagleBone_AutoConnect
             #region BaudRate
             /// <summary> Gets the value from Settings.xml </summary>
             /// <returns>Value of BaudRate</returns>
@@ -422,6 +433,7 @@ namespace CommandCenter
                 UpdateOrCreate("BeagleBone_Password", formSettings.BeagleBone_Password.Text);
                 UpdateOrCreate("BeagleBone_FilePath", formSettings.BeagleBone_FilePath.Text);
                 UpdateOrCreate("BeagleBone_FileName", formSettings.BeagleBone_FileName.Text);
+                UpdateOrCreate("BeagleBone_AutoConnect", (CommandCenter.Buttons.AutoConnection.State == ControlState.Active).ToString());
 
                 UpdateOrCreate("Scale_Unit", formSettings.DropDown_ScaleUnit.Text);
             }
@@ -618,6 +630,54 @@ namespace CommandCenter
                 }
             }
 
+            BRS.Debug.Header(false);
+        }
+        //#############################################################//
+        /// <summary>
+        /// Changes the state of autoconnection.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        //#############################################################//
+        private void Button_AutoConnect_Click(object sender, EventArgs e)
+        {
+            BRS.Debug.Header(true);
+
+            BRS.Debug.Comment("Flipping autoConnect state...");
+            AutoConnect = !AutoConnect;
+            Debug.Success(AutoConnect.ToString());
+
+            if (AutoConnect == false)
+            {
+                if (CommandCenter.Buttons.AutoConnection.State == ControlState.Warning)
+                {
+                    previousState = ControlState.Warning;
+                    CommandCenter.Buttons.AutoConnection.State = ControlState.Inactive;
+                }
+
+                if (CommandCenter.Buttons.AutoConnection.State == ControlState.Error)
+                {
+                    previousState = ControlState.Error;
+                    CommandCenter.Buttons.AutoConnection.State = ControlState.Inactive;
+                }
+
+                if (CommandCenter.Buttons.AutoConnection.State == ControlState.Active)
+                {
+                    previousState = ControlState.Active;
+                    CommandCenter.Buttons.AutoConnection.State = ControlState.Inactive;
+                }
+                if (CommandCenter.Buttons.AutoConnection.State == ControlState.Inactive)
+                {
+                    previousState = ControlState.Active;
+                    CommandCenter.Buttons.AutoConnection.State = ControlState.Inactive;
+                }
+            }
+            else
+            {
+                CommandCenter.Buttons.AutoConnection.State = previousState;
+            }
+            Settings.BeagleBone_AutoConnect(AutoConnect.ToString());
+            NewUserTextInfo("Saved new Auto Connection",1);
             BRS.Debug.Header(false);
         }
         #endregion Buttons
