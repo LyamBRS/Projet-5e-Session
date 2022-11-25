@@ -54,7 +54,6 @@ ERUDP.begin(11000);
 void ServiceUDPStation(void)
 {
   //receiveUDP();
-  transUDP('A');
 }
 //************************************************************************************
 void receiveUDP(void)
@@ -73,12 +72,17 @@ void receiveUDP(void)
  }
 }
 //************************************************************************************
-void transUDP(char cEtat)
+void transUDP(unsigned char* transmitBuffer, char sizeOfBuffer)
 {
   ERUDP.parsePacket();
- ERUDP.beginPacket(IPCom6, 11800);
- ERUDP.write(cEtat);
- ERUDP.endPacket();
- Serial.println("Transmis:");
+  ERUDP.beginPacket(IPCom6, 11800);
+
+  for(int i=0; i<sizeOfBuffer; ++i)
+  {
+    ERUDP.write(transmitBuffer[i]);
+    printf("[%i]: %i",i,transmitBuffer[i]);
+  }
+  ERUDP.endPacket();
+  Serial.println("Transmis:");
 }
 //************************************************************************************
