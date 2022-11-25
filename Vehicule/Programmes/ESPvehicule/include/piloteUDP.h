@@ -30,8 +30,17 @@
 
 //Fonctions publiques:
 void piloteUDP_initialise(void);
-void ServiceUDP(void);
+void receiveUDP1(void);
+void transUDP1(unsigned char send[255]);
 //Variables publiques:
-//pas de variables publiques
+typedef struct
+{
+  unsigned char replyBuffer[255]; //buffer to hold incoming packet
+  unsigned char readBuffer[255];  //buffer to send packet
+
+} stPILOTEUDP;
+
+
+stPILOTEUDP piloteUDP;
 
 #endif
