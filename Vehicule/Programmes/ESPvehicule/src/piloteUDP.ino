@@ -45,7 +45,6 @@ WiFiUDP Udp;
 void piloteUDP_initialise(void)
 {
     Serial.begin(115200);
-
     //Connexion en mode Point D'accès
     // démarre UDP
     Serial.begin(115200);
@@ -66,15 +65,20 @@ void piloteUDP_initialise(void)
 //*************************************************************************************
 void receiveUDP1(void)
 {
-    int len;
-    if (len = Udp.parsePacket())
+    int len = Udp.parsePacket();
+    printf("%i\n",len);
+    if (len >= 1)
     {
-        Udp.read(piloteUDP.readBuffer, 255);
+        Udp.read(piloteUDP.readBuffer, 8);
         Serial.println("Recu:");
         Serial.println(piloteUDP.readBuffer[0]);
         Serial.println(piloteUDP.readBuffer[1]);
         Serial.println(piloteUDP.readBuffer[2]);
         Serial.println(piloteUDP.readBuffer[3]);
+        Serial.println(piloteUDP.readBuffer[4]);
+        Serial.println(piloteUDP.readBuffer[5]);
+        Serial.println(piloteUDP.readBuffer[6]);
+        Serial.println(piloteUDP.readBuffer[7]);
     }
 
 }

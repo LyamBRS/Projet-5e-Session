@@ -11,6 +11,7 @@
 
 //INCUSIONS
 #include "xpiloteIOFeuArriereD.h"
+#include "piloteUDP.h"
 
 #include "xinterfaceSuiveur.h"
 
@@ -50,7 +51,7 @@ void processusVehicule_AttendUneRequete(void)
     {
         return;
     }
-
+    
     // Test Pour la communication
     if(ModuleData.Mode == Modes.reinitialisation)
     {
@@ -58,11 +59,11 @@ void processusVehicule_AttendUneRequete(void)
     }
     if(ModuleData.Mode == Modes.operation)
     {
-        // Acive la requete de conduite
+        processusConduite.requete = PROCESSUSCONDUITE_REQUETE_ACTIVE;
     }
 
     // Pour faire des test normalement c'est les if de communication qui vont mettre la requete de Conduite active
-    processusConduite.requete = PROCESSUSCONDUITE_REQUETE_ACTIVE;
+    //processusConduite.requete = PROCESSUSCONDUITE_REQUETE_ACTIVE;
     serviceBaseDeTemps_execute[PROCESSUSVEHICULE_PHASE] = processusVehicule_AttendArriveTri;
 }
 
