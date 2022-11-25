@@ -16,6 +16,8 @@
 #include "processusUsine.h"
 #include "piloteI2C.h"
 #include "interfaceT1.h"
+#include "interfaceT2.h"
+#include "interfaceUsine.h"
 //Definitions privees
 
 
@@ -41,20 +43,29 @@ unsigned char DonneesRecues [8];
 // Références: \ref "variable" crée un lien cliquable qui mène a la variable ou a la fonction
 void processusUsine_gere (void)
 {
-  static unsigned char compte1sec;
+  piloteI2C_Transmit(INTERFACEUSINE_ADRESSE_PCF2_W, 0xFF);
+  static int compte1sec;
   static bool flagLight;
-  if (compte1sec >= 10)
+  if (compte1sec >= 1000)
   {
     compte1sec = 0;
     if (flagLight)
     {
-      piloteI2C_transmet(INTERFACEUSINE_ADRESSE_PCF1_W, 0x00);
+      interfaceT2_allume();
+      //piloteI2C_Transmit(INTERFACEUSINE_ADRESSE_PCF1_W, 0xFF);
+      interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_LED, ALLUME);
+      interfaceT2_eteint();
       interfaceT1_eteint();
+      flagLight = 0;
     }
     else 
     {
-      piloteI2C_transmet(INTERFACEUSINE_ADRESSE_PCF1_W, 0x80);
+      interfaceT2_allume();
+      //piloteI2C_Transmit(INTERFACEUSINE_ADRESSE_PCF1_W, 0xFE);
+      interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_LED, ALLUME);
+      interfaceT2_eteint();
       interfaceT1_allume();
+      flagLight = 1;
     }
     
   }
@@ -67,5 +78,5 @@ void processusUsine_gere (void)
 
 void processusUsine_initialise(void)
 {
-  serviceBaseDeTemps_execute[PROCESSUSPASSERELLE_PHASE_RECEPTION_TRANSMISSION_GERE_NOMPASTROPLONG] = processusPasserelle_gere;
+  serviceBaseDeTemps_execute[PROCESSUSUSINE_GERE] = processusUsine_gere;
 }
