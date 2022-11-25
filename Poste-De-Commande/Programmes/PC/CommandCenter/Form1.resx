@@ -252,6 +252,33 @@
   <data name="&gt;&gt;Tab_Maintenance.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="Button_Terminal.AccessibleDescription" xml:space="preserve">
+    <value>Allows the user to clear the terminal window of all text. Do not use when connecting to beaglebone blue!</value>
+  </data>
+  <data name="Button_Terminal.AccessibleName" xml:space="preserve">
+    <value>USB</value>
+  </data>
+  <data name="Button_Terminal.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="Button_Terminal.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="Button_Terminal.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Button_Terminal.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Button_Terminal.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 302</value>
+  </data>
+  <data name="Button_Terminal.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 100</value>
+  </data>
+  <data name="Button_Terminal.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
   <data name="&gt;&gt;Button_Terminal.Name" xml:space="preserve">
     <value>Button_Terminal</value>
   </data>
@@ -263,6 +290,27 @@
   </data>
   <data name="&gt;&gt;Button_Terminal.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="ConsoleArea.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="ConsoleArea.Location" type="System.Drawing.Point, System.Drawing">
+    <value>121, 6</value>
+  </data>
+  <data name="ConsoleArea.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="ConsoleArea.Size" type="System.Drawing.Size, System.Drawing">
+    <value>619, 398</value>
+  </data>
+  <data name="ConsoleArea.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="ConsoleArea.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ConsoleArea.WordWrap" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="&gt;&gt;ConsoleArea.Name" xml:space="preserve">
     <value>ConsoleArea</value>
@@ -306,6 +354,423 @@
   <data name="&gt;&gt;Tab_Terminal.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
+  <data name="BeagleBone_FilePath.AccessibleDescription" xml:space="preserve">
+    <value>Contains the name of the project file to execute inside the BeagleBoneBlue</value>
+  </data>
+  <data name="BeagleBone_FilePath.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="BeagleBone_FilePath.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Consolas, 9.75pt, style=Bold</value>
+  </data>
+  <data name="BeagleBone_FilePath.Location" type="System.Drawing.Point, System.Drawing">
+    <value>537, 135</value>
+  </data>
+  <data name="BeagleBone_FilePath.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 23</value>
+  </data>
+  <data name="BeagleBone_FilePath.TabIndex" type="System.Int32, mscorlib">
+    <value>51</value>
+  </data>
+  <data name="BeagleBone_FilePath.Text" xml:space="preserve">
+    <value>/var/lib/cloud9/294616/Project</value>
+  </data>
+  <data name="&gt;&gt;BeagleBone_FilePath.Name" xml:space="preserve">
+    <value>BeagleBone_FilePath</value>
+  </data>
+  <data name="&gt;&gt;BeagleBone_FilePath.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BeagleBone_FilePath.Parent" xml:space="preserve">
+    <value>Tab_Settings</value>
+  </data>
+  <data name="&gt;&gt;BeagleBone_FilePath.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="Label_FilePath.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="Label_FilePath.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Label_FilePath.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Consolas, 11.25pt, style=Bold</value>
+  </data>
+  <data name="Label_FilePath.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Label_FilePath.Location" type="System.Drawing.Point, System.Drawing">
+    <value>427, 135</value>
+  </data>
+  <data name="Label_FilePath.Size" type="System.Drawing.Size, System.Drawing">
+    <value>104, 27</value>
+  </data>
+  <data name="Label_FilePath.TabIndex" type="System.Int32, mscorlib">
+    <value>50</value>
+  </data>
+  <data name="Label_FilePath.Text" xml:space="preserve">
+    <value>File path:</value>
+  </data>
+  <data name="Label_FilePath.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;Label_FilePath.Name" xml:space="preserve">
+    <value>Label_FilePath</value>
+  </data>
+  <data name="&gt;&gt;Label_FilePath.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label_FilePath.Parent" xml:space="preserve">
+    <value>Tab_Settings</value>
+  </data>
+  <data name="&gt;&gt;Label_FilePath.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="BeagleBone_FileName.AccessibleDescription" xml:space="preserve">
+    <value>Contains the name of the project file to execute inside the BeagleBoneBlue</value>
+  </data>
+  <data name="BeagleBone_FileName.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="BeagleBone_FileName.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Consolas, 9.75pt, style=Bold</value>
+  </data>
+  <data name="BeagleBone_FileName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>537, 102</value>
+  </data>
+  <data name="BeagleBone_FileName.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 23</value>
+  </data>
+  <data name="BeagleBone_FileName.TabIndex" type="System.Int32, mscorlib">
+    <value>49</value>
+  </data>
+  <data name="BeagleBone_FileName.Text" xml:space="preserve">
+    <value>Project</value>
+  </data>
+  <data name="&gt;&gt;BeagleBone_FileName.Name" xml:space="preserve">
+    <value>BeagleBone_FileName</value>
+  </data>
+  <data name="&gt;&gt;BeagleBone_FileName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BeagleBone_FileName.Parent" xml:space="preserve">
+    <value>Tab_Settings</value>
+  </data>
+  <data name="&gt;&gt;BeagleBone_FileName.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="Label_FileName.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="Label_FileName.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Label_FileName.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Consolas, 11.25pt, style=Bold</value>
+  </data>
+  <data name="Label_FileName.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Label_FileName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>427, 102</value>
+  </data>
+  <data name="Label_FileName.Size" type="System.Drawing.Size, System.Drawing">
+    <value>104, 27</value>
+  </data>
+  <data name="Label_FileName.TabIndex" type="System.Int32, mscorlib">
+    <value>48</value>
+  </data>
+  <data name="Label_FileName.Text" xml:space="preserve">
+    <value>File name:</value>
+  </data>
+  <data name="Label_FileName.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;Label_FileName.Name" xml:space="preserve">
+    <value>Label_FileName</value>
+  </data>
+  <data name="&gt;&gt;Label_FileName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label_FileName.Parent" xml:space="preserve">
+    <value>Tab_Settings</value>
+  </data>
+  <data name="&gt;&gt;Label_FileName.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="BeagleBone_Password.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="BeagleBone_Password.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Consolas, 9.75pt, style=Bold</value>
+  </data>
+  <data name="BeagleBone_Password.Location" type="System.Drawing.Point, System.Drawing">
+    <value>537, 69</value>
+  </data>
+  <data name="BeagleBone_Password.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 23</value>
+  </data>
+  <data name="BeagleBone_Password.TabIndex" type="System.Int32, mscorlib">
+    <value>47</value>
+  </data>
+  <data name="BeagleBone_Password.Text" xml:space="preserve">
+    <value>temppwd</value>
+  </data>
+  <data name="&gt;&gt;BeagleBone_Password.Name" xml:space="preserve">
+    <value>BeagleBone_Password</value>
+  </data>
+  <data name="&gt;&gt;BeagleBone_Password.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BeagleBone_Password.Parent" xml:space="preserve">
+    <value>Tab_Settings</value>
+  </data>
+  <data name="&gt;&gt;BeagleBone_Password.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="Label_Password.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="Label_Password.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Label_Password.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Consolas, 11.25pt, style=Bold</value>
+  </data>
+  <data name="Label_Password.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Label_Password.Location" type="System.Drawing.Point, System.Drawing">
+    <value>427, 69</value>
+  </data>
+  <data name="Label_Password.Size" type="System.Drawing.Size, System.Drawing">
+    <value>104, 27</value>
+  </data>
+  <data name="Label_Password.TabIndex" type="System.Int32, mscorlib">
+    <value>46</value>
+  </data>
+  <data name="Label_Password.Text" xml:space="preserve">
+    <value>Password:</value>
+  </data>
+  <data name="Label_Password.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;Label_Password.Name" xml:space="preserve">
+    <value>Label_Password</value>
+  </data>
+  <data name="&gt;&gt;Label_Password.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label_Password.Parent" xml:space="preserve">
+    <value>Tab_Settings</value>
+  </data>
+  <data name="&gt;&gt;Label_Password.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="BeagleBone_User.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="BeagleBone_User.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Consolas, 9.75pt, style=Bold</value>
+  </data>
+  <data name="BeagleBone_User.Location" type="System.Drawing.Point, System.Drawing">
+    <value>537, 36</value>
+  </data>
+  <data name="BeagleBone_User.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 23</value>
+  </data>
+  <data name="BeagleBone_User.TabIndex" type="System.Int32, mscorlib">
+    <value>45</value>
+  </data>
+  <data name="BeagleBone_User.Text" xml:space="preserve">
+    <value>debian</value>
+  </data>
+  <data name="&gt;&gt;BeagleBone_User.Name" xml:space="preserve">
+    <value>BeagleBone_User</value>
+  </data>
+  <data name="&gt;&gt;BeagleBone_User.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BeagleBone_User.Parent" xml:space="preserve">
+    <value>Tab_Settings</value>
+  </data>
+  <data name="&gt;&gt;BeagleBone_User.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="Label_User.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="Label_User.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Label_User.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Consolas, 11.25pt, style=Bold</value>
+  </data>
+  <data name="Label_User.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Label_User.Location" type="System.Drawing.Point, System.Drawing">
+    <value>427, 36</value>
+  </data>
+  <data name="Label_User.Size" type="System.Drawing.Size, System.Drawing">
+    <value>104, 27</value>
+  </data>
+  <data name="Label_User.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
+  </data>
+  <data name="Label_User.Text" xml:space="preserve">
+    <value>User:</value>
+  </data>
+  <data name="Label_User.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;Label_User.Name" xml:space="preserve">
+    <value>Label_User</value>
+  </data>
+  <data name="&gt;&gt;Label_User.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label_User.Parent" xml:space="preserve">
+    <value>Tab_Settings</value>
+  </data>
+  <data name="&gt;&gt;Label_User.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="DropDown_ScaleUnit.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="DropDown_ScaleUnit.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Consolas, 9.75pt, style=Bold</value>
+  </data>
+  <data name="DropDown_ScaleUnit.Items" xml:space="preserve">
+    <value>Metric</value>
+  </data>
+  <data name="DropDown_ScaleUnit.Items1" xml:space="preserve">
+    <value>Imperial</value>
+  </data>
+  <data name="DropDown_ScaleUnit.Location" type="System.Drawing.Point, System.Drawing">
+    <value>537, 267</value>
+  </data>
+  <data name="DropDown_ScaleUnit.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
+    <value>No</value>
+  </data>
+  <data name="DropDown_ScaleUnit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 23</value>
+  </data>
+  <data name="DropDown_ScaleUnit.TabIndex" type="System.Int32, mscorlib">
+    <value>43</value>
+  </data>
+  <data name="&gt;&gt;DropDown_ScaleUnit.Name" xml:space="preserve">
+    <value>DropDown_ScaleUnit</value>
+  </data>
+  <data name="&gt;&gt;DropDown_ScaleUnit.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DropDown_ScaleUnit.Parent" xml:space="preserve">
+    <value>Tab_Settings</value>
+  </data>
+  <data name="&gt;&gt;DropDown_ScaleUnit.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="Label_ScaleUnit.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="Label_ScaleUnit.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Label_ScaleUnit.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Consolas, 11.25pt, style=Bold</value>
+  </data>
+  <data name="Label_ScaleUnit.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Label_ScaleUnit.Location" type="System.Drawing.Point, System.Drawing">
+    <value>427, 267</value>
+  </data>
+  <data name="Label_ScaleUnit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>104, 27</value>
+  </data>
+  <data name="Label_ScaleUnit.TabIndex" type="System.Int32, mscorlib">
+    <value>42</value>
+  </data>
+  <data name="Label_ScaleUnit.Text" xml:space="preserve">
+    <value>Scale Unit:</value>
+  </data>
+  <data name="Label_ScaleUnit.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;Label_ScaleUnit.Name" xml:space="preserve">
+    <value>Label_ScaleUnit</value>
+  </data>
+  <data name="&gt;&gt;Label_ScaleUnit.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label_ScaleUnit.Parent" xml:space="preserve">
+    <value>Tab_Settings</value>
+  </data>
+  <data name="&gt;&gt;Label_ScaleUnit.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="Button_Scale.AccessibleDescription" xml:space="preserve">
+    <value>Indicate the state of the CAN scale</value>
+  </data>
+  <data name="Button_Scale.AccessibleName" xml:space="preserve">
+    <value>Scale State</value>
+  </data>
+  <data name="Button_Scale.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="Button_Scale.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="Button_Scale.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Button_Scale.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Button_Scale.Location" type="System.Drawing.Point, System.Drawing">
+    <value>637, 304</value>
+  </data>
+  <data name="Button_Scale.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 100</value>
+  </data>
+  <data name="Button_Scale.TabIndex" type="System.Int32, mscorlib">
+    <value>41</value>
+  </data>
+  <data name="&gt;&gt;Button_Scale.Name" xml:space="preserve">
+    <value>Button_Scale</value>
+  </data>
+  <data name="&gt;&gt;Button_Scale.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Button_Scale.Parent" xml:space="preserve">
+    <value>Tab_Settings</value>
+  </data>
+  <data name="&gt;&gt;Button_Scale.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="SerialPortText.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="SerialPortText.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Consolas, 11.25pt, style=Bold</value>
+  </data>
+  <data name="SerialPortText.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 36</value>
+  </data>
+  <data name="SerialPortText.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 27</value>
+  </data>
+  <data name="SerialPortText.TabIndex" type="System.Int32, mscorlib">
+    <value>40</value>
+  </data>
+  <data name="SerialPortText.Text" xml:space="preserve">
+    <value>Port:</value>
+  </data>
+  <data name="SerialPortText.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
   <data name="&gt;&gt;SerialPortText.Name" xml:space="preserve">
     <value>SerialPortText</value>
   </data>
@@ -316,7 +781,22 @@
     <value>Tab_Settings</value>
   </data>
   <data name="&gt;&gt;SerialPortText.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>11</value>
+  </data>
+  <data name="PortBox1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Consolas, 9.75pt, style=Bold</value>
+  </data>
+  <data name="PortBox1.IntegralHeight" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="PortBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>115, 36</value>
+  </data>
+  <data name="PortBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 23</value>
+  </data>
+  <data name="PortBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>39</value>
   </data>
   <data name="&gt;&gt;PortBox1.Name" xml:space="preserve">
     <value>PortBox1</value>
@@ -328,7 +808,28 @@
     <value>Tab_Settings</value>
   </data>
   <data name="&gt;&gt;PortBox1.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>12</value>
+  </data>
+  <data name="FlowControlText.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="FlowControlText.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Consolas, 11.25pt, style=Bold</value>
+  </data>
+  <data name="FlowControlText.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 201</value>
+  </data>
+  <data name="FlowControlText.Size" type="System.Drawing.Size, System.Drawing">
+    <value>102, 27</value>
+  </data>
+  <data name="FlowControlText.TabIndex" type="System.Int32, mscorlib">
+    <value>38</value>
+  </data>
+  <data name="FlowControlText.Text" xml:space="preserve">
+    <value>Flow Control:</value>
+  </data>
+  <data name="FlowControlText.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
   </data>
   <data name="&gt;&gt;FlowControlText.Name" xml:space="preserve">
     <value>FlowControlText</value>
@@ -340,7 +841,22 @@
     <value>Tab_Settings</value>
   </data>
   <data name="&gt;&gt;FlowControlText.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>13</value>
+  </data>
+  <data name="FlowControlBox.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Consolas, 9.75pt, style=Bold</value>
+  </data>
+  <data name="FlowControlBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>115, 201</value>
+  </data>
+  <data name="FlowControlBox.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
+    <value>No</value>
+  </data>
+  <data name="FlowControlBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 23</value>
+  </data>
+  <data name="FlowControlBox.TabIndex" type="System.Int32, mscorlib">
+    <value>37</value>
   </data>
   <data name="&gt;&gt;FlowControlBox.Name" xml:space="preserve">
     <value>FlowControlBox</value>
@@ -352,7 +868,22 @@
     <value>Tab_Settings</value>
   </data>
   <data name="&gt;&gt;FlowControlBox.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>14</value>
+  </data>
+  <data name="TXTimeOutBox.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Consolas, 9.75pt, style=Bold</value>
+  </data>
+  <data name="TXTimeOutBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>115, 267</value>
+  </data>
+  <data name="TXTimeOutBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 23</value>
+  </data>
+  <data name="TXTimeOutBox.TabIndex" type="System.Int32, mscorlib">
+    <value>36</value>
+  </data>
+  <data name="TXTimeOutBox.Text" xml:space="preserve">
+    <value>300</value>
   </data>
   <data name="&gt;&gt;TXTimeOutBox.Name" xml:space="preserve">
     <value>TXTimeOutBox</value>
@@ -364,7 +895,22 @@
     <value>Tab_Settings</value>
   </data>
   <data name="&gt;&gt;TXTimeOutBox.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>15</value>
+  </data>
+  <data name="RXTimeOutBox.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Consolas, 9.75pt, style=Bold</value>
+  </data>
+  <data name="RXTimeOutBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>115, 234</value>
+  </data>
+  <data name="RXTimeOutBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 23</value>
+  </data>
+  <data name="RXTimeOutBox.TabIndex" type="System.Int32, mscorlib">
+    <value>35</value>
+  </data>
+  <data name="RXTimeOutBox.Text" xml:space="preserve">
+    <value>300</value>
   </data>
   <data name="&gt;&gt;RXTimeOutBox.Name" xml:space="preserve">
     <value>RXTimeOutBox</value>
@@ -376,7 +922,28 @@
     <value>Tab_Settings</value>
   </data>
   <data name="&gt;&gt;RXTimeOutBox.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>16</value>
+  </data>
+  <data name="TXTimeOutText.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="TXTimeOutText.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Consolas, 11.25pt, style=Bold</value>
+  </data>
+  <data name="TXTimeOutText.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 267</value>
+  </data>
+  <data name="TXTimeOutText.Size" type="System.Drawing.Size, System.Drawing">
+    <value>102, 27</value>
+  </data>
+  <data name="TXTimeOutText.TabIndex" type="System.Int32, mscorlib">
+    <value>34</value>
+  </data>
+  <data name="TXTimeOutText.Text" xml:space="preserve">
+    <value>TX (ms):</value>
+  </data>
+  <data name="TXTimeOutText.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
   </data>
   <data name="&gt;&gt;TXTimeOutText.Name" xml:space="preserve">
     <value>TXTimeOutText</value>
@@ -388,7 +955,28 @@
     <value>Tab_Settings</value>
   </data>
   <data name="&gt;&gt;TXTimeOutText.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>17</value>
+  </data>
+  <data name="RXTimeOutText.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="RXTimeOutText.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Consolas, 11.25pt, style=Bold</value>
+  </data>
+  <data name="RXTimeOutText.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 234</value>
+  </data>
+  <data name="RXTimeOutText.Size" type="System.Drawing.Size, System.Drawing">
+    <value>102, 27</value>
+  </data>
+  <data name="RXTimeOutText.TabIndex" type="System.Int32, mscorlib">
+    <value>33</value>
+  </data>
+  <data name="RXTimeOutText.Text" xml:space="preserve">
+    <value>RX (ms):</value>
+  </data>
+  <data name="RXTimeOutText.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
   </data>
   <data name="&gt;&gt;RXTimeOutText.Name" xml:space="preserve">
     <value>RXTimeOutText</value>
@@ -400,7 +988,28 @@
     <value>Tab_Settings</value>
   </data>
   <data name="&gt;&gt;RXTimeOutText.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>18</value>
+  </data>
+  <data name="ParityText.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="ParityText.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Consolas, 11.25pt, style=Bold</value>
+  </data>
+  <data name="ParityText.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 168</value>
+  </data>
+  <data name="ParityText.Size" type="System.Drawing.Size, System.Drawing">
+    <value>102, 27</value>
+  </data>
+  <data name="ParityText.TabIndex" type="System.Int32, mscorlib">
+    <value>32</value>
+  </data>
+  <data name="ParityText.Text" xml:space="preserve">
+    <value>Parity:</value>
+  </data>
+  <data name="ParityText.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
   </data>
   <data name="&gt;&gt;ParityText.Name" xml:space="preserve">
     <value>ParityText</value>
@@ -412,7 +1021,22 @@
     <value>Tab_Settings</value>
   </data>
   <data name="&gt;&gt;ParityText.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>19</value>
+  </data>
+  <data name="ParityBox.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Consolas, 9.75pt, style=Bold</value>
+  </data>
+  <data name="ParityBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>115, 168</value>
+  </data>
+  <data name="ParityBox.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
+    <value>No</value>
+  </data>
+  <data name="ParityBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 23</value>
+  </data>
+  <data name="ParityBox.TabIndex" type="System.Int32, mscorlib">
+    <value>31</value>
   </data>
   <data name="&gt;&gt;ParityBox.Name" xml:space="preserve">
     <value>ParityBox</value>
@@ -424,7 +1048,28 @@
     <value>Tab_Settings</value>
   </data>
   <data name="&gt;&gt;ParityBox.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>20</value>
+  </data>
+  <data name="StopBitsText.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="StopBitsText.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Consolas, 11.25pt, style=Bold</value>
+  </data>
+  <data name="StopBitsText.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 135</value>
+  </data>
+  <data name="StopBitsText.Size" type="System.Drawing.Size, System.Drawing">
+    <value>102, 27</value>
+  </data>
+  <data name="StopBitsText.TabIndex" type="System.Int32, mscorlib">
+    <value>30</value>
+  </data>
+  <data name="StopBitsText.Text" xml:space="preserve">
+    <value>Stop Bits:</value>
+  </data>
+  <data name="StopBitsText.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
   </data>
   <data name="&gt;&gt;StopBitsText.Name" xml:space="preserve">
     <value>StopBitsText</value>
@@ -436,7 +1081,22 @@
     <value>Tab_Settings</value>
   </data>
   <data name="&gt;&gt;StopBitsText.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>21</value>
+  </data>
+  <data name="StopBitBox.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Consolas, 9.75pt, style=Bold</value>
+  </data>
+  <data name="StopBitBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>115, 135</value>
+  </data>
+  <data name="StopBitBox.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
+    <value>No</value>
+  </data>
+  <data name="StopBitBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 23</value>
+  </data>
+  <data name="StopBitBox.TabIndex" type="System.Int32, mscorlib">
+    <value>29</value>
   </data>
   <data name="&gt;&gt;StopBitBox.Name" xml:space="preserve">
     <value>StopBitBox</value>
@@ -448,7 +1108,28 @@
     <value>Tab_Settings</value>
   </data>
   <data name="&gt;&gt;StopBitBox.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>22</value>
+  </data>
+  <data name="DataBitsText.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="DataBitsText.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Consolas, 11.25pt, style=Bold</value>
+  </data>
+  <data name="DataBitsText.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 102</value>
+  </data>
+  <data name="DataBitsText.Size" type="System.Drawing.Size, System.Drawing">
+    <value>101, 27</value>
+  </data>
+  <data name="DataBitsText.TabIndex" type="System.Int32, mscorlib">
+    <value>28</value>
+  </data>
+  <data name="DataBitsText.Text" xml:space="preserve">
+    <value>Data Bits:</value>
+  </data>
+  <data name="DataBitsText.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
   </data>
   <data name="&gt;&gt;DataBitsText.Name" xml:space="preserve">
     <value>DataBitsText</value>
@@ -460,7 +1141,28 @@
     <value>Tab_Settings</value>
   </data>
   <data name="&gt;&gt;DataBitsText.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>23</value>
+  </data>
+  <data name="DataBitBox.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Consolas, 9.75pt, style=Bold</value>
+  </data>
+  <data name="DataBitBox.Items" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="DataBitBox.Items1" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="DataBitBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>115, 102</value>
+  </data>
+  <data name="DataBitBox.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
+    <value>No</value>
+  </data>
+  <data name="DataBitBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 23</value>
+  </data>
+  <data name="DataBitBox.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
   </data>
   <data name="&gt;&gt;DataBitBox.Name" xml:space="preserve">
     <value>DataBitBox</value>
@@ -472,7 +1174,28 @@
     <value>Tab_Settings</value>
   </data>
   <data name="&gt;&gt;DataBitBox.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>24</value>
+  </data>
+  <data name="BaudRateText.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="BaudRateText.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Consolas, 11.25pt, style=Bold</value>
+  </data>
+  <data name="BaudRateText.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 69</value>
+  </data>
+  <data name="BaudRateText.Size" type="System.Drawing.Size, System.Drawing">
+    <value>101, 27</value>
+  </data>
+  <data name="BaudRateText.TabIndex" type="System.Int32, mscorlib">
+    <value>26</value>
+  </data>
+  <data name="BaudRateText.Text" xml:space="preserve">
+    <value>BaudRate:</value>
+  </data>
+  <data name="BaudRateText.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
   </data>
   <data name="&gt;&gt;BaudRateText.Name" xml:space="preserve">
     <value>BaudRateText</value>
@@ -484,7 +1207,64 @@
     <value>Tab_Settings</value>
   </data>
   <data name="&gt;&gt;BaudRateText.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>25</value>
+  </data>
+  <data name="BaudRateBox.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Consolas, 9.75pt, style=Bold</value>
+  </data>
+  <data name="BaudRateBox.Items" xml:space="preserve">
+    <value>300</value>
+  </data>
+  <data name="BaudRateBox.Items1" xml:space="preserve">
+    <value>600</value>
+  </data>
+  <data name="BaudRateBox.Items2" xml:space="preserve">
+    <value>1200</value>
+  </data>
+  <data name="BaudRateBox.Items3" xml:space="preserve">
+    <value>2400</value>
+  </data>
+  <data name="BaudRateBox.Items4" xml:space="preserve">
+    <value>4800</value>
+  </data>
+  <data name="BaudRateBox.Items5" xml:space="preserve">
+    <value>9600</value>
+  </data>
+  <data name="BaudRateBox.Items6" xml:space="preserve">
+    <value>14400</value>
+  </data>
+  <data name="BaudRateBox.Items7" xml:space="preserve">
+    <value>19200</value>
+  </data>
+  <data name="BaudRateBox.Items8" xml:space="preserve">
+    <value>38400</value>
+  </data>
+  <data name="BaudRateBox.Items9" xml:space="preserve">
+    <value>57600</value>
+  </data>
+  <data name="BaudRateBox.Items10" xml:space="preserve">
+    <value>115200</value>
+  </data>
+  <data name="BaudRateBox.Items11" xml:space="preserve">
+    <value>230400</value>
+  </data>
+  <data name="BaudRateBox.Items12" xml:space="preserve">
+    <value>460800</value>
+  </data>
+  <data name="BaudRateBox.Items13" xml:space="preserve">
+    <value>921600</value>
+  </data>
+  <data name="BaudRateBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>115, 69</value>
+  </data>
+  <data name="BaudRateBox.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
+    <value>No</value>
+  </data>
+  <data name="BaudRateBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 23</value>
+  </data>
+  <data name="BaudRateBox.TabIndex" type="System.Int32, mscorlib">
+    <value>25</value>
   </data>
   <data name="&gt;&gt;BaudRateBox.Name" xml:space="preserve">
     <value>BaudRateBox</value>
@@ -496,7 +1276,31 @@
     <value>Tab_Settings</value>
   </data>
   <data name="&gt;&gt;BaudRateBox.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>26</value>
+  </data>
+  <data name="Button_Link.AccessibleDescription" xml:space="preserve">
+    <value>Indicate the state of the USB link between the beagleBoneBlue and the PC</value>
+  </data>
+  <data name="Button_Link.AccessibleName" xml:space="preserve">
+    <value>USB</value>
+  </data>
+  <data name="Button_Link.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="Button_Link.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Button_Link.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Button_Link.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 304</value>
+  </data>
+  <data name="Button_Link.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 100</value>
+  </data>
+  <data name="Button_Link.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
   </data>
   <data name="&gt;&gt;Button_Link.Name" xml:space="preserve">
     <value>Button_Link</value>
@@ -508,7 +1312,7 @@
     <value>Tab_Settings</value>
   </data>
   <data name="&gt;&gt;Button_Link.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>27</value>
   </data>
   <data name="Tab_Settings.Font" type="System.Drawing.Font, System.Drawing">
     <value>Consolas, 8.25pt, style=Bold</value>
@@ -557,7 +1361,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAB2
-        ZgAAAk1TRnQBSQFMAgEBKQEAAbABAAGwAQABIAEAASABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        ZgAAAk1TRnQBSQFMAgEBKQEAAQgBAQEIAQEBIAEAASABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABgAMAAWABAQIAAQEBAAEIBgABsBgAAYACAAGAAwACgAEAAYADAAGAAQABgAEAAoACAAPAAQABwAHc
         AcABAAHwAcoBpgEAATMFAAEzAQABMwEAATMBAAIzAgADFgEAAxwBAAMiAQADKQEAA1UBAANNAQADQgEA
         AzkBAAGAAXwB/wEAAlAB/wEAAZMBAAHWAQAB/wHsAcwBAAHGAdYB7wEAAdYC5wEAAZABqQGtAgAB/wEz
@@ -1020,642 +1824,6 @@
   </data>
   <data name="&gt;&gt;TabControl_ModeSelector.ZOrder" xml:space="preserve">
     <value>3</value>
-  </data>
-  <data name="Button_Terminal.AccessibleDescription" xml:space="preserve">
-    <value>Indicates the state of the USB connection between the application and the BeagleBoneBlue</value>
-  </data>
-  <data name="Button_Terminal.AccessibleName" xml:space="preserve">
-    <value>USB</value>
-  </data>
-  <data name="Button_Terminal.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="Button_Terminal.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
-    <value>Stretch</value>
-  </data>
-  <data name="Button_Terminal.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Flat</value>
-  </data>
-  <data name="Button_Terminal.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="Button_Terminal.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 302</value>
-  </data>
-  <data name="Button_Terminal.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 100</value>
-  </data>
-  <data name="Button_Terminal.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
-  </data>
-  <data name="&gt;&gt;Button_Terminal.Name" xml:space="preserve">
-    <value>Button_Terminal</value>
-  </data>
-  <data name="&gt;&gt;Button_Terminal.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Button_Terminal.Parent" xml:space="preserve">
-    <value>Tab_Terminal</value>
-  </data>
-  <data name="&gt;&gt;Button_Terminal.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="ConsoleArea.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Right</value>
-  </data>
-  <data name="ConsoleArea.Location" type="System.Drawing.Point, System.Drawing">
-    <value>121, 6</value>
-  </data>
-  <data name="ConsoleArea.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
-  </data>
-  <data name="ConsoleArea.Size" type="System.Drawing.Size, System.Drawing">
-    <value>619, 398</value>
-  </data>
-  <data name="ConsoleArea.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="ConsoleArea.Text" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ConsoleArea.WordWrap" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;ConsoleArea.Name" xml:space="preserve">
-    <value>ConsoleArea</value>
-  </data>
-  <data name="&gt;&gt;ConsoleArea.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ConsoleArea.Parent" xml:space="preserve">
-    <value>Tab_Terminal</value>
-  </data>
-  <data name="&gt;&gt;ConsoleArea.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="SerialPortText.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Flat</value>
-  </data>
-  <data name="SerialPortText.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Consolas, 11.25pt, style=Bold</value>
-  </data>
-  <data name="SerialPortText.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 23</value>
-  </data>
-  <data name="SerialPortText.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 27</value>
-  </data>
-  <data name="SerialPortText.TabIndex" type="System.Int32, mscorlib">
-    <value>40</value>
-  </data>
-  <data name="SerialPortText.Text" xml:space="preserve">
-    <value>Port:</value>
-  </data>
-  <data name="SerialPortText.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="&gt;&gt;SerialPortText.Name" xml:space="preserve">
-    <value>SerialPortText</value>
-  </data>
-  <data name="&gt;&gt;SerialPortText.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;SerialPortText.Parent" xml:space="preserve">
-    <value>Tab_Settings</value>
-  </data>
-  <data name="&gt;&gt;SerialPortText.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="PortBox1.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Consolas, 9.75pt, style=Bold</value>
-  </data>
-  <data name="PortBox1.IntegralHeight" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="PortBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>116, 23</value>
-  </data>
-  <data name="PortBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>199, 23</value>
-  </data>
-  <data name="PortBox1.TabIndex" type="System.Int32, mscorlib">
-    <value>39</value>
-  </data>
-  <data name="&gt;&gt;PortBox1.Name" xml:space="preserve">
-    <value>PortBox1</value>
-  </data>
-  <data name="&gt;&gt;PortBox1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;PortBox1.Parent" xml:space="preserve">
-    <value>Tab_Settings</value>
-  </data>
-  <data name="&gt;&gt;PortBox1.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="FlowControlText.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Flat</value>
-  </data>
-  <data name="FlowControlText.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Consolas, 11.25pt, style=Bold</value>
-  </data>
-  <data name="FlowControlText.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 201</value>
-  </data>
-  <data name="FlowControlText.Size" type="System.Drawing.Size, System.Drawing">
-    <value>102, 27</value>
-  </data>
-  <data name="FlowControlText.TabIndex" type="System.Int32, mscorlib">
-    <value>38</value>
-  </data>
-  <data name="FlowControlText.Text" xml:space="preserve">
-    <value>Flow Control:</value>
-  </data>
-  <data name="FlowControlText.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="&gt;&gt;FlowControlText.Name" xml:space="preserve">
-    <value>FlowControlText</value>
-  </data>
-  <data name="&gt;&gt;FlowControlText.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;FlowControlText.Parent" xml:space="preserve">
-    <value>Tab_Settings</value>
-  </data>
-  <data name="&gt;&gt;FlowControlText.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="FlowControlBox.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Consolas, 9.75pt, style=Bold</value>
-  </data>
-  <data name="FlowControlBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>114, 201</value>
-  </data>
-  <data name="FlowControlBox.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
-    <value>No</value>
-  </data>
-  <data name="FlowControlBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>201, 23</value>
-  </data>
-  <data name="FlowControlBox.TabIndex" type="System.Int32, mscorlib">
-    <value>37</value>
-  </data>
-  <data name="&gt;&gt;FlowControlBox.Name" xml:space="preserve">
-    <value>FlowControlBox</value>
-  </data>
-  <data name="&gt;&gt;FlowControlBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;FlowControlBox.Parent" xml:space="preserve">
-    <value>Tab_Settings</value>
-  </data>
-  <data name="&gt;&gt;FlowControlBox.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="TXTimeOutBox.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Consolas, 9.75pt, style=Bold</value>
-  </data>
-  <data name="TXTimeOutBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>114, 268</value>
-  </data>
-  <data name="TXTimeOutBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>201, 23</value>
-  </data>
-  <data name="TXTimeOutBox.TabIndex" type="System.Int32, mscorlib">
-    <value>36</value>
-  </data>
-  <data name="TXTimeOutBox.Text" xml:space="preserve">
-    <value>300</value>
-  </data>
-  <data name="&gt;&gt;TXTimeOutBox.Name" xml:space="preserve">
-    <value>TXTimeOutBox</value>
-  </data>
-  <data name="&gt;&gt;TXTimeOutBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TXTimeOutBox.Parent" xml:space="preserve">
-    <value>Tab_Settings</value>
-  </data>
-  <data name="&gt;&gt;TXTimeOutBox.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="RXTimeOutBox.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Consolas, 9.75pt, style=Bold</value>
-  </data>
-  <data name="RXTimeOutBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>114, 235</value>
-  </data>
-  <data name="RXTimeOutBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>201, 23</value>
-  </data>
-  <data name="RXTimeOutBox.TabIndex" type="System.Int32, mscorlib">
-    <value>35</value>
-  </data>
-  <data name="RXTimeOutBox.Text" xml:space="preserve">
-    <value>300</value>
-  </data>
-  <data name="&gt;&gt;RXTimeOutBox.Name" xml:space="preserve">
-    <value>RXTimeOutBox</value>
-  </data>
-  <data name="&gt;&gt;RXTimeOutBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;RXTimeOutBox.Parent" xml:space="preserve">
-    <value>Tab_Settings</value>
-  </data>
-  <data name="&gt;&gt;RXTimeOutBox.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="TXTimeOutText.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Flat</value>
-  </data>
-  <data name="TXTimeOutText.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Consolas, 11.25pt, style=Bold</value>
-  </data>
-  <data name="TXTimeOutText.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 268</value>
-  </data>
-  <data name="TXTimeOutText.Size" type="System.Drawing.Size, System.Drawing">
-    <value>102, 27</value>
-  </data>
-  <data name="TXTimeOutText.TabIndex" type="System.Int32, mscorlib">
-    <value>34</value>
-  </data>
-  <data name="TXTimeOutText.Text" xml:space="preserve">
-    <value>TX (ms):</value>
-  </data>
-  <data name="TXTimeOutText.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="&gt;&gt;TXTimeOutText.Name" xml:space="preserve">
-    <value>TXTimeOutText</value>
-  </data>
-  <data name="&gt;&gt;TXTimeOutText.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TXTimeOutText.Parent" xml:space="preserve">
-    <value>Tab_Settings</value>
-  </data>
-  <data name="&gt;&gt;TXTimeOutText.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="RXTimeOutText.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Flat</value>
-  </data>
-  <data name="RXTimeOutText.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Consolas, 11.25pt, style=Bold</value>
-  </data>
-  <data name="RXTimeOutText.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 235</value>
-  </data>
-  <data name="RXTimeOutText.Size" type="System.Drawing.Size, System.Drawing">
-    <value>102, 27</value>
-  </data>
-  <data name="RXTimeOutText.TabIndex" type="System.Int32, mscorlib">
-    <value>33</value>
-  </data>
-  <data name="RXTimeOutText.Text" xml:space="preserve">
-    <value>RX (ms):</value>
-  </data>
-  <data name="RXTimeOutText.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="&gt;&gt;RXTimeOutText.Name" xml:space="preserve">
-    <value>RXTimeOutText</value>
-  </data>
-  <data name="&gt;&gt;RXTimeOutText.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;RXTimeOutText.Parent" xml:space="preserve">
-    <value>Tab_Settings</value>
-  </data>
-  <data name="&gt;&gt;RXTimeOutText.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="ParityText.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Flat</value>
-  </data>
-  <data name="ParityText.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Consolas, 11.25pt, style=Bold</value>
-  </data>
-  <data name="ParityText.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 168</value>
-  </data>
-  <data name="ParityText.Size" type="System.Drawing.Size, System.Drawing">
-    <value>102, 27</value>
-  </data>
-  <data name="ParityText.TabIndex" type="System.Int32, mscorlib">
-    <value>32</value>
-  </data>
-  <data name="ParityText.Text" xml:space="preserve">
-    <value>Parity:</value>
-  </data>
-  <data name="ParityText.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="&gt;&gt;ParityText.Name" xml:space="preserve">
-    <value>ParityText</value>
-  </data>
-  <data name="&gt;&gt;ParityText.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ParityText.Parent" xml:space="preserve">
-    <value>Tab_Settings</value>
-  </data>
-  <data name="&gt;&gt;ParityText.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="ParityBox.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Consolas, 9.75pt, style=Bold</value>
-  </data>
-  <data name="ParityBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>114, 168</value>
-  </data>
-  <data name="ParityBox.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
-    <value>No</value>
-  </data>
-  <data name="ParityBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>201, 23</value>
-  </data>
-  <data name="ParityBox.TabIndex" type="System.Int32, mscorlib">
-    <value>31</value>
-  </data>
-  <data name="&gt;&gt;ParityBox.Name" xml:space="preserve">
-    <value>ParityBox</value>
-  </data>
-  <data name="&gt;&gt;ParityBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ParityBox.Parent" xml:space="preserve">
-    <value>Tab_Settings</value>
-  </data>
-  <data name="&gt;&gt;ParityBox.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="StopBitsText.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Flat</value>
-  </data>
-  <data name="StopBitsText.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Consolas, 11.25pt, style=Bold</value>
-  </data>
-  <data name="StopBitsText.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 135</value>
-  </data>
-  <data name="StopBitsText.Size" type="System.Drawing.Size, System.Drawing">
-    <value>102, 27</value>
-  </data>
-  <data name="StopBitsText.TabIndex" type="System.Int32, mscorlib">
-    <value>30</value>
-  </data>
-  <data name="StopBitsText.Text" xml:space="preserve">
-    <value>Stop Bits:</value>
-  </data>
-  <data name="StopBitsText.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="&gt;&gt;StopBitsText.Name" xml:space="preserve">
-    <value>StopBitsText</value>
-  </data>
-  <data name="&gt;&gt;StopBitsText.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;StopBitsText.Parent" xml:space="preserve">
-    <value>Tab_Settings</value>
-  </data>
-  <data name="&gt;&gt;StopBitsText.ZOrder" xml:space="preserve">
-    <value>10</value>
-  </data>
-  <data name="StopBitBox.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Consolas, 9.75pt, style=Bold</value>
-  </data>
-  <data name="StopBitBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>114, 135</value>
-  </data>
-  <data name="StopBitBox.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
-    <value>No</value>
-  </data>
-  <data name="StopBitBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>201, 23</value>
-  </data>
-  <data name="StopBitBox.TabIndex" type="System.Int32, mscorlib">
-    <value>29</value>
-  </data>
-  <data name="&gt;&gt;StopBitBox.Name" xml:space="preserve">
-    <value>StopBitBox</value>
-  </data>
-  <data name="&gt;&gt;StopBitBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;StopBitBox.Parent" xml:space="preserve">
-    <value>Tab_Settings</value>
-  </data>
-  <data name="&gt;&gt;StopBitBox.ZOrder" xml:space="preserve">
-    <value>11</value>
-  </data>
-  <data name="DataBitsText.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Flat</value>
-  </data>
-  <data name="DataBitsText.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Consolas, 11.25pt, style=Bold</value>
-  </data>
-  <data name="DataBitsText.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 102</value>
-  </data>
-  <data name="DataBitsText.Size" type="System.Drawing.Size, System.Drawing">
-    <value>101, 27</value>
-  </data>
-  <data name="DataBitsText.TabIndex" type="System.Int32, mscorlib">
-    <value>28</value>
-  </data>
-  <data name="DataBitsText.Text" xml:space="preserve">
-    <value>Data Bits:</value>
-  </data>
-  <data name="DataBitsText.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="&gt;&gt;DataBitsText.Name" xml:space="preserve">
-    <value>DataBitsText</value>
-  </data>
-  <data name="&gt;&gt;DataBitsText.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;DataBitsText.Parent" xml:space="preserve">
-    <value>Tab_Settings</value>
-  </data>
-  <data name="&gt;&gt;DataBitsText.ZOrder" xml:space="preserve">
-    <value>12</value>
-  </data>
-  <data name="DataBitBox.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Consolas, 9.75pt, style=Bold</value>
-  </data>
-  <data name="DataBitBox.Items" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="DataBitBox.Items1" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="DataBitBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>115, 102</value>
-  </data>
-  <data name="DataBitBox.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
-    <value>No</value>
-  </data>
-  <data name="DataBitBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 23</value>
-  </data>
-  <data name="DataBitBox.TabIndex" type="System.Int32, mscorlib">
-    <value>27</value>
-  </data>
-  <data name="&gt;&gt;DataBitBox.Name" xml:space="preserve">
-    <value>DataBitBox</value>
-  </data>
-  <data name="&gt;&gt;DataBitBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;DataBitBox.Parent" xml:space="preserve">
-    <value>Tab_Settings</value>
-  </data>
-  <data name="&gt;&gt;DataBitBox.ZOrder" xml:space="preserve">
-    <value>13</value>
-  </data>
-  <data name="BaudRateText.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Flat</value>
-  </data>
-  <data name="BaudRateText.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Consolas, 11.25pt, style=Bold</value>
-  </data>
-  <data name="BaudRateText.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 69</value>
-  </data>
-  <data name="BaudRateText.Size" type="System.Drawing.Size, System.Drawing">
-    <value>101, 27</value>
-  </data>
-  <data name="BaudRateText.TabIndex" type="System.Int32, mscorlib">
-    <value>26</value>
-  </data>
-  <data name="BaudRateText.Text" xml:space="preserve">
-    <value>BaudRate:</value>
-  </data>
-  <data name="BaudRateText.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="&gt;&gt;BaudRateText.Name" xml:space="preserve">
-    <value>BaudRateText</value>
-  </data>
-  <data name="&gt;&gt;BaudRateText.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;BaudRateText.Parent" xml:space="preserve">
-    <value>Tab_Settings</value>
-  </data>
-  <data name="&gt;&gt;BaudRateText.ZOrder" xml:space="preserve">
-    <value>14</value>
-  </data>
-  <data name="BaudRateBox.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Consolas, 9.75pt, style=Bold</value>
-  </data>
-  <data name="BaudRateBox.Items" xml:space="preserve">
-    <value>300</value>
-  </data>
-  <data name="BaudRateBox.Items1" xml:space="preserve">
-    <value>600</value>
-  </data>
-  <data name="BaudRateBox.Items2" xml:space="preserve">
-    <value>1200</value>
-  </data>
-  <data name="BaudRateBox.Items3" xml:space="preserve">
-    <value>2400</value>
-  </data>
-  <data name="BaudRateBox.Items4" xml:space="preserve">
-    <value>4800</value>
-  </data>
-  <data name="BaudRateBox.Items5" xml:space="preserve">
-    <value>9600</value>
-  </data>
-  <data name="BaudRateBox.Items6" xml:space="preserve">
-    <value>14400</value>
-  </data>
-  <data name="BaudRateBox.Items7" xml:space="preserve">
-    <value>19200</value>
-  </data>
-  <data name="BaudRateBox.Items8" xml:space="preserve">
-    <value>38400</value>
-  </data>
-  <data name="BaudRateBox.Items9" xml:space="preserve">
-    <value>57600</value>
-  </data>
-  <data name="BaudRateBox.Items10" xml:space="preserve">
-    <value>115200</value>
-  </data>
-  <data name="BaudRateBox.Items11" xml:space="preserve">
-    <value>230400</value>
-  </data>
-  <data name="BaudRateBox.Items12" xml:space="preserve">
-    <value>460800</value>
-  </data>
-  <data name="BaudRateBox.Items13" xml:space="preserve">
-    <value>921600</value>
-  </data>
-  <data name="BaudRateBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>115, 69</value>
-  </data>
-  <data name="BaudRateBox.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
-    <value>No</value>
-  </data>
-  <data name="BaudRateBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 23</value>
-  </data>
-  <data name="BaudRateBox.TabIndex" type="System.Int32, mscorlib">
-    <value>25</value>
-  </data>
-  <data name="&gt;&gt;BaudRateBox.Name" xml:space="preserve">
-    <value>BaudRateBox</value>
-  </data>
-  <data name="&gt;&gt;BaudRateBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;BaudRateBox.Parent" xml:space="preserve">
-    <value>Tab_Settings</value>
-  </data>
-  <data name="&gt;&gt;BaudRateBox.ZOrder" xml:space="preserve">
-    <value>15</value>
-  </data>
-  <data name="Button_Link.AccessibleDescription" xml:space="preserve">
-    <value>Indicate the state of the USB link between the beagleBoneBlue and the PC</value>
-  </data>
-  <data name="Button_Link.AccessibleName" xml:space="preserve">
-    <value>USB</value>
-  </data>
-  <data name="Button_Link.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
-    <value>Stretch</value>
-  </data>
-  <data name="Button_Link.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Flat</value>
-  </data>
-  <data name="Button_Link.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="Button_Link.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 304</value>
-  </data>
-  <data name="Button_Link.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 100</value>
-  </data>
-  <data name="Button_Link.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
-  </data>
-  <data name="&gt;&gt;Button_Link.Name" xml:space="preserve">
-    <value>Button_Link</value>
-  </data>
-  <data name="&gt;&gt;Button_Link.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Button_Link.Parent" xml:space="preserve">
-    <value>Tab_Settings</value>
-  </data>
-  <data name="&gt;&gt;Button_Link.ZOrder" xml:space="preserve">
-    <value>16</value>
   </data>
   <data name="UserInfo.AccessibleDescription" xml:space="preserve">
     <value>Displays an important message to the user regarding different events from the application</value>

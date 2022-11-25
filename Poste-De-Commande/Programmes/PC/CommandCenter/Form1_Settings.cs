@@ -14,8 +14,11 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Collections.ObjectModel;
 using System.Xml.Linq;
+using System.Xml;
 using BRS;
 using BRS.Buttons;
+using System.Configuration;
+using System.Collections.Specialized;
 
 namespace CommandCenter
 {
@@ -69,6 +72,360 @@ namespace CommandCenter
         /// To check, using a timer, if the port state changed.
         /// </summary>
         public static bool oldPortState = false;
+
+        public class Settings
+        {
+            #region Variables
+            /// <summary>
+            /// The XML document where all the settings for the command center are located.
+            /// </summary>
+            public static XmlDocument SettingsFile = new XmlDocument();
+
+            private static string Filepath = "";
+            /// <summary>
+            /// Reference to this form
+            /// </summary>
+            public static Form_MainMenu formSettings;
+            #endregion Variables
+            #region Individual_Settings_Changes
+            #region BaudRate
+            /// <summary> Gets the value from Settings.xml </summary>
+            /// <returns>Value of BaudRate</returns>
+            public static string BaudRate() { return ReadAppSettings("BaudRate"); }
+
+            /// <summary> Gets the value from Settings.xml </summary>
+            public static bool BaudRate(string valueToSave) { return(UpdateOrCreate("BaudRate", valueToSave)); }
+            #endregion BaudRate
+            #region DataBits
+            /// <summary> Gets the value from Settings.xml </summary>
+            /// <returns>Value of DataBits</returns>
+            public static string DataBits() { return ReadAppSettings("DataBits"); }
+
+            /// <summary> Gets the value from Settings.xml </summary>
+            public static bool DataBits(string valueToSave) { return (UpdateOrCreate("DataBits", valueToSave)); }
+            #endregion DataBits
+            #region StopBits
+            /// <summary> Gets the value from Settings.xml </summary>
+            /// <returns>Value of StopBits</returns>
+            public static string StopBits() { return ReadAppSettings("StopBits"); }
+
+            /// <summary> Gets the value from Settings.xml </summary>
+            public static bool StopBits(string valueToSave) { return (UpdateOrCreate("StopBits", valueToSave)); }
+            #endregion StopBits
+            #region Parity
+            /// <summary> Gets the value from Settings.xml </summary>
+            /// <returns>Value of Parity</returns>
+            public static string Parity() { return ReadAppSettings("Parity"); }
+
+            /// <summary> Gets the value from Settings.xml </summary>
+            public static bool Parity(string valueToSave) { return (UpdateOrCreate("Parity", valueToSave)); }
+            #endregion Parity
+            #region Flow
+            /// <summary> Gets the value from Settings.xml </summary>
+            /// <returns>Value of Flow</returns>
+            public static string Flow() { return ReadAppSettings("Flow"); }
+
+            /// <summary> Gets the value from Settings.xml </summary>
+            public static bool Flow(string valueToSave) { return (UpdateOrCreate("Flow", valueToSave)); }
+            #endregion Flow
+            #region TimeOut_RX
+            /// <summary> Gets the value from Settings.xml </summary>
+            /// <returns>Value of TimeOut_RX</returns>
+            public static string TimeOut_RX() { return ReadAppSettings("TimeOut_RX"); }
+
+            /// <summary> Gets the value from Settings.xml </summary>
+            public static bool TimeOut_RX(string valueToSave) { return (UpdateOrCreate("TimeOut_RX", valueToSave)); }
+            #endregion TimeOut_RX
+            #region TimeOut_TX
+            /// <summary> Gets the value from Settings.xml </summary>
+            /// <returns>Value of TimeOut_TX</returns>
+            public static string TimeOut_TX() { return ReadAppSettings("TimeOut_TX"); }
+
+            /// <summary> Gets the value from Settings.xml </summary>
+            public static bool TimeOut_TX(string valueToSave) { return (UpdateOrCreate("TimeOut_TX", valueToSave)); }
+            #endregion TimeOut_RX
+            #region BeagleBone_User
+            /// <summary> Gets the value from Settings.xml </summary>
+            /// <returns>Value of BeagleBone_User</returns>
+            public static string BeagleBone_User() { return(ReadAppSettings("BeagleBone_User")); }
+
+            /// <summary> Gets the value from Settings.xml </summary>
+            public static bool BeagleBone_User(string valueToSave) { return (UpdateOrCreate("BeagleBone_User", valueToSave)); }
+            #endregion BeagleBone_User
+            #region BeagleBone_Password
+            /// <summary> Gets the value from Settings.xml </summary>
+            /// <returns>Value of BeagleBone_Password</returns>
+            public static string BeagleBone_Password() { return ReadAppSettings("BeagleBone_Password"); }
+
+            /// <summary> Gets the value from Settings.xml </summary>
+            public static bool BeagleBone_Password(string valueToSave) { return (UpdateOrCreate("BeagleBone_Password", valueToSave)); }
+            #endregion BeagleBone_Password
+            #region BeagleBone_FilePath
+            /// <summary> Gets the value from Settings.xml </summary>
+            /// <returns>Value of BeagleBone_FilePath</returns>
+            public static string BeagleBone_FilePath() { return ReadAppSettings("BeagleBone_FilePath"); }
+
+            /// <summary> Gets the value from Settings.xml </summary>
+            public static bool BeagleBone_FilePath(string valueToSave) { return (UpdateOrCreate("BeagleBone_FilePath", valueToSave)); }
+            #endregion BeagleBone_FilePath
+            #region BeagleBone_FileName
+            /// <summary> Gets the value from Settings.xml </summary>
+            /// <returns>Value of BeagleBone_FileName</returns>
+            public static string BeagleBone_FileName() { return ReadAppSettings("BeagleBone_FileName"); }
+
+            /// <summary> Gets the value from Settings.xml </summary>
+            public static bool BeagleBone_FileName(string valueToSave) { return (UpdateOrCreate("BeagleBone_FileName", valueToSave)); }
+            #endregion BeagleBone_FilePath
+            #region Scale_Unit
+            /// <summary> Gets the value from Settings.xml </summary>
+            /// <returns>Value of Scale_Unit</returns>
+            public static string Scale_Unit() { return ReadAppSettings("Scale_Unit"); }
+
+            /// <summary> Gets the value from Settings.xml </summary>
+            public static bool Scale_Unit(string valueToSave) { return(UpdateOrCreate("Scale_Unit", valueToSave)); }
+            #endregion Scale_Unit
+            #endregion Individual_Settings_Changes
+            //#############################################################//
+            /// <summary>
+            /// Creates or saves texts inside of the AppSetting node of the
+            /// CommandCenter's settings XML file. If the node already exist
+            /// the inner text gets updated.
+            /// </summary>
+            /// <param name="doc">Settings.xml</param>
+            /// <param name="elementName">Name of the setting</param>
+            /// <param name="value">Value to put in the setting</param>
+            /// <return>false if an error occured during saving</return>
+            //#############################################################//
+            private static bool UpdateOrCreate(string elementName, string value)
+            {
+                XmlNodeList nodes;
+
+                #region Global_Checks_For_Nulls
+                // Checking if configuration tag exists within the referenced XML
+                if (SettingsFile.SelectSingleNode("//configuration") == null)
+                {
+                    BRS.Debug.Comment("Configuration did no exist, creating it...");
+                    XmlElement Configuration = SettingsFile.CreateElement("configuration");
+                    SettingsFile.AppendChild(Configuration);
+                    Debug.Success();
+                }
+                XmlNode configuration = SettingsFile.SelectSingleNode("//configuration");
+
+                // Checking if appSettings is present inside of configuration node
+                if (SettingsFile.SelectSingleNode("//configuration/appSettings") == null)
+                {
+                    BRS.Debug.Comment("appSettings did no exist, creating it...");
+                    XmlElement AppSettings = SettingsFile.CreateElement("appSettings");
+                    configuration.AppendChild(AppSettings);
+                    Debug.Success();
+                }
+                XmlNode appSettings = configuration.SelectSingleNode("//appSettings");
+                #endregion Global_Checks_For_Nulls
+                /////////////////////////////////////////////////////////////////////////
+                XmlNode elementNode = appSettings.SelectSingleNode("//" + elementName);
+
+                if (elementNode == null)
+                {
+                    BRS.Debug.Comment(elementName + " did no exist, creating it...");
+                    XmlElement elementToCreate = SettingsFile.CreateElement(elementName);
+                    appSettings.AppendChild(elementToCreate);
+                    Debug.Success();
+                }
+                elementNode = appSettings.SelectSingleNode("//" + elementName);
+
+                BRS.Debug.Comment("Saving " + value + " inside of " + elementName);
+                elementNode.InnerText = value;
+
+                BRS.Debug.Comment("Attempting to save Settings.xml...");
+                try
+                {
+                    SettingsFile.Save(Filepath);
+                    Debug.Success();
+                    return true;
+                }
+                catch
+                {
+                    Debug.Error("FILE NO LONGER EXISTS ???");
+                    return false;
+                }
+            }
+            //#############################################################//
+            /// <summary>
+            /// Reads the specified setting from the Settings.xml file of the
+            /// CommandCenter
+            /// </summary>
+            /// <param name="elementName">Name of the setting</param>
+            /// <returns></returns>
+            //#############################################################//
+            private static string ReadAppSettings(string elementName)
+            {
+                SettingsFile.Load(Filepath);
+                /*
+                BRS.Debug.Comment();
+                */
+                XmlNodeList nodes;
+
+                #region Global_Checks_For_Nulls
+                // Checking if configuration tag exists within the referenced XML
+                if (SettingsFile.SelectSingleNode("//configuration") == null)
+                {
+                    Debug.Aborted("Something went wrong in the XML formatting... configuration isn't present in Settings.xml");
+                    return ("XML Error");
+                }
+                XmlNode configuration = SettingsFile.SelectSingleNode("//configuration");
+
+                // Checking if appSettings is present inside of configuration node
+                if (SettingsFile.SelectSingleNode("//configuration/appSettings") == null)
+                {
+                    Debug.Aborted("Something went wrong in the XML formatting... appSettings isnt present in Settings.xml");
+                    return ("XML Error");
+                }
+                XmlNode appSettings = configuration.SelectSingleNode("//appSettings");
+                #endregion Global_Checks_For_Nulls
+                /////////////////////////////////////////////////////////////////////////
+                XmlNode elementNode = appSettings.SelectSingleNode("//" + elementName);
+
+                if (elementNode == null)
+                {
+                    Debug.Error(elementName + " does not exist! Create it via UpdateOrCreateAppSetting()");
+                    return ("NaN");
+                }
+                else
+                {
+                    elementNode = appSettings.SelectSingleNode("//" + elementName);
+                    BRS.Debug.Comment("Read: " + elementNode.InnerText);
+                    return (elementNode.InnerText);
+                }
+            }
+            //#############################################################//
+            /// <summary>
+            /// Loads data from the setting file. If there are no
+            /// setting files, it will create an empty one, with default
+            /// parameters. Place this at the end of your initialisation
+            /// functions of your form
+            /// </summary>
+            //#############################################################//
+            public static void LoadSettings()
+            {
+                string path = "";
+                bool directoryFound = false;
+                BRS.Debug.Comment("Loading settings from XML file...");
+                //////////////////////////////////////////
+                BRS.Debug.Comment("Navigating directories to the setting emplacement...");
+                path = Directory.GetCurrentDirectory();
+                //path = Path.GetFullPath(Path.Combine(path, @"..\..\"));
+                BRS.Debug.Success("Directory: " + path);
+                //////////////////////////////////////////
+                BRS.Debug.Comment("Checking if a setting folder exists...");
+                var folders = Directory.GetDirectories(path);
+                foreach (string folder in folders)
+                {
+                    if (folder.Contains("Settings"))
+                    {
+                        path = folder;
+                        directoryFound = true;
+                        break;
+                    }
+                }
+                //////////////////////////////////////////
+                if (directoryFound)
+                {
+                    Debug.Success("Setting directory found!");
+                    BRS.Debug.Comment("Checking if file Settings.xml exists within the directory...");
+                    if (File.Exists(path + @"\Settings.xml"))
+                    {
+                        Debug.Success("Settings already exists!");
+                    }
+                    else
+                    {
+                        Debug.Aborted("Settings file do not exists");
+                        CreateXML(path);
+                    }
+                }
+                else
+                {
+                    Debug.Error("No directory for settings found... Creating one...");
+                    path = path + @"\Settings";
+                    Directory.CreateDirectory(path);
+                    Debug.Success();
+
+                    BRS.Debug.Comment("Creating XML file within the specified folder...");
+                    CreateXML(path);
+                }
+
+                Filepath = path + @"\Settings.xml";
+
+
+                BRS.Debug.Comment("Getting XML file...");
+                try
+                {
+                    SettingsFile = new XmlDocument();
+                    SettingsFile.Load(Filepath);
+                    Debug.Success();
+
+                    BRS.Debug.Comment("Settings are ready to be loaded into whatever they need be.");
+                }
+                catch
+                {
+                    Debug.Error("Could not get XML file at specified path");
+                }
+            }
+            //#############################################################//
+            /// <summary>
+            /// Crate a setting XML document for the CommandCenter
+            /// application at the path specified. Don't use this, only use
+            /// LoadSettings(); This is only called if no setting file exists
+            /// </summary>
+            /// <param name="path">DIRECTORY PATH NO FILE PATH</param>
+            //#############################################################//
+            private static void CreateXML(string path)
+            {
+                BRS.Debug.Comment("Creating XML file to store application settings");
+                SettingsFile = new XmlDocument();
+
+                BRS.Debug.Comment("Creating XMl configuration...");
+                XmlDeclaration xmlDeclaration = SettingsFile.CreateXmlDeclaration("1.0", "UTF-8", null);
+                XmlElement root = SettingsFile.DocumentElement;
+                SettingsFile.InsertBefore(xmlDeclaration, root);
+
+                BRS.Debug.Comment("Creating necessary Settings");
+                UpdateorCreate_ALL();
+                BRS.Debug.Comment("Saving XML file...");
+                try
+                {
+                    SettingsFile.Save(path + @"\Settings.xml");
+                    Debug.Success();
+                }
+                catch
+                {
+                    Debug.Error("COULD NOT CREATE AND SAVE AN XML FILE AT THE SPECIFIED PATH!!!");
+                }
+            }
+            //#############################################################//
+            /// <summary>
+            /// Initial creation or updates of all the settings
+            /// </summary>
+            //#############################################################//
+            private static void UpdateorCreate_ALL()
+            {
+                BRS.Debug.Comment("Updating or creating all settings...");
+
+                UpdateOrCreate("BaudRate", formSettings.BaudRateBox.Text);
+                UpdateOrCreate("DataBits", formSettings.DataBitBox.Text);
+                UpdateOrCreate("StopBits", formSettings.StopBitBox.Text);
+                UpdateOrCreate("Parity", formSettings.ParityBox.Text);
+                UpdateOrCreate("Flow", formSettings.FlowControlBox.Text);
+                UpdateOrCreate("TimeOut_RX", formSettings.RXTimeOutBox.Text);
+                UpdateOrCreate("TimeOut_TX", formSettings.TXTimeOutBox.Text);
+
+                UpdateOrCreate("BeagleBone_User", formSettings.BeagleBone_User.Text);
+                UpdateOrCreate("BeagleBone_Password", formSettings.BeagleBone_Password.Text);
+                UpdateOrCreate("BeagleBone_FilePath", formSettings.BeagleBone_FilePath.Text);
+                UpdateOrCreate("BeagleBone_FileName", formSettings.BeagleBone_FileName.Text);
+
+                UpdateOrCreate("Scale_Unit", formSettings.DropDown_ScaleUnit.Text);
+            }
+        }
 
         #endregion Initialisations
         #region Initialization_functions
@@ -222,6 +579,7 @@ namespace CommandCenter
 
                     CommandCenter.Buttons.USB.State = ControlState.Warning;
                     CommandCenter.Buttons.Link.State = ControlState.Active;
+                    BeagleBone.StartConnection = true;
                     ComShouldBeOpen = true;
                 }
                 catch
@@ -263,6 +621,7 @@ namespace CommandCenter
             BRS.Debug.Header(false);
         }
         #endregion Buttons
+        #region USB
         //#############################################################//
         /// <summary>
         /// Event called when the PortBox list should be changed.
@@ -275,7 +634,6 @@ namespace CommandCenter
         //#############################################################//
         public void ListChanged(object sender, EventArgs e)
         {
-            BRS.Debug.Comment("Increasing <debounce> timer.");
             TimeUntilDropDownUpdate = 2;
             UpdateDropDown = true;
         }
@@ -289,9 +647,10 @@ namespace CommandCenter
         //#############################################################//
         private void UpdatePortList_Tick(object sender, EventArgs e)
         {
+            Debug.LocalStart(true);
             if (UpdateDropDown && TimeUntilDropDownUpdate == 0)
             {
-                BRS.Debug.Success("Innitialising com port drop down");
+                BRS.Debug.Success("Innitialising com port drop down...");
                 InnitComDropDown();
                 UpdateDropDown = false;
             }
@@ -299,6 +658,8 @@ namespace CommandCenter
             {
                 TimeUntilDropDownUpdate--;
             }
+
+            BeagleBone_ConnectingProcess();
 
             // Disabling the settings parameters if the port is opened.
             if (BRS.ComPort.Port.IsOpen)
@@ -309,6 +670,9 @@ namespace CommandCenter
                 FlowControlBox.Enabled = false;
                 DataBitBox.Enabled = false;
                 PortBox1.Enabled = false;
+                TXTimeOutBox.Enabled = false;
+                RXTimeOutBox.Enabled = false;
+                ConsoleArea.Enabled = true;
             }
             else
             {
@@ -318,6 +682,9 @@ namespace CommandCenter
                 FlowControlBox.Enabled = true;
                 DataBitBox.Enabled = true;
                 PortBox1.Enabled = true;
+                TXTimeOutBox.Enabled = true;
+                RXTimeOutBox.Enabled = true;
+                ConsoleArea.Enabled = false;
             }
 
             // Check actual state of the USB vs the state it should be in.
@@ -330,6 +697,146 @@ namespace CommandCenter
                 //reste flag to actual USB state in this case.
                 ComShouldBeOpen = BRS.ComPort.Port.IsOpen;
             }
+
+            Debug.LocalEnd();
         }
+        #endregion USB
+        #region WhenToSaveSettings
+        private void PortBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        }
+        private void BaudRateBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (Settings.BaudRate(BaudRateBox.Text))
+            {
+                NewUserTextInfo("Saved new BaudRate", 1);
+            }
+            else
+            {
+                NewUserTextInfo("SAVING ERROR",2);
+            }
+        }
+        private void DataBitBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(Settings.DataBits(DataBitBox.Text))
+            {
+                NewUserTextInfo("Saved new DataBits", 1);
+            }
+            else
+            {
+                NewUserTextInfo("SAVING ERROR", 2);
+            }
+        }
+        private void StopBitBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(Settings.StopBits(StopBitBox.Text))
+            {
+                NewUserTextInfo("Saved new Stopbits", 1);
+            }
+            else
+            {
+                NewUserTextInfo("SAVING ERROR", 2);
+            }
+        }
+        private void ParityBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(Settings.Parity(ParityBox.Text))
+            {
+                NewUserTextInfo("Saved new parity", 1);
+            }
+            else
+            {
+                NewUserTextInfo("SAVING ERROR", 2);
+            }
+        }
+        private void FlowControlBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(Settings.Flow(FlowControlBox.Text))
+            {
+                NewUserTextInfo("Saved flow control", 1);
+            }
+            else
+            {
+                NewUserTextInfo("SAVING ERROR", 2);
+            }
+        }
+        private void RXTimeOutBox_TextChanged(object sender, EventArgs e)
+        {
+            if(Settings.TimeOut_RX(RXTimeOutBox.Text))
+            {
+                NewUserTextInfo("Saved new timeout", 1);
+            }
+            else
+            {
+                NewUserTextInfo("SAVING ERROR", 2);
+            }
+        }
+        private void TXTimeOutBox_TextChanged(object sender, EventArgs e)
+        {
+            if(Settings.TimeOut_TX(TXTimeOutBox.Text))
+            {
+                NewUserTextInfo("Saved new timeout", 1);
+            }
+            else
+            {
+                NewUserTextInfo("SAVING ERROR", 2);
+            }
+        }
+        private void DropDown_ScaleUnit_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(Settings.Scale_Unit(DropDown_ScaleUnit.Text))
+            {
+                NewUserTextInfo("Saved new unit", 1);
+            }
+            else
+            {
+                NewUserTextInfo("SAVING ERROR", 2);
+            }
+        }
+        private void BeagleBone_FilePath_TextChanged(object sender, EventArgs e)
+        {
+            if(Settings.BeagleBone_FilePath(BeagleBone_FilePath.Text))
+            {
+                NewUserTextInfo("Saved new path", 1);
+            }
+            else
+            {
+                NewUserTextInfo("SAVING ERROR", 2);
+            }
+        }
+        private void BeagleBone_FileName_TextChanged(object sender, EventArgs e)
+        {
+            if(Settings.BeagleBone_FileName(BeagleBone_FileName.Text))
+            {
+                NewUserTextInfo("Saved new file name", 1);
+            }
+            else
+            {
+                NewUserTextInfo("SAVING ERROR", 2);
+            }
+        }
+        private void BeagleBone_Password_TextChanged(object sender, EventArgs e)
+        {
+            if(Settings.BeagleBone_Password(BeagleBone_Password.Text))
+            {
+                NewUserTextInfo("Saved new Password", 1);
+            }
+            else
+            {
+                NewUserTextInfo("SAVING ERROR", 2);
+            }
+        }
+        private void BeagleBone_User_TextChanged(object sender, EventArgs e)
+        {
+            if(Settings.BeagleBone_User(BeagleBone_User.Text))
+            {
+                NewUserTextInfo("Saved new User", 1);
+            }
+            else
+            {
+                NewUserTextInfo("SAVING ERROR", 2);
+            }
+        }
+        #endregion WhenToSaveSettings
     }
 }

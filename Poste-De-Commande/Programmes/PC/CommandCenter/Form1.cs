@@ -27,7 +27,7 @@ namespace CommandCenter
             BRS.Debug.Comment("Initializing the command center's components...");
             InitializeComponent();
             FormConsoleRef = this;
-            Debug.Success("");
+            Debug.Success();           
             /////////////////////////////////////////////////////////////
             #region DynamicButtons
             //----------------------------------------------------------
@@ -57,18 +57,18 @@ namespace CommandCenter
             BRS.ComPort.createInfoReceivedEvent();
             BRS.ComPort.DataReceivedAction = DataReceiverHandling;
             BRS.ComPort.startPortUpdater();
-            Debug.Success("");
+            Debug.Success();
             //----------------------------------------------------------
             /////////////////////////////////////////////////////////////
             BRS.Debug.Comment("Creating delegate for RX data received event...");
             Delegate = new dlgThread(RXConsoleText);
-            Debug.Success("");
+            Debug.Success();
             //----------------------------------------------------------
             BRS.Debug.Comment("Initialising UART list...");
             BRS.ComPort.ListOfPortChanged.CollectionChanged += ListChanged;
             BRS.ComPort.StoreAllAvailableComs();
             OldSettings = BRS.ComPort.Port;
-            Debug.Success("");
+            Debug.Success();
             /////////////////////////////////////////////////////////////
             BRS.Debug.Comment("Initialising setting boxes for UART");
             InnitComDropDown();
@@ -77,10 +77,32 @@ namespace CommandCenter
             InnitParity();
             InnitFlowControl();
             InnitDataBit();
-            Debug.Success("");
+            Debug.Success();
             /////////////////////////////////////////////////////////////
             BRS.Debug.Comment("Starting timers...");
             UpdatePortList.Enabled = true;
+            Debug.Success();
+            /////////////////////////////////////////////////////////////
+            BRS.Debug.Comment("Loading saved settings...");
+            Settings.formSettings = this;
+            Settings.LoadSettings();
+
+            BaudRateBox.Text = Settings.BaudRate();
+            DataBitBox.Text = Settings.DataBits();
+            ParityBox.Text = Settings.Parity();
+            StopBitBox.Text = Settings.StopBits();
+            FlowControlBox.Text = Settings.Flow();
+            RXTimeOutBox.Text = Settings.TimeOut_RX();
+            TXTimeOutBox.Text = Settings.TimeOut_TX();
+
+            BeagleBone_User.Text = Settings.BeagleBone_User();
+            BeagleBone_Password.Text = Settings.BeagleBone_Password();
+            BeagleBone_FileName.Text = Settings.BeagleBone_FileName();
+            BeagleBone_FilePath.Text = Settings.BeagleBone_FilePath();
+
+            DropDown_ScaleUnit.Text = Settings.Scale_Unit();
+
+            Debug.Success();
             BRS.Debug.Header(false);
         }
         //#############################################################//
@@ -93,6 +115,7 @@ namespace CommandCenter
         //#############################################################// 
         private void NewUserTextInfo(string info, int style)
         {
+            Debug.LocalStart(false);
             BRS.Debug.Comment("Changing user header info...");
             switch (style)
             {
@@ -104,6 +127,11 @@ namespace CommandCenter
 
             UserInfo.Text = info;
             Debug.Success("");
+            Debug.LocalEnd();
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 

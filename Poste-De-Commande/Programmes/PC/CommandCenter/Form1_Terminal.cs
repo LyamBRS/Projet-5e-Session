@@ -64,7 +64,7 @@ namespace CommandCenter
             ConsoleArea.SelectionStart = ConsoleArea.Text.Length;
             ConsoleArea.SelectionColor = Color.LightGreen;
 
-
+            /*
             if (received.StartsWith("\r"))
             {
                 int LineIndex = ConsoleArea.GetLineFromCharIndex(ConsoleArea.SelectionStart);
@@ -77,10 +77,30 @@ namespace CommandCenter
                 received = received.Replace('\r', ' ');
                 received = received.Replace('\n', ' ');
             }
+            */
 
             ConsoleArea.SelectedText = received;
             ConsoleArea.SelectionStart = ConsoleArea.Text.Length;
             ConsoleArea.SelectionColor = Color.Aqua;
+        }
+        //#############################################################//
+        //#############################################################//
+        private void Button_Terminal_Click(object sender, EventArgs e)
+        {
+
+        }
+        //#############################################################//
+        /// <summary>
+        /// Adds an error log in red text at the end of the terminal.
+        /// </summary>
+        /// <param name="error">Text to display in the console</param>
+        //#############################################################//
+        public void ConsoleArea_LogError(string error)
+        {
+            ConsoleArea.SelectionStart = ConsoleArea.Text.Length;
+            ConsoleArea.SelectionColor = Color.Red;
+            ConsoleArea.SelectedText = "\n[!ERROR!]: " + error + "\n";
+            ConsoleArea.SelectionStart = ConsoleArea.Text.Length;
         }
     }
 }

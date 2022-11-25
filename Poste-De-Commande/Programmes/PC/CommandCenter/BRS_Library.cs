@@ -28,9 +28,14 @@ namespace BRS
     public partial class Debug
     {
         public static bool DEBBUG_CONSOLE = false;
+        private static bool oldDebugState = false;
         private static int InitialStackSize = 0;
         private static int PreviousIndent = 0;
         private static int RemoveIndent = 0;
+        /// <summary>
+        /// For different printings.
+        /// </summary>
+        private static bool InsideAStray = false;
         //#########################################################//
         /// <summary>
         /// Enables all the BRS.Debug.Comment to print in
@@ -42,6 +47,18 @@ namespace BRS
         {
             DEBBUG_CONSOLE = debugToggled;
         }
+        //#########################################################//
+        /// <summary>
+        /// Returns true if the toggledebug was initialised at
+        /// some point
+        /// </summary>
+        /// <returns></returns>
+        //#########################################################// 
+        public static bool CheckIfDebugging()
+        {
+            return DEBBUG_CONSOLE;
+        }
+        #region Comments
         //#########################################################//
         /// <summary>
         /// Debug comment shown, and automatically indented in console
@@ -69,6 +86,11 @@ namespace BRS
                 try
                 {
                     functionName = stackFrames[1 + RemoveIndent].GetMethod().Name;
+
+                    if(functionName.Equals(".ctor"))
+                    {
+                        functionName = stackFrames[2 + RemoveIndent].GetMethod().Name;
+                    }
                 }
                 catch
                 {
@@ -99,9 +121,75 @@ namespace BRS
                 }
 
                 // Create the string
-                Console.Write(indentation + " |\t" + "[" + functionName + "]:" + message + "\n");
+                Console.Write(indentation + "|\t" + "[" + functionName + "]:\t" + message + "\n");
             }
         }
+        //#########################################################//
+        /// <summary>
+        /// used like a regular comment, however, this overload is to
+        /// be used for debugs which can occur in a thread to avoid
+        /// confusion with a regular function using a header which
+        /// might be printing on the screen as it is called.
+        /// </summary>
+        /// <param name="message">What is your code doing</param>
+        /// <param name="isStray">true: Your function is a Stray function thus needs a special indent</param> 
+        //#########################################################//
+        public static void Comment(string message, bool isStray)
+        {
+            if (DEBBUG_CONSOLE)
+            {
+                //Check to see where we are in the stack
+                StackTrace stackTrace = new StackTrace();
+                StackFrame[] stackFrames = stackTrace.GetFrames();
+
+                //Get how deep we are in the form stack
+                int tabs = stackFrames.Length - InitialStackSize - RemoveIndent;
+
+                //Get the function name
+                string functionName = "";
+                try
+                {
+                    functionName = stackFrames[1 + RemoveIndent].GetMethod().Name;
+
+                    if (functionName.Equals(".ctor"))
+                    {
+                        functionName = stackFrames[2 + RemoveIndent].GetMethod().Name;
+                    }
+                }
+                catch
+                {
+                }
+
+                //Create debugging indentation
+                string indentation = "";
+                for (int i = 0; i < tabs; i++)
+                {
+                    indentation = indentation + "-\t";
+                }
+
+                //See if we need a empty seperator because stack got smaller
+                if (PreviousIndent > tabs)
+                {
+                    Console.Write(indentation + "-\t\n");
+                }
+
+                // Stack increased, show function name
+                //if (PreviousIndent < tabs)
+                //{
+                //   Console.Write(indentation + "[" + functionName + "]:\n");
+                //}
+
+                if (PreviousIndent != tabs)
+                {
+                    PreviousIndent = tabs;
+                }
+
+                // Create the string
+                Console.Write(indentation + "-\t" + "[STRAY]:(" + functionName + "):\t" + message + "\n");
+            }
+        }
+        #endregion Comments
+        #region Function_States
         //#########################################################//
         /// <summary>
         /// Comment with automatically added [! SUCCESS !]:
@@ -119,6 +207,25 @@ namespace BRS
 
                 RemoveIndent = 1;
                 Debug.Comment("[! SUCCESS !]: " + message);
+                RemoveIndent = 0;
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+        }
+        //#########################################################//
+        /// <summary>
+        /// Comment [! SUCCESS !]
+        /// This is to say your process was Success.
+        /// Not aborted nor was there an error.
+        /// </summary>
+        //#########################################################//
+        public static void Success()
+        {
+            if (DEBBUG_CONSOLE)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+
+                RemoveIndent = 1;
+                Debug.Comment("[! SUCCESS !]");
                 RemoveIndent = 0;
                 Console.ForegroundColor = ConsoleColor.White;
             }
@@ -145,6 +252,24 @@ namespace BRS
         }
         //#########################################################//
         /// <summary>
+        /// Comments [* ABORTED *]
+        /// This is to say your process was aborted, without any
+        /// message
+        /// </summary>
+        //#########################################################//
+        public static void Aborted()
+        {
+            if (DEBBUG_CONSOLE)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                RemoveIndent = 1;
+                Debug.Comment("[* ABORTED *]:");
+                RemoveIndent = 0;
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+        }
+        //#########################################################//
+        /// <summary>
         /// Comment with automatically added [? ERROR ?]:
         /// to remove some text from your debug comment in your
         /// script.  This is to say your process ran in an error.
@@ -165,15 +290,22 @@ namespace BRS
         }
         //#########################################################//
         /// <summary>
-        /// Returns true if the toggledebug was initialised at
-        /// some point
+        /// Displays [? ERROR ?]
+        /// This is to say your process ran in an error.
         /// </summary>
-        /// <returns></returns>
-        //#########################################################// 
-        public static bool CheckIfDebugging()
+        //#########################################################//
+        public static void Error()
         {
-            return DEBBUG_CONSOLE;
+            if (DEBBUG_CONSOLE)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                RemoveIndent = 1;
+                Debug.Comment("[## ERROR ##]");
+                RemoveIndent = 0;
+                Console.ForegroundColor = ConsoleColor.White;
+            }
         }
+        #endregion Function_States
         //#########################################################//
         /// <summary>
         /// Break lines at the start and end of a big function.
@@ -190,12 +322,12 @@ namespace BRS
                 StackFrame[] stackFrames = stackTrace.GetFrames();
 
                 InitialStackSize = stackFrames.Length;
-                PreviousIndent = InitialStackSize;
+                PreviousIndent = 0;
 
                 string functionName = stackFrames[1].GetMethod().Name;
 
-                string header = start ? "|/__|/__|/__|/__|/__|/__|/__|/__|/__|/__|/__|/__|/__|/__|/__|/__|/ " :
-                                        "/|__/|__/|__/|__/|__/|__/|__/|__/|__/|__/|__/|__/|__/|__/|__/|__/| ";
+                string header = start ? "\\/#\\/#\\/#\\/#\\/#\\/#\\/#\\/#\\/#\\/#\\/#\\/#\\/#\\/#\\/#\\/#\\/#" :
+                                        "/\\#/\\#/\\#/\\#/\\#/\\#/\\#/\\#/\\#/\\#/\\#/\\#/\\#/\\#/\\#/\\#/\\#";
 
                 // Create the string
                 Console.WriteLine(header + "[" + functionName + "]: " + (start ? "START" : "END"));
@@ -207,6 +339,7 @@ namespace BRS
                 }
             }
         }
+        #region LocalDebug
         //#########################################################//
         /// <summary>
         /// Function allowing the user to debug a single main function
@@ -218,6 +351,7 @@ namespace BRS
         //#########################################################//
         public static void LocalStart(bool state)
         {
+            oldDebugState = DEBBUG_CONSOLE;
             BRS.Debug.ToggleDebug(state && Debug.DEBBUG_CONSOLE);
         }
         //#########################################################//
@@ -229,9 +363,49 @@ namespace BRS
         //#########################################################//
         public static void LocalEnd()
         {
-            BRS.Debug.ToggleDebug(DEBBUG_CONSOLE);
+            BRS.Debug.ToggleDebug(oldDebugState);
         }
+        #endregion LocalDebug
+        /*
+        #region StrayFunctionsHeaders
+        //#########################################################//
+        /// <summary>
+        /// A stray function is a function which runs parralel to the
+        /// main functions but still wants to be debugged.
+        /// Exemple being temporary threads.
+        /// Basically, use this for functions which can call themselves
+        /// while others are already being displayed
+        /// </summary>
+        /// <param name="start"> set to true when starting your main function debug. Set to false to close the debug</param>
+        //#########################################################//
+        public static void StrayHeader(bool start)
+        {
+            if (DEBBUG_CONSOLE)
+            {
+                //Check to see where we are in the stack
+                StackTrace stackTrace = new StackTrace();
+                StackFrame[] stackFrames = stackTrace.GetFrames();
 
+                InitialStackSize = stackFrames.Length;
+                PreviousIndent = 0;
+
+                string functionName = stackFrames[1].GetMethod().Name;
+
+                string header = start ? "(STRAY)____________________________________________________________________" :
+                                        "(STRAY)____________________________________________________________________";
+
+                // Create the string
+                Console.WriteLine(header + "[" + functionName + "]: " + (start ? "(START)" : "(END)"));
+
+                //line return on header end
+                if (start == false)
+                {
+                    Console.WriteLine("");
+                }
+            }
+        }
+        #endregion StrayFunctionsHeaders
+        */
     }
     //#########################################################//
     /// <summary>
@@ -1038,7 +1212,6 @@ namespace BRS
 
             AvailableComsFullName.Clear();
 
-            BRS.Debug.Comment("[BRS]: Printing all available ports:");
             foreach (ManagementObject prop in Ports)
             {
                 if (prop.GetPropertyValue("Manufacturer") != null && prop.GetPropertyValue("Name") != null)

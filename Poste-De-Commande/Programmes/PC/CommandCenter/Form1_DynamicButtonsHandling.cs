@@ -34,9 +34,15 @@ namespace CommandCenter
             int G = UserInfo.ForeColor.G;
             int B = UserInfo.ForeColor.B;
 
-            if (R > 50) { R -= 2; }
-            if (G > 50) { G -= 2; }
-            if (B > 50) { B -= 2; }
+            //Defines up to which point the color must fade out.
+            // Always return to gray in a linear fashion.
+            int minimum = 50;
+            if (R > minimum) { R -= 2; }
+            if (G > minimum) { G -= 2; }
+            if (B > minimum) { B -= 2; }
+            if (R < minimum) { R += 2; }
+            if (G < minimum) { G += 2; }
+            if (B < minimum) { B += 2; }
 
             UserInfo.ForeColor = Color.FromArgb(R, G, B);
             //ConsoleArea.Focus();

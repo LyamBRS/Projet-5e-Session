@@ -487,5 +487,8 @@
   <ItemGroup>
     <None Include="Icons\Terminal\Terminal_Warning_Filled.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Settings.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

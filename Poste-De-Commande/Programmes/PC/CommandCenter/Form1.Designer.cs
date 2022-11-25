@@ -40,6 +40,17 @@ namespace CommandCenter
             this.Button_Terminal = new System.Windows.Forms.Button();
             this.ConsoleArea = new System.Windows.Forms.RichTextBox();
             this.Tab_Settings = new System.Windows.Forms.TabPage();
+            this.BeagleBone_FilePath = new System.Windows.Forms.TextBox();
+            this.Label_FilePath = new System.Windows.Forms.Button();
+            this.BeagleBone_FileName = new System.Windows.Forms.TextBox();
+            this.Label_FileName = new System.Windows.Forms.Button();
+            this.BeagleBone_Password = new System.Windows.Forms.TextBox();
+            this.Label_Password = new System.Windows.Forms.Button();
+            this.BeagleBone_User = new System.Windows.Forms.TextBox();
+            this.Label_User = new System.Windows.Forms.Button();
+            this.DropDown_ScaleUnit = new System.Windows.Forms.ComboBox();
+            this.Label_ScaleUnit = new System.Windows.Forms.Button();
+            this.Button_Scale = new System.Windows.Forms.Button();
             this.SerialPortText = new System.Windows.Forms.Button();
             this.PortBox1 = new System.Windows.Forms.ComboBox();
             this.FlowControlText = new System.Windows.Forms.Button();
@@ -78,7 +89,7 @@ namespace CommandCenter
             this.TabControl_ModeSelector.Controls.Add(this.Tab_Maintenance);
             this.TabControl_ModeSelector.Controls.Add(this.Tab_Terminal);
             this.TabControl_ModeSelector.Controls.Add(this.Tab_Settings);
-            this.TabControl_ModeSelector.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.TabControl_ModeSelector.Cursor = System.Windows.Forms.Cursors.Default;
             this.TabControl_ModeSelector.HotTrack = true;
             this.TabControl_ModeSelector.ImageList = this.TabControl_ImageList;
             this.TabControl_ModeSelector.Multiline = true;
@@ -96,6 +107,7 @@ namespace CommandCenter
             // Tab_Technician
             // 
             this.Tab_Technician.BackColor = System.Drawing.Color.Black;
+            this.Tab_Technician.Cursor = System.Windows.Forms.Cursors.Default;
             resources.ApplyResources(this.Tab_Technician, "Tab_Technician");
             this.Tab_Technician.Name = "Tab_Technician";
             this.Tab_Technician.UseVisualStyleBackColor = true;
@@ -103,6 +115,7 @@ namespace CommandCenter
             // Tab_Calibration
             // 
             this.Tab_Calibration.BackColor = System.Drawing.Color.Black;
+            this.Tab_Calibration.Cursor = System.Windows.Forms.Cursors.Arrow;
             resources.ApplyResources(this.Tab_Calibration, "Tab_Calibration");
             this.Tab_Calibration.Name = "Tab_Calibration";
             this.Tab_Calibration.UseVisualStyleBackColor = true;
@@ -110,6 +123,7 @@ namespace CommandCenter
             // Tab_Maintenance
             // 
             this.Tab_Maintenance.BackColor = System.Drawing.Color.Black;
+            this.Tab_Maintenance.Cursor = System.Windows.Forms.Cursors.Default;
             resources.ApplyResources(this.Tab_Maintenance, "Tab_Maintenance");
             this.Tab_Maintenance.Name = "Tab_Maintenance";
             this.Tab_Maintenance.UseVisualStyleBackColor = true;
@@ -119,6 +133,7 @@ namespace CommandCenter
             this.Tab_Terminal.BackColor = System.Drawing.Color.Black;
             this.Tab_Terminal.Controls.Add(this.Button_Terminal);
             this.Tab_Terminal.Controls.Add(this.ConsoleArea);
+            this.Tab_Terminal.Cursor = System.Windows.Forms.Cursors.Arrow;
             resources.ApplyResources(this.Tab_Terminal, "Tab_Terminal");
             this.Tab_Terminal.Name = "Tab_Terminal";
             // 
@@ -134,6 +149,7 @@ namespace CommandCenter
             this.Button_Terminal.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
             this.Button_Terminal.Name = "Button_Terminal";
             this.Button_Terminal.UseVisualStyleBackColor = true;
+            this.Button_Terminal.Click += new System.EventHandler(this.Button_Terminal_Click);
             // 
             // ConsoleArea
             // 
@@ -151,6 +167,17 @@ namespace CommandCenter
             // Tab_Settings
             // 
             this.Tab_Settings.BackColor = System.Drawing.Color.Black;
+            this.Tab_Settings.Controls.Add(this.BeagleBone_FilePath);
+            this.Tab_Settings.Controls.Add(this.Label_FilePath);
+            this.Tab_Settings.Controls.Add(this.BeagleBone_FileName);
+            this.Tab_Settings.Controls.Add(this.Label_FileName);
+            this.Tab_Settings.Controls.Add(this.BeagleBone_Password);
+            this.Tab_Settings.Controls.Add(this.Label_Password);
+            this.Tab_Settings.Controls.Add(this.BeagleBone_User);
+            this.Tab_Settings.Controls.Add(this.Label_User);
+            this.Tab_Settings.Controls.Add(this.DropDown_ScaleUnit);
+            this.Tab_Settings.Controls.Add(this.Label_ScaleUnit);
+            this.Tab_Settings.Controls.Add(this.Button_Scale);
             this.Tab_Settings.Controls.Add(this.SerialPortText);
             this.Tab_Settings.Controls.Add(this.PortBox1);
             this.Tab_Settings.Controls.Add(this.FlowControlText);
@@ -168,9 +195,119 @@ namespace CommandCenter
             this.Tab_Settings.Controls.Add(this.BaudRateText);
             this.Tab_Settings.Controls.Add(this.BaudRateBox);
             this.Tab_Settings.Controls.Add(this.Button_Link);
+            this.Tab_Settings.Cursor = System.Windows.Forms.Cursors.Arrow;
             resources.ApplyResources(this.Tab_Settings, "Tab_Settings");
             this.Tab_Settings.ForeColor = System.Drawing.Color.Transparent;
             this.Tab_Settings.Name = "Tab_Settings";
+            // 
+            // BeagleBone_FilePath
+            // 
+            resources.ApplyResources(this.BeagleBone_FilePath, "BeagleBone_FilePath");
+            this.BeagleBone_FilePath.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.BeagleBone_FilePath.ForeColor = System.Drawing.Color.MediumSpringGreen;
+            this.BeagleBone_FilePath.Name = "BeagleBone_FilePath";
+            this.BeagleBone_FilePath.TextChanged += new System.EventHandler(this.BeagleBone_FilePath_TextChanged);
+            // 
+            // Label_FilePath
+            // 
+            resources.ApplyResources(this.Label_FilePath, "Label_FilePath");
+            this.Label_FilePath.FlatAppearance.BorderSize = 0;
+            this.Label_FilePath.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.Label_FilePath.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.Label_FilePath.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.Label_FilePath.Name = "Label_FilePath";
+            this.Label_FilePath.UseVisualStyleBackColor = true;
+            // 
+            // BeagleBone_FileName
+            // 
+            resources.ApplyResources(this.BeagleBone_FileName, "BeagleBone_FileName");
+            this.BeagleBone_FileName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.BeagleBone_FileName.ForeColor = System.Drawing.Color.MediumSpringGreen;
+            this.BeagleBone_FileName.Name = "BeagleBone_FileName";
+            this.BeagleBone_FileName.TextChanged += new System.EventHandler(this.BeagleBone_FileName_TextChanged);
+            // 
+            // Label_FileName
+            // 
+            resources.ApplyResources(this.Label_FileName, "Label_FileName");
+            this.Label_FileName.FlatAppearance.BorderSize = 0;
+            this.Label_FileName.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.Label_FileName.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.Label_FileName.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.Label_FileName.Name = "Label_FileName";
+            this.Label_FileName.UseVisualStyleBackColor = true;
+            // 
+            // BeagleBone_Password
+            // 
+            resources.ApplyResources(this.BeagleBone_Password, "BeagleBone_Password");
+            this.BeagleBone_Password.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.BeagleBone_Password.ForeColor = System.Drawing.Color.MediumSpringGreen;
+            this.BeagleBone_Password.Name = "BeagleBone_Password";
+            this.BeagleBone_Password.TextChanged += new System.EventHandler(this.BeagleBone_Password_TextChanged);
+            // 
+            // Label_Password
+            // 
+            resources.ApplyResources(this.Label_Password, "Label_Password");
+            this.Label_Password.FlatAppearance.BorderSize = 0;
+            this.Label_Password.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.Label_Password.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.Label_Password.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.Label_Password.Name = "Label_Password";
+            this.Label_Password.UseVisualStyleBackColor = true;
+            // 
+            // BeagleBone_User
+            // 
+            resources.ApplyResources(this.BeagleBone_User, "BeagleBone_User");
+            this.BeagleBone_User.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.BeagleBone_User.ForeColor = System.Drawing.Color.MediumSpringGreen;
+            this.BeagleBone_User.Name = "BeagleBone_User";
+            this.BeagleBone_User.TextChanged += new System.EventHandler(this.BeagleBone_User_TextChanged);
+            // 
+            // Label_User
+            // 
+            resources.ApplyResources(this.Label_User, "Label_User");
+            this.Label_User.FlatAppearance.BorderSize = 0;
+            this.Label_User.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.Label_User.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.Label_User.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.Label_User.Name = "Label_User";
+            this.Label_User.UseVisualStyleBackColor = true;
+            // 
+            // DropDown_ScaleUnit
+            // 
+            resources.ApplyResources(this.DropDown_ScaleUnit, "DropDown_ScaleUnit");
+            this.DropDown_ScaleUnit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.DropDown_ScaleUnit.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.DropDown_ScaleUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.DropDown_ScaleUnit.DropDownWidth = 100;
+            this.DropDown_ScaleUnit.ForeColor = System.Drawing.Color.MediumSpringGreen;
+            this.DropDown_ScaleUnit.Items.AddRange(new object[] {
+            resources.GetString("DropDown_ScaleUnit.Items"),
+            resources.GetString("DropDown_ScaleUnit.Items1")});
+            this.DropDown_ScaleUnit.Name = "DropDown_ScaleUnit";
+            this.DropDown_ScaleUnit.SelectedIndexChanged += new System.EventHandler(this.DropDown_ScaleUnit_SelectedIndexChanged);
+            // 
+            // Label_ScaleUnit
+            // 
+            resources.ApplyResources(this.Label_ScaleUnit, "Label_ScaleUnit");
+            this.Label_ScaleUnit.FlatAppearance.BorderSize = 0;
+            this.Label_ScaleUnit.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.Label_ScaleUnit.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.Label_ScaleUnit.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.Label_ScaleUnit.Name = "Label_ScaleUnit";
+            this.Label_ScaleUnit.UseVisualStyleBackColor = true;
+            // 
+            // Button_Scale
+            // 
+            resources.ApplyResources(this.Button_Scale, "Button_Scale");
+            this.Button_Scale.AccessibleRole = System.Windows.Forms.AccessibleRole.Indicator;
+            this.Button_Scale.BackgroundImage = global::CommandCenter.Properties.Resources.Balance_Disabled_Empty;
+            this.Button_Scale.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Button_Scale.DialogResult = System.Windows.Forms.DialogResult.Retry;
+            this.Button_Scale.FlatAppearance.BorderSize = 0;
+            this.Button_Scale.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.Button_Scale.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
+            this.Button_Scale.Name = "Button_Scale";
+            this.Button_Scale.UseVisualStyleBackColor = true;
             // 
             // SerialPortText
             // 
@@ -194,6 +331,7 @@ namespace CommandCenter
             this.PortBox1.FormattingEnabled = true;
             this.PortBox1.Name = "PortBox1";
             this.PortBox1.Sorted = true;
+            this.PortBox1.SelectedIndexChanged += new System.EventHandler(this.PortBox1_SelectedIndexChanged);
             // 
             // FlowControlText
             // 
@@ -214,6 +352,7 @@ namespace CommandCenter
             this.FlowControlBox.ForeColor = System.Drawing.Color.MediumSpringGreen;
             this.FlowControlBox.FormattingEnabled = true;
             this.FlowControlBox.Name = "FlowControlBox";
+            this.FlowControlBox.SelectedIndexChanged += new System.EventHandler(this.FlowControlBox_SelectedIndexChanged);
             // 
             // TXTimeOutBox
             // 
@@ -221,6 +360,7 @@ namespace CommandCenter
             resources.ApplyResources(this.TXTimeOutBox, "TXTimeOutBox");
             this.TXTimeOutBox.ForeColor = System.Drawing.Color.MediumSpringGreen;
             this.TXTimeOutBox.Name = "TXTimeOutBox";
+            this.TXTimeOutBox.TextChanged += new System.EventHandler(this.TXTimeOutBox_TextChanged);
             // 
             // RXTimeOutBox
             // 
@@ -228,6 +368,7 @@ namespace CommandCenter
             resources.ApplyResources(this.RXTimeOutBox, "RXTimeOutBox");
             this.RXTimeOutBox.ForeColor = System.Drawing.Color.MediumSpringGreen;
             this.RXTimeOutBox.Name = "RXTimeOutBox";
+            this.RXTimeOutBox.TextChanged += new System.EventHandler(this.RXTimeOutBox_TextChanged);
             // 
             // TXTimeOutText
             // 
@@ -268,6 +409,7 @@ namespace CommandCenter
             this.ParityBox.ForeColor = System.Drawing.Color.MediumSpringGreen;
             this.ParityBox.FormattingEnabled = true;
             this.ParityBox.Name = "ParityBox";
+            this.ParityBox.SelectedIndexChanged += new System.EventHandler(this.ParityBox_SelectedIndexChanged);
             // 
             // StopBitsText
             // 
@@ -288,6 +430,7 @@ namespace CommandCenter
             this.StopBitBox.ForeColor = System.Drawing.Color.MediumSpringGreen;
             this.StopBitBox.FormattingEnabled = true;
             this.StopBitBox.Name = "StopBitBox";
+            this.StopBitBox.SelectedIndexChanged += new System.EventHandler(this.StopBitBox_SelectedIndexChanged);
             // 
             // DataBitsText
             // 
@@ -311,6 +454,7 @@ namespace CommandCenter
             resources.GetString("DataBitBox.Items"),
             resources.GetString("DataBitBox.Items1")});
             this.DataBitBox.Name = "DataBitBox";
+            this.DataBitBox.SelectedIndexChanged += new System.EventHandler(this.DataBitBox_SelectedIndexChanged);
             // 
             // BaudRateText
             // 
@@ -345,6 +489,7 @@ namespace CommandCenter
             resources.GetString("BaudRateBox.Items12"),
             resources.GetString("BaudRateBox.Items13")});
             this.BaudRateBox.Name = "BaudRateBox";
+            this.BaudRateBox.SelectedIndexChanged += new System.EventHandler(this.BaudRateBox_SelectedIndexChanged);
             // 
             // Button_Link
             // 
@@ -513,6 +658,17 @@ namespace CommandCenter
         private System.Windows.Forms.Button Button_Terminal;
         private System.Windows.Forms.Timer Periodic100msTimer;
         public System.Windows.Forms.Timer UpdatePortList;
+        private System.Windows.Forms.Button Button_Scale;
+        private System.Windows.Forms.ComboBox DropDown_ScaleUnit;
+        private System.Windows.Forms.Button Label_ScaleUnit;
+        private System.Windows.Forms.TextBox BeagleBone_User;
+        private System.Windows.Forms.Button Label_User;
+        private System.Windows.Forms.TextBox BeagleBone_Password;
+        private System.Windows.Forms.Button Label_Password;
+        private System.Windows.Forms.TextBox BeagleBone_FileName;
+        private System.Windows.Forms.Button Label_FileName;
+        private System.Windows.Forms.TextBox BeagleBone_FilePath;
+        private System.Windows.Forms.Button Label_FilePath;
     }
 }
 
