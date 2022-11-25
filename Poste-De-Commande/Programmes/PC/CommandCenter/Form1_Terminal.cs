@@ -114,17 +114,16 @@ namespace CommandCenter
 
                 try
                 {
-                    
                     byte[] END_0 = BitConverter.GetBytes(0xFF);
                     byte[] END_1 = BitConverter.GetBytes(0xBF);
                     
                     byte[] END = Encoding.UTF8.GetBytes("ÿ");
                     BRS.Debug.Comment(END[0].ToString());
                     BRS.Debug.Comment(END[1].ToString());
-                    BRS.ComPort.Port.Write(END_0, 0, 2);
+                    BRS.ComPort.Port.Write(END_0, 0, 1);
                     BRS.ComPort.Port.Write(END, 0, 2);
                     BRS.ComPort.Port.Write(END, 0, 2);
-                    BRS.ComPort.Port.Write("\n"); // 0xFF,0xFF,0xFF,\n
+                    BRS.ComPort.Port.Write("ÿÿ\n"); // 0xFF,0xFF,0xFF,\n
                     Debug.Success();
                     NewUserTextInfo("Closing BBB progam...",2);
                 }

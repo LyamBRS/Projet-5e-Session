@@ -63,6 +63,8 @@ namespace CommandCenter
             BRS.ComPort.createInfoReceivedEvent();
             BRS.ComPort.DataReceivedAction = DataReceiverHandling;
             BRS.ComPort.startPortUpdater();
+            BRS.Debug.Comment("Setting port to UTF8...");
+            BRS.ComPort.Port.Encoding = Encoding.UTF8;
             Debug.Success();
             //----------------------------------------------------------
             /////////////////////////////////////////////////////////////
