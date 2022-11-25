@@ -66,7 +66,7 @@ void piloteUDP_initialise(void)
 void receiveUDP1(void)
 {
     int len = Udp.parsePacket();
-    printf("%i\n",len);
+    //printf("%i\n",len);
     if (len >= 1)
     {
         Udp.read(piloteUDP.readBuffer, 8);

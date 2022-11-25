@@ -1078,7 +1078,7 @@ void ServiceCommunication_RXParsingHandler(void)
     // CAN DATA IS AVAILABLE
     if(CHECK_MODULE_CAN_RECEPTION) // Doit etre a TRUE
     {
-        //receiveUDP1();
+        receiveUDP1();
         Parse_CanBusReceptions(MODULE_CAN_RX_BUFFER);
     }
 /*

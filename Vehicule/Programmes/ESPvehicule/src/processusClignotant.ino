@@ -46,7 +46,7 @@ void processusClignotant_attendAvantDAllumerLeTemoinLumineux(void)
     return;
   }
   // Test Code Go here
-  receiveUDP1();
+  //receiveUDP1();
 
   // END test Code 
   interfaceT1_allume();

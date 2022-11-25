@@ -65,10 +65,11 @@ void main_initialise(void);
 //Definitions de fonctions privees:
 void main_initialise(void)
 {
-  ServiceCommunication_initialise();
   serviceTaskServer_initialise();
   serviceBaseDeTemps_initialise();
-  
+  ServiceCommunication_initialise();
+
+
   piloteEntree1_initialise();
   piloteIOT1_initialise(); 
   piloteI2C1_initialise();

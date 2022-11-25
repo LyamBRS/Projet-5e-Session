@@ -12,6 +12,7 @@
 //INCUSIONS
 #include "xpiloteIOFeuArriereD.h"
 #include "piloteUDP.h"
+#include <stdio.h>
 
 #include "xinterfaceSuiveur.h"
 
@@ -57,11 +58,14 @@ void processusVehicule_AttendUneRequete(void)
     {
         ModuleData.State = States.waiting;
     }
-    if(ModuleData.Mode == Modes.operation)
+
+    printf("%i",ModuleData.Mode);
+    if(ModuleData.Mode != Modes.operation)
     {
-        processusConduite.requete = PROCESSUSCONDUITE_REQUETE_ACTIVE;
+        return;
     }
 
+    processusConduite.requete = PROCESSUSCONDUITE_REQUETE_ACTIVE;
     // Pour faire des test normalement c'est les if de communication qui vont mettre la requete de Conduite active
     //processusConduite.requete = PROCESSUSCONDUITE_REQUETE_ACTIVE;
     serviceBaseDeTemps_execute[PROCESSUSVEHICULE_PHASE] = processusVehicule_AttendArriveTri;
