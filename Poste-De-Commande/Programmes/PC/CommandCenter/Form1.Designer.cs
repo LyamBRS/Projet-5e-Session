@@ -37,9 +37,12 @@ namespace CommandCenter
             this.Tab_Calibration = new System.Windows.Forms.TabPage();
             this.Tab_Maintenance = new System.Windows.Forms.TabPage();
             this.Tab_Terminal = new System.Windows.Forms.TabPage();
+            this.Button_CloseBeagleBone = new System.Windows.Forms.Button();
             this.Button_Terminal = new System.Windows.Forms.Button();
             this.ConsoleArea = new System.Windows.Forms.RichTextBox();
             this.Tab_Settings = new System.Windows.Forms.TabPage();
+            this.Button_AutoConnect = new System.Windows.Forms.Button();
+            this.Label_AutoConnect = new System.Windows.Forms.Button();
             this.BeagleBone_FilePath = new System.Windows.Forms.TextBox();
             this.Label_FilePath = new System.Windows.Forms.Button();
             this.BeagleBone_FileName = new System.Windows.Forms.TextBox();
@@ -71,10 +74,10 @@ namespace CommandCenter
             this.TabControl_ImageList = new System.Windows.Forms.ImageList(this.components);
             this.UserInfo = new System.Windows.Forms.Label();
             this.ButtonUpdateTimer = new System.Windows.Forms.Timer(this.components);
-            this.Button_USB = new System.Windows.Forms.Button();
-            this.Button_Mode = new System.Windows.Forms.Button();
             this.Periodic100msTimer = new System.Windows.Forms.Timer(this.components);
             this.UpdatePortList = new System.Windows.Forms.Timer(this.components);
+            this.Button_Mode = new System.Windows.Forms.Button();
+            this.Button_USB = new System.Windows.Forms.Button();
             this.TabControl_ModeSelector.SuspendLayout();
             this.Tab_Terminal.SuspendLayout();
             this.Tab_Settings.SuspendLayout();
@@ -131,17 +134,32 @@ namespace CommandCenter
             // Tab_Terminal
             // 
             this.Tab_Terminal.BackColor = System.Drawing.Color.Black;
+            this.Tab_Terminal.Controls.Add(this.Button_CloseBeagleBone);
             this.Tab_Terminal.Controls.Add(this.Button_Terminal);
             this.Tab_Terminal.Controls.Add(this.ConsoleArea);
             this.Tab_Terminal.Cursor = System.Windows.Forms.Cursors.Arrow;
             resources.ApplyResources(this.Tab_Terminal, "Tab_Terminal");
             this.Tab_Terminal.Name = "Tab_Terminal";
             // 
+            // Button_CloseBeagleBone
+            // 
+            resources.ApplyResources(this.Button_CloseBeagleBone, "Button_CloseBeagleBone");
+            this.Button_CloseBeagleBone.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.Button_CloseBeagleBone.BackgroundImage = global::CommandCenter.Properties.Resources.X_Button_Disabled;
+            this.Button_CloseBeagleBone.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Button_CloseBeagleBone.DialogResult = System.Windows.Forms.DialogResult.Retry;
+            this.Button_CloseBeagleBone.FlatAppearance.BorderSize = 0;
+            this.Button_CloseBeagleBone.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.Button_CloseBeagleBone.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
+            this.Button_CloseBeagleBone.Name = "Button_CloseBeagleBone";
+            this.Button_CloseBeagleBone.UseVisualStyleBackColor = true;
+            this.Button_CloseBeagleBone.Click += new System.EventHandler(this.Button_CloseBeagleBone_Click);
+            // 
             // Button_Terminal
             // 
             resources.ApplyResources(this.Button_Terminal, "Button_Terminal");
             this.Button_Terminal.AccessibleRole = System.Windows.Forms.AccessibleRole.Indicator;
-            this.Button_Terminal.BackgroundImage = global::CommandCenter.Properties.Resources.Terminal_Disabled_Empty;
+            this.Button_Terminal.BackgroundImage = global::CommandCenter.Properties.Resources.Terminal_Inactive_Empty;
             this.Button_Terminal.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Button_Terminal.DialogResult = System.Windows.Forms.DialogResult.Retry;
             this.Button_Terminal.FlatAppearance.BorderSize = 0;
@@ -167,6 +185,8 @@ namespace CommandCenter
             // Tab_Settings
             // 
             this.Tab_Settings.BackColor = System.Drawing.Color.Black;
+            this.Tab_Settings.Controls.Add(this.Button_AutoConnect);
+            this.Tab_Settings.Controls.Add(this.Label_AutoConnect);
             this.Tab_Settings.Controls.Add(this.BeagleBone_FilePath);
             this.Tab_Settings.Controls.Add(this.Label_FilePath);
             this.Tab_Settings.Controls.Add(this.BeagleBone_FileName);
@@ -199,6 +219,30 @@ namespace CommandCenter
             resources.ApplyResources(this.Tab_Settings, "Tab_Settings");
             this.Tab_Settings.ForeColor = System.Drawing.Color.Transparent;
             this.Tab_Settings.Name = "Tab_Settings";
+            // 
+            // Button_AutoConnect
+            // 
+            resources.ApplyResources(this.Button_AutoConnect, "Button_AutoConnect");
+            this.Button_AutoConnect.AccessibleRole = System.Windows.Forms.AccessibleRole.CheckButton;
+            this.Button_AutoConnect.BackgroundImage = global::CommandCenter.Properties.Resources.CheckBox_Disabled_Empty;
+            this.Button_AutoConnect.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Button_AutoConnect.DialogResult = System.Windows.Forms.DialogResult.Retry;
+            this.Button_AutoConnect.FlatAppearance.BorderSize = 0;
+            this.Button_AutoConnect.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.Button_AutoConnect.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
+            this.Button_AutoConnect.Name = "Button_AutoConnect";
+            this.Button_AutoConnect.UseVisualStyleBackColor = true;
+            this.Button_AutoConnect.Click += new System.EventHandler(this.Button_AutoConnect_Click);
+            // 
+            // Label_AutoConnect
+            // 
+            resources.ApplyResources(this.Label_AutoConnect, "Label_AutoConnect");
+            this.Label_AutoConnect.FlatAppearance.BorderSize = 0;
+            this.Label_AutoConnect.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.Label_AutoConnect.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.Label_AutoConnect.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.Label_AutoConnect.Name = "Label_AutoConnect";
+            this.Label_AutoConnect.UseVisualStyleBackColor = true;
             // 
             // BeagleBone_FilePath
             // 
@@ -565,18 +609,15 @@ namespace CommandCenter
             this.ButtonUpdateTimer.Interval = 10;
             this.ButtonUpdateTimer.Tick += new System.EventHandler(this.ButtonUpdateTimer_Tick);
             // 
-            // Button_USB
+            // Periodic100msTimer
             // 
-            resources.ApplyResources(this.Button_USB, "Button_USB");
-            this.Button_USB.AccessibleRole = System.Windows.Forms.AccessibleRole.Indicator;
-            this.Button_USB.BackgroundImage = global::CommandCenter.Properties.Resources.USB_Disabled_Empty;
-            this.Button_USB.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Button_USB.DialogResult = System.Windows.Forms.DialogResult.Retry;
-            this.Button_USB.FlatAppearance.BorderSize = 0;
-            this.Button_USB.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
-            this.Button_USB.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
-            this.Button_USB.Name = "Button_USB";
-            this.Button_USB.UseVisualStyleBackColor = true;
+            this.Periodic100msTimer.Enabled = true;
+            // 
+            // UpdatePortList
+            // 
+            this.UpdatePortList.Enabled = true;
+            this.UpdatePortList.Interval = 500;
+            this.UpdatePortList.Tick += new System.EventHandler(this.UpdatePortList_Tick);
             // 
             // Button_Mode
             // 
@@ -591,15 +632,18 @@ namespace CommandCenter
             this.Button_Mode.Name = "Button_Mode";
             this.Button_Mode.UseVisualStyleBackColor = true;
             // 
-            // Periodic100msTimer
+            // Button_USB
             // 
-            this.Periodic100msTimer.Enabled = true;
-            // 
-            // UpdatePortList
-            // 
-            this.UpdatePortList.Enabled = true;
-            this.UpdatePortList.Interval = 500;
-            this.UpdatePortList.Tick += new System.EventHandler(this.UpdatePortList_Tick);
+            resources.ApplyResources(this.Button_USB, "Button_USB");
+            this.Button_USB.AccessibleRole = System.Windows.Forms.AccessibleRole.Indicator;
+            this.Button_USB.BackgroundImage = global::CommandCenter.Properties.Resources.USB_Disabled_Empty;
+            this.Button_USB.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Button_USB.DialogResult = System.Windows.Forms.DialogResult.Retry;
+            this.Button_USB.FlatAppearance.BorderSize = 0;
+            this.Button_USB.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.Button_USB.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
+            this.Button_USB.Name = "Button_USB";
+            this.Button_USB.UseVisualStyleBackColor = true;
             // 
             // Form_MainMenu
             // 
@@ -669,6 +713,9 @@ namespace CommandCenter
         private System.Windows.Forms.Button Label_FileName;
         private System.Windows.Forms.TextBox BeagleBone_FilePath;
         private System.Windows.Forms.Button Label_FilePath;
+        private System.Windows.Forms.Button Label_AutoConnect;
+        private System.Windows.Forms.Button Button_AutoConnect;
+        private System.Windows.Forms.Button Button_CloseBeagleBone;
     }
 }
 

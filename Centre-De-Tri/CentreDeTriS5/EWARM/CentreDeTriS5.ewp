@@ -207,7 +207,7 @@
                 <option>
                     <name>TrustZoneModes</name>
                     <version>0</version>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
             </data>
         </settings>
@@ -1097,6 +1097,12 @@
                 <file>
                     <name>$PROJ_DIR$\..\Src\interfaceT4.h</name>
                 </file>
+                <file>
+                    <name>$PROJ_DIR$\..\Src\interfaceUsine.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\Src\interfaceUsine.h</name>
+                </file>
             </group>
             <group>
                 <name>PILOTES</name>
@@ -1141,6 +1147,9 @@
                 </file>
                 <file>
                     <name>$PROJ_DIR$\..\Src\piloteIOT4.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\Src\piloteTimer6Up.c</name>
                 </file>
             </group>
             <group>

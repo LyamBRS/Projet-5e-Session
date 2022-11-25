@@ -26,12 +26,13 @@ unsigned char piloteUART2_RX(void)
 {
   unsigned char ucReceiveUART;
 
+  ucReceiveUART = Serial2.read();
   return ucReceiveUART;
 }
 
 void piloteUART2_TX(unsigned char ucTransmitUART)
 {
-  
+  Serial2.write(ucTransmitUART); // write test
 }
 
 void piloteUART2_initialise(void)

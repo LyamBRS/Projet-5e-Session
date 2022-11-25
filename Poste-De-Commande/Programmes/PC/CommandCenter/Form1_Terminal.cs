@@ -84,10 +84,62 @@ namespace CommandCenter
             ConsoleArea.SelectionColor = Color.Aqua;
         }
         //#############################################################//
+        /// <summary>
+        /// Clears the terminal, or warns the user about a potential fuck
+        /// up that it might cause.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         //#############################################################//
         private void Button_Terminal_Click(object sender, EventArgs e)
         {
 
+        }
+        //#############################################################//
+        /// <summary>
+        /// Sends Closing parameters to the BeagleBoneBlue
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        //#############################################################//
+        private void Button_CloseBeagleBone_Click(object sender, EventArgs e)
+        {
+            BRS.Debug.Header(true);
+            BRS.Debug.Comment("Attempting to quit the beaglebone's running application...");
+
+            if(BRS.ComPort.Port.IsOpen)
+            {
+                BRS.Debug.Success("Comport is opened.");
+                BRS.Debug.Comment("Sending END condition to the BeagleBone's terminal...");
+
+                try
+                {
+                    
+                    byte[] END_0 = BitConverter.GetBytes(0xFF);
+                    byte[] END_1 = BitConverter.GetBytes(0xBF);
+                    
+                    byte[] END = Encoding.UTF8.GetBytes("ÿ");
+                    BRS.Debug.Comment(END[0].ToString());
+                    BRS.Debug.Comment(END[1].ToString());
+                    BRS.ComPort.Port.Write(END_0, 0, 2);
+                    BRS.ComPort.Port.Write(END, 0, 2);
+                    BRS.ComPort.Port.Write(END, 0, 2);
+                    BRS.ComPort.Port.Write("\n"); // 0xFF,0xFF,0xFF,\n
+                    Debug.Success();
+                    NewUserTextInfo("Closing BBB progam...",2);
+                }
+                catch
+                {
+                    Debug.Error("Could not send END to beaglebone.");
+                    NewUserTextInfo("Error: Cant send END", 2);
+                }
+            }
+            else
+            {
+                Debug.Aborted("UART Port is closed!");
+            }
+
+            BRS.Debug.Header(false);
         }
         //#############################################################//
         /// <summary>

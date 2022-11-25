@@ -488,6 +488,16 @@
     <None Include="Icons\Terminal\Terminal_Warning_Filled.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Icons\Selection\CheckBox\CheckBox_Available_Empty.png" />
+    <None Include="Icons\Selection\CheckBox\CheckBox_Available_Filled.png" />
+    <None Include="Icons\Selection\CheckBox\CheckBox_Disabled_Empty.png" />
+    <None Include="Icons\Selection\CheckBox\CheckBox_Disabled_Filled.png" />
+    <None Include="Icons\Selection\CheckBox\CheckBox_Error_Empty.png" />
+    <None Include="Icons\Selection\CheckBox\CheckBox_Error_Filled.png" />
+    <None Include="Icons\Selection\CheckBox\CheckBox_Inactive_Empty.png" />
+    <None Include="Icons\Selection\CheckBox\CheckBox_Inactive_Filled.png" />
+    <None Include="Icons\Selection\CheckBox\CheckBox_Warning_Empty.png" />
+    <None Include="Icons\Selection\CheckBox\CheckBox_Warning_Filled.png" />
     <Content Include="Settings.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

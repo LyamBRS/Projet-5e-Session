@@ -10,8 +10,8 @@ CDefines=USE_HAL_DRIVER;STM32F407xx;USE_HAL_DRIVER;USE_HAL_DRIVER;
 SourceFiles=;;
 
 [PreviousGenFiles]
-HeaderPath=C:/Repos/Projet-5e-Session/Centre-De-Tri/Programmes/STM32/247-637 S-0010 V7/Inc
+HeaderPath=C:/Repos/Projet-5e-Session/Centre-De-Tri/CentreDeTriS5/Inc
 HeaderFiles=stm32f4xx_it.h;stm32f4xx_hal_conf.h;main.h;
-SourcePath=C:/Repos/Projet-5e-Session/Centre-De-Tri/Programmes/STM32/247-637 S-0010 V7/Src
+SourcePath=C:/Repos/Projet-5e-Session/Centre-De-Tri/CentreDeTriS5/Src
 SourceFiles=stm32f4xx_it.c;stm32f4xx_hal_msp.c;main.c;
 

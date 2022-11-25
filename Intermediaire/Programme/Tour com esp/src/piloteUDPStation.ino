@@ -16,17 +16,14 @@
 //pas de variables privees
 
 //Definitions de fonctions privees:
-void receiveUDP(void);
-void transUDP(char cEtat);
 
 //Definitions de variables publiques:
 // Replace with your network credentials
-const char* ssid = "etudiant7";
-const char* password = "etudiant7";
+const char* ssid = "LeWifiACam";
+const char* password = "pic16f88";
 
 WiFiUDP ERUDP;
-char readBuf[20];
-IPAddress IPCom6(192,168,0,100);
+IPAddress IPCom6(192,168,4,88);
 
 //Definitions de fonctions publiques:
 //************************************************************************************
@@ -56,26 +53,36 @@ ERUDP.begin(11000);
 
 void ServiceUDPStation(void)
 {
-  receiveUDP();
-  transUDP('A');
+  //receiveUDP();
 }
 //************************************************************************************
 void receiveUDP(void)
 {
+  int i = 0;
+  for(i=0;i<8;i++)
+  {
+    readBuf[i] = 0;
+  }
    int len;
  if (len = ERUDP.parsePacket())
  {
-   ERUDP.read(readBuf, 20);
+   ERUDP.read(readBuf, 8);
    Serial.println("Recu:");
    Serial.println(readBuf);
+ }
 }
 //************************************************************************************
-void transUDP(char cEtat)
+void transUDP(unsigned char* transmitBuffer, char sizeOfBuffer)
 {
   ERUDP.parsePacket();
- ERUDP.beginPacket(IPCom6, 11800);
- ERUDP.write(cEtat);
- ERUDP.endPacket();
- Serial.println("Transmis:");
+  ERUDP.beginPacket(IPCom6, 11800);
+
+  for(int i=0; i<sizeOfBuffer; ++i)
+  {
+    ERUDP.write(transmitBuffer[i]);
+    printf("[%i]: %i",i,transmitBuffer[i]);
+  }
+  ERUDP.endPacket();
+  Serial.println("Transmis:");
 }
 //************************************************************************************

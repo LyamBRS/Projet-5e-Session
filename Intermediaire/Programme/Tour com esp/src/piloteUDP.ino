@@ -1,7 +1,7 @@
 //piloteUDP:
 //Historique: 
 // 2021-04-07, Yves Roy, creation
-
+/*
 //INCLUSIONS
 #include "xmain.h"
 #include "piloteUDP.h"
@@ -82,3 +82,4 @@ void transUDP1(char cEtat)
  Serial.println("Transmis:");
 }
 //*************************************************************************************
+*/

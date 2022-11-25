@@ -92,8 +92,12 @@ int GetHexValue(unsigned char character)
 	return(0xFF);
 }
 /**
- * @brief 
- * 
+ * @brief Checks if 2 consecutive characters are meant to represent a
+ * special character. While this function is far from perfect, considering the structure
+ * of the CAN protocol used by this device, it works just fine.\n
+ * This function allows values upwards of 0x7F to 0xFF to be sent exclusively through
+ * terminal getChar().\n
+ * Why? Cuz I was lazy and couldn't be bothered to make the actual USB function.
  * @author Shawn Couture / LyamBRS
  * @date 24/11/2022
  * @param special current gotten getChar (int)
@@ -108,7 +112,7 @@ unsigned char CheckIfSpecialChar(int special, int* Temporary2LetterBuffer)
 	if(special >= 0xA0 && checking)
 	{
 		int output = (Temporary2LetterBuffer[0] << 8) + special;
-		output = output - 49873;
+		output = output - 49856;
 
 		Temporary2LetterBuffer[0] = output;
 		Temporary2LetterBuffer[1] = 0xFFF;
@@ -138,7 +142,7 @@ unsigned char CheckIfSpecialChar(int special, int* Temporary2LetterBuffer)
 	{
 		checking = 0x00;
 		Temporary2LetterBuffer[0] = special;
-		Temporary2LetterBuffer[1] = 0xFF;
+		Temporary2LetterBuffer[1] = 0xFFF;
 		return READY;
 	}
 	return READY;
@@ -147,6 +151,13 @@ unsigned char CheckIfSpecialChar(int special, int* Temporary2LetterBuffer)
 
 //----------------------- Public  Functions ----------------------//
 //################################################################//
+/**
+ * @brief Handles the CAN transmission on the CAN bus.\n
+ * The command center handles how often SYNCH trams are to be sent.\n
+ * Each time a synch tram is sent, [-SYNC-] is shown in the terminal.
+ * @author Shawn Couture / LyamBRS
+ * @date 24/11/2022
+ */
 void HandleTransmission(void)
 {
   //int file_TX;
@@ -162,6 +173,7 @@ void HandleTransmission(void)
   char amountOfByteToSend;
 
   int rawCharacter = 0;
+  unsigned char TransmitCan = 0;
 
   unsigned char index = 0;
   close(receptionToTransmission[WRITING]);
@@ -176,7 +188,11 @@ void HandleTransmission(void)
   for (index = 0; index < amountOfByteToSend; index++)
   {
  	bytesToSend[index] = index*2;
-  } 
+  }
+
+	LettersBuffers[0] = 0xFFF;
+	LettersBuffers[1] = 0xFFF;
+	TransmitCan = 0;
   //------------------------------------------------------------//
 	while (loop == CONTINUE)
 	{
@@ -185,15 +201,28 @@ void HandleTransmission(void)
 
 		// TRANSMIT ON CAN -----------------------------------------------------------------------//
 		index = 0;
+		TransmitCan = 1;
 		while(index < 13)
 		{
 			//Compare letters in groups of 2 if special, groups of 1 when not.
 			for(int i=0; i<2; ++i)
 			{
 				rawCharacter = getchar();
-				unsigned char gotoNextStep = CheckIfSpecialChar(rawCharacter, LettersBuffers);
-
-				if(gotoNextStep == 0xFF) {break;}
+				printf("[%i]: %i",i,rawCharacter);
+				if(index<3 && (rawCharacter == '\n' || rawCharacter == '\r'))
+				{
+					printf("[-RESET-]\n");
+					index = 0;
+					i=2;
+					LettersBuffers[0] = 0xFFF;
+					LettersBuffers[1] = 0xFFF;
+					TransmitCan = 0;
+				}
+				else
+				{
+					unsigned char gotoNextStep = CheckIfSpecialChar(rawCharacter, LettersBuffers);
+					if(gotoNextStep == 0xFF) {i=3;}
+				}
 			}
 
 			//Check what is within the table
@@ -202,24 +231,27 @@ void HandleTransmission(void)
 				rawCharacter = LettersBuffers[i];
 				if(rawCharacter != 0xFFF)
 				{
-
+					
 					if(rawCharacter == 0xFE)
 					{
+						printf("[-RESET-]\n");
 						index = 0;
 					}
 					else
 					{
 						if(rawCharacter == END_EVERYTHING)
 						{
-							loop = END_EVERYTHING;
+							loop = STOP;
 							index = 12;
-							break;
+							i=3;
 						}
-						printf("[%i]: %i\n",index,rawCharacter);
-						fflush(stdout);
-						// Store chars in buffer
-						dataFromCommandCenter[index] = ((unsigned char)rawCharacter);
-						index++;
+						else
+						{
+							fflush(stdout);
+							// Store chars in buffer
+							dataFromCommandCenter[index] = ((unsigned char)rawCharacter);
+							index++;
+						}
 					}
 				}
 			}
@@ -228,7 +260,6 @@ void HandleTransmission(void)
 
 		if(loop == CONTINUE)
 		{
-			printf("[-SYNC-]\n");
 			// PARSE ADDRESS TO USE -----------------------------------------------------------------------//	
 			int address = 0;
 			int hundreds = GetHexValue(dataFromCommandCenter[1]);
@@ -243,8 +274,15 @@ void HandleTransmission(void)
 			for(int i=0;i<8;++i)
 			{
 				bytesToSend[i] = dataFromCommandCenter[4+i];
+				//printf("[%i]: %c",i,bytesToSend[i]);
 			}
-			CAN_Transmit(address, bytesToSend, 8);
+
+			if(TransmitCan == 1)
+			{
+				TransmitCan = 0;
+				printf("[-SYNC-]\n");
+				CAN_Transmit(address, bytesToSend, 8);
+			}
 		}
 		else
 		{
@@ -268,9 +306,16 @@ void HandleTransmission(void)
 	}	
 	close(receptionToTransmission[WRITING]);  
 	close(transmissionToReception[READING]);
-	printf("\nTransmission handler exited!\n");
 }
 //################################################################//
+/**
+ * @brief handles CAN receptions. Each time a CAN communication is
+ * intercepted, it gets printed as integers displayed as ASCII chars
+ * in the terminal, with [RX] in front of the data.\n
+ * Data is separated via commas to ease parsing on the CommandCenter.
+ * @author Shawn Couture / LyamBRS
+ * @date 24/11/2022
+ */
 void HandleReception(void)
 {
   //int file_TX;
@@ -296,9 +341,6 @@ void HandleReception(void)
 	{
 		// RECEIVE ON CAN ------------------------------------------------------------------------//	
     	read(transmissionToReception[READING],dataBuffer,2);
-	
-		sleep(1);
-		printf("\nRX: %i\n",dataBuffer[0]);
 		fflush(stdout);
 
 		if (dataBuffer[0] == STOP)
@@ -329,7 +371,6 @@ void HandleReception(void)
   	CAN_CloseInterface();	
   	close(transmissionToReception[WRITING]);  
   	close(receptionToTransmission[READING]);
-  	printf("\nReception handler exited!");	
 }
 
 //----------------------- Public  Functions ----------------------//
@@ -373,13 +414,13 @@ int main(void)
 	if(processID == (pid_t)0)
 	{
     	HandleReception();
-    	printf("\nReception Handler QUITTED");    
+    	printf("[-QUITTING-]\n");    
 	}
 	else
 	{
     	HandleTransmission();		
     	wait((int*) 1);
-    	printf("\nTransmission Handler QUITTED");     
+    	printf("[-QUITTING-]\n");     
 	}
 
 	printf("\n[-EXECUTION STOPPED-]\n");

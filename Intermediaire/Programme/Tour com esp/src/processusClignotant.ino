@@ -4,8 +4,9 @@
 
 //INCLUSIONS
 #include "xmain.h"
-#include "piloteUDP.h"
+#include "piloteUDPStation.h"
 #include "xinterfaceT1.h"
+#include "interfacePass.h"
 #include "xserviceBaseDeTemps.h"
 #include "xprocessusClignotant.h"
 #include <stdio.h>
@@ -41,9 +42,11 @@ void processusClignotant_attendAvantDAllumerLeTemoinLumineux(void)
     return;
   }
 
+  interfacePassUDPtoUart();
   
-  printf("OK voici un test \n");
-  ServiceUDP();
+  //ServiceUDPStation();
+ // printf("OK voici un test \n");
+  //ServiceUDP();
   interfaceT1_allume();
   processusClignotant_compteur = 0;
   serviceBaseDeTemps_execute[PROCESSUSCLIGNOTANT_PHASE] = processusClignotant_attendAvantDEteindreLeTemoinLumineux;
@@ -56,6 +59,7 @@ void processusClignotant_attendAvantDEteindreLeTemoinLumineux(void)
   {
     return;
   }
+  
   interfaceT1_eteint();
   processusClignotant_compteur = 0;
   serviceBaseDeTemps_execute[PROCESSUSCLIGNOTANT_PHASE] = processusClignotant_attendAvantDAllumerLeTemoinLumineux;

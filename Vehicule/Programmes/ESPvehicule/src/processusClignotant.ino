@@ -6,13 +6,11 @@
 #include "xmain.h"
 #include "xinterfaceT1.h"
 #include "xinterfaceMoteurBenne.h"
+#include "xinterfaceSuiveur.h"
 
-#include "xpilotePWMDroitBas.h"
-#include "xpilotePWMDroitHaut.h"
-#include "xpilotePWMGaucheBas.h"
-#include "xpilotePWMGaucheHaut.h"
 #include "piloteUDP.h"
 
+#include "serviceTank.h"
 #include "xserviceBaseDeTemps.h"
 #include "xprocessusClignotant.h"
 #include <stdio.h>
@@ -47,8 +45,10 @@ void processusClignotant_attendAvantDAllumerLeTemoinLumineux(void)
   {
     return;
   }
+  // Test Code Go here
+  receiveUDP1();
 
-  ServiceUDP();
+  // END test Code 
   interfaceT1_allume();
   processusClignotant_compteur = 0;
   serviceBaseDeTemps_execute[PROCESSUSCLIGNOTANT_PHASE] = processusClignotant_attendAvantDEteindreLeTemoinLumineux;
@@ -61,6 +61,7 @@ void processusClignotant_attendAvantDEteindreLeTemoinLumineux(void)
   {
     return;
   }
+
   interfaceT1_eteint();
   processusClignotant_compteur = 0;
   serviceBaseDeTemps_execute[PROCESSUSCLIGNOTANT_PHASE] = processusClignotant_attendAvantDAllumerLeTemoinLumineux;
