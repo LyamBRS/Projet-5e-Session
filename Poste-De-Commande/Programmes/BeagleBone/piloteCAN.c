@@ -89,7 +89,7 @@ void CAN_OpenInterface(void)
 	system("sudo modprobe can-dev");
 	system("sudo modprobe can-raw");
 	system("sudo ip link set can0 type can loopback off");	
-	system("sudo ip link set can0 up type can bitrate 500000");
+	system("sudo ip link set can0 up type can bitrate 50000");
 #endif
 #ifdef CAN_REAL_WITH_LOOPBACK
 
@@ -99,7 +99,7 @@ void CAN_OpenInterface(void)
 	system("modprobe can-dev");
 	system("modprobe can-raw");
 	system("ip link set can0 type can loopback on");
-	system("ip link set can0 up type can bitrate 500000");//adaptez le "bitrate" au besoin
+	system("ip link set can0 up type can bitrate 50000");//adaptez le "bitrate" au besoin
 
 #endif
 }
