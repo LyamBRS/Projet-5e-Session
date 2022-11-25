@@ -5,6 +5,7 @@
 //INCLUSIONS
 #include "xmain.h"
 #include "piloteUDPStation.h"
+#include "xpiloteUART2.h"
 #include "xinterfaceT1.h"
 #include "interfacePass.h"
 #include "xserviceBaseDeTemps.h"
@@ -41,9 +42,7 @@ void processusClignotant_attendAvantDAllumerLeTemoinLumineux(void)
   {
     return;
   }
-
   interfacePassUDPtoUart();
-  
   //ServiceUDPStation();
  // printf("OK voici un test \n");
   //ServiceUDP();

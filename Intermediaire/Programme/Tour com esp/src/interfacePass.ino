@@ -18,22 +18,20 @@ void interfacePassUDPtoUart(void)
 {
  int i;
   
- receiveUDP();
- readBuf[0] = 2; 
- readBuf[1] = 1; 
- readBuf[2] = '9'; 
- readBuf[3] = 'C'; 
- readBuf[4] = '6'; 
- readBuf[5] = 'B'; 
- readBuf[6] = 8; 
- readBuf[7] = 1; 
- if(readBuf[0] != 0)
+ //receiveUDP();
+ readBuffer[0] = 'M'; 
+ readBuffer[1] = 'E'; 
+ readBuffer[2] = 'S'; 
+ readBuffer[3] = 'S'; 
+ readBuffer[4] = 'A'; 
+ readBuffer[5] = 'G'; 
+ readBuffer[6] = 'E'; 
+ readBuffer[7] = 'S'; 
+ if(readBuffer[0] != 0)
  {
    for(i=0;i<8;i++)
    {
-    piloteUART2_TX(readBuf[i]);
-    //piloteUART2_TX(0x32);
-    //delay(1);
+    piloteUART2_TX(readBuffer[i]);
    }
  }
 }
@@ -41,9 +39,9 @@ void interfacePassUDPtoUart(void)
 void interfacePassUartToUDP(void)
 {
   int i;
-  unsigned char ucUartToUDP[8] = {'M',4,'3','5','6','7','8','9'}; // debut test
+  unsigned char ucUartToUDP[8] = {'M',4,0,0,0,0,0,0}; // debut test
 
-  transUDP(ucUartToUDP,8);                                                 // fin test
+  //transUDP(ucUartToUDP,8);                                                 // fin test
  // if(Serial2.available())
  // {
     //unsigned char ucUartToUDP[8] = {0,0,0,0,0,0,0,0};

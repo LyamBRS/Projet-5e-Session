@@ -58,18 +58,22 @@ void ServiceUDPStation(void)
 //************************************************************************************
 void receiveUDP(void)
 {
-  int i = 0;
-  for(i=0;i<8;i++)
-  {
-    readBuf[i] = 0;
-  }
-   int len;
- if (len = ERUDP.parsePacket())
- {
-   ERUDP.read(readBuf, 8);
-   Serial.println("Recu:");
-   Serial.println(readBuf);
- }
+    int len = ERUDP.parsePacket();
+    printf("%i\n",len);
+    if (len >= 1)
+    {
+        ERUDP.read(readBuffer, 8);
+        Serial.println("Recu:");
+        Serial.println(readBuffer[0]);
+        Serial.println(readBuffer[1]);
+        Serial.println(readBuffer[2]);
+        Serial.println(readBuffer[3]);
+        Serial.println(readBuffer[4]);
+        Serial.println(readBuffer[5]);
+        Serial.println(readBuffer[6]);
+        Serial.println(readBuffer[7]);
+    }
+
 }
 //************************************************************************************
 void transUDP(unsigned char* transmitBuffer, char sizeOfBuffer)
