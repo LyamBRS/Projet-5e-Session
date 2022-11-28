@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <appSettings>
+    <BaudRate>57600</BaudRate>
+    <DataBits>8</DataBits>
+    <StopBits>One</StopBits>
+    <Parity>None</Parity>
+    <Flow>None</Flow>
+    <TimeOut_RX>300</TimeOut_RX>
+    <TimeOut_TX>300</TimeOut_TX>
+    <BeagleBone_User>debian</BeagleBone_User>
+    <BeagleBone_Password>temppwd</BeagleBone_Password>
+    <BeagleBone_FilePath>/var/lib/cloud9/Projet/CommandCenter</BeagleBone_FilePath>
+    <BeagleBone_FileName>testPiloteCAN</BeagleBone_FileName>
+    <Scale_Unit>Metric</Scale_Unit>
+    <BeagleBone_AutoConnect>False</BeagleBone_AutoConnect>
+  </appSettings>
+</configuration>

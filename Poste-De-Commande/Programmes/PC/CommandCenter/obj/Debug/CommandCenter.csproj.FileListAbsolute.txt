@@ -1,0 +1,13 @@
+U:\Sessions\Session 5\Project\Projet_Fin_Session\Projet-5e-Session\Poste-De-Commande\Programmes\PC\CommandCenter\obj\Debug\CommandCenter.csproj.AssemblyReference.cache
+U:\Sessions\Session 5\Project\Projet_Fin_Session\Projet-5e-Session\Poste-De-Commande\Programmes\PC\CommandCenter\obj\Debug\CommandCenter.Properties.Resources.resources
+U:\Sessions\Session 5\Project\Projet_Fin_Session\Projet-5e-Session\Poste-De-Commande\Programmes\PC\CommandCenter\obj\Debug\CommandCenter.csproj.GenerateResource.cache
+U:\Sessions\Session 5\Project\Projet_Fin_Session\Projet-5e-Session\Poste-De-Commande\Programmes\PC\CommandCenter\obj\Debug\CommandCenter.csproj.CoreCompileInputs.cache
+U:\Sessions\Session 5\Project\Projet_Fin_Session\Projet-5e-Session\Poste-De-Commande\Programmes\PC\CommandCenter\bin\Debug\CommandCenter.exe.config
+U:\Sessions\Session 5\Project\Projet_Fin_Session\Projet-5e-Session\Poste-De-Commande\Programmes\PC\CommandCenter\bin\Debug\CommandCenter.exe
+U:\Sessions\Session 5\Project\Projet_Fin_Session\Projet-5e-Session\Poste-De-Commande\Programmes\PC\CommandCenter\bin\Debug\CommandCenter.pdb
+U:\Sessions\Session 5\Project\Projet_Fin_Session\Projet-5e-Session\Poste-De-Commande\Programmes\PC\CommandCenter\bin\Debug\en\CommandCenter.resources.dll
+U:\Sessions\Session 5\Project\Projet_Fin_Session\Projet-5e-Session\Poste-De-Commande\Programmes\PC\CommandCenter\obj\Debug\en\CommandCenter.resources.dll
+U:\Sessions\Session 5\Project\Projet_Fin_Session\Projet-5e-Session\Poste-De-Commande\Programmes\PC\CommandCenter\obj\Debug\CommandCenter.exe
+U:\Sessions\Session 5\Project\Projet_Fin_Session\Projet-5e-Session\Poste-De-Commande\Programmes\PC\CommandCenter\obj\Debug\CommandCenter.pdb
+U:\Sessions\Session 5\Project\Projet_Fin_Session\Projet-5e-Session\Poste-De-Commande\Programmes\PC\CommandCenter\obj\Debug\CommandCenter.Form_MainMenu.resources
+U:\Sessions\Session 5\Project\Projet_Fin_Session\Projet-5e-Session\Poste-De-Commande\Programmes\PC\CommandCenter\obj\Debug\CommandCenter.Form_MainMenu.en.resources
