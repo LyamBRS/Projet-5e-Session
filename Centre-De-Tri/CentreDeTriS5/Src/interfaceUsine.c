@@ -7,7 +7,11 @@
 #include "piloteI2C.h"
 #include "interfaceUsine.h"
 #include "serviceBaseDeTemps.h"
+#include "interfaceT3.h"
 //Definitions privees
+#define INTERFACEUSINE_INTERVAL_TRANSMISSION 20
+#define DELAI_MAX_PONT_ACK 200 //100ms
+#define DELAI_MAX_PONT_MOTION_COMPLETE 40000 //20sec
 //pas de definitions privees
 
 //Declarations de fonctions privees:
@@ -37,7 +41,10 @@ union UnionCartesI2CUsine
   struct CartesI2C structCartesI2C;
   unsigned char tabCartesI2C[sizeof(structCartesI2C)];
 } unionCartesI2CUsine;
-//pas de variables privees
+
+unsigned char ucEtatPont;
+unsigned char ucPostitonPont;
+unsigned char ucRequetePont;
 
 //Definitions de fonctions privees:
 //pas de fonctions privees
@@ -48,32 +55,130 @@ union UnionCartesI2CUsine
 //Definitions de fonctions publiques:
 
 void interfaceUsine_gere (void)
-{
-  piloteI2C_Transmit(INTERFACEUSINE_ADRESSE_PCF1_W, unionCartesI2CUsine.structCartesI2C.PCF1);
-  piloteI2C_Transmit(INTERFACEUSINE_ADRESSE_PCF2_W, unionCartesI2CUsine.structCartesI2C.PCF2);
-  piloteI2C_Recieve(INTERFACEUSINE_ADRESSE_PCF3_R, &unionCartesI2CUsine.structCartesI2C.PCF3);
-  piloteI2C_Recieve(INTERFACEUSINE_ADRESSE_PCF4_R, &unionCartesI2CUsine.structCartesI2C.PCF4);
-  piloteI2C_Recieve(INTERFACEUSINE_ADRESSE_PCF5_R, &unionCartesI2CUsine.structCartesI2C.PCF5);
+{  
+  static unsigned int compteurDeTransmission;
+  if (compteurDeTransmission >= INTERFACEUSINE_INTERVAL_TRANSMISSION)
+  {
+    compteurDeTransmission = 0;
+    piloteI2C_Transmit(INTERFACEUSINE_ADRESSE_PCF1_W, unionCartesI2CUsine.structCartesI2C.PCF1);
+    piloteI2C_Transmit(INTERFACEUSINE_ADRESSE_PCF2_W, unionCartesI2CUsine.structCartesI2C.PCF2);
+    piloteI2C_Receive(INTERFACEUSINE_ADRESSE_PCF3_R, &unionCartesI2CUsine.structCartesI2C.PCF3);
+    piloteI2C_Receive(INTERFACEUSINE_ADRESSE_PCF4_R, &unionCartesI2CUsine.structCartesI2C.PCF4);
+    piloteI2C_Receive(INTERFACEUSINE_ADRESSE_PCF5_R, &unionCartesI2CUsine.structCartesI2C.PCF5);
+    if (INTERFACEUSINE_INVERSE_PCF3) unionCartesI2CUsine.structCartesI2C.PCF3 = ~unionCartesI2CUsine.structCartesI2C.PCF3;
+    if (INTERFACEUSINE_INVERSE_PCF4) unionCartesI2CUsine.structCartesI2C.PCF4 = ~unionCartesI2CUsine.structCartesI2C.PCF4;
+    if (INTERFACEUSINE_INVERSE_PCF5) unionCartesI2CUsine.structCartesI2C.PCF5 = ~unionCartesI2CUsine.structCartesI2C.PCF5;
+  }
+  compteurDeTransmission++;
+  
+  //gestion du pont
+  static unsigned int compteurDelaiPont;
+  static bool flagDelaiPont;
+  static bool ackRecieved;
+  switch (ucRequetePont)
+  {
+    case INTERFACEUSINE_PONT_POSITIONH:
+    flagDelaiPont = 1;
+    interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_POS0, INTERFACEUSINE_OUTPUT_HIGH);
+    interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_START, INTERFACEUSINE_OUTPUT_HIGH);
+    if (interfaceUsine_LitUnElement(INTERFACEUSINE_ID_PONT_DEFAULT_ACK_START) == INTERFACEUSINE_SENSOR_LOW) break;
+    ackRecieved = 1;
+    interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_POS0, INTERFACEUSINE_OUTPUT_LOW);
+    interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_START, INTERFACEUSINE_OUTPUT_LOW);
+    ucRequetePont = INTERFACEUSINE_PONT_REQUETE_TRAITEE;
+    flagDelaiPont = 0;
+    ucPostitonPont = INTERFACEUSINE_PONT_POSITION0;
+    compteurDelaiPont = 0;
+    ackRecieved = 0;
+    break;
+    case INTERFACEUSINE_PONT_POSITION0:
+    flagDelaiPont = 1;
+    interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_POS0, INTERFACEUSINE_OUTPUT_HIGH);
+    interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_START, INTERFACEUSINE_OUTPUT_HIGH);
+    if (interfaceUsine_LitUnElement(INTERFACEUSINE_ID_PONT_DEFAULT_ACK_START) == INTERFACEUSINE_SENSOR_LOW) break;
+    ackRecieved = 1;
+    interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_POS0, INTERFACEUSINE_OUTPUT_LOW);
+    interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_START, INTERFACEUSINE_OUTPUT_LOW);
+    ucRequetePont = INTERFACEUSINE_PONT_REQUETE_TRAITEE;
+    flagDelaiPont = 0;
+    ucPostitonPont = INTERFACEUSINE_PONT_POSITION0;
+    compteurDelaiPont = 0;
+    ackRecieved = 0;
+    break;
+     case INTERFACEUSINE_PONT_POSITION1:
+    flagDelaiPont = 1;
+    interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_POS1, INTERFACEUSINE_OUTPUT_HIGH);
+    interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_START, INTERFACEUSINE_OUTPUT_HIGH);
+    if (interfaceUsine_LitUnElement(INTERFACEUSINE_ID_PONT_DEFAULT_ACK_START) == INTERFACEUSINE_SENSOR_LOW) break;
+    ackRecieved = 1;
+    interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_POS1, INTERFACEUSINE_OUTPUT_LOW);
+    interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_START, INTERFACEUSINE_OUTPUT_LOW);
+    ucRequetePont = INTERFACEUSINE_PONT_REQUETE_TRAITEE;
+    flagDelaiPont = 0;
+    ucPostitonPont = INTERFACEUSINE_PONT_POSITION1;
+    compteurDelaiPont = 0;
+    ackRecieved = 0;
+    break;
+     case INTERFACEUSINE_PONT_POSITION2:
+    flagDelaiPont = 1;
+    interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_POS2, INTERFACEUSINE_OUTPUT_HIGH);
+    interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_START, INTERFACEUSINE_OUTPUT_HIGH);
+    if (interfaceUsine_LitUnElement(INTERFACEUSINE_ID_PONT_DEFAULT_ACK_START) == INTERFACEUSINE_SENSOR_LOW) break;
+    ackRecieved = 1;
+    interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_POS2, INTERFACEUSINE_OUTPUT_LOW);
+    interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_START, INTERFACEUSINE_OUTPUT_LOW);
+    ucRequetePont = INTERFACEUSINE_PONT_REQUETE_TRAITEE;
+    flagDelaiPont = 0;
+    ucPostitonPont = INTERFACEUSINE_PONT_POSITION2;
+    compteurDelaiPont = 0;
+    ackRecieved = 0;
+    break;
+    
+  }
+  if (compteurDelaiPont > DELAI_MAX_PONT_ACK && ackRecieved) //ERREUR DELAI ACK DÉPASSÉ!!!
+  if (compteurDelaiPont > DELAI_MAX_PONT_MOTION_COMPLETE) //ERREUR DELAI MOUVEMENT DÉPASSÉ!!!
+  if (flagDelaiPont) compteurDelaiPont++;
+  else compteurDelaiPont = 0;
 }
 
 bool interfaceUsine_LitUnElement (unsigned char elementID)
 {
-  return ((unionCartesI2CUsine.tabCartesI2C[elementsDuCentreDeTri[elementID].NoDePcf]) | (0x01 << elementsDuCentreDeTri[elementID].Position)) != 0;
+return ((unionCartesI2CUsine.tabCartesI2C[elementsDuCentreDeTri[elementID].NoDePcf-1]) & (0x01 << elementsDuCentreDeTri[elementID].Position))? 1 : 0;
 }
 
 void interfaceUsine_EcritUnElement (unsigned char elementID, bool etatAEcrire)
 {
   if (etatAEcrire) 
   {
-    unionCartesI2CUsine.tabCartesI2C[elementsDuCentreDeTri[elementID].NoDePcf] |= (0x01 << elementsDuCentreDeTri[elementID].Position);
+    unionCartesI2CUsine.tabCartesI2C[elementsDuCentreDeTri[elementID].NoDePcf-1] |= (0x01 << elementsDuCentreDeTri[elementID].Position);
     return;
   }
-  unionCartesI2CUsine.tabCartesI2C[elementsDuCentreDeTri[elementID].NoDePcf] &= ~(0x01 << elementsDuCentreDeTri[elementID].Position);
+  unionCartesI2CUsine.tabCartesI2C[elementsDuCentreDeTri[elementID].NoDePcf-1] &= ~(0x01 << elementsDuCentreDeTri[elementID].Position);
   
 }
 
-void interfaceUsine_Initialise ()
+
+    
+  bool interfaceUsine_RequetePont (unsigned char ucPositiondemandee)
+  {
+    if (ucRequetePont != INTERFACEUSINE_PONT_REQUETE_TRAITEE)return 0;
+    ucRequetePont = ucPositiondemandee;
+    return 1;
+  }
+  
+  unsigned char interfaceUsine_PositionPont (void)
+  {
+    return ucPostitonPont;
+  }
+
+  unsigned char interfaceUsine_EtatPont (void)
+  {
+    return ucEtatPont;
+  }
+
+void interfaceUsine_Initialise (void)
 {
+  interfaceT3_allume();
   elementsDuCentreDeTri[INTERFACEUSINE_ID_LED].NoDePcf = INTERFACEUSINE_PCF_LED;
   elementsDuCentreDeTri[INTERFACEUSINE_ID_LED].Position = INTERFACEUSINE_POS_LED;
 
@@ -98,8 +203,8 @@ void interfaceUsine_Initialise ()
   elementsDuCentreDeTri[INTERFACEUSINE_ID_EJECTEUR_OUT].NoDePcf = INTERFACEUSINE_PCF_EJECTEUR_OUT;
   elementsDuCentreDeTri[INTERFACEUSINE_ID_EJECTEUR_OUT].Position = INTERFACEUSINE_POS_EJECTEUR_OUT;
 
-  elementsDuCentreDeTri[INTERFACEUSINE_ID_MAGASIN].NoDePcf = INTERFACEUSINE_PCF_MAGASIN;
-  elementsDuCentreDeTri[INTERFACEUSINE_ID_MAGASIN].Position = INTERFACEUSINE_POS_MAGASIN;
+  elementsDuCentreDeTri[INTERFACEUSINE_ID_POUSSOIR].NoDePcf = INTERFACEUSINE_PCF_POUSSOIR;
+  elementsDuCentreDeTri[INTERFACEUSINE_ID_POUSSOIR].Position = INTERFACEUSINE_POS_POUSSOIR;
 
   elementsDuCentreDeTri[INTERFACEUSINE_ID_CONVOYEUR].NoDePcf = INTERFACEUSINE_PCF_CONVOYEUR;
   elementsDuCentreDeTri[INTERFACEUSINE_ID_CONVOYEUR].Position = INTERFACEUSINE_POS_CONVOYEUR;
@@ -175,6 +280,10 @@ void interfaceUsine_Initialise ()
   
   elementsDuCentreDeTri[INTERFACEUSINE_ID_PONT_DEFAULT_ERROR].NoDePcf = INTERFACEUSINE_PCF_PONT_DEFAULT_ERROR;
   elementsDuCentreDeTri[INTERFACEUSINE_ID_PONT_DEFAULT_ERROR].Position = INTERFACEUSINE_POS_PONT_DEFAULT_ERROR;
+  
+  unionCartesI2CUsine.structCartesI2C.PCF1 = 0xFF;
+  unionCartesI2CUsine.structCartesI2C.PCF2 = 0xFF;
+
   
   serviceBaseDeTemps_execute[INTERFACEUSINE_GERE] = interfaceUsine_gere;
 }

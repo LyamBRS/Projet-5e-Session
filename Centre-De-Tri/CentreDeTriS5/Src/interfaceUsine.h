@@ -1,5 +1,5 @@
-#ifndef INTERFACET4_H
-#define INTERFACET4_H
+#ifndef INTERFACEUSINE_H
+#define INTERFACEUSINE_H
 
 //MODULE: interfaceT4
 //DESCRIPTION: pour interagir avec un temoin lumineux T4 relie a un STM32F407. 
@@ -22,12 +22,26 @@
 //pas de definitions publiques
 
 //Fonctions publiques:
-void interfaceT4_allume(void);
-void interfaceT4_eteint(void);
-void interfaceT4_initialise(void);
 void interfaceUsine_EcritUnElement (unsigned char elementID, bool etatAEcrire);
 bool interfaceUsine_LitUnElement (unsigned char elementID);
+void interfaceUsine_gere (void);
+void interfaceUsine_Initialise (void);
 
+  void interfaceUsine_PontHome (void);
+  void interfaceUsine_PonPos1 (void);
+  void interfaceUsine_PonPos2 (void);
+  void interfaceUsine_PonPos3 (void);
+    
+#define INTERFACEUSINE_PONT_ETAT_ERREUR 0
+#define INTERFACEUSINE_PONT_ETAT_EN_COURS 1
+#define INTERFACEUSINE_PONT_ETAT_FINI 2
+
+#define INTERFACEUSINE_PONT_REQUETE_TRAITEE 0
+#define INTERFACEUSINE_PONT_POSITION_DEPLACEMENT 0
+#define INTERFACEUSINE_PONT_POSITIONH 1
+#define INTERFACEUSINE_PONT_POSITION0 2
+#define INTERFACEUSINE_PONT_POSITION1 3
+#define INTERFACEUSINE_PONT_POSITION2 4
 //Variables publiques:
 //pas de variables publiques
 

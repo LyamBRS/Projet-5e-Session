@@ -53,6 +53,7 @@
 #include "interfaceT4.h"
 //#include "processusBoutonConnecte.h"
 #include "processusUsine.h"
+#include "interfaceUsine.h"
 //#include "stm32f4xx_hal_conf.h"
 //#include "stm32f4xx_it.h"
 /* USER CODE END Includes */
@@ -117,6 +118,7 @@ void main_initialiseAvantLeHAL(void)
   interfaceT3_initialise();
   interfaceT4_initialise();
   processusUsine_initialise();
+  interfaceUsine_Initialise ();
 }
 
 void main_initialiseApresLeHAL(void)
@@ -274,7 +276,7 @@ static void MX_I2C1_Init(void)
 
   /* USER CODE END I2C1_Init 1 */
   hi2c1.Instance = I2C1;
-  hi2c1.Init.ClockSpeed = 19200;
+  hi2c1.Init.ClockSpeed = 100000;
   hi2c1.Init.DutyCycle = I2C_DUTYCYCLE_2;
   hi2c1.Init.OwnAddress1 = 0;
   hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;

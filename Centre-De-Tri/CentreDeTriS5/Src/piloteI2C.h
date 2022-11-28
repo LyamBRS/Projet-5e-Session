@@ -23,7 +23,7 @@
 
 //Fonctions publiques:
 void piloteI2C_Transmit(unsigned char ucAdresse, unsigned char ucDonnee);
-void piloteI2C_Recieve(unsigned char ucAdresse, unsigned char *ucDonnee);
+void piloteI2C_Receive(unsigned char ucAdresse, unsigned char *ucDonnee);
 void piloteI2C_initialise(void);
 
 
