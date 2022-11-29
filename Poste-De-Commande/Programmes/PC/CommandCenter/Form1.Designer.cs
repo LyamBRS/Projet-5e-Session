@@ -78,6 +78,7 @@ namespace CommandCenter
             this.UpdatePortList = new System.Windows.Forms.Timer(this.components);
             this.Button_Mode = new System.Windows.Forms.Button();
             this.Button_USB = new System.Windows.Forms.Button();
+            this.CAN_TIMER = new System.Windows.Forms.Timer(this.components);
             this.TabControl_ModeSelector.SuspendLayout();
             this.Tab_Terminal.SuspendLayout();
             this.Tab_Settings.SuspendLayout();
@@ -645,6 +646,11 @@ namespace CommandCenter
             this.Button_USB.Name = "Button_USB";
             this.Button_USB.UseVisualStyleBackColor = true;
             // 
+            // CAN_TIMER
+            // 
+            this.CAN_TIMER.Interval = 20;
+            this.CAN_TIMER.Tick += new System.EventHandler(this.CAN_TIMER_Tick);
+            // 
             // Form_MainMenu
             // 
             resources.ApplyResources(this, "$this");
@@ -716,6 +722,7 @@ namespace CommandCenter
         private System.Windows.Forms.Button Label_AutoConnect;
         private System.Windows.Forms.Button Button_AutoConnect;
         private System.Windows.Forms.Button Button_CloseBeagleBone;
+        private System.Windows.Forms.Timer CAN_TIMER;
     }
 }
 

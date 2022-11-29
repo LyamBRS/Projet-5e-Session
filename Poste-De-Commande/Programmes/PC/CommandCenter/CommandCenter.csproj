@@ -53,6 +53,9 @@
     <Compile Include="BeagleBone_Processes.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="CAN.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Form1_Terminal.cs">
       <SubType>Form</SubType>
     </Compile>

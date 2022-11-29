@@ -14,75 +14,6 @@ namespace CommandCenter
 {
     public partial class Form_MainMenu : Form
     {
-        /// <summary>
-        /// Reference of this form, for the setting form to use.
-        /// </summary>
-        public Form_MainMenu FormConsoleRef;
-        //#############################################################//
-        /// <summary>
-        /// Function called when ComPort serial receives data.
-        /// </summary>
-        //#############################################################//
-        public void DataReceiverHandling()
-        {
-            //Gather stored data in the buffer
-            string result = "";
-
-            try
-            {
-                result = BRS.ComPort.Port.ReadExisting();
-                FormConsoleRef.BeginInvoke(FormConsoleRef.Delegate, result);
-            }
-            catch
-            {   // The form is closed, and the function could not be called
-                // Therefor, it is replaced by this empty function.
-                BRS.ComPort.DataReceivedAction = EmptyReceivingHandler;
-            }
-        }
-        //#############################################################//
-        /// <summary>
-        /// Function to replace ComPort.DataReceivedAction so an empty
-        /// function is called rather than putting text in an
-        /// inexisting console rich text box.
-        /// </summary>
-        //#############################################################//
-        public void EmptyReceivingHandler()
-        {
-
-        }
-        //#############################################################//
-        /// <summary>
-        /// Parses the received text from ComPort.Port in the console
-        /// rich text box.
-        /// Raises the receiving flag so the textchanged event does not
-        /// occur.
-        /// </summary>
-        /// <param name="received">serial buffer</param>
-        //#############################################################//
-        private void RXConsoleText(string received)
-        {
-            ConsoleArea.SelectionStart = ConsoleArea.Text.Length;
-            ConsoleArea.SelectionColor = Color.LightGreen;
-
-            /*
-            if (received.StartsWith("\r"))
-            {
-                int LineIndex = ConsoleArea.GetLineFromCharIndex(ConsoleArea.SelectionStart);
-                int firstFromLine = ConsoleArea.GetFirstCharIndexFromLine(LineIndex);
-
-                ConsoleArea.SelectionStart = firstFromLine;
-                ConsoleArea.SelectionLength = ConsoleArea.Text.Length - firstFromLine;
-                ConsoleArea.SelectedText = "";
-
-                received = received.Replace('\r', ' ');
-                received = received.Replace('\n', ' ');
-            }
-            */
-
-            ConsoleArea.SelectedText = received;
-            ConsoleArea.SelectionStart = ConsoleArea.Text.Length;
-            ConsoleArea.SelectionColor = Color.Aqua;
-        }
         //#############################################################//
         /// <summary>
         /// Clears the terminal, or warns the user about a potential fuck
@@ -93,7 +24,10 @@ namespace CommandCenter
         //#############################################################//
         private void Button_Terminal_Click(object sender, EventArgs e)
         {
-
+            BRS.Debug.Header(true);
+            BRS.Debug.Comment("Attempting to clear the terminal");
+            CommandCenter.terminal.Clear();
+            BRS.Debug.Header(false);
         }
         //#############################################################//
         /// <summary>
@@ -114,28 +48,21 @@ namespace CommandCenter
 
                 try
                 {
-                    byte[] END_0 = BitConverter.GetBytes(0xFF);
-                    byte[] END_1 = BitConverter.GetBytes(0xBF);
-                    
-                    byte[] END = Encoding.UTF8.GetBytes("ÿ");
-                    BRS.Debug.Comment(END[0].ToString());
-                    BRS.Debug.Comment(END[1].ToString());
-                    BRS.ComPort.Port.Write(END_0, 0, 1);
-                    BRS.ComPort.Port.Write(END, 0, 2);
-                    BRS.ComPort.Port.Write(END, 0, 2);
-                    BRS.ComPort.Port.Write("ÿÿ\n"); // 0xFF,0xFF,0xFF,\n
-                    Debug.Success();
-                    NewUserTextInfo("Closing BBB progam...",2);
+                    MasterProtocol.Send.ToBeagleBone.Quit();
+                    MasterProtocol_Stop();
+                    CommandCenter.terminal.Log_Comment("Closing BeagleBone Program",Color.HotPink);
                 }
                 catch
                 {
                     Debug.Error("Could not send END to beaglebone.");
-                    NewUserTextInfo("Error: Cant send END", 2);
+                    NewUserTextInfo("CAN'T CLOSE PROGRAM", 2);
+                    CommandCenter.terminal.Log_Error("Could not close the BeagleBone program");
                 }
             }
             else
             {
                 Debug.Aborted("UART Port is closed!");
+                CommandCenter.terminal.Log_Error("UART is closed, you cannot close BeagleBone program");
             }
 
             BRS.Debug.Header(false);
@@ -153,5 +80,7 @@ namespace CommandCenter
             ConsoleArea.SelectedText = "\n[!ERROR!]: " + error + "\n";
             ConsoleArea.SelectionStart = ConsoleArea.Text.Length;
         }
+        //#############################################################//
+        //#############################################################//
     }
 }

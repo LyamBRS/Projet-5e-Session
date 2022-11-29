@@ -26,7 +26,7 @@ namespace CommandCenter
             /////////////////////////////////////////////////////////////
             BRS.Debug.Comment("Initializing the command center's components...");
             InitializeComponent();
-            FormConsoleRef = this;
+            //FormConsoleRef = this;
             Debug.Success();           
             /////////////////////////////////////////////////////////////
             #region DynamicButtons
@@ -60,17 +60,12 @@ namespace CommandCenter
             #endregion DynamicButtons
             /////////////////////////////////////////////////////////////
             BRS.Debug.Comment("Specifying RX callbacks and events of BRS.ComPort");
-            BRS.ComPort.createInfoReceivedEvent();
-            BRS.ComPort.DataReceivedAction = DataReceiverHandling;
             BRS.ComPort.startPortUpdater();
             BRS.Debug.Comment("Setting port to UTF8...");
             BRS.ComPort.Port.Encoding = Encoding.UTF8;
             Debug.Success();
             //----------------------------------------------------------
             /////////////////////////////////////////////////////////////
-            BRS.Debug.Comment("Creating delegate for RX data received event...");
-            Delegate = new dlgThread(RXConsoleText);
-            Debug.Success();
             //----------------------------------------------------------
             BRS.Debug.Comment("Initialising UART list...");
             BRS.ComPort.ListOfPortChanged.CollectionChanged += ListChanged;
@@ -112,8 +107,16 @@ namespace CommandCenter
 
             CommandCenter.Buttons.AutoConnection.State = (Settings.BeagleBone_AutoConnect().Equals("True") ? ControlState.Active : ControlState.Inactive);
             AutoConnect = (Settings.BeagleBone_AutoConnect().Equals("True") ? true : false);
-
             Debug.Success();
+
+            BRS.Debug.Comment("Setting up terminal functions...");
+            CommandCenter.terminal = new Terminal(ConsoleArea, this, BRS.ComPort.Port);
+            CommandCenter.terminal.Window = ConsoleArea;
+
+            BRS.ComPort.createInfoReceivedEvent();
+            BRS.ComPort.DataReceivedAction = CommandCenter.terminal.DataReceiverHandling;
+            Debug.Success();
+
             BRS.Debug.Header(false);
         }
         //#############################################################//
@@ -140,6 +143,7 @@ namespace CommandCenter
             Debug.Success("");
             Debug.LocalEnd();
         }
+
         private void button1_Click(object sender, EventArgs e)
         {
 
@@ -167,5 +171,11 @@ namespace CommandCenter
             public static BRS.Buttons.GenericButton AutoConnection;
             public static BRS.Buttons.GenericButton CloseBeagle;
         }
+
+        public static RichTextBox tempo;
+        /// <summary>
+        /// The command center's terminal.
+        /// </summary>
+        public static Terminal terminal;
     }
 }

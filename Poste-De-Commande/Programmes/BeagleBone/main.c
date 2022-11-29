@@ -40,12 +40,44 @@
 #define NOT_READY 0x00
 #define READY 0xFF
 //----------------------- Private Functions ----------------------//
+/**
+ * @brief This function is used to initialise every pilotes or interfaces
+ * needed in order to properly execute this program.\n
+ * In this particular state, it opens CAN interfaces and initialises the
+ * latter properly.
+ * @author Yves Roy
+ * @date 28/11/2022
+ * @return int Error State.
+ */
 int Main_Initialise(void);
 void Main_test(void);
-
+/**
+ * @brief Handles the CAN transmission on the CAN bus.\n
+ * The command center handles how often SYNCH trams are to be sent.\n
+ * Each time a synch tram is sent, [-SYNC-] is shown in the terminal.
+ * @author Shawn Couture / LyamBRS
+ * @date 24/11/2022
+ */
 void HandleTransmission(void);
+/**
+ * @brief handles CAN receptions. Each time a CAN communication is
+ * intercepted, it gets printed as integers displayed as ASCII chars
+ * in the terminal, with [RX] in front of the data.\n
+ * Data is separated via commas to ease parsing on the CommandCenter.
+ * @author Shawn Couture / LyamBRS
+ * @date 24/11/2022
+ */
 void HandleReception(void);
-
+/**
+ * @brief Returns the real hexadecimal value of the ascii letter which represents
+ * said hex value.\n
+ * For example, 'F' does not equal to 0x0F.\n
+ * Thus this function takes 'F' as the input parameter, and returns 0x0F.
+ * @author Shawn Couture / LyamBRS
+ * @date 24/11/2022
+ * @param character ASCII to transform into hexadecimal. (0x00-0x0F).
+ * @return int Represents the hexadecimal value of the ascii letters converted to hex.
+ */
 int GetHexValue(unsigned char charcter);
 unsigned char CheckIfSpecialChar(int special, int* Temporary2LetterBuffer);
 
@@ -53,9 +85,26 @@ int receptionToTransmission[2];
 int transmissionToReception[2];
 
 //----------------------- Private Variables ----------------------//:
-//pas de variables privees
+/**
+ * @brief Tells the program that special characters will be used
+ * instead of exact hex values through the terminal.\n
+ * In regular operation, the Command Center sends exact hex values
+ * properly to the application, but it is impossible for a manual
+ * user using this script through a terminal to send exact hex values.\n
+ * This this allows just that.
+ */
+unsigned char ManualExecution = 0;
 
 //----------------------- Private Functions ----------------------//
+/**
+ * @brief This function is used to initialise every pilotes or interfaces
+ * needed in order to properly execute this program.\n
+ * In this particular state, it opens CAN interfaces and initialises the
+ * latter properly.
+ * @author Yves Roy
+ * @date 28/11/2022
+ * @return int Error State.
+ */
 int Main_Initialise(void)
 {
 	CAN_OpenInterface();
@@ -66,7 +115,16 @@ int Main_Initialise(void)
 	}
 	return 0;
 }
-
+/**
+ * @brief Returns the real hexadecimal value of the ascii letter which represents
+ * said hex value.\n
+ * For example, 'F' does not equal to 0x0F.\n
+ * Thus this function takes 'F' as the input parameter, and returns 0x0F.
+ * @author Shawn Couture / LyamBRS
+ * @date 24/11/2022
+ * @param character ASCII to transform into hexadecimal. (0x00-0x0F).
+ * @return int Represents the hexadecimal value of the ascii letters converted to hex.
+ */
 int GetHexValue(unsigned char character)
 {
 	switch(character)
@@ -109,7 +167,7 @@ unsigned char CheckIfSpecialChar(int special, int* Temporary2LetterBuffer)
 	static unsigned char checking = 0;
 
 	// If the second character is above regular characters, it means we received a special one.
-	if(special >= 0xA0 && checking)
+	if(special >= 0xA0 && checking && ManualExecution)
 	{
 		int output = (Temporary2LetterBuffer[0] << 8) + special;
 		output = output - 49856;
@@ -122,7 +180,7 @@ unsigned char CheckIfSpecialChar(int special, int* Temporary2LetterBuffer)
 
 	//Second value has nothing special but the first one did.
 	//We return both the letters as is.
-	if(checking && special <= 0x7F)
+	if(checking && special <= 0x7F && ManualExecution)
 	{
 		Temporary2LetterBuffer[1] = special;
 		checking = 0x00;
@@ -130,7 +188,7 @@ unsigned char CheckIfSpecialChar(int special, int* Temporary2LetterBuffer)
 	}
 
 	// Check if the value is above 0xC1 meaning the potential start of a special character. 
-	if(special >= 0xC1 && !checking)
+	if(special >= 0xC1 && !checking && ManualExecution)
 	{
 		checking = 0xFF;
 		Temporary2LetterBuffer[0] = special;
@@ -199,58 +257,105 @@ void HandleTransmission(void)
 		dataBuffer[0] = loop;
 		write(transmissionToReception[WRITING],dataBuffer,2);
 
-		// TRANSMIT ON CAN -----------------------------------------------------------------------//
+		// GET MASTER CAN -----------------------------------------------------------------------//
 		index = 0;
 		TransmitCan = 1;
 		while(index < 13)
 		{
 			//Compare letters in groups of 2 if special, groups of 1 when not.
-			for(int i=0; i<2; ++i)
+			if(!ManualExecution)
 			{
 				rawCharacter = getchar();
-				printf("[%i]: %i",i,rawCharacter);
-				if(index<3 && (rawCharacter == '\n' || rawCharacter == '\r'))
+				//printf("[%i]: %i ",index,rawCharacter);
+
+				if(rawCharacter == 0xFF)
 				{
-					printf("[-RESET-]\n");
-					index = 0;
-					i=2;
-					LettersBuffers[0] = 0xFFF;
-					LettersBuffers[1] = 0xFFF;
+					printf("\n[-QUIT-]\n");	
+					index = 13;
+					loop = STOP;
 					TransmitCan = 0;
+					break;
 				}
 				else
 				{
-					unsigned char gotoNextStep = CheckIfSpecialChar(rawCharacter, LettersBuffers);
-					if(gotoNextStep == 0xFF) {i=3;}
-				}
-			}
-
-			//Check what is within the table
-			for(int i=0; i<2; ++i)
-			{
-				rawCharacter = LettersBuffers[i];
-				if(rawCharacter != 0xFFF)
-				{
-					
 					if(rawCharacter == 0xFE)
 					{
-						printf("[-RESET-]\n");
+						if(index != 0)
+						{
+							printf("\n[-AUTO RESET-]");
+						}
 						index = 0;
+						dataFromCommandCenter[index] = ((unsigned char)rawCharacter);
+						index = 1;						
 					}
 					else
 					{
-						if(rawCharacter == END_EVERYTHING)
+						dataFromCommandCenter[index] = ((unsigned char)rawCharacter);
+						index++;
+						if(index>12)
 						{
-							loop = STOP;
-							index = 12;
-							i=3;
+							TransmitCan = 1;
+						}					
+					}
+				}
+			}
+			else
+			{
+				for(int i=0; i<2; ++i)
+				{
+					rawCharacter = getchar();
+					printf("[%i]: %i",i,rawCharacter);
+					if(index<3 && (rawCharacter == '\n' || rawCharacter == '\r'))
+					{
+						if(ManualExecution)
+						{
+							printf("[-MANUAL RESET-]\n");					
 						}
 						else
 						{
-							fflush(stdout);
-							// Store chars in buffer
+							printf("[-AUTO RESET-]\n");
+						}
+						index = 0;
+						i=2;
+						LettersBuffers[0] = 0xFFF;
+						LettersBuffers[1] = 0xFFF;
+						TransmitCan = 0;
+					}
+					else
+					{
+						unsigned char gotoNextStep = CheckIfSpecialChar(rawCharacter, LettersBuffers);
+						if(gotoNextStep == 0xFF) {i=3;}
+					}
+				}
+
+				//Check what is within the table
+				for(int i=0; i<2; ++i)
+				{
+					rawCharacter = LettersBuffers[i];
+					if(rawCharacter != 0xFFF)
+					{
+					
+						if(rawCharacter == 0xFE)
+						{
+							printf("[-RESET-]\n");
+							index = 0;
 							dataFromCommandCenter[index] = ((unsigned char)rawCharacter);
-							index++;
+						}
+						else
+						{
+							if(rawCharacter == END_EVERYTHING)
+							{
+								loop = STOP;
+								index = 12;
+								i=3;
+							}
+							else
+							{
+								fflush(stdout);
+								// Store chars in buffer
+								dataFromCommandCenter[index] = ((unsigned char)rawCharacter);
+								index++;
+							}
 						}
 					}
 				}
@@ -279,7 +384,6 @@ void HandleTransmission(void)
 
 			if(TransmitCan == 1)
 			{
-				TransmitCan = 0;
 				printf("[-SYNC-]\n");
 				CAN_Transmit(address, bytesToSend, 8);
 			}
@@ -375,7 +479,11 @@ void HandleReception(void)
 
 //----------------------- Public  Functions ----------------------//
 //pas de fonctions publiques
-
+/**
+ * @brief Main function of this program. Used to create forks or
+ * threads and initialise needed programs.
+ * @return int 
+ */
 int main(void)
 {
   //int addressToSend;
@@ -396,19 +504,37 @@ int main(void)
 	
 	system("sudo modprobe can");
 	system("sudo ip link set can0 down");
-	system("sudo ip link del dev can0");	
+	system("sudo ip link del dev can0");
 	
 	if (Main_Initialise() != 0)
 	{
 		return -1;
 	}
-
 //////////////////////////////////////////////////////////////////////////////////////////////////// - Initial quit message	
 	printf("\n[-STARTING-]");
 	fflush(stdout);	
 	sleep(1);
 	printf("\n");
-	fflush(stdout);	
+	fflush(stdout);
+////////////////////////////////////////////////////////////////////////////////////////////////////
+	// Ask user, or program if they are executing this manually or not.
+	printf("\n\n[QUESTION]: Is this executed manually? (Y/N)\n");
+	unsigned char answer = getchar();
+
+	if(answer == 'Y')
+	{
+		ManualExecution = 0xFF;
+		printf("\n[MANUAL MODE]");
+		sleep(1);
+		printf("\n");
+	}
+	else
+	{
+		ManualExecution = 0x00;
+		printf("\n[AUTOMATIC MODE]");
+		sleep(1);
+		printf("\n");		
+	}
 //////////////////////////////////////////////////////////////////////////////////////////////////// - WHILE LOOP	
 	processID = fork();
 	if(processID == (pid_t)0)
