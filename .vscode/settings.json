@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "BRS_Lcd.C": "cpp",
+        "BRS_Lcd_Objects.C": "cpp"
+    }
+}
