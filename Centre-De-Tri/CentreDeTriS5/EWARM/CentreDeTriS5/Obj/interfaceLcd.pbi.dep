@@ -41,4 +41,14 @@ interfaceLcd.pbi: \
   C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\EWARM/../Drivers/STM32F4xx_HAL_Driver/Inc\stm32f4xx_hal_uart.h \
   C:\IAR\ARM\8.50\arm\inc\c\stdbool.h \
   C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/piloteLcd.h \
-  C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\EWARM/../Inc\main.h
+  C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/IO_BUS.h \
+  C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\EWARM/../Inc\main.h \
+  C:\IAR\ARM\8.50\arm\inc\c\string.h \
+  C:\IAR\ARM\8.50\arm\inc\c\DLib_Product_string.h \
+  C:\IAR\ARM\8.50\arm\inc\c\math.h \
+  C:\IAR\ARM\8.50\arm\inc\c\DLib_float_setup.h \
+  C:\IAR\ARM\8.50\arm\inc\c\xtgmath.h \
+  C:\IAR\ARM\8.50\arm\inc\cpp\xtr1common \
+  C:\IAR\ARM\8.50\arm\inc\cpp\cstdlib C:\IAR\ARM\8.50\arm\inc\c\stdlib.h \
+  C:\IAR\ARM\8.50\arm\inc\c\DLib_Product_stdlib.h \
+  C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/BRS_Lcd_Font.h

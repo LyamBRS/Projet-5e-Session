@@ -172,7 +172,7 @@ extern unsigned char serviceCommunication_ErrorState;
  * @brief The time base frequency. Usually defined in main.h
  * Used to automatically calculate CAN slots allocations.
  */
-#define TIME_BASE_FREQUENCY_HZ 2000
+#define TIME_BASE_FREQUENCY_HZ FREQUENCE_DE_LA_BASE_DE_TEMPS_EN_HZ
 /**
  * @brief The time base's functions buffer size. Usually defined in main.h.
  * Used to figure out the intervals at which the execute function is called
@@ -201,7 +201,7 @@ extern unsigned char serviceCommunication_ErrorState;
  * synchronisation slot is 0. Please refer to the datasheet available on
  * google drive in order to figure out your module's time frame.
  */
-#define CAN_ALLOCATED_SLOT 0
+#define CAN_ALLOCATED_SLOT 1
 /**
  * @brief Specifies the duration in milliseconds of a slot. See Google drive
  * documentation to put the right value in this.

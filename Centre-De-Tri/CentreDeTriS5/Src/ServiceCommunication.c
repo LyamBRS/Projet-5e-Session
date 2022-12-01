@@ -75,7 +75,7 @@ unsigned char serviceCommunication_ErrorState = NO_ERROR;
  * @brief Variable keeping track of the amount of interrupt which hapenned
  * since the reception of a \ref stModes by the synchronisation CAN tram.
  */
-unsigned char interruptCount = 0;
+unsigned int interruptCount = 0;
 /**
  * @brief Variable which indicates which slots in the CAN protocol the count
  * is current at. This is used to keep track of which person needs to
@@ -629,7 +629,7 @@ void Parse_Interrupts(void)
     interruptCount++;
 
     //How long is an interrupt --> how long is a full buffer cycle.
-    float interruptDuration = ((((float)1)/((float)TIME_BASE_FREQUENCY_HZ)) * ((float)1000)) * ((float)TIME_BASE_BUFFER_SIZE);
+    float interruptDuration = ((((float)1)/((float)TIME_BASE_FREQUENCY_HZ)) * ((float)1000)); //* ((float)TIME_BASE_BUFFER_SIZE);
 
     //How long we've been running.
     float timeSinceReset = interruptDuration * ((float)(interruptCount));
@@ -1102,17 +1102,23 @@ void ServiceCommunication_TXParsingHandler(void)
 {
     //Check where we are in the CAN stuff.
     Parse_Interrupts();
+    static bool sent = 0;
 
     if(currentSlot == CAN_ALLOCATED_SLOT)
     {
-        //Parses QUEUE into transmittable buffer
-        TX_BuildCANBuffer(MODULE_CAN_TX);
-        interfaceCAN1_transmetDesDonnes(0x200,MODULE_CAN_TX,8);
+        if(!sent)
+        {
+            //Parses QUEUE into transmittable buffer
+            TX_BuildCANBuffer(MODULE_CAN_TX);
+            interfaceCAN1_transmetDesDonnes(0x200,MODULE_CAN_TX,8);
+            sent = 0xFF;
+        }
     }
     else
     {
         //Put structure in QUEUE buffers to transmit faster once the CAN slot is ours.
         Parse_ModuleDataForTransmission();
+        sent = 0x00;
     }
 }
 /**

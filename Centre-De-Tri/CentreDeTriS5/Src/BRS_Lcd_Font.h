@@ -27,7 +27,7 @@
 #include "stm32f4xx_hal.h"                       //Définition pour le KIT ARM
 #include "IO_BUS.h"       
 #include "main.h"
-#include "BRS_Lcd.h"
+#include "interfaceLcd.h"
 
 //================================================================================================//
 //	FONT 4

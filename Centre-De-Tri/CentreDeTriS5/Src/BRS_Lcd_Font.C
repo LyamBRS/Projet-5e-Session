@@ -30,10 +30,10 @@
 // 1234 
 void Line4(unsigned char x, unsigned char y, unsigned char Hex, unsigned char state)
 {
- BRS_LCD_Draw_Pixel(x+3,y, ((Hex & 0x01))    == state); 
- BRS_LCD_Draw_Pixel(x+2,y, ((Hex & 0x02)>>1) == state); 
- BRS_LCD_Draw_Pixel(x+1,y, ((Hex & 0x04)>>2) == state); 
- BRS_LCD_Draw_Pixel(x  ,y, ((Hex & 0x08)>>3) == state);   
+ interfaceLcd_Draw_Pixel(x+3,y, ((Hex & 0x01))    == state); 
+ interfaceLcd_Draw_Pixel(x+2,y, ((Hex & 0x02)>>1) == state); 
+ interfaceLcd_Draw_Pixel(x+1,y, ((Hex & 0x04)>>2) == state); 
+ interfaceLcd_Draw_Pixel(x  ,y, ((Hex & 0x08)>>3) == state);   
 }
 
 

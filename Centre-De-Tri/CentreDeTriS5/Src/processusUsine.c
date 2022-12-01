@@ -19,7 +19,9 @@
 #include "interfaceT2.h"
 #include "interfaceT4.h"
 #include "interfaceUsine.h"
+#include "interfaceColonne.h"
 #include <string.h>
+#include "interfaceB1.h"
 //Definitions privees
 //Les unités des valeurs de délai suivantes corerespondent à la base de temps : 1/2ms
 #define DELAI_MAX_INITIALISATION 5000
@@ -84,14 +86,21 @@ unsigned char ucTypeDeBloc;
 // Références: \ref "variable" crée un lien cliquable qui mène a la variable ou a la fonction
 void processusUsine_attente (void)
 {
+  updateModeEcran("Attente");
+  interfaceColonne_eteint(INTERFACECOLONNE_JAUNE);
+  interfaceColonne_eteint(INTERFACECOLONNE_ROUGE);
+  interfaceColonne_clignote(INTERFACECOLONNE_VERT);
   if (interfaceUsine_LitUnElement(INTERFACEUSINE_ID_BOUTON_VERT) == INTERFACEUSINE_BOUTON_APPUYE) serviceBaseDeTemps_execute[PROCESSUSUSINE_GERE] = processusUsine_operation;
+  if (interfaceB1.etatDuBouton == INTERFACEB1_APPUYE) serviceBaseDeTemps_execute[PROCESSUSUSINE_GERE] = processusUsine_attente;
 }
 
 void processusUsine_operation (void)
 {
+  updateModeEcran("Operation");
   modeOperation_execute();
+  
 }
-//#pragmaregion EtatsModeOperation
+#pragma region EtatsModeOperation
 
 void modeOperation_lanceInitialisation (void)
 {
@@ -127,7 +136,7 @@ void modeOperation_attendFinInitialisation (void)
   compteurTempsInitialisation++;
   if (compteurTempsInitialisation >= DELAI_MAX_INITIALISATION)
   {
-    //messageErreur = "Erreur d'initialisation";
+    updateMessageEcran("Erreur d'initialisation");
     serviceBaseDeTemps_execute[PROCESSUSUSINE_GERE] =  modeErreur;
   }
   
@@ -193,6 +202,9 @@ void modeOperation_detecteLeBloc (void)
               )
     {
       ucTypeDeBloc = BLOC_ROUGE;
+      interfaceColonne_allume(INTERFACECOLONNE_JAUNE);
+      interfaceColonne_eteint(INTERFACECOLONNE_ROUGE);
+      interfaceColonne_eteint(INTERFACECOLONNE_VERT);
       modeOperation_execute = modeOperation_monteElevateur;
     }
     
@@ -203,6 +215,9 @@ void modeOperation_detecteLeBloc (void)
               )
     {
       ucTypeDeBloc = BLOC_NOIR;
+      interfaceColonne_clignote(INTERFACECOLONNE_JAUNE);
+      interfaceColonne_eteint(INTERFACECOLONNE_ROUGE);
+      interfaceColonne_eteint(INTERFACECOLONNE_VERT);
       modeOperation_execute = modeOperation_monteElevateur;
     }
     
@@ -213,6 +228,9 @@ void modeOperation_detecteLeBloc (void)
               )
     {
       ucTypeDeBloc = BLOC_METAL;
+      interfaceColonne_eteint(INTERFACECOLONNE_JAUNE);
+      interfaceColonne_eteint(INTERFACECOLONNE_ROUGE);
+      interfaceColonne_allume(INTERFACECOLONNE_VERT);
       modeOperation_execute = modeOperation_monteElevateur;
     }
     
@@ -327,16 +345,75 @@ void modeOperation_attendBlocAspire(void)
 
 }
 
-//#endregion EtatsModeOperation
+#pragma endregion EtatsModeOperation
 
 
 void processusUsine_arret (void)
 {
-  
+  updateModeEcran("Arret");
+  if (interfaceUsine_LitUnElement(INTERFACEUSINE_ID_BOUTON_VERT) == INTERFACEUSINE_BOUTON_APPUYE) serviceBaseDeTemps_execute[PROCESSUSUSINE_GERE] = processusUsine_operation;
 }
 
 void processusUsine_tests (void)
 {
+  updateModeEcran("Tests");
+  #define ALLUME 1
+  #define ETEINT 0
+  #define CLIGNOTE 2
+  //Gestion de la colonne lumineuse
+  unsigned char tempVert;
+  unsigned char tempRouge;
+  unsigned char tempJaune;
+  tempVert = ETEINT;
+  tempRouge = ETEINT;
+  tempJaune = ETEINT;
+
+  if (interfaceUsine_LitUnElement(INTERFACEUSINE_ID_SENSOR_MAG) == INTERFACEUSINE_SENSOR_HIGH)tempJaune = ALLUME;
+  if (interfaceUsine_LitUnElement(INTERFACEUSINE_ID_SENSOR_CAP) == INTERFACEUSINE_SENSOR_HIGH)tempRouge = ALLUME;
+  if (interfaceUsine_LitUnElement(INTERFACEUSINE_ID_SENSOR_OPTIQUE_BLOC) == INTERFACEUSINE_SENSOR_HIGH)tempVert = ALLUME;
+  if (interfaceUsine_LitUnElement(INTERFACEUSINE_ID_SENSOR_OPTIQUE_CHUTE) == INTERFACEUSINE_SENSOR_HIGH)
+  {
+    tempVert = ALLUME;
+    tempRouge = ALLUME;
+  }
+  switch (tempVert)
+  {
+    case ALLUME:
+    interfaceColonne_allume(INTERFACECOLONNE_VERT);
+    break;
+    case ETEINT:
+    interfaceColonne_eteint(INTERFACECOLONNE_VERT);
+    break;
+    case CLIGNOTE:
+    interfaceColonne_clignote(INTERFACECOLONNE_VERT);
+    break;
+  }
+
+  switch (tempJaune)
+  {
+    case ALLUME:
+    interfaceColonne_allume(INTERFACECOLONNE_JAUNE);
+    break;
+    case ETEINT:
+    interfaceColonne_eteint(INTERFACECOLONNE_JAUNE);
+    break;
+    case CLIGNOTE:
+    interfaceColonne_clignote(INTERFACECOLONNE_JAUNE);
+    break;
+  }
+
+  switch (tempRouge)
+  {
+    case ALLUME:
+    interfaceColonne_allume(INTERFACECOLONNE_ROUGE);
+    break;
+    case ETEINT:
+    interfaceColonne_eteint(INTERFACECOLONNE_ROUGE);
+    break;
+    case CLIGNOTE:
+    interfaceColonne_clignote(INTERFACECOLONNE_ROUGE);
+    break;
+  }
   modeTest_execute();
 }
 
@@ -350,6 +427,10 @@ void processusUsine_initialise(void)
 
 void modeErreur (void)
 {
+  updateModeEcran("Errerur");
+  interfaceColonne_eteint(INTERFACECOLONNE_JAUNE);
+  interfaceColonne_allume(INTERFACECOLONNE_ROUGE);
+  interfaceColonne_eteint(INTERFACECOLONNE_VERT);
   static int compteurClignote;
   if (compteurClignote < 1000) interfaceT4_eteint();
   if (compteurClignote > 1000) interfaceT4_allume();

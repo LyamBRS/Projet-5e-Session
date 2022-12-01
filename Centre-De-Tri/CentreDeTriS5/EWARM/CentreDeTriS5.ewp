@@ -286,7 +286,7 @@
         <option>
           <name>CCAllowList</name>
           <version>1</version>
-          <state>00000000</state>
+          <state>10010100</state>
         </option>
         <option>
           <name>CCDebugInfo</name>
@@ -380,7 +380,7 @@
         </option>
         <option>
           <name>CCOptLevelSlave</name>
-          <state>0</state>
+          <state>2</state>
         </option>
         <option>
           <name>CompilerMisraRules98</name>
@@ -1075,10 +1075,22 @@
       <group>
         <name>INTERFACES</name>
         <file>
+          <name>$PROJ_DIR$\..\Src\interfaceB1.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\Src\interfaceB1.h</name>
+        </file>
+        <file>
           <name>$PROJ_DIR$\..\Src\interfaceCAN1.c</name>
         </file>
         <file>
           <name>$PROJ_DIR$\..\Src\interfaceCAN1.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\Src\interfaceColonne.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\Src\interfaceColonne.h</name>
         </file>
         <file>
           <name>$PROJ_DIR$\..\Src\interfaceLcd.C</name>
@@ -1124,6 +1136,12 @@
         </file>
         <file>
           <name>$PROJ_DIR$\..\Src\piloteCAN1.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\Src\piloteColonne.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\Src\piloteColonne.h</name>
         </file>
         <file>
           <name>$PROJ_DIR$\..\Src\piloteI2C.c</name>
@@ -1197,6 +1215,12 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\Src\BRS_Lcd_Font.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Src\Font.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Src\IO_BUS.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\Src\main.c</name>

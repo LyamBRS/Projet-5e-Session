@@ -39,4 +39,6 @@ piloteTimer6Up.pbi: \
   C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\EWARM/../Drivers/STM32F4xx_HAL_Driver/Inc\stm32f4xx_hal_tim.h \
   C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\EWARM/../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
   C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\EWARM/../Drivers/STM32F4xx_HAL_Driver/Inc\stm32f4xx_hal_uart.h \
+  C:\IAR\ARM\8.50\arm\inc\c\string.h \
+  C:\IAR\ARM\8.50\arm\inc\c\DLib_Product_string.h \
   C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/piloteTimer6Up.h

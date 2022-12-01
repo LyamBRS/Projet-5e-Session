@@ -66,6 +66,10 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define CS_I2C_SPI_Pin GPIO_PIN_3
 #define CS_I2C_SPI_GPIO_Port GPIOE
+#define TRIAC_OUT_Pin GPIO_PIN_6
+#define TRIAC_OUT_GPIO_Port GPIOE
+#define TRIAC_IN_Pin GPIO_PIN_13
+#define TRIAC_IN_GPIO_Port GPIOC
 #define PC14_OSC32_IN_Pin GPIO_PIN_14
 #define PC14_OSC32_IN_GPIO_Port GPIOC
 #define PC15_OSC32_OUT_Pin GPIO_PIN_15
@@ -80,18 +84,56 @@ void Error_Handler(void);
 #define PDM_OUT_GPIO_Port GPIOC
 #define B1_Pin GPIO_PIN_0
 #define B1_GPIO_Port GPIOA
+#define CLN_R_Pin GPIO_PIN_1
+#define CLN_R_GPIO_Port GPIOA
 #define I2S3_WS_Pin GPIO_PIN_4
 #define I2S3_WS_GPIO_Port GPIOA
-#define SPI1_SCK_Pin GPIO_PIN_5
-#define SPI1_SCK_GPIO_Port GPIOA
-#define SPI1_MISO_Pin GPIO_PIN_6
-#define SPI1_MISO_GPIO_Port GPIOA
-#define SPI1_MOSI_Pin GPIO_PIN_7
-#define SPI1_MOSI_GPIO_Port GPIOA
+#define STEP3_Pin GPIO_PIN_5
+#define STEP3_GPIO_Port GPIOA
+#define STEP1_Pin GPIO_PIN_6
+#define STEP1_GPIO_Port GPIOA
+#define STEP2_Pin GPIO_PIN_7
+#define STEP2_GPIO_Port GPIOA
+#define RD_Pin GPIO_PIN_0
+#define RD_GPIO_Port GPIOB
+#define A4_Pin GPIO_PIN_1
+#define A4_GPIO_Port GPIOB
 #define BOOT1_Pin GPIO_PIN_2
 #define BOOT1_GPIO_Port GPIOB
+#define D0_Pin GPIO_PIN_8
+#define D0_GPIO_Port GPIOE
+#define D1_Pin GPIO_PIN_9
+#define D1_GPIO_Port GPIOE
+#define D2_Pin GPIO_PIN_10
+#define D2_GPIO_Port GPIOE
+#define D3_Pin GPIO_PIN_11
+#define D3_GPIO_Port GPIOE
+#define D4_Pin GPIO_PIN_12
+#define D4_GPIO_Port GPIOE
+#define D5_Pin GPIO_PIN_13
+#define D5_GPIO_Port GPIOE
+#define D6_Pin GPIO_PIN_14
+#define D6_GPIO_Port GPIOE
+#define D7_Pin GPIO_PIN_15
+#define D7_GPIO_Port GPIOE
 #define CLK_IN_Pin GPIO_PIN_10
 #define CLK_IN_GPIO_Port GPIOB
+#define CS0_Pin GPIO_PIN_11
+#define CS0_GPIO_Port GPIOB
+#define CS1_Pin GPIO_PIN_12
+#define CS1_GPIO_Port GPIOB
+#define CS2_Pin GPIO_PIN_13
+#define CS2_GPIO_Port GPIOB
+#define CS3_Pin GPIO_PIN_14
+#define CS3_GPIO_Port GPIOB
+#define A0_Pin GPIO_PIN_8
+#define A0_GPIO_Port GPIOD
+#define A1_Pin GPIO_PIN_9
+#define A1_GPIO_Port GPIOD
+#define A2_Pin GPIO_PIN_10
+#define A2_GPIO_Port GPIOD
+#define A3_Pin GPIO_PIN_11
+#define A3_GPIO_Port GPIOD
 #define LD4_Pin GPIO_PIN_12
 #define LD4_GPIO_Port GPIOD
 #define LD3_Pin GPIO_PIN_13
@@ -122,12 +164,20 @@ void Error_Handler(void);
 #define Audio_RST_GPIO_Port GPIOD
 #define OTG_FS_OverCurrent_Pin GPIO_PIN_5
 #define OTG_FS_OverCurrent_GPIO_Port GPIOD
+#define CLN_B_Pin GPIO_PIN_7
+#define CLN_B_GPIO_Port GPIOD
 #define SWO_Pin GPIO_PIN_3
 #define SWO_GPIO_Port GPIOB
+#define CLN_V_Pin GPIO_PIN_4
+#define CLN_V_GPIO_Port GPIOB
+#define CLN_J_Pin GPIO_PIN_5
+#define CLN_J_GPIO_Port GPIOB
 #define Audio_SCL_Pin GPIO_PIN_6
 #define Audio_SCL_GPIO_Port GPIOB
 #define Audio_SDA_Pin GPIO_PIN_9
 #define Audio_SDA_GPIO_Port GPIOB
+#define STEP0_Pin GPIO_PIN_0
+#define STEP0_GPIO_Port GPIOE
 #define MEMS_INT2_Pin GPIO_PIN_1
 #define MEMS_INT2_GPIO_Port GPIOE
 /* USER CODE BEGIN Private defines */
@@ -157,6 +207,15 @@ void Error_Handler(void);
 #define INTERFACET4_VALEUR_POUR_ALLUMER  1   
 #define INTERFACET4_VALEUR_POUR_ETEINDRE 0 
 
+#define PILOTECOLONNE_ROUGE_PORT CLN_R_GPIO_Port
+#define PILOTECOLONNE_ROUGE_SORTIE CLN_R_Pin
+
+#define PILOTECOLONNE_VERT_PORT CLN_V_GPIO_Port
+#define PILOTECOLONNE_VERT_SORTIE CLN_V_Pin
+
+#define PILOTECOLONNE_JAUNE_PORT CLN_J_GPIO_Port
+#define PILOTECOLONNE_JAUNE_SORTIE CLN_J_Pin
+
 #define INTERFACEUSINE_ADRESSE_PCF1_R 0x73
 #define INTERFACEUSINE_ADRESSE_PCF1_W 0x72
 
@@ -175,7 +234,7 @@ void Error_Handler(void);
 #define INTERFACEUSINE_ADRESSE_PCF5_W 0x70
 #define INTERFACEUSINE_INVERSE_PCF5 0
 
-//Définition des I/O de l'usine qui sont reliées au PCF1
+//Dï¿½finition des I/O de l'usine qui sont reliï¿½es au PCF1
 #define INTERFACEUSINE_PCF_LED 1
 #define INTERFACEUSINE_POS_LED 0
 #define INTERFACEUSINE_ID_LED 0
@@ -209,7 +268,7 @@ void Error_Handler(void);
 #define INTERFACEUSINE_ID_EJECTEUR_IN 7
 
 
-//Définition des I/O de l'usine qui sont reliées au PCF2
+//Dï¿½finition des I/O de l'usine qui sont reliï¿½es au PCF2
 #define INTERFACEUSINE_PCF_POUSSOIR 2
 #define INTERFACEUSINE_POS_POUSSOIR 0
 #define INTERFACEUSINE_ID_POUSSOIR 8
@@ -239,7 +298,7 @@ void Error_Handler(void);
 #define INTERFACEUSINE_ID_PONT_START 14
 
 
-//Définition des I/O de l'usine qui sont reliées au PCF3
+//Dï¿½finition des I/O de l'usine qui sont reliï¿½es au PCF3
 #define INTERFACEUSINE_PCF_SENSOR_VENTOUSE_HAUT 3
 #define INTERFACEUSINE_POS_SENSOR_VENTOUSE_HAUT 0
 #define INTERFACEUSINE_ID_SENSOR_VENTOUSE_HAUT 15
@@ -272,7 +331,7 @@ void Error_Handler(void);
 #define INTERFACEUSINE_POS_SENSOR_ELEVATEUR_HAUT 7
 #define INTERFACEUSINE_ID_SENSOR_ELEVATEUR_HAUT 22
 
-//Définition des I/O de l'usine qui sont reliées au PCF4
+//Dï¿½finition des I/O de l'usine qui sont reliï¿½es au PCF4
 #define INTERFACEUSINE_PCF_SENSOR_POUSSOIR_IN 4
 #define INTERFACEUSINE_POS_SENSOR_POUSSOIR_IN 0
 #define INTERFACEUSINE_ID_SENSOR_POUSSOIR_IN 23
@@ -301,7 +360,7 @@ void Error_Handler(void);
 #define INTERFACEUSINE_POS_SENSOR_PRESSION 6
 #define INTERFACEUSINE_ID_SENSOR_PRESSION 29
 
-//Définition des I/O de l'usine qui sont reliées au PCF4
+//Dï¿½finition des I/O de l'usine qui sont reliï¿½es au PCF4
 #define INTERFACEUSINE_PCF_PONT_READY_FOR_OPERATION 5
 #define INTERFACEUSINE_POS_PONT_READY_FOR_OPERATION 0
 #define INTERFACEUSINE_ID_PONT_READY_FOR_OPERATION 30
@@ -319,15 +378,21 @@ void Error_Handler(void);
 #define INTERFACEUSINE_ID_PONT_DEFAULT_ERROR 33
 
 //Dependances logicielles:
+
+
+
+
+
 #define FREQUENCE_DE_LA_BASE_DE_TEMPS_EN_HZ 2000.0
 #define PILOTETIMER1MODE2_TAUX_DE_BITS 19200.0
 #define PILOTETIMER6UP_COMPTE_MAXIMAL  (\
   (unsigned int)((FREQUENCE_D_OSCILLATEUR_EN_KHZ \
   /FREQUENCE_DE_LA_BASE_DE_TEMPS_EN_HZ * 1000.0)-1.0))
 
-#define PILOTECAN1_IDENTIFICATION_EN_TRANSMISSION  (0x124<<5)
+#define PILOTECAN1_IDENTIFICATION_EN_TRANSMISSION  (0x301<<5)
 #define PILOTECAN1_IDENTIFICATION_EN_RECEPTION  (0x123<<5) //Code mal fait
-#define PILOTECAN1_MASQUE_11_BITS_EN_RECEPTION  (0x0) //0x000
+#define PILOTECAN1_MASQUE_11_BITS_EN_RECEPTION  (0x000) //0x000
+
 #define SERVICEPROTOCOLE637_FREQUENCE_MAXIMALE_DES_TRANSMISSIONS_EN_HZ 500.0
 #define SERVICEPROTOCOLE637_NOMBRE_DE_DONNEES_MAXIMUM  16
 #define SERVICEPROTOCOLE637_DEBUT_DE_TRAME  '$'    //0x24
@@ -343,10 +408,13 @@ void Error_Handler(void);
 #define PROCESSUSBOUTONCONNECTE_TEMPS_MAXIMAL_POUR_RECEVOIR_EN_MS 100
 
 //BASE DE TEMPS
-#define SERVICEBASEDETEMPS_NOMBRE_DE_PHASES  2
-#define PROCESSUSUSINE_GERE 0
-#define INTERFACEUSINE_GERE 1
-
+#define SERVICEBASEDETEMPS_NOMBRE_DE_PHASES  6
+#define SERVICECOMMUNICATION_GERE1 0
+#define SERVICECOMMUNICATION_GERE2 1
+#define PROCESSUSUSINE_GERE 2
+#define INTERFACEUSINE_GERE 3
+#define INTERFACECOLONNE_PHASE 4
+#define INTERFACEB1_PHASE 5
 //INFORMATION PUBLIQUE:
 //Definitions publiques:
 #define INFORMATION_DISPONIBLE  1
@@ -367,9 +435,11 @@ void Error_Handler(void);
 #define INTERFACEUSINE_OUTPUT_HIGH 0
 #define INTERFACEUSINE_OUTPUT_LOW 1
 
+#include <string.h>
 //Fonctions publiques:
 void neFaitRien(void);
-
+void updateMessageEcran (char const string[]);
+void updateModeEcran(char const string[]);
 //Variables publiques:
 //copiez et adaptes les lignes qui suivent dans les fichiers .h des modules
 //qui utilisent ces variables qui sont definies par htim6
