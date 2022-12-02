@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using BRS;
 using BRS.Buttons;
+using System.IO.Ports;
 
 namespace CommandCenter
 {
@@ -27,35 +28,105 @@ namespace CommandCenter
             BRS.Debug.Comment("Initializing the command center's components...");
             InitializeComponent();
             //FormConsoleRef = this;
-            Debug.Success();           
+            Debug.Success();
             /////////////////////////////////////////////////////////////
             #region DynamicButtons
+            StatesColors OverviewColors = new StatesColors(Panel_Overview.BackColor);
             //----------------------------------------------------------
             BRS.Debug.Comment("Initializing BRS's Dynamic Buttons Bitmaps and colors...");
-            CommandCenter.Buttons.Mode = new GenericButton(Button_Mode, Power_Icons.GetStatesColors(), Power_Icons.GetStatesBitmaps());
-            CommandCenter.Buttons.USB = new GenericButton(Button_USB, USB_Icons.GetStatesColors(), USB_Icons.GetStatesBitmaps());
-            CommandCenter.Buttons.Link = new GenericButton(Button_Link, Link_Icons.GetStatesColors(), Link_Icons.GetStatesBitmaps());
-            CommandCenter.Buttons.Terminal = new GenericButton(Button_Terminal, Terminal_Icons.GetStatesColors(), Terminal_Icons.GetStatesBitmaps());
-            CommandCenter.Buttons.AutoConnection = new GenericButton(Button_AutoConnect, CheckBox_Icons.GetStatesColors(), CheckBox_Icons.GetStatesBitmaps());
-            CommandCenter.Buttons.CloseBeagle = new GenericButton(Button_CloseBeagleBone, X_Icons.GetStatesColors(), X_Icons.GetStatesBitmaps());
+            #region Universal
+            CommandCenter.Buttons.Mode = new GenericButton(Button_Mode, Icons.Power.GetStatesColors(), Icons.Power.GetStatesBitmaps());
+            CommandCenter.Buttons.USB = new GenericButton(Button_USB, Icons.Power.GetStatesColors(), Icons.USB.GetStatesBitmaps());
+            #endregion Universal
+            #region Index_Settings
+            CommandCenter.Buttons.Link = new GenericButton(Button_Link, Icons.Link.GetStatesColors(), Icons.Link.GetStatesBitmaps());
+            CommandCenter.Buttons.AutoConnection = new GenericButton(Button_AutoConnect, Icons.CheckBox.GetStatesColors(), Icons.CheckBox.GetStatesBitmaps());
+            #endregion Index_Settings
+            #region Index_Terminal
+            CommandCenter.Buttons.Terminal = new GenericButton(Button_Terminal, Icons.Terminal.GetStatesColors(), Icons.Terminal.GetStatesBitmaps());
+            CommandCenter.Buttons.CloseBeagle = new GenericButton(Button_CloseBeagleBone, Icons.X.GetStatesColors(), Icons.X.GetStatesBitmaps());
+            #endregion Index_Terminal
+            #region Index_Operation
+            CommandCenter.Operation.Buttons.ClearTerminal = new GenericButton(Operation_Terminal_Clear, Icons.Terminal.GetStatesColors(), Icons.Terminal.GetStatesBitmaps());
+
+            CommandCenter.Operation.Buttons.EmergencyStop = new GenericButton(Operation_EmergencyStop, Icons.Emergency.GetStatesColors(), Icons.Emergency.GetStatesBitmaps());
+            CommandCenter.Operation.Buttons.Global = new GenericButton(Operation_Module_Global, Icons.EveryModules.GetStatesColors(), Icons.EveryModules.GetStatesBitmaps());
+            CommandCenter.Operation.Buttons.Pause = new GenericButton(Operation_Pause, Icons.Paused.GetStatesColors(), Icons.Paused.GetStatesBitmaps());
+            CommandCenter.Operation.Buttons.Vehicle = new GenericButton(Operation_Module_Vehicle, Icons.Vehicle.GetStatesColors(), Icons.Vehicle.GetStatesBitmaps());
+            CommandCenter.Operation.Buttons.WeightStation = new GenericButton(Operation_Module_WeightStation, Icons.Balance.GetStatesColors(), Icons.Balance.GetStatesBitmaps());
+            CommandCenter.Operation.Buttons.SortingStation = new GenericButton(Operation_Module_SortingStation, Icons.Sorting.GetStatesColors(), Icons.Sorting.GetStatesBitmaps());
+
+            CommandCenter.Operation.Overview.Vehicle = new GenericButton(Overview_Vehicle, OverviewColors, Icons.Vehicle.GetStatesBitmaps());
+            CommandCenter.Operation.Overview.WeightStation = new GenericButton(Overview_WeightStation, OverviewColors, Icons.Balance.GetStatesBitmaps());
+            CommandCenter.Operation.Overview.SortingStation = new GenericButton(Overview_SortingStation, OverviewColors, Icons.Sorting.GetStatesBitmaps());
+            #endregion Index_Operation
             Debug.Success("");
             //----------------------------------------------------------
             BRS.Debug.Comment("Toggeling Dynamic Buttons animations states...");
+            #region Universal
             CommandCenter.Buttons.Mode.Animated = true;
             CommandCenter.Buttons.USB.Animated = true;
+            #endregion Universal
+            #region Index_Settings
             CommandCenter.Buttons.Link.Animated = true;
-            CommandCenter.Buttons.Terminal.Animated = true;
             CommandCenter.Buttons.AutoConnection.Animated = true;
+            #endregion Index_Settings
+            #region Index_Terminal
+            CommandCenter.Buttons.Terminal.Animated = true;
             CommandCenter.Buttons.CloseBeagle.Animated = true;
+            #endregion Index_Terminal
+            #region Index_Operation
+            CommandCenter.Operation.Buttons.ClearTerminal.Animated = true;
+
+            CommandCenter.Operation.Buttons.EmergencyStop.Animated = true;
+            CommandCenter.Operation.Buttons.Global.Animated = true;
+            CommandCenter.Operation.Buttons.Pause.Animated = true;
+            CommandCenter.Operation.Buttons.Vehicle.Animated = true;
+            CommandCenter.Operation.Buttons.WeightStation.Animated = true;
+            CommandCenter.Operation.Buttons.SortingStation.Animated = true;
+            /*
+            CommandCenter.Operation.Buttons.EmergencyStop.SizeMultiplier_MouseHover = 1;
+            CommandCenter.Operation.Buttons.Global.SizeMultiplier_MouseHover = 1;
+            CommandCenter.Operation.Buttons.Pause.SizeMultiplier_MouseHover = 1;
+            CommandCenter.Operation.Buttons.Vehicle.SizeMultiplier_MouseHover = 1;
+            CommandCenter.Operation.Buttons.WeightStation.SizeMultiplier_MouseHover = 1;
+            CommandCenter.Operation.Buttons.SortingStation.SizeMultiplier_MouseHover = 1;
+            */
+            CommandCenter.Operation.Overview.Vehicle.Colors.Inactive.SetAll(Panel_Overview.BackColor);
+
+            CommandCenter.Operation.Overview.Vehicle.Animated = false;
+            CommandCenter.Operation.Overview.WeightStation.Animated = false;
+            CommandCenter.Operation.Overview.SortingStation.Animated = false;
+            #endregion Index_Operation
             Debug.Success("");
             //----------------------------------------------------------
             BRS.Debug.Comment("Setting Dynamic buttons initial values...");
+            #region Universal
             CommandCenter.Buttons.Mode.State = ControlState.Inactive;
             CommandCenter.Buttons.USB.State = ControlState.Inactive;
+            #endregion Universal
+            #region Index_Settings
             CommandCenter.Buttons.Link.State = ControlState.Inactive;
-            CommandCenter.Buttons.Terminal.State = ControlState.Inactive;
             CommandCenter.Buttons.AutoConnection.State = ControlState.Inactive;
+            #endregion Index_Settings
+            #region Index_Terminal
+            CommandCenter.Buttons.Terminal.State = ControlState.Inactive;
             CommandCenter.Buttons.CloseBeagle.State = ControlState.Disabled;
+            #endregion Index_Terminal
+            #region Index_Operation
+            CommandCenter.Operation.Buttons.ClearTerminal.State     = ControlState.Inactive;
+
+            CommandCenter.Operation.Buttons.EmergencyStop.State     = ControlState.Disabled;
+            CommandCenter.Operation.Buttons.Global.State            = ControlState.Disabled;
+            CommandCenter.Operation.Buttons.Pause.State             = ControlState.Disabled;
+            CommandCenter.Operation.Buttons.Vehicle.State           = ControlState.Disabled;
+            CommandCenter.Operation.Buttons.WeightStation.State     = ControlState.Disabled;
+            CommandCenter.Operation.Buttons.SortingStation.State    = ControlState.Disabled;
+
+            CommandCenter.Operation.Overview.Vehicle.State          = ControlState.Inactive;
+            CommandCenter.Operation.Overview.WeightStation.State    = ControlState.Inactive;
+            CommandCenter.Operation.Overview.SortingStation.State   = ControlState.Inactive;
+            #endregion Index_Operation
             Debug.Success("");
             #endregion DynamicButtons
             /////////////////////////////////////////////////////////////
@@ -73,6 +144,7 @@ namespace CommandCenter
             OldSettings = BRS.ComPort.Port;
             Debug.Success();
             /////////////////////////////////////////////////////////////
+            #region Settings
             BRS.Debug.Comment("Initialising setting boxes for UART");
             InnitComDropDown();
             InnitBaudRateBox();
@@ -108,15 +180,21 @@ namespace CommandCenter
             CommandCenter.Buttons.AutoConnection.State = (Settings.BeagleBone_AutoConnect().Equals("True") ? ControlState.Active : ControlState.Inactive);
             AutoConnect = (Settings.BeagleBone_AutoConnect().Equals("True") ? true : false);
             Debug.Success();
-
+            #endregion Settings
+            /////////////////////////////////////////////////////////////
+            #region Terminal
             BRS.Debug.Comment("Setting up terminal functions...");
             CommandCenter.terminal = new Terminal(ConsoleArea, this, BRS.ComPort.Port);
             CommandCenter.terminal.Window = ConsoleArea;
+            CommandCenter.terminal.ShowTX = true;
 
+            OperationLogs.Window = new Terminal(Operation_Logs, this);
+            OperationLogs.Window.ShowTX = false;
+            
             BRS.ComPort.createInfoReceivedEvent();
             BRS.ComPort.DataReceivedAction = CommandCenter.terminal.DataReceiverHandling;
             Debug.Success();
-
+            #endregion Terminal
             BRS.Debug.Header(false);
         }
         //#############################################################//
@@ -148,6 +226,59 @@ namespace CommandCenter
         {
 
         }
+        //#############################################################// 
+        /// <summary>
+        /// Show the user which mode we are currently in.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        //#############################################################// 
+        private void Button_Mode_Click(object sender, EventArgs e)
+        {
+            BRS.Debug.Header(true);
+            BRS.Debug.Comment("Displaying which mode the command center is currently in...");
+
+            if (MasterProtocol.isActive)
+            {
+                switch (MasterProtocol.mode)
+                {
+                    case (0x00):
+                        NewUserTextInfo("EMERGENCY STOP", 2);
+                        break;
+                    case (0x01):
+                        NewUserTextInfo("Paused", 2);
+                        break;
+                    case (0x02):
+                        NewUserTextInfo("Testing mode", 2);
+                        break;
+                    case (0x03):
+                        NewUserTextInfo("Maintenance", 2);
+                        break;
+                    case (0x04):
+                        NewUserTextInfo("Operation Mode", 2);
+                        break;
+                    case (0x05):
+                        NewUserTextInfo("Calibration Mode", 2);
+                        break;
+                    case (0x06):
+                        NewUserTextInfo("Reset Mode", 2);
+                        break;
+                }
+            }
+            else
+            {
+                if(BRS.ComPort.Port.IsOpen)
+                {
+                    NewUserTextInfo("Waiting for BBB", 2);
+                }
+                else
+                {
+                    NewUserTextInfo("Disabled", 2);
+                }
+            }
+
+            BRS.Debug.Header(false);
+        }
     }
 
     //#############################################################//
@@ -170,6 +301,32 @@ namespace CommandCenter
             public static BRS.Buttons.GenericButton Terminal;
             public static BRS.Buttons.GenericButton AutoConnection;
             public static BRS.Buttons.GenericButton CloseBeagle;
+        }
+        /// <summary>
+        /// Class containing all the buttons specific to the
+        /// Operation Tab
+        /// </summary>
+        public class Operation
+        {
+            public class Buttons
+            {
+                public static GenericButton Global;
+                public static GenericButton Vehicle;
+                public static GenericButton SortingStation;
+                public static GenericButton WeightStation;
+                public static GenericButton Pause;
+                public static GenericButton EmergencyStop;
+                public static GenericButton ClearTerminal;
+            }
+            /// <summary>
+            /// Overview of operation process indicators buttons stuff
+            /// </summary>
+            public class Overview
+            {
+                public static GenericButton Vehicle;
+                public static GenericButton SortingStation;
+                public static GenericButton WeightStation;
+            }
         }
 
         public static RichTextBox tempo;

@@ -1397,7 +1397,16 @@ namespace BRS
         /// manually.
         /// </summary>
         public bool HideAllTX = true;
+        /// <summary>
+        /// Stop the terminal from showing inputs.
+        /// </summary>
+        public bool PauseDrawing = false;
 
+        /// <summary>
+        /// Will replace regular parsing with a special one made
+        /// specifically to remove stupid data from the terminal.
+        /// </summary>
+        public bool UseCANRX = false;
         /// <summary>
         /// Internal class representing default colors for
         /// the various Log functions
@@ -1444,7 +1453,13 @@ namespace BRS
         /// when creating this terminal. This way, when parsing receptions,
         /// it won't re-display in the terminal what you just sent seconds ago.
         /// </summary>
-        public string justSentData;
+        public string justSentData = "";
+
+        /// <summary>
+        /// If StopDrawingUntil is called, received inputs will never be seen
+        /// inside the terminal until the received input is equal to this.
+        /// </summary>
+        public string comparingWith = "";
         /// <summary>
         /// RX data received delegate
         /// </summary>
@@ -1454,6 +1469,7 @@ namespace BRS
         /// The RX delegate
         /// </summary>
         public dlgThread Delegate;
+        public dlgThread CANDelegate;
         /// <summary>
         /// Contains all the possible state that your terminal window can have
         /// </summary>
@@ -1525,11 +1541,57 @@ namespace BRS
 
             BRS.Debug.Comment("Creating delegate for RX data received event...");
             Delegate = new dlgThread(ParseReceivedData);
+            CANDelegate = new dlgThread(ParseCANData);
+            Debug.Success();
+            Debug.Success("terminal handler was successfully created!");
+        }
+
+        public Terminal(RichTextBox terminalRichTextBox, Form formHostingTerminal)
+        {
+            BRS.Debug.Comment("Creating terminal handler...");
+            terminalForm = formHostingTerminal;
+            BRS.Debug.Comment("Referencing RichTextBox from form...");
+            Window = terminalRichTextBox;
+            Debug.Success();
+
+            BRS.Debug.Comment("Defaulting terminal state to Inactive...");
+            state = States.Inactive;
+            Debug.Success();
+
+            BRS.Debug.Comment("Creating Event handlers...");
+            try
+            {
+                terminalRichTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(KeyPressEvent);
+                terminalRichTextBox.TextChanged += new System.EventHandler(TextChangedEvent);
+                Debug.Success();
+            }
+            catch
+            {
+                Debug.Error("Something went wrong during event creation for KeyPress");
+            }
+
+            //BRS.Debug.Comment("Creating delegate for RX data received event...");
+            //Delegate = new dlgThread(ParseReceivedData);
+            //CANDelegate = new dlgThread(ParseCANData);
             Debug.Success();
             Debug.Success("terminal handler was successfully created!");
         }
         #endregion Constructor
         #region Drawing
+        //#########################################################//
+        /// <summary>
+        /// This function will immediately stop this class from
+        /// drawing received inputs until the received input
+        /// is equal to the specified string.
+        /// </summary>
+        /// <param name="thisIsReceived"></param>
+        //#########################################################//
+        public void StopDrawingUntil(string thisIsReceived)
+        {
+            receivingRX = false;
+            comparingWith = thisIsReceived;
+            PauseDrawing = true;
+        }
         //#########################################################//
         /// <summary>
         /// Clears the terminal or PopUp a message in the event where
@@ -1560,7 +1622,7 @@ namespace BRS
                     Window.Text = "";
                 }
             }
-            BRS.Debug.LocalStart(false);
+            BRS.Debug.LocalEnd();
         }
         //#########################################################//
         /// <summary>
@@ -1659,6 +1721,8 @@ namespace BRS
                 }
 
                 // Send text
+                justSentData = justSentData + e.KeyChar.ToString();
+                PauseDrawing = false;
                 BRS.ComPort.Port.Write(e.KeyChar.ToString());
             }
             else
@@ -1680,6 +1744,57 @@ namespace BRS
             }
         }
         #endregion Events
+        #region DataReception
+        private bool receivingRX = false;
+        //#############################################################//
+        /// <summary>
+        /// Parses the received text from ComPort.Port in the console
+        /// rich text box.
+        /// Raises the receiving flag so the textchanged event does not
+        /// occur.
+        /// </summary>
+        /// <param name="received">serial buffer</param>
+        //#############################################################//
+        private void ParseCANData(string received)
+        {
+            if(received.Contains("[") && received.Contains("]"))
+            {
+                //-----------------------------------------------------// SYNC 
+                if(received.Contains("SYNC"))
+                {
+                    Log_Comment("[TX]: SYNC", Color.SlateGray);
+                    receivingRX = false;
+                }
+                else
+                {
+                    if(received.Contains("[-QUIT-]"))
+                    {
+                        Log_Comment("[- QUITTING -]", Color.Red);
+                        receivingRX = false;
+                    }
+                    else
+                    {
+                        if(received.Contains("[-RESET-]"))
+                        {
+                            Log_Comment("[- QUITTING -]", Color.Yellow);
+                            receivingRX = false;
+                        }
+                        else
+                        {
+                            if (received.Contains("[RX]") || receivingRX)
+                            {
+                                receivingRX = true;
+                                Window.SelectionStart = Window.Text.Length;
+                                Window.SelectionColor = Colors.receivedData;
+                                Window.SelectedText = received;
+                                Window.SelectionStart = Window.Text.Length;
+                            }
+                        }
+                    }
+                }
+            }
+            justSentData = "";
+        }
         //#############################################################//
         /// <summary>
         /// Parses the received text from ComPort.Port in the console
@@ -1691,33 +1806,33 @@ namespace BRS
         //#############################################################//
         private void ParseReceivedData(string received)
         {
-            if (justSentData == received)
+            if (justSentData.Length > 0 && received.Contains(justSentData) && HideAllTX || PauseDrawing)
             {
+                received = "";
                 justSentData = "";
             }
-            else
+            justSentData = "";
+            Window.SelectionStart = Window.Text.Length;
+            Window.SelectionColor = Colors.receivedData;
+
+            /*
+            if (received.StartsWith("\r"))
             {
-                Window.SelectionStart = Window.Text.Length;
-                Window.SelectionColor = Colors.receivedData;
+                int LineIndex = ConsoleArea.GetLineFromCharIndex(ConsoleArea.SelectionStart);
+                int firstFromLine = ConsoleArea.GetFirstCharIndexFromLine(LineIndex);
 
-                /*
-                if (received.StartsWith("\r"))
-                {
-                    int LineIndex = ConsoleArea.GetLineFromCharIndex(ConsoleArea.SelectionStart);
-                    int firstFromLine = ConsoleArea.GetFirstCharIndexFromLine(LineIndex);
+                ConsoleArea.SelectionStart = firstFromLine;
+                ConsoleArea.SelectionLength = ConsoleArea.Text.Length - firstFromLine;
+                ConsoleArea.SelectedText = "";
 
-                    ConsoleArea.SelectionStart = firstFromLine;
-                    ConsoleArea.SelectionLength = ConsoleArea.Text.Length - firstFromLine;
-                    ConsoleArea.SelectedText = "";
-
-                    received = received.Replace('\r', ' ');
-                    received = received.Replace('\n', ' ');
-                }
-                */
-
-                Window.SelectedText = received;
-                Window.SelectionStart = Window.Text.Length;
+                received = received.Replace('\r', ' ');
+                received = received.Replace('\n', ' ');
             }
+            */
+
+            Window.SelectedText = received;
+            Window.SelectionStart = Window.Text.Length;
+
         }
         //#############################################################//
         /// <summary>
@@ -1732,7 +1847,16 @@ namespace BRS
             try
             {
                 result = referencedSerialPort.ReadExisting();
-                terminalForm.BeginInvoke(Delegate, result);
+
+                if (UseCANRX)
+                {
+                    terminalForm.BeginInvoke(CANDelegate, result);
+                    //terminalForm.BeginInvoke(Delegate, result);
+                }
+                else
+                {
+                    terminalForm.BeginInvoke(Delegate, result);
+                }
             }
             catch
             {   // The form is closed, and the function could not be called
@@ -1751,5 +1875,6 @@ namespace BRS
         {
 
         }
+        #endregion DataReception
     }
 }

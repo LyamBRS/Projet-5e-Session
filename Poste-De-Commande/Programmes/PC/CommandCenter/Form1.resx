@@ -124,10 +124,500 @@
   <data name="TabControl_ModeSelector.Appearance" type="System.Windows.Forms.TabAppearance, System.Windows.Forms">
     <value>FlatButtons</value>
   </data>
+  <data name="Operation_Module_Global.AccessibleDescription" xml:space="preserve">
+    <value>Indicates the current state of the total of all modules from the CAN bus</value>
+  </data>
+  <data name="Operation_Module_Global.AccessibleName" xml:space="preserve">
+    <value>Global State</value>
+  </data>
+  <data name="Operation_Module_Global.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="Operation_Module_Global.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Operation_Module_Global.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="Operation_Module_Global.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 9</value>
+  </data>
+  <data name="Operation_Module_Global.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 10, 3</value>
+  </data>
+  <data name="Operation_Module_Global.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 50</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Operation_Module_Global.TabIndex" type="System.Int32, mscorlib">
+    <value>42</value>
+  </data>
+  <data name="&gt;&gt;Operation_Module_Global.Name" xml:space="preserve">
+    <value>Operation_Module_Global</value>
+  </data>
+  <data name="&gt;&gt;Operation_Module_Global.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Operation_Module_Global.Parent" xml:space="preserve">
+    <value>Tab_Operation</value>
+  </data>
+  <data name="&gt;&gt;Operation_Module_Global.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="Operation_Terminal_Clear.AccessibleDescription" xml:space="preserve">
+    <value>Clears the logged operation mode data</value>
+  </data>
+  <data name="Operation_Terminal_Clear.AccessibleName" xml:space="preserve">
+    <value>Clear Operation Logs</value>
+  </data>
+  <data name="Operation_Terminal_Clear.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="Operation_Terminal_Clear.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="Operation_Terminal_Clear.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Operation_Terminal_Clear.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Operation_Terminal_Clear.Location" type="System.Drawing.Point, System.Drawing">
+    <value>637, 274</value>
+  </data>
+  <data name="Operation_Terminal_Clear.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 100</value>
+  </data>
+  <data name="Operation_Terminal_Clear.TabIndex" type="System.Int32, mscorlib">
+    <value>48</value>
+  </data>
+  <data name="&gt;&gt;Operation_Terminal_Clear.Name" xml:space="preserve">
+    <value>Operation_Terminal_Clear</value>
+  </data>
+  <data name="&gt;&gt;Operation_Terminal_Clear.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Operation_Terminal_Clear.Parent" xml:space="preserve">
+    <value>Tab_Operation</value>
+  </data>
+  <data name="&gt;&gt;Operation_Terminal_Clear.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="Operation_Module_Vehicle.AccessibleDescription" xml:space="preserve">
+    <value>Indicates the current state of the total of the vehicle modules from the CAN bus</value>
+  </data>
+  <data name="Operation_Module_Vehicle.AccessibleName" xml:space="preserve">
+    <value>Vehicle State</value>
+  </data>
+  <data name="Operation_Module_Vehicle.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="Operation_Module_Vehicle.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Operation_Module_Vehicle.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Operation_Module_Vehicle.Location" type="System.Drawing.Point, System.Drawing">
+    <value>151, 9</value>
+  </data>
+  <data name="Operation_Module_Vehicle.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>10, 3, 10, 3</value>
+  </data>
+  <data name="Operation_Module_Vehicle.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 50</value>
+  </data>
+  <data name="Operation_Module_Vehicle.TabIndex" type="System.Int32, mscorlib">
+    <value>43</value>
+  </data>
+  <data name="&gt;&gt;Operation_Module_Vehicle.Name" xml:space="preserve">
+    <value>Operation_Module_Vehicle</value>
+  </data>
+  <data name="&gt;&gt;Operation_Module_Vehicle.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Operation_Module_Vehicle.Parent" xml:space="preserve">
+    <value>Tab_Operation</value>
+  </data>
+  <data name="&gt;&gt;Operation_Module_Vehicle.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="Operation_Pause.AccessibleDescription" xml:space="preserve">
+    <value>Button which pauses the modules</value>
+  </data>
+  <data name="Operation_Pause.AccessibleName" xml:space="preserve">
+    <value>Pause/Resume Operation</value>
+  </data>
+  <data name="Operation_Pause.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="Operation_Pause.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="Operation_Pause.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Operation_Pause.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Operation_Pause.Location" type="System.Drawing.Point, System.Drawing">
+    <value>631, 9</value>
+  </data>
+  <data name="Operation_Pause.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 50</value>
+  </data>
+  <data name="Operation_Pause.TabIndex" type="System.Int32, mscorlib">
+    <value>47</value>
+  </data>
+  <data name="&gt;&gt;Operation_Pause.Name" xml:space="preserve">
+    <value>Operation_Pause</value>
+  </data>
+  <data name="&gt;&gt;Operation_Pause.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Operation_Pause.Parent" xml:space="preserve">
+    <value>Tab_Operation</value>
+  </data>
+  <data name="&gt;&gt;Operation_Pause.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="Operation_Module_SortingStation.AccessibleDescription" xml:space="preserve">
+    <value>Indicates the current state of the sorting station modules from the CAN bus</value>
+  </data>
+  <data name="Operation_Module_SortingStation.AccessibleName" xml:space="preserve">
+    <value>Sorting Station State</value>
+  </data>
+  <data name="Operation_Module_SortingStation.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="Operation_Module_SortingStation.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Operation_Module_SortingStation.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Operation_Module_SortingStation.Location" type="System.Drawing.Point, System.Drawing">
+    <value>81, 9</value>
+  </data>
+  <data name="Operation_Module_SortingStation.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>10, 3, 10, 3</value>
+  </data>
+  <data name="Operation_Module_SortingStation.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 50</value>
+  </data>
+  <data name="Operation_Module_SortingStation.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
+  </data>
+  <data name="&gt;&gt;Operation_Module_SortingStation.Name" xml:space="preserve">
+    <value>Operation_Module_SortingStation</value>
+  </data>
+  <data name="&gt;&gt;Operation_Module_SortingStation.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Operation_Module_SortingStation.Parent" xml:space="preserve">
+    <value>Tab_Operation</value>
+  </data>
+  <data name="&gt;&gt;Operation_Module_SortingStation.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="Operation_Logs.AccessibleDescription" xml:space="preserve">
+    <value>Contains the logs for the operation mode</value>
+  </data>
+  <data name="Operation_Logs.AccessibleName" xml:space="preserve">
+    <value>Operation mode logs</value>
+  </data>
+  <data name="Operation_Logs.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="Operation_Logs.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 136</value>
+  </data>
+  <data name="Operation_Logs.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="Operation_Logs.Size" type="System.Drawing.Size, System.Drawing">
+    <value>617, 242</value>
+  </data>
+  <data name="Operation_Logs.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="Operation_Logs.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Operation_Logs.WordWrap" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;Operation_Logs.Name" xml:space="preserve">
+    <value>Operation_Logs</value>
+  </data>
+  <data name="&gt;&gt;Operation_Logs.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Operation_Logs.Parent" xml:space="preserve">
+    <value>Tab_Operation</value>
+  </data>
+  <data name="&gt;&gt;Operation_Logs.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="Operation_Module_WeightStation.AccessibleDescription" xml:space="preserve">
+    <value>Indicates the current state of the weight station from the CAN bus data</value>
+  </data>
+  <data name="Operation_Module_WeightStation.AccessibleName" xml:space="preserve">
+    <value>Weight Station State</value>
+  </data>
+  <data name="Operation_Module_WeightStation.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="Operation_Module_WeightStation.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Operation_Module_WeightStation.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Operation_Module_WeightStation.Location" type="System.Drawing.Point, System.Drawing">
+    <value>221, 9</value>
+  </data>
+  <data name="Operation_Module_WeightStation.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>10, 3, 0, 3</value>
+  </data>
+  <data name="Operation_Module_WeightStation.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 50</value>
+  </data>
+  <data name="Operation_Module_WeightStation.TabIndex" type="System.Int32, mscorlib">
+    <value>45</value>
+  </data>
+  <data name="&gt;&gt;Operation_Module_WeightStation.Name" xml:space="preserve">
+    <value>Operation_Module_WeightStation</value>
+  </data>
+  <data name="&gt;&gt;Operation_Module_WeightStation.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Operation_Module_WeightStation.Parent" xml:space="preserve">
+    <value>Tab_Operation</value>
+  </data>
+  <data name="&gt;&gt;Operation_Module_WeightStation.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="Panel_Overview.AccessibleDescription" xml:space="preserve">
+    <value>Overview of the state of operations for all modules currently in operation mode</value>
+  </data>
+  <data name="Panel_Overview.AccessibleName" xml:space="preserve">
+    <value>Operation Overview</value>
+  </data>
+  <data name="Panel_Overview.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="Overview_SortingStation.AccessibleDescription" xml:space="preserve">
+    <value>Visualisation of the sorting station's current action</value>
+  </data>
+  <data name="Overview_SortingStation.AccessibleName" xml:space="preserve">
+    <value>Sorting Station's Overview</value>
+  </data>
+  <data name="Overview_SortingStation.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="Overview_SortingStation.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Overview_SortingStation.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Overview_SortingStation.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 4</value>
+  </data>
+  <data name="Overview_SortingStation.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 50</value>
+  </data>
+  <data name="Overview_SortingStation.TabIndex" type="System.Int32, mscorlib">
+    <value>46</value>
+  </data>
+  <data name="&gt;&gt;Overview_SortingStation.Name" xml:space="preserve">
+    <value>Overview_SortingStation</value>
+  </data>
+  <data name="&gt;&gt;Overview_SortingStation.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Overview_SortingStation.Parent" xml:space="preserve">
+    <value>Panel_Overview</value>
+  </data>
+  <data name="&gt;&gt;Overview_SortingStation.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="Overview_WeightStation.AccessibleDescription" xml:space="preserve">
+    <value>Visualisation of the weight station's  currently executed task</value>
+  </data>
+  <data name="Overview_WeightStation.AccessibleName" xml:space="preserve">
+    <value>Weight Station's Overview</value>
+  </data>
+  <data name="Overview_WeightStation.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="Overview_WeightStation.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="Overview_WeightStation.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Overview_WeightStation.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Overview_WeightStation.Location" type="System.Drawing.Point, System.Drawing">
+    <value>564, 1</value>
+  </data>
+  <data name="Overview_WeightStation.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 50</value>
+  </data>
+  <data name="Overview_WeightStation.TabIndex" type="System.Int32, mscorlib">
+    <value>46</value>
+  </data>
+  <data name="&gt;&gt;Overview_WeightStation.Name" xml:space="preserve">
+    <value>Overview_WeightStation</value>
+  </data>
+  <data name="&gt;&gt;Overview_WeightStation.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Overview_WeightStation.Parent" xml:space="preserve">
+    <value>Panel_Overview</value>
+  </data>
+  <data name="&gt;&gt;Overview_WeightStation.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="Overview_Vehicle.AccessibleDescription" xml:space="preserve">
+    <value>Visualisation of the emplacement of the vehicle on it's journey to different places</value>
+  </data>
+  <data name="Overview_Vehicle.AccessibleName" xml:space="preserve">
+    <value>Vehicle's Overview</value>
+  </data>
+  <data name="Overview_Vehicle.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="Overview_Vehicle.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="Overview_Vehicle.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Overview_Vehicle.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Overview_Vehicle.Location" type="System.Drawing.Point, System.Drawing">
+    <value>292, 4</value>
+  </data>
+  <data name="Overview_Vehicle.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 50</value>
+  </data>
+  <data name="Overview_Vehicle.TabIndex" type="System.Int32, mscorlib">
+    <value>46</value>
+  </data>
+  <data name="&gt;&gt;Overview_Vehicle.Name" xml:space="preserve">
+    <value>Overview_Vehicle</value>
+  </data>
+  <data name="&gt;&gt;Overview_Vehicle.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Overview_Vehicle.Parent" xml:space="preserve">
+    <value>Panel_Overview</value>
+  </data>
+  <data name="&gt;&gt;Overview_Vehicle.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="Panel_Overview.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 71</value>
+  </data>
+  <data name="Panel_Overview.Size" type="System.Drawing.Size, System.Drawing">
+    <value>617, 56</value>
+  </data>
+  <data name="Panel_Overview.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;Panel_Overview.Name" xml:space="preserve">
+    <value>Panel_Overview</value>
+  </data>
+  <data name="&gt;&gt;Panel_Overview.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Panel_Overview.Parent" xml:space="preserve">
+    <value>Tab_Operation</value>
+  </data>
+  <data name="&gt;&gt;Panel_Overview.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="ProgressBar_CurrentTask.AccessibleDescription" xml:space="preserve">
+    <value>Displays how long a task should be taking and where we are supposed to be in % until that task is finished</value>
+  </data>
+  <data name="ProgressBar_CurrentTask.AccessibleName" xml:space="preserve">
+    <value>Current tasks progress</value>
+  </data>
+  <data name="ProgressBar_CurrentTask.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="ProgressBar_CurrentTask.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="ProgressBar_CurrentTask.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 384</value>
+  </data>
+  <data name="ProgressBar_CurrentTask.Size" type="System.Drawing.Size, System.Drawing">
+    <value>740, 23</value>
+  </data>
+  <data name="ProgressBar_CurrentTask.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;ProgressBar_CurrentTask.Name" xml:space="preserve">
+    <value>ProgressBar_CurrentTask</value>
+  </data>
+  <data name="&gt;&gt;ProgressBar_CurrentTask.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ProgressBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ProgressBar_CurrentTask.Parent" xml:space="preserve">
+    <value>Tab_Operation</value>
+  </data>
+  <data name="&gt;&gt;ProgressBar_CurrentTask.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="Operation_EmergencyStop.AccessibleDescription" xml:space="preserve">
+    <value>Button which puts the connected modules into an emergency mode</value>
+  </data>
+  <data name="Operation_EmergencyStop.AccessibleName" xml:space="preserve">
+    <value>EMERGENCY BUTTON</value>
+  </data>
+  <data name="Operation_EmergencyStop.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="Operation_EmergencyStop.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="Operation_EmergencyStop.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Operation_EmergencyStop.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Operation_EmergencyStop.Location" type="System.Drawing.Point, System.Drawing">
+    <value>687, 9</value>
+  </data>
+  <data name="Operation_EmergencyStop.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 50</value>
+  </data>
+  <data name="Operation_EmergencyStop.TabIndex" type="System.Int32, mscorlib">
+    <value>46</value>
+  </data>
+  <data name="&gt;&gt;Operation_EmergencyStop.Name" xml:space="preserve">
+    <value>Operation_EmergencyStop</value>
+  </data>
+  <data name="&gt;&gt;Operation_EmergencyStop.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Operation_EmergencyStop.Parent" xml:space="preserve">
+    <value>Tab_Operation</value>
+  </data>
+  <data name="&gt;&gt;Operation_EmergencyStop.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
   <data name="Tab_Operation.ImageKey" xml:space="preserve">
     <value>Operation_Disabled_Filled.png</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="Tab_Operation.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 42</value>
   </data>
@@ -137,7 +627,6 @@
   <data name="Tab_Operation.Size" type="System.Drawing.Size, System.Drawing">
     <value>746, 410</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="Tab_Operation.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
@@ -825,45 +1314,6 @@
   <data name="&gt;&gt;Label_ScaleUnit.ZOrder" xml:space="preserve">
     <value>11</value>
   </data>
-  <data name="Button_Scale.AccessibleDescription" xml:space="preserve">
-    <value>Indicate the state of the CAN scale</value>
-  </data>
-  <data name="Button_Scale.AccessibleName" xml:space="preserve">
-    <value>Scale State</value>
-  </data>
-  <data name="Button_Scale.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="Button_Scale.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
-    <value>Stretch</value>
-  </data>
-  <data name="Button_Scale.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Flat</value>
-  </data>
-  <data name="Button_Scale.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="Button_Scale.Location" type="System.Drawing.Point, System.Drawing">
-    <value>637, 304</value>
-  </data>
-  <data name="Button_Scale.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 100</value>
-  </data>
-  <data name="Button_Scale.TabIndex" type="System.Int32, mscorlib">
-    <value>41</value>
-  </data>
-  <data name="&gt;&gt;Button_Scale.Name" xml:space="preserve">
-    <value>Button_Scale</value>
-  </data>
-  <data name="&gt;&gt;Button_Scale.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Button_Scale.Parent" xml:space="preserve">
-    <value>Tab_Settings</value>
-  </data>
-  <data name="&gt;&gt;Button_Scale.ZOrder" xml:space="preserve">
-    <value>12</value>
-  </data>
   <data name="SerialPortText.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
   </data>
@@ -898,7 +1348,7 @@
     <value>Tab_Settings</value>
   </data>
   <data name="&gt;&gt;SerialPortText.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>12</value>
   </data>
   <data name="PortBox1.Font" type="System.Drawing.Font, System.Drawing">
     <value>Consolas, 9.75pt, style=Bold</value>
@@ -925,7 +1375,7 @@
     <value>Tab_Settings</value>
   </data>
   <data name="&gt;&gt;PortBox1.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>13</value>
   </data>
   <data name="FlowControlText.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -961,7 +1411,7 @@
     <value>Tab_Settings</value>
   </data>
   <data name="&gt;&gt;FlowControlText.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>14</value>
   </data>
   <data name="FlowControlBox.Font" type="System.Drawing.Font, System.Drawing">
     <value>Consolas, 9.75pt, style=Bold</value>
@@ -988,7 +1438,7 @@
     <value>Tab_Settings</value>
   </data>
   <data name="&gt;&gt;FlowControlBox.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>15</value>
   </data>
   <data name="TXTimeOutBox.Font" type="System.Drawing.Font, System.Drawing">
     <value>Consolas, 9.75pt, style=Bold</value>
@@ -1015,7 +1465,7 @@
     <value>Tab_Settings</value>
   </data>
   <data name="&gt;&gt;TXTimeOutBox.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>16</value>
   </data>
   <data name="RXTimeOutBox.Font" type="System.Drawing.Font, System.Drawing">
     <value>Consolas, 9.75pt, style=Bold</value>
@@ -1042,7 +1492,7 @@
     <value>Tab_Settings</value>
   </data>
   <data name="&gt;&gt;RXTimeOutBox.ZOrder" xml:space="preserve">
-    <value>18</value>
+    <value>17</value>
   </data>
   <data name="TXTimeOutText.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -1078,7 +1528,7 @@
     <value>Tab_Settings</value>
   </data>
   <data name="&gt;&gt;TXTimeOutText.ZOrder" xml:space="preserve">
-    <value>19</value>
+    <value>18</value>
   </data>
   <data name="RXTimeOutText.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -1114,7 +1564,7 @@
     <value>Tab_Settings</value>
   </data>
   <data name="&gt;&gt;RXTimeOutText.ZOrder" xml:space="preserve">
-    <value>20</value>
+    <value>19</value>
   </data>
   <data name="ParityText.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -1150,7 +1600,7 @@
     <value>Tab_Settings</value>
   </data>
   <data name="&gt;&gt;ParityText.ZOrder" xml:space="preserve">
-    <value>21</value>
+    <value>20</value>
   </data>
   <data name="ParityBox.Font" type="System.Drawing.Font, System.Drawing">
     <value>Consolas, 9.75pt, style=Bold</value>
@@ -1177,7 +1627,7 @@
     <value>Tab_Settings</value>
   </data>
   <data name="&gt;&gt;ParityBox.ZOrder" xml:space="preserve">
-    <value>22</value>
+    <value>21</value>
   </data>
   <data name="StopBitsText.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -1213,7 +1663,7 @@
     <value>Tab_Settings</value>
   </data>
   <data name="&gt;&gt;StopBitsText.ZOrder" xml:space="preserve">
-    <value>23</value>
+    <value>22</value>
   </data>
   <data name="StopBitBox.Font" type="System.Drawing.Font, System.Drawing">
     <value>Consolas, 9.75pt, style=Bold</value>
@@ -1240,7 +1690,7 @@
     <value>Tab_Settings</value>
   </data>
   <data name="&gt;&gt;StopBitBox.ZOrder" xml:space="preserve">
-    <value>24</value>
+    <value>23</value>
   </data>
   <data name="DataBitsText.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -1276,7 +1726,7 @@
     <value>Tab_Settings</value>
   </data>
   <data name="&gt;&gt;DataBitsText.ZOrder" xml:space="preserve">
-    <value>25</value>
+    <value>24</value>
   </data>
   <data name="DataBitBox.Font" type="System.Drawing.Font, System.Drawing">
     <value>Consolas, 9.75pt, style=Bold</value>
@@ -1309,7 +1759,7 @@
     <value>Tab_Settings</value>
   </data>
   <data name="&gt;&gt;DataBitBox.ZOrder" xml:space="preserve">
-    <value>26</value>
+    <value>25</value>
   </data>
   <data name="BaudRateText.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -1345,7 +1795,7 @@
     <value>Tab_Settings</value>
   </data>
   <data name="&gt;&gt;BaudRateText.ZOrder" xml:space="preserve">
-    <value>27</value>
+    <value>26</value>
   </data>
   <data name="BaudRateBox.Font" type="System.Drawing.Font, System.Drawing">
     <value>Consolas, 9.75pt, style=Bold</value>
@@ -1414,6 +1864,45 @@
     <value>Tab_Settings</value>
   </data>
   <data name="&gt;&gt;BaudRateBox.ZOrder" xml:space="preserve">
+    <value>27</value>
+  </data>
+  <data name="Button_Scale.AccessibleDescription" xml:space="preserve">
+    <value>Indicate the state of the CAN scale</value>
+  </data>
+  <data name="Button_Scale.AccessibleName" xml:space="preserve">
+    <value>Scale State</value>
+  </data>
+  <data name="Button_Scale.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="Button_Scale.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="Button_Scale.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Button_Scale.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Button_Scale.Location" type="System.Drawing.Point, System.Drawing">
+    <value>637, 304</value>
+  </data>
+  <data name="Button_Scale.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 100</value>
+  </data>
+  <data name="Button_Scale.TabIndex" type="System.Int32, mscorlib">
+    <value>41</value>
+  </data>
+  <data name="&gt;&gt;Button_Scale.Name" xml:space="preserve">
+    <value>Button_Scale</value>
+  </data>
+  <data name="&gt;&gt;Button_Scale.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Button_Scale.Parent" xml:space="preserve">
+    <value>Tab_Settings</value>
+  </data>
+  <data name="&gt;&gt;Button_Scale.ZOrder" xml:space="preserve">
     <value>28</value>
   </data>
   <data name="Button_Link.AccessibleDescription" xml:space="preserve">
@@ -1499,7 +1988,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAB2
-        ZgAAAk1TRnQBSQFMAgEBKQEAAVgBAQFYAQEBIAEAASABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        ZgAAAk1TRnQBSQFMAgEBKQEAAegBAQHoAQEBIAEAASABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABgAMAAWABAQIAAQEBAAEIBgABsBgAAYACAAGAAwACgAEAAYADAAGAAQABgAEAAoACAAPAAQABwAHc
         AcABAAHwAcoBpgEAATMFAAEzAQABMwEAATMBAAIzAgADFgEAAxwBAAMiAQADKQEAA1UBAANNAQADQgEA
         AzkBAAGAAXwB/wEAAlAB/wEAAZMBAAHWAQAB/wHsAcwBAAHGAdYB7wEAAdYC5wEAAZABqQGtAgAB/wEz
@@ -2014,6 +2503,9 @@
   <metadata name="UpdatePortList.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>498, 20</value>
   </metadata>
+  <metadata name="CAN_TIMER.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>630, 20</value>
+  </metadata>
   <data name="Button_Mode.AccessibleDescription" xml:space="preserve">
     <value>Displays the current mode or state of the application</value>
   </data>
@@ -2089,15 +2581,18 @@
   <data name="&gt;&gt;Button_USB.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <metadata name="CAN_TIMER.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>630, 20</value>
-  </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>84</value>
   </metadata>
+  <data name="$this.AccessibleDescription" xml:space="preserve">
+    <value>The program used to control the command center's operation for a sorting and weighting </value>
+  </data>
+  <data name="$this.AccessibleName" xml:space="preserve">
+    <value>Command Center Program</value>
+  </data>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>6, 13</value>
   </data>
@@ -2182,6 +2677,9 @@
         DgPAcA4DwHAOA8BwDgPAcA4DwHAOA8BwDgPAcA4DwHAOA8BwDgPAcA4DwHAOA8BwDgPAcAADwHAAA8Bw
         AH/AcAB/wHAAf8BwAH/AcAB///////////8=
 </value>
+  </data>
+  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>769, 625</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>BRS: Command Center</value>

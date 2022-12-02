@@ -708,6 +708,16 @@ namespace CommandCenter
 
             BeagleBone_ConnectingProcess();
 
+            if(BRS.ComPort.Port.IsOpen && CommandCenter.Buttons.CloseBeagle.State == ControlState.Disabled)
+            {
+                CommandCenter.Buttons.CloseBeagle.State = ControlState.Active;
+            }
+
+            if(!BRS.ComPort.Port.IsOpen && CommandCenter.Buttons.CloseBeagle.State != ControlState.Disabled)
+            {
+                CommandCenter.Buttons.CloseBeagle.State = ControlState.Disabled;
+            }
+
             // Disabling the settings parameters if the port is opened.
             if (BRS.ComPort.Port.IsOpen)
             {
@@ -719,7 +729,7 @@ namespace CommandCenter
                 PortBox1.Enabled = false;
                 TXTimeOutBox.Enabled = false;
                 RXTimeOutBox.Enabled = false;
-                ConsoleArea.Enabled = true;
+                CommandCenter.terminal.state = Terminal.States.Active;
             }
             else
             {
@@ -731,7 +741,7 @@ namespace CommandCenter
                 PortBox1.Enabled = true;
                 TXTimeOutBox.Enabled = true;
                 RXTimeOutBox.Enabled = true;
-                ConsoleArea.Enabled = false;
+                CommandCenter.terminal.state = Terminal.States.Disabled;
             }
 
             // Check actual state of the USB vs the state it should be in.

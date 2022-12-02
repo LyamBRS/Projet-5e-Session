@@ -624,7 +624,7 @@ void Parse_Interrupts(void)
     interruptCount++;
 
     //How long is an interrupt --> how long is a full buffer cycle.
-    float interruptDuration = ((((float)1)/((float)TIME_BASE_FREQUENCY_HZ)) * ((float)1000)) * ((float)TIME_BASE_BUFFER_SIZE);
+    float interruptDuration = ((((float)1)/((float)TIME_BASE_FREQUENCY_HZ)) * ((float)1000)); //* ((float)TIME_BASE_BUFFER_SIZE);
 
     //How long we've been running.
     float timeSinceReset = interruptDuration * ((float)(interruptCount));

@@ -22,11 +22,22 @@ namespace CommandCenter
         /// <param name="sender"></param>
         /// <param name="e"></param>
         //#############################################################//
-        private void Button_Terminal_Click(object sender, EventArgs e)
+        public void Button_Terminal_Click(object sender, EventArgs e)
         {
             BRS.Debug.Header(true);
             BRS.Debug.Comment("Attempting to clear the terminal");
             CommandCenter.terminal.Clear();
+
+            if(CommandCenter.terminal.Window.Text == "")
+            {
+                Debug.Success("terminal cleared!");
+                NewUserTextInfo("Cleared Window", 1);
+            }
+            else
+            {
+                Debug.Aborted("terminal cleared!");
+                NewUserTextInfo("Canceled clearing", 3);
+            }
             BRS.Debug.Header(false);
         }
         //#############################################################//
@@ -41,6 +52,20 @@ namespace CommandCenter
             BRS.Debug.Header(true);
             BRS.Debug.Comment("Attempting to quit the beaglebone's running application...");
 
+            BRS.Debug.Comment("Checking if Auto connect setting is enabled");
+            if(AutoConnect == true)
+            {
+                BRS.Debug.Comment("Auto connect is enabled, disabling it through click function");
+                Button_AutoConnect_Click(sender,e);
+                CommandCenter.Buttons.AutoConnection.Update();
+                CommandCenter.Buttons.AutoConnection.State = ControlState.Warning;
+                Debug.Success();
+            }
+            else
+            {
+                Debug.Success("Setting was not enabled");
+            }
+
             if(BRS.ComPort.Port.IsOpen)
             {
                 BRS.Debug.Success("Comport is opened.");
@@ -51,6 +76,7 @@ namespace CommandCenter
                     MasterProtocol.Send.ToBeagleBone.Quit();
                     MasterProtocol_Stop();
                     CommandCenter.terminal.Log_Comment("Closing BeagleBone Program",Color.HotPink);
+                    NewUserTextInfo("Closing BBB",1);
                 }
                 catch
                 {

@@ -33,6 +33,19 @@ namespace CommandCenter
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_MainMenu));
             this.TabControl_ModeSelector = new System.Windows.Forms.TabControl();
             this.Tab_Operation = new System.Windows.Forms.TabPage();
+            this.Operation_Module_Global = new System.Windows.Forms.Button();
+            this.Operation_Terminal_Clear = new System.Windows.Forms.Button();
+            this.Operation_Module_Vehicle = new System.Windows.Forms.Button();
+            this.Operation_Pause = new System.Windows.Forms.Button();
+            this.Operation_Module_SortingStation = new System.Windows.Forms.Button();
+            this.Operation_Logs = new System.Windows.Forms.RichTextBox();
+            this.Operation_Module_WeightStation = new System.Windows.Forms.Button();
+            this.Panel_Overview = new System.Windows.Forms.Panel();
+            this.Overview_SortingStation = new System.Windows.Forms.Button();
+            this.Overview_WeightStation = new System.Windows.Forms.Button();
+            this.Overview_Vehicle = new System.Windows.Forms.Button();
+            this.ProgressBar_CurrentTask = new System.Windows.Forms.ProgressBar();
+            this.Operation_EmergencyStop = new System.Windows.Forms.Button();
             this.Tab_Technician = new System.Windows.Forms.TabPage();
             this.Tab_Calibration = new System.Windows.Forms.TabPage();
             this.Tab_Maintenance = new System.Windows.Forms.TabPage();
@@ -53,7 +66,6 @@ namespace CommandCenter
             this.Label_User = new System.Windows.Forms.Button();
             this.DropDown_ScaleUnit = new System.Windows.Forms.ComboBox();
             this.Label_ScaleUnit = new System.Windows.Forms.Button();
-            this.Button_Scale = new System.Windows.Forms.Button();
             this.SerialPortText = new System.Windows.Forms.Button();
             this.PortBox1 = new System.Windows.Forms.ComboBox();
             this.FlowControlText = new System.Windows.Forms.Button();
@@ -70,16 +82,19 @@ namespace CommandCenter
             this.DataBitBox = new System.Windows.Forms.ComboBox();
             this.BaudRateText = new System.Windows.Forms.Button();
             this.BaudRateBox = new System.Windows.Forms.ComboBox();
+            this.Button_Scale = new System.Windows.Forms.Button();
             this.Button_Link = new System.Windows.Forms.Button();
             this.TabControl_ImageList = new System.Windows.Forms.ImageList(this.components);
             this.UserInfo = new System.Windows.Forms.Label();
             this.ButtonUpdateTimer = new System.Windows.Forms.Timer(this.components);
             this.Periodic100msTimer = new System.Windows.Forms.Timer(this.components);
             this.UpdatePortList = new System.Windows.Forms.Timer(this.components);
+            this.CAN_TIMER = new System.Windows.Forms.Timer(this.components);
             this.Button_Mode = new System.Windows.Forms.Button();
             this.Button_USB = new System.Windows.Forms.Button();
-            this.CAN_TIMER = new System.Windows.Forms.Timer(this.components);
             this.TabControl_ModeSelector.SuspendLayout();
+            this.Tab_Operation.SuspendLayout();
+            this.Panel_Overview.SuspendLayout();
             this.Tab_Terminal.SuspendLayout();
             this.Tab_Settings.SuspendLayout();
             this.SuspendLayout();
@@ -104,9 +119,204 @@ namespace CommandCenter
             // Tab_Operation
             // 
             this.Tab_Operation.BackColor = System.Drawing.Color.Black;
+            this.Tab_Operation.Controls.Add(this.Operation_Module_Global);
+            this.Tab_Operation.Controls.Add(this.Operation_Terminal_Clear);
+            this.Tab_Operation.Controls.Add(this.Operation_Module_Vehicle);
+            this.Tab_Operation.Controls.Add(this.Operation_Pause);
+            this.Tab_Operation.Controls.Add(this.Operation_Module_SortingStation);
+            this.Tab_Operation.Controls.Add(this.Operation_Logs);
+            this.Tab_Operation.Controls.Add(this.Operation_Module_WeightStation);
+            this.Tab_Operation.Controls.Add(this.Panel_Overview);
+            this.Tab_Operation.Controls.Add(this.ProgressBar_CurrentTask);
+            this.Tab_Operation.Controls.Add(this.Operation_EmergencyStop);
             resources.ApplyResources(this.Tab_Operation, "Tab_Operation");
             this.Tab_Operation.Name = "Tab_Operation";
             this.Tab_Operation.UseVisualStyleBackColor = true;
+            // 
+            // Operation_Module_Global
+            // 
+            resources.ApplyResources(this.Operation_Module_Global, "Operation_Module_Global");
+            this.Operation_Module_Global.AccessibleRole = System.Windows.Forms.AccessibleRole.Indicator;
+            this.Operation_Module_Global.BackColor = System.Drawing.Color.Transparent;
+            this.Operation_Module_Global.BackgroundImage = global::CommandCenter.Properties.Resources.Global_Disabled_Empty;
+            this.Operation_Module_Global.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Operation_Module_Global.DialogResult = System.Windows.Forms.DialogResult.Retry;
+            this.Operation_Module_Global.FlatAppearance.BorderSize = 0;
+            this.Operation_Module_Global.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.Operation_Module_Global.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
+            this.Operation_Module_Global.Name = "Operation_Module_Global";
+            this.Operation_Module_Global.Tag = "Global Module";
+            this.Operation_Module_Global.UseVisualStyleBackColor = false;
+            // 
+            // Operation_Terminal_Clear
+            // 
+            resources.ApplyResources(this.Operation_Terminal_Clear, "Operation_Terminal_Clear");
+            this.Operation_Terminal_Clear.AccessibleRole = System.Windows.Forms.AccessibleRole.Indicator;
+            this.Operation_Terminal_Clear.BackgroundImage = global::CommandCenter.Properties.Resources.Terminal_Inactive_Empty;
+            this.Operation_Terminal_Clear.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Operation_Terminal_Clear.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.Operation_Terminal_Clear.FlatAppearance.BorderSize = 0;
+            this.Operation_Terminal_Clear.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.Operation_Terminal_Clear.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
+            this.Operation_Terminal_Clear.Name = "Operation_Terminal_Clear";
+            this.Operation_Terminal_Clear.Tag = "Overview Terminal Clear logs";
+            this.Operation_Terminal_Clear.UseVisualStyleBackColor = true;
+            this.Operation_Terminal_Clear.Click += new System.EventHandler(this.Operation_Terminal_Clear_Click);
+            // 
+            // Operation_Module_Vehicle
+            // 
+            resources.ApplyResources(this.Operation_Module_Vehicle, "Operation_Module_Vehicle");
+            this.Operation_Module_Vehicle.AccessibleRole = System.Windows.Forms.AccessibleRole.Indicator;
+            this.Operation_Module_Vehicle.BackColor = System.Drawing.Color.Transparent;
+            this.Operation_Module_Vehicle.BackgroundImage = global::CommandCenter.Properties.Resources.Vehicle_Disabled_Empty;
+            this.Operation_Module_Vehicle.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Operation_Module_Vehicle.DialogResult = System.Windows.Forms.DialogResult.Retry;
+            this.Operation_Module_Vehicle.FlatAppearance.BorderSize = 0;
+            this.Operation_Module_Vehicle.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.Operation_Module_Vehicle.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
+            this.Operation_Module_Vehicle.Name = "Operation_Module_Vehicle";
+            this.Operation_Module_Vehicle.Tag = "Vehicle Module";
+            this.Operation_Module_Vehicle.UseVisualStyleBackColor = false;
+            // 
+            // Operation_Pause
+            // 
+            resources.ApplyResources(this.Operation_Pause, "Operation_Pause");
+            this.Operation_Pause.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.Operation_Pause.BackgroundImage = global::CommandCenter.Properties.Resources.Paused_Disabled_Empty;
+            this.Operation_Pause.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Operation_Pause.DialogResult = System.Windows.Forms.DialogResult.Retry;
+            this.Operation_Pause.FlatAppearance.BorderSize = 0;
+            this.Operation_Pause.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.Operation_Pause.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
+            this.Operation_Pause.Name = "Operation_Pause";
+            this.Operation_Pause.Tag = "Operation Pause Mode";
+            this.Operation_Pause.UseVisualStyleBackColor = true;
+            this.Operation_Pause.Click += new System.EventHandler(this.Operation_Pause_Click);
+            // 
+            // Operation_Module_SortingStation
+            // 
+            resources.ApplyResources(this.Operation_Module_SortingStation, "Operation_Module_SortingStation");
+            this.Operation_Module_SortingStation.AccessibleRole = System.Windows.Forms.AccessibleRole.Indicator;
+            this.Operation_Module_SortingStation.BackColor = System.Drawing.Color.Transparent;
+            this.Operation_Module_SortingStation.BackgroundImage = global::CommandCenter.Properties.Resources.Sorting_Disabled_Empty;
+            this.Operation_Module_SortingStation.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Operation_Module_SortingStation.DialogResult = System.Windows.Forms.DialogResult.Retry;
+            this.Operation_Module_SortingStation.FlatAppearance.BorderSize = 0;
+            this.Operation_Module_SortingStation.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.Operation_Module_SortingStation.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
+            this.Operation_Module_SortingStation.Name = "Operation_Module_SortingStation";
+            this.Operation_Module_SortingStation.Tag = "Sorting Module";
+            this.Operation_Module_SortingStation.UseVisualStyleBackColor = false;
+            // 
+            // Operation_Logs
+            // 
+            this.Operation_Logs.AcceptsTab = true;
+            resources.ApplyResources(this.Operation_Logs, "Operation_Logs");
+            this.Operation_Logs.AccessibleRole = System.Windows.Forms.AccessibleRole.Text;
+            this.Operation_Logs.AutoWordSelection = true;
+            this.Operation_Logs.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.Operation_Logs.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.Operation_Logs.Cursor = System.Windows.Forms.Cursors.No;
+            this.Operation_Logs.ForeColor = System.Drawing.Color.Aqua;
+            this.Operation_Logs.Name = "Operation_Logs";
+            this.Operation_Logs.ReadOnly = true;
+            this.Operation_Logs.ShortcutsEnabled = false;
+            // 
+            // Operation_Module_WeightStation
+            // 
+            resources.ApplyResources(this.Operation_Module_WeightStation, "Operation_Module_WeightStation");
+            this.Operation_Module_WeightStation.AccessibleRole = System.Windows.Forms.AccessibleRole.Indicator;
+            this.Operation_Module_WeightStation.BackColor = System.Drawing.Color.Transparent;
+            this.Operation_Module_WeightStation.BackgroundImage = global::CommandCenter.Properties.Resources.Balance_Disabled_Empty;
+            this.Operation_Module_WeightStation.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Operation_Module_WeightStation.DialogResult = System.Windows.Forms.DialogResult.Retry;
+            this.Operation_Module_WeightStation.FlatAppearance.BorderSize = 0;
+            this.Operation_Module_WeightStation.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.Operation_Module_WeightStation.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
+            this.Operation_Module_WeightStation.Name = "Operation_Module_WeightStation";
+            this.Operation_Module_WeightStation.Tag = "Weight Module";
+            this.Operation_Module_WeightStation.UseVisualStyleBackColor = false;
+            // 
+            // Panel_Overview
+            // 
+            resources.ApplyResources(this.Panel_Overview, "Panel_Overview");
+            this.Panel_Overview.AccessibleRole = System.Windows.Forms.AccessibleRole.Grouping;
+            this.Panel_Overview.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
+            this.Panel_Overview.Controls.Add(this.Overview_SortingStation);
+            this.Panel_Overview.Controls.Add(this.Overview_WeightStation);
+            this.Panel_Overview.Controls.Add(this.Overview_Vehicle);
+            this.Panel_Overview.Cursor = System.Windows.Forms.Cursors.No;
+            this.Panel_Overview.Name = "Panel_Overview";
+            this.Panel_Overview.Tag = "Operation";
+            // 
+            // Overview_SortingStation
+            // 
+            resources.ApplyResources(this.Overview_SortingStation, "Overview_SortingStation");
+            this.Overview_SortingStation.AccessibleRole = System.Windows.Forms.AccessibleRole.Indicator;
+            this.Overview_SortingStation.BackColor = System.Drawing.Color.Transparent;
+            this.Overview_SortingStation.BackgroundImage = global::CommandCenter.Properties.Resources.Sorting_Disabled_Empty;
+            this.Overview_SortingStation.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Overview_SortingStation.DialogResult = System.Windows.Forms.DialogResult.Retry;
+            this.Overview_SortingStation.FlatAppearance.BorderSize = 0;
+            this.Overview_SortingStation.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.Overview_SortingStation.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.Overview_SortingStation.Name = "Overview_SortingStation";
+            this.Overview_SortingStation.Tag = "Sorting Module";
+            this.Overview_SortingStation.UseVisualStyleBackColor = false;
+            // 
+            // Overview_WeightStation
+            // 
+            resources.ApplyResources(this.Overview_WeightStation, "Overview_WeightStation");
+            this.Overview_WeightStation.AccessibleRole = System.Windows.Forms.AccessibleRole.Indicator;
+            this.Overview_WeightStation.BackColor = System.Drawing.Color.Transparent;
+            this.Overview_WeightStation.BackgroundImage = global::CommandCenter.Properties.Resources.Balance_Disabled_Empty;
+            this.Overview_WeightStation.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Overview_WeightStation.DialogResult = System.Windows.Forms.DialogResult.Retry;
+            this.Overview_WeightStation.FlatAppearance.BorderSize = 0;
+            this.Overview_WeightStation.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.Overview_WeightStation.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.Overview_WeightStation.Name = "Overview_WeightStation";
+            this.Overview_WeightStation.Tag = "Weight Module";
+            this.Overview_WeightStation.UseVisualStyleBackColor = false;
+            // 
+            // Overview_Vehicle
+            // 
+            resources.ApplyResources(this.Overview_Vehicle, "Overview_Vehicle");
+            this.Overview_Vehicle.AccessibleRole = System.Windows.Forms.AccessibleRole.Indicator;
+            this.Overview_Vehicle.BackColor = System.Drawing.Color.Transparent;
+            this.Overview_Vehicle.BackgroundImage = global::CommandCenter.Properties.Resources.Vehicle_Disabled_Empty;
+            this.Overview_Vehicle.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Overview_Vehicle.DialogResult = System.Windows.Forms.DialogResult.Retry;
+            this.Overview_Vehicle.FlatAppearance.BorderSize = 0;
+            this.Overview_Vehicle.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.Overview_Vehicle.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.Overview_Vehicle.Name = "Overview_Vehicle";
+            this.Overview_Vehicle.Tag = "Vehicle Module";
+            this.Overview_Vehicle.UseVisualStyleBackColor = false;
+            // 
+            // ProgressBar_CurrentTask
+            // 
+            resources.ApplyResources(this.ProgressBar_CurrentTask, "ProgressBar_CurrentTask");
+            this.ProgressBar_CurrentTask.AccessibleRole = System.Windows.Forms.AccessibleRole.ProgressBar;
+            this.ProgressBar_CurrentTask.MarqueeAnimationSpeed = 1;
+            this.ProgressBar_CurrentTask.Name = "ProgressBar_CurrentTask";
+            this.ProgressBar_CurrentTask.Step = 100;
+            this.ProgressBar_CurrentTask.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            // 
+            // Operation_EmergencyStop
+            // 
+            resources.ApplyResources(this.Operation_EmergencyStop, "Operation_EmergencyStop");
+            this.Operation_EmergencyStop.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.Operation_EmergencyStop.BackgroundImage = global::CommandCenter.Properties.Resources.Warning_Disabled_Empty;
+            this.Operation_EmergencyStop.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Operation_EmergencyStop.DialogResult = System.Windows.Forms.DialogResult.Retry;
+            this.Operation_EmergencyStop.FlatAppearance.BorderSize = 0;
+            this.Operation_EmergencyStop.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.Operation_EmergencyStop.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
+            this.Operation_EmergencyStop.Name = "Operation_EmergencyStop";
+            this.Operation_EmergencyStop.Tag = "Emergency Mode DeadManSwitch";
+            this.Operation_EmergencyStop.UseVisualStyleBackColor = true;
+            this.Operation_EmergencyStop.Click += new System.EventHandler(this.Operation_EmergencyStop_Click);
             // 
             // Tab_Technician
             // 
@@ -198,7 +408,6 @@ namespace CommandCenter
             this.Tab_Settings.Controls.Add(this.Label_User);
             this.Tab_Settings.Controls.Add(this.DropDown_ScaleUnit);
             this.Tab_Settings.Controls.Add(this.Label_ScaleUnit);
-            this.Tab_Settings.Controls.Add(this.Button_Scale);
             this.Tab_Settings.Controls.Add(this.SerialPortText);
             this.Tab_Settings.Controls.Add(this.PortBox1);
             this.Tab_Settings.Controls.Add(this.FlowControlText);
@@ -215,6 +424,7 @@ namespace CommandCenter
             this.Tab_Settings.Controls.Add(this.DataBitBox);
             this.Tab_Settings.Controls.Add(this.BaudRateText);
             this.Tab_Settings.Controls.Add(this.BaudRateBox);
+            this.Tab_Settings.Controls.Add(this.Button_Scale);
             this.Tab_Settings.Controls.Add(this.Button_Link);
             this.Tab_Settings.Cursor = System.Windows.Forms.Cursors.Arrow;
             resources.ApplyResources(this.Tab_Settings, "Tab_Settings");
@@ -340,19 +550,6 @@ namespace CommandCenter
             this.Label_ScaleUnit.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.Label_ScaleUnit.Name = "Label_ScaleUnit";
             this.Label_ScaleUnit.UseVisualStyleBackColor = true;
-            // 
-            // Button_Scale
-            // 
-            resources.ApplyResources(this.Button_Scale, "Button_Scale");
-            this.Button_Scale.AccessibleRole = System.Windows.Forms.AccessibleRole.Indicator;
-            this.Button_Scale.BackgroundImage = global::CommandCenter.Properties.Resources.Balance_Disabled_Empty;
-            this.Button_Scale.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Button_Scale.DialogResult = System.Windows.Forms.DialogResult.Retry;
-            this.Button_Scale.FlatAppearance.BorderSize = 0;
-            this.Button_Scale.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
-            this.Button_Scale.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
-            this.Button_Scale.Name = "Button_Scale";
-            this.Button_Scale.UseVisualStyleBackColor = true;
             // 
             // SerialPortText
             // 
@@ -536,6 +733,19 @@ namespace CommandCenter
             this.BaudRateBox.Name = "BaudRateBox";
             this.BaudRateBox.SelectedIndexChanged += new System.EventHandler(this.BaudRateBox_SelectedIndexChanged);
             // 
+            // Button_Scale
+            // 
+            resources.ApplyResources(this.Button_Scale, "Button_Scale");
+            this.Button_Scale.AccessibleRole = System.Windows.Forms.AccessibleRole.Indicator;
+            this.Button_Scale.BackgroundImage = global::CommandCenter.Properties.Resources.Balance_Disabled_Empty;
+            this.Button_Scale.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Button_Scale.DialogResult = System.Windows.Forms.DialogResult.Retry;
+            this.Button_Scale.FlatAppearance.BorderSize = 0;
+            this.Button_Scale.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.Button_Scale.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
+            this.Button_Scale.Name = "Button_Scale";
+            this.Button_Scale.UseVisualStyleBackColor = true;
+            // 
             // Button_Link
             // 
             resources.ApplyResources(this.Button_Link, "Button_Link");
@@ -620,36 +830,39 @@ namespace CommandCenter
             this.UpdatePortList.Interval = 500;
             this.UpdatePortList.Tick += new System.EventHandler(this.UpdatePortList_Tick);
             // 
+            // CAN_TIMER
+            // 
+            this.CAN_TIMER.Interval = 20;
+            this.CAN_TIMER.Tick += new System.EventHandler(this.CAN_TIMER_Tick);
+            // 
             // Button_Mode
             // 
             resources.ApplyResources(this.Button_Mode, "Button_Mode");
             this.Button_Mode.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.Button_Mode.BackColor = System.Drawing.Color.Transparent;
             this.Button_Mode.BackgroundImage = global::CommandCenter.Properties.Resources.PowerButton_Disabled_Empty;
             this.Button_Mode.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Button_Mode.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.Button_Mode.FlatAppearance.BorderSize = 0;
-            this.Button_Mode.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
-            this.Button_Mode.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
+            this.Button_Mode.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.Button_Mode.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.Button_Mode.Name = "Button_Mode";
-            this.Button_Mode.UseVisualStyleBackColor = true;
+            this.Button_Mode.UseVisualStyleBackColor = false;
+            this.Button_Mode.Click += new System.EventHandler(this.Button_Mode_Click);
             // 
             // Button_USB
             // 
             resources.ApplyResources(this.Button_USB, "Button_USB");
             this.Button_USB.AccessibleRole = System.Windows.Forms.AccessibleRole.Indicator;
+            this.Button_USB.BackColor = System.Drawing.Color.Transparent;
             this.Button_USB.BackgroundImage = global::CommandCenter.Properties.Resources.USB_Disabled_Empty;
             this.Button_USB.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Button_USB.DialogResult = System.Windows.Forms.DialogResult.Retry;
             this.Button_USB.FlatAppearance.BorderSize = 0;
-            this.Button_USB.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
-            this.Button_USB.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
+            this.Button_USB.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.Button_USB.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.Button_USB.Name = "Button_USB";
-            this.Button_USB.UseVisualStyleBackColor = true;
-            // 
-            // CAN_TIMER
-            // 
-            this.CAN_TIMER.Interval = 20;
-            this.CAN_TIMER.Tick += new System.EventHandler(this.CAN_TIMER_Tick);
+            this.Button_USB.UseVisualStyleBackColor = false;
             // 
             // Form_MainMenu
             // 
@@ -667,6 +880,8 @@ namespace CommandCenter
             this.ResizeEnd += new System.EventHandler(this.Form_MainMenu_ResizeEnd);
             this.Resize += new System.EventHandler(this.Form_MainMenu_Resize);
             this.TabControl_ModeSelector.ResumeLayout(false);
+            this.Tab_Operation.ResumeLayout(false);
+            this.Panel_Overview.ResumeLayout(false);
             this.Tab_Terminal.ResumeLayout(false);
             this.Tab_Settings.ResumeLayout(false);
             this.Tab_Settings.PerformLayout();
@@ -723,6 +938,19 @@ namespace CommandCenter
         private System.Windows.Forms.Button Button_AutoConnect;
         private System.Windows.Forms.Button Button_CloseBeagleBone;
         private System.Windows.Forms.Timer CAN_TIMER;
+        private System.Windows.Forms.ProgressBar ProgressBar_CurrentTask;
+        private System.Windows.Forms.Button Operation_Module_Global;
+        private System.Windows.Forms.Button Operation_Module_Vehicle;
+        private System.Windows.Forms.Button Operation_Module_SortingStation;
+        private System.Windows.Forms.Button Operation_Module_WeightStation;
+        private System.Windows.Forms.Panel Panel_Overview;
+        private System.Windows.Forms.Button Overview_SortingStation;
+        private System.Windows.Forms.Button Overview_WeightStation;
+        private System.Windows.Forms.Button Overview_Vehicle;
+        private System.Windows.Forms.RichTextBox Operation_Logs;
+        private System.Windows.Forms.Button Operation_EmergencyStop;
+        private System.Windows.Forms.Button Operation_Pause;
+        private System.Windows.Forms.Button Operation_Terminal_Clear;
     }
 }
 

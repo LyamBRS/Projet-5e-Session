@@ -84,6 +84,9 @@ unsigned char CheckIfSpecialChar(int special, int* Temporary2LetterBuffer);
 int receptionToTransmission[2];
 int transmissionToReception[2];
 
+int CAN_IsSending = 0;
+int CAN_IsReading = 0;
+
 //----------------------- Private Variables ----------------------//:
 /**
  * @brief Tells the program that special characters will be used
@@ -295,6 +298,14 @@ void HandleTransmission(void)
 						if(index>12)
 						{
 							TransmitCan = 1;
+
+							//If the last character is not \n or EOF, clear getChar buffer
+							if((unsigned char)rawCharacter != '\n' && (unsigned char)rawCharacter != '\r' && (unsigned char)rawCharacter != EOF)
+							{
+								printf("\n[-RESET BUFFER-]\n");	
+								char c;
+								while ((c = getchar()) != '\n' && c != EOF);
+							}
 						}					
 					}
 				}
@@ -360,7 +371,6 @@ void HandleTransmission(void)
 					}
 				}
 			}
-			sleep(0.01);
 		}
 
 		if(loop == CONTINUE)
@@ -382,10 +392,12 @@ void HandleTransmission(void)
 				//printf("[%i]: %c",i,bytesToSend[i]);
 			}
 
-			if(TransmitCan == 1)
+			if(TransmitCan == 1 && CAN_IsReading == 0)
 			{
 				printf("[-SYNC-]\n");
+				//CAN_IsSending = 1;
 				CAN_Transmit(address, bytesToSend, 8);
+				//CAN_IsSending = 0;
 			}
 		}
 		else
@@ -455,21 +467,26 @@ void HandleReception(void)
 			break;
 		}
 
-		int number = CAN_ReceiveMessage(&receivedAddress, bytesReceived, &amountOfBytesReceived);
-		if (number < 0)
+		if(CAN_IsSending == 0)
 		{
-			//printf("[-RX CAN ERROR-]\n");
-		}
-		if(number > 0)
-		{
-			printf("[RX]:,");
-			printf("%li,",receivedAddress);
-			for (index = 0; index < amountOfBytesReceived; index++)
+			//CAN_IsReading = 1;
+			int number = CAN_ReceiveMessage(&receivedAddress, bytesReceived, &amountOfBytesReceived);
+			if (number < 0)
 			{
-				printf("%i,",bytesReceived[index]);
+				//printf("[-RX CAN ERROR-]\n");
 			}
-			printf("\n");
-			fflush(stdout);		
+			if(number > 0)
+			{
+				printf("[RX]:,");
+				printf("%li,",receivedAddress);
+				for (index = 0; index < amountOfBytesReceived; index++)
+				{
+					printf("%i,",bytesReceived[index]);
+				}
+				printf("\n");
+				fflush(stdout);		
+			}
+			//CAN_IsReading = 0;
 		}
 	}
   	CAN_CloseInterface();	

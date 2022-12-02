@@ -25,13 +25,13 @@ namespace CommandCenter
     public partial class Form_MainMenu : Form
     {
         #region Variables
+        /// <summary>
+        /// Set the state of a virtual module to this to
+        /// tell the command center that no state were
+        /// received from this module during MasterProtocol communications.
+        /// </summary>
+        public static byte State_Offline = 0xFF;
         #endregion Variables
-
-        static cModes Modes_Ref = new cModes();
-        static cStates States_Ref = new cStates();
-        static cValues Values_Ref = new cValues();
-        static cCommands Commands_Ref = new cCommands();
-
         #region TIMER
         //#############################################################//
         /// <summary>
@@ -45,34 +45,49 @@ namespace CommandCenter
         {
             if(BRS.ComPort.Port.IsOpen)
             {
-                switch(MasterProtocol.slot)
+                //----------------------------------------------------//
+                if (Old.CanTimer.MasterProtocol.Mode != MasterProtocol.mode)
                 {
+                    Old.CanTimer.MasterProtocol.Mode = MasterProtocol.mode;
+                    ModuleData_SortingStation.SetNewMode(MasterProtocol.mode);
+                    ModuleData_Vehicle.SetNewMode(MasterProtocol.mode);
+                    ModuleData_WeightStation.SetNewMode(MasterProtocol.mode);
+                }
+                switch (MasterProtocol.slot)
+                {
+                    ////////////////////////////////////////// - RESERVED B - //
+                    case (CAN_Slot.ReservedB):
+                        //BRS.Debug.Comment("[RESERVED B]", true);
+                        MasterProtocol.slot = CAN_Slot.Master;
+                        break;
+                    ////////////////////////////////////////// - RESERVED A - //
+                    case (CAN_Slot.ReservedA):
+                        //BRS.Debug.Comment("[RESERVED A]", true);
+                        MasterProtocol.slot = CAN_Slot.ReservedB;
+                        break;
+                    ////////////////////////////////////////// - VEHICLE - //
+                    case (CAN_Slot.Vehicle):
+                        //BRS.Debug.Comment("[VEHICLE]", true);
+                        MasterProtocol.slot = CAN_Slot.ReservedA;
+                        break;
+                    ////////////////////////////////////////// - WEIGHT - //
+                    case (CAN_Slot.WeightStation):
+                        //BRS.Debug.Comment("[WEIGHT]", true);
+                        MasterProtocol.slot = CAN_Slot.Vehicle;
+                        break;
+                    ////////////////////////////////////////// - SORTING - //
+                    case (CAN_Slot.SortingStation):
+                        //BRS.Debug.Comment("[SORTING]",true);
+                        CommandCenter.terminal.PauseDrawing = false;
+                        MasterProtocol.slot = CAN_Slot.WeightStation;
+                        break;
                     ////////////////////////////////////////// - MASTER - //
                     case (CAN_Slot.Master):
                         MasterProtocol.Send.CAN.Sync();
                         MasterProtocol.slot = CAN_Slot.SortingStation;
-                    break;
-                    ////////////////////////////////////////// - SORTING - //
-                    case (CAN_Slot.SortingStation):
-                        MasterProtocol.slot = CAN_Slot.WeightStation;
-                    break;
-                    ////////////////////////////////////////// - WEIGHT - //
-                    case (CAN_Slot.WeightStation):
-                        MasterProtocol.slot = CAN_Slot.Vehicle;
-                    break;
-                    ////////////////////////////////////////// - VEHICLE - //
-                    case (CAN_Slot.Vehicle):
-                        MasterProtocol.slot = CAN_Slot.ReservedA;
-                    break;
-                    ////////////////////////////////////////// - RESERVED A - //
-                    case (CAN_Slot.ReservedA):
-                        MasterProtocol.slot = CAN_Slot.ReservedB;
-                    break;
-                    ////////////////////////////////////////// - RESERVED B - //
-                    case (CAN_Slot.ReservedB):
-                        MasterProtocol.slot = CAN_Slot.Master;
-                    break;
+                        break;
                 }
+                Update_OperationTab();
             }
             else
             {
@@ -85,6 +100,7 @@ namespace CommandCenter
                 MasterProtocol.slot = CAN_Slot.Master;
                 MasterProtocol.mode = Modes_Ref.pause;
                 MasterProtocol.state = States_Ref.error;
+                Old.CanTimer.MasterProtocol.Mode = 0xFF;
                 CAN_TIMER.Enabled = false;
             }
         }
@@ -99,7 +115,7 @@ namespace CommandCenter
         public void MasterProtocol_Start()
         {
             BRS.Debug.Comment("Starting CAN communication protocol with BeagleBoneBlue...");
-
+            CommandCenter.terminal.PauseDrawing = false;
             //Check if USB is opened
             if (BRS.ComPort.Port.IsOpen)
             {
@@ -112,6 +128,8 @@ namespace CommandCenter
                     MasterProtocol.slot = CAN_Slot.Master;
                     MasterProtocol.mode = Modes_Ref.pause;
                     MasterProtocol.state = States_Ref.paused;
+                    CommandCenter.terminal.UseCANRX = true;
+                    Old.CanTimer.MasterProtocol.Mode = 0xFF;
 
                     MasterProtocol.isActive = true;
                     CAN_TIMER.Enabled = true;
@@ -119,7 +137,7 @@ namespace CommandCenter
                 }
                 else
                 {
-
+                    CommandCenter.terminal.UseCANRX = true;
                 }
             }
             else
@@ -132,11 +150,14 @@ namespace CommandCenter
                 MasterProtocol.slot = CAN_Slot.Master;
                 MasterProtocol.mode = Modes_Ref.reinitialisation;
                 MasterProtocol.state = States_Ref.error;
+                Old.CanTimer.MasterProtocol.Mode = 0xFF;
 
                 MasterProtocol.isActive = false;
+                CommandCenter.terminal.UseCANRX = false;
                 CAN_TIMER.Enabled = false;
                 BRS.Debug.Comment("The CAN communication could not Start!");
             }
+            Update_OperationTab();
         }
         //#############################################################//
         /// <summary>
@@ -148,7 +169,7 @@ namespace CommandCenter
         public void MasterProtocol_Stop()
         {
             BRS.Debug.Comment("Stopping CAN communication protocol...");
-
+            CommandCenter.terminal.PauseDrawing = false;
             //Check if USB is opened
             if (BRS.ComPort.Port.IsOpen)
             {
@@ -162,7 +183,10 @@ namespace CommandCenter
                 MasterProtocol.state = States_Ref.paused;
 
                 MasterProtocol.isActive = false;
+                CommandCenter.terminal.UseCANRX = false;
                 CAN_TIMER.Enabled = false;
+                Old.CanTimer.MasterProtocol.Mode = 0xFF;
+
                 try
                 {
                     //BRS.ComPort.Port.Close();
@@ -184,13 +208,41 @@ namespace CommandCenter
                 MasterProtocol.state = States_Ref.error;
 
                 MasterProtocol.isActive = false;
+                CommandCenter.terminal.UseCANRX = false;
                 CAN_TIMER.Enabled = false;
                 BRS.Debug.Comment("The CAN communication could not STOP!");
                 CommandCenter.terminal.Log_Warning("Attempting to shutdown Master Protocol while SerialPort is closed!");
             }
+
+            Update_OperationTab();
         }
         #endregion TIMER
         #region Reference_Classes
+        /// <summary>
+        /// Holds the referenced value for each modes as defined by
+        /// the Google Sheet holding initial values and their in
+        /// depth descriptions and applications
+        /// </summary>
+        static cModes Modes_Ref = new cModes();
+        /// <summary>
+        /// Holds the referenced value for each state that a module can have,
+        /// as defined by the Google Sheet documentation, which holds the
+        /// initial values and their indepth descriptions and applications.
+        /// </summary>
+        static cStates States_Ref = new cStates();
+        /// <summary>
+        /// Holds the referenced value for each Value that a module can send,
+        /// as defined by the Google Sheet documentation, which holds the
+        /// initial values and their indepth descriptions and applications.
+        /// </summary>
+        static cValues Values_Ref = new cValues();
+        /// <summary>
+        /// Holds the referenced value for each Commands that a module can send,
+        /// as defined by the Google Sheet documentation, which holds the
+        /// initial values and their indepth descriptions and applications.
+        /// </summary>
+        static cCommands Commands_Ref = new cCommands();
+
         //#############################################################//
         /// <summary>
         /// Corresponding CAN slot for each module.
@@ -243,28 +295,28 @@ namespace CommandCenter
                 /// Not the real address.
                 /// The real address is 0x100;
                 /// </summary>
-                public static int CommandCenter = 256;
+                public static int CommandCenter = 0x100;
                 /// <summary>
                 /// Specific address used by the vehicule to receive data.
                 /// This address is corresponding to the BeagleBoneBlue's terminal output.
                 /// Not the real address.
                 /// The real address is 0x200;
                 /// </summary>
-                public static int Vehicule = 512;
+                public static int Vehicule = 0x200;
                 /// <summary>
                 /// Specific address used by the sorting station to receive data.
                 /// This address is corresponding to the BeagleBoneBlue's terminal output.
                 /// Not the real address.
                 /// The real address is 0x300;
                 /// </summary>
-                public static int SortingStation = 768;
+                public static int SortingStation = 0x300;
                 /// <summary>
                 /// Specific address used by the weight station to receive data.
                 /// This address is corresponding to the BeagleBoneBlue's terminal output.
                 /// Not the real address.
                 /// The real address is 0x400;
                 /// </summary>
-                public static int WeightStation = 1024;
+                public static int WeightStation = 0x400;
             }
             /// <summary>
             /// Structure containing the CAN bus address used by modules
@@ -276,6 +328,27 @@ namespace CommandCenter
                 /// Address used as the synchronisation tram for modules.
                 /// </summary>
                 public static int CommandCenter = 0xFFB;
+                /// <summary>
+                /// Specific address used by the vehicule to receive data.
+                /// This address is corresponding to the BeagleBoneBlue's terminal output.
+                /// Not the real address.
+                /// The real address is 0x200;
+                /// </summary>
+                public static int Vehicule = 0x201;
+                /// <summary>
+                /// Specific address used by the sorting station to receive data.
+                /// This address is corresponding to the BeagleBoneBlue's terminal output.
+                /// Not the real address.
+                /// The real address is 0x300;
+                /// </summary>
+                public static int SortingStation = 0x301;
+                /// <summary>
+                /// Specific address used by the weight station to receive data.
+                /// This address is corresponding to the BeagleBoneBlue's terminal output.
+                /// Not the real address.
+                /// The real address is 0x400;
+                /// </summary>
+                public static int WeightStation = 0x401;
             }
         }
         //#############################################################//
@@ -732,6 +805,12 @@ namespace CommandCenter
         }
         #endregion Reference_Classes
         #region Modules
+        //-------------------------------------------------------------//
+        public cModule ModuleData_Vehicle = new cModule("Vehicle",CAN_Addresses.TX.Vehicule, CAN_Addresses.RX.Vehicule);
+        public cModule ModuleData_SortingStation = new cModule("Sorting Station", CAN_Addresses.TX.Vehicule, CAN_Addresses.RX.Vehicule);
+        public cModule ModuleData_WeightStation = new cModule("Weight Station", CAN_Addresses.TX.Vehicule, CAN_Addresses.RX.Vehicule);
+        //-------------------------------------------------------------//
+
         //#############################################################//
         /// <summary>
         /// List of all the possible errors a virtual module can have.
@@ -777,22 +856,82 @@ namespace CommandCenter
         //#############################################################//
         public class cModule
         {
+            #region Structures
+            /////////////////////////////////////////////////////////////
             /// <summary>
-            /// Which mode has been sent to this module.
-            /// Default to reinitialisation.
+            /// Structure holding the 2 addresses used by this module for
+            /// CAN communications.
             /// </summary>
-            public byte Mode = Modes_Ref.reinitialisation;
+            /////////////////////////////////////////////////////////////
+            public struct stAddresses
+            {
+                /// <summary>
+                /// Address that this module uses when talking on the
+                /// CAN BUS. This is used by the command center to
+                /// identify who is currently talking on the bus, and to
+                /// dertermine if a module is responsive or not.
+                /// </summary>
+                public int CAN_TX;
+                /// <summary>
+                /// Special, dedicated address that the command center
+                /// can use to send data to that specific module
+                /// </summary>
+                public int CAN_RX;
+            }
+            /////////////////////////////////////////////////////////////
             /// <summary>
-            /// The current state of this module. Stores the
-            /// last received state.
+            /// Structure holding the 2 addresses used by this module for
+            /// CAN communications.
             /// </summary>
-            public byte State = States_Ref.waiting;
-
+            /////////////////////////////////////////////////////////////
+            public stAddresses Addresses;
+            /////////////////////////////////////////////////////////////
             /// <summary>
-            /// Structure grouping all data that has been intercepted
-            /// by the command center which came from this module.
+            /// Structure holding all the lastly received data from this
+            /// specific module. To see all the data that was sent by this
+            /// module during a specific mode, use the struct Seen.
             /// </summary>
-            public struct Seen
+            /////////////////////////////////////////////////////////////
+            public struct stCurrent
+            {
+                /// <summary>
+                /// Which mode has been sent to this module.
+                /// Defaults to reinitialisation.
+                /// </summary>
+                public byte Mode;
+                /// <summary>
+                /// The current state of this module. Stores the
+                /// last received state from this module during a
+                /// MasterCommunication. Is set to waiting by
+                /// default
+                /// </summary>
+                public byte State;
+                /// <summary>
+                /// Holds the current weight that the module has
+                /// sent.
+                /// </summary>
+                public byte Weight;
+                /// <summary>
+                /// What state the module is allowed to have in
+                /// the Current.Mode
+                /// </summary>
+                public cStates AllowedStates;
+            }
+            /////////////////////////////////////////////////////////////
+            /// <summary>
+            /// Structure holding all the lastly received data from this
+            /// specific module. To see all the data that was sent by this
+            /// module during a specific mode, use the struct Seen.
+            /// </summary>
+            /////////////////////////////////////////////////////////////
+            public stCurrent Current;
+            /////////////////////////////////////////////////////////////
+            /// <summary>
+            /// Structure grouping and storing all the data intercepted
+            /// by the command center that came from this specific module.
+            /// </summary>
+            /////////////////////////////////////////////////////////////
+            public struct stReceived
             {
                 /// <summary>
                 /// States that the module sent
@@ -807,6 +946,523 @@ namespace CommandCenter
                 /// </summary>
                 public cValues Values;
             }
+            /////////////////////////////////////////////////////////////
+            /// <summary>
+            /// Structure grouping and storing all the data intercepted
+            /// by the command center that came from this specific module.
+            /// </summary>
+            /////////////////////////////////////////////////////////////
+            public stReceived Received;
+            #endregion Structures
+            #region Variables
+            /// <summary>
+            /// Holds the current error That the module is currently in.
+            /// Use Module_Errors to set this to an oher value.
+            /// </summary>
+            public Module_Errors error = Module_Errors.none;
+            /// <summary>
+            /// The name given to your module. Name of which users will
+            /// be able to see at run time.
+            /// </summary>
+            public string name = "NoName";
+            /*
+            /// <summary>
+            /// Class containing each states that this module can have
+            /// depending on it's state.
+            /// Switching modes using the method provided will handle
+            /// this by itself.
+            /// </summary>
+            public class cAllowedStates
+            {
+                /// <summary>
+                /// List of all allowed states for this module during
+                /// standard operation
+                /// </summary>
+                public cStates InOperation;
+                /// <summary>
+                /// List of all allowed states for this module during
+                /// Technician debugging mode
+                /// </summary>
+                public cStates InTech;
+                /// <summary>
+                /// List of all allowed states for this module during
+                /// Calibration
+                /// </summary>
+                public cStates InCalibration;
+                /// <summary>
+                /// List of all allowed states for this module during
+                /// maintenance
+                /// </summary>
+                public cStates InMaintenance;
+                /// <summary>
+                /// List of all allowed states for this module when
+                /// paused.
+                /// </summary>
+                public cStates InPause;
+
+                /// <summary>
+                /// Function allowing you to set all the classes in AllowedStates to these defined ones
+                /// </summary>
+                /// <param name="Operation">Allowed states when InOperation</param>
+                /// <param name="Tech">Allowed states when InTech</param>
+                /// <param name="Calibration">Allowed states when InCalibration</param>
+                /// <param name="Maintenance">Allowed states when InMaintenance</param>
+                /// <param name="Paused">Allowed states when InPause</param>
+                public void SetAllTo(cStates Operation, cStates Tech, cStates Calibration, cStates Maintenance, cStates Paused)
+                {
+                    InOperation = Operation;
+                    InTech = Tech;
+                    InCalibration = Calibration;
+                    InMaintenance = Maintenance;
+                    InPause = Paused;
+                }
+                /// <summary>
+                /// Sets all classes within cAllowedStates to this one unique value
+                /// </summary>
+                /// <param name="Global"></param>
+                public void SetAllTo(byte Global)
+                {
+                    InOperation.SetAllTo(Global);
+                    InTech.SetAllTo(Global);
+                    InCalibration.SetAllTo(Global);
+                    InMaintenance.SetAllTo(Global);
+                    InPause.SetAllTo(Global);
+                }
+            }
+            /// <summary>
+            /// Class containing each states that this module can have
+            /// depending on it's state.
+            /// Switching modes using the method provided will handle
+            /// this by itself.
+            /// </summary>
+            public cAllowedStates AllowedStates;
+            */
+            #endregion Variables
+            #region Constructor
+            /////////////////////////////////////////////////////////////
+            /// <summary>
+            /// Builds this module's class according to the inputed
+            /// parameters
+            /// </summary>
+            /// <param name="nameOfModule">name that will be displayed to the end user</param>
+            /// <param name="canAddressTX">The address used by the module when talking on the CAN bus</param>
+            /// <param name="canAddressRX">The module's reception address</param>
+            /////////////////////////////////////////////////////////////
+            public cModule(string nameOfModule, int canAddressTX, int canAddressRX)
+            {
+                BRS.Debug.Header(true);
+                BRS.Debug.Comment("Building cModule class...");
+                Received.Commands = new cCommands();
+                Received.States = new cStates();
+                Received.Values = new cValues();
+                Current.AllowedStates = new cStates();
+
+                BRS.Debug.Comment("Setting Received classes to DataState NoData...");
+                Received.Commands.SetAllTo(DataState.NoData);
+                Received.Values.SetAllTo(DataState.NoData);
+                Received.States.SetAllTo(DataState.NoData);
+
+                BRS.Debug.Comment("Setting Current structure's values to initial parameters");
+                Current.Mode = Modes_Ref.reinitialisation;
+                Current.State = States_Ref.waiting;
+                Current.Weight = 0;
+                Current.AllowedStates.SetAllTo(DataState.Unused);
+
+                /*
+                BRS.Debug.Comment("Setting AllowedStates to UNUSED");
+                AllowedStates.SetAllTo(DataState.Unused);
+                */
+                BRS.Debug.Comment("Setting up the modules specific data...");
+                Addresses.CAN_RX = canAddressRX;
+                Addresses.CAN_TX = canAddressTX;
+                name = nameOfModule;
+                Debug.Success("Initialised " + name + "'s class and CAN addresses correctly!");
+
+                BRS.Debug.Header(false);
+            }
+            #endregion Constructor
+            #region Methods
+            //#############################################################//
+            /// <summary>
+            /// Reset this module's data structures back to initial state.
+            /// This does not reset addresses or name of the module.
+            /// </summary>
+            //#############################################################//
+            public void Reset()
+            {
+                Debug.LocalStart(true);
+                BRS.Debug.Comment("Resetting " + name + "'s class");
+
+                BRS.Debug.Comment("Resetting Current structure...");
+                Current.Mode = Modes_Ref.reinitialisation;
+                Current.State = States_Ref.waiting;
+                Current.Weight = 0;
+
+                BRS.Debug.Comment("Resetting Received structure to DataState.NoData...");
+                Received.Commands.SetAllTo(DataState.NoData);
+                Received.States.SetAllTo(DataState.NoData);
+                Received.Values.SetAllTo(DataState.NoData);
+
+                BRS.Debug.Comment("Resetting variables...");
+                error = Module_Errors.none;
+
+                Debug.Success("Command center's " + name + " class has been successfully reset to initial values");
+                Debug.LocalEnd();
+            }
+            //#############################################################//
+            /// <summary>
+            /// This function allows you to tell this class that a new mode
+            /// has been sent to it. This handles resets and expected states
+            /// by itself.
+            /// </summary>
+            /// <param name="newMode"></param>
+            //#############################################################//
+            public void SetNewMode(byte newMode)
+            {
+                Debug.LocalStart(true);
+                BRS.Debug.Comment("Setting new mode for " + name);
+
+                if (newMode == Current.Mode)
+                {
+                    Debug.Error("Attempted to set the mode of " + name + " to what it was already!");
+                }
+                else
+                {
+                    Reset();
+                    Current.Mode = newMode;
+                    Current.State = State_Offline;
+
+                    if (newMode == Modes_Ref.operation)
+                    {
+                        Current.AllowedStates.SetAllTo(DataState.Unused);
+                        Current.AllowedStates.processing                    = DataState.Available;
+                        Current.AllowedStates.waiting                       = DataState.Available;
+                        Current.AllowedStates.atSortingFactory              = DataState.Available;
+                        Current.AllowedStates.atWeightStation               = DataState.Available;
+                        Current.AllowedStates.finishedSortingAndHasLoaded   = DataState.Available;
+                        Current.AllowedStates.waitingToSort                 = DataState.Available;
+                        Current.AllowedStates.waitingToWeight               = DataState.Available;
+                        Current.AllowedStates.finishedWeighting             = DataState.Available;
+                        Current.AllowedStates.empty                         = DataState.Available;
+                    }
+                    if (newMode == Modes_Ref.maintenance)
+                    {
+                        Current.AllowedStates.SetAllTo(DataState.Unused);
+                        Current.AllowedStates.processing = DataState.Available;
+                        Current.AllowedStates.safe       = DataState.Available;
+                    }
+                    if (newMode == Modes_Ref.testing)
+                    {
+                        Current.AllowedStates.SetAllTo(DataState.Unused);
+                        Current.AllowedStates.testing    = DataState.Available;
+                        Current.AllowedStates.processing = DataState.Available;
+                        Current.AllowedStates.waiting    = DataState.Available;
+                    }
+                    if (newMode == Modes_Ref.pause)
+                    {
+                        Current.AllowedStates.SetAllTo(DataState.Unused);
+                        Current.AllowedStates.paused     = DataState.Available;
+                        Current.AllowedStates.processing = DataState.Available;
+                    }
+                    if (newMode == Modes_Ref.reinitialisation)
+                    {
+                        Current.AllowedStates.SetAllTo(DataState.Unused);
+                        Current.AllowedStates.processing = DataState.Available;
+                        Current.AllowedStates.waiting    = DataState.Available;
+                    }
+                    if (newMode == Modes_Ref.calibration)
+                    {
+                        Current.AllowedStates.SetAllTo(DataState.Unused);
+                        Current.AllowedStates.calibrating = DataState.Available;
+                        Current.AllowedStates.calibrated  = DataState.Available;
+                    }
+                    if (newMode == Modes_Ref.emergencyStop)
+                    {
+                        Current.AllowedStates.SetAllTo(DataState.Unused);
+                        Current.AllowedStates.emergencyStop = DataState.Available;
+                    }
+                }
+
+                Debug.LocalEnd();
+            }
+            //#############################################################//
+            /// <summary>
+            /// This function takes the incoming data string that the
+            /// Command Center received from the BeagleBone and attempts
+            /// to parse it according to the data stored in the module's class
+            /// </summary>
+            /// <param name="receivedCommunication">must have [RX],</param>
+            //#############################################################//
+            public void ParseFromMasterProtocol(string receivedCommunication)
+            {
+                int address = 0;
+                string[] datas;
+                byte[] receivedCanData = {0,0,0,0,0,0,0,0};
+                //----------------------------------------------------------//
+                //-- First verifications of the string received ------------//
+                //----------------------------------------------------------//
+                if (receivedCommunication.StartsWith("[RX]"))
+                {
+                    //----------------------------------------------------------//
+                    //-- String decomposing and parsing each commas ------------//
+                    //----------------------------------------------------------//
+                    try
+                    {
+                        datas = receivedCommunication.Split(',');
+                        //----------------------------------------------------------//
+                        //-- Attempting to read the address received ---------------//
+                        //----------------------------------------------------------//
+                        try
+                        {
+                            address = Convert.ToInt32(datas[1]);
+                        }
+                        catch
+                        {
+                            Debug.Error("RECEIVED COMMUNICATIONS ADDRESS COULD NOT BE CONVERTED TO INT32");
+                            return;
+                        }
+
+                        if (address == Addresses.CAN_TX)
+                        {
+                            //----------------------------------------------------------//
+                            //-- Parsing the table into a byte array -------------------//
+                            //----------------------------------------------------------//
+                            for (int i=0; i<8; ++i)
+                            {
+                                receivedCanData[i] = Convert.ToByte(datas[i+2]);
+                            }
+
+                            CheckNStoreData(receivedCanData[0], receivedCanData[1]);
+                            CheckNStoreData(receivedCanData[2], receivedCanData[3]);
+                            CheckNStoreData(receivedCanData[4], receivedCanData[5]);
+                            CheckNStoreData(receivedCanData[6], receivedCanData[7]);
+                        }
+                        else
+                        {
+                            // IS NOT THE CORRECT ADDRESS FOR THIS MODULE
+                            return;
+                        }
+                    }
+                    catch
+                    {
+                        Debug.Error("RECEIVED COMMUNICATIONS COULD NOT BE SPLITTED");
+                        return;
+                    }
+                }
+                else
+                {
+                    BRS.Debug.Error("String isn't starting with [RX]; " + receivedCommunication);
+                }
+
+            }
+            //#############################################################//
+            /// <summary>
+            /// Stores data inside of this class (Received structure)
+            /// depending on the commandLetter which can be (M,S,V,C,W) in
+            /// byte form, and stores the commandNumber at the appropriated
+            /// value and location inside of this structure.
+            /// </summary>
+            /// <param name="commandLetter">(M,S,V,C,W) refer to Google Sheet</param>
+            /// <param name="commandNumber">Refer to Google Sheets</param>
+            //#############################################################//
+            public void CheckNStoreData(byte commandLetter, byte commandNumber)
+            {
+                switch (commandLetter)
+                {
+                    case (77): //M
+                        BRS.PopUp.Error("A slave module tried to send a Mode! Only the Command Center is allowed to send modes to modules! This is not supposed to happen.","CRITICAL CAN PROBLEMS");
+                        break;
+
+                    case (67): // C
+                        switch (commandNumber)
+                        {
+                            // Parsing of received commands in a CAN tram
+                            case (0x00): Received.Commands.move_left        = DataState.Received; break;
+                            case (0x01): Received.Commands.move_right       = DataState.Received; break;
+                            case (0x02): Received.Commands.move_forward     = DataState.Received; break;
+                            case (0x03): Received.Commands.move_backward    = DataState.Received; break;
+                            case (0x04): Received.Commands.move_up          = DataState.Received; break;
+                            case (0x05): Received.Commands.move_down        = DataState.Received; break;
+
+                            case (0x06):
+                                Received.Commands.suction_ON  = DataState.Received;
+                                Received.Commands.suction_OFF = DataState.NoData;
+                                break;
+                            case (0x07):
+                                Received.Commands.suction_OFF = DataState.Received;
+                                Received.Commands.suction_ON  = DataState.NoData;
+                                break;
+
+                            case (0x08):
+                                Received.Commands.light_A_ON  = DataState.Received;
+                                Received.Commands.light_A_OFF = DataState.NoData;
+                                break;
+                            case (0x09):
+                                Received.Commands.light_A_OFF = DataState.Received;
+                                Received.Commands.light_A_ON  = DataState.NoData;
+                                break;
+
+                            case (0x0A):
+                                Received.Commands.light_B_ON  = DataState.Received;
+                                Received.Commands.light_B_OFF = DataState.NoData;
+                                break;
+                            case (0x0B):
+                                Received.Commands.light_B_OFF = DataState.Received;
+                                Received.Commands.light_B_ON  = DataState.NoData;
+                                break;
+
+                            case (0x0C):
+                                Received.Commands.light_C_ON  = DataState.Received;
+                                Received.Commands.light_C_OFF = DataState.NoData;
+                                break;
+                            case (0x0D):
+                                Received.Commands.light_C_OFF = DataState.Received;
+                                Received.Commands.light_C_ON  = DataState.NoData;
+                                break;
+
+                            case (0x0E):
+                                Received.Commands.light_D_ON  = DataState.Received;
+                                Received.Commands.light_D_OFF = DataState.NoData;
+                                break;
+                            case (0x0F):
+                                Received.Commands.light_D_OFF = DataState.Received;
+                                Received.Commands.light_D_ON  = DataState.NoData;
+                                break;
+
+                            case (0x10):
+                                Received.Commands.goto_SortingStation = DataState.Received;
+                                Received.Commands.goto_WeightStation  = DataState.NoData;
+                                break;
+                            case (0x11):
+                                Received.Commands.goto_WeightStation  = DataState.Received;
+                                Received.Commands.goto_SortingStation = DataState.NoData;
+                                break;
+
+                            case (0x12): Received.Commands.start_Sorting   = DataState.Received; break;
+                            case (0x13): Received.Commands.start_Weighting = DataState.Received; break;
+
+                            case (0x14): Received.Commands.discharge = DataState.Received; break;
+
+                            case (0x16):
+                                Received.Commands.units_Metric   = DataState.Received;
+                                Received.Commands.units_Imperial = DataState.NoData;
+                                break;
+                            case (0x17):
+                                Received.Commands.units_Imperial = DataState.Received;
+                                Received.Commands.units_Metric   = DataState.NoData;
+                                break;
+                            default:
+                                //If received mode matched nothing, an error occured.
+                                error = Module_Errors.unexpectedData;
+                                break;
+                        }
+                        break;
+                    case (86): // V
+                        switch (commandNumber)
+                        {
+                            // Parsing of received values in a CAN tram
+                            case (0x00):
+                                Received.Values.disc_Red        = DataState.Received;
+                                Received.Values.disc_Black      = DataState.NoData;
+                                Received.Values.disc_Silver     = DataState.NoData;
+                                Received.Values.disc_NoColor    = DataState.NoData;
+                                break;
+                            case (0x01):
+                                Received.Values.disc_Silver   = DataState.Received;
+                                Received.Values.disc_Red      = DataState.NoData;
+                                Received.Values.disc_Black    = DataState.NoData;
+                                Received.Values.disc_NoColor  = DataState.NoData;
+                                break;
+                            case (0x02):
+                                Received.Values.disc_Black    = DataState.Received;
+                                Received.Values.disc_Red      = DataState.NoData;
+                                Received.Values.disc_Silver   = DataState.NoData;
+                                Received.Values.disc_NoColor  = DataState.NoData;
+                                break;
+                            case (0x03):
+                                Received.Values.disc_NoColor  = DataState.Received;
+                                Received.Values.disc_Red      = DataState.NoData;
+                                Received.Values.disc_Silver   = DataState.NoData;
+                                Received.Values.disc_Black    = DataState.NoData;
+                                break;
+
+                            case (0x04):
+                                Received.Values.disc_Detected         = DataState.Received;
+                                Received.Values.disc_Lost             = DataState.NoData;
+                                Received.Values.disc_CouldNotBeFound  = DataState.NoData;
+                                break;
+                            case (0x05):
+                                Received.Values.disc_Lost             = DataState.Received;
+                                Received.Values.disc_Detected         = DataState.NoData;
+                                Received.Values.disc_CouldNotBeFound  = DataState.NoData;
+                                break;
+                            case (0x06):
+                                Received.Values.disc_CouldNotBeFound  = DataState.Received;
+                                Received.Values.disc_Detected         = DataState.NoData;
+                                Received.Values.disc_Lost             = DataState.NoData;
+                                break;
+
+                            case (0x07):
+                                Received.Values.unit_Metric           = DataState.Received;
+                                Received.Values.unit_Imperial         = DataState.NoData;
+                                break;
+                            case (0x08):
+                                Received.Values.unit_Metric           = DataState.NoData;
+                                Received.Values.unit_Imperial         = DataState.Received;
+                                break;
+                            default:
+                                //If received mode matched nothing, an error occured.
+                                error = Module_Errors.unexpectedData;
+                                break;
+                        }
+                        break;
+                    case (83): // S
+                        switch (commandNumber)
+                        {
+                            // Parsing of received states from the communicating module
+                            case (0x00):
+                                Received.States.emergencyStop = DataState.Received;
+                                // AUTOMATICALLY SWITCH TO EMERGENCY MODE WHEN A MODULE STATE SAYS IT'S IN THIS STATE
+                                if (Current.Mode != Modes_Ref.emergencyStop)
+                                {
+                                    Current.Mode = Modes_Ref.emergencyStop;
+                                }
+                                break;
+                            case (0x01): Received.States.paused     = DataState.Received; break;
+                            case (0x02): Received.States.testing    = DataState.Received; break;
+                            case (0x03): Received.States.processing = DataState.Received; break;
+                            case (0x04): break;
+                            case (0x05): Received.States.calibrating    = DataState.Received; break;
+                            case (0x06): Received.States.calibrated     = DataState.Received; break;
+                            case (0x07): Received.States.waiting        = DataState.Received; break;
+                            case (0x08): Received.States.safe           = DataState.Received; break;
+                            case (0x09): Received.States.error          = DataState.Received; break;
+
+                            case (0x0A):
+                                Received.States.atSortingFactory        = DataState.Received;
+                                Received.States.atWeightStation         = DataState.NoData;
+                                break;
+                            case (0x0B):
+                                Received.States.atWeightStation         = DataState.Received;
+                                Received.States.atSortingFactory        = DataState.NoData;
+                                break;
+                            case (0x0C): Received.States.finishedSortingAndHasLoaded    = DataState.Received; break;
+                            case (0x0D): Received.States.waitingToSort                  = DataState.Received; break;
+                            case (0x0E): Received.States.waitingToWeight                = DataState.Received; break;
+                            case (0x0F): Received.States.finishedWeighting              = DataState.Received; break;
+                            case (0x10): Received.States.empty                          = DataState.Received; break;
+                            default:
+                                //If received mode matched nothing, an error occured.
+                                error = Module_Errors.unexpectedData;
+                                break;
+                        }
+                        break;
+                    case (87):  // A weight was received.
+                        Current.Weight = commandNumber;
+                        break;
+                }
+            }
+            #endregion Methods
         }
         #endregion Modules
 
@@ -841,7 +1497,13 @@ namespace CommandCenter
             /// and weird stuff that it can run into. It's a beaglebone
             /// after all
             /// </summary>
-            beagleBone
+            beagleBone,
+            /// <summary>
+            /// This error significates that the emergency button was
+            /// pressed.
+            /// </summary>
+            EmergencyStop
+
         }
         //#############################################################//
         /// <summary>
@@ -903,6 +1565,7 @@ namespace CommandCenter
                     {
                         BRS.Debug.LocalStart(true);
                         BRS.Debug.Comment("Attempting to reset received data in the BeagleBone...");
+                        CommandCenter.terminal.PauseDrawing = false;
                         if (BRS.ComPort.Port.IsOpen)
                         {
                             try
@@ -930,7 +1593,7 @@ namespace CommandCenter
                         {
                             Debug.Error(" - CANT SEND RESET - (PORT CLOSED)");
                         }
-                        BRS.Debug.LocalStart(false);
+                        BRS.Debug.LocalEnd();
                     }
                     //#############################################################//
                     /// <summary>
@@ -940,7 +1603,8 @@ namespace CommandCenter
                     //#############################################################//
                     public static void Quit()
                     {
-                        if(BRS.ComPort.Port.IsOpen)
+                        CommandCenter.terminal.PauseDrawing = false;
+                        if (BRS.ComPort.Port.IsOpen)
                         {
                             BRS.Debug.Comment("Sending QUIT condition to beagleBone...");
                             ToBeagleBone.StartOfPacket();
@@ -966,6 +1630,7 @@ namespace CommandCenter
 
                         try
                         {
+                            CommandCenter.terminal.justSentData = CommandCenter.terminal.justSentData + result;
                             BRS.ComPort.Port.Write(result);
                         }
                         catch
@@ -997,7 +1662,13 @@ namespace CommandCenter
                             byte[] b;
                             try
                             {
+                                if(value == 0x04)
+                                {
+                                    value = 0xFD;
+                                }
+
                                 b = BitConverter.GetBytes(value);
+                                CommandCenter.terminal.justSentData = CommandCenter.terminal.justSentData + BitConverter.ToString(b,0);
                                 BRS.ComPort.Port.Write(b, 0, 1);
                             }
                             catch
@@ -1025,6 +1696,7 @@ namespace CommandCenter
                             try
                             {
                                 b = BitConverter.GetBytes(value);
+                                CommandCenter.terminal.justSentData = CommandCenter.terminal.justSentData + BitConverter.ToString(b, 0);
                                 BRS.ComPort.Port.Write(b, 0, 1);
                             }
                             catch
@@ -1049,6 +1721,7 @@ namespace CommandCenter
                         {
                             try
                             {
+                                CommandCenter.terminal.justSentData = CommandCenter.terminal.justSentData + "\n";
                                 BRS.ComPort.Port.Write("\n");
                             }
                             catch
@@ -1079,6 +1752,7 @@ namespace CommandCenter
                     {
                         BRS.Debug.Comment("[SYNC]",true);
 
+                        CommandCenter.terminal.PauseDrawing = true;
                         Send.ToBeagleBone.StartOfPacket();
                         Send.ToBeagleBone.Address(CAN_Addresses.TX.CommandCenter);
                         Send.ToBeagleBone.Value('M');
@@ -1090,6 +1764,7 @@ namespace CommandCenter
                         Send.ToBeagleBone.Value('S');
                         Send.ToBeagleBone.Value(state);
                         Send.ToBeagleBone.EndOfPacket();
+                        CommandCenter.terminal.PauseDrawing = false;
                     }
                     //#############################################################//
                     /// <summary>
@@ -1118,7 +1793,7 @@ namespace CommandCenter
                 /// virtual module.
                 /// </summary>
                 //#############################################################//
-                public static void ParseRXString(string receivedString)
+                public static void Parse_Terminal()
                 {
 
                 }

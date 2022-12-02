@@ -124,7 +124,6 @@ namespace CommandCenter
                             if (lastLine.Contains(BeagleBone_User.Text + "@beaglebone:~$"))
                             {
                                 CommandCenter.Buttons.USB.State = ControlState.Loading;
-                                CommandCenter.Buttons.CloseBeagle.State = ControlState.Disabled;
                                 CommandCenter.Buttons.Terminal.State = ControlState.Error;
                                 BeagleBone.Error = BeagleErrors.None;
 
@@ -142,7 +141,6 @@ namespace CommandCenter
                                 if (lastLine.Contains(BeagleBone_User.Text + "@beaglebone:" + BeagleBone_FilePath.Text.ToLower() + "$"))
                                 {
                                     CommandCenter.Buttons.USB.State = ControlState.Loading;
-                                    CommandCenter.Buttons.CloseBeagle.State = ControlState.Disabled;
                                     CommandCenter.Buttons.Terminal.State = ControlState.Error;
                                     BeagleBone.Error = BeagleErrors.None;
 
@@ -158,7 +156,6 @@ namespace CommandCenter
                                     if (BeagleBone.Error == BeagleErrors.None)
                                     {
                                         CommandCenter.Buttons.USB.State = ControlState.Warning;
-                                        CommandCenter.Buttons.CloseBeagle.State = ControlState.Disabled;
                                         CommandCenter.Buttons.Terminal.State = ControlState.Disabled;
                                         BeagleBone.Error = BeagleErrors.DirectoryDoesntExist;
                                         NewUserTextInfo(BeagleBone.Error, 2);
@@ -172,7 +169,6 @@ namespace CommandCenter
                             if (BeagleBone.Error == BeagleErrors.None)
                             {
                                 BeagleBone.Error = BeagleErrors.UnexpectedUser;
-                                CommandCenter.Buttons.CloseBeagle.State = ControlState.Disabled;
                                 CommandCenter.Buttons.Terminal.State = ControlState.Disabled;
                                 NewUserTextInfo(BeagleBone.Error, 2);
                                 CommandCenter.terminal.Log_Error(BeagleBone.Error);
@@ -246,7 +242,7 @@ namespace CommandCenter
                     {
                         BeagleBone.CurrentStep = 4;
                         CommandCenter.Buttons.USB.State = ControlState.Loading;
-                        CommandCenter.Buttons.CloseBeagle.State = ControlState.Disabled;
+                        CommandCenter.Buttons.CloseBeagle.State = ControlState.Warning;
                         CommandCenter.Buttons.Terminal.State = ControlState.Disabled;
                         BeagleBone.Error = BeagleErrors.None;
 
@@ -263,7 +259,7 @@ namespace CommandCenter
                     {
                         BeagleBone.CurrentStep = 3;
                         CommandCenter.Buttons.USB.State = ControlState.Loading;
-                        CommandCenter.Buttons.CloseBeagle.State = ControlState.Disabled;
+                        CommandCenter.Buttons.CloseBeagle.State = ControlState.Warning;
                         CommandCenter.Buttons.Terminal.State = ControlState.Disabled;
                         BeagleBone.Error = BeagleErrors.None;
 
@@ -330,7 +326,7 @@ namespace CommandCenter
 
                     // Indicate via the USB icon that we are attempting connection with the found BeagleBoneBlue
                     CommandCenter.Buttons.USB.State = ControlState.Loading;
-                    CommandCenter.Buttons.CloseBeagle.State = ControlState.Disabled;
+                    CommandCenter.Buttons.CloseBeagle.State = ControlState.Warning;
                     CommandCenter.Buttons.Terminal.State = ControlState.Disabled;
 
                     //Terminal window handling.
