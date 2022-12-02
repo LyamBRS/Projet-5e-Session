@@ -625,7 +625,7 @@ void Parse_Interrupts(void)
     interruptCount++;
 
     //How long is an interrupt --> how long is a full buffer cycle.
-    float interruptDuration = ((((float)1)/((float)TIME_BASE_FREQUENCY_HZ)) * ((float)1000)) * ((float)TIME_BASE_BUFFER_SIZE);
+    float interruptDuration = ((((float)1)/((float)TIME_BASE_FREQUENCY_HZ)) * ((float)1000)); //* ((float)TIME_BASE_BUFFER_SIZE);
 
     //How long we've been running.
     float timeSinceReset = interruptDuration * ((float)(interruptCount));
@@ -1078,8 +1078,17 @@ void ServiceCommunication_RXParsingHandler(void)
     // CAN DATA IS AVAILABLE
     if(CHECK_MODULE_CAN_RECEPTION) // Doit etre a TRUE
     {
-        //receiveUDP1();
+        receiveUDP1();
         Parse_CanBusReceptions(MODULE_CAN_RX_BUFFER);
+        printf("%i", ModuleData.Mode);
+        /*
+        printf("\n");
+        for(int i=0; i<8; ++i)
+        {
+            printf("%i,",MODULE_CAN_RX_BUFFER[i]);
+        }
+        printf("\n");
+        */
     }
 /*
     if(CHECK_MASTER_CAN_RECEPTION)
@@ -1100,15 +1109,23 @@ void ServiceCommunication_RXParsingHandler(void)
 */
 void ServiceCommunication_TXParsingHandler(void)
 {
+    static bool sent = 0;
     //Check where we are in the CAN stuff.
     Parse_Interrupts();
 
     if(currentSlot == CAN_ALLOCATED_SLOT)
     {
-        //Parses QUEUE into transmittable buffer
-        TX_BuildCANBuffer(MODULE_CAN_TX);
-        
-        transUDP1(MODULE_CAN_TX);
+        if(!sent)
+        {
+            //Parses QUEUE into transmittable buffer
+            TX_BuildCANBuffer(MODULE_CAN_TX);
+            transUDP1(MODULE_CAN_TX);
+            sent = 1;
+        }
+        else
+        {
+            sent = 0;
+        }  
     }
     else
     {
