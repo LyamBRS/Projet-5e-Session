@@ -70,6 +70,7 @@ void receiveUDP1(void)
     if (len >= 1)
     {
         Udp.read(piloteUDP.readBuffer, 8);
+        /*
         Serial.println("Recu:");
         Serial.println(piloteUDP.readBuffer[0]);
         Serial.println(piloteUDP.readBuffer[1]);
@@ -79,6 +80,7 @@ void receiveUDP1(void)
         Serial.println(piloteUDP.readBuffer[5]);
         Serial.println(piloteUDP.readBuffer[6]);
         Serial.println(piloteUDP.readBuffer[7]);
+        */
     }
 
 }

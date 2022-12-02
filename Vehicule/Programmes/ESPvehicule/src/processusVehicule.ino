@@ -65,6 +65,7 @@ void processusVehicule_AttendUneRequete(void)
         return;
     }
 
+
     processusConduite.requete = PROCESSUSCONDUITE_REQUETE_ACTIVE;
     // Pour faire des test normalement c'est les if de communication qui vont mettre la requete de Conduite active
     //processusConduite.requete = PROCESSUSCONDUITE_REQUETE_ACTIVE;
@@ -75,8 +76,10 @@ void processusVehicule_AttendArriveTri(void)
 {
     if(processusConduite.etatDuModule != PROCESSUSCONDUITE_MODULE_ARRIVE_TRI)
     {
+        ModuleData.State = States.processing;
         return;
     }
+
     ModuleData.State = States.atSortingFactory;
     serviceBaseDeTemps_execute[PROCESSUSVEHICULE_PHASE] = processusVehicule_AttendFinChargement;
 
@@ -85,21 +88,16 @@ void processusVehicule_AttendFinChargement(void)
 {
     if(ModuleData.StatesReceived.finishedSortingAndHasLoaded != RECEIVED)  
     {
-        //return;
+        return;
     }
     ModuleData.StatesReceived.finishedSortingAndHasLoaded = PARSED;
 
-    if(compteurT < 1000) //Calcul pour ajouter un delai pour les test c'est l'attente du chargement
-    {
-        compteurT++;
-        return;
-    }
-    compteurT = 0;
     serviceTank_uturnGauche(PROCESSUSCONDUITE_VITESSESTANDARD);
     serviceBaseDeTemps_execute[PROCESSUSVEHICULE_PHASE] = processusVehicule_Uturn;
 }
 void processusVehicule_Uturn(void)
 {
+    ModuleData.State = States.processing;
     if(compteurT < 400) //Un bref delais avant de checker le suiveur pour etre sur 
     {                   //qu'il ne reprenne pas la ligne sans avoir fais de 180
         compteurT++;
@@ -121,6 +119,7 @@ void processusVehicule_AttendArrivePesage(void)
 {
     if(processusConduite.etatDuModule != PROCESSUSCONDUITE_MODULE_ARRIVE_PESAGE)
     {
+        ModuleData.State = States.processing;
         return;
     }
     serviceTank_uturnGauche(PROCESSUSCONDUITE_VITESSESTANDARD);
@@ -129,7 +128,7 @@ void processusVehicule_AttendArrivePesage(void)
 
 void processusVehicule_Repositionnement(void)
 {
-
+    ModuleData.State = States.processing;
     // ############## 
     if(compteurT < 400) //Un bref delais avant de checker le suiveur pour etre sur 
     {                   //qu'il ne reprenne pas la ligne sans avoir fais de 180
@@ -148,15 +147,31 @@ void processusVehicule_Repositionnement(void)
     serviceTank_Arret(); // Si le suiveur a vu la ligne au milieu il est en position
 
 
-    // SI la rondelle est en Métal 
+    // SI la rondelle est en Métal
+    if(ModuleData.ValuesReceived.disc_Silver == RECEIVED)
+    {
+        ModuleData.ValuesReceived.disc_Silver = PARSED;
+        ModuleData.State = States.waitingToWeight;
+        serviceBaseDeTemps_execute[PROCESSUSVEHICULE_PHASE] = processusVehicule_AttendPriseParRobot;
+    } 
+
     //serviceBaseDeTemps_execute[PROCESSUSVEHICULE_PHASE] = processusVehicule_AttendPriseParRobot;
     
     //SI la rondelle est une rondelle Orange
-    processusBenne.requete = PROCESSUSBENNE_REQUETE_ACTIVE;
-    serviceBaseDeTemps_execute[PROCESSUSVEHICULE_PHASE] = processusVehicule_AttendDechargementBenne;
+    if(ModuleData.ValuesReceived.disc_Red == RECEIVED)
+    {
+        ModuleData.ValuesReceived.disc_Red = PARSED;
+        ModuleData.State = States.atWeightStation;
+        processusBenne.requete = PROCESSUSBENNE_REQUETE_ACTIVE;
+        serviceBaseDeTemps_execute[PROCESSUSVEHICULE_PHASE] = processusVehicule_AttendDechargementBenne;
+    } 
+
+
 }
 void processusVehicule_AttendDechargementBenne(void)
 {
+    // On attend que la benne finisse de 
+    
     if(processusBenne.etatDuModule != PROCESSUSBENNE_REQUETE_TRAITE)
     {
         return;
@@ -168,7 +183,10 @@ void processusVehicule_AttendDechargementBenne(void)
 }
 void processusVehicule_AttendPriseParRobot(void)
 {
-
+    if(ModuleData.StatesReceived.finishedWeighting != RECEIVED)
+    {
+        return;   
+    }
     // SI le bras a bel et bien pris la rondelle
     serviceBaseDeTemps_execute[PROCESSUSVEHICULE_PHASE] = processusVehicule_AttendUneRequete;
 }
