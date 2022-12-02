@@ -753,6 +753,186 @@ namespace CommandCenter.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Paused_Available_Empty {
+            get {
+                object obj = ResourceManager.GetObject("Paused_Available_Empty", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Paused_Available_Filled {
+            get {
+                object obj = ResourceManager.GetObject("Paused_Available_Filled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Paused_Disabled_Empty {
+            get {
+                object obj = ResourceManager.GetObject("Paused_Disabled_Empty", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Paused_Disabled_Filled {
+            get {
+                object obj = ResourceManager.GetObject("Paused_Disabled_Filled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Paused_Error_Empty {
+            get {
+                object obj = ResourceManager.GetObject("Paused_Error_Empty", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Paused_Error_Filled {
+            get {
+                object obj = ResourceManager.GetObject("Paused_Error_Filled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Paused_Warning_Empty {
+            get {
+                object obj = ResourceManager.GetObject("Paused_Warning_Empty", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Paused_Warning_Filled {
+            get {
+                object obj = ResourceManager.GetObject("Paused_Warning_Filled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Play_Available_Empty {
+            get {
+                object obj = ResourceManager.GetObject("Play_Available_Empty", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Play_Available_Filled {
+            get {
+                object obj = ResourceManager.GetObject("Play_Available_Filled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Play_Disabled_Empty {
+            get {
+                object obj = ResourceManager.GetObject("Play_Disabled_Empty", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Play_Disabled_Filled {
+            get {
+                object obj = ResourceManager.GetObject("Play_Disabled_Filled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Play_Error_Empty {
+            get {
+                object obj = ResourceManager.GetObject("Play_Error_Empty", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Play_Error_Filled {
+            get {
+                object obj = ResourceManager.GetObject("Play_Error_Filled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Play_Inactive_Empty {
+            get {
+                object obj = ResourceManager.GetObject("Play_Inactive_Empty", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Play_Inactive_Filled {
+            get {
+                object obj = ResourceManager.GetObject("Play_Inactive_Filled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Play_Warning_Empty {
+            get {
+                object obj = ResourceManager.GetObject("Play_Warning_Empty", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Play_Warning_Filled {
+            get {
+                object obj = ResourceManager.GetObject("Play_Warning_Filled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap PowerButton_Active_Empty {
             get {
                 object obj = ResourceManager.GetObject("PowerButton_Active_Empty", resourceCulture);
@@ -1343,6 +1523,26 @@ namespace CommandCenter.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Warning_Available_Empty {
+            get {
+                object obj = ResourceManager.GetObject("Warning_Available_Empty", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Warning_Available_Filled {
+            get {
+                object obj = ResourceManager.GetObject("Warning_Available_Filled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Warning_Disabled_Empty {
             get {
                 object obj = ResourceManager.GetObject("Warning_Disabled_Empty", resourceCulture);
@@ -1376,6 +1576,26 @@ namespace CommandCenter.Properties {
         internal static System.Drawing.Bitmap Warning_Error_Filled {
             get {
                 object obj = ResourceManager.GetObject("Warning_Error_Filled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Warning_Inactive_Empty {
+            get {
+                object obj = ResourceManager.GetObject("Warning_Inactive_Empty", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Warning_Inactive_Filled {
+            get {
+                object obj = ResourceManager.GetObject("Warning_Inactive_Filled", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

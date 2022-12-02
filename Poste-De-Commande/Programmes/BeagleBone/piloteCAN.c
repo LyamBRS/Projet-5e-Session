@@ -58,8 +58,6 @@ struct ifreq CAN_ifr;			 //pour l'ouverture du socket CAN
 struct can_frame CAN_messageToSend; //contient l'Address, les données et le number de données
 struct can_frame CAN_receivedMessage; //contient l'Address, les données et le number de données
 struct can_filter CAN_rFilter; //contient le filtre à utiliser en réception
-
-
 //----------------------- Private Functions ----------------------//
 void CAN_HandleSignal(int signo)
 {
@@ -89,7 +87,8 @@ void CAN_OpenInterface(void)
 	system("sudo modprobe can-dev");
 	system("sudo modprobe can-raw");
 	system("sudo ip link set can0 type can loopback off");	
-	system("sudo ip link set can0 up type can bitrate 500000");
+	system("sudo ip link set can0 up type can bitrate 50000");
+	system("sudo ip link set can0 type can restart-ms 20");
 #endif
 #ifdef CAN_REAL_WITH_LOOPBACK
 
@@ -99,7 +98,7 @@ void CAN_OpenInterface(void)
 	system("modprobe can-dev");
 	system("modprobe can-raw");
 	system("ip link set can0 type can loopback on");
-	system("ip link set can0 up type can bitrate 500000");//adaptez le "bitrate" au besoin
+	system("ip link set can0 up type can bitrate 50000");//adaptez le "bitrate" au besoin
 
 #endif
 }
@@ -223,6 +222,10 @@ int CAN_Initialise(void)
 
   	fcntl(CAN_socket, F_SETFL, fcntl(CAN_socket, F_GETFL) | O_NONBLOCK); 
 
+	////////////////////////////////////////////////////////////////////////////////////// - STACKOVERFLOW
+	//can_err_mask_t optval = CAN_ERR_MASK;
+	//setsockopt(CAN_socket, SOL_CAN_RAW, CAN_RAW_ERR_FILTER, &optval, sizeof(optval));
+	/////////////////////////////////////////////////////////////////////////////////////
 
 	return 0;
 }

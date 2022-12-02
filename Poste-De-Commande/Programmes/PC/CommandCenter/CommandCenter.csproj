@@ -53,6 +53,9 @@
     <Compile Include="BeagleBone_Processes.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="CAN.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Form1_Terminal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -69,6 +72,9 @@
     <Compile Include="Form1_Settings.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Operation.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.en.resx">
@@ -76,6 +82,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -498,6 +505,28 @@
     <None Include="Icons\Selection\CheckBox\CheckBox_Inactive_Filled.png" />
     <None Include="Icons\Selection\CheckBox\CheckBox_Warning_Empty.png" />
     <None Include="Icons\Selection\CheckBox\CheckBox_Warning_Filled.png" />
+    <None Include="Icons\Applications\Modes\Pause\Paused_Available_Empty.png" />
+    <None Include="Icons\Applications\Modes\Pause\Paused_Available_Filled.png" />
+    <None Include="Icons\Applications\Modes\Pause\Paused_Disabled_Empty.png" />
+    <None Include="Icons\Applications\Modes\Pause\Paused_Disabled_Filled.png" />
+    <None Include="Icons\Applications\Modes\Pause\Paused_Error_empty.png" />
+    <None Include="Icons\Applications\Modes\Pause\Paused_Error_Filled.png" />
+    <None Include="Icons\Applications\Modes\Pause\Paused_Warning_Empty.png" />
+    <None Include="Icons\Applications\Modes\Pause\Paused_Warning_Filled.png" />
+    <None Include="Icons\Generic\Warning\Warning_Available_Empty.png" />
+    <None Include="Icons\Generic\Warning\Warning_Available_Filled.png" />
+    <None Include="Icons\Generic\Warning\Warning_Inactive_Empty.png" />
+    <None Include="Icons\Generic\Warning\Warning_Inactive_Filled.png" />
+    <None Include="Icons\Applications\Play\Play_Available_Empty.png" />
+    <None Include="Icons\Applications\Play\Play_Available_Filled.png" />
+    <None Include="Icons\Applications\Play\Play_Disabled_Empty.png" />
+    <None Include="Icons\Applications\Play\Play_Disabled_Filled.png" />
+    <None Include="Icons\Applications\Play\Play_Error_Empty.png" />
+    <None Include="Icons\Applications\Play\Play_Error_Filled.png" />
+    <None Include="Icons\Applications\Play\Play_Inactive_Empty.png" />
+    <None Include="Icons\Applications\Play\Play_Inactive_Filled.png" />
+    <None Include="Icons\Applications\Play\Play_Warning_Empty.png" />
+    <None Include="Icons\Applications\Play\Play_Warning_Filled.png" />
     <Content Include="Settings.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

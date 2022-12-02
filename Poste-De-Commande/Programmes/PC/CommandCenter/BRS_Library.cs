@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Text;
 using System.IO;
 using System.Diagnostics;
@@ -1369,5 +1370,511 @@ namespace BRS
             BRS.Debug.Comment("File has changed");
             FileChanged = true;
         }
+    }
+    //#########################################################//
+    /// <summary>
+    /// Class used to handle a fake terminal which uses 
+    /// </summary>
+    //#########################################################//
+    public class Terminal
+    {
+        #region Variables
+        /// <summary>
+        /// This variable decides if the terminal should log
+        /// what the user sends. If false, TX inputs won't be
+        /// saved. (Default to false)
+        /// </summary>
+        public bool ShowTX = false;
+        /// <summary>
+        /// Defines if the control should automatically scroll
+        /// to the end of the richtextbox whenever this one is
+        /// focused and TextChanges
+        /// </summary>
+        public bool AutoScroll = true;
+        /// <summary>
+        /// This variable allows you to hide received data
+        /// if it is exactly equal to what was just previously sent
+        /// manually.
+        /// </summary>
+        public bool HideAllTX = true;
+        /// <summary>
+        /// Stop the terminal from showing inputs.
+        /// </summary>
+        public bool PauseDrawing = false;
+
+        /// <summary>
+        /// Will replace regular parsing with a special one made
+        /// specifically to remove stupid data from the terminal.
+        /// </summary>
+        public bool UseCANRX = false;
+        /// <summary>
+        /// Internal class representing default colors for
+        /// the various Log functions
+        /// </summary>
+        public class Colors
+        {
+            /// <summary>
+            /// Log_Error
+            /// </summary>
+            public static Color Error = Color.Red;
+            /// <summary>
+            /// Log_Warning
+            /// </summary>
+            public static Color Warning = Color.Yellow;
+            /// <summary>
+            /// Log_Comment
+            /// </summary>
+            public static Color Comment = Color.LightGray;
+            /// <summary>
+            /// The color your logged headers made with Log_Header will be.
+            /// </summary>
+            public static Color Header = Color.Magenta;
+            /// <summary>
+            /// Color used to display userInputs
+            /// </summary>
+            public static Color userInputs = Color.LightGreen;
+            /// <summary>
+            /// Color used to display received data from the serial port
+            /// </summary>
+            public static Color receivedData = Color.Aqua;
+        }
+
+        /// <summary>
+        /// The richtextbox inside the form which will be used
+        /// as a fake terminal.
+        /// </summary>
+        public RichTextBox Window = new RichTextBox();
+
+        private static Form terminalForm;
+
+        private static SerialPort referencedSerialPort = new SerialPort();
+        /// <summary>
+        /// Set this to whatever you just sent on the SerialPort you referenced
+        /// when creating this terminal. This way, when parsing receptions,
+        /// it won't re-display in the terminal what you just sent seconds ago.
+        /// </summary>
+        public string justSentData = "";
+
+        /// <summary>
+        /// If StopDrawingUntil is called, received inputs will never be seen
+        /// inside the terminal until the received input is equal to this.
+        /// </summary>
+        public string comparingWith = "";
+        /// <summary>
+        /// RX data received delegate
+        /// </summary>
+        /// <param name="Result">RX string</param>
+        public delegate void dlgThread(String Result);
+        /// <summary>
+        /// The RX delegate
+        /// </summary>
+        public dlgThread Delegate;
+        public dlgThread CANDelegate;
+        /// <summary>
+        /// Contains all the possible state that your terminal window can have
+        /// </summary>
+        public enum States
+        {
+            /// <summary>
+            /// The terminal is operational and can be accessed.
+            /// </summary>
+            Active,
+            /// <summary>
+            /// The terminal is not active and cant be accessed in any ways.
+            /// </summary>
+            Disabled,
+            /// <summary>
+            /// Potential problems with the terminal.
+            /// </summary>
+            Warning,
+            /// <summary>
+            /// Something critical hapenned to the terminal.
+            /// </summary>
+            Error,
+            /// <summary>
+            /// Terminal window is inactive but can still be accessed.
+            /// Normally, in this state, interaction with it leads to
+            /// nothing.
+            /// </summary>
+            Inactive
+
+        }
+        /// <summary>
+        /// Your terminal's current state as defined by States
+        /// </summary>
+        public States state;
+        #endregion Variables
+        #region Constructor
+        //#########################################################//
+        /// <summary>
+        /// This forms constructor. Put your RichTextBox in the
+        /// input parameters that you want to use as a terminal
+        /// </summary>
+        //#########################################################//
+        public Terminal(RichTextBox terminalRichTextBox, Form formHostingTerminal, SerialPort forTXOutput)
+        {
+            BRS.Debug.Comment("Creating terminal handler...");
+            terminalForm = formHostingTerminal;
+            BRS.Debug.Comment("Referencing RichTextBox from form...");
+            Window = terminalRichTextBox;
+            Debug.Success();
+
+            BRS.Debug.Comment("Referencing SerialPort...");
+            referencedSerialPort = forTXOutput;
+            Debug.Success();
+
+            BRS.Debug.Comment("Defaulting terminal state to Inactive...");
+            state = States.Inactive;
+            Debug.Success();
+
+            BRS.Debug.Comment("Creating Event handlers...");
+            try
+            {
+                terminalRichTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(KeyPressEvent);
+                terminalRichTextBox.TextChanged += new System.EventHandler(TextChangedEvent);
+                Debug.Success();
+            }
+            catch
+            {
+                Debug.Error("Something went wrong during event creation for KeyPress");
+            }
+
+            BRS.Debug.Comment("Creating delegate for RX data received event...");
+            Delegate = new dlgThread(ParseReceivedData);
+            CANDelegate = new dlgThread(ParseCANData);
+            Debug.Success();
+            Debug.Success("terminal handler was successfully created!");
+        }
+
+        public Terminal(RichTextBox terminalRichTextBox, Form formHostingTerminal)
+        {
+            BRS.Debug.Comment("Creating terminal handler...");
+            terminalForm = formHostingTerminal;
+            BRS.Debug.Comment("Referencing RichTextBox from form...");
+            Window = terminalRichTextBox;
+            Debug.Success();
+
+            BRS.Debug.Comment("Defaulting terminal state to Inactive...");
+            state = States.Inactive;
+            Debug.Success();
+
+            BRS.Debug.Comment("Creating Event handlers...");
+            try
+            {
+                terminalRichTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(KeyPressEvent);
+                terminalRichTextBox.TextChanged += new System.EventHandler(TextChangedEvent);
+                Debug.Success();
+            }
+            catch
+            {
+                Debug.Error("Something went wrong during event creation for KeyPress");
+            }
+
+            //BRS.Debug.Comment("Creating delegate for RX data received event...");
+            //Delegate = new dlgThread(ParseReceivedData);
+            //CANDelegate = new dlgThread(ParseCANData);
+            Debug.Success();
+            Debug.Success("terminal handler was successfully created!");
+        }
+        #endregion Constructor
+        #region Drawing
+        //#########################################################//
+        /// <summary>
+        /// This function will immediately stop this class from
+        /// drawing received inputs until the received input
+        /// is equal to the specified string.
+        /// </summary>
+        /// <param name="thisIsReceived"></param>
+        //#########################################################//
+        public void StopDrawingUntil(string thisIsReceived)
+        {
+            receivingRX = false;
+            comparingWith = thisIsReceived;
+            PauseDrawing = true;
+        }
+        //#########################################################//
+        /// <summary>
+        /// Clears the terminal or PopUp a message in the event where
+        /// the terminal is either in Error mode or Warning mode
+        /// </summary>
+        //#########################################################//
+        public void Clear()
+        {
+            BRS.Debug.LocalStart(true);
+            if (state == States.Error)
+            {
+                if (BRS.PopUp.UserWarning("Clearing the terminal may cause potential issues to your program... proceed?", "Terminal Error"))
+                {
+                    Window.Text = "";
+                }
+            }
+            else
+            {
+                if (state == States.Warning)
+                {
+                    if (BRS.PopUp.UserWarning("Clearing the terminal may cause potential issues to your program... proceed?", "caution"))
+                    {
+                        Window.Text = "";
+                    }
+                }
+                else
+                {
+                    Window.Text = "";
+                }
+            }
+            BRS.Debug.LocalEnd();
+        }
+        //#########################################################//
+        /// <summary>
+        /// Log function allowing you to store logs inside the
+        /// terminal window along with a special color to put the text
+        /// as.
+        /// </summary>
+        /// <param name="comment"></param>
+        /// <param name="colorToUse"></param>
+        //#########################################################//
+        public void Log_Comment(string comment, Color colorToUse)
+        {
+            Window.SelectionStart = Window.Text.Length;
+            Window.SelectionColor = colorToUse;
+            Window.SelectedText = comment + "\n";
+            Window.SelectionStart = Window.Text.Length;
+        }
+        //#########################################################//
+        /// <summary>
+        /// Log function allowing you to store logs inside the
+        /// terminal window using the predefined Colors value.
+        /// </summary>
+        /// <param name="comment">Your comment to log into the terminal</param>
+        //#########################################################//
+        public void Log_Comment(string comment)
+        {
+            Window.SelectionStart = Window.Text.Length;
+            Window.SelectionColor = Colors.Comment;
+            Window.SelectedText = comment + "\n";
+            Window.SelectionStart = Window.Text.Length;
+        }
+        //#########################################################//
+        /// <summary>
+        /// Function used to log errors inside the Window /
+        /// RichTextBox uniformly.
+        /// </summary>
+        /// <param name="error">String stating what error to log</param>
+        //#########################################################//
+        public void Log_Error(string error)
+        {
+            Window.SelectionStart = Window.Text.Length;
+            Window.SelectionColor = Colors.Error;
+            Window.SelectedText = "\n[!ERROR!]: " + error + "\n";
+            Window.SelectionStart = Window.Text.Length;
+        }
+        //#########################################################//
+        /// <summary>
+        /// Function used to log errors inside the Window /
+        /// RichTextBox uniformly.
+        /// </summary>
+        /// <param name="warning">String stating what warning to log</param>
+        //#########################################################//
+        public void Log_Warning(string warning)
+        {
+            Window.SelectionStart = Window.Text.Length;
+            Window.SelectionColor = Colors.Warning;
+            Window.SelectedText = "\n[-WARNING-]: " + warning + "\n";
+            Window.SelectionStart = Window.Text.Length;
+        }
+        //#########################################################//
+        /// <summary>
+        /// Function used to log a page break or Header inside of
+        /// your terminal using the predefined color inside of
+        /// Colors
+        /// </summary>
+        /// <param name="header">String representing your header's name</param>
+        //#########################################################//
+        public void Log_header(string nameOfHeader)
+        {
+            Window.SelectionStart = Window.Text.Length;
+            Window.SelectionColor = Colors.Header;
+            Window.SelectedText = "\n==================================================\n" + nameOfHeader + "\n ==================================================\n";
+            Window.SelectionStart = Window.Text.Length;
+        }
+        #endregion Drawing
+        #region Events
+        //#########################################################//
+        /// <summary>
+        /// Function executed each time a keypress happens inside of
+        /// the referenced RichTextBox (terminal.Window).
+        /// Usually, this sends text over SerialPort
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        //#########################################################//
+        private void KeyPressEvent(object sender, KeyPressEventArgs e)
+        {
+            if(referencedSerialPort.IsOpen)
+            {
+                if (ShowTX)
+                 {
+                    Window.SelectionStart = Window.Text.Length;
+                    Window.SelectionColor = Colors.userInputs;
+                    Window.SelectedText = e.KeyChar.ToString();
+                    Window.SelectionStart = Window.Text.Length;
+                }
+
+                // Send text
+                justSentData = justSentData + e.KeyChar.ToString();
+                PauseDrawing = false;
+                BRS.ComPort.Port.Write(e.KeyChar.ToString());
+            }
+            else
+            {
+                BRS.PopUp.Error("Serial port is closed!","Terminal Error");
+            }
+        }
+        //#########################################################//
+        /// <summary>
+        /// Function executed when the text inside of the referenced
+        /// RichTextBox changes.
+        /// </summary>
+        //#########################################################//
+        private void TextChangedEvent(object sender, EventArgs e)
+        {
+            if (AutoScroll)
+            {
+                Window.SelectionStart = Window.Text.Length;
+            }
+        }
+        #endregion Events
+        #region DataReception
+        private bool receivingRX = false;
+        //#############################################################//
+        /// <summary>
+        /// Parses the received text from ComPort.Port in the console
+        /// rich text box.
+        /// Raises the receiving flag so the textchanged event does not
+        /// occur.
+        /// </summary>
+        /// <param name="received">serial buffer</param>
+        //#############################################################//
+        private void ParseCANData(string received)
+        {
+            if(received.Contains("[") && received.Contains("]"))
+            {
+                //-----------------------------------------------------// SYNC 
+                if(received.Contains("SYNC"))
+                {
+                    Log_Comment("[TX]: SYNC", Color.SlateGray);
+                    receivingRX = false;
+                }
+                else
+                {
+                    if(received.Contains("[-QUIT-]"))
+                    {
+                        Log_Comment("[- QUITTING -]", Color.Red);
+                        receivingRX = false;
+                    }
+                    else
+                    {
+                        if(received.Contains("[-RESET-]"))
+                        {
+                            Log_Comment("[- QUITTING -]", Color.Yellow);
+                            receivingRX = false;
+                        }
+                        else
+                        {
+                            if (received.Contains("[RX]") || receivingRX)
+                            {
+                                receivingRX = true;
+                                Window.SelectionStart = Window.Text.Length;
+                                Window.SelectionColor = Colors.receivedData;
+                                Window.SelectedText = received;
+                                Window.SelectionStart = Window.Text.Length;
+                            }
+                        }
+                    }
+                }
+            }
+            justSentData = "";
+        }
+        //#############################################################//
+        /// <summary>
+        /// Parses the received text from ComPort.Port in the console
+        /// rich text box.
+        /// Raises the receiving flag so the textchanged event does not
+        /// occur.
+        /// </summary>
+        /// <param name="received">serial buffer</param>
+        //#############################################################//
+        private void ParseReceivedData(string received)
+        {
+            if (justSentData.Length > 0 && received.Contains(justSentData) && HideAllTX || PauseDrawing)
+            {
+                received = "";
+                justSentData = "";
+            }
+            justSentData = "";
+            Window.SelectionStart = Window.Text.Length;
+            Window.SelectionColor = Colors.receivedData;
+
+            /*
+            if (received.StartsWith("\r"))
+            {
+                int LineIndex = ConsoleArea.GetLineFromCharIndex(ConsoleArea.SelectionStart);
+                int firstFromLine = ConsoleArea.GetFirstCharIndexFromLine(LineIndex);
+
+                ConsoleArea.SelectionStart = firstFromLine;
+                ConsoleArea.SelectionLength = ConsoleArea.Text.Length - firstFromLine;
+                ConsoleArea.SelectedText = "";
+
+                received = received.Replace('\r', ' ');
+                received = received.Replace('\n', ' ');
+            }
+            */
+
+            Window.SelectedText = received;
+            Window.SelectionStart = Window.Text.Length;
+
+        }
+        //#############################################################//
+        /// <summary>
+        /// Function called when ComPort serial receives data.
+        /// </summary>
+        //#############################################################//
+        public void DataReceiverHandling()
+        {
+            //Gather stored data in the buffer
+            string result = "";
+
+            try
+            {
+                result = referencedSerialPort.ReadExisting();
+
+                if (UseCANRX)
+                {
+                    terminalForm.BeginInvoke(CANDelegate, result);
+                    //terminalForm.BeginInvoke(Delegate, result);
+                }
+                else
+                {
+                    terminalForm.BeginInvoke(Delegate, result);
+                }
+            }
+            catch
+            {   // The form is closed, and the function could not be called
+                // Therefor, it is replaced by this empty function.
+                BRS.ComPort.DataReceivedAction = EmptyReceivingHandler;
+            }
+        }
+        //#############################################################//
+        /// <summary>
+        /// Function to replace ComPort.DataReceivedAction so an empty
+        /// function is called rather than putting text in an
+        /// inexisting console rich text box.
+        /// </summary>
+        //#############################################################//
+        public void EmptyReceivingHandler()
+        {
+
+        }
+        #endregion DataReception
     }
 }

@@ -70,7 +70,7 @@ namespace CommandCenter
             if (ConsoleArea.Lines.Any()) { lastLine = ConsoleArea.Lines[ConsoleArea.Lines.Length - 1].ToLower(); }
             if (ConsoleArea.Lines.Length > 1) { beforeLast = ConsoleArea.Lines[ConsoleArea.Lines.Length - 2].ToLower(); }
 
-            if (AutoConnect)
+            if (AutoConnect && MasterProtocol.isActive == false)
             {
                 //////////////////////////////////////////// Wait before retries
                 #region RetryingMessages
@@ -103,7 +103,8 @@ namespace CommandCenter
                     CommandCenter.Buttons.CloseBeagle.State = ControlState.Disabled;
 
                     // Make last line an error line.
-                    ConsoleArea_LogError(BeagleBone.Error);
+                    CommandCenter.terminal.Log_Error(BeagleBone.Error);
+                    //ConsoleArea_LogError(BeagleBone.Error);
                     return;
                 }
 
@@ -114,6 +115,8 @@ namespace CommandCenter
                     if (lastLine.Contains("@beaglebone:"))
                     {
                         BeagleBone.CurrentStep = 2;
+                        MasterProtocol.isActive = false;
+
                         // Correct user.
                         if (lastLine.Contains(BeagleBone_User.Text + "@beaglebone"))
                         {
@@ -121,7 +124,6 @@ namespace CommandCenter
                             if (lastLine.Contains(BeagleBone_User.Text + "@beaglebone:~$"))
                             {
                                 CommandCenter.Buttons.USB.State = ControlState.Loading;
-                                CommandCenter.Buttons.CloseBeagle.State = ControlState.Disabled;
                                 CommandCenter.Buttons.Terminal.State = ControlState.Error;
                                 BeagleBone.Error = BeagleErrors.None;
 
@@ -139,7 +141,6 @@ namespace CommandCenter
                                 if (lastLine.Contains(BeagleBone_User.Text + "@beaglebone:" + BeagleBone_FilePath.Text.ToLower() + "$"))
                                 {
                                     CommandCenter.Buttons.USB.State = ControlState.Loading;
-                                    CommandCenter.Buttons.CloseBeagle.State = ControlState.Disabled;
                                     CommandCenter.Buttons.Terminal.State = ControlState.Error;
                                     BeagleBone.Error = BeagleErrors.None;
 
@@ -155,11 +156,10 @@ namespace CommandCenter
                                     if (BeagleBone.Error == BeagleErrors.None)
                                     {
                                         CommandCenter.Buttons.USB.State = ControlState.Warning;
-                                        CommandCenter.Buttons.CloseBeagle.State = ControlState.Disabled;
                                         CommandCenter.Buttons.Terminal.State = ControlState.Disabled;
                                         BeagleBone.Error = BeagleErrors.DirectoryDoesntExist;
                                         NewUserTextInfo(BeagleBone.Error, 2);
-                                        ConsoleArea_LogError(BeagleBone.Error);
+                                        CommandCenter.terminal.Log_Error(BeagleBone.Error);
                                     }
                                 }
                             }
@@ -169,37 +169,80 @@ namespace CommandCenter
                             if (BeagleBone.Error == BeagleErrors.None)
                             {
                                 BeagleBone.Error = BeagleErrors.UnexpectedUser;
-                                CommandCenter.Buttons.CloseBeagle.State = ControlState.Disabled;
                                 CommandCenter.Buttons.Terminal.State = ControlState.Disabled;
                                 NewUserTextInfo(BeagleBone.Error, 2);
-                                ConsoleArea_LogError(BeagleBone.Error);
+                                CommandCenter.terminal.Log_Error(BeagleBone.Error);
                             }
                         }
                     }
-
+                    //////////////////////////////////////////// - Program is starting
                     if (lastLine.Contains("[-starting-]"))
                     {
-                        NewUserTextInfo("BeagleBone Started!", 1);
+                        NewUserTextInfo("Program Starting...", 1);
                         CommandCenter.Buttons.CloseBeagle.State = ControlState.Active;
-                        CommandCenter.Buttons.Terminal.State = ControlState.Active;
-                        CommandCenter.Buttons.USB.State = ControlState.Active;
+                        CommandCenter.Buttons.Terminal.State = ControlState.Error;
+                        CommandCenter.Buttons.USB.State = ControlState.Warning;
                         BRS.Debug.Comment("Waiting for beaglebone to start...", true);
                     }
-                    // Program already started.
-                    if (lastLine.Contains("[-reset-]") || beforeLast.Contains("[-reset-]"))
+                    //////////////////////////////////////////// - Indicating to us that it is using Automatic mode
+                    if (lastLine.Contains("[automatic mode]"))
                     {
-                        NewUserTextInfo("BeagleBone Already ON", 3);
+                        CommandCenter.Buttons.CloseBeagle.State = ControlState.Active;
+                        CommandCenter.Buttons.Terminal.State = ControlState.Error;
+                        NewUserTextInfo("Automatic Mode ON", 3);
+                    }
+                    //////////////////////////////////////////// - Program is started successfully
+                    if (beforeLast.Contains("[automatic mode]"))
+                    {
+                        CommandCenter.Buttons.CloseBeagle.State = ControlState.Active;
+                        CommandCenter.Buttons.Terminal.State = ControlState.Active;
+                        CommandCenter.Buttons.USB.State = ControlState.Active;
+
+                        NewUserTextInfo("Started!", 1);
+                        BRS.Debug.Comment("Starting Master Protocol!", true);
+
+                        MasterProtocol_Start();
+                    }
+                    //////////////////////////////////////////// - Asking us if we are automated or it's a user launching the application
+                    if ((lastLine.Contains("[question]:") || beforeLast.Contains("[question]:")))
+                    {
+                        CommandCenter.Buttons.CloseBeagle.State = ControlState.Active;
+                        CommandCenter.Buttons.Terminal.State = ControlState.Error;
+                        CommandCenter.Buttons.USB.State = ControlState.Warning;
+
+                        NewUserTextInfo("Answering questions...", 1);
+                        BeagleBone.CurrentStep = 4;
+                        BRS.Debug.Comment("Answering N to beaglebone's questions...", true);
+
+                        try
+                        {
+                            BRS.ComPort.Port.Write("N\n");
+                            // Start Master protocol
+                            Debug.Success();
+                        }
+                        catch
+                        {
+                            NewUserTextInfo("FATAL SETUP ERROR", 1);
+                            BRS.Debug.Comment("FAIL TO ANSWER BEAGLEBONE QUESTIONS", true);
+                            Debug.Error();
+                        }
+                    }
+                    // Program already started.
+                    if (lastLine.Contains("reset") || beforeLast.Contains("reset"))
+                    {
                         CommandCenter.Buttons.USB.State = ControlState.Active;
                         CommandCenter.Buttons.CloseBeagle.State = ControlState.Active;
                         CommandCenter.Buttons.Terminal.State = ControlState.Active;
+                        NewUserTextInfo("BeagleBone Already ON", 3);
                         BRS.Debug.Comment("Starting CAN process...", true);
+                        MasterProtocol_Start();
                     }
                     ////////////////////////////////////////////////////////////////////////// USER PASSWORD
                     if (lastLine.Contains("password") && BeagleBone.CurrentStep != 4)
                     {
                         BeagleBone.CurrentStep = 4;
                         CommandCenter.Buttons.USB.State = ControlState.Loading;
-                        CommandCenter.Buttons.CloseBeagle.State = ControlState.Disabled;
+                        CommandCenter.Buttons.CloseBeagle.State = ControlState.Warning;
                         CommandCenter.Buttons.Terminal.State = ControlState.Disabled;
                         BeagleBone.Error = BeagleErrors.None;
 
@@ -216,7 +259,7 @@ namespace CommandCenter
                     {
                         BeagleBone.CurrentStep = 3;
                         CommandCenter.Buttons.USB.State = ControlState.Loading;
-                        CommandCenter.Buttons.CloseBeagle.State = ControlState.Disabled;
+                        CommandCenter.Buttons.CloseBeagle.State = ControlState.Warning;
                         CommandCenter.Buttons.Terminal.State = ControlState.Disabled;
                         BeagleBone.Error = BeagleErrors.None;
 
@@ -240,7 +283,7 @@ namespace CommandCenter
                         CommandCenter.Buttons.Terminal.State = ControlState.Warning;
                         BeagleBone.Error = BeagleErrors.IncorrectPassword;
                         NewUserTextInfo(BeagleBone.Error, 2);
-                        ConsoleArea_LogError(BeagleBone.Error);
+                        CommandCenter.terminal.Log_Error(BeagleBone.Error);
                     }
                 }
                 if (beforeLast.Contains("no such file or directory") || lastLine.Contains("no such file or directory"))
@@ -253,7 +296,7 @@ namespace CommandCenter
                         CommandCenter.Buttons.Terminal.State = ControlState.Warning;
                         BeagleBone.Error = BeagleErrors.DirectoryDoesntExist;
                         NewUserTextInfo(BeagleBone.Error, 2);
-                        ConsoleArea_LogError(BeagleBone.Error);
+                        CommandCenter.terminal.Log_Error(BeagleBone.Error);
                     }
                 }
                 #endregion ErrorConditions
@@ -261,14 +304,14 @@ namespace CommandCenter
                 // Step one consist of refreshing the terminal.
                 if (BeagleBone.CurrentStep == 1)
                 {
-                    CommandCenter.Buttons.CloseBeagle.State = ControlState.Disabled;
+                    CommandCenter.Buttons.USB.State = ControlState.Loading;
+                    CommandCenter.Buttons.CloseBeagle.State = ControlState.Warning;
                     CommandCenter.Buttons.Terminal.State = ControlState.Disabled;
-                    byte[] b = BitConverter.GetBytes(0xFF);
-                    BRS.ComPort.Port.Write(b, 0, 1);
-                    BRS.ComPort.Port.Write("\n");
-                    BRS.ComPort.Port.Write("\n");
-                    BeagleBone.CurrentStep = 2;
 
+                    MasterProtocol.Send.ToBeagleBone.Reset();
+                    MasterProtocol.Send.ToBeagleBone.Quit();
+
+                    BeagleBone.CurrentStep = 2;
                     NewUserTextInfo("Waiting for BBB answer...", 3);
                 }
 
@@ -283,17 +326,30 @@ namespace CommandCenter
 
                     // Indicate via the USB icon that we are attempting connection with the found BeagleBoneBlue
                     CommandCenter.Buttons.USB.State = ControlState.Loading;
-                    CommandCenter.Buttons.CloseBeagle.State = ControlState.Disabled;
+                    CommandCenter.Buttons.CloseBeagle.State = ControlState.Warning;
                     CommandCenter.Buttons.Terminal.State = ControlState.Disabled;
 
                     //Terminal window handling.
                     CommandCenter.Buttons.Terminal.State = ControlState.Warning;
 
                     BRS.Debug.Comment("Starting BeagleBone connection process...", true);
+                    CommandCenter.terminal.Log_header("Start of connection process");
 
                     //Reset the terminal text.
                     ConsoleArea.Text = "";
                 }
+
+                /////////////////////////////////////////////////////////////////// TERMINAL HANDLING
+                if (CommandCenter.Buttons.Terminal.State == ControlState.Active)
+                   {CommandCenter.terminal.state = Terminal.States.Active;}
+                if (CommandCenter.Buttons.Terminal.State == ControlState.Disabled)
+                   {CommandCenter.terminal.state = Terminal.States.Disabled;}
+                if (CommandCenter.Buttons.Terminal.State == ControlState.Error)
+                { CommandCenter.terminal.state = Terminal.States.Error; }
+                if (CommandCenter.Buttons.Terminal.State == ControlState.Inactive)
+                { CommandCenter.terminal.state = Terminal.States.Inactive; }
+                if (CommandCenter.Buttons.Terminal.State == ControlState.Warning)
+                { CommandCenter.terminal.state = Terminal.States.Warning; }
             }
             Debug.LocalEnd();
         }

@@ -57,17 +57,6 @@ namespace CommandCenter
         public static bool ComShouldBeOpen = false;
 
         SerialPort OldSettings;
-
-        /// <summary>
-        /// RX data received delegate
-        /// </summary>
-        /// <param name="Result">RX string</param>
-        public delegate void dlgThread(String Result);
-
-        /// <summary>
-        /// The RX delegate
-        /// </summary>
-        public dlgThread Delegate;
         /// <summary>
         /// To check, using a timer, if the port state changed.
         /// </summary>
@@ -576,12 +565,6 @@ namespace CommandCenter
             {
                 BRS.Debug.Comment("PORT CLOSED:");
                 BRS.Debug.Comment("Attempting linking with specified COM port...");
-                BRS.Debug.Comment("Port name: " + BRS.ComPort.Port.PortName.ToString());
-                BRS.Debug.Comment("BaudRate:  " + BRS.ComPort.Port.BaudRate.ToString());
-                BRS.Debug.Comment("DataBits:  " + BRS.ComPort.Port.DataBits.ToString());
-                BRS.Debug.Comment("StopBits:  " + BRS.ComPort.Port.StopBits.ToString());
-                BRS.Debug.Comment("Parity:    " + BRS.ComPort.Port.Parity.ToString());
-                BRS.Debug.Comment("HandShake: " + BRS.ComPort.Port.Handshake.ToString());
                 try
                 {
                     BRS.ComPort.Port.Open();
@@ -603,6 +586,7 @@ namespace CommandCenter
                     CommandCenter.Buttons.USB.State = ControlState.Disabled;
                     CommandCenter.Buttons.Link.State = ControlState.Error;
                     ComShouldBeOpen = false;
+                    MasterProtocol_Stop();
                 }
             }
             else
@@ -616,6 +600,8 @@ namespace CommandCenter
                     Debug.Success("Port closed!");
                     NewUserTextInfo("Link Terminated", 1);
 
+                    MasterProtocol_Stop();
+
                     CommandCenter.Buttons.USB.State = ControlState.Disabled;
                     CommandCenter.Buttons.Link.State = ControlState.Inactive;
                     BRS.ComPort.Port.PortName = "No Device";
@@ -624,6 +610,7 @@ namespace CommandCenter
                 {
                     Debug.Error("FAILED TO CLOSE COM PORT WITH SPECIFIED INFO");
                     NewUserTextInfo("LINKING ERROR", 2);
+                    MasterProtocol_Stop();
 
                     CommandCenter.Buttons.USB.State = ControlState.Error;
                     CommandCenter.Buttons.Link.State = ControlState.Error;
@@ -721,6 +708,16 @@ namespace CommandCenter
 
             BeagleBone_ConnectingProcess();
 
+            if(BRS.ComPort.Port.IsOpen && CommandCenter.Buttons.CloseBeagle.State == ControlState.Disabled)
+            {
+                CommandCenter.Buttons.CloseBeagle.State = ControlState.Active;
+            }
+
+            if(!BRS.ComPort.Port.IsOpen && CommandCenter.Buttons.CloseBeagle.State != ControlState.Disabled)
+            {
+                CommandCenter.Buttons.CloseBeagle.State = ControlState.Disabled;
+            }
+
             // Disabling the settings parameters if the port is opened.
             if (BRS.ComPort.Port.IsOpen)
             {
@@ -732,7 +729,7 @@ namespace CommandCenter
                 PortBox1.Enabled = false;
                 TXTimeOutBox.Enabled = false;
                 RXTimeOutBox.Enabled = false;
-                ConsoleArea.Enabled = true;
+                CommandCenter.terminal.state = Terminal.States.Active;
             }
             else
             {
@@ -744,7 +741,7 @@ namespace CommandCenter
                 PortBox1.Enabled = true;
                 TXTimeOutBox.Enabled = true;
                 RXTimeOutBox.Enabled = true;
-                ConsoleArea.Enabled = false;
+                CommandCenter.terminal.state = Terminal.States.Disabled;
             }
 
             // Check actual state of the USB vs the state it should be in.
