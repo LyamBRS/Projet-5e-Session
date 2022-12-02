@@ -42,6 +42,7 @@ processusUsine.pbi: \
   C:\IAR\ARM\8.50\arm\inc\c\string.h \
   C:\IAR\ARM\8.50\arm\inc\c\DLib_Product_string.h \
   C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/serviceBaseDeTemps.h \
+  C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/ServiceCommunication.h \
   C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/piloteCAN1.h \
   C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/processusUsine.h \
   C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/piloteI2C.h \

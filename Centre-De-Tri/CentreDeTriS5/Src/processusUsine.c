@@ -12,6 +12,7 @@
 //INCLUSIONS
 #include "main.h"
 #include "serviceBaseDeTemps.h"
+#include "ServiceCommunication.h"
 #include "piloteCAN1.h"
 #include "processusUsine.h"
 #include "piloteI2C.h"
@@ -31,6 +32,7 @@
 #define DELAI_MAX_ELEVATEUR_HAUT 10000
 #define DELAI_MAX_ATTEND_CHUTE 10000
 #define DELAI_VENTOUSE_DESCEND 1000
+#define DELAI_MAX_PISTON 3000
 
 #define BLOC_AUCUN 0
 #define BLOC_ROUGE 1
@@ -62,7 +64,9 @@ void modeOperation_attendElevateurEnHaut (void);
 void modeOperation_ejecteUnBloc (void);
 void modeOperation_attendBlocChute (void);
 void modeOperation_attendBlocAspire(void);
-
+void modeOperation_attendVentouseHaut(void);
+void modeOperation_vaALaFosse(void);
+void modeOperation_vaALAscenseur(void);
 void modeErreur (void);
 //Definitions de variables privees:
 void (*modeOperation_execute)(void);
@@ -96,16 +100,57 @@ void processusUsine_attente (void)
 
 void processusUsine_operation (void)
 {
-  updateModeEcran("Operation");
-  modeOperation_execute();
-  
+  interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_CONTROLLER, INTERFACEUSINE_OUTPUT_HIGH);
+  //  La série de "if" suivante sert à exécuter un mode différent 
+  //  en fonction de ce qui est demandé par le poste de commande.
+  //  Le mode de fonctionnement normal (mode opération) qui est 
+  //  demandé dans le document de projet correspond au 1er "if".
+  if(ModuleData.Mode == Modes.operation)
+  {
+    updateModeEcran("Operation");
+    modeOperation_execute();
+  }
+
+  if(ModuleData.Mode == Modes.emergencyStop)
+  {
+    updateModeEcran("EMERGENCY");
+    interfaceUsine_Reset ();
+    ModuleData.State = States.emergencyStop;
+  }
+
+  if(ModuleData.Mode == Modes.pause)
+  {
+    processusUsine_attente();
+    ModuleData.State = States.paused;
+  }
+
+  if(ModuleData.Mode == Modes.reinitialisation)
+  {
+    updateModeEcran("Initialising");
+    interfaceUsine_Reset ();
+    ModuleData.State = States.processing;
+  }
+
+  if(ModuleData.Mode == Modes.testing)
+  {
+    updateModeEcran("Technician");
+    ModuleData.State = States.waiting;
+  }
+
+  if(ModuleData.Mode == Modes.maintenance)
+  {
+    updateModeEcran("Maintenance");
+    interfaceUsine_Reset ();
+    ModuleData.State = States.safe;
+  }
 }
 #pragma region EtatsModeOperation
 
 void modeOperation_lanceInitialisation (void)
 {
   ucTypeDeBloc = BLOC_AUCUN;
-  
+  interfaceUsine_RequetePont (INTERFACEUSINE_PONT_POSITIONH);
+  interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_CONTROLLER, INTERFACEUSINE_OUTPUT_HIGH);
   //Lumière
   interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_LED, INTERFACEUSINE_ETEINT);
   
@@ -261,7 +306,6 @@ void modeOperation_monteElevateur (void)
   serviceBaseDeTemps_execute[PROCESSUSUSINE_GERE] =  modeErreur;
 }
 
-
 void modeOperation_attendElevateurEnHaut (void)
 {
   static unsigned int compteurTempsElevateurEnHaut = 0;
@@ -341,7 +385,45 @@ void modeOperation_attendBlocAspire(void)
   {
     interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_VENTOUSE_DESCEND, INTERFACEUSINE_OUTPUT_LOW);
     interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_VENTOUSE_MONTE, INTERFACEUSINE_OUTPUT_HIGH);
+    modeOperation_execute = modeOperation_attendVentouseHaut;
   }
+
+}
+
+void modeOperation_attendVentouseHaut(void)
+{
+  static unsigned int compteurTempsMouvement = 0;
+  compteurTempsMouvement++;
+  if (compteurTempsMouvement >= DELAI_MAX_PISTON)
+  {
+    updateMessageEcran("Erreur: Delai montee ventouse expirer");
+    serviceBaseDeTemps_execute[PROCESSUSUSINE_GERE] =  modeErreur;
+  }
+  if (interfaceUsine_LitUnElement(INTERFACEUSINE_ID_SENSOR_VENTOUSE_HAUT) == INTERFACEUSINE_SENSOR_HIGH)
+  {
+    switch (ucTypeDeBloc)
+    {
+      case BLOC_NOIR:
+      modeOperation_execute = modeOperation_vaALaFosse;
+      break;
+      case BLOC_ROUGE:
+      case BLOC_METAL:
+      modeOperation_execute = modeOperation_vaALAscenseur;
+      break;
+    }
+  }
+
+}
+
+void modeOperation_vaALaFosse(void)
+{
+  interfaceUsine_RequetePont (INTERFACEUSINE_PONT_POSITION1);
+
+}
+
+void modeOperation_vaALAscenseur(void)
+{
+  interfaceUsine_RequetePont (INTERFACEUSINE_PONT_POSITION2);
 
 }
 
@@ -427,6 +509,7 @@ void processusUsine_initialise(void)
 
 void modeErreur (void)
 {
+  ModuleData.State = States.error;
   updateModeEcran("Errerur");
   interfaceColonne_eteint(INTERFACECOLONNE_JAUNE);
   interfaceColonne_allume(INTERFACECOLONNE_ROUGE);

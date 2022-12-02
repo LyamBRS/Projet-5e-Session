@@ -45,7 +45,7 @@ union UnionCartesI2CUsine
 unsigned char ucEtatPont;
 unsigned char ucPostitonPont;
 unsigned char ucRequetePont;
-
+unsigned char etatTraitementRequetePont;
 //Definitions de fonctions privees:
 //pas de fonctions privees
 
@@ -71,109 +71,11 @@ void interfaceUsine_gere (void)
   }
   compteurDeTransmission++;
   
-  //gestion du pont
-  static unsigned int compteurDelaiPont;
-  static bool flagDelaiPont;
-  static bool ackRecieved;
-  switch (ucRequetePont)
-  {
-    case INTERFACEUSINE_PONT_POSITIONH:
-    flagDelaiPont = 1;
-    interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_POS0, INTERFACEUSINE_OUTPUT_HIGH);
-    interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_START, INTERFACEUSINE_OUTPUT_HIGH);
-    if (interfaceUsine_LitUnElement(INTERFACEUSINE_ID_PONT_DEFAULT_ACK_START) == INTERFACEUSINE_SENSOR_LOW) break;
-    ackRecieved = 1;
-    interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_POS0, INTERFACEUSINE_OUTPUT_LOW);
-    interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_START, INTERFACEUSINE_OUTPUT_LOW);
-    ucRequetePont = INTERFACEUSINE_PONT_REQUETE_TRAITEE;
-    flagDelaiPont = 0;
-    ucPostitonPont = INTERFACEUSINE_PONT_POSITION0;
-    compteurDelaiPont = 0;
-    ackRecieved = 0;
-    break;
-    case INTERFACEUSINE_PONT_POSITION0:
-    flagDelaiPont = 1;
-    interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_POS0, INTERFACEUSINE_OUTPUT_HIGH);
-    interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_START, INTERFACEUSINE_OUTPUT_HIGH);
-    if (interfaceUsine_LitUnElement(INTERFACEUSINE_ID_PONT_DEFAULT_ACK_START) == INTERFACEUSINE_SENSOR_LOW) break;
-    ackRecieved = 1;
-    interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_POS0, INTERFACEUSINE_OUTPUT_LOW);
-    interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_START, INTERFACEUSINE_OUTPUT_LOW);
-    ucRequetePont = INTERFACEUSINE_PONT_REQUETE_TRAITEE;
-    flagDelaiPont = 0;
-    ucPostitonPont = INTERFACEUSINE_PONT_POSITION0;
-    compteurDelaiPont = 0;
-    ackRecieved = 0;
-    break;
-     case INTERFACEUSINE_PONT_POSITION1:
-    flagDelaiPont = 1;
-    interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_POS1, INTERFACEUSINE_OUTPUT_HIGH);
-    interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_START, INTERFACEUSINE_OUTPUT_HIGH);
-    if (interfaceUsine_LitUnElement(INTERFACEUSINE_ID_PONT_DEFAULT_ACK_START) == INTERFACEUSINE_SENSOR_LOW) break;
-    ackRecieved = 1;
-    interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_POS1, INTERFACEUSINE_OUTPUT_LOW);
-    interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_START, INTERFACEUSINE_OUTPUT_LOW);
-    ucRequetePont = INTERFACEUSINE_PONT_REQUETE_TRAITEE;
-    flagDelaiPont = 0;
-    ucPostitonPont = INTERFACEUSINE_PONT_POSITION1;
-    compteurDelaiPont = 0;
-    ackRecieved = 0;
-    break;
-     case INTERFACEUSINE_PONT_POSITION2:
-    flagDelaiPont = 1;
-    interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_POS2, INTERFACEUSINE_OUTPUT_HIGH);
-    interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_START, INTERFACEUSINE_OUTPUT_HIGH);
-    if (interfaceUsine_LitUnElement(INTERFACEUSINE_ID_PONT_DEFAULT_ACK_START) == INTERFACEUSINE_SENSOR_LOW) break;
-    ackRecieved = 1;
-    interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_POS2, INTERFACEUSINE_OUTPUT_LOW);
-    interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_START, INTERFACEUSINE_OUTPUT_LOW);
-    ucRequetePont = INTERFACEUSINE_PONT_REQUETE_TRAITEE;
-    flagDelaiPont = 0;
-    ucPostitonPont = INTERFACEUSINE_PONT_POSITION2;
-    compteurDelaiPont = 0;
-    ackRecieved = 0;
-    break;
-    
-  }
-  if (compteurDelaiPont > DELAI_MAX_PONT_ACK && ackRecieved) //ERREUR DELAI ACK DÉPASSÉ!!!
-  if (compteurDelaiPont > DELAI_MAX_PONT_MOTION_COMPLETE) //ERREUR DELAI MOUVEMENT DÉPASSÉ!!!
-  if (flagDelaiPont) compteurDelaiPont++;
-  else compteurDelaiPont = 0;
-}
-
-bool interfaceUsine_LitUnElement (unsigned char elementID)
-{
-return ((unionCartesI2CUsine.tabCartesI2C[elementsDuCentreDeTri[elementID].NoDePcf-1]) & (0x01 << elementsDuCentreDeTri[elementID].Position))? 1 : 0;
-}
-
-void interfaceUsine_EcritUnElement (unsigned char elementID, bool etatAEcrire)
-{
-  if (etatAEcrire) 
-  {
-    unionCartesI2CUsine.tabCartesI2C[elementsDuCentreDeTri[elementID].NoDePcf-1] |= (0x01 << elementsDuCentreDeTri[elementID].Position);
-    return;
-  }
-  unionCartesI2CUsine.tabCartesI2C[elementsDuCentreDeTri[elementID].NoDePcf-1] &= ~(0x01 << elementsDuCentreDeTri[elementID].Position);
   
-}
-
-
-    
-  bool interfaceUsine_RequetePont (unsigned char ucPositiondemandee)
+  void interfaceUsine_Reset (void)
   {
-    if (ucRequetePont != INTERFACEUSINE_PONT_REQUETE_TRAITEE)return 0;
-    ucRequetePont = ucPositiondemandee;
-    return 1;
-  }
-  
-  unsigned char interfaceUsine_PositionPont (void)
-  {
-    return ucPostitonPont;
-  }
-
-  unsigned char interfaceUsine_EtatPont (void)
-  {
-    return ucEtatPont;
+    unionCartesI2CUsine.structCartesI2C.PCF1 = 0xFF;
+    unionCartesI2CUsine.structCartesI2C.PCF2 = 0xFF;
   }
 
 void interfaceUsine_Initialise (void)

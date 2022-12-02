@@ -26,11 +26,9 @@ void interfaceUsine_EcritUnElement (unsigned char elementID, bool etatAEcrire);
 bool interfaceUsine_LitUnElement (unsigned char elementID);
 void interfaceUsine_gere (void);
 void interfaceUsine_Initialise (void);
+void interfaceUsine_Reset (void);
 
-  void interfaceUsine_PontHome (void);
-  void interfaceUsine_PonPos1 (void);
-  void interfaceUsine_PonPos2 (void);
-  void interfaceUsine_PonPos3 (void);
+bool interfaceUsine_RequetePont (unsigned char ucPositiondemandee);
     
 #define INTERFACEUSINE_PONT_ETAT_ERREUR 0
 #define INTERFACEUSINE_PONT_ETAT_EN_COURS 1
