@@ -23,7 +23,7 @@ void ServiceUDPStation(void);
 void receiveUDP(void);
 void transUDP(unsigned char* transmitBuffer, char sizeOfBuffer);
 //Variables publiques:
-char readBuf[8];
+char readBuffer[8];
 //pas de variables publiques
 
 #endif

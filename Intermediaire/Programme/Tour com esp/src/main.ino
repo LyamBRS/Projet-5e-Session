@@ -11,6 +11,7 @@
 #include "xpiloteAnalogue1.h"
 #include "xserviceTaskServer.h"
 #include "xserviceBaseDeTemps.h"
+#include "serviceProtocole637.h"
 #include "xinterfaceEntree1.h"
 #include "xinterfaceT1.h"
 #include "interfacePass.h"
@@ -26,7 +27,7 @@ int num = 0;
 //Declarations de fonctions privees:
 void main_faitUnTest(void)
 {
-interfacePassUartToUDP();
+//interfacePassUartToUDP();
 }
 void main_initialise(void);
 
@@ -45,6 +46,7 @@ void main_initialise(void)
   piloteAnalogue1_initialise();  
   serviceTaskServer_initialise();
   serviceBaseDeTemps_initialise();
+  serviceProtocole637_initialise();
   interfaceEntree1_initialise();
   interfaceT1_initialise();
   processusClignotant_initialise();
@@ -52,20 +54,26 @@ void main_initialise(void)
 
 void setup(void) 
 {
+  //unsigned char ucUarttoUD[8] = {'M',0x04,0x00,0x00,0x00,0x00,0x00,0x00};
   Serial.begin(115200);
   main_initialise();
   main_faitUnTest();
   serviceTaskServer_DemarreLesTachesALaTouteFinDeSetup();
 
+//transUDP(ucUarttoUD, 8);
 }
 
 void loop(void) 
 {
+  //Serial2.write('P');
   unsigned char ucRead = 0x00;
-
+  
   if (Serial2.available()) 
-  {
-  }
+{
+  interfacePassUartToUDP();
+}
+  
+  
     // Read valeur sur buffeur
   serviceTaskServer_gestion.execute();
   serviceBaseDeTemps_gereDansLoop();   
