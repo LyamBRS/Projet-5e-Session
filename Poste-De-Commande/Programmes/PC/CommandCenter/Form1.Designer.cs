@@ -207,6 +207,7 @@ namespace CommandCenter
             this.Operation_Module_SortingStation.Name = "Operation_Module_SortingStation";
             this.Operation_Module_SortingStation.Tag = "Sorting Module";
             this.Operation_Module_SortingStation.UseVisualStyleBackColor = false;
+            this.Operation_Module_SortingStation.Click += new System.EventHandler(this.Operation_Module_SortingStation_Click);
             // 
             // Operation_Logs
             // 

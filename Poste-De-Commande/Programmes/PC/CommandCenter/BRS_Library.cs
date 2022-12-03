@@ -1635,6 +1635,7 @@ namespace BRS
         //#########################################################//
         public void Log_Comment(string comment, Color colorToUse)
         {
+            PrintTime();
             Window.SelectionStart = Window.Text.Length;
             Window.SelectionColor = colorToUse;
             Window.SelectedText = comment + "\n";
@@ -1649,6 +1650,7 @@ namespace BRS
         //#########################################################//
         public void Log_Comment(string comment)
         {
+            PrintTime();
             Window.SelectionStart = Window.Text.Length;
             Window.SelectionColor = Colors.Comment;
             Window.SelectedText = comment + "\n";
@@ -1663,9 +1665,10 @@ namespace BRS
         //#########################################################//
         public void Log_Error(string error)
         {
+            PrintTime();
             Window.SelectionStart = Window.Text.Length;
             Window.SelectionColor = Colors.Error;
-            Window.SelectedText = "\n[!ERROR!]: " + error + "\n";
+            Window.SelectedText = "\n [!ERROR!]: " + error + "\n";
             Window.SelectionStart = Window.Text.Length;
         }
         //#########################################################//
@@ -1677,9 +1680,10 @@ namespace BRS
         //#########################################################//
         public void Log_Warning(string warning)
         {
+            PrintTime();
             Window.SelectionStart = Window.Text.Length;
             Window.SelectionColor = Colors.Warning;
-            Window.SelectedText = "\n[-WARNING-]: " + warning + "\n";
+            Window.SelectedText = "\n [-WARNING-]: " + warning + "\n";
             Window.SelectionStart = Window.Text.Length;
         }
         //#########################################################//
@@ -1695,6 +1699,21 @@ namespace BRS
             Window.SelectionStart = Window.Text.Length;
             Window.SelectionColor = Colors.Header;
             Window.SelectedText = "\n==================================================\n" + nameOfHeader + "\n ==================================================\n";
+            Window.SelectionStart = Window.Text.Length;
+        }
+        //#########################################################//
+        /// <summary>
+        /// This private function automatically prints the time
+        /// in hours, without days, without carriage returns at the
+        /// end. It automatically puts the time within square brackets
+        /// and adds a tabulation after printing it.
+        /// </summary>
+        //#########################################################//
+        private void PrintTime()
+        {
+            Window.SelectionStart = Window.Text.Length;
+            Window.SelectionColor = Colors.Comment;
+            Window.SelectedText = "[" + DateTime.Now.ToString("T") + "]\t";
             Window.SelectionStart = Window.Text.Length;
         }
         #endregion Drawing

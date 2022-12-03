@@ -237,23 +237,7 @@ namespace CommandCenter
                         BRS.Debug.Comment("Starting CAN process...", true);
                         MasterProtocol_Start();
                     }
-                    ////////////////////////////////////////////////////////////////////////// USER PASSWORD
-                    if (lastLine.Contains("password") && BeagleBone.CurrentStep != 4)
-                    {
-                        BeagleBone.CurrentStep = 4;
-                        CommandCenter.Buttons.USB.State = ControlState.Loading;
-                        CommandCenter.Buttons.CloseBeagle.State = ControlState.Warning;
-                        CommandCenter.Buttons.Terminal.State = ControlState.Disabled;
-                        BeagleBone.Error = BeagleErrors.None;
 
-                        NewUserTextInfo("Entering password...", 3);
-                        BRS.ComPort.Port.Write(BeagleBone_Password.Text + "\n");
-
-                        BRS.Debug.Comment("Entering password in BeagleBone...", true);
-                        BRS.Debug.Comment("Password is: " + BeagleBone_Password.Text, true);
-                        BRS.Debug.Comment("Current Line is: " + lastLine, true);
-                        lastLine = "";
-                    }
                     /////////////////////////////////////////////////////////////////////////// USER LOGIN
                     if (lastLine.Contains("beaglebone login:") && BeagleBone.CurrentStep != 3)
                     {
@@ -350,6 +334,27 @@ namespace CommandCenter
                 { CommandCenter.terminal.state = Terminal.States.Inactive; }
                 if (CommandCenter.Buttons.Terminal.State == ControlState.Warning)
                 { CommandCenter.terminal.state = Terminal.States.Warning; }
+            }
+
+            if(!MasterProtocol.isActive)
+            {
+                ////////////////////////////////////////////////////////////////////////// USER PASSWORD
+                if (lastLine.Contains("password"))
+                {
+                    BeagleBone.CurrentStep = 4;
+                    CommandCenter.Buttons.USB.State = ControlState.Loading;
+                    CommandCenter.Buttons.CloseBeagle.State = ControlState.Warning;
+                    CommandCenter.Buttons.Terminal.State = ControlState.Disabled;
+                    BeagleBone.Error = BeagleErrors.None;
+
+                    NewUserTextInfo("Entering password...", 3);
+                    BRS.ComPort.Port.Write(BeagleBone_Password.Text + "\n");
+
+                    BRS.Debug.Comment("Entering password in BeagleBone...", true);
+                    BRS.Debug.Comment("Password is: " + BeagleBone_Password.Text, true);
+                    BRS.Debug.Comment("Current Line is: " + lastLine, true);
+                    lastLine = "";
+                }
             }
             Debug.LocalEnd();
         }

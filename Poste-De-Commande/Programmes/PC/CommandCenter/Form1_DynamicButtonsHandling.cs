@@ -67,6 +67,42 @@ namespace CommandCenter
                         public static bool isOpen = false;
                     }
                 }
+                /// <summary>
+                /// Holds old module values.
+                /// </summary>
+                public class Modules
+                {
+                    /// <summary>
+                    /// Old values of the ModuleData_SortingStation
+                    /// used to compare new values with old ones to
+                    /// avoid over updating stuff
+                    /// </summary>
+                    public class Sorting
+                    {
+                        public static byte State;
+                        public static byte Mode;
+                    }
+                    /// <summary>
+                    /// Old values of the ModuleData_WeightStation
+                    /// used to compare new values with old ones to
+                    /// avoid over updating stuff
+                    /// </summary>
+                    public class Weight
+                    {
+                        public static byte State;
+                        public static byte Mode;
+                    }
+                    /// <summary>
+                    /// Old values of the ModuleData_Vehicle
+                    /// used to compare new values with old ones to
+                    /// avoid over updating stuff
+                    /// </summary>
+                    public class Vehicle
+                    {
+                        public static byte State;
+                        public static byte Mode;
+                    }
+                }
             }
         }
         #endregion Variables

@@ -54,6 +54,7 @@ namespace CommandCenter
             Update_Button_EmergencyMode();
             Update_Button_ClearLog();
             Update_Button_StartStop();
+            Update_ModuleIcon_Sorting();
 
             //reset old values.
             Old.Operation.utils.MasterProtocol.Mode = MasterProtocol.mode;
@@ -243,7 +244,70 @@ namespace CommandCenter
                 }
             }
         }
-
+        //#############################################################//
+        /// <summary>
+        /// Updates the sorting factory's mode button present inside the
+        /// Tab_Operation according to bunch of parameters.
+        /// </summary>
+        //#############################################################//
+        public void Update_ModuleIcon_Sorting()
+        {
+            bool comPortIsOpen = BRS.ComPort.Port.IsOpen;
+            bool masterProtocolActive = MasterProtocol.isActive;
+            byte masterProtocolMode = MasterProtocol.mode;
+            ////////////////////////////////////////////////////////////
+            if (Old.Operation.utils.ComPort.isOpen != comPortIsOpen)
+            {
+                if (comPortIsOpen)
+                {
+                    CommandCenter.Operation.Buttons.SortingStation.State = ControlState.Inactive;
+                }
+                else
+                {
+                    CommandCenter.Operation.Buttons.SortingStation.State = ControlState.Disabled;
+                }
+            }
+            ////////////////////////////////////////////////////////////
+            if (comPortIsOpen)
+            {
+                if (masterProtocolActive != Old.Operation.utils.MasterProtocol.isActive || Old.Operation.Modules.Sorting.State != ModuleData_SortingStation.Current.State)
+                {
+                    if (masterProtocolActive)
+                    {
+                        if(Old.Operation.Modules.Sorting.State != ModuleData_SortingStation.Current.State)
+                        {
+                            if(ModuleData_SortingStation.Current.State == State_Offline)
+                            {
+                                CommandCenter.Operation.Buttons.SortingStation.State = ControlState.Inactive;
+                            }
+                            if(true)//else
+                            {
+                                if (ModuleData_SortingStation.Current.State == States_Ref.error)
+                                {
+                                    CommandCenter.Operation.Buttons.SortingStation.State = ControlState.Error;
+                                }
+                                else
+                                {
+                                    //Checking if the current state is expected  in the current wanted mode or not
+                                    if (ModuleData_SortingStation.IsStateAllowed())
+                                    {
+                                        CommandCenter.Operation.Buttons.SortingStation.State = ControlState.Active;
+                                    }
+                                    else
+                                    {
+                                        CommandCenter.Operation.Buttons.SortingStation.State = ControlState.Warning;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {   // Master protocol is OFF, no beaglebone communications
+                        CommandCenter.Operation.Buttons.SortingStation.State = ControlState.Inactive;
+                    }
+                }
+            }
+        }
         #endregion Individual_Updates
         #endregion Operation_Specifics
 
@@ -382,6 +446,71 @@ namespace CommandCenter
                 {
                     Debug.Aborted("Cancelling");
                     NewUserTextInfo("CAN is not ON", 3);
+                }
+            }
+            else
+            {
+                NewUserTextInfo("No Connection", 2);
+            }
+            BRS.Debug.Header(false);
+        }
+        //#############################################################//
+        /// <summary>
+        /// Executed each time the sorting station button is pressed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        //#############################################################//
+        private void Operation_Module_SortingStation_Click(object sender, EventArgs e)
+        {
+            BRS.Debug.Header(true);
+            BRS.Debug.Comment("Displaying sorting station's status");
+
+            if (BRS.ComPort.Port.IsOpen)
+            {
+                if (MasterProtocol.isActive)
+                {
+                    if (ModuleData_SortingStation.error != Module_Errors.none)
+                    {
+                        NewUserTextInfo(ModuleData_SortingStation.error.ToString(), 1);
+                    }
+                    else
+                    {
+                        if (ModuleData_SortingStation.Current.State == State_Offline)
+                        {
+                            NewUserTextInfo("Not Answering CAN", 3);
+                        }
+                        else
+                        {
+                            if (ModuleData_SortingStation.Current.State == States_Ref.emergencyStop)
+                            {
+                                NewUserTextInfo("IS IN EMERGENCY", 2);
+                            }
+                            else
+                            {   // regular states that the sorting station can have
+                                if (ModuleData_SortingStation.Current.State == States_Ref.calibrated) { NewUserTextInfo("Finished calibration", 1); }
+                                if (ModuleData_SortingStation.Current.State == States_Ref.calibrating) { NewUserTextInfo("is Calibrating...", 3); }
+                                if (ModuleData_SortingStation.Current.State == States_Ref.empty) { NewUserTextInfo("No more discs", 1); }
+                                if (ModuleData_SortingStation.Current.State == States_Ref.error) { NewUserTextInfo("Module in Error", 2); }
+                                if (ModuleData_SortingStation.Current.State == States_Ref.atSortingFactory) { NewUserTextInfo("At sorting factory?", 3); }
+                                if (ModuleData_SortingStation.Current.State == States_Ref.atWeightStation) { NewUserTextInfo("At weight station?", 3); }
+                                if (ModuleData_SortingStation.Current.State == States_Ref.finishedSortingAndHasLoaded) { NewUserTextInfo("Loaded he truck", 1); }
+                                if (ModuleData_SortingStation.Current.State == States_Ref.finishedWeighting) { NewUserTextInfo("finished weighting??", 3); }
+                                if (ModuleData_SortingStation.Current.State == States_Ref.paused) { NewUserTextInfo("Is paused", 1); }
+                                if (ModuleData_SortingStation.Current.State == States_Ref.processing) { NewUserTextInfo("Executing a task", 1); }
+                                if (ModuleData_SortingStation.Current.State == States_Ref.safe) { NewUserTextInfo("Is safe to handle", 1); }
+                                if (ModuleData_SortingStation.Current.State == States_Ref.testing) { NewUserTextInfo("Is in test mode", 1); }
+                                if (ModuleData_SortingStation.Current.State == States_Ref.waiting) { NewUserTextInfo("Factory not operating", 3); }
+                                if (ModuleData_SortingStation.Current.State == States_Ref.waitingToSort) { NewUserTextInfo("waiting after truck", 1); }
+                                if (ModuleData_SortingStation.Current.State == States_Ref.waitingToWeight) { NewUserTextInfo("waiting to weight???", 1); }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    Debug.Aborted("Cancelling");
+                    NewUserTextInfo("CAN protocol offline", 3);
                 }
             }
             else
