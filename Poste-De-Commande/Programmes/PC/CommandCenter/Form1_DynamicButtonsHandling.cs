@@ -123,42 +123,43 @@ namespace CommandCenter
                 if (Old.MasterProtocol.Mode != MasterProtocol.mode || Old.MasterProtocol.isActive != MasterProtocol.isActive)
                 {   Old.MasterProtocol.Mode = MasterProtocol.mode;
                     Debug.Aborted("HERE");
-                    //-------------------------------------------------// OPERATION
+                    //-------------------------------------------------------------------------------------// OPERATION
                     if (MasterProtocol.mode == Modes_Ref.operation)
                     {
                         CommandCenter.Buttons.Mode.Bitmaps = Icons.Operation.GetStatesBitmaps();
                         BRS.Debug.Comment("The MasterProtocol's mode has been updated to (Operation)", true);
                     }
-                    //-------------------------------------------------// MAINTENANCE
+                    //-------------------------------------------------------------------------------------// MAINTENANCE
                     if (MasterProtocol.mode == Modes_Ref.maintenance)
                     {
                         CommandCenter.Buttons.Mode.Bitmaps = Icons.Maintenance.GetStatesBitmaps();
                         BRS.Debug.Comment("The MasterProtocol's mode has been updated to (Maintenance)", true);
                     }
-                    //-------------------------------------------------// CALIBRATION
+                    //-------------------------------------------------------------------------------------// CALIBRATION
                     if (MasterProtocol.mode == Modes_Ref.calibration)
                     {
                         CommandCenter.Buttons.Mode.Bitmaps = Icons.Calibration.GetStatesBitmaps();
                         BRS.Debug.Comment("The MasterProtocol's mode has been updated to (Calibration)", true);
                     }
-                    //-------------------------------------------------// PAUSED / STOP
+                    //-------------------------------------------------------------------------------------// PAUSED / STOP
                     if (MasterProtocol.mode == Modes_Ref.pause)
                     {
                         CommandCenter.Buttons.Mode.Bitmaps = Icons.Paused.GetStatesBitmaps();
                         BRS.Debug.Comment("The MasterProtocol's mode has been updated to (Pause)", true);
                     }
-                    //-------------------------------------------------// TECH / TESTING
+                    //-------------------------------------------------------------------------------------// TECH / TESTING
                     if (MasterProtocol.mode == Modes_Ref.testing)
                     {
                         CommandCenter.Buttons.Mode.Bitmaps = Icons.Tech.GetStatesBitmaps();
                         BRS.Debug.Comment("The MasterProtocol's mode has been updated to (Technician)", true);
                     }
-                    //-------------------------------------------------// INITIALISATION
+                    //-------------------------------------------------------------------------------------// INITIALISATION
                     if (MasterProtocol.mode == Modes_Ref.reinitialisation)
                     {
                         CommandCenter.Buttons.Mode.Bitmaps = Icons.EveryModules.GetStatesBitmaps();
                         BRS.Debug.Comment("The MasterProtocol's mode has been updated to (Reinitialisation)",true);
                     }
+                    //-------------------------------------------------------------------------------------// EMERGENCY MODE
                     if (MasterProtocol.mode == Modes_Ref.emergencyStop)
                     {
                         CommandCenter.Buttons.Mode.Bitmaps = Icons.Emergency.GetStatesBitmaps();
@@ -216,6 +217,7 @@ namespace CommandCenter
             {
                 CommandCenter.Buttons.Terminal.Update();
                 CommandCenter.Buttons.CloseBeagle.Update();
+                CommandCenter.Buttons.SaveBBBTerminal.Update();
             }
             #endregion Index_Terminal
             #region Index_Operation
@@ -229,6 +231,7 @@ namespace CommandCenter
                 CommandCenter.Operation.Buttons.Vehicle.Update();
                 CommandCenter.Operation.Buttons.WeightStation.Update();
                 CommandCenter.Operation.Buttons.SortingStation.Update();
+                CommandCenter.Operation.Buttons.SaveOperationTerminal.Update();
 
                 CommandCenter.Operation.Overview.Vehicle.Update();
                 CommandCenter.Operation.Overview.WeightStation.Update();
@@ -304,6 +307,7 @@ namespace CommandCenter
             #region Index_Terminal
             CommandCenter.Buttons.Terminal.UpdateOriginalPositions(Button_Terminal.Location);
             CommandCenter.Buttons.CloseBeagle.UpdateOriginalPositions(Button_CloseBeagleBone.Location);
+            CommandCenter.Buttons.SaveBBBTerminal.UpdateOriginalPositions(Button_Save_Terminal.Location);
             #endregion Index_Terminal
             #region Index_Operation
             CommandCenter.Operation.Buttons.ClearTerminal.UpdateOriginalPositions(Operation_Terminal_Clear.Location);
@@ -318,6 +322,7 @@ namespace CommandCenter
             CommandCenter.Operation.Overview.Vehicle.UpdateOriginalPositions(Overview_Vehicle.Location);
             CommandCenter.Operation.Overview.WeightStation.UpdateOriginalPositions(Overview_WeightStation.Location);
             CommandCenter.Operation.Overview.SortingStation.UpdateOriginalPositions(Overview_SortingStation.Location);
+            CommandCenter.Operation.Buttons.SaveOperationTerminal.UpdateOriginalPositions(Operation_Save_Logs.Location);
             #endregion Index_Operation
         }
     }

@@ -124,6 +124,47 @@
   <data name="TabControl_ModeSelector.Appearance" type="System.Windows.Forms.TabAppearance, System.Windows.Forms">
     <value>FlatButtons</value>
   </data>
+  <data name="Operation_Save_Logs.AccessibleDescription" xml:space="preserve">
+    <value>Save the stored operation logs</value>
+  </data>
+  <data name="Operation_Save_Logs.AccessibleName" xml:space="preserve">
+    <value>Save Logs</value>
+  </data>
+  <data name="Operation_Save_Logs.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="Operation_Save_Logs.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="Operation_Save_Logs.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Operation_Save_Logs.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="Operation_Save_Logs.Location" type="System.Drawing.Point, System.Drawing">
+    <value>637, 168</value>
+  </data>
+  <data name="Operation_Save_Logs.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 100</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Operation_Save_Logs.TabIndex" type="System.Int32, mscorlib">
+    <value>49</value>
+  </data>
+  <data name="&gt;&gt;Operation_Save_Logs.Name" xml:space="preserve">
+    <value>Operation_Save_Logs</value>
+  </data>
+  <data name="&gt;&gt;Operation_Save_Logs.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Operation_Save_Logs.Parent" xml:space="preserve">
+    <value>Tab_Operation</value>
+  </data>
+  <data name="&gt;&gt;Operation_Save_Logs.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="Operation_Module_Global.AccessibleDescription" xml:space="preserve">
     <value>Indicates the current state of the total of all modules from the CAN bus</value>
   </data>
@@ -139,7 +180,6 @@
   <data name="Operation_Module_Global.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="Operation_Module_Global.Location" type="System.Drawing.Point, System.Drawing">
     <value>11, 9</value>
   </data>
@@ -149,7 +189,6 @@
   <data name="Operation_Module_Global.Size" type="System.Drawing.Size, System.Drawing">
     <value>50, 50</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="Operation_Module_Global.TabIndex" type="System.Int32, mscorlib">
     <value>42</value>
   </data>
@@ -163,7 +202,7 @@
     <value>Tab_Operation</value>
   </data>
   <data name="&gt;&gt;Operation_Module_Global.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="Operation_Terminal_Clear.AccessibleDescription" xml:space="preserve">
     <value>Clears the logged operation mode data</value>
@@ -202,7 +241,7 @@
     <value>Tab_Operation</value>
   </data>
   <data name="&gt;&gt;Operation_Terminal_Clear.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="Operation_Module_Vehicle.AccessibleDescription" xml:space="preserve">
     <value>Indicates the current state of the total of the vehicle modules from the CAN bus</value>
@@ -241,7 +280,7 @@
     <value>Tab_Operation</value>
   </data>
   <data name="&gt;&gt;Operation_Module_Vehicle.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="Operation_Pause.AccessibleDescription" xml:space="preserve">
     <value>Button which pauses the modules</value>
@@ -280,7 +319,7 @@
     <value>Tab_Operation</value>
   </data>
   <data name="&gt;&gt;Operation_Pause.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="Operation_Module_SortingStation.AccessibleDescription" xml:space="preserve">
     <value>Indicates the current state of the sorting station modules from the CAN bus</value>
@@ -319,7 +358,7 @@
     <value>Tab_Operation</value>
   </data>
   <data name="&gt;&gt;Operation_Module_SortingStation.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="Operation_Logs.AccessibleDescription" xml:space="preserve">
     <value>Contains the logs for the operation mode</value>
@@ -358,7 +397,7 @@
     <value>Tab_Operation</value>
   </data>
   <data name="&gt;&gt;Operation_Logs.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="Operation_Module_WeightStation.AccessibleDescription" xml:space="preserve">
     <value>Indicates the current state of the weight station from the CAN bus data</value>
@@ -397,7 +436,7 @@
     <value>Tab_Operation</value>
   </data>
   <data name="&gt;&gt;Operation_Module_WeightStation.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="Panel_Overview.AccessibleDescription" xml:space="preserve">
     <value>Overview of the state of operations for all modules currently in operation mode</value>
@@ -541,7 +580,7 @@
     <value>Tab_Operation</value>
   </data>
   <data name="&gt;&gt;Panel_Overview.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="ProgressBar_CurrentTask.AccessibleDescription" xml:space="preserve">
     <value>Displays how long a task should be taking and where we are supposed to be in % until that task is finished</value>
@@ -574,7 +613,7 @@
     <value>Tab_Operation</value>
   </data>
   <data name="&gt;&gt;ProgressBar_CurrentTask.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="Operation_EmergencyStop.AccessibleDescription" xml:space="preserve">
     <value>Button which puts the connected modules into an emergency mode</value>
@@ -613,7 +652,7 @@
     <value>Tab_Operation</value>
   </data>
   <data name="&gt;&gt;Operation_EmergencyStop.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>10</value>
   </data>
   <data name="Tab_Operation.ImageKey" xml:space="preserve">
     <value>Operation_Disabled_Filled.png</value>
@@ -741,6 +780,45 @@
   <data name="&gt;&gt;Tab_Maintenance.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="Button_Save_Terminal.AccessibleDescription" xml:space="preserve">
+    <value>Saves the beaglebone's terminal logs</value>
+  </data>
+  <data name="Button_Save_Terminal.AccessibleName" xml:space="preserve">
+    <value>Save BeagleBone logs</value>
+  </data>
+  <data name="Button_Save_Terminal.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="Button_Save_Terminal.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="Button_Save_Terminal.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Button_Save_Terminal.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Button_Save_Terminal.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 196</value>
+  </data>
+  <data name="Button_Save_Terminal.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 100</value>
+  </data>
+  <data name="Button_Save_Terminal.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="&gt;&gt;Button_Save_Terminal.Name" xml:space="preserve">
+    <value>Button_Save_Terminal</value>
+  </data>
+  <data name="&gt;&gt;Button_Save_Terminal.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Button_Save_Terminal.Parent" xml:space="preserve">
+    <value>Tab_Terminal</value>
+  </data>
+  <data name="&gt;&gt;Button_Save_Terminal.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="Button_CloseBeagleBone.AccessibleDescription" xml:space="preserve">
     <value>Allows the user to send an END to the beaglebone program</value>
   </data>
@@ -775,7 +853,7 @@
     <value>Tab_Terminal</value>
   </data>
   <data name="&gt;&gt;Button_CloseBeagleBone.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="Button_Terminal.AccessibleDescription" xml:space="preserve">
     <value>Allows the user to clear the terminal window of all text. Do not use when connecting to beaglebone blue!</value>
@@ -814,7 +892,7 @@
     <value>Tab_Terminal</value>
   </data>
   <data name="&gt;&gt;Button_Terminal.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="ConsoleArea.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -847,7 +925,7 @@
     <value>Tab_Terminal</value>
   </data>
   <data name="&gt;&gt;ConsoleArea.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="Tab_Terminal.ImageKey" xml:space="preserve">
     <value>Terminal_Disabled_Filled.png</value>
@@ -1988,7 +2066,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAB2
-        ZgAAAk1TRnQBSQFMAgEBKQEAAfABAQHwAQEBIAEAASABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        ZgAAAk1TRnQBSQFMAgEBKQEAATABAgEwAQIBIAEAASABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABgAMAAWABAQIAAQEBAAEIBgABsBgAAYACAAGAAwACgAEAAYADAAGAAQABgAEAAoACAAPAAQABwAHc
         AcABAAHwAcoBpgEAATMFAAEzAQABMwEAATMBAAIzAgADFgEAAxwBAAMiAQADKQEAA1UBAANNAQADQgEA
         AzkBAAGAAXwB/wEAAlAB/wEAAZMBAAHWAQAB/wHsAcwBAAHGAdYB7wEAAdYC5wEAAZABqQGtAgAB/wEz
@@ -2585,7 +2663,7 @@
     <value>True</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>84</value>
+    <value>25</value>
   </metadata>
   <data name="$this.AccessibleDescription" xml:space="preserve">
     <value>The program used to control the command center's operation for a sorting and weighting </value>

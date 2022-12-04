@@ -143,7 +143,7 @@ namespace CommandCenter
             {
                 BRS.Debug.Error("UNEXPECTED SHIT HAPENNED!");
                 BRS.Debug.Comment("Stopping CAN TIMER!");
-                NewUserTextInfo("FATAL UART ERROR",2);
+                NewUserTextInfo(UserInfos.ComPort.UnexpectedTermination,2);
 
                 MasterProtocol.isActive = false;
                 MasterProtocol.error = CAN_Errors.uart;
@@ -352,14 +352,14 @@ namespace CommandCenter
                 /// Not the real address.
                 /// The real address is 0x200;
                 /// </summary>
-                public static int Vehicule = 0x200;
+                public static int Vehicule = 523;
                 /// <summary>
                 /// Specific address used by the sorting station to receive data.
                 /// This address is corresponding to the BeagleBoneBlue's terminal output.
                 /// Not the real address.
                 /// The real address is 0x300;
                 /// </summary>
-                public static int SortingStation = 0x300;
+                public static int SortingStation = 512;
                 /// <summary>
                 /// Specific address used by the weight station to receive data.
                 /// This address is corresponding to the BeagleBoneBlue's terminal output.
@@ -384,14 +384,14 @@ namespace CommandCenter
                 /// Not the real address.
                 /// The real address is 0x200;
                 /// </summary>
-                public static int Vehicule = 0x201;
+                public static int Vehicule = 523;
                 /// <summary>
                 /// Specific address used by the sorting station to receive data.
                 /// This address is corresponding to the BeagleBoneBlue's terminal output.
                 /// Not the real address.
                 /// The real address is 0x300;
                 /// </summary>
-                public static int SortingStation = 0x301;
+                public static int SortingStation = 512;
                 /// <summary>
                 /// Specific address used by the weight station to receive data.
                 /// This address is corresponding to the BeagleBoneBlue's terminal output.
@@ -857,8 +857,8 @@ namespace CommandCenter
         #region Modules
         //-------------------------------------------------------------//
         public cModule ModuleData_Vehicle = new cModule("Vehicle",CAN_Addresses.TX.Vehicule, CAN_Addresses.RX.Vehicule);
-        public cModule ModuleData_SortingStation = new cModule("Sorting Station", 512, 512);
-        public cModule ModuleData_WeightStation = new cModule("Weight Station", CAN_Addresses.TX.Vehicule, CAN_Addresses.RX.Vehicule);
+        public cModule ModuleData_SortingStation = new cModule("Sorting Station", CAN_Addresses.TX.SortingStation, CAN_Addresses.RX.SortingStation);
+        public cModule ModuleData_WeightStation = new cModule("Weight Station", CAN_Addresses.TX.WeightStation, CAN_Addresses.RX.WeightStation);
         //-------------------------------------------------------------//
 
         //#############################################################//
@@ -1114,7 +1114,7 @@ namespace CommandCenter
 
                 BRS.Debug.Comment("Setting Current structure's values to initial parameters");
                 Current.Mode = Modes_Ref.reinitialisation;
-                Current.State = States_Ref.waiting;
+                Current.State = State_Offline;
                 Current.Weight = 0;
                 Current.AllowedStates.SetAllTo(DataState.Unused);
 

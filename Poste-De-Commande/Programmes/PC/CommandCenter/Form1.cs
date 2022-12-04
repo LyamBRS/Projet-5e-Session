@@ -45,9 +45,12 @@ namespace CommandCenter
             #region Index_Terminal
             CommandCenter.Buttons.Terminal = new GenericButton(Button_Terminal, Icons.Terminal.GetStatesColors(), Icons.Terminal.GetStatesBitmaps());
             CommandCenter.Buttons.CloseBeagle = new GenericButton(Button_CloseBeagleBone, Icons.X.GetStatesColors(), Icons.X.GetStatesBitmaps());
+            CommandCenter.Buttons.SaveBBBTerminal = new GenericButton(Button_Save_Terminal, Icons.Save.GetStatesColors(), Icons.Save.GetStatesBitmaps());
+
             #endregion Index_Terminal
             #region Index_Operation
             CommandCenter.Operation.Buttons.ClearTerminal = new GenericButton(Operation_Terminal_Clear, Icons.Terminal.GetStatesColors(), Icons.Terminal.GetStatesBitmaps());
+            CommandCenter.Operation.Buttons.SaveOperationTerminal = new GenericButton(Operation_Save_Logs, Icons.Save.GetStatesColors(), Icons.Save.GetStatesBitmaps());
 
             CommandCenter.Operation.Buttons.EmergencyStop = new GenericButton(Operation_EmergencyStop, Icons.Emergency.GetStatesColors(), Icons.Emergency.GetStatesBitmaps());
             CommandCenter.Operation.Buttons.Global = new GenericButton(Operation_Module_Global, Icons.EveryModules.GetStatesColors(), Icons.EveryModules.GetStatesBitmaps());
@@ -74,6 +77,7 @@ namespace CommandCenter
             #region Index_Terminal
             CommandCenter.Buttons.Terminal.Animated = true;
             CommandCenter.Buttons.CloseBeagle.Animated = true;
+            CommandCenter.Buttons.SaveBBBTerminal.Animated = true;
             #endregion Index_Terminal
             #region Index_Operation
             CommandCenter.Operation.Buttons.ClearTerminal.Animated = true;
@@ -84,6 +88,7 @@ namespace CommandCenter
             CommandCenter.Operation.Buttons.Vehicle.Animated = true;
             CommandCenter.Operation.Buttons.WeightStation.Animated = true;
             CommandCenter.Operation.Buttons.SortingStation.Animated = true;
+            CommandCenter.Operation.Buttons.SaveOperationTerminal.Animated = true;
             /*
             CommandCenter.Operation.Buttons.EmergencyStop.SizeMultiplier_MouseHover = 1;
             CommandCenter.Operation.Buttons.Global.SizeMultiplier_MouseHover = 1;
@@ -112,20 +117,22 @@ namespace CommandCenter
             #region Index_Terminal
             CommandCenter.Buttons.Terminal.State = ControlState.Inactive;
             CommandCenter.Buttons.CloseBeagle.State = ControlState.Disabled;
+            CommandCenter.Buttons.SaveBBBTerminal.State = ControlState.Inactive;
             #endregion Index_Terminal
             #region Index_Operation
-            CommandCenter.Operation.Buttons.ClearTerminal.State     = ControlState.Inactive;
+            CommandCenter.Operation.Buttons.ClearTerminal.State              = ControlState.Inactive;
+                                                                            
+            CommandCenter.Operation.Buttons.EmergencyStop.State              = ControlState.Disabled;
+            CommandCenter.Operation.Buttons.Global.State                     = ControlState.Inactive;
+            CommandCenter.Operation.Buttons.Pause.State                      = ControlState.Disabled;
+            CommandCenter.Operation.Buttons.Vehicle.State                    = ControlState.Inactive;
+            CommandCenter.Operation.Buttons.WeightStation.State              = ControlState.Inactive;
+            CommandCenter.Operation.Buttons.SortingStation.State             = ControlState.Inactive;
+            CommandCenter.Operation.Buttons.SaveOperationTerminal.State      = ControlState.Inactive;
 
-            CommandCenter.Operation.Buttons.EmergencyStop.State     = ControlState.Disabled;
-            CommandCenter.Operation.Buttons.Global.State            = ControlState.Disabled;
-            CommandCenter.Operation.Buttons.Pause.State             = ControlState.Disabled;
-            CommandCenter.Operation.Buttons.Vehicle.State           = ControlState.Disabled;
-            CommandCenter.Operation.Buttons.WeightStation.State     = ControlState.Disabled;
-            CommandCenter.Operation.Buttons.SortingStation.State    = ControlState.Disabled;
-
-            CommandCenter.Operation.Overview.Vehicle.State          = ControlState.Inactive;
-            CommandCenter.Operation.Overview.WeightStation.State    = ControlState.Inactive;
-            CommandCenter.Operation.Overview.SortingStation.State   = ControlState.Inactive;
+            CommandCenter.Operation.Overview.Vehicle.State                   = ControlState.Inactive;
+            CommandCenter.Operation.Overview.WeightStation.State             = ControlState.Inactive;
+            CommandCenter.Operation.Overview.SortingStation.State            = ControlState.Inactive;
             #endregion Index_Operation
             Debug.Success("");
             #endregion DynamicButtons
@@ -190,6 +197,9 @@ namespace CommandCenter
 
             OperationLogs.Window = new Terminal(Operation_Logs, this);
             OperationLogs.Window.ShowTX = false;
+
+            OperationLogs.Window.SavingFolder = "Operation";
+            CommandCenter.terminal.SavingFolder = "BeagleBone";
             
             BRS.ComPort.createInfoReceivedEvent();
             BRS.ComPort.DataReceivedAction = CommandCenter.terminal.DataReceiverHandling;
@@ -243,25 +253,25 @@ namespace CommandCenter
                 switch (MasterProtocol.mode)
                 {
                     case (0x00):
-                        NewUserTextInfo("EMERGENCY STOP", 2);
+                        NewUserTextInfo(UserInfos.Modes.IsEmergency, 2);
                         break;
                     case (0x01):
-                        NewUserTextInfo("Paused", 2);
+                        NewUserTextInfo(UserInfos.Modes.IsPaused, 2);
                         break;
                     case (0x02):
-                        NewUserTextInfo("Testing mode", 2);
+                        NewUserTextInfo(UserInfos.Modes.IsTesting, 2);
                         break;
                     case (0x03):
-                        NewUserTextInfo("Maintenance", 2);
+                        NewUserTextInfo(UserInfos.Modes.IsMaintenance, 2);
                         break;
                     case (0x04):
-                        NewUserTextInfo("Operation Mode", 2);
+                        NewUserTextInfo(UserInfos.Modes.IsOperating, 2);
                         break;
                     case (0x05):
-                        NewUserTextInfo("Calibration Mode", 2);
+                        NewUserTextInfo(UserInfos.Modes.IsCalibrating, 2);
                         break;
                     case (0x06):
-                        NewUserTextInfo("Reset Mode", 2);
+                        NewUserTextInfo(UserInfos.Modes.IsInitialising, 2);
                         break;
                 }
             }
@@ -269,11 +279,11 @@ namespace CommandCenter
             {
                 if(BRS.ComPort.Port.IsOpen)
                 {
-                    NewUserTextInfo("Waiting for BBB", 2);
+                    NewUserTextInfo(UserInfos.MasterProtocol.IsWaitingForBBB, 2);
                 }
                 else
                 {
-                    NewUserTextInfo("Disabled", 2);
+                    NewUserTextInfo(UserInfos.ComPort.IsOffline, 2);
                 }
             }
 
@@ -301,6 +311,7 @@ namespace CommandCenter
             public static BRS.Buttons.GenericButton Terminal;
             public static BRS.Buttons.GenericButton AutoConnection;
             public static BRS.Buttons.GenericButton CloseBeagle;
+            public static GenericButton SaveBBBTerminal;
         }
         /// <summary>
         /// Class containing all the buttons specific to the
@@ -317,6 +328,7 @@ namespace CommandCenter
                 public static GenericButton Pause;
                 public static GenericButton EmergencyStop;
                 public static GenericButton ClearTerminal;
+                public static GenericButton SaveOperationTerminal;
             }
             /// <summary>
             /// Overview of operation process indicators buttons stuff

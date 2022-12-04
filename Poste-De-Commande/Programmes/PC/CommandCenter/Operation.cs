@@ -16,6 +16,7 @@ using System.Collections.ObjectModel;
 using System.Xml.Linq;
 using BRS;
 using BRS.Buttons;
+using static CommandCenter.Form_MainMenu.cModule;
 
 namespace CommandCenter
 {
@@ -54,7 +55,10 @@ namespace CommandCenter
             Update_Button_EmergencyMode();
             Update_Button_ClearLog();
             Update_Button_StartStop();
+
             Update_ModuleIcon_Sorting();
+            Update_ModuleIcon_Vehicle();
+            Update_ModuleIcon_Weight();
 
             //reset old values.
             Old.Operation.utils.MasterProtocol.Mode = MasterProtocol.mode;
@@ -250,6 +254,7 @@ namespace CommandCenter
         /// Tab_Operation according to bunch of parameters.
         /// </summary>
         //#############################################################//
+        #region Modules
         public void Update_ModuleIcon_Sorting()
         {
             bool comPortIsOpen = BRS.ComPort.Port.IsOpen;
@@ -260,11 +265,11 @@ namespace CommandCenter
             {
                 if (comPortIsOpen)
                 {
-                    CommandCenter.Operation.Buttons.SortingStation.State = ControlState.Inactive;
+                    CommandCenter.Operation.Buttons.SortingStation.State = ControlState.Loading;
                 }
                 else
                 {
-                    CommandCenter.Operation.Buttons.SortingStation.State = ControlState.Disabled;
+                    CommandCenter.Operation.Buttons.SortingStation.State = ControlState.Inactive;
                 }
             }
             ////////////////////////////////////////////////////////////
@@ -280,7 +285,7 @@ namespace CommandCenter
                             {
                                 CommandCenter.Operation.Buttons.SortingStation.State = ControlState.Inactive;
                             }
-                            if(true)//else
+                            else //was if(true)
                             {
                                 if (ModuleData_SortingStation.Current.State == States_Ref.error)
                                 {
@@ -303,8 +308,197 @@ namespace CommandCenter
                     }
                     else
                     {   // Master protocol is OFF, no beaglebone communications
-                        CommandCenter.Operation.Buttons.SortingStation.State = ControlState.Inactive;
+                        CommandCenter.Operation.Buttons.SortingStation.State = ControlState.Loading;
                     }
+                }
+            }
+        }
+        //#############################################################//
+        /// <summary>
+        /// Updates the vehicle's mode button present inside the
+        /// Tab_Operation according to bunch of parameters.
+        /// </summary>
+        //#############################################################//
+        public void Update_ModuleIcon_Vehicle()
+        {
+            bool comPortIsOpen = BRS.ComPort.Port.IsOpen;
+            bool masterProtocolActive = MasterProtocol.isActive;
+            byte masterProtocolMode = MasterProtocol.mode;
+            ////////////////////////////////////////////////////////////
+            if (Old.Operation.utils.ComPort.isOpen != comPortIsOpen)
+            {
+                if (comPortIsOpen)
+                {
+                    CommandCenter.Operation.Buttons.Vehicle.State = ControlState.Loading;
+                }
+                else
+                {
+                    CommandCenter.Operation.Buttons.Vehicle.State = ControlState.Inactive;
+                }
+            }
+            ////////////////////////////////////////////////////////////
+            if(comPortIsOpen)
+            {
+                if (masterProtocolActive != Old.Operation.utils.MasterProtocol.isActive || Old.Operation.Modules.Sorting.State != ModuleData_Vehicle.Current.State)
+                {
+                    if (masterProtocolActive)
+                    {
+                        if (Old.Operation.Modules.Vehicle.State != ModuleData_Vehicle.Current.State)
+                        {
+                            if (ModuleData_Vehicle.Current.State == State_Offline)
+                            {
+                                CommandCenter.Operation.Buttons.Vehicle.State = ControlState.Inactive;
+                            }
+                            else //was if(true)
+                            {
+                                if (ModuleData_Vehicle.Current.State == States_Ref.error)
+                                {
+                                    CommandCenter.Operation.Buttons.Vehicle.State = ControlState.Error;
+                                }
+                                else
+                                {
+                                    //Checking if the current state is expected  in the current wanted mode or not
+                                    if (ModuleData_Vehicle.IsStateAllowed())
+                                    {
+                                        CommandCenter.Operation.Buttons.Vehicle.State = ControlState.Active;
+                                    }
+                                    else
+                                    {
+                                        CommandCenter.Operation.Buttons.Vehicle.State = ControlState.Warning;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {   // Master protocol is OFF, no beaglebone communications
+                        CommandCenter.Operation.Buttons.Vehicle.State = ControlState.Loading;
+                    }
+                }
+            }
+        }
+        //#############################################################//
+        /// <summary>
+        /// Updates the weight station's mode button present inside the
+        /// Tab_Operation according to bunch of parameters.
+        /// </summary>
+        //#############################################################//
+        public void Update_ModuleIcon_Weight()
+        {
+            bool comPortIsOpen = BRS.ComPort.Port.IsOpen;
+            bool masterProtocolActive = MasterProtocol.isActive;
+            byte masterProtocolMode = MasterProtocol.mode;
+            ////////////////////////////////////////////////////////////
+            if (Old.Operation.utils.ComPort.isOpen != comPortIsOpen)
+            {
+                if (comPortIsOpen)
+                {
+                    CommandCenter.Operation.Buttons.WeightStation.State = ControlState.Loading;
+                }
+                else
+                {
+                    CommandCenter.Operation.Buttons.WeightStation.State = ControlState.Inactive;
+                }
+            }
+            ////////////////////////////////////////////////////////////
+            if (comPortIsOpen)
+            {
+                if (masterProtocolActive != Old.Operation.utils.MasterProtocol.isActive || Old.Operation.Modules.Sorting.State != ModuleData_WeightStation.Current.State)
+                {
+                    if (masterProtocolActive)
+                    {
+                        if (Old.Operation.Modules.Weight.State != ModuleData_WeightStation.Current.State)
+                        {
+                            if (ModuleData_WeightStation.Current.State == State_Offline)
+                            {
+                                CommandCenter.Operation.Buttons.WeightStation.State = ControlState.Inactive;
+                            }
+                            else //was if(true)
+                            {
+                                if (ModuleData_WeightStation.Current.State == States_Ref.error)
+                                {
+                                    CommandCenter.Operation.Buttons.WeightStation.State = ControlState.Error;
+                                }
+                                else
+                                {
+                                    //Checking if the current state is expected  in the current wanted mode or not
+                                    if (ModuleData_WeightStation.IsStateAllowed())
+                                    {
+                                        CommandCenter.Operation.Buttons.WeightStation.State = ControlState.Active;
+                                    }
+                                    else
+                                    {
+                                        CommandCenter.Operation.Buttons.WeightStation.State = ControlState.Warning;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {   // Master protocol is OFF, no beaglebone communications
+                        CommandCenter.Operation.Buttons.WeightStation.State = ControlState.Loading;
+                    }
+                }
+            }
+        }
+        #endregion Modules
+        //#############################################################//
+        /// <summary>
+        /// Updates the global icons which represent the general state
+        /// of everything module related.
+        /// </summary>
+        //#############################################################//
+        public void Update_ModuleIcon_Global()
+        {
+            bool comPortIsOpen = BRS.ComPort.Port.IsOpen;
+            bool masterProtocolActive = MasterProtocol.isActive;
+            byte masterProtocolMode = MasterProtocol.mode;
+            ////////////////////////////////////////////////////////////
+            if (Old.Operation.utils.ComPort.isOpen != comPortIsOpen)
+            {
+                if (comPortIsOpen)
+                {
+                    CommandCenter.Operation.Buttons.Global.State = ControlState.Loading;
+                }
+                else
+                {
+                    CommandCenter.Operation.Buttons.Global.State = ControlState.Inactive;
+                }
+            }
+            ////////////////////////////////////////////////////////////
+            if (comPortIsOpen)
+            {
+                if (masterProtocolActive)
+                {
+                    if(true) //(Old.Operation.Modules.Weight.State != ModuleData_WeightStation.Current.State)
+                    {
+                        bool sortingStationOffline = ModuleData_SortingStation.Current.State == State_Offline;
+                        bool weightStationOffline = ModuleData_WeightStation.Current.State == State_Offline;
+                        bool vehicleOffline = ModuleData_Vehicle.Current.State == State_Offline;
+
+                        bool allModuleOffline = sortingStationOffline && weightStationOffline && vehicleOffline;
+                        bool someModuleOffline = sortingStationOffline || weightStationOffline || vehicleOffline;
+
+                        if (allModuleOffline)
+                        {
+                            CommandCenter.Operation.Buttons.Global.State = ControlState.Error;
+                        }
+                        else //was if(true)
+                        {
+                            if (someModuleOffline)
+                            {
+                                CommandCenter.Operation.Buttons.Global.State = ControlState.Warning;
+                            }
+                            else
+                            {
+                                CommandCenter.Operation.Buttons.Global.State = ControlState.Active;
+                            }
+                        }
+                    }
+                }
+                else
+                {   // Master protocol is OFF, no beaglebone communications
+                    CommandCenter.Operation.Buttons.Global.State = ControlState.Loading;
                 }
             }
         }
@@ -346,7 +540,7 @@ namespace CommandCenter
                             ModuleData_WeightStation.Current.Mode  = Modes_Ref.pause;
 
                             UpdateModeIcons();
-                            NewUserTextInfo("EMERGENCY [OFF]", 2);
+                            NewUserTextInfo(UserInfos.Modes.EmergencyDisabled, 2);
                         }
                         else
                         {
@@ -363,20 +557,20 @@ namespace CommandCenter
                         ModuleData_Vehicle.Current.Mode = Modes_Ref.emergencyStop;
                         ModuleData_SortingStation.Current.Mode = Modes_Ref.emergencyStop;
                         ModuleData_WeightStation.Current.Mode = Modes_Ref.emergencyStop;
-                        NewUserTextInfo("[EMERGENCY MODE]", 2);
+                        NewUserTextInfo(UserInfos.Modes.EmergencyEnabled, 2);
                         UpdateModeIcons();
                     }
                 }
                 else
                 {
                     Debug.Aborted("CAN protocol is currently not active");
-                    NewUserTextInfo("CAN protocol offline", 2);
+                    NewUserTextInfo(UserInfos.MasterProtocol.IsOffline, 2);
                 }
             }
             else
             {
                 Debug.Aborted("USB is closed, the Mode cannot be set to be an emergency Stop");
-                NewUserTextInfo("No SerialPort connected",2);
+                NewUserTextInfo(UserInfos.ComPort.IsOffline,2);
             }
 
             Update_OperationTab();
@@ -386,7 +580,26 @@ namespace CommandCenter
         //#############################################################//
         private void Operation_Terminal_Clear_Click(object sender, EventArgs e)
         {
-
+            Random sus = new Random();
+            OperationLogs.Window.Log_Comment(sus.Next().ToString());
+        }
+        //#############################################################//
+        /// <summary>
+        /// Happens when you click on the saving icon locted inside of
+        /// the the Tab_Operation
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        //#############################################################//
+        private void Operation_Save_Logs_Click(object sender, EventArgs e)
+        {
+            BRS.Debug.Header(true);
+            BRS.Debug.Comment("Attempting to save the Operation's logs");
+            OperationLogs.Window.SaveTerminal();
+            NewUserTextInfo(UserInfos.Terminal.Saved,1);
+            Debug.Success();
+            OperationLogs.Window.Clear();
+            BRS.Debug.Header(false);
         }
         //#############################################################//
         /// <summary>
@@ -407,7 +620,7 @@ namespace CommandCenter
                     if (MasterProtocol.mode == Modes_Ref.pause)
                     {
                         BRS.Debug.Comment("Attempting to start operations");
-                        NewUserTextInfo("Starting Operations", 1);
+                        NewUserTextInfo(UserInfos.Modes.OperationStarted, 1);
                         MasterProtocol.mode = Modes_Ref.operation;
                     }
                     else
@@ -415,14 +628,14 @@ namespace CommandCenter
                         if (MasterProtocol.mode == Modes_Ref.operation)
                         {
                             BRS.Debug.Comment("Attempting to pause operations");
-                            NewUserTextInfo("Paused Operations", 1);
+                            NewUserTextInfo(UserInfos.Modes.NowPaused, 1);
                             MasterProtocol.mode = Modes_Ref.pause;
                         }
                         else
                         {
                             if (MasterProtocol.mode == Modes_Ref.emergencyStop)
                             {
-                                NewUserTextInfo("EMERGENCY STOP", 2);
+                                NewUserTextInfo(UserInfos.Modes.IsEmergency, 2);
                             }
                             else
                             {
@@ -430,13 +643,12 @@ namespace CommandCenter
                                 if (BRS.PopUp.Question("Are you sure you want to start Operations? The command center is executing an other mode", "Just checking yk"))
                                 {
                                     Debug.Success("Starting operations");
-                                    NewUserTextInfo("Starting Operations", 3);
+                                    NewUserTextInfo(UserInfos.Modes.OperationStarted, 3);
                                     MasterProtocol.mode = Modes_Ref.operation;
                                 }
                                 else
                                 {
                                     Debug.Aborted("Cancelling");
-                                    NewUserTextInfo("Cancelled Operations", 3);
                                 }
                             }
                         }
@@ -445,15 +657,16 @@ namespace CommandCenter
                 else
                 {
                     Debug.Aborted("Cancelling");
-                    NewUserTextInfo("CAN is not ON", 3);
+                    NewUserTextInfo(UserInfos.MasterProtocol.IsOffline, 3);
                 }
             }
             else
             {
-                NewUserTextInfo("No Connection", 2);
+                NewUserTextInfo(UserInfos.ComPort.IsOffline, 2);
             }
             BRS.Debug.Header(false);
         }
+        #region ModuleButtons
         //#############################################################//
         /// <summary>
         /// Executed each time the sorting station button is pressed
@@ -478,31 +691,187 @@ namespace CommandCenter
                     {
                         if (ModuleData_SortingStation.Current.State == State_Offline)
                         {
-                            NewUserTextInfo("Not Answering CAN", 3);
+                            NewUserTextInfo(UserInfos.Modules.IsUnresponsive, 3);
                         }
                         else
                         {
                             if (ModuleData_SortingStation.Current.State == States_Ref.emergencyStop)
                             {
-                                NewUserTextInfo("IS IN EMERGENCY", 2);
+                                NewUserTextInfo(UserInfos.Modules.IsInEmergency, 2);
                             }
                             else
-                            {   // regular states that the sorting station can have
-                                if (ModuleData_SortingStation.Current.State == States_Ref.calibrated) { NewUserTextInfo("Finished calibration", 1); }
-                                if (ModuleData_SortingStation.Current.State == States_Ref.calibrating) { NewUserTextInfo("is Calibrating...", 3); }
-                                if (ModuleData_SortingStation.Current.State == States_Ref.empty) { NewUserTextInfo("No more discs", 1); }
-                                if (ModuleData_SortingStation.Current.State == States_Ref.error) { NewUserTextInfo("Module in Error", 2); }
-                                if (ModuleData_SortingStation.Current.State == States_Ref.atSortingFactory) { NewUserTextInfo("At sorting factory?", 3); }
-                                if (ModuleData_SortingStation.Current.State == States_Ref.atWeightStation) { NewUserTextInfo("At weight station?", 3); }
-                                if (ModuleData_SortingStation.Current.State == States_Ref.finishedSortingAndHasLoaded) { NewUserTextInfo("Loaded he truck", 1); }
-                                if (ModuleData_SortingStation.Current.State == States_Ref.finishedWeighting) { NewUserTextInfo("finished weighting??", 3); }
-                                if (ModuleData_SortingStation.Current.State == States_Ref.paused) { NewUserTextInfo("Is paused", 1); }
-                                if (ModuleData_SortingStation.Current.State == States_Ref.processing) { NewUserTextInfo("Executing a task", 1); }
-                                if (ModuleData_SortingStation.Current.State == States_Ref.safe) { NewUserTextInfo("Is safe to handle", 1); }
-                                if (ModuleData_SortingStation.Current.State == States_Ref.testing) { NewUserTextInfo("Is in test mode", 1); }
-                                if (ModuleData_SortingStation.Current.State == States_Ref.waiting) { NewUserTextInfo("Factory not operating", 3); }
-                                if (ModuleData_SortingStation.Current.State == States_Ref.waitingToSort) { NewUserTextInfo("waiting after truck", 1); }
-                                if (ModuleData_SortingStation.Current.State == States_Ref.waitingToWeight) { NewUserTextInfo("waiting to weight???", 1); }
+                            {
+                                if (ModuleData_SortingStation.IsStateAllowed())
+                                {
+                                    // regular states that the sorting station can have
+                                    if (ModuleData_SortingStation.Current.State == States_Ref.calibrated)                    { NewUserTextInfo(UserInfos.Modules.States.calibrated, 1); }
+                                    if (ModuleData_SortingStation.Current.State == States_Ref.calibrating)                   { NewUserTextInfo(UserInfos.Modules.States.calibrating, 3); }
+                                    if (ModuleData_SortingStation.Current.State == States_Ref.empty)                         { NewUserTextInfo(UserInfos.Modules.States.empty, 1); }
+                                    if (ModuleData_SortingStation.Current.State == States_Ref.error)                         { NewUserTextInfo(UserInfos.Modules.States.error, 2); }
+                                    if (ModuleData_SortingStation.Current.State == States_Ref.atSortingFactory)              { NewUserTextInfo(UserInfos.Modules.States.atSortingFactory, 2); }
+                                    if (ModuleData_SortingStation.Current.State == States_Ref.atWeightStation)               { NewUserTextInfo(UserInfos.Modules.States.atWeightStation, 2); }
+                                    if (ModuleData_SortingStation.Current.State == States_Ref.finishedSortingAndHasLoaded)   { NewUserTextInfo(UserInfos.Modules.States.finishedSortingAndHasLoaded, 1); }
+                                    if (ModuleData_SortingStation.Current.State == States_Ref.finishedWeighting)             { NewUserTextInfo(UserInfos.Modules.States.finishedWeighting, 3); }
+                                    if (ModuleData_SortingStation.Current.State == States_Ref.paused)                        { NewUserTextInfo(UserInfos.Modules.States.paused, 1); }
+                                    if (ModuleData_SortingStation.Current.State == States_Ref.processing)                    { NewUserTextInfo(UserInfos.Modules.States.processing, 1); }
+                                    if (ModuleData_SortingStation.Current.State == States_Ref.safe)                          { NewUserTextInfo(UserInfos.Modules.States.safe, 1); }
+                                    if (ModuleData_SortingStation.Current.State == States_Ref.testing)                       { NewUserTextInfo(UserInfos.Modules.States.testing, 1); }
+                                    if (ModuleData_SortingStation.Current.State == States_Ref.waiting)                       { NewUserTextInfo(UserInfos.Modules.States.waiting, 3); }
+                                    if (ModuleData_SortingStation.Current.State == States_Ref.waitingToSort)                 { NewUserTextInfo(UserInfos.Modules.States.waitingToSort, 1); }
+                                    if (ModuleData_SortingStation.Current.State == States_Ref.waitingToWeight)               { NewUserTextInfo(UserInfos.Modules.States.waitingToWeight, 2); }
+                                }
+                                else
+                                {
+                                    NewUserTextInfo(UserInfos.Modules.WrongStatus, 2);
+                                    OperationLogs.Window.Log_Comment("[USER CONTROL]: " + ModuleData_SortingStation.name + "'s status: " + ModuleData_SortingStation.Current.State.ToString() + " does not match with the current mode: " + MasterProtocol.mode, Color.Tomato);
+                                }
+                        }
+                        }
+                    }
+                }
+                else
+                {
+                    Debug.Aborted("Cancelling");
+                    NewUserTextInfo(UserInfos.MasterProtocol.IsOffline, 3);
+                }
+            }
+            else
+            {
+                NewUserTextInfo(UserInfos.ComPort.IsOffline, 2);
+            }
+            BRS.Debug.Header(false);
+        }
+        //#############################################################//
+        /// <summary>
+        /// Happens everytime you click on the Vehicule.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        //#############################################################//
+        private void Operation_Module_Vehicle_Click(object sender, EventArgs e)
+        {
+            BRS.Debug.Header(true);
+            BRS.Debug.Comment("Displaying vehicle's status");
+
+            if (BRS.ComPort.Port.IsOpen)
+            {
+                if (MasterProtocol.isActive)
+                {
+                    if (ModuleData_Vehicle.error != Module_Errors.none)
+                    {
+                        NewUserTextInfo(ModuleData_Vehicle.error.ToString(), 1);
+                    }
+                    else
+                    {
+                        if (ModuleData_Vehicle.Current.State == State_Offline)
+                        {
+                            NewUserTextInfo(UserInfos.Modules.IsUnresponsive, 3);
+                        }
+                        else
+                        {
+                            if (ModuleData_Vehicle.Current.State == States_Ref.emergencyStop)
+                            {
+                                NewUserTextInfo(UserInfos.Modules.IsInEmergency, 2);
+                            }
+                            else
+                            {
+                                if (ModuleData_Vehicle.IsStateAllowed())
+                                {
+                                    // regular states that the sorting station can have
+                                    if (ModuleData_Vehicle.Current.State == States_Ref.calibrated)                    { NewUserTextInfo(UserInfos.Modules.States.calibrated, 1); }
+                                    if (ModuleData_Vehicle.Current.State == States_Ref.calibrating)                   { NewUserTextInfo(UserInfos.Modules.States.calibrating, 3); }
+                                    if (ModuleData_Vehicle.Current.State == States_Ref.empty)                         { NewUserTextInfo(UserInfos.Modules.States.empty, 1); }
+                                    if (ModuleData_Vehicle.Current.State == States_Ref.error)                         { NewUserTextInfo(UserInfos.Modules.States.error, 2); }
+                                    if (ModuleData_Vehicle.Current.State == States_Ref.atSortingFactory)              { NewUserTextInfo(UserInfos.Modules.States.atSortingFactory, 2); }
+                                    if (ModuleData_Vehicle.Current.State == States_Ref.atWeightStation)               { NewUserTextInfo(UserInfos.Modules.States.atWeightStation, 2); }
+                                    if (ModuleData_Vehicle.Current.State == States_Ref.finishedSortingAndHasLoaded)   { NewUserTextInfo(UserInfos.Modules.States.finishedSortingAndHasLoaded, 1); }
+                                    if (ModuleData_Vehicle.Current.State == States_Ref.finishedWeighting)             { NewUserTextInfo(UserInfos.Modules.States.finishedWeighting, 3); }
+                                    if (ModuleData_Vehicle.Current.State == States_Ref.paused)                        { NewUserTextInfo(UserInfos.Modules.States.paused, 1); }
+                                    if (ModuleData_Vehicle.Current.State == States_Ref.processing)                    { NewUserTextInfo(UserInfos.Modules.States.processing, 1); }
+                                    if (ModuleData_Vehicle.Current.State == States_Ref.safe)                          { NewUserTextInfo(UserInfos.Modules.States.safe, 1); }
+                                    if (ModuleData_Vehicle.Current.State == States_Ref.testing)                       { NewUserTextInfo(UserInfos.Modules.States.testing, 1); }
+                                    if (ModuleData_Vehicle.Current.State == States_Ref.waiting)                       { NewUserTextInfo(UserInfos.Modules.States.waiting, 3); }
+                                    if (ModuleData_Vehicle.Current.State == States_Ref.waitingToSort)                 { NewUserTextInfo(UserInfos.Modules.States.waitingToSort, 1); }
+                                    if (ModuleData_Vehicle.Current.State == States_Ref.waitingToWeight)               { NewUserTextInfo(UserInfos.Modules.States.waitingToWeight, 2); }
+                                }
+                                else
+                                {
+                                    NewUserTextInfo(UserInfos.Modules.WrongStatus, 2);
+                                    OperationLogs.Window.Log_Comment("[USER CONTROL]: " + ModuleData_Vehicle.name + "'s status: " + ModuleData_Vehicle.Current.State.ToString() + " does not match with the current mode: " + MasterProtocol.mode, Color.Tomato);
+                                }
+                        }
+                        }
+                    }
+                }
+                else
+                {
+                    Debug.Aborted("Cancelling");
+                    NewUserTextInfo(UserInfos.MasterProtocol.IsOffline, 3);
+                }
+            }
+            else
+            {
+                NewUserTextInfo(UserInfos.ComPort.IsOffline, 2);
+            }
+            BRS.Debug.Header(false);
+        }
+        //#############################################################//
+        /// <summary>
+        /// Happens everytime you click on the Weight Station.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        //#############################################################//
+        private void Operation_Module_WeightStation_Click(object sender, EventArgs e)
+        {
+            BRS.Debug.Header(true);
+            BRS.Debug.Comment("Displaying the weight station's status");
+
+            if (BRS.ComPort.Port.IsOpen)
+            {
+                if (MasterProtocol.isActive)
+                {
+                    if (ModuleData_WeightStation.error != Module_Errors.none)
+                    {
+                        NewUserTextInfo(ModuleData_WeightStation.error.ToString(), 1);
+                    }
+                    else
+                    {
+                        if (ModuleData_WeightStation.Current.State == State_Offline)
+                        {
+                            NewUserTextInfo(UserInfos.Modules.IsUnresponsive, 3);
+                        }
+                        else
+                        {
+                            if (ModuleData_WeightStation.Current.State == States_Ref.emergencyStop)
+                            {
+                                NewUserTextInfo(UserInfos.Modules.IsInEmergency, 2);
+                            }
+                            else
+                            {
+                                if (ModuleData_WeightStation.IsStateAllowed())
+                                {
+                                    if (ModuleData_WeightStation.Current.State == States_Ref.calibrated)                    { NewUserTextInfo(UserInfos.Modules.States.calibrated, 1); }
+                                    if (ModuleData_WeightStation.Current.State == States_Ref.calibrating)                   { NewUserTextInfo(UserInfos.Modules.States.calibrating, 3); }
+                                    if (ModuleData_WeightStation.Current.State == States_Ref.empty)                         { NewUserTextInfo(UserInfos.Modules.States.empty, 1); }
+                                    if (ModuleData_WeightStation.Current.State == States_Ref.error)                         { NewUserTextInfo(UserInfos.Modules.States.error, 2); }
+                                    if (ModuleData_WeightStation.Current.State == States_Ref.atSortingFactory)              { NewUserTextInfo(UserInfos.Modules.States.atSortingFactory, 2); }
+                                    if (ModuleData_WeightStation.Current.State == States_Ref.atWeightStation)               { NewUserTextInfo(UserInfos.Modules.States.atWeightStation, 2); }
+                                    if (ModuleData_WeightStation.Current.State == States_Ref.finishedSortingAndHasLoaded)   { NewUserTextInfo(UserInfos.Modules.States.finishedSortingAndHasLoaded, 1); }
+                                    if (ModuleData_WeightStation.Current.State == States_Ref.finishedWeighting)             { NewUserTextInfo(UserInfos.Modules.States.finishedWeighting, 3); }
+                                    if (ModuleData_WeightStation.Current.State == States_Ref.paused)                        { NewUserTextInfo(UserInfos.Modules.States.paused, 1); }
+                                    if (ModuleData_WeightStation.Current.State == States_Ref.processing)                    { NewUserTextInfo(UserInfos.Modules.States.processing, 1); }
+                                    if (ModuleData_WeightStation.Current.State == States_Ref.safe)                          { NewUserTextInfo(UserInfos.Modules.States.safe, 1); }
+                                    if (ModuleData_WeightStation.Current.State == States_Ref.testing)                       { NewUserTextInfo(UserInfos.Modules.States.testing, 1); }
+                                    if (ModuleData_WeightStation.Current.State == States_Ref.waiting)                       { NewUserTextInfo(UserInfos.Modules.States.waiting, 3); }
+                                    if (ModuleData_WeightStation.Current.State == States_Ref.waitingToSort)                 { NewUserTextInfo(UserInfos.Modules.States.waitingToSort, 1); }
+                                    if (ModuleData_WeightStation.Current.State == States_Ref.waitingToWeight)               { NewUserTextInfo(UserInfos.Modules.States.waitingToWeight, 2); }
+                                }
+                                else
+                                {
+                                    NewUserTextInfo(UserInfos.Modules.WrongStatus, 2);
+                                    OperationLogs.Window.Log_Comment("[USER CONTROL]: " + ModuleData_WeightStation.name + "'s status: " + ModuleData_WeightStation.Current.State.ToString() + " does not match with the current mode: " + MasterProtocol.mode, Color.Tomato);
+                                }
                             }
                         }
                     }
@@ -510,15 +879,66 @@ namespace CommandCenter
                 else
                 {
                     Debug.Aborted("Cancelling");
-                    NewUserTextInfo("CAN protocol offline", 3);
+                    NewUserTextInfo(UserInfos.MasterProtocol.IsOffline, 3);
                 }
             }
             else
             {
-                NewUserTextInfo("No Connection", 2);
+                NewUserTextInfo(UserInfos.ComPort.IsOffline, 2);
             }
             BRS.Debug.Header(false);
         }
+        //#############################################################//
+        /// <summary>
+        /// Happens everytime you click on the Global module icons.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        //#############################################################//
+        private void Operation_Module_Global_Click(object sender, EventArgs e)
+        {
+            BRS.Debug.Header(true);
+            if (BRS.ComPort.Port.IsOpen)
+            {
+                if (MasterProtocol.isActive)
+                {
+                    bool sortingStationOffline = ModuleData_SortingStation.Current.State == State_Offline;
+                    bool weightStationOffline  = ModuleData_WeightStation.Current.State == State_Offline;
+                    bool vehicleOffline        = ModuleData_Vehicle.Current.State == State_Offline;
+
+                    //-----------------------------------------------------------------//
+                    // All modules are offline
+                    //-----------------------------------------------------------------//
+                    if (sortingStationOffline || weightStationOffline || vehicleOffline)
+                    {
+                        string sortingStationMessage = sortingStationOffline ? " Sorting," : "";
+                        string vehicleMessage        = vehicleOffline        ? " Vehicle," : "";
+                        string weightStationMessage  = weightStationOffline  ? " Weight," : "";
+
+                        string result = sortingStationMessage + vehicleMessage + weightStationMessage;
+
+                        //Remove last comma from the sentence
+                        if (result.EndsWith(",")) { result = result.Remove(result.Length - 1, 1); }
+                        NewUserTextInfo("Offline modules:" + result,2);
+                    }
+                    else
+                    {
+                        NewUserTextInfo(UserInfos.Modules.AllAreOnline,1);
+                    }
+                }
+                else
+                {
+                    NewUserTextInfo(UserInfos.MasterProtocol.IsOffline, 2);
+                }
+            }
+            else
+            {
+                BRS.Debug.Comment("No serial connection");
+                NewUserTextInfo(UserInfos.ComPort.IsOffline, 2);
+            }
+                    BRS.Debug.Header(false);
+        }
+        #endregion ModuleButtons 
         #endregion Button_Clicks
     }
 }
