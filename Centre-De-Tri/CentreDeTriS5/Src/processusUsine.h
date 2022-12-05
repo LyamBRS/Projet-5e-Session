@@ -26,6 +26,10 @@
 
 void processusUsine_gere (void);
 void processusUsine_initialise(void);
+void processusUsine_operation (void);
+void processusUsine_attente (void);
+void processusUsine_arret (void);
+void processusUsine_tests (void);
 //Variables publiques:
 //pas de variables publiques
 

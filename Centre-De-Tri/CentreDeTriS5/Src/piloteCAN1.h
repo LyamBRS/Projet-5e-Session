@@ -8,14 +8,14 @@
 
 //DEFINITIONS REQUISES PAR LE MODULE:
 //Dependances materielle
-//pas de dépendances matérielles
+//pas de dï¿½pendances matï¿½rielles
 
 //Dependances logicielles
 //(copiez et adaptez ce qui suit dans "main.h")
 //#define PILOTECAN1_IDENTIFICATION_EN_TRANSMISSION  0x245
 //#define PILOTECAN1_IDENTIFICATION_EN_RECEPTION  0x247
 //#define PILOTECAN1_MASQUE_11_BITS_EN_RECEPTION  0x244
-//pas de dépendances logicielles
+//pas de dï¿½pendances logicielles
 
 //INFORMATION PUBLIQUE:
 //Definitions publiques:
@@ -34,6 +34,9 @@ unsigned int piloteCAN1_transmetDesDonnes(unsigned int Identification11Bits,
                                           unsigned char *Donnees,
                                           unsigned char Nombre);
 unsigned int piloteCAN1_initialise(void);
+unsigned int piloteCAN1_messageEnTransmission(void);
+unsigned int piloteCAN1_demarreLeCAN(void);
+unsigned int piloteCAN1_litLesErreurs(void);
 
 //Variables publiques:
 //pas de variables publiques

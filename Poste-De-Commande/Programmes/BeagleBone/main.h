@@ -39,8 +39,8 @@
 //#define CAN_REAL_WITH_LOOPBACK
 
 //Dependances logicielles:
-#define CAN_RECEIVING_ADDRESS 0x100
-#define CAN_RECEIVING_MASK 0x000FFFFFF
+#define CAN_RECEIVING_ADDRESS 0x000
+#define CAN_RECEIVING_MASK 0x00000000U
 
 //INFORMATION PUBLIQUE:
 //Definitions publiques:

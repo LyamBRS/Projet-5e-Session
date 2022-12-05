@@ -13,7 +13,7 @@
 //pas de fonctions privees
 
 //Declarations de variables privees:
-extern CAN_HandleTypeDef hcan1; //défini par le hal dans main
+extern CAN_HandleTypeDef hcan1; //dï¿½fini par le hal dans main
 
 //Definitions de variables privees:
 CAN_RxHeaderTypeDef piloteCAN1_reception;
@@ -40,7 +40,41 @@ unsigned int piloteCAN1_messageTransmis(void)
 {
   return HAL_CAN_GetTxMailboxesFreeLevel(&hcan1);
 }
+/**
+ * @brief Lits les erreurs CAN etr retourne leurs
+ * valeurs HAL
+ * @return unsigned int 
+ */
+unsigned int piloteCAN1_litLesErreurs(void)
+{
+  return hcan1.ErrorCode;
+}
+/**
+ * @brief Fonction qui retourne 0 si aucune message est en demande de
+ * transmission, et retourne 1 si au moin un message est en demande de
+ * transmission sur au moin un des mailbox
+ * @return unsigned int 
+ */
+unsigned int piloteCAN1_messageEnTransmission(void)
+{
+  return HAL_CAN_IsTxMessagePending(&hcan1, piloteCAN1_CasierPostal);
+}
 
+/**
+ * @brief Fonction qui retourne 0 si aucune message est en demande de
+ * transmission, et retourne 1 si au moin un message est en demande de
+ * transmission sur au moin un des mailbox
+ * @return unsigned int 
+ */
+unsigned int piloteCAN1_demarreLeCAN(void)
+{
+  return HAL_CAN_Start(&hcan1);
+}
+/**
+ * @brief Fonction qui lit un message CAN recus.
+ * @param DonneesRecues pointeur sur un buffer de unsigned char de 8 donnÃ©es
+ * @return unsigned char 
+ */
 unsigned char piloteCAN1_litUnMessageRecu(unsigned char *DonneesRecues)
 {
   if (HAL_CAN_GetRxMessage(&hcan1, CAN_FILTER_FIFO0,
@@ -80,7 +114,7 @@ unsigned int piloteCAN1_initialise(void)
   piloteCAN1_filtre.FilterBank = 13;
   piloteCAN1_filtre.FilterMode = CAN_FILTERMODE_IDMASK;
   piloteCAN1_filtre.FilterScale = CAN_FILTERSCALE_32BIT;
-  piloteCAN1_filtre.FilterActivation = ENABLE;
+  piloteCAN1_filtre.FilterActivation = ENABLE; // was ENABLE
   if (HAL_CAN_ConfigFilter(&hcan1, &piloteCAN1_filtre) != HAL_OK)
   {
     return PILOTECAN1_ERREUR;

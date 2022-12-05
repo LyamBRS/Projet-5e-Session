@@ -1,21 +1,21 @@
 /* USER CODE BEGIN Header */
 /**
-  ******************************************************************************
-  * @file           : main.c
-  * @brief          : Main program body
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
-  ******************************************************************************
-  */
+ ******************************************************************************
+ * @file           : main.c
+ * @brief          : Main program body
+ ******************************************************************************
+ * @attention
+ *
+ * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
+ * All rights reserved.</center></h2>
+ *
+ * This software component is licensed by ST under BSD 3-Clause license,
+ * the "License"; You may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at:
+ *                        opensource.org/licenses/BSD-3-Clause
+ *
+ ******************************************************************************
+ */
 /* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
@@ -23,18 +23,18 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-//S-0010:
-//Historique: 
-// 2019-10-27, Yves Roy, creation
+// S-0010:
+// Historique:
+//  2019-10-27, Yves Roy, creation
 
-//notes sur l'utilisation des timers.
-// https://www.st.com/content/ccc/resource/technical/document/application_note/group0/91/01/84/3f/7c/67/41/3f/DM00236305/files/DM00236305.pdf/jcr:content/translations/en.DM00236305.pdf
-//https://stm32f4-discovery.net/2014/05/stm32f4-stm32f429-discovery-pwm-tutorial/
-//timer 6 sur APB1
-//timer_tick_frequency = Timer_default_frequency / (prescaller_set + 1) 
-//default_frequency = 84MHz compte tenu des options choisies avec le "cube"
-//TIM_Period = timer_tick_frequency / TIM_frequency - 1
-//il faut s'assurer que le compte pour la periode est plus petit que 65536
+// notes sur l'utilisation des timers.
+//  https://www.st.com/content/ccc/resource/technical/document/application_note/group0/91/01/84/3f/7c/67/41/3f/DM00236305/files/DM00236305.pdf/jcr:content/translations/en.DM00236305.pdf
+// https://stm32f4-discovery.net/2014/05/stm32f4-stm32f429-discovery-pwm-tutorial/
+// timer 6 sur APB1
+// timer_tick_frequency = Timer_default_frequency / (prescaller_set + 1)
+// default_frequency = 84MHz compte tenu des options choisies avec le "cube"
+// TIM_Period = timer_tick_frequency / TIM_frequency - 1
+// il faut s'assurer que le compte pour la periode est plus petit que 65536
 
 #include "piloteTimer6Up.h"
 #include "piloteCAN1.h"
@@ -53,6 +53,14 @@
 #include "interfaceT4.h"
 //#include "processusBoutonConnecte.h"
 #include "processusUsine.h"
+#include "interfaceUsine.h"
+#include "piloteLcd.h"
+#include "interfaceLcd.h"
+#include "interfaceCAN1.h"
+#include "ServiceCommunication.h"
+#include "interfaceColonne.h"
+#include "piloteColonne.h"
+#include "interfaceB1.h"
 //#include "stm32f4xx_hal_conf.h"
 //#include "stm32f4xx_it.h"
 /* USER CODE END Includes */
@@ -97,6 +105,7 @@ static void MX_I2C1_Init(void);
 /* Private function prototypes -----------------------------------------------*/
 void main_initialiseAvantLeHAL(void);
 void main_initialiseApresLeHAL(void);
+
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -104,8 +113,8 @@ void main_initialiseApresLeHAL(void);
 void main_initialiseAvantLeHAL(void)
 {
   piloteTimer6Up_initialise();
-  //piloteCAN1_initialise(); //irait ici en temps normal... mais il y a un bug dans le cube  
-  //piloteUSART2_initialise();
+  // piloteCAN1_initialise(); //irait ici en temps normal... mais il y a un bug dans le cube
+  // piloteUSART2_initialise();
   piloteIOB1_initialise();
   piloteIOT1_initialise();
   piloteIOT2_initialise();
@@ -116,18 +125,33 @@ void main_initialiseAvantLeHAL(void)
   interfaceT2_initialise();
   interfaceT3_initialise();
   interfaceT4_initialise();
-  processusUsine_initialise();
+  interfaceColonne_initialise();
+  
+  interfaceUsine_Initialise();
+  interfaceB1_initialise();
 }
 
 void main_initialiseApresLeHAL(void)
 {
-  piloteCAN1_initialise();
+  
   piloteTimer6Up_permetLesInterruptions();
+  piloteCAN1_initialise();
+  ServiceCommunication_initialise();
+  vInitGLcd();
+  interfaceLcd_Clear_Swipe(0);
+  processusUsine_initialise();
 }
 
 void neFaitRien(void)
 {
 }
+
+// Variables globales
+bool bFlagUpdateMessageEcran;
+bool bFlagUpdateModeEcran;
+bool flagTexteFini = 0;
+char messageEcran[40];
+char modeEcran[20];
 /* USER CODE END 0 */
 
 /**
@@ -138,6 +162,7 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
   main_initialiseAvantLeHAL();
+
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -164,17 +189,99 @@ int main(void)
   MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
   main_initialiseApresLeHAL();
-   
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  interfaceColonne_allume(INTERFACECOLONNE_ROUGE);
+  interfaceColonne_allume(INTERFACECOLONNE_VERT);
+  interfaceColonne_allume(INTERFACECOLONNE_JAUNE);
+
+  
+  interfaceLcd_Draw_Shape_RectF(0,0,127,10,1);
+  interfaceLcd_Draw_Shape_RectF(0,43,128,2,1);
+  interfaceLcd_Draw_Shape_RectF(0,27,128,2,1);
+  vPutStringGLcd("Mode:               ", 4, 5);
+  unsigned char oldBruh = 0;
   while (1)
   {
+    /*
+    //Test du step moteur
+    HAL_GPIO_WritePin(STEP0_GPIO_Port, STEP0_Pin, (GPIO_PinState)1);  
+    HAL_GPIO_WritePin(STEP1_GPIO_Port, STEP1_Pin, (GPIO_PinState)0); 
+    HAL_GPIO_WritePin(STEP2_GPIO_Port, STEP2_Pin, (GPIO_PinState)0); 
+    HAL_GPIO_WritePin(STEP3_GPIO_Port, STEP3_Pin, (GPIO_PinState)0); 
+    */
+    if (bFlagUpdateMessageEcran)
+    {
+      flagTexteFini;
+      for (int i = 0; i <= 39; i++)
+      {
+        if (i <= 19)
+        {
+          if (!flagTexteFini)vPutCharGLcd(messageEcran[i], 6, i, 5);
+          else vPutCharGLcd(' ', 6, i, 5);
+        }
+        else if (i <= (39))
+        {
+          if (!flagTexteFini)vPutCharGLcd(messageEcran[i], 7, i - 20, 5);
+          else vPutCharGLcd(' ', 7, i - 20, 5);
+        }
+        if (messageEcran[i + 1] == '\0')flagTexteFini = 1;
+      }
+      bFlagUpdateMessageEcran = 0;
+    }
+    
+    if (bFlagUpdateModeEcran)
+    {
+      flagTexteFini = 0;
+      for (int i = 0; i+5 <= 19; i++)
+      {       
+        if (!flagTexteFini)vPutCharGLcd(modeEcran[i], 4, i+5, 5);
+        else vPutCharGLcd(' ', 4, i+5, 5);
+        if (modeEcran[i + 1] == '\0') flagTexteFini = 1;
+      }
+      bFlagUpdateModeEcran = 0;
+    }
+
+    //Affichage de l'état du CAN
+    if (!ModuleData.CantConnect) // Pas connecté
+    {
+      vPutStringGLcdINV("CAN Connected       ", 0, 5);
+    }
+    else
+    {
+      vPutStringGLcdINV("CAN Disconnected    ", 0, 5);
+    }
+    
+     if (piloteCAN1_messageDisponible()) // Pas connecté
+    {
+      //vPutStringGLcdINV("Message disponible  ", 2, 5);
+    }
+    else
+    {
+      //vPutStringGLcdINV("No Message?         ", 2, 5);
+    }
+
+    if(true)
+    {
+      unsigned int bruh = piloteCAN1_litLesErreurs();
+      static unsigned char index = 0;
+
+      if(bruh != oldBruh)
+      {
+        interfaceLcd_Draw_Text_Integer(32,16+(6*index),bruh,3,1);
+        index++;
+        oldBruh = bruh;
+      }  
+    }
+
+    //interfaceLcd_Draw_Text_Integer(0,32,ModuleData.Mode,2,1);
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-
   }
   /* USER CODE END 3 */
 }
@@ -238,7 +345,7 @@ static void MX_CAN1_Init(void)
   /* USER CODE END CAN1_Init 1 */
   hcan1.Instance = CAN1;
   hcan1.Init.Prescaler = 168;
-  hcan1.Init.Mode = CAN_MODE_LOOPBACK;
+  hcan1.Init.Mode = CAN_MODE_NORMAL;
   hcan1.Init.SyncJumpWidth = CAN_SJW_1TQ;
   hcan1.Init.TimeSeg1 = CAN_BS1_3TQ;
   hcan1.Init.TimeSeg2 = CAN_BS2_1TQ;
@@ -274,7 +381,7 @@ static void MX_I2C1_Init(void)
 
   /* USER CODE END I2C1_Init 1 */
   hi2c1.Instance = I2C1;
-  hi2c1.Init.ClockSpeed = 19200;
+  hi2c1.Init.ClockSpeed = 100000;
   hi2c1.Init.DutyCycle = I2C_DUTYCYCLE_2;
   hi2c1.Init.OwnAddress1 = 0;
   hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
@@ -381,21 +488,35 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOD_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(CS_I2C_SPI_GPIO_Port, CS_I2C_SPI_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOE, CS_I2C_SPI_Pin|TRIAC_OUT_Pin|STEP0_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(OTG_FS_PowerSwitchOn_GPIO_Port, OTG_FS_PowerSwitchOn_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOD, LD4_Pin|LD3_Pin|LD5_Pin|LD6_Pin
-                          |Audio_RST_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, CLN_R_Pin|STEP3_Pin|STEP1_Pin|STEP2_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pin : CS_I2C_SPI_Pin */
-  GPIO_InitStruct.Pin = CS_I2C_SPI_Pin;
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOB, RD_Pin|A4_Pin|CS0_Pin|CS1_Pin
+                          |CS2_Pin|CS3_Pin|CLN_V_Pin|CLN_J_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOD, A0_Pin|A1_Pin|A2_Pin|A3_Pin
+                          |LD4_Pin|LD3_Pin|LD5_Pin|LD6_Pin
+                          |Audio_RST_Pin|CLN_B_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pins : CS_I2C_SPI_Pin TRIAC_OUT_Pin STEP0_Pin */
+  GPIO_InitStruct.Pin = CS_I2C_SPI_Pin|TRIAC_OUT_Pin|STEP0_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(CS_I2C_SPI_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : TRIAC_IN_Pin */
+  GPIO_InitStruct.Pin = TRIAC_IN_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(TRIAC_IN_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : OTG_FS_PowerSwitchOn_Pin */
   GPIO_InitStruct.Pin = OTG_FS_PowerSwitchOn_Pin;
@@ -418,6 +539,13 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(B1_GPIO_Port, &GPIO_InitStruct);
 
+  /*Configure GPIO pins : CLN_R_Pin STEP3_Pin STEP1_Pin STEP2_Pin */
+  GPIO_InitStruct.Pin = CLN_R_Pin|STEP3_Pin|STEP1_Pin|STEP2_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
   /*Configure GPIO pin : I2S3_WS_Pin */
   GPIO_InitStruct.Pin = I2S3_WS_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
@@ -426,19 +554,28 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Alternate = GPIO_AF6_SPI3;
   HAL_GPIO_Init(I2S3_WS_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : SPI1_SCK_Pin SPI1_MISO_Pin SPI1_MOSI_Pin */
-  GPIO_InitStruct.Pin = SPI1_SCK_Pin|SPI1_MISO_Pin|SPI1_MOSI_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+  /*Configure GPIO pins : RD_Pin A4_Pin CS0_Pin CS1_Pin
+                           CS2_Pin CS3_Pin CLN_V_Pin CLN_J_Pin */
+  GPIO_InitStruct.Pin = RD_Pin|A4_Pin|CS0_Pin|CS1_Pin
+                          |CS2_Pin|CS3_Pin|CLN_V_Pin|CLN_J_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  GPIO_InitStruct.Alternate = GPIO_AF5_SPI1;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /*Configure GPIO pin : BOOT1_Pin */
   GPIO_InitStruct.Pin = BOOT1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(BOOT1_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : D0_Pin D1_Pin D2_Pin D3_Pin
+                           D4_Pin D5_Pin D6_Pin D7_Pin */
+  GPIO_InitStruct.Pin = D0_Pin|D1_Pin|D2_Pin|D3_Pin
+                          |D4_Pin|D5_Pin|D6_Pin|D7_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 
   /*Configure GPIO pin : CLK_IN_Pin */
   GPIO_InitStruct.Pin = CLK_IN_Pin;
@@ -448,10 +585,12 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Alternate = GPIO_AF5_SPI2;
   HAL_GPIO_Init(CLK_IN_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : LD4_Pin LD3_Pin LD5_Pin LD6_Pin
-                           Audio_RST_Pin */
-  GPIO_InitStruct.Pin = LD4_Pin|LD3_Pin|LD5_Pin|LD6_Pin
-                          |Audio_RST_Pin;
+  /*Configure GPIO pins : A0_Pin A1_Pin A2_Pin A3_Pin
+                           LD4_Pin LD3_Pin LD5_Pin LD6_Pin
+                           Audio_RST_Pin CLN_B_Pin */
+  GPIO_InitStruct.Pin = A0_Pin|A1_Pin|A2_Pin|A3_Pin
+                          |LD4_Pin|LD3_Pin|LD5_Pin|LD6_Pin
+                          |Audio_RST_Pin|CLN_B_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -495,6 +634,28 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 
+void updateMessageEcran(char const string[])
+{
+  bFlagUpdateMessageEcran = 1;
+  for (int i = 0; i <= 39; i++)
+  {
+    messageEcran[i] = string[i];
+    if (string[i] == '\0')
+      return;
+  }
+}
+
+void updateModeEcran(char const string[])
+{
+  bFlagUpdateModeEcran = 1;
+  for (int i = 0; i <= 20; i++)
+  {
+    modeEcran[i] = string[i];
+    if (string[i] == '\0')
+      return;
+  }
+}
+
 /* USER CODE END 4 */
 
 /**
@@ -505,9 +666,8 @@ void Error_Handler(void)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
   /* User can add his own implementation to report the HAL error return state */
-  while(1) 
+  while (1)
   {
-    
   }
   /* USER CODE END Error_Handler_Debug */
 }

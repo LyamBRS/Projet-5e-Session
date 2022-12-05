@@ -588,6 +588,7 @@ namespace BRS
             /// Defines background <see cref="Bitmap"/> depending on <see cref="State"/>
             /// </summary>
             public StatesBitmaps Bitmaps;
+            private StatesBitmaps oldStateBitmaps;
 
             /// <summary>
             /// List of <see cref="Color"/>s stored as <see cref="EventsColors"/>
@@ -657,6 +658,7 @@ namespace BRS
 
                 FormButton = referencedButton;
                 Bitmaps = bitmaps;
+                oldStateBitmaps = bitmaps;
                 Colors = colors;
 
                 OriginalWidth = FormButton.Size.Width;
@@ -804,13 +806,23 @@ namespace BRS
                 }
                 else //////////////////////////////////////////////////////
                 {
-
                     FormButton.BackColor = wantedColor;
                 }
 
+                // If StatesBitmaps changed
+                if(oldStateBitmaps != Bitmaps)
+                {
+                    oldStateBitmaps = Bitmaps;
+                    if (State == ControlState.Active) { currentBitmaps = Bitmaps.Active; }
+                    if (State == ControlState.Disabled) { currentBitmaps = Bitmaps.Disabled; }
+                    if (State == ControlState.Error) { currentBitmaps = Bitmaps.Error; }
+                    if (State == ControlState.Warning) { currentBitmaps = Bitmaps.Warning; }
+                    if (State == ControlState.Inactive) { currentBitmaps = Bitmaps.Inactive; }
+                }
+                // If individual bitmap changed
                 if(oldBitmaps != currentBitmaps)
                 {
-                    oldBitmaps = currentBitmaps;
+                    oldStateBitmaps = Bitmaps;
                     if (Pressed || Hovering)
                     {
                         if(Pressed)

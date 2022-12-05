@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+<<<<<<< HEAD
+        "pilotecan1.h": "c"
+=======
+        "BRS_Lcd.C": "cpp",
+        "BRS_Lcd_Objects.C": "cpp"
+>>>>>>> 7f4b6e0a50bf3dd6f677c4d4adc8ffeacae8832f
+    }
+}

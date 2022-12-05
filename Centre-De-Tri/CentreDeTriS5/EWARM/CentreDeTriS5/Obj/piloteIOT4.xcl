@@ -20,6 +20,8 @@ C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\EWARM/../Drivers/CMSIS/De
 -I
 C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\EWARM/../Drivers/CMSIS/Include
 -I
+C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src
+-I
 C:\IAR\ARM\8.50\arm\inc
 -I
 C:\IAR\ARM\8.50\arm\inc\c
@@ -35,6 +37,8 @@ C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Drivers\STM32F4xx_HAL_Dri
 C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Drivers\CMSIS\Device\ST\STM32F4xx\Include
 -I
 C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Drivers\CMSIS\Include
+-I
+C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src
 -D__CHAR_BITS__=8
 -D__CHAR_MAX__=0xff
 -D__CHAR_MIN__=0

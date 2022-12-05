@@ -25,12 +25,12 @@
 //Definitions de fonctions publiques:
 void piloteI2C_Transmit(unsigned char ucAdresse, uint8_t ucDonnee)
 {
-  HAL_I2C_Master_Transmit(&hi2c1, ucAdresse, &ucDonnee, 1, 128);
+  HAL_I2C_Master_Transmit(&hi2c1, ucAdresse, &ucDonnee, 1, 200);
 }
 
-void piloteI2C_Recieve(unsigned char ucAdresse, uint8_t *ucDonnee)
+void piloteI2C_Receive(unsigned char ucAdresse, uint8_t *ucDonnee)
 {
-  HAL_I2C_Master_Receive(&hi2c1, ucAdresse, ucDonnee, 1, 128);
+  HAL_I2C_Master_Receive(&hi2c1, ucAdresse, ucDonnee, 1, 200);
 }
 
 void piloteI2C_initialise(void)

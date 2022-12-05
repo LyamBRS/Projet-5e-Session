@@ -166,6 +166,36 @@
   <data name="Calibration_Warning_Filled" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\Applications\Modes\Calibration\Calibration_Warning_Filled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="CheckBox_Available_Empty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Selection\CheckBox\CheckBox_Available_Empty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CheckBox_Available_Filled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Selection\CheckBox\CheckBox_Available_Filled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CheckBox_Disabled_Empty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Selection\CheckBox\CheckBox_Disabled_Empty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CheckBox_Disabled_Filled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Selection\CheckBox\CheckBox_Disabled_Filled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CheckBox_Error_Empty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Selection\CheckBox\CheckBox_Error_Empty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CheckBox_Error_Filled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Selection\CheckBox\CheckBox_Error_Filled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CheckBox_Inactive_Empty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Selection\CheckBox\CheckBox_Inactive_Empty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CheckBox_Inactive_Filled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Selection\CheckBox\CheckBox_Inactive_Filled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CheckBox_Warning_Empty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Selection\CheckBox\CheckBox_Warning_Empty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CheckBox_Warning_Filled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Selection\CheckBox\CheckBox_Warning_Filled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="CheckMark_Available_Empty" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\Selection\Check\CheckMark_Available_Empty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -294,6 +324,60 @@
   </data>
   <data name="Operation_Warning_Filled" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\Applications\Modes\Operation\Operation_Warning_Filled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Paused_Available_Empty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Applications\Modes\Pause\Paused_Available_Empty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Paused_Available_Filled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Applications\Modes\Pause\Paused_Available_Filled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Paused_Disabled_Empty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Applications\Modes\Pause\Paused_Disabled_Empty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Paused_Disabled_Filled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Applications\Modes\Pause\Paused_Disabled_Filled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Paused_Error_Empty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Applications\Modes\Pause\Paused_Error_Empty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Paused_Error_Filled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Applications\Modes\Pause\Paused_Error_Filled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Paused_Warning_Empty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Applications\Modes\Pause\Paused_Warning_Empty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Paused_Warning_Filled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Applications\Modes\Pause\Paused_Warning_Filled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Play_Available_Empty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Applications\Play\Play_Available_Empty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Play_Available_Filled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Applications\Play\Play_Available_Filled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Play_Disabled_Empty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Applications\Play\Play_Disabled_Empty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Play_Disabled_Filled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Applications\Play\Play_Disabled_Filled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Play_Error_Empty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Applications\Play\Play_Error_Empty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Play_Error_Filled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Applications\Play\Play_Error_Filled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Play_Inactive_Empty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Applications\Play\Play_Inactive_Empty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Play_Inactive_Filled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Applications\Play\Play_Inactive_Filled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Play_Warning_Empty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Applications\Play\Play_Warning_Empty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Play_Warning_Filled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Applications\Play\Play_Warning_Filled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="PowerButton_Active_Empty" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\Generic\Power\PowerButton_Active_Empty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -472,6 +556,12 @@
   <data name="Vehicle_Warning_Filled" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\Applications\Devices\Vehicle\Vehicle_Warning_Filled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Warning_Available_Empty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Generic\Warning\Warning_Available_Empty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Warning_Available_Filled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Generic\Warning\Warning_Available_Filled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Warning_Disabled_Empty" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\Generic\Warning\Warning_Disabled_Empty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -483,6 +573,12 @@
   </data>
   <data name="Warning_Error_Filled" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\Generic\Warning\Warning_Error_Filled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Warning_Inactive_Empty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Generic\Warning\Warning_Inactive_Empty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Warning_Inactive_Filled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Generic\Warning\Warning_Inactive_Filled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Warning_Warning_Empty" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\Generic\Warning\Warning_Warning_Empty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

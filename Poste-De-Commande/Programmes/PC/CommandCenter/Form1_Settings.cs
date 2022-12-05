@@ -57,21 +57,13 @@ namespace CommandCenter
         public static bool ComShouldBeOpen = false;
 
         SerialPort OldSettings;
-
-        /// <summary>
-        /// RX data received delegate
-        /// </summary>
-        /// <param name="Result">RX string</param>
-        public delegate void dlgThread(String Result);
-
-        /// <summary>
-        /// The RX delegate
-        /// </summary>
-        public dlgThread Delegate;
         /// <summary>
         /// To check, using a timer, if the port state changed.
         /// </summary>
         public static bool oldPortState = false;
+
+        public bool AutoConnect = false;
+        public ControlState previousState = ControlState.Active;
 
         public class Settings
         {
@@ -88,6 +80,14 @@ namespace CommandCenter
             public static Form_MainMenu formSettings;
             #endregion Variables
             #region Individual_Settings_Changes
+            #region BeagleBone_AutoConnect
+            /// <summary> Gets the value from Settings.xml </summary>
+            /// <returns>Value of AutoConnect</returns>
+            public static string BeagleBone_AutoConnect() { return ReadAppSettings("BeagleBone_AutoConnect"); }
+
+            /// <summary> Gets the value from Settings.xml </summary>
+            public static bool BeagleBone_AutoConnect(string valueToSave) { return (UpdateOrCreate("BeagleBone_AutoConnect", valueToSave)); }
+            #endregion BeagleBone_AutoConnect
             #region BaudRate
             /// <summary> Gets the value from Settings.xml </summary>
             /// <returns>Value of BaudRate</returns>
@@ -422,6 +422,7 @@ namespace CommandCenter
                 UpdateOrCreate("BeagleBone_Password", formSettings.BeagleBone_Password.Text);
                 UpdateOrCreate("BeagleBone_FilePath", formSettings.BeagleBone_FilePath.Text);
                 UpdateOrCreate("BeagleBone_FileName", formSettings.BeagleBone_FileName.Text);
+                UpdateOrCreate("BeagleBone_AutoConnect", (CommandCenter.Buttons.AutoConnection.State == ControlState.Active).ToString());
 
                 UpdateOrCreate("Scale_Unit", formSettings.DropDown_ScaleUnit.Text);
             }
@@ -564,12 +565,6 @@ namespace CommandCenter
             {
                 BRS.Debug.Comment("PORT CLOSED:");
                 BRS.Debug.Comment("Attempting linking with specified COM port...");
-                BRS.Debug.Comment("Port name: " + BRS.ComPort.Port.PortName.ToString());
-                BRS.Debug.Comment("BaudRate:  " + BRS.ComPort.Port.BaudRate.ToString());
-                BRS.Debug.Comment("DataBits:  " + BRS.ComPort.Port.DataBits.ToString());
-                BRS.Debug.Comment("StopBits:  " + BRS.ComPort.Port.StopBits.ToString());
-                BRS.Debug.Comment("Parity:    " + BRS.ComPort.Port.Parity.ToString());
-                BRS.Debug.Comment("HandShake: " + BRS.ComPort.Port.Handshake.ToString());
                 try
                 {
                     BRS.ComPort.Port.Open();
@@ -591,6 +586,7 @@ namespace CommandCenter
                     CommandCenter.Buttons.USB.State = ControlState.Disabled;
                     CommandCenter.Buttons.Link.State = ControlState.Error;
                     ComShouldBeOpen = false;
+                    MasterProtocol_Stop();
                 }
             }
             else
@@ -604,6 +600,8 @@ namespace CommandCenter
                     Debug.Success("Port closed!");
                     NewUserTextInfo("Link Terminated", 1);
 
+                    MasterProtocol_Stop();
+
                     CommandCenter.Buttons.USB.State = ControlState.Disabled;
                     CommandCenter.Buttons.Link.State = ControlState.Inactive;
                     BRS.ComPort.Port.PortName = "No Device";
@@ -612,12 +610,61 @@ namespace CommandCenter
                 {
                     Debug.Error("FAILED TO CLOSE COM PORT WITH SPECIFIED INFO");
                     NewUserTextInfo("LINKING ERROR", 2);
+                    MasterProtocol_Stop();
 
                     CommandCenter.Buttons.USB.State = ControlState.Error;
                     CommandCenter.Buttons.Link.State = ControlState.Error;
                 }
             }
 
+            BRS.Debug.Header(false);
+        }
+        //#############################################################//
+        /// <summary>
+        /// Changes the state of autoconnection.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        //#############################################################//
+        private void Button_AutoConnect_Click(object sender, EventArgs e)
+        {
+            BRS.Debug.Header(true);
+
+            BRS.Debug.Comment("Flipping autoConnect state...");
+            AutoConnect = !AutoConnect;
+            Debug.Success(AutoConnect.ToString());
+
+            if (AutoConnect == false)
+            {
+                if (CommandCenter.Buttons.AutoConnection.State == ControlState.Warning)
+                {
+                    previousState = ControlState.Warning;
+                    CommandCenter.Buttons.AutoConnection.State = ControlState.Inactive;
+                }
+
+                if (CommandCenter.Buttons.AutoConnection.State == ControlState.Error)
+                {
+                    previousState = ControlState.Error;
+                    CommandCenter.Buttons.AutoConnection.State = ControlState.Inactive;
+                }
+
+                if (CommandCenter.Buttons.AutoConnection.State == ControlState.Active)
+                {
+                    previousState = ControlState.Active;
+                    CommandCenter.Buttons.AutoConnection.State = ControlState.Inactive;
+                }
+                if (CommandCenter.Buttons.AutoConnection.State == ControlState.Inactive)
+                {
+                    previousState = ControlState.Active;
+                    CommandCenter.Buttons.AutoConnection.State = ControlState.Inactive;
+                }
+            }
+            else
+            {
+                CommandCenter.Buttons.AutoConnection.State = previousState;
+            }
+            Settings.BeagleBone_AutoConnect(AutoConnect.ToString());
+            NewUserTextInfo("Saved new Auto Connection",1);
             BRS.Debug.Header(false);
         }
         #endregion Buttons
@@ -661,6 +708,16 @@ namespace CommandCenter
 
             BeagleBone_ConnectingProcess();
 
+            if(BRS.ComPort.Port.IsOpen && CommandCenter.Buttons.CloseBeagle.State == ControlState.Disabled)
+            {
+                CommandCenter.Buttons.CloseBeagle.State = ControlState.Active;
+            }
+
+            if(!BRS.ComPort.Port.IsOpen && CommandCenter.Buttons.CloseBeagle.State != ControlState.Disabled)
+            {
+                CommandCenter.Buttons.CloseBeagle.State = ControlState.Disabled;
+            }
+
             // Disabling the settings parameters if the port is opened.
             if (BRS.ComPort.Port.IsOpen)
             {
@@ -672,7 +729,7 @@ namespace CommandCenter
                 PortBox1.Enabled = false;
                 TXTimeOutBox.Enabled = false;
                 RXTimeOutBox.Enabled = false;
-                ConsoleArea.Enabled = true;
+                CommandCenter.terminal.state = Terminal.States.Active;
             }
             else
             {
@@ -684,7 +741,7 @@ namespace CommandCenter
                 PortBox1.Enabled = true;
                 TXTimeOutBox.Enabled = true;
                 RXTimeOutBox.Enabled = true;
-                ConsoleArea.Enabled = false;
+                CommandCenter.terminal.state = Terminal.States.Disabled;
             }
 
             // Check actual state of the USB vs the state it should be in.
