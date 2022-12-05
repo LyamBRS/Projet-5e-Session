@@ -71,7 +71,7 @@ unsigned char serviceCommunication_ErrorState = NO_ERROR;
  * @brief Variable keeping track of the amount of interrupt which hapenned
  * since the reception of a \ref stModes by the synchronisation CAN tram.
  */
-unsigned char interruptCount = 0;
+unsigned int interruptCount = 0;
 /**
  * @brief Variable which indicates which slots in the CAN protocol the count
  * is current at. This is used to keep track of which person needs to
@@ -1080,7 +1080,7 @@ void ServiceCommunication_RXParsingHandler(void)
     {
         receiveUDP1();
         Parse_CanBusReceptions(MODULE_CAN_RX_BUFFER);
-        printf("%i", ModuleData.Mode);
+        //printf("%i", ModuleData.Mode);
         /*
         printf("\n");
         for(int i=0; i<8; ++i)
@@ -1122,15 +1122,12 @@ void ServiceCommunication_TXParsingHandler(void)
             transUDP1(MODULE_CAN_TX);
             sent = 1;
         }
-        else
-        {
-            sent = 0;
-        }  
     }
     else
     {
         //Put structure in QUEUE buffers to transmit faster once the CAN slot is ours.
         Parse_ModuleDataForTransmission();
+        sent = 0;
     }
 }
 /**
