@@ -19,15 +19,15 @@ void interfacePassUDPtoUart(void)
 {
  int i;
   
- receiveUDP();
- //readBuffer[0] = 'M'; 
- //readBuffer[1] = 'E'; 
- //readBuffer[2] = 'S'; 
- //readBuffer[3] = 'S'; 
- //readBuffer[4] = 'A'; 
- //readBuffer[5] = 'G'; 
- //readBuffer[6] = 'E'; 
- //readBuffer[7] = 'S'; 
+ //receiveUDP();
+ readBuffer[0] = 'M'; 
+ readBuffer[1] = 'E'; 
+ readBuffer[2] = 'S'; 
+ readBuffer[3] = 'S'; 
+ readBuffer[4] = 'A'; 
+ readBuffer[5] = 'G'; 
+ readBuffer[6] = 'E'; 
+ readBuffer[7] = 'S'; 
  if(readBuffer[0] != 0)
  {
    serviceProtocole637.nombreATransmettre = 0x08;

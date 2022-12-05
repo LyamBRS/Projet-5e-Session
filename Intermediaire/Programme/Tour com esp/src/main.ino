@@ -39,7 +39,7 @@ void main_initialise(void);
 //Definitions de fonctions privees:
 void main_initialise(void)
 {
-  piloteUDPStation_initialise();
+  //piloteUDPStation_initialise();
   piloteUART2_initialise();
   piloteEntree1_initialise();
   piloteAnalogue0_initialise();
@@ -54,7 +54,6 @@ void main_initialise(void)
 
 void setup(void) 
 {
-  //unsigned char ucUarttoUD[8] = {'M',0x04,0x00,0x00,0x00,0x00,0x00,0x00};
   Serial.begin(115200);
   main_initialise();
   main_faitUnTest();

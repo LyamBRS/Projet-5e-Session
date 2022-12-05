@@ -93,9 +93,8 @@ void serviceProtocole637_transmetLaLongueur(void)
 
 void serviceProtocole637_transmetUneDonnee(void)
 {
-static unsigned char donnee = 0;
-  if (serviceProtocole637_gereLaSynchronisationDesTransmissions()
-      == SERVICEPROTOCOLE637_TRANSMISSION_RETARDEE)
+  static unsigned char donnee = 0;
+  if (serviceProtocole637_gereLaSynchronisationDesTransmissions() == SERVICEPROTOCOLE637_TRANSMISSION_RETARDEE)
   {
     return;
   }
@@ -154,21 +153,19 @@ static unsigned char donnee = 0;
    ucChecksum += readBuffer[7];
    donnee = 0;
  }
- serviceBaseDeTemps_execute[SERVICEPROTOCOLE637_PHASE_TRANSMISSION] =
-      serviceProtocole637_transmetUnChecksum;
+ serviceBaseDeTemps_execute[SERVICEPROTOCOLE637_PHASE_TRANSMISSION] = serviceProtocole637_transmetUnChecksum;
 }
 
 void serviceProtocole637_transmetUnChecksum(void)
 {
-  if (serviceProtocole637_gereLaSynchronisationDesTransmissions() 
-      == SERVICEPROTOCOLE637_TRANSMISSION_RETARDEE)
+  if (serviceProtocole637_gereLaSynchronisationDesTransmissions()== SERVICEPROTOCOLE637_TRANSMISSION_RETARDEE)
   {
     return;
   }
   piloteUART2_TX(ucChecksum);
   serviceProtocole637.requete = REQUETE_TRAITEE;
   serviceBaseDeTemps_execute[SERVICEPROTOCOLE637_PHASE_TRANSMISSION] =
-      serviceProtocole637_attendUneRequete;
+serviceProtocole637_attendUneRequete;
 // insérez votre code ici    
 }
 

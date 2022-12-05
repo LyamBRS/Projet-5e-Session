@@ -38,16 +38,11 @@ void processusClignotant_attendAvantDEteindreLeTemoinLumineux(void);
 void processusClignotant_attendAvantDAllumerLeTemoinLumineux(void)
 {
   static unsigned char ucControl = 0;
-  processusClignotant_compteur++;
-  if (processusClignotant_compteur < PROCESSUSCLIGNOTANT_COMPTE_POUR_ALLUME)
-  {
-    return;
-  }
   interfacePassUDPtoUart();
-//interfacePassUartToUDP();
+  interfacePassUartToUDP();
   interfaceT1_allume();
   processusClignotant_compteur = 0;
-  serviceBaseDeTemps_execute[PROCESSUSCLIGNOTANT_PHASE] = processusClignotant_attendAvantDEteindreLeTemoinLumineux;
+  //serviceBaseDeTemps_execute[PROCESSUSCLIGNOTANT_PHASE] = processusClignotant_attendAvantDEteindreLeTemoinLumineux;
 }
 
 void processusClignotant_attendAvantDEteindreLeTemoinLumineux(void)
