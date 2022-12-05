@@ -31,6 +31,18 @@ namespace CommandCenter
         /// received from this module during MasterProtocol communications.
         /// </summary>
         public static byte State_Offline = 0xFF;
+        /// <summary>
+        /// State of a virtual module which means it's object has
+        /// been reset. This is usually the case when the current mode
+        /// of itself changes for an other.
+        /// </summary>
+        //public static byte State_ClassReset = 0xFE;
+        /// <summary>
+        /// State of a virtual module which means it has just been initialised.
+        /// it is set to that at the application's launch, and when the
+        /// MasterProtocol begins.
+        /// </summary>
+        public static byte State_ClassInitialised = 0xFD;
         #endregion Variables
         #region TIMER
         //#############################################################//
@@ -531,6 +543,11 @@ namespace CommandCenter
              */
             public byte processing = 0x03;
             /**
+             * @brief Indicates that the command center is executing the operation mode: 
+             * @link https://docs.google.com/spreadsheets/d/1BgSps-8e4IBZYXIF8JcprH0LhlybmtSgL7DJWUX4dDQ/edit#gid=977381857&range=D21 @endlink
+             */
+            public byte operating = 0x04;
+            /**
              * @brief Indicates that the module is currently calibating itself. Full detailed description available at : 
              * @link https://docs.google.com/spreadsheets/d/1BgSps-8e4IBZYXIF8JcprH0LhlybmtSgL7DJWUX4dDQ/edit#gid=977381857&range=D22 @endlink
              */
@@ -1015,6 +1032,24 @@ namespace CommandCenter
             /// be able to see at run time.
             /// </summary>
             public string name = "NoName";
+            /// <summary>
+            /// The private variable is used to keep track of the amount
+            /// of times you attempted to parse a received string through
+            /// ParseFromMasterProtocol(). If the address of the string
+            /// which you attempt to parse is corresponding to the ones
+            /// stored inside of the address structure, it is reset to
+            /// 0. Pass the amount defined by the user of this class,
+            /// the module is considered Offline as no string is containing
+            /// it's address.
+            /// </summary>
+            private byte currentAmountOfAttempts = 0;
+            /// <summary>
+            /// This public variable is used to define how many data parsing
+            /// attempts are to be done for the module to be considered offline.
+            /// A failed attempt means that the address specified in the parsed
+            /// data does not match this module's address stored in it's structure.
+            /// </summary>
+            public byte AmountOfAttemptsToBeOffline = 10;
             /*
             /// <summary>
             /// Class containing each states that this module can have
@@ -1114,7 +1149,7 @@ namespace CommandCenter
 
                 BRS.Debug.Comment("Setting Current structure's values to initial parameters");
                 Current.Mode = Modes_Ref.reinitialisation;
-                Current.State = State_Offline;
+                Current.State = State_ClassInitialised;
                 Current.Weight = 0;
                 Current.AllowedStates.SetAllTo(DataState.Unused);
 
@@ -1145,7 +1180,6 @@ namespace CommandCenter
 
                 BRS.Debug.Comment("Resetting Current structure...");
                 Current.Mode = Modes_Ref.reinitialisation;
-                Current.State = States_Ref.waiting;
                 Current.Weight = 0;
 
                 BRS.Debug.Comment("Resetting Received structure to DataState.NoData...");
@@ -1178,9 +1212,15 @@ namespace CommandCenter
                 }
                 else
                 {
-                    Reset();
+                    if (Current.State == State_ClassInitialised)
+                    {
+
+                    }
+                    else
+                    {
+                        Reset();
+                    }
                     Current.Mode = newMode;
-                    Current.State = State_Offline;
 
                     if (newMode == Modes_Ref.operation)
                     {
@@ -1194,12 +1234,14 @@ namespace CommandCenter
                         Current.AllowedStates.waitingToWeight               = DataState.Available;
                         Current.AllowedStates.finishedWeighting             = DataState.Available;
                         Current.AllowedStates.empty                         = DataState.Available;
+                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.VirtualModes.IsNow.Operating, Color.PeachPuff);
                     }
                     if (newMode == Modes_Ref.maintenance)
                     {
                         Current.AllowedStates.SetAllTo(DataState.Unused);
                         Current.AllowedStates.processing = DataState.Available;
                         Current.AllowedStates.safe       = DataState.Available;
+                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.VirtualModes.IsNow.Maintenance, Color.PeachPuff);
                     }
                     if (newMode == Modes_Ref.testing)
                     {
@@ -1207,29 +1249,34 @@ namespace CommandCenter
                         Current.AllowedStates.testing    = DataState.Available;
                         Current.AllowedStates.processing = DataState.Available;
                         Current.AllowedStates.waiting    = DataState.Available;
+                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.VirtualModes.IsNow.Testing, Color.PeachPuff);
                     }
                     if (newMode == Modes_Ref.pause)
                     {
                         Current.AllowedStates.SetAllTo(DataState.Unused);
                         Current.AllowedStates.paused     = DataState.Available;
                         Current.AllowedStates.processing = DataState.Available;
+                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.VirtualModes.IsNow.Paused, Color.PeachPuff);
                     }
                     if (newMode == Modes_Ref.reinitialisation)
                     {
                         Current.AllowedStates.SetAllTo(DataState.Unused);
                         Current.AllowedStates.processing = DataState.Available;
                         Current.AllowedStates.waiting    = DataState.Available;
+                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.VirtualModes.IsNow.Initialising, Color.PeachPuff);
                     }
                     if (newMode == Modes_Ref.calibration)
                     {
                         Current.AllowedStates.SetAllTo(DataState.Unused);
                         Current.AllowedStates.calibrating = DataState.Available;
                         Current.AllowedStates.calibrated  = DataState.Available;
+                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.VirtualModes.IsNow.Calibrating, Color.PeachPuff);
                     }
                     if (newMode == Modes_Ref.emergencyStop)
                     {
                         Current.AllowedStates.SetAllTo(DataState.Unused);
                         Current.AllowedStates.emergencyStop = DataState.Available;
+                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.VirtualModes.IsNow.Emergency, Color.PeachPuff);
                     }
                 }
 
@@ -1274,7 +1321,11 @@ namespace CommandCenter
 
                         if (address == Addresses.CAN_TX)
                         {
-                            BRS.Debug.Comment("IT WAS: " + name, true);
+                            //BRS.Debug.Comment("IT WAS: " + name, true);
+                            //----------------------------------------------------------//
+                            //-- Offline detection reset -------------------------------//
+                            //----------------------------------------------------------//
+                            HandleSuccessfulAttempt();
                             //----------------------------------------------------------//
                             //-- Parsing the table into a byte array -------------------//
                             //----------------------------------------------------------//
@@ -1291,7 +1342,8 @@ namespace CommandCenter
                         else
                         {
                             // IS NOT THE CORRECT ADDRESS FOR THIS MODULE
-                            BRS.Debug.Comment("IT WASN'T: " + name, true);
+                            //BRS.Debug.Comment("IT WASN'T: " + name, true);
+                            HandleAttemptIncrements();
                             return;
                         }
                     }
@@ -1304,6 +1356,72 @@ namespace CommandCenter
                 else
                 {
                     //BRS.Debug.Error("String isn't starting with [RX]; " + receivedCommunication);
+                }
+
+            }
+            //#############################################################//
+            /// <summary>
+            /// When called, handles the increments of parsing attempts,
+            /// and if applicable, sets the state of this module class
+            /// as Offline with a log message.
+            /// </summary>
+            //#############################################################//
+            private void HandleAttemptIncrements()
+            {
+                //---------------------------------------------------------//
+                // Handling increments
+                //---------------------------------------------------------//
+                currentAmountOfAttempts++;
+                BRS.Debug.Comment(name + " Attempts: " + currentAmountOfAttempts.ToString());
+                //---------------------------------------------------------//
+                // Handling reaching the maximum allowed
+                //---------------------------------------------------------//
+                if(currentAmountOfAttempts >= AmountOfAttemptsToBeOffline)
+                {
+                    // Preventing overflowing
+                    currentAmountOfAttempts = AmountOfAttemptsToBeOffline;
+
+                    // if there is no stored errors, then set it as not talking.
+                    //if(error == Module_Errors.none)
+                    //{
+                    //    error = Module_Errors.notTalking;
+                    //}
+
+                    // Setup new state and log it.
+                    if (Current.State != State_ClassInitialised && Current.State != State_Offline)
+                    {
+                        BRS.Debug.Comment(name + " has been detected as Offline.",true);
+                        Current.State = State_Offline;
+                        OperationLogs.Window.Log_Warning(name + LogsInfos.Operations.Modules.NoLongerOnline);
+                    }
+                }
+            }
+            //#############################################################//
+            /// <summary>
+            /// When called, attempts reset increments and the module is
+            /// now detected as online and operating "correctly", or at the
+            /// very least, it's now talking on the CAN bus
+            /// </summary>
+            //#############################################################//
+            private void HandleSuccessfulAttempt()
+            {
+                // Reset count
+                currentAmountOfAttempts = 0;
+                HandleAttemptIncrements();
+
+                // Remove unresponsive error
+                if (Current.State == State_Offline)
+                {
+                    OperationLogs.Window.Log_Warning(name + LogsInfos.Operations.Modules.NoLongerOffline);
+                    error = Module_Errors.none;
+                }
+                else
+                {
+                    // First time being online
+                    if(Current.State == State_ClassInitialised)
+                    {
+                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.FirstTimeOnline, Color.Lime);
+                    }
                 }
 
             }
@@ -1329,17 +1447,17 @@ namespace CommandCenter
                         switch (commandNumber)
                         {
                             // Parsing of received commands in a CAN tram
-                            case (0x00): Received.Commands.move_left        = DataState.Received; OperationLogs.Window.Log_Comment(name + " asked other modules to turn Left"); break;
-                            case (0x01): Received.Commands.move_right       = DataState.Received; OperationLogs.Window.Log_Comment(name + " asked other modules to turn Right"); break;
-                            case (0x02): Received.Commands.move_forward     = DataState.Received; OperationLogs.Window.Log_Comment(name + " asked other modules to go forwards"); break;
-                            case (0x03): Received.Commands.move_backward    = DataState.Received; OperationLogs.Window.Log_Comment(name + " asked other modules to go backwards"); break;
-                            case (0x04): Received.Commands.move_up          = DataState.Received; OperationLogs.Window.Log_Comment(name + " asked other modules to go up"); break;
-                            case (0x05): Received.Commands.move_down        = DataState.Received; OperationLogs.Window.Log_Comment(name + " asked other modules to go down"); break;
+                            case (0x00): Received.Commands.move_left        = DataState.Received; OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Commands.MoveLeft); break;
+                            case (0x01): Received.Commands.move_right       = DataState.Received; OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Commands.MoveRight); break;
+                            case (0x02): Received.Commands.move_forward     = DataState.Received; OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Commands.MoveForwards); break;
+                            case (0x03): Received.Commands.move_backward    = DataState.Received; OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Commands.MoveBackwards); break;
+                            case (0x04): Received.Commands.move_up          = DataState.Received; OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Commands.MoveUp); break;
+                            case (0x05): Received.Commands.move_down        = DataState.Received; OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Commands.MoveDown); break;
 
                             case (0x06):
-                                    if (Received.Commands.suction_OFF != DataState.Received)
+                                    if (Received.Commands.suction_ON != DataState.Received)
                                     {
-                                        OperationLogs.Window.Log_Comment(name + " has asked to turn ON suction",Color.Lime);
+                                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Commands.SuctionOn,Color.Lime);
                                     }
                                     Received.Commands.suction_ON  = DataState.Received;
                                     Received.Commands.suction_OFF = DataState.NoData;
@@ -1347,7 +1465,7 @@ namespace CommandCenter
                             case (0x07):
                                     if (Received.Commands.suction_OFF != DataState.Received)
                                     {
-                                        OperationLogs.Window.Log_Comment(name + " has asked to turn OFF suction", Color.Lime);
+                                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Commands.SuctionOff, Color.Lime);
                                     }
                                     Received.Commands.suction_OFF = DataState.Received;
                                     Received.Commands.suction_ON  = DataState.NoData;
@@ -1356,7 +1474,7 @@ namespace CommandCenter
                             case (0x08):
                                     if (Received.Commands.light_A_ON != DataState.Received)
                                     {
-                                        OperationLogs.Window.Log_Comment(name + " has sent Light A ON.", Color.Lime);
+                                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Commands.LightAOn, Color.Lime);
                                     }
                                     Received.Commands.light_A_ON  = DataState.Received;
                                     Received.Commands.light_A_OFF = DataState.NoData;
@@ -1364,7 +1482,7 @@ namespace CommandCenter
                             case (0x09):
                                     if (Received.Commands.light_A_OFF != DataState.Received)
                                     {
-                                        OperationLogs.Window.Log_Comment(name + " has sent Light A OFF.", Color.Lime);
+                                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Commands.LightAOff, Color.Lime);
                                     }
                                     Received.Commands.light_A_OFF = DataState.Received;
                                     Received.Commands.light_A_ON  = DataState.NoData;
@@ -1373,7 +1491,7 @@ namespace CommandCenter
                             case (0x0A):
                                     if (Received.Commands.light_B_ON != DataState.Received)
                                     {
-                                        OperationLogs.Window.Log_Comment(name + " has sent Light B ON.", Color.Lime);
+                                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Commands.LightBOn, Color.Lime);
                                     }
                                     Received.Commands.light_B_ON  = DataState.Received;
                                     Received.Commands.light_B_OFF = DataState.NoData;
@@ -1381,7 +1499,7 @@ namespace CommandCenter
                             case (0x0B):
                                     if (Received.Commands.light_B_OFF != DataState.Received)
                                     {
-                                        OperationLogs.Window.Log_Comment(name + " has sent Light B OFF.", Color.Lime);
+                                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Commands.LightBOff, Color.Lime);
                                     }
                                     Received.Commands.light_B_OFF = DataState.Received;
                                     Received.Commands.light_B_ON  = DataState.NoData;
@@ -1390,7 +1508,7 @@ namespace CommandCenter
                             case (0x0C):
                                     if (Received.Commands.light_C_ON != DataState.Received)
                                     {
-                                        OperationLogs.Window.Log_Comment(name + " has sent Light C On.", Color.Lime);
+                                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Commands.LightCOn, Color.Lime);
                                     }
                                     Received.Commands.light_C_ON  = DataState.Received;
                                     Received.Commands.light_C_OFF = DataState.NoData;
@@ -1398,7 +1516,7 @@ namespace CommandCenter
                             case (0x0D):
                                     if (Received.Commands.light_C_ON != DataState.Received)
                                     {
-                                        OperationLogs.Window.Log_Comment(name + " has sent Light C On.", Color.Lime);
+                                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Commands.LightCOff, Color.Lime);
                                     }
                                     Received.Commands.light_C_OFF = DataState.Received;
                                     Received.Commands.light_C_ON  = DataState.NoData;
@@ -1407,7 +1525,7 @@ namespace CommandCenter
                             case (0x0E):
                                     if (Received.Commands.light_D_ON != DataState.Received)
                                     {
-                                        OperationLogs.Window.Log_Comment(name + " has sent Light D On.", Color.Lime);
+                                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Commands.LightDOn, Color.Lime);
                                     }
                                     Received.Commands.light_D_ON  = DataState.Received;
                                     Received.Commands.light_D_OFF = DataState.NoData;
@@ -1415,7 +1533,7 @@ namespace CommandCenter
                             case (0x0F):
                                     if (Received.Commands.light_D_OFF != DataState.Received)
                                     {
-                                        OperationLogs.Window.Log_Comment(name + " has sent Light D Off.", Color.Lime);
+                                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Commands.LightDOff, Color.Lime);
                                     }
                                     Received.Commands.light_D_OFF = DataState.Received;
                                     Received.Commands.light_D_ON = DataState.NoData;
@@ -1424,7 +1542,7 @@ namespace CommandCenter
                             case (0x10):
                                     if (Received.Commands.goto_SortingStation != DataState.Received)
                                     {
-                                        OperationLogs.Window.Log_Comment(name + " asked modules to go to the sorting station", Color.Lime);
+                                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Commands.GotoSortingStation, Color.Lime);
                                     }
                                     Received.Commands.goto_SortingStation = DataState.Received;
                                     Received.Commands.goto_WeightStation  = DataState.NoData;
@@ -1432,21 +1550,21 @@ namespace CommandCenter
                             case (0x11):
                                     if (Received.Commands.goto_WeightStation != DataState.Received)
                                     {
-                                        OperationLogs.Window.Log_Comment(name + " asked modules to go to the Weight station", Color.Lime);
+                                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Commands.GotoWeightStation, Color.Lime);
                                     }
                                     Received.Commands.goto_WeightStation  = DataState.Received;
                                     Received.Commands.goto_SortingStation = DataState.NoData;
                                 break;
 
-                            case (0x12): Received.Commands.start_Sorting   = DataState.Received; OperationLogs.Window.Log_Comment(name + "is asking modules to start sorting!"); break;
-                            case (0x13): Received.Commands.start_Weighting = DataState.Received; OperationLogs.Window.Log_Comment(name + "is asking modules to start weighting!"); break;
+                            case (0x12): Received.Commands.start_Sorting   = DataState.Received; OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Commands.StartSorting); break;
+                            case (0x13): Received.Commands.start_Weighting = DataState.Received; OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Commands.StartWeighting); break;
 
-                            case (0x14): Received.Commands.discharge = DataState.Received; OperationLogs.Window.Log_Comment(name + "is asking modules to discharge"); break;
+                            case (0x14): Received.Commands.discharge = DataState.Received; OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Commands.Discharge); break;
 
                             case (0x16):
                                     if (Received.Commands.units_Metric != DataState.Received)
                                     {
-                                        OperationLogs.Window.Log_Comment(name + " asked modules to now use Metric units", Color.Lime);
+                                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Commands.UseMetric, Color.Lime);
                                     }
                                     Received.Commands.units_Metric   = DataState.Received;
                                     Received.Commands.units_Imperial = DataState.NoData;
@@ -1455,14 +1573,14 @@ namespace CommandCenter
                             case (0x17):
                                     if (Received.Commands.units_Imperial != DataState.Received)
                                     {
-                                        OperationLogs.Window.Log_Comment(name + " asked modules to now use Imperial units", Color.Lime);
-                                    }
+                                    OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Commands.UseImperial, Color.Lime);
+                                }
                                     Received.Commands.units_Imperial = DataState.Received;
                                     Received.Commands.units_Metric   = DataState.NoData;
                                     break;
                             default:
                                 //If received mode matched nothing, an error occured.
-                                OperationLogs.Window.Log_Warning(name + " tried sending an unexisting mode");
+                                OperationLogs.Window.Log_Warning(name + LogsInfos.Operations.Modules.Commands.UnexpectedData);
                                 error = Module_Errors.unexpectedData;
                                 break;
                         }
@@ -1474,7 +1592,7 @@ namespace CommandCenter
                             case (0x00):
                                 if (Received.Values.disc_Red != DataState.Received)
                                 {
-                                    OperationLogs.Window.Log_Comment(name + "'s detected block is now Orange", Color.Orange);
+                                    OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Values.disc_Red, Color.Orange);
                                 }
                                 Received.Values.disc_Red        = DataState.Received;
                                 Received.Values.disc_Black      = DataState.NoData;
@@ -1485,7 +1603,7 @@ namespace CommandCenter
                             case (0x01):
                                 if (Received.Values.disc_Silver != DataState.Received)
                                 {
-                                    OperationLogs.Window.Log_Comment(name + "'s detected block is now Metallic", Color.White);
+                                    OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Values.disc_Silver, Color.White);
                                 }
                                 Received.Values.disc_Silver   = DataState.Received;
                                 Received.Values.disc_Red      = DataState.NoData;
@@ -1495,7 +1613,7 @@ namespace CommandCenter
                             case (0x02):
                                 if (Received.Values.disc_Black != DataState.Received)
                                 {
-                                    OperationLogs.Window.Log_Comment(name + "'s detected block is now Black", Color.Black);
+                                    OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Values.disc_Black, Color.Black);
                                 }
                                 Received.Values.disc_Black    = DataState.Received;
                                 Received.Values.disc_Red      = DataState.NoData;
@@ -1505,7 +1623,7 @@ namespace CommandCenter
                             case (0x03):
                                 if (Received.Values.disc_NoColor != DataState.Received)
                                 {
-                                    OperationLogs.Window.Log_Comment(name + "'s is no longer detecting discs of colors",Color.Yellow);
+                                    OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Values.disc_NoColor, Color.Yellow);
                                 }
                                 Received.Values.disc_NoColor  = DataState.Received;
                                 Received.Values.disc_Red      = DataState.NoData;
@@ -1516,7 +1634,7 @@ namespace CommandCenter
                             case (0x04):
                                 if (Received.Values.disc_Detected != DataState.Received)
                                 {
-                                    OperationLogs.Window.Log_Comment(name + "'s has detected a disc!", Color.Lime);
+                                    OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Values.disc_Detected, Color.Lime);
                                 }
                                 Received.Values.disc_Detected         = DataState.Received;
                                 Received.Values.disc_Lost             = DataState.NoData;
@@ -1526,7 +1644,7 @@ namespace CommandCenter
                             case (0x05):
                                 if (Received.Values.disc_Lost != DataState.Received)
                                 {
-                                    OperationLogs.Window.Log_Comment(name + "'s lost detection of a previously detected disc", Color.Red);
+                                    OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Values.disc_Lost, Color.Red);
                                 }
                                 Received.Values.disc_Lost             = DataState.Received;
                                 Received.Values.disc_Detected         = DataState.NoData;
@@ -1535,7 +1653,7 @@ namespace CommandCenter
                             case (0x06):
                                 if (Received.Values.disc_CouldNotBeFound != DataState.Received)
                                 {
-                                    OperationLogs.Window.Log_Error(name + "'s Couldn't detect any disc");
+                                    OperationLogs.Window.Log_Error(name + LogsInfos.Operations.Modules.Values.disc_CouldNotBeFound);
                                 }
                                 Received.Values.disc_CouldNotBeFound  = DataState.Received;
                                 Received.Values.disc_Detected         = DataState.NoData;
@@ -1545,7 +1663,7 @@ namespace CommandCenter
                             case (0x07):
                                 if (Received.Values.unit_Metric != DataState.Received)
                                 {
-                                    OperationLogs.Window.Log_Comment(name + " is now using Metric Units", Color.Lime);
+                                    OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Values.NowInMetric, Color.Lime);
                                 }
                                 Received.Values.unit_Metric           = DataState.Received;
                                 Received.Values.unit_Imperial         = DataState.NoData;
@@ -1553,14 +1671,14 @@ namespace CommandCenter
                             case (0x08):
                                 if (Received.Values.unit_Imperial != DataState.Received)
                                 {
-                                    OperationLogs.Window.Log_Comment(name + " is now using Imperial Units", Color.Lime);
+                                    OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Values.NowInImperial, Color.Lime);
                                 }
                                 Received.Values.unit_Metric           = DataState.NoData;
                                 Received.Values.unit_Imperial         = DataState.Received;
                                 break;
                             default:
                                 //If received mode matched nothing, an error occured.
-                                OperationLogs.Window.Log_Warning(name + " tried sending an unexisting Value");
+                                OperationLogs.Window.Log_Warning(name + LogsInfos.Operations.Modules.Values.UnexpectedData);
                                 error = Module_Errors.unexpectedData;
                                 break;
                         }
@@ -1573,7 +1691,7 @@ namespace CommandCenter
                                 // AUTOMATICALLY SWITCH TO EMERGENCY MODE WHEN A MODULE STATE SAYS IT'S IN THIS STATE
                                 if (Received.States.emergencyStop != DataState.Received)
                                 {
-                                    OperationLogs.Window.Log_header(name + " HAS SEEN/TRIGGERED EMERGENCY PROTOCOL");
+                                    OperationLogs.Window.Log_header(name + LogsInfos.Operations.Modules.States.IsNow.InEmergencyStop);
                                     Current.Mode = Modes_Ref.emergencyStop;
                                     Received.States.emergencyStop = DataState.Received;
                                 }
@@ -1583,7 +1701,7 @@ namespace CommandCenter
                                 if (Received.States.paused != DataState.Received)
                                 {
                                     Received.States.SetAllTo(DataState.NoData);
-                                    OperationLogs.Window.Log_Comment(name + " is now paused", Color.LightPink);
+                                    OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.States.IsNow.Paused, Color.LightPink);
                                 }
                                 Received.States.paused = DataState.Received;
                                 #endregion Paused
@@ -1593,7 +1711,7 @@ namespace CommandCenter
                                 if (Received.States.testing != DataState.Received)
                                 {
                                     Received.States.SetAllTo(DataState.NoData);
-                                    OperationLogs.Window.Log_Comment(name + " is now testing itself", Color.LightPink);
+                                    OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.States.IsNow.Testing, Color.LightPink);
                                 }
                                 Received.States.testing = DataState.Received;
                                 #endregion Testing
@@ -1603,7 +1721,7 @@ namespace CommandCenter
                                 if (Received.States.processing != DataState.Received)
                                 {
                                     Received.States.SetAllTo(DataState.NoData);
-                                    OperationLogs.Window.Log_Comment(name + " is now processing something", Color.LightPink);
+                                    OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.States.IsNow.Processing, Color.LightPink);
                                 }
                                 Received.States.processing = DataState.Received;
                                 #endregion Processing
@@ -1614,7 +1732,7 @@ namespace CommandCenter
                                 if (Received.States.calibrating != DataState.Received)
                                 {
                                     Received.States.SetAllTo(DataState.NoData);
-                                    OperationLogs.Window.Log_Comment(name + " is now calibrating itself...", Color.LightPink);
+                                    OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.States.IsNow.Calibrating, Color.LightPink);
                                 }
                                 Received.States.calibrating = DataState.Received;
                                 #endregion Calibrating 
@@ -1624,7 +1742,7 @@ namespace CommandCenter
                                 if (Received.States.calibrated != DataState.Received)
                                 {
                                     Received.States.SetAllTo(DataState.NoData);
-                                    OperationLogs.Window.Log_Comment(name + " has finished calibration!...", Color.LightPink);
+                                    OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.States.IsNow.Calibrated, Color.LightPink);
                                 }
                                 Received.States.calibrated = DataState.Received;
                                 #endregion Calibrated 
@@ -1634,7 +1752,7 @@ namespace CommandCenter
                                 if (Received.States.waiting != DataState.Received)
                                 {
                                     Received.States.SetAllTo(DataState.NoData);
-                                    OperationLogs.Window.Log_Comment(name + " is now waiting for something", Color.LightPink);
+                                    OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.States.IsNow.Waiting, Color.LightPink);
                                 }
                                 Received.States.waiting = DataState.Received;
                                 #endregion Waiting 
@@ -1644,7 +1762,7 @@ namespace CommandCenter
                                 if (Received.States.safe != DataState.Received)
                                 {
                                     Received.States.SetAllTo(DataState.NoData);
-                                    OperationLogs.Window.Log_Comment(name + " is now safe to handle", Color.LightPink);
+                                    OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.States.IsNow.Safe, Color.LightPink);
                                 }
                                 Received.States.safe = DataState.Received;
                                 #endregion Safe 
@@ -1654,7 +1772,7 @@ namespace CommandCenter
                                 if (Received.States.error != DataState.Received)
                                 {
                                     Received.States.SetAllTo(DataState.NoData);
-                                    OperationLogs.Window.Log_Error(name + " IS SENDING ERROR STATUS");
+                                    OperationLogs.Window.Log_Error(name + LogsInfos.Operations.Modules.States.IsNow.Error);
                                 }
                                 Received.States.error = DataState.Received;
                                 #endregion Error  
@@ -1665,7 +1783,7 @@ namespace CommandCenter
                                 if (Received.States.atSortingFactory != DataState.Received)
                                 {
                                     Received.States.SetAllTo(DataState.NoData);
-                                    OperationLogs.Window.Log_Comment(name + " is now at the sorting factory", Color.Pink);
+                                    OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.States.IsNow.AtSortingfactory, Color.Pink);
                                 }
                                 Received.States.atSortingFactory = DataState.Received;
                                 #endregion AtSortingFactory
@@ -1675,7 +1793,7 @@ namespace CommandCenter
                                 if (Received.States.atWeightStation != DataState.Received)
                                 {
                                     Received.States.SetAllTo(DataState.NoData);
-                                    OperationLogs.Window.Log_Comment(name + " is now at the weight station", Color.Pink);
+                                    OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.States.IsNow.AtWeightStation, Color.Pink);
                                 }
                                 Received.States.atWeightStation = DataState.Received;
                                 #endregion atWeightStation
@@ -1685,7 +1803,7 @@ namespace CommandCenter
                                 if (Received.States.finishedSortingAndHasLoaded != DataState.Received)
                                 {
                                     Received.States.SetAllTo(DataState.NoData);
-                                    OperationLogs.Window.Log_Comment(name + " has finished sorting and loaded the corresponding module!", Color.Pink);
+                                    OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.States.IsNow.FinishedSortingAndLoaded, Color.Pink);
                                 }
                                 Received.States.finishedSortingAndHasLoaded = DataState.Received;
                                 #endregion finishedSortingAndHasLoaded
@@ -1695,7 +1813,7 @@ namespace CommandCenter
                                 if (Received.States.waitingToSort != DataState.Received)
                                 {
                                     Received.States.SetAllTo(DataState.NoData);
-                                    OperationLogs.Window.Log_Comment(name + " is no waiting to begin sorting", Color.Pink);
+                                    OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.States.IsNow.WaitingToSort, Color.Pink);
                                 }
                                 Received.States.waitingToSort = DataState.Received;
                                 #endregion waitingToSort
@@ -1705,7 +1823,7 @@ namespace CommandCenter
                                 if (Received.States.waitingToWeight != DataState.Received)
                                 {
                                     Received.States.SetAllTo(DataState.NoData);
-                                    OperationLogs.Window.Log_Comment(name + " is now waiting to begin weighting", Color.Pink);
+                                    OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.States.IsNow.WaitingToWeight, Color.Pink);
                                 }
                                 Received.States.waitingToWeight = DataState.Received;
                                 #endregion waitingToWeight 
@@ -1715,7 +1833,7 @@ namespace CommandCenter
                                 if (Received.States.finishedWeighting != DataState.Received)
                                 {
                                     Received.States.SetAllTo(DataState.NoData);
-                                    OperationLogs.Window.Log_Comment(name + " has finished weighting", Color.Pink);
+                                    OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.States.IsNow.FinishedWeighting, Color.Pink);
                                 }
                                 Received.States.finishedWeighting = DataState.Received;
                                 #endregion finishedWeighting 
@@ -1725,14 +1843,14 @@ namespace CommandCenter
                                 if (Received.States.empty != DataState.Received)
                                 {
                                     Received.States.SetAllTo(DataState.NoData);
-                                    OperationLogs.Window.Log_Comment(name + " Is now empty!!!", Color.Pink);
+                                    OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.States.IsNow.Empty, Color.Pink);
                                 }
                                 Received.States.empty = DataState.Received;
                                 #endregion empty 
                                 break;
                             default:
                                 //If received mode matched nothing, an error occured.
-                                OperationLogs.Window.Log_Error(name + " IS SENDING INCOHERENT STATUS! " + commandNumber.ToString());
+                                OperationLogs.Window.Log_Error(name + LogsInfos.Operations.Modules.States.IsIncoherent + commandNumber.ToString());
                                 error = Module_Errors.unexpectedData;
                                 break;
                         }
@@ -1772,6 +1890,9 @@ namespace CommandCenter
                     case (0x0E): return (Current.AllowedStates.waitingToWeight == DataState.Available); break;
                     case (0x0F): return (Current.AllowedStates.finishedWeighting == DataState.Available); break;
                     case (0x10): return (Current.AllowedStates.empty == DataState.Available); break;
+                    //case (0xFF): return true; break; // State_Offline
+                    //case (0xFE): return true; break; // State_ClassInitialised
+                    //case (0xFD): return true; break; // State_ClassReset
                     default:
                         //If received mode matched nothing, an error occured.
                         return false;

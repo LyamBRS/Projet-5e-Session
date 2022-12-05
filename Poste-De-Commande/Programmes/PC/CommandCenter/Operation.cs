@@ -140,11 +140,11 @@ namespace CommandCenter
             {
                 if (comPortIsOpen)
                 {
-                    CommandCenter.Operation.Buttons.ClearTerminal.State = ControlState.Inactive;
+                    CommandCenter.Operation.Buttons.ClearTerminal.State = ControlState.Warning;
                 }
                 else
                 {
-                    CommandCenter.Operation.Buttons.ClearTerminal.State = ControlState.Disabled;
+                    CommandCenter.Operation.Buttons.ClearTerminal.State = ControlState.Inactive;
                 }
             }
             ////////////////////////////////////////////////////////////
@@ -281,7 +281,7 @@ namespace CommandCenter
                     {
                         if(Old.Operation.Modules.Sorting.State != ModuleData_SortingStation.Current.State)
                         {
-                            if(ModuleData_SortingStation.Current.State == State_Offline)
+                            if(ModuleData_SortingStation.Current.State == State_Offline || ModuleData_SortingStation.Current.State == State_ClassInitialised)
                             {
                                 CommandCenter.Operation.Buttons.SortingStation.State = ControlState.Inactive;
                             }
@@ -345,7 +345,7 @@ namespace CommandCenter
                     {
                         if (Old.Operation.Modules.Vehicle.State != ModuleData_Vehicle.Current.State)
                         {
-                            if (ModuleData_Vehicle.Current.State == State_Offline)
+                            if (ModuleData_Vehicle.Current.State == State_Offline || ModuleData_Vehicle.Current.State == State_ClassInitialised)
                             {
                                 CommandCenter.Operation.Buttons.Vehicle.State = ControlState.Inactive;
                             }
@@ -409,7 +409,7 @@ namespace CommandCenter
                     {
                         if (Old.Operation.Modules.Weight.State != ModuleData_WeightStation.Current.State)
                         {
-                            if (ModuleData_WeightStation.Current.State == State_Offline)
+                            if (ModuleData_WeightStation.Current.State == State_Offline || ModuleData_WeightStation.Current.State == State_ClassInitialised)
                             {
                                 CommandCenter.Operation.Buttons.WeightStation.State = ControlState.Inactive;
                             }
@@ -472,9 +472,9 @@ namespace CommandCenter
                 {
                     if(true) //(Old.Operation.Modules.Weight.State != ModuleData_WeightStation.Current.State)
                     {
-                        bool sortingStationOffline = ModuleData_SortingStation.Current.State == State_Offline;
-                        bool weightStationOffline = ModuleData_WeightStation.Current.State == State_Offline;
-                        bool vehicleOffline = ModuleData_Vehicle.Current.State == State_Offline;
+                        bool sortingStationOffline = ModuleData_SortingStation.Current.State == State_Offline || ModuleData_SortingStation.Current.State == State_ClassInitialised;
+                        bool weightStationOffline = ModuleData_WeightStation.Current.State == State_Offline || ModuleData_WeightStation.Current.State == State_ClassInitialised;
+                        bool vehicleOffline = ModuleData_Vehicle.Current.State == State_Offline || ModuleData_Vehicle.Current.State == State_ClassInitialised;
 
                         bool allModuleOffline = sortingStationOffline && weightStationOffline && vehicleOffline;
                         bool someModuleOffline = sortingStationOffline || weightStationOffline || vehicleOffline;
@@ -526,39 +526,11 @@ namespace CommandCenter
                 {
                     if (MasterProtocol.mode == Modes_Ref.emergencyStop)
                     {
-                        BRS.Debug.Comment("Asking the user if he really wants to disable the emergency protocol which isongoing");
-                        if(BRS.PopUp.Question("Are you sure you want to disable the emergency proceedure?","EMERGENCY PROTOCOL"))
-                        {
-                            BRS.Debug.Success("Disabling EMERGENCY PROTOCOL");
-
-                            MasterProtocol.mode = Modes_Ref.pause;
-                            MasterProtocol.error = CAN_Errors.none;
-                            MasterProtocol.state = States_Ref.paused;
-
-                            ModuleData_Vehicle.Current.Mode        = Modes_Ref.pause;
-                            ModuleData_SortingStation.Current.Mode = Modes_Ref.pause;
-                            ModuleData_WeightStation.Current.Mode  = Modes_Ref.pause;
-
-                            UpdateModeIcons();
-                            NewUserTextInfo(UserInfos.Modes.EmergencyDisabled, 2);
-                        }
-                        else
-                        {
-                            BRS.Debug.Aborted("Keeping emergency protocol active");
-                        }
+                        SetGlobalModeTo(WantedMode.Paused);
                     }
                     else
                     {
-                        BRS.Debug.Comment("Disregarding litterally fucking everything and setting mode to EmergencyStop");
-                        MasterProtocol.mode = Modes_Ref.emergencyStop;
-                        MasterProtocol.error = CAN_Errors.EmergencyStop;
-                        MasterProtocol.state = States_Ref.emergencyStop;
-
-                        ModuleData_Vehicle.Current.Mode = Modes_Ref.emergencyStop;
-                        ModuleData_SortingStation.Current.Mode = Modes_Ref.emergencyStop;
-                        ModuleData_WeightStation.Current.Mode = Modes_Ref.emergencyStop;
-                        NewUserTextInfo(UserInfos.Modes.EmergencyEnabled, 2);
-                        UpdateModeIcons();
+                        SetGlobalModeTo(WantedMode.Emergency);
                     }
                 }
                 else
@@ -580,12 +552,25 @@ namespace CommandCenter
         //#############################################################//
         private void Operation_Terminal_Clear_Click(object sender, EventArgs e)
         {
-            Random sus = new Random();
-            OperationLogs.Window.Log_Comment(sus.Next().ToString());
+            BRS.Debug.Header(true);
+            BRS.Debug.Comment("Attempting to clear the terminal");
+            OperationLogs.Window.Clear();
+
+            if (OperationLogs.Window.Window.Text == "")
+            {
+                Debug.Success("terminal cleared!");
+                NewUserTextInfo(UserInfos.Terminal.Cleared, 1);
+            }
+            else
+            {
+                Debug.Aborted("terminal cleared!");
+                //NewUserTextInfo("Canceled clearing", 3);
+            }
+            BRS.Debug.Header(false);
         }
         //#############################################################//
         /// <summary>
-        /// Happens when you click on the saving icon locted inside of
+        /// Happens when you click on the saving icon located inside of
         /// the the Tab_Operation
         /// </summary>
         /// <param name="sender"></param>
@@ -613,6 +598,7 @@ namespace CommandCenter
             BRS.Debug.Header(true);
             BRS.Debug.Comment("Setting up for Operation");
 
+
             if (BRS.ComPort.Port.IsOpen)
             {
                 if (MasterProtocol.isActive)
@@ -620,38 +606,11 @@ namespace CommandCenter
                     if (MasterProtocol.mode == Modes_Ref.pause)
                     {
                         BRS.Debug.Comment("Attempting to start operations");
-                        NewUserTextInfo(UserInfos.Modes.OperationStarted, 1);
-                        MasterProtocol.mode = Modes_Ref.operation;
+                        SetGlobalModeTo(WantedMode.Operating);
                     }
                     else
                     {
-                        if (MasterProtocol.mode == Modes_Ref.operation)
-                        {
-                            BRS.Debug.Comment("Attempting to pause operations");
-                            NewUserTextInfo(UserInfos.Modes.NowPaused, 1);
-                            MasterProtocol.mode = Modes_Ref.pause;
-                        }
-                        else
-                        {
-                            if (MasterProtocol.mode == Modes_Ref.emergencyStop)
-                            {
-                                NewUserTextInfo(UserInfos.Modes.IsEmergency, 2);
-                            }
-                            else
-                            {
-                                BRS.Debug.Comment("Starting operation from another mode");
-                                if (BRS.PopUp.Question("Are you sure you want to start Operations? The command center is executing an other mode", "Just checking yk"))
-                                {
-                                    Debug.Success("Starting operations");
-                                    NewUserTextInfo(UserInfos.Modes.OperationStarted, 3);
-                                    MasterProtocol.mode = Modes_Ref.operation;
-                                }
-                                else
-                                {
-                                    Debug.Aborted("Cancelling");
-                                }
-                            }
-                        }
+                        SetGlobalModeTo(WantedMode.Paused);
                     }
                 }
                 else
@@ -701,28 +660,24 @@ namespace CommandCenter
                             }
                             else
                             {
+                                // regular states that the sorting station can have
+                                if (ModuleData_SortingStation.Current.State == States_Ref.calibrated)                    { NewUserTextInfo(UserInfos.Modules.SortingStation.calibrated, 1); }
+                                if (ModuleData_SortingStation.Current.State == States_Ref.calibrating)                   { NewUserTextInfo(UserInfos.Modules.SortingStation.calibrating, 3); }
+                                if (ModuleData_SortingStation.Current.State == States_Ref.empty)                         { NewUserTextInfo(UserInfos.Modules.SortingStation.empty, 1); }
+                                if (ModuleData_SortingStation.Current.State == States_Ref.error)                         { NewUserTextInfo(UserInfos.Modules.SortingStation.error, 2); }
+                                if (ModuleData_SortingStation.Current.State == States_Ref.atSortingFactory)              { NewUserTextInfo(UserInfos.Modules.SortingStation.atSortingFactory, 2); }
+                                if (ModuleData_SortingStation.Current.State == States_Ref.atWeightStation)               { NewUserTextInfo(UserInfos.Modules.SortingStation.atWeightStation, 2); }
+                                if (ModuleData_SortingStation.Current.State == States_Ref.finishedSortingAndHasLoaded)   { NewUserTextInfo(UserInfos.Modules.SortingStation.finishedSortingAndHasLoaded, 1); }
+                                if (ModuleData_SortingStation.Current.State == States_Ref.finishedWeighting)             { NewUserTextInfo(UserInfos.Modules.SortingStation.finishedWeighting, 3); }
+                                if (ModuleData_SortingStation.Current.State == States_Ref.paused)                        { NewUserTextInfo(UserInfos.Modules.SortingStation.paused, 1); }
+                                if (ModuleData_SortingStation.Current.State == States_Ref.processing)                    { NewUserTextInfo(UserInfos.Modules.SortingStation.processing, 1); }
+                                if (ModuleData_SortingStation.Current.State == States_Ref.safe)                          { NewUserTextInfo(UserInfos.Modules.SortingStation.safe, 1); }
+                                if (ModuleData_SortingStation.Current.State == States_Ref.testing)                       { NewUserTextInfo(UserInfos.Modules.SortingStation.testing, 1); }
+                                if (ModuleData_SortingStation.Current.State == States_Ref.waiting)                       { NewUserTextInfo(UserInfos.Modules.SortingStation.waiting, 3); }
+                                if (ModuleData_SortingStation.Current.State == States_Ref.waitingToSort)                 { NewUserTextInfo(UserInfos.Modules.SortingStation.waitingToSort, 1); }
+                                if (ModuleData_SortingStation.Current.State == States_Ref.waitingToWeight)               { NewUserTextInfo(UserInfos.Modules.SortingStation.waitingToWeight, 2); }
                                 if (ModuleData_SortingStation.IsStateAllowed())
                                 {
-                                    // regular states that the sorting station can have
-                                    if (ModuleData_SortingStation.Current.State == States_Ref.calibrated)                    { NewUserTextInfo(UserInfos.Modules.States.calibrated, 1); }
-                                    if (ModuleData_SortingStation.Current.State == States_Ref.calibrating)                   { NewUserTextInfo(UserInfos.Modules.States.calibrating, 3); }
-                                    if (ModuleData_SortingStation.Current.State == States_Ref.empty)                         { NewUserTextInfo(UserInfos.Modules.States.empty, 1); }
-                                    if (ModuleData_SortingStation.Current.State == States_Ref.error)                         { NewUserTextInfo(UserInfos.Modules.States.error, 2); }
-                                    if (ModuleData_SortingStation.Current.State == States_Ref.atSortingFactory)              { NewUserTextInfo(UserInfos.Modules.States.atSortingFactory, 2); }
-                                    if (ModuleData_SortingStation.Current.State == States_Ref.atWeightStation)               { NewUserTextInfo(UserInfos.Modules.States.atWeightStation, 2); }
-                                    if (ModuleData_SortingStation.Current.State == States_Ref.finishedSortingAndHasLoaded)   { NewUserTextInfo(UserInfos.Modules.States.finishedSortingAndHasLoaded, 1); }
-                                    if (ModuleData_SortingStation.Current.State == States_Ref.finishedWeighting)             { NewUserTextInfo(UserInfos.Modules.States.finishedWeighting, 3); }
-                                    if (ModuleData_SortingStation.Current.State == States_Ref.paused)                        { NewUserTextInfo(UserInfos.Modules.States.paused, 1); }
-                                    if (ModuleData_SortingStation.Current.State == States_Ref.processing)                    { NewUserTextInfo(UserInfos.Modules.States.processing, 1); }
-                                    if (ModuleData_SortingStation.Current.State == States_Ref.safe)                          { NewUserTextInfo(UserInfos.Modules.States.safe, 1); }
-                                    if (ModuleData_SortingStation.Current.State == States_Ref.testing)                       { NewUserTextInfo(UserInfos.Modules.States.testing, 1); }
-                                    if (ModuleData_SortingStation.Current.State == States_Ref.waiting)                       { NewUserTextInfo(UserInfos.Modules.States.waiting, 3); }
-                                    if (ModuleData_SortingStation.Current.State == States_Ref.waitingToSort)                 { NewUserTextInfo(UserInfos.Modules.States.waitingToSort, 1); }
-                                    if (ModuleData_SortingStation.Current.State == States_Ref.waitingToWeight)               { NewUserTextInfo(UserInfos.Modules.States.waitingToWeight, 2); }
-                                }
-                                else
-                                {
-                                    NewUserTextInfo(UserInfos.Modules.WrongStatus, 2);
                                     OperationLogs.Window.Log_Comment("[USER CONTROL]: " + ModuleData_SortingStation.name + "'s status: " + ModuleData_SortingStation.Current.State.ToString() + " does not match with the current mode: " + MasterProtocol.mode, Color.Tomato);
                                 }
                         }
@@ -775,28 +730,24 @@ namespace CommandCenter
                             }
                             else
                             {
-                                if (ModuleData_Vehicle.IsStateAllowed())
+                                // regular states that the sorting station can have
+                                if (ModuleData_Vehicle.Current.State == States_Ref.calibrated)                    { NewUserTextInfo(UserInfos.Modules.Vehicle.calibrated, 1); }
+                                if (ModuleData_Vehicle.Current.State == States_Ref.calibrating)                   { NewUserTextInfo(UserInfos.Modules.Vehicle.calibrating, 3); }
+                                if (ModuleData_Vehicle.Current.State == States_Ref.empty)                         { NewUserTextInfo(UserInfos.Modules.Vehicle.empty, 1); }
+                                if (ModuleData_Vehicle.Current.State == States_Ref.error)                         { NewUserTextInfo(UserInfos.Modules.Vehicle.error, 2); }
+                                if (ModuleData_Vehicle.Current.State == States_Ref.atSortingFactory)              { NewUserTextInfo(UserInfos.Modules.Vehicle.atSortingFactory, 2); }
+                                if (ModuleData_Vehicle.Current.State == States_Ref.atWeightStation)               { NewUserTextInfo(UserInfos.Modules.Vehicle.atWeightStation, 2); }
+                                if (ModuleData_Vehicle.Current.State == States_Ref.finishedSortingAndHasLoaded)   { NewUserTextInfo(UserInfos.Modules.Vehicle.finishedSortingAndHasLoaded, 1); }
+                                if (ModuleData_Vehicle.Current.State == States_Ref.finishedWeighting)             { NewUserTextInfo(UserInfos.Modules.Vehicle.finishedWeighting, 3); }
+                                if (ModuleData_Vehicle.Current.State == States_Ref.paused)                        { NewUserTextInfo(UserInfos.Modules.Vehicle.paused, 1); }
+                                if (ModuleData_Vehicle.Current.State == States_Ref.processing)                    { NewUserTextInfo(UserInfos.Modules.Vehicle.processing, 1); }
+                                if (ModuleData_Vehicle.Current.State == States_Ref.safe)                          { NewUserTextInfo(UserInfos.Modules.Vehicle.safe, 1); }
+                                if (ModuleData_Vehicle.Current.State == States_Ref.testing)                       { NewUserTextInfo(UserInfos.Modules.Vehicle.testing, 1); }
+                                if (ModuleData_Vehicle.Current.State == States_Ref.waiting)                       { NewUserTextInfo(UserInfos.Modules.Vehicle.waiting, 3); }
+                                if (ModuleData_Vehicle.Current.State == States_Ref.waitingToSort)                 { NewUserTextInfo(UserInfos.Modules.Vehicle.waitingToSort, 1); }
+                                if (ModuleData_Vehicle.Current.State == States_Ref.waitingToWeight)               { NewUserTextInfo(UserInfos.Modules.Vehicle.waitingToWeight, 2); }
+                                if(ModuleData_Vehicle.IsStateAllowed())
                                 {
-                                    // regular states that the sorting station can have
-                                    if (ModuleData_Vehicle.Current.State == States_Ref.calibrated)                    { NewUserTextInfo(UserInfos.Modules.States.calibrated, 1); }
-                                    if (ModuleData_Vehicle.Current.State == States_Ref.calibrating)                   { NewUserTextInfo(UserInfos.Modules.States.calibrating, 3); }
-                                    if (ModuleData_Vehicle.Current.State == States_Ref.empty)                         { NewUserTextInfo(UserInfos.Modules.States.empty, 1); }
-                                    if (ModuleData_Vehicle.Current.State == States_Ref.error)                         { NewUserTextInfo(UserInfos.Modules.States.error, 2); }
-                                    if (ModuleData_Vehicle.Current.State == States_Ref.atSortingFactory)              { NewUserTextInfo(UserInfos.Modules.States.atSortingFactory, 2); }
-                                    if (ModuleData_Vehicle.Current.State == States_Ref.atWeightStation)               { NewUserTextInfo(UserInfos.Modules.States.atWeightStation, 2); }
-                                    if (ModuleData_Vehicle.Current.State == States_Ref.finishedSortingAndHasLoaded)   { NewUserTextInfo(UserInfos.Modules.States.finishedSortingAndHasLoaded, 1); }
-                                    if (ModuleData_Vehicle.Current.State == States_Ref.finishedWeighting)             { NewUserTextInfo(UserInfos.Modules.States.finishedWeighting, 3); }
-                                    if (ModuleData_Vehicle.Current.State == States_Ref.paused)                        { NewUserTextInfo(UserInfos.Modules.States.paused, 1); }
-                                    if (ModuleData_Vehicle.Current.State == States_Ref.processing)                    { NewUserTextInfo(UserInfos.Modules.States.processing, 1); }
-                                    if (ModuleData_Vehicle.Current.State == States_Ref.safe)                          { NewUserTextInfo(UserInfos.Modules.States.safe, 1); }
-                                    if (ModuleData_Vehicle.Current.State == States_Ref.testing)                       { NewUserTextInfo(UserInfos.Modules.States.testing, 1); }
-                                    if (ModuleData_Vehicle.Current.State == States_Ref.waiting)                       { NewUserTextInfo(UserInfos.Modules.States.waiting, 3); }
-                                    if (ModuleData_Vehicle.Current.State == States_Ref.waitingToSort)                 { NewUserTextInfo(UserInfos.Modules.States.waitingToSort, 1); }
-                                    if (ModuleData_Vehicle.Current.State == States_Ref.waitingToWeight)               { NewUserTextInfo(UserInfos.Modules.States.waitingToWeight, 2); }
-                                }
-                                else
-                                {
-                                    NewUserTextInfo(UserInfos.Modules.WrongStatus, 2);
                                     OperationLogs.Window.Log_Comment("[USER CONTROL]: " + ModuleData_Vehicle.name + "'s status: " + ModuleData_Vehicle.Current.State.ToString() + " does not match with the current mode: " + MasterProtocol.mode, Color.Tomato);
                                 }
                         }
@@ -849,27 +800,24 @@ namespace CommandCenter
                             }
                             else
                             {
-                                if (ModuleData_WeightStation.IsStateAllowed())
+                                if (ModuleData_WeightStation.Current.State == States_Ref.calibrated)                    { NewUserTextInfo(UserInfos.Modules.WeightStation.calibrated, 1); }
+                                if (ModuleData_WeightStation.Current.State == States_Ref.calibrating)                   { NewUserTextInfo(UserInfos.Modules.WeightStation.calibrating, 3); }
+                                if (ModuleData_WeightStation.Current.State == States_Ref.empty)                         { NewUserTextInfo(UserInfos.Modules.WeightStation.empty, 1); }
+                                if (ModuleData_WeightStation.Current.State == States_Ref.error)                         { NewUserTextInfo(UserInfos.Modules.WeightStation.error, 2); }
+                                if (ModuleData_WeightStation.Current.State == States_Ref.atSortingFactory)              { NewUserTextInfo(UserInfos.Modules.WeightStation.atSortingFactory, 2); }
+                                if (ModuleData_WeightStation.Current.State == States_Ref.atWeightStation)               { NewUserTextInfo(UserInfos.Modules.WeightStation.atWeightStation, 2); }
+                                if (ModuleData_WeightStation.Current.State == States_Ref.finishedSortingAndHasLoaded)   { NewUserTextInfo(UserInfos.Modules.WeightStation.finishedSortingAndHasLoaded, 1); }
+                                if (ModuleData_WeightStation.Current.State == States_Ref.finishedWeighting)             { NewUserTextInfo(UserInfos.Modules.WeightStation.finishedWeighting, 3); }
+                                if (ModuleData_WeightStation.Current.State == States_Ref.paused)                        { NewUserTextInfo(UserInfos.Modules.WeightStation.paused, 1); }
+                                if (ModuleData_WeightStation.Current.State == States_Ref.processing)                    { NewUserTextInfo(UserInfos.Modules.WeightStation.processing, 1); }
+                                if (ModuleData_WeightStation.Current.State == States_Ref.safe)                          { NewUserTextInfo(UserInfos.Modules.WeightStation.safe, 1); }
+                                if (ModuleData_WeightStation.Current.State == States_Ref.testing)                       { NewUserTextInfo(UserInfos.Modules.WeightStation.testing, 1); }
+                                if (ModuleData_WeightStation.Current.State == States_Ref.waiting)                       { NewUserTextInfo(UserInfos.Modules.WeightStation.waiting, 3); }
+                                if (ModuleData_WeightStation.Current.State == States_Ref.waitingToSort)                 { NewUserTextInfo(UserInfos.Modules.WeightStation.waitingToSort, 1); }
+                                if (ModuleData_WeightStation.Current.State == States_Ref.waitingToWeight)               { NewUserTextInfo(UserInfos.Modules.WeightStation.waitingToWeight, 2); }
+                                
+                                if(ModuleData_WeightStation.IsStateAllowed())
                                 {
-                                    if (ModuleData_WeightStation.Current.State == States_Ref.calibrated)                    { NewUserTextInfo(UserInfos.Modules.States.calibrated, 1); }
-                                    if (ModuleData_WeightStation.Current.State == States_Ref.calibrating)                   { NewUserTextInfo(UserInfos.Modules.States.calibrating, 3); }
-                                    if (ModuleData_WeightStation.Current.State == States_Ref.empty)                         { NewUserTextInfo(UserInfos.Modules.States.empty, 1); }
-                                    if (ModuleData_WeightStation.Current.State == States_Ref.error)                         { NewUserTextInfo(UserInfos.Modules.States.error, 2); }
-                                    if (ModuleData_WeightStation.Current.State == States_Ref.atSortingFactory)              { NewUserTextInfo(UserInfos.Modules.States.atSortingFactory, 2); }
-                                    if (ModuleData_WeightStation.Current.State == States_Ref.atWeightStation)               { NewUserTextInfo(UserInfos.Modules.States.atWeightStation, 2); }
-                                    if (ModuleData_WeightStation.Current.State == States_Ref.finishedSortingAndHasLoaded)   { NewUserTextInfo(UserInfos.Modules.States.finishedSortingAndHasLoaded, 1); }
-                                    if (ModuleData_WeightStation.Current.State == States_Ref.finishedWeighting)             { NewUserTextInfo(UserInfos.Modules.States.finishedWeighting, 3); }
-                                    if (ModuleData_WeightStation.Current.State == States_Ref.paused)                        { NewUserTextInfo(UserInfos.Modules.States.paused, 1); }
-                                    if (ModuleData_WeightStation.Current.State == States_Ref.processing)                    { NewUserTextInfo(UserInfos.Modules.States.processing, 1); }
-                                    if (ModuleData_WeightStation.Current.State == States_Ref.safe)                          { NewUserTextInfo(UserInfos.Modules.States.safe, 1); }
-                                    if (ModuleData_WeightStation.Current.State == States_Ref.testing)                       { NewUserTextInfo(UserInfos.Modules.States.testing, 1); }
-                                    if (ModuleData_WeightStation.Current.State == States_Ref.waiting)                       { NewUserTextInfo(UserInfos.Modules.States.waiting, 3); }
-                                    if (ModuleData_WeightStation.Current.State == States_Ref.waitingToSort)                 { NewUserTextInfo(UserInfos.Modules.States.waitingToSort, 1); }
-                                    if (ModuleData_WeightStation.Current.State == States_Ref.waitingToWeight)               { NewUserTextInfo(UserInfos.Modules.States.waitingToWeight, 2); }
-                                }
-                                else
-                                {
-                                    NewUserTextInfo(UserInfos.Modules.WrongStatus, 2);
                                     OperationLogs.Window.Log_Comment("[USER CONTROL]: " + ModuleData_WeightStation.name + "'s status: " + ModuleData_WeightStation.Current.State.ToString() + " does not match with the current mode: " + MasterProtocol.mode, Color.Tomato);
                                 }
                             }
@@ -902,9 +850,9 @@ namespace CommandCenter
             {
                 if (MasterProtocol.isActive)
                 {
-                    bool sortingStationOffline = ModuleData_SortingStation.Current.State == State_Offline;
-                    bool weightStationOffline  = ModuleData_WeightStation.Current.State == State_Offline;
-                    bool vehicleOffline        = ModuleData_Vehicle.Current.State == State_Offline;
+                    bool sortingStationOffline = ModuleData_SortingStation.Current.State    == State_Offline || ModuleData_SortingStation.Current.State == State_ClassInitialised;
+                    bool weightStationOffline  = ModuleData_WeightStation.Current.State     == State_Offline || ModuleData_WeightStation.Current.State  == State_ClassInitialised;
+                    bool vehicleOffline        = ModuleData_Vehicle.Current.State           == State_Offline || ModuleData_Vehicle.Current.State == State_ClassInitialised;
 
                     //-----------------------------------------------------------------//
                     // All modules are offline
@@ -940,5 +888,10 @@ namespace CommandCenter
         }
         #endregion ModuleButtons 
         #endregion Button_Clicks
+
+        #region OperationSpecificLogs
+        //#############################################################//
+        //#############################################################//
+        #endregion OperationSpecificLogs
     }
 }
