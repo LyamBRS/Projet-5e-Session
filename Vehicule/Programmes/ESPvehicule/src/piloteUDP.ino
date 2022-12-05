@@ -69,6 +69,7 @@ void receiveUDP1(void)
     //printf("%i\n",len);
     if (len >= 1)
     {
+    Serial.println("RX:\n");
         Udp.read(piloteUDP.readBuffer, 8);
         /*
         Serial.println("Recu:");
@@ -100,6 +101,6 @@ void transUDP1(unsigned char transmet[255])
     Udp.write(transmet[7]);
 
     Udp.endPacket();
-    Serial.println("Transmis:");
+    Serial.println("TX:\n");
 }
 //*************************************************************************************

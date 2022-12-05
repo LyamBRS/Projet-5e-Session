@@ -59,7 +59,7 @@ void processusVehicule_AttendUneRequete(void)
         ModuleData.State = States.waiting;
     }
 
-    printf("%i",ModuleData.Mode);
+    //printf("%i",ModuleData.Mode);
     if(ModuleData.Mode != Modes.operation)
     {
         return;
