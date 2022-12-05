@@ -59,19 +59,17 @@ void ServiceUDPStation(void)
 void receiveUDP(void)
 {
     int len = ERUDP.parsePacket();
-    printf("%i\n",len);
+    //printf("%i\n",len);
     if (len >= 1)
     {
         ERUDP.read(readBuffer, 8);
-        Serial.println("Recu:");
-        Serial.println(readBuffer[0]);
-        Serial.println(readBuffer[1]);
-        Serial.println(readBuffer[2]);
-        Serial.println(readBuffer[3]);
-        Serial.println(readBuffer[4]);
-        Serial.println(readBuffer[5]);
-        Serial.println(readBuffer[6]);
-        Serial.println(readBuffer[7]);
+        Serial.println("Recus:");
+         for(int i=0; i<8; ++i)
+         {
+           ERUDP.write(readBuffer[i]);
+           printf("[%i]: %i",i,readBuffer[i]);
+         }
+         Serial.println("\n");
     }
 
 }
@@ -80,13 +78,13 @@ void transUDP(unsigned char* transmitBuffer, char sizeOfBuffer)
 {
   ERUDP.parsePacket();
   ERUDP.beginPacket(IPCom6, 11800);
-  Serial.println("Transmis:");
+  Serial.println("[TX]");
   for(int i=0; i<sizeOfBuffer; ++i)
   {
     ERUDP.write(transmitBuffer[i]);
-    printf("[%i]: %i",i,transmitBuffer[i]);
+    //printf("[%i]: %i",i,transmitBuffer[i]);
   }
-  Serial.println("\n");
+  //Serial.println("\n");
   ERUDP.endPacket();
 
 }
