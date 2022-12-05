@@ -31,6 +31,18 @@ namespace CommandCenter
         /// received from this module during MasterProtocol communications.
         /// </summary>
         public static byte State_Offline = 0xFF;
+        /// <summary>
+        /// State of a virtual module which means it's object has
+        /// been reset. This is usually the case when the current mode
+        /// of itself changes for an other.
+        /// </summary>
+        //public static byte State_ClassReset = 0xFE;
+        /// <summary>
+        /// State of a virtual module which means it has just been initialised.
+        /// it is set to that at the application's launch, and when the
+        /// MasterProtocol begins.
+        /// </summary>
+        public static byte State_ClassInitialised = 0xFD;
         #endregion Variables
         #region TIMER
         //#############################################################//
@@ -59,6 +71,56 @@ namespace CommandCenter
                     case (CAN_Slot.ReservedB):
                         //BRS.Debug.Comment("[RESERVED B]", true);
                         MasterProtocol.slot = CAN_Slot.Master;
+
+                        //----------------------------------// Get last lines until SYNC is seen
+                        string[] lines = { "", "", "", "", "", "", "", "" };
+
+                        BRS.Debug.Comment("\n");
+                        for (int i=0; i<8; ++i)
+                        {
+                            int lineCount = CommandCenter.terminal.Window.Lines.Length;
+                            string lastLine = "";
+                            try
+                            {
+                                lastLine = CommandCenter.terminal.Window.Lines[lineCount - (1 + i)];
+                            }
+                            catch
+                            {
+
+                            }
+
+                            //BRS.Debug.Comment(lastLine);
+
+                            if (lastLine.Contains("SYNC") && i <= 1)
+                            {
+                                //NewUserTextInfo("FUCK...", 2);
+                                BRS.Debug.Comment("FUCK");
+                                i = 8;
+                                break;
+                            }
+                            else
+                            {
+                                if (lastLine.Contains("SYNC") && i > 0)
+                                {
+                                    //NewUserTextInfo("Epic!", 1);
+                                    BRS.Debug.Comment("Nice");
+                                    break;
+                                }
+                                else
+                                {
+                                    lines[i] = lastLine;
+                                }
+                            }
+                        }
+
+
+                        for(int i=0; i < lines.Length; ++i)
+                        {
+                            ModuleData_SortingStation.ParseFromMasterProtocol(lines[i]);
+                            ModuleData_Vehicle.ParseFromMasterProtocol(lines[i]);
+                            ModuleData_WeightStation.ParseFromMasterProtocol(lines[i]);
+                        }
+
                         break;
                     ////////////////////////////////////////// - RESERVED A - //
                     case (CAN_Slot.ReservedA):
@@ -93,7 +155,7 @@ namespace CommandCenter
             {
                 BRS.Debug.Error("UNEXPECTED SHIT HAPENNED!");
                 BRS.Debug.Comment("Stopping CAN TIMER!");
-                NewUserTextInfo("FATAL UART ERROR",2);
+                NewUserTextInfo(UserInfos.ComPort.UnexpectedTermination,2);
 
                 MasterProtocol.isActive = false;
                 MasterProtocol.error = CAN_Errors.uart;
@@ -302,14 +364,14 @@ namespace CommandCenter
                 /// Not the real address.
                 /// The real address is 0x200;
                 /// </summary>
-                public static int Vehicule = 0x200;
+                public static int Vehicule = 523;
                 /// <summary>
                 /// Specific address used by the sorting station to receive data.
                 /// This address is corresponding to the BeagleBoneBlue's terminal output.
                 /// Not the real address.
                 /// The real address is 0x300;
                 /// </summary>
-                public static int SortingStation = 0x300;
+                public static int SortingStation = 512;
                 /// <summary>
                 /// Specific address used by the weight station to receive data.
                 /// This address is corresponding to the BeagleBoneBlue's terminal output.
@@ -334,14 +396,14 @@ namespace CommandCenter
                 /// Not the real address.
                 /// The real address is 0x200;
                 /// </summary>
-                public static int Vehicule = 0x201;
+                public static int Vehicule = 523;
                 /// <summary>
                 /// Specific address used by the sorting station to receive data.
                 /// This address is corresponding to the BeagleBoneBlue's terminal output.
                 /// Not the real address.
                 /// The real address is 0x300;
                 /// </summary>
-                public static int SortingStation = 0x301;
+                public static int SortingStation = 512;
                 /// <summary>
                 /// Specific address used by the weight station to receive data.
                 /// This address is corresponding to the BeagleBoneBlue's terminal output.
@@ -480,6 +542,11 @@ namespace CommandCenter
              * @link https://docs.google.com/spreadsheets/d/1BgSps-8e4IBZYXIF8JcprH0LhlybmtSgL7DJWUX4dDQ/edit#gid=977381857&range=D21 @endlink
              */
             public byte processing = 0x03;
+            /**
+             * @brief Indicates that the command center is executing the operation mode: 
+             * @link https://docs.google.com/spreadsheets/d/1BgSps-8e4IBZYXIF8JcprH0LhlybmtSgL7DJWUX4dDQ/edit#gid=977381857&range=D21 @endlink
+             */
+            public byte operating = 0x04;
             /**
              * @brief Indicates that the module is currently calibating itself. Full detailed description available at : 
              * @link https://docs.google.com/spreadsheets/d/1BgSps-8e4IBZYXIF8JcprH0LhlybmtSgL7DJWUX4dDQ/edit#gid=977381857&range=D22 @endlink
@@ -807,8 +874,8 @@ namespace CommandCenter
         #region Modules
         //-------------------------------------------------------------//
         public cModule ModuleData_Vehicle = new cModule("Vehicle",CAN_Addresses.TX.Vehicule, CAN_Addresses.RX.Vehicule);
-        public cModule ModuleData_SortingStation = new cModule("Sorting Station", CAN_Addresses.TX.Vehicule, CAN_Addresses.RX.Vehicule);
-        public cModule ModuleData_WeightStation = new cModule("Weight Station", CAN_Addresses.TX.Vehicule, CAN_Addresses.RX.Vehicule);
+        public cModule ModuleData_SortingStation = new cModule("Sorting Station", CAN_Addresses.TX.SortingStation, CAN_Addresses.RX.SortingStation);
+        public cModule ModuleData_WeightStation = new cModule("Weight Station", CAN_Addresses.TX.WeightStation, CAN_Addresses.RX.WeightStation);
         //-------------------------------------------------------------//
 
         //#############################################################//
@@ -965,6 +1032,24 @@ namespace CommandCenter
             /// be able to see at run time.
             /// </summary>
             public string name = "NoName";
+            /// <summary>
+            /// The private variable is used to keep track of the amount
+            /// of times you attempted to parse a received string through
+            /// ParseFromMasterProtocol(). If the address of the string
+            /// which you attempt to parse is corresponding to the ones
+            /// stored inside of the address structure, it is reset to
+            /// 0. Pass the amount defined by the user of this class,
+            /// the module is considered Offline as no string is containing
+            /// it's address.
+            /// </summary>
+            private byte currentAmountOfAttempts = 0;
+            /// <summary>
+            /// This public variable is used to define how many data parsing
+            /// attempts are to be done for the module to be considered offline.
+            /// A failed attempt means that the address specified in the parsed
+            /// data does not match this module's address stored in it's structure.
+            /// </summary>
+            public byte AmountOfAttemptsToBeOffline = 10;
             /*
             /// <summary>
             /// Class containing each states that this module can have
@@ -1064,7 +1149,7 @@ namespace CommandCenter
 
                 BRS.Debug.Comment("Setting Current structure's values to initial parameters");
                 Current.Mode = Modes_Ref.reinitialisation;
-                Current.State = States_Ref.waiting;
+                Current.State = State_ClassInitialised;
                 Current.Weight = 0;
                 Current.AllowedStates.SetAllTo(DataState.Unused);
 
@@ -1095,7 +1180,6 @@ namespace CommandCenter
 
                 BRS.Debug.Comment("Resetting Current structure...");
                 Current.Mode = Modes_Ref.reinitialisation;
-                Current.State = States_Ref.waiting;
                 Current.Weight = 0;
 
                 BRS.Debug.Comment("Resetting Received structure to DataState.NoData...");
@@ -1128,9 +1212,15 @@ namespace CommandCenter
                 }
                 else
                 {
-                    Reset();
+                    if (Current.State == State_ClassInitialised)
+                    {
+
+                    }
+                    else
+                    {
+                        Reset();
+                    }
                     Current.Mode = newMode;
-                    Current.State = State_Offline;
 
                     if (newMode == Modes_Ref.operation)
                     {
@@ -1144,12 +1234,14 @@ namespace CommandCenter
                         Current.AllowedStates.waitingToWeight               = DataState.Available;
                         Current.AllowedStates.finishedWeighting             = DataState.Available;
                         Current.AllowedStates.empty                         = DataState.Available;
+                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.VirtualModes.IsNow.Operating, Color.PeachPuff);
                     }
                     if (newMode == Modes_Ref.maintenance)
                     {
                         Current.AllowedStates.SetAllTo(DataState.Unused);
                         Current.AllowedStates.processing = DataState.Available;
                         Current.AllowedStates.safe       = DataState.Available;
+                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.VirtualModes.IsNow.Maintenance, Color.PeachPuff);
                     }
                     if (newMode == Modes_Ref.testing)
                     {
@@ -1157,29 +1249,34 @@ namespace CommandCenter
                         Current.AllowedStates.testing    = DataState.Available;
                         Current.AllowedStates.processing = DataState.Available;
                         Current.AllowedStates.waiting    = DataState.Available;
+                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.VirtualModes.IsNow.Testing, Color.PeachPuff);
                     }
                     if (newMode == Modes_Ref.pause)
                     {
                         Current.AllowedStates.SetAllTo(DataState.Unused);
                         Current.AllowedStates.paused     = DataState.Available;
                         Current.AllowedStates.processing = DataState.Available;
+                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.VirtualModes.IsNow.Paused, Color.PeachPuff);
                     }
                     if (newMode == Modes_Ref.reinitialisation)
                     {
                         Current.AllowedStates.SetAllTo(DataState.Unused);
                         Current.AllowedStates.processing = DataState.Available;
                         Current.AllowedStates.waiting    = DataState.Available;
+                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.VirtualModes.IsNow.Initialising, Color.PeachPuff);
                     }
                     if (newMode == Modes_Ref.calibration)
                     {
                         Current.AllowedStates.SetAllTo(DataState.Unused);
                         Current.AllowedStates.calibrating = DataState.Available;
                         Current.AllowedStates.calibrated  = DataState.Available;
+                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.VirtualModes.IsNow.Calibrating, Color.PeachPuff);
                     }
                     if (newMode == Modes_Ref.emergencyStop)
                     {
                         Current.AllowedStates.SetAllTo(DataState.Unused);
                         Current.AllowedStates.emergencyStop = DataState.Available;
+                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.VirtualModes.IsNow.Emergency, Color.PeachPuff);
                     }
                 }
 
@@ -1224,6 +1321,11 @@ namespace CommandCenter
 
                         if (address == Addresses.CAN_TX)
                         {
+                            //BRS.Debug.Comment("IT WAS: " + name, true);
+                            //----------------------------------------------------------//
+                            //-- Offline detection reset -------------------------------//
+                            //----------------------------------------------------------//
+                            HandleSuccessfulAttempt();
                             //----------------------------------------------------------//
                             //-- Parsing the table into a byte array -------------------//
                             //----------------------------------------------------------//
@@ -1240,6 +1342,8 @@ namespace CommandCenter
                         else
                         {
                             // IS NOT THE CORRECT ADDRESS FOR THIS MODULE
+                            //BRS.Debug.Comment("IT WASN'T: " + name, true);
+                            HandleAttemptIncrements();
                             return;
                         }
                     }
@@ -1251,7 +1355,73 @@ namespace CommandCenter
                 }
                 else
                 {
-                    BRS.Debug.Error("String isn't starting with [RX]; " + receivedCommunication);
+                    //BRS.Debug.Error("String isn't starting with [RX]; " + receivedCommunication);
+                }
+
+            }
+            //#############################################################//
+            /// <summary>
+            /// When called, handles the increments of parsing attempts,
+            /// and if applicable, sets the state of this module class
+            /// as Offline with a log message.
+            /// </summary>
+            //#############################################################//
+            private void HandleAttemptIncrements()
+            {
+                //---------------------------------------------------------//
+                // Handling increments
+                //---------------------------------------------------------//
+                currentAmountOfAttempts++;
+                BRS.Debug.Comment(name + " Attempts: " + currentAmountOfAttempts.ToString());
+                //---------------------------------------------------------//
+                // Handling reaching the maximum allowed
+                //---------------------------------------------------------//
+                if(currentAmountOfAttempts >= AmountOfAttemptsToBeOffline)
+                {
+                    // Preventing overflowing
+                    currentAmountOfAttempts = AmountOfAttemptsToBeOffline;
+
+                    // if there is no stored errors, then set it as not talking.
+                    //if(error == Module_Errors.none)
+                    //{
+                    //    error = Module_Errors.notTalking;
+                    //}
+
+                    // Setup new state and log it.
+                    if (Current.State != State_ClassInitialised && Current.State != State_Offline)
+                    {
+                        BRS.Debug.Comment(name + " has been detected as Offline.",true);
+                        Current.State = State_Offline;
+                        OperationLogs.Window.Log_Warning(name + LogsInfos.Operations.Modules.NoLongerOnline);
+                    }
+                }
+            }
+            //#############################################################//
+            /// <summary>
+            /// When called, attempts reset increments and the module is
+            /// now detected as online and operating "correctly", or at the
+            /// very least, it's now talking on the CAN bus
+            /// </summary>
+            //#############################################################//
+            private void HandleSuccessfulAttempt()
+            {
+                // Reset count
+                currentAmountOfAttempts = 0;
+                HandleAttemptIncrements();
+
+                // Remove unresponsive error
+                if (Current.State == State_Offline)
+                {
+                    OperationLogs.Window.Log_Warning(name + LogsInfos.Operations.Modules.NoLongerOffline);
+                    error = Module_Errors.none;
+                }
+                else
+                {
+                    // First time being online
+                    if(Current.State == State_ClassInitialised)
+                    {
+                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.FirstTimeOnline, Color.Lime);
+                    }
                 }
 
             }
@@ -1277,82 +1447,140 @@ namespace CommandCenter
                         switch (commandNumber)
                         {
                             // Parsing of received commands in a CAN tram
-                            case (0x00): Received.Commands.move_left        = DataState.Received; break;
-                            case (0x01): Received.Commands.move_right       = DataState.Received; break;
-                            case (0x02): Received.Commands.move_forward     = DataState.Received; break;
-                            case (0x03): Received.Commands.move_backward    = DataState.Received; break;
-                            case (0x04): Received.Commands.move_up          = DataState.Received; break;
-                            case (0x05): Received.Commands.move_down        = DataState.Received; break;
+                            case (0x00): Received.Commands.move_left        = DataState.Received; OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Commands.MoveLeft); break;
+                            case (0x01): Received.Commands.move_right       = DataState.Received; OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Commands.MoveRight); break;
+                            case (0x02): Received.Commands.move_forward     = DataState.Received; OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Commands.MoveForwards); break;
+                            case (0x03): Received.Commands.move_backward    = DataState.Received; OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Commands.MoveBackwards); break;
+                            case (0x04): Received.Commands.move_up          = DataState.Received; OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Commands.MoveUp); break;
+                            case (0x05): Received.Commands.move_down        = DataState.Received; OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Commands.MoveDown); break;
 
                             case (0x06):
-                                Received.Commands.suction_ON  = DataState.Received;
-                                Received.Commands.suction_OFF = DataState.NoData;
-                                break;
+                                    if (Received.Commands.suction_ON != DataState.Received)
+                                    {
+                                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Commands.SuctionOn,Color.Lime);
+                                    }
+                                    Received.Commands.suction_ON  = DataState.Received;
+                                    Received.Commands.suction_OFF = DataState.NoData;
+                                    break;
                             case (0x07):
-                                Received.Commands.suction_OFF = DataState.Received;
-                                Received.Commands.suction_ON  = DataState.NoData;
-                                break;
+                                    if (Received.Commands.suction_OFF != DataState.Received)
+                                    {
+                                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Commands.SuctionOff, Color.Lime);
+                                    }
+                                    Received.Commands.suction_OFF = DataState.Received;
+                                    Received.Commands.suction_ON  = DataState.NoData;
+                                    break;
 
                             case (0x08):
-                                Received.Commands.light_A_ON  = DataState.Received;
-                                Received.Commands.light_A_OFF = DataState.NoData;
-                                break;
+                                    if (Received.Commands.light_A_ON != DataState.Received)
+                                    {
+                                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Commands.LightAOn, Color.Lime);
+                                    }
+                                    Received.Commands.light_A_ON  = DataState.Received;
+                                    Received.Commands.light_A_OFF = DataState.NoData;
+                                    break;
                             case (0x09):
-                                Received.Commands.light_A_OFF = DataState.Received;
-                                Received.Commands.light_A_ON  = DataState.NoData;
-                                break;
+                                    if (Received.Commands.light_A_OFF != DataState.Received)
+                                    {
+                                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Commands.LightAOff, Color.Lime);
+                                    }
+                                    Received.Commands.light_A_OFF = DataState.Received;
+                                    Received.Commands.light_A_ON  = DataState.NoData;
+                                    break;
 
                             case (0x0A):
-                                Received.Commands.light_B_ON  = DataState.Received;
-                                Received.Commands.light_B_OFF = DataState.NoData;
-                                break;
+                                    if (Received.Commands.light_B_ON != DataState.Received)
+                                    {
+                                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Commands.LightBOn, Color.Lime);
+                                    }
+                                    Received.Commands.light_B_ON  = DataState.Received;
+                                    Received.Commands.light_B_OFF = DataState.NoData;
+                                    break;
                             case (0x0B):
-                                Received.Commands.light_B_OFF = DataState.Received;
-                                Received.Commands.light_B_ON  = DataState.NoData;
-                                break;
+                                    if (Received.Commands.light_B_OFF != DataState.Received)
+                                    {
+                                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Commands.LightBOff, Color.Lime);
+                                    }
+                                    Received.Commands.light_B_OFF = DataState.Received;
+                                    Received.Commands.light_B_ON  = DataState.NoData;
+                                    break;
 
                             case (0x0C):
-                                Received.Commands.light_C_ON  = DataState.Received;
-                                Received.Commands.light_C_OFF = DataState.NoData;
-                                break;
+                                    if (Received.Commands.light_C_ON != DataState.Received)
+                                    {
+                                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Commands.LightCOn, Color.Lime);
+                                    }
+                                    Received.Commands.light_C_ON  = DataState.Received;
+                                    Received.Commands.light_C_OFF = DataState.NoData;
+                                    break;
                             case (0x0D):
-                                Received.Commands.light_C_OFF = DataState.Received;
-                                Received.Commands.light_C_ON  = DataState.NoData;
-                                break;
+                                    if (Received.Commands.light_C_ON != DataState.Received)
+                                    {
+                                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Commands.LightCOff, Color.Lime);
+                                    }
+                                    Received.Commands.light_C_OFF = DataState.Received;
+                                    Received.Commands.light_C_ON  = DataState.NoData;
+                                    break;
 
                             case (0x0E):
-                                Received.Commands.light_D_ON  = DataState.Received;
-                                Received.Commands.light_D_OFF = DataState.NoData;
-                                break;
+                                    if (Received.Commands.light_D_ON != DataState.Received)
+                                    {
+                                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Commands.LightDOn, Color.Lime);
+                                    }
+                                    Received.Commands.light_D_ON  = DataState.Received;
+                                    Received.Commands.light_D_OFF = DataState.NoData;
+                                    break;
                             case (0x0F):
-                                Received.Commands.light_D_OFF = DataState.Received;
-                                Received.Commands.light_D_ON  = DataState.NoData;
+                                    if (Received.Commands.light_D_OFF != DataState.Received)
+                                    {
+                                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Commands.LightDOff, Color.Lime);
+                                    }
+                                    Received.Commands.light_D_OFF = DataState.Received;
+                                    Received.Commands.light_D_ON = DataState.NoData;
                                 break;
 
                             case (0x10):
-                                Received.Commands.goto_SortingStation = DataState.Received;
-                                Received.Commands.goto_WeightStation  = DataState.NoData;
-                                break;
+                                    if (Received.Commands.goto_SortingStation != DataState.Received)
+                                    {
+                                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Commands.GotoSortingStation, Color.Lime);
+                                    }
+                                    Received.Commands.goto_SortingStation = DataState.Received;
+                                    Received.Commands.goto_WeightStation  = DataState.NoData;
+                                    break;
                             case (0x11):
-                                Received.Commands.goto_WeightStation  = DataState.Received;
-                                Received.Commands.goto_SortingStation = DataState.NoData;
+                                    if (Received.Commands.goto_WeightStation != DataState.Received)
+                                    {
+                                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Commands.GotoWeightStation, Color.Lime);
+                                    }
+                                    Received.Commands.goto_WeightStation  = DataState.Received;
+                                    Received.Commands.goto_SortingStation = DataState.NoData;
                                 break;
 
-                            case (0x12): Received.Commands.start_Sorting   = DataState.Received; break;
-                            case (0x13): Received.Commands.start_Weighting = DataState.Received; break;
+                            case (0x12): Received.Commands.start_Sorting   = DataState.Received; OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Commands.StartSorting); break;
+                            case (0x13): Received.Commands.start_Weighting = DataState.Received; OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Commands.StartWeighting); break;
 
-                            case (0x14): Received.Commands.discharge = DataState.Received; break;
+                            case (0x14): Received.Commands.discharge = DataState.Received; OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Commands.Discharge); break;
 
                             case (0x16):
-                                Received.Commands.units_Metric   = DataState.Received;
-                                Received.Commands.units_Imperial = DataState.NoData;
-                                break;
+                                    if (Received.Commands.units_Metric != DataState.Received)
+                                    {
+                                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Commands.UseMetric, Color.Lime);
+                                    }
+                                    Received.Commands.units_Metric   = DataState.Received;
+                                    Received.Commands.units_Imperial = DataState.NoData;
+                                    break;
+
                             case (0x17):
-                                Received.Commands.units_Imperial = DataState.Received;
-                                Received.Commands.units_Metric   = DataState.NoData;
-                                break;
+                                    if (Received.Commands.units_Imperial != DataState.Received)
+                                    {
+                                    OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Commands.UseImperial, Color.Lime);
+                                }
+                                    Received.Commands.units_Imperial = DataState.Received;
+                                    Received.Commands.units_Metric   = DataState.NoData;
+                                    break;
                             default:
                                 //If received mode matched nothing, an error occured.
+                                OperationLogs.Window.Log_Warning(name + LogsInfos.Operations.Modules.Commands.UnexpectedData);
                                 error = Module_Errors.unexpectedData;
                                 break;
                         }
@@ -1362,24 +1590,41 @@ namespace CommandCenter
                         {
                             // Parsing of received values in a CAN tram
                             case (0x00):
+                                if (Received.Values.disc_Red != DataState.Received)
+                                {
+                                    OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Values.disc_Red, Color.Orange);
+                                }
                                 Received.Values.disc_Red        = DataState.Received;
                                 Received.Values.disc_Black      = DataState.NoData;
                                 Received.Values.disc_Silver     = DataState.NoData;
                                 Received.Values.disc_NoColor    = DataState.NoData;
                                 break;
+
                             case (0x01):
+                                if (Received.Values.disc_Silver != DataState.Received)
+                                {
+                                    OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Values.disc_Silver, Color.White);
+                                }
                                 Received.Values.disc_Silver   = DataState.Received;
                                 Received.Values.disc_Red      = DataState.NoData;
                                 Received.Values.disc_Black    = DataState.NoData;
                                 Received.Values.disc_NoColor  = DataState.NoData;
                                 break;
                             case (0x02):
+                                if (Received.Values.disc_Black != DataState.Received)
+                                {
+                                    OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Values.disc_Black, Color.Black);
+                                }
                                 Received.Values.disc_Black    = DataState.Received;
                                 Received.Values.disc_Red      = DataState.NoData;
                                 Received.Values.disc_Silver   = DataState.NoData;
                                 Received.Values.disc_NoColor  = DataState.NoData;
                                 break;
                             case (0x03):
+                                if (Received.Values.disc_NoColor != DataState.Received)
+                                {
+                                    OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Values.disc_NoColor, Color.Yellow);
+                                }
                                 Received.Values.disc_NoColor  = DataState.Received;
                                 Received.Values.disc_Red      = DataState.NoData;
                                 Received.Values.disc_Silver   = DataState.NoData;
@@ -1387,31 +1632,53 @@ namespace CommandCenter
                                 break;
 
                             case (0x04):
+                                if (Received.Values.disc_Detected != DataState.Received)
+                                {
+                                    OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Values.disc_Detected, Color.Lime);
+                                }
                                 Received.Values.disc_Detected         = DataState.Received;
                                 Received.Values.disc_Lost             = DataState.NoData;
                                 Received.Values.disc_CouldNotBeFound  = DataState.NoData;
                                 break;
+
                             case (0x05):
+                                if (Received.Values.disc_Lost != DataState.Received)
+                                {
+                                    OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Values.disc_Lost, Color.Red);
+                                }
                                 Received.Values.disc_Lost             = DataState.Received;
                                 Received.Values.disc_Detected         = DataState.NoData;
                                 Received.Values.disc_CouldNotBeFound  = DataState.NoData;
                                 break;
                             case (0x06):
+                                if (Received.Values.disc_CouldNotBeFound != DataState.Received)
+                                {
+                                    OperationLogs.Window.Log_Error(name + LogsInfos.Operations.Modules.Values.disc_CouldNotBeFound);
+                                }
                                 Received.Values.disc_CouldNotBeFound  = DataState.Received;
                                 Received.Values.disc_Detected         = DataState.NoData;
                                 Received.Values.disc_Lost             = DataState.NoData;
                                 break;
 
                             case (0x07):
+                                if (Received.Values.unit_Metric != DataState.Received)
+                                {
+                                    OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Values.NowInMetric, Color.Lime);
+                                }
                                 Received.Values.unit_Metric           = DataState.Received;
                                 Received.Values.unit_Imperial         = DataState.NoData;
                                 break;
                             case (0x08):
+                                if (Received.Values.unit_Imperial != DataState.Received)
+                                {
+                                    OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Values.NowInImperial, Color.Lime);
+                                }
                                 Received.Values.unit_Metric           = DataState.NoData;
                                 Received.Values.unit_Imperial         = DataState.Received;
                                 break;
                             default:
                                 //If received mode matched nothing, an error occured.
+                                OperationLogs.Window.Log_Warning(name + LogsInfos.Operations.Modules.Values.UnexpectedData);
                                 error = Module_Errors.unexpectedData;
                                 break;
                         }
@@ -1421,44 +1688,214 @@ namespace CommandCenter
                         {
                             // Parsing of received states from the communicating module
                             case (0x00):
-                                Received.States.emergencyStop = DataState.Received;
                                 // AUTOMATICALLY SWITCH TO EMERGENCY MODE WHEN A MODULE STATE SAYS IT'S IN THIS STATE
-                                if (Current.Mode != Modes_Ref.emergencyStop)
+                                if (Received.States.emergencyStop != DataState.Received)
                                 {
+                                    OperationLogs.Window.Log_header(name + LogsInfos.Operations.Modules.States.IsNow.InEmergencyStop);
                                     Current.Mode = Modes_Ref.emergencyStop;
+                                    Received.States.emergencyStop = DataState.Received;
                                 }
                                 break;
-                            case (0x01): Received.States.paused     = DataState.Received; break;
-                            case (0x02): Received.States.testing    = DataState.Received; break;
-                            case (0x03): Received.States.processing = DataState.Received; break;
+                            case (0x01):
+                                #region Paused
+                                if (Received.States.paused != DataState.Received)
+                                {
+                                    Received.States.SetAllTo(DataState.NoData);
+                                    OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.States.IsNow.Paused, Color.LightPink);
+                                }
+                                Received.States.paused = DataState.Received;
+                                #endregion Paused
+                                break;
+                            case (0x02):
+                                #region Testing
+                                if (Received.States.testing != DataState.Received)
+                                {
+                                    Received.States.SetAllTo(DataState.NoData);
+                                    OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.States.IsNow.Testing, Color.LightPink);
+                                }
+                                Received.States.testing = DataState.Received;
+                                #endregion Testing
+                                break;
+                            case (0x03):
+                                #region Processing
+                                if (Received.States.processing != DataState.Received)
+                                {
+                                    Received.States.SetAllTo(DataState.NoData);
+                                    OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.States.IsNow.Processing, Color.LightPink);
+                                }
+                                Received.States.processing = DataState.Received;
+                                #endregion Processing
+                                break;
                             case (0x04): break;
-                            case (0x05): Received.States.calibrating    = DataState.Received; break;
-                            case (0x06): Received.States.calibrated     = DataState.Received; break;
-                            case (0x07): Received.States.waiting        = DataState.Received; break;
-                            case (0x08): Received.States.safe           = DataState.Received; break;
-                            case (0x09): Received.States.error          = DataState.Received; break;
+                            case (0x05):
+                                #region Calibrating
+                                if (Received.States.calibrating != DataState.Received)
+                                {
+                                    Received.States.SetAllTo(DataState.NoData);
+                                    OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.States.IsNow.Calibrating, Color.LightPink);
+                                }
+                                Received.States.calibrating = DataState.Received;
+                                #endregion Calibrating 
+                                break;
+                            case (0x06):
+                                #region Calibrated
+                                if (Received.States.calibrated != DataState.Received)
+                                {
+                                    Received.States.SetAllTo(DataState.NoData);
+                                    OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.States.IsNow.Calibrated, Color.LightPink);
+                                }
+                                Received.States.calibrated = DataState.Received;
+                                #endregion Calibrated 
+                                break;
+                            case (0x07):
+                                #region Waiting
+                                if (Received.States.waiting != DataState.Received)
+                                {
+                                    Received.States.SetAllTo(DataState.NoData);
+                                    OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.States.IsNow.Waiting, Color.LightPink);
+                                }
+                                Received.States.waiting = DataState.Received;
+                                #endregion Waiting 
+                                break;
+                            case (0x08):
+                                #region Safe
+                                if (Received.States.safe != DataState.Received)
+                                {
+                                    Received.States.SetAllTo(DataState.NoData);
+                                    OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.States.IsNow.Safe, Color.LightPink);
+                                }
+                                Received.States.safe = DataState.Received;
+                                #endregion Safe 
+                                break;
+                            case (0x09):
+                                #region Error
+                                if (Received.States.error != DataState.Received)
+                                {
+                                    Received.States.SetAllTo(DataState.NoData);
+                                    OperationLogs.Window.Log_Error(name + LogsInfos.Operations.Modules.States.IsNow.Error);
+                                }
+                                Received.States.error = DataState.Received;
+                                #endregion Error  
+                                break;
 
                             case (0x0A):
-                                Received.States.atSortingFactory        = DataState.Received;
-                                Received.States.atWeightStation         = DataState.NoData;
+                                #region AtSortingFactory
+                                if (Received.States.atSortingFactory != DataState.Received)
+                                {
+                                    Received.States.SetAllTo(DataState.NoData);
+                                    OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.States.IsNow.AtSortingfactory, Color.Pink);
+                                }
+                                Received.States.atSortingFactory = DataState.Received;
+                                #endregion AtSortingFactory
                                 break;
                             case (0x0B):
-                                Received.States.atWeightStation         = DataState.Received;
-                                Received.States.atSortingFactory        = DataState.NoData;
+                                #region atWeightStation
+                                if (Received.States.atWeightStation != DataState.Received)
+                                {
+                                    Received.States.SetAllTo(DataState.NoData);
+                                    OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.States.IsNow.AtWeightStation, Color.Pink);
+                                }
+                                Received.States.atWeightStation = DataState.Received;
+                                #endregion atWeightStation
                                 break;
-                            case (0x0C): Received.States.finishedSortingAndHasLoaded    = DataState.Received; break;
-                            case (0x0D): Received.States.waitingToSort                  = DataState.Received; break;
-                            case (0x0E): Received.States.waitingToWeight                = DataState.Received; break;
-                            case (0x0F): Received.States.finishedWeighting              = DataState.Received; break;
-                            case (0x10): Received.States.empty                          = DataState.Received; break;
+                            case (0x0C):
+                                #region finishedSortingAndHasLoaded
+                                if (Received.States.finishedSortingAndHasLoaded != DataState.Received)
+                                {
+                                    Received.States.SetAllTo(DataState.NoData);
+                                    OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.States.IsNow.FinishedSortingAndLoaded, Color.Pink);
+                                }
+                                Received.States.finishedSortingAndHasLoaded = DataState.Received;
+                                #endregion finishedSortingAndHasLoaded
+                                break;
+                            case (0x0D):
+                                #region waitingToSort
+                                if (Received.States.waitingToSort != DataState.Received)
+                                {
+                                    Received.States.SetAllTo(DataState.NoData);
+                                    OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.States.IsNow.WaitingToSort, Color.Pink);
+                                }
+                                Received.States.waitingToSort = DataState.Received;
+                                #endregion waitingToSort
+                                break;
+                            case (0x0E):
+                                #region waitingToWeight
+                                if (Received.States.waitingToWeight != DataState.Received)
+                                {
+                                    Received.States.SetAllTo(DataState.NoData);
+                                    OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.States.IsNow.WaitingToWeight, Color.Pink);
+                                }
+                                Received.States.waitingToWeight = DataState.Received;
+                                #endregion waitingToWeight 
+                                break;
+                            case (0x0F):
+                                #region finishedWeighting
+                                if (Received.States.finishedWeighting != DataState.Received)
+                                {
+                                    Received.States.SetAllTo(DataState.NoData);
+                                    OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.States.IsNow.FinishedWeighting, Color.Pink);
+                                }
+                                Received.States.finishedWeighting = DataState.Received;
+                                #endregion finishedWeighting 
+                                break;
+                            case (0x10):
+                                #region empty
+                                if (Received.States.empty != DataState.Received)
+                                {
+                                    Received.States.SetAllTo(DataState.NoData);
+                                    OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.States.IsNow.Empty, Color.Pink);
+                                }
+                                Received.States.empty = DataState.Received;
+                                #endregion empty 
+                                break;
                             default:
                                 //If received mode matched nothing, an error occured.
+                                OperationLogs.Window.Log_Error(name + LogsInfos.Operations.Modules.States.IsIncoherent + commandNumber.ToString());
                                 error = Module_Errors.unexpectedData;
                                 break;
                         }
+                        Current.State = commandNumber;
                         break;
                     case (87):  // A weight was received.
                         Current.Weight = commandNumber;
+                        break;
+                }
+            }
+            //#############################################################//
+            /// <summary>
+            /// Checks if the class's current state is within the
+            /// AllowedStates of this class.
+            /// </summary>
+            /// <returns>True: is allowed / False: is not allowed</returns>
+            //#############################################################//
+            public bool IsStateAllowed()
+            {
+                switch (Current.State)
+                {
+                    // Parsing of received states from the communicating module
+                    case (0x00): return (Current.AllowedStates.emergencyStop == DataState.Available); break;
+                    case (0x01): return (Current.AllowedStates.paused == DataState.Available); break;
+                    case (0x02): return (Current.AllowedStates.testing == DataState.Available); break;
+                    case (0x03): return (Current.AllowedStates.processing == DataState.Available); break;
+                    case (0x04): return false; break;
+                    case (0x05): return (Current.AllowedStates.calibrating == DataState.Available); break;
+                    case (0x06): return (Current.AllowedStates.calibrated == DataState.Available); break;
+                    case (0x07): return (Current.AllowedStates.waiting == DataState.Available); break;
+                    case (0x08): return (Current.AllowedStates.safe == DataState.Available); break;
+                    case (0x09): return (Current.AllowedStates.error == DataState.Available); break;
+                    case (0x0A): return (Current.AllowedStates.atSortingFactory == DataState.Available); break;
+                    case (0x0B): return (Current.AllowedStates.atWeightStation == DataState.Available); break;
+                    case (0x0C): return (Current.AllowedStates.finishedSortingAndHasLoaded == DataState.Available); break;
+                    case (0x0D): return (Current.AllowedStates.waitingToSort == DataState.Available); break;
+                    case (0x0E): return (Current.AllowedStates.waitingToWeight == DataState.Available); break;
+                    case (0x0F): return (Current.AllowedStates.finishedWeighting == DataState.Available); break;
+                    case (0x10): return (Current.AllowedStates.empty == DataState.Available); break;
+                    //case (0xFF): return true; break; // State_Offline
+                    //case (0xFE): return true; break; // State_ClassInitialised
+                    //case (0xFD): return true; break; // State_ClassReset
+                    default:
+                        //If received mode matched nothing, an error occured.
+                        return false;
                         break;
                 }
             }
@@ -1750,7 +2187,7 @@ namespace CommandCenter
                     //#############################################################//
                     public static void Sync()
                     {
-                        BRS.Debug.Comment("[SYNC]",true);
+                        //BRS.Debug.Comment("[SYNC]",true);
 
                         CommandCenter.terminal.PauseDrawing = true;
                         Send.ToBeagleBone.StartOfPacket();

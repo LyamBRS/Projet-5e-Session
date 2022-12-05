@@ -570,7 +570,7 @@ namespace CommandCenter
                     BRS.ComPort.Port.Open();
                     oldPortState = true;
                     Debug.Success("Port opened!");
-                    NewUserTextInfo("Linked!", 1);
+                    NewUserTextInfo(UserInfos.ComPort.SuccessfulLink, 1);
 
                     CommandCenter.Buttons.USB.State = ControlState.Warning;
                     CommandCenter.Buttons.Link.State = ControlState.Active;
@@ -580,7 +580,7 @@ namespace CommandCenter
                 catch
                 {
                     Debug.Error("FAILED TO OPEN COM PORT WITH SPECIFIED INFO");
-                    NewUserTextInfo("LINKING ERROR", 2);
+                    NewUserTextInfo(UserInfos.ComPort.LinkingError, 2);
                     SystemSounds.Hand.Play();
 
                     CommandCenter.Buttons.USB.State = ControlState.Disabled;
@@ -598,7 +598,7 @@ namespace CommandCenter
                     oldPortState = false;
                     ComShouldBeOpen = false;
                     Debug.Success("Port closed!");
-                    NewUserTextInfo("Link Terminated", 1);
+                    NewUserTextInfo(UserInfos.ComPort.UserClosed, 1);
 
                     MasterProtocol_Stop();
 
@@ -609,7 +609,7 @@ namespace CommandCenter
                 catch
                 {
                     Debug.Error("FAILED TO CLOSE COM PORT WITH SPECIFIED INFO");
-                    NewUserTextInfo("LINKING ERROR", 2);
+                    NewUserTextInfo(UserInfos.ComPort.ClosingError, 2);
                     MasterProtocol_Stop();
 
                     CommandCenter.Buttons.USB.State = ControlState.Error;
@@ -664,7 +664,7 @@ namespace CommandCenter
                 CommandCenter.Buttons.AutoConnection.State = previousState;
             }
             Settings.BeagleBone_AutoConnect(AutoConnect.ToString());
-            NewUserTextInfo("Saved new Auto Connection",1);
+            NewUserTextInfo(UserInfos.Settings.SavedAutoConnection,1);
             BRS.Debug.Header(false);
         }
         #endregion Buttons
@@ -749,7 +749,7 @@ namespace CommandCenter
             {
                 CommandCenter.Buttons.Link.State = ControlState.Error;
                 CommandCenter.Buttons.USB.State = ControlState.Error;
-                NewUserTextInfo("USB CONNECTION LOST",2);
+                NewUserTextInfo(UserInfos.ComPort.UnexpectedTermination,2);
 
                 //reste flag to actual USB state in this case.
                 ComShouldBeOpen = BRS.ComPort.Port.IsOpen;
@@ -766,132 +766,132 @@ namespace CommandCenter
         {
             if (Settings.BaudRate(BaudRateBox.Text))
             {
-                NewUserTextInfo("Saved new BaudRate", 1);
+                NewUserTextInfo(UserInfos.Settings.SavedBaudrate, 1);
             }
             else
             {
-                NewUserTextInfo("SAVING ERROR",2);
+                NewUserTextInfo(UserInfos.Settings.SavingError, 2);
             }
         }
         private void DataBitBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if(Settings.DataBits(DataBitBox.Text))
             {
-                NewUserTextInfo("Saved new DataBits", 1);
+                NewUserTextInfo(UserInfos.Settings.SavedDataBits, 1);
             }
             else
             {
-                NewUserTextInfo("SAVING ERROR", 2);
+                NewUserTextInfo(UserInfos.Settings.SavingError, 2);
             }
         }
         private void StopBitBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if(Settings.StopBits(StopBitBox.Text))
             {
-                NewUserTextInfo("Saved new Stopbits", 1);
+                NewUserTextInfo(UserInfos.Settings.SavedStopBits, 1);
             }
             else
             {
-                NewUserTextInfo("SAVING ERROR", 2);
+                NewUserTextInfo(UserInfos.Settings.SavingError, 2);
             }
         }
         private void ParityBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if(Settings.Parity(ParityBox.Text))
             {
-                NewUserTextInfo("Saved new parity", 1);
+                NewUserTextInfo(UserInfos.Settings.SavedParity, 1);
             }
             else
             {
-                NewUserTextInfo("SAVING ERROR", 2);
+                NewUserTextInfo(UserInfos.Settings.SavingError, 2);
             }
         }
         private void FlowControlBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if(Settings.Flow(FlowControlBox.Text))
             {
-                NewUserTextInfo("Saved flow control", 1);
+                NewUserTextInfo(UserInfos.Settings.SavedFlowControl, 1);
             }
             else
             {
-                NewUserTextInfo("SAVING ERROR", 2);
+                NewUserTextInfo(UserInfos.Settings.SavingError, 2);
             }
         }
         private void RXTimeOutBox_TextChanged(object sender, EventArgs e)
         {
             if(Settings.TimeOut_RX(RXTimeOutBox.Text))
             {
-                NewUserTextInfo("Saved new timeout", 1);
+                NewUserTextInfo(UserInfos.Settings.SavedRXTimeout, 1);
             }
             else
             {
-                NewUserTextInfo("SAVING ERROR", 2);
+                NewUserTextInfo(UserInfos.Settings.SavingError, 2);
             }
         }
         private void TXTimeOutBox_TextChanged(object sender, EventArgs e)
         {
             if(Settings.TimeOut_TX(TXTimeOutBox.Text))
             {
-                NewUserTextInfo("Saved new timeout", 1);
+                NewUserTextInfo(UserInfos.Settings.SavedTXTimeout, 1);
             }
             else
             {
-                NewUserTextInfo("SAVING ERROR", 2);
+                NewUserTextInfo(UserInfos.Settings.SavingError, 2);
             }
         }
         private void DropDown_ScaleUnit_SelectedIndexChanged(object sender, EventArgs e)
         {
             if(Settings.Scale_Unit(DropDown_ScaleUnit.Text))
             {
-                NewUserTextInfo("Saved new unit", 1);
+                NewUserTextInfo(UserInfos.Settings.SavedWeightStationUnit, 1);
             }
             else
             {
-                NewUserTextInfo("SAVING ERROR", 2);
+                NewUserTextInfo(UserInfos.Settings.SavingError, 2);
             }
         }
         private void BeagleBone_FilePath_TextChanged(object sender, EventArgs e)
         {
             if(Settings.BeagleBone_FilePath(BeagleBone_FilePath.Text))
             {
-                NewUserTextInfo("Saved new path", 1);
+                NewUserTextInfo(UserInfos.Settings.SavedFilePath, 1);
             }
             else
             {
-                NewUserTextInfo("SAVING ERROR", 2);
+                NewUserTextInfo(UserInfos.Settings.SavingError, 2);
             }
         }
         private void BeagleBone_FileName_TextChanged(object sender, EventArgs e)
         {
             if(Settings.BeagleBone_FileName(BeagleBone_FileName.Text))
             {
-                NewUserTextInfo("Saved new file name", 1);
+                NewUserTextInfo(UserInfos.Settings.SavedFileName, 1);
             }
             else
             {
-                NewUserTextInfo("SAVING ERROR", 2);
+                NewUserTextInfo(UserInfos.Settings.SavingError, 2);
             }
         }
         private void BeagleBone_Password_TextChanged(object sender, EventArgs e)
         {
             if(Settings.BeagleBone_Password(BeagleBone_Password.Text))
             {
-                NewUserTextInfo("Saved new Password", 1);
+                NewUserTextInfo(UserInfos.Settings.SavedPassword, 1);
             }
             else
             {
-                NewUserTextInfo("SAVING ERROR", 2);
+                NewUserTextInfo(UserInfos.Settings.SavingError, 2);
             }
         }
         private void BeagleBone_User_TextChanged(object sender, EventArgs e)
         {
             if(Settings.BeagleBone_User(BeagleBone_User.Text))
             {
-                NewUserTextInfo("Saved new User", 1);
+                NewUserTextInfo(UserInfos.Settings.SavedUser, 1);
             }
             else
             {
-                NewUserTextInfo("SAVING ERROR", 2);
+                NewUserTextInfo(UserInfos.Settings.SavingError, 2);
             }
         }
         #endregion WhenToSaveSettings

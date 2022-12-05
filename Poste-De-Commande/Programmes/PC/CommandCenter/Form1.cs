@@ -45,9 +45,12 @@ namespace CommandCenter
             #region Index_Terminal
             CommandCenter.Buttons.Terminal = new GenericButton(Button_Terminal, Icons.Terminal.GetStatesColors(), Icons.Terminal.GetStatesBitmaps());
             CommandCenter.Buttons.CloseBeagle = new GenericButton(Button_CloseBeagleBone, Icons.X.GetStatesColors(), Icons.X.GetStatesBitmaps());
+            CommandCenter.Buttons.SaveBBBTerminal = new GenericButton(Button_Save_Terminal, Icons.Save.GetStatesColors(), Icons.Save.GetStatesBitmaps());
+
             #endregion Index_Terminal
             #region Index_Operation
             CommandCenter.Operation.Buttons.ClearTerminal = new GenericButton(Operation_Terminal_Clear, Icons.Terminal.GetStatesColors(), Icons.Terminal.GetStatesBitmaps());
+            CommandCenter.Operation.Buttons.SaveOperationTerminal = new GenericButton(Operation_Save_Logs, Icons.Save.GetStatesColors(), Icons.Save.GetStatesBitmaps());
 
             CommandCenter.Operation.Buttons.EmergencyStop = new GenericButton(Operation_EmergencyStop, Icons.Emergency.GetStatesColors(), Icons.Emergency.GetStatesBitmaps());
             CommandCenter.Operation.Buttons.Global = new GenericButton(Operation_Module_Global, Icons.EveryModules.GetStatesColors(), Icons.EveryModules.GetStatesBitmaps());
@@ -74,6 +77,7 @@ namespace CommandCenter
             #region Index_Terminal
             CommandCenter.Buttons.Terminal.Animated = true;
             CommandCenter.Buttons.CloseBeagle.Animated = true;
+            CommandCenter.Buttons.SaveBBBTerminal.Animated = true;
             #endregion Index_Terminal
             #region Index_Operation
             CommandCenter.Operation.Buttons.ClearTerminal.Animated = true;
@@ -84,6 +88,7 @@ namespace CommandCenter
             CommandCenter.Operation.Buttons.Vehicle.Animated = true;
             CommandCenter.Operation.Buttons.WeightStation.Animated = true;
             CommandCenter.Operation.Buttons.SortingStation.Animated = true;
+            CommandCenter.Operation.Buttons.SaveOperationTerminal.Animated = true;
             /*
             CommandCenter.Operation.Buttons.EmergencyStop.SizeMultiplier_MouseHover = 1;
             CommandCenter.Operation.Buttons.Global.SizeMultiplier_MouseHover = 1;
@@ -112,20 +117,22 @@ namespace CommandCenter
             #region Index_Terminal
             CommandCenter.Buttons.Terminal.State = ControlState.Inactive;
             CommandCenter.Buttons.CloseBeagle.State = ControlState.Disabled;
+            CommandCenter.Buttons.SaveBBBTerminal.State = ControlState.Inactive;
             #endregion Index_Terminal
             #region Index_Operation
-            CommandCenter.Operation.Buttons.ClearTerminal.State     = ControlState.Inactive;
+            CommandCenter.Operation.Buttons.ClearTerminal.State              = ControlState.Inactive;
+                                                                            
+            CommandCenter.Operation.Buttons.EmergencyStop.State              = ControlState.Disabled;
+            CommandCenter.Operation.Buttons.Global.State                     = ControlState.Inactive;
+            CommandCenter.Operation.Buttons.Pause.State                      = ControlState.Disabled;
+            CommandCenter.Operation.Buttons.Vehicle.State                    = ControlState.Inactive;
+            CommandCenter.Operation.Buttons.WeightStation.State              = ControlState.Inactive;
+            CommandCenter.Operation.Buttons.SortingStation.State             = ControlState.Inactive;
+            CommandCenter.Operation.Buttons.SaveOperationTerminal.State      = ControlState.Inactive;
 
-            CommandCenter.Operation.Buttons.EmergencyStop.State     = ControlState.Disabled;
-            CommandCenter.Operation.Buttons.Global.State            = ControlState.Disabled;
-            CommandCenter.Operation.Buttons.Pause.State             = ControlState.Disabled;
-            CommandCenter.Operation.Buttons.Vehicle.State           = ControlState.Disabled;
-            CommandCenter.Operation.Buttons.WeightStation.State     = ControlState.Disabled;
-            CommandCenter.Operation.Buttons.SortingStation.State    = ControlState.Disabled;
-
-            CommandCenter.Operation.Overview.Vehicle.State          = ControlState.Inactive;
-            CommandCenter.Operation.Overview.WeightStation.State    = ControlState.Inactive;
-            CommandCenter.Operation.Overview.SortingStation.State   = ControlState.Inactive;
+            CommandCenter.Operation.Overview.Vehicle.State                   = ControlState.Inactive;
+            CommandCenter.Operation.Overview.WeightStation.State             = ControlState.Inactive;
+            CommandCenter.Operation.Overview.SortingStation.State            = ControlState.Inactive;
             #endregion Index_Operation
             Debug.Success("");
             #endregion DynamicButtons
@@ -190,6 +197,9 @@ namespace CommandCenter
 
             OperationLogs.Window = new Terminal(Operation_Logs, this);
             OperationLogs.Window.ShowTX = false;
+
+            OperationLogs.Window.SavingFolder = "Operation";
+            CommandCenter.terminal.SavingFolder = "BeagleBone";
             
             BRS.ComPort.createInfoReceivedEvent();
             BRS.ComPort.DataReceivedAction = CommandCenter.terminal.DataReceiverHandling;
@@ -243,25 +253,25 @@ namespace CommandCenter
                 switch (MasterProtocol.mode)
                 {
                     case (0x00):
-                        NewUserTextInfo("EMERGENCY STOP", 2);
+                        NewUserTextInfo(UserInfos.Modes.IsEmergency, 2);
                         break;
                     case (0x01):
-                        NewUserTextInfo("Paused", 2);
+                        NewUserTextInfo(UserInfos.Modes.IsPaused, 2);
                         break;
                     case (0x02):
-                        NewUserTextInfo("Testing mode", 2);
+                        NewUserTextInfo(UserInfos.Modes.IsTesting, 2);
                         break;
                     case (0x03):
-                        NewUserTextInfo("Maintenance", 2);
+                        NewUserTextInfo(UserInfos.Modes.IsMaintenance, 2);
                         break;
                     case (0x04):
-                        NewUserTextInfo("Operation Mode", 2);
+                        NewUserTextInfo(UserInfos.Modes.IsOperating, 2);
                         break;
                     case (0x05):
-                        NewUserTextInfo("Calibration Mode", 2);
+                        NewUserTextInfo(UserInfos.Modes.IsCalibrating, 2);
                         break;
                     case (0x06):
-                        NewUserTextInfo("Reset Mode", 2);
+                        NewUserTextInfo(UserInfos.Modes.IsInitialising, 2);
                         break;
                 }
             }
@@ -269,16 +279,373 @@ namespace CommandCenter
             {
                 if(BRS.ComPort.Port.IsOpen)
                 {
-                    NewUserTextInfo("Waiting for BBB", 2);
+                    NewUserTextInfo(UserInfos.MasterProtocol.IsWaitingForBBB, 2);
                 }
                 else
                 {
-                    NewUserTextInfo("Disabled", 2);
+                    NewUserTextInfo(UserInfos.ComPort.IsOffline, 2);
                 }
             }
 
             BRS.Debug.Header(false);
         }
+
+
+        #region SetMode
+        /// <summary>
+        /// Contains possible modes that you can set the command center
+        /// n MasterProtocl ect to.
+        /// </summary>
+        public enum WantedMode
+        {
+            Emergency,
+            Paused,
+            Maintenance,
+            Testing,
+            Operating,
+            Initialising,
+            Calibrating
+        }
+        //#############################################################//
+        /// <summary>
+        /// handles all the classes you need to check and handle
+        /// when you simply want to change which mode the CommandCenter
+        /// is currrently in.
+        /// </summary>
+        /// <param name="mode"></param>
+        //#############################################################//
+        public void SetGlobalModeTo(WantedMode mode)
+        {
+            BRS.Debug.Header(true);
+            BRS.Debug.Comment("Parsing new wanted mode...");
+            if(BRS.ComPort.Port.IsOpen)
+            {
+                if(MasterProtocol.isActive)
+                {
+                    //--------------------------------------------------// WANTS TO START OPERATIONS
+                    if(mode == WantedMode.Operating)
+                    {
+                        if (MasterProtocol.mode != Modes_Ref.emergencyStop)
+                        {
+                            // already in the same mode bruh
+                            if (MasterProtocol.mode == Modes_Ref.operation)
+                            {
+                                NewUserTextInfo(UserInfos.Modes.Already.Operating, 2);
+                            }
+                            else
+                            {
+                                if (MasterProtocol.mode == Modes_Ref.pause)
+                                {
+                                    NewUserTextInfo(UserInfos.Modes.OperationStarted, 1);
+                                    MasterProtocol.mode = Modes_Ref.operation;
+                                    MasterProtocol.error = CAN_Errors.none;
+                                    MasterProtocol.state = States_Ref.operating;
+                                    OperationLogs.Window.Log_header(LogsInfos.Operations.NowOperating);
+
+                                    ModuleData_SortingStation.SetNewMode(Modes_Ref.operation);
+                                    ModuleData_WeightStation.SetNewMode(Modes_Ref.operation);
+                                    ModuleData_Vehicle.SetNewMode(Modes_Ref.operation);
+                                }
+                                else
+                                {
+                                    if (PopUp.Question(PopUpInfos.ModeSwitching.IsNotPaused, PopUpInfos.Header.Warning))
+                                    {
+                                        NewUserTextInfo(UserInfos.Modes.OperationStarted, 1);
+                                        MasterProtocol.mode = Modes_Ref.operation;
+                                        MasterProtocol.error = CAN_Errors.none;
+                                        MasterProtocol.state = States_Ref.processing;
+                                        OperationLogs.Window.Log_header(LogsInfos.Operations.NowOperating);
+
+                                        ModuleData_SortingStation.SetNewMode(Modes_Ref.operation);
+                                        ModuleData_WeightStation.SetNewMode(Modes_Ref.operation);
+                                        ModuleData_Vehicle.SetNewMode(Modes_Ref.operation);
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            NewUserTextInfo(UserInfos.Modes.IsEmergency, 2);
+                        }
+                    }
+                    //--------------------------------------------------//
+                    if (mode == WantedMode.Paused)
+                    {
+                        if(MasterProtocol.mode == Modes_Ref.pause)
+                        {
+                            NewUserTextInfo(UserInfos.Modes.Already.Paused, 2);
+                        }
+                        else
+                        {
+                            // Disabling emergency
+                            if(MasterProtocol.mode == Modes_Ref.emergencyStop)
+                            {
+                                if (BRS.PopUp.Question(PopUpInfos.ModeSwitching.DisablingEmergency, PopUpInfos.Header.Warning))
+                                {
+                                    BRS.Debug.Success("Disabling EMERGENCY PROTOCOL");
+
+                                    MasterProtocol.mode = Modes_Ref.pause;
+                                    MasterProtocol.error = CAN_Errors.none;
+                                    MasterProtocol.state = States_Ref.paused;
+
+                                    ModuleData_Vehicle.SetNewMode(Modes_Ref.pause);
+                                    ModuleData_SortingStation.SetNewMode(Modes_Ref.pause);
+                                    ModuleData_WeightStation.SetNewMode(Modes_Ref.pause);
+
+                                    NewUserTextInfo(UserInfos.Modes.EmergencyDisabled, 2);
+                                    OperationLogs.Window.Log_header(LogsInfos.Operations.NoMoreEmergency);           
+                                    OperationLogs.Window.Log_Warning(LogsInfos.Operations.NowPaused);
+                                }
+                                else
+                                {
+                                    BRS.Debug.Aborted("Keeping emergency protocol active");
+                                }
+                            }
+                            else
+                            {
+                                NewUserTextInfo(UserInfos.Modes.IsPaused, 1);
+                                MasterProtocol.mode = Modes_Ref.pause;
+                                MasterProtocol.error = CAN_Errors.none;
+                                MasterProtocol.state = States_Ref.paused;
+
+                                OperationLogs.Window.Log_header(LogsInfos.Operations.NowPaused);
+                                ModuleData_SortingStation.SetNewMode(Modes_Ref.pause);
+                                ModuleData_WeightStation.SetNewMode(Modes_Ref.pause);
+                                ModuleData_Vehicle.SetNewMode(Modes_Ref.pause);
+                            }
+                        }
+                    }
+                    //--------------------------------------------------//
+                    if (mode == WantedMode.Maintenance)
+                    {
+                        if (MasterProtocol.mode != Modes_Ref.emergencyStop)
+                        {
+                            // already in the same mode bruh
+                            if (MasterProtocol.mode == Modes_Ref.maintenance)
+                            {
+                                NewUserTextInfo(UserInfos.Modes.Already.Maintenance, 2);
+                            }
+                            else
+                            {
+                                if (MasterProtocol.mode == Modes_Ref.pause)
+                                {
+                                    NewUserTextInfo(UserInfos.Modes.IsMaintenance, 1);
+                                    MasterProtocol.mode = Modes_Ref.maintenance;
+                                    MasterProtocol.error = CAN_Errors.none;
+                                    MasterProtocol.state = States_Ref.safe;
+                                    OperationLogs.Window.Log_header(LogsInfos.Operations.NowMaintnance);
+                                    
+                                    ModuleData_SortingStation.SetNewMode(Modes_Ref.maintenance);
+                                    ModuleData_WeightStation.SetNewMode(Modes_Ref.maintenance);
+                                    ModuleData_Vehicle.SetNewMode(Modes_Ref.maintenance);
+                                }
+                                else
+                                {
+                                    if (PopUp.Question(PopUpInfos.ModeSwitching.IsNotPaused, PopUpInfos.Header.Warning))
+                                    {
+                                        if (MasterProtocol.mode == Modes_Ref.operation)
+                                        {
+                                            OperationLogs.Window.Log_Error(LogsInfos.Operations.UnexpectedEnd);
+                                        }
+                                        NewUserTextInfo(UserInfos.Modes.IsMaintenance, 1);
+                                        MasterProtocol.mode = Modes_Ref.maintenance;
+                                        MasterProtocol.error = CAN_Errors.none;
+                                        MasterProtocol.state = States_Ref.safe;
+                                        OperationLogs.Window.Log_header(LogsInfos.Operations.NowMaintnance);
+
+                                        ModuleData_SortingStation.SetNewMode(Modes_Ref.operation);
+                                        ModuleData_WeightStation.SetNewMode(Modes_Ref.maintenance);
+                                        ModuleData_Vehicle.SetNewMode(Modes_Ref.maintenance);
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            NewUserTextInfo(UserInfos.Modes.IsEmergency,2);
+                        }
+                    }
+                    //--------------------------------------------------//
+                    if (mode == WantedMode.Calibrating)
+                    {
+                        if (MasterProtocol.mode != Modes_Ref.emergencyStop)
+                        {
+                            // already in the same mode bruh
+                            if (MasterProtocol.mode == Modes_Ref.calibration)
+                            {
+                                NewUserTextInfo(UserInfos.Modes.Already.Calibrating, 2);
+                            }
+                            else
+                            {
+                                if (MasterProtocol.mode == Modes_Ref.pause)
+                                {
+                                    NewUserTextInfo(UserInfos.Modes.IsCalibrating, 1);
+                                    MasterProtocol.mode = Modes_Ref.calibration;
+                                    MasterProtocol.error = CAN_Errors.none;
+                                    MasterProtocol.state = States_Ref.calibrated;
+                                    OperationLogs.Window.Log_header(LogsInfos.Operations.NowCalibrating);
+                                    
+                                    ModuleData_SortingStation.SetNewMode(Modes_Ref.calibration);
+                                    ModuleData_WeightStation.SetNewMode(Modes_Ref.calibration);
+                                    ModuleData_Vehicle.SetNewMode(Modes_Ref.calibration);
+                                }
+                                else
+                                {
+                                    if (PopUp.Question(PopUpInfos.ModeSwitching.IsNotPaused, PopUpInfos.Header.Warning))
+                                    {
+                                        if (MasterProtocol.mode == Modes_Ref.operation)
+                                        {
+                                            OperationLogs.Window.Log_Error(LogsInfos.Operations.UnexpectedEnd);
+                                        }
+                                        NewUserTextInfo(UserInfos.Modes.IsCalibrating, 1);
+                                        MasterProtocol.mode = Modes_Ref.calibration;
+                                        MasterProtocol.error = CAN_Errors.none;
+                                        MasterProtocol.state = States_Ref.calibrated;
+                                        OperationLogs.Window.Log_header(LogsInfos.Operations.NowCalibrating);
+                                        
+                                        ModuleData_SortingStation.SetNewMode(Modes_Ref.calibration);
+                                        ModuleData_WeightStation.SetNewMode(Modes_Ref.calibration);
+                                        ModuleData_Vehicle.SetNewMode(Modes_Ref.calibration);
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            NewUserTextInfo(UserInfos.Modes.IsEmergency, 2);
+                        }
+                    }
+                    //--------------------------------------------------//
+                    if (mode == WantedMode.Emergency)
+                    {
+                        BRS.Debug.Comment("Disregarding litterally fucking everything and setting mode to EmergencyStop");
+                        MasterProtocol.mode = Modes_Ref.emergencyStop;
+                        MasterProtocol.error = CAN_Errors.EmergencyStop;
+                        MasterProtocol.state = States_Ref.emergencyStop;
+
+                        ModuleData_Vehicle.SetNewMode(Modes_Ref.emergencyStop);
+                        ModuleData_SortingStation.SetNewMode(Modes_Ref.emergencyStop);
+                        ModuleData_WeightStation.SetNewMode(Modes_Ref.emergencyStop);
+                        NewUserTextInfo(UserInfos.Modes.EmergencyEnabled, 2);
+                        OperationLogs.Window.Log_header(LogsInfos.Operations.NowInEmergency);
+                    }
+                    //--------------------------------------------------//
+                    if (mode == WantedMode.Testing)
+                    {
+                        if (MasterProtocol.mode != Modes_Ref.emergencyStop)
+                        {
+                            // already in the same mode bruh
+                            if (MasterProtocol.mode == Modes_Ref.testing)
+                            {
+                                NewUserTextInfo(UserInfos.Modes.Already.Testing, 2);
+                            }
+                            else
+                            {
+                                if (MasterProtocol.mode == Modes_Ref.pause)
+                                {
+                                    NewUserTextInfo(UserInfos.Modes.IsTesting, 1);
+                                    MasterProtocol.mode = Modes_Ref.testing;
+                                    MasterProtocol.error = CAN_Errors.none;
+                                    MasterProtocol.state = States_Ref.testing;
+                                    OperationLogs.Window.Log_header(LogsInfos.Operations.NowTesting);
+
+                                    ModuleData_SortingStation.SetNewMode(Modes_Ref.testing);
+                                    ModuleData_WeightStation.SetNewMode(Modes_Ref.testing);
+                                    ModuleData_Vehicle.SetNewMode(Modes_Ref.testing);
+                                }
+                                else
+                                {
+                                    if (PopUp.Question(PopUpInfos.ModeSwitching.IsNotPaused, PopUpInfos.Header.Warning))
+                                    {
+                                        if (MasterProtocol.mode == Modes_Ref.operation)
+                                        {
+                                            OperationLogs.Window.Log_Error(LogsInfos.Operations.UnexpectedEnd);
+                                        }
+                                        NewUserTextInfo(UserInfos.Modes.IsTesting, 1);
+                                        MasterProtocol.mode = Modes_Ref.testing;
+                                        MasterProtocol.error = CAN_Errors.none;
+                                        MasterProtocol.state = States_Ref.testing;
+                                        OperationLogs.Window.Log_header(LogsInfos.Operations.NowTesting);
+                                        
+                                        ModuleData_SortingStation.SetNewMode(Modes_Ref.testing);
+                                        ModuleData_WeightStation.SetNewMode(Modes_Ref.testing);
+                                        ModuleData_Vehicle.SetNewMode(Modes_Ref.testing);
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            NewUserTextInfo(UserInfos.Modes.IsEmergency, 2);
+                        }
+                    }
+                    //--------------------------------------------------//
+                    if (mode == WantedMode.Initialising)
+                    {
+                        if (MasterProtocol.mode != Modes_Ref.emergencyStop)
+                        {
+                            // already in the same mode bruh
+                            if (MasterProtocol.mode == Modes_Ref.reinitialisation)
+                            {
+                                NewUserTextInfo(UserInfos.Modes.Already.Initialising, 2);
+                            }
+                            else
+                            {
+                                if (MasterProtocol.mode == Modes_Ref.pause)
+                                {
+                                    NewUserTextInfo(UserInfos.Modes.IsInitialising, 1);
+                                    MasterProtocol.mode = Modes_Ref.reinitialisation;
+                                    MasterProtocol.error = CAN_Errors.none;
+                                    MasterProtocol.state = States_Ref.waiting;
+                                    OperationLogs.Window.Log_header(LogsInfos.Operations.NowInitialising);
+
+                                    ModuleData_SortingStation.SetNewMode(Modes_Ref.reinitialisation);
+                                    ModuleData_WeightStation.SetNewMode(Modes_Ref.reinitialisation);
+                                    ModuleData_Vehicle.SetNewMode(Modes_Ref.reinitialisation);
+                                }
+                                else
+                                {
+                                    if (PopUp.Question(PopUpInfos.ModeSwitching.IsNotPaused, PopUpInfos.Header.Warning))
+                                    {
+                                        if (MasterProtocol.mode == Modes_Ref.operation)
+                                        {
+                                            OperationLogs.Window.Log_Error(LogsInfos.Operations.UnexpectedEnd);
+                                        }
+
+                                        NewUserTextInfo(UserInfos.Modes.IsInitialising, 1);
+                                        MasterProtocol.mode = Modes_Ref.reinitialisation;
+                                        MasterProtocol.error = CAN_Errors.none;
+                                        MasterProtocol.state = States_Ref.waiting;
+                                        OperationLogs.Window.Log_header(LogsInfos.Operations.NowInitialising);
+
+                                        ModuleData_SortingStation.SetNewMode(Modes_Ref.reinitialisation);
+                                        ModuleData_WeightStation.SetNewMode(Modes_Ref.reinitialisation);
+                                        ModuleData_Vehicle.SetNewMode(Modes_Ref.reinitialisation);
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            NewUserTextInfo(UserInfos.Modes.IsEmergency, 2);
+                        }
+                    }
+                }
+                else
+                {
+                    NewUserTextInfo(UserInfos.MasterProtocol.IsOffline,2);
+                    MasterProtocol.mode = Modes_Ref.pause;
+                }
+            }
+            else
+            {
+                NewUserTextInfo(UserInfos.ComPort.IsOffline,2);
+                MasterProtocol.mode = Modes_Ref.pause;
+            }
+            UpdateModeIcons();
+            BRS.Debug.Header(false);
+        }
+        #endregion SetMode
     }
 
     //#############################################################//
@@ -301,6 +668,7 @@ namespace CommandCenter
             public static BRS.Buttons.GenericButton Terminal;
             public static BRS.Buttons.GenericButton AutoConnection;
             public static BRS.Buttons.GenericButton CloseBeagle;
+            public static GenericButton SaveBBBTerminal;
         }
         /// <summary>
         /// Class containing all the buttons specific to the
@@ -317,6 +685,7 @@ namespace CommandCenter
                 public static GenericButton Pause;
                 public static GenericButton EmergencyStop;
                 public static GenericButton ClearTerminal;
+                public static GenericButton SaveOperationTerminal;
             }
             /// <summary>
             /// Overview of operation process indicators buttons stuff

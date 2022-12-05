@@ -11,3 +11,17 @@ U:\Sessions\Session 5\Project\Projet_Fin_Session\Projet-5e-Session\Poste-De-Comm
 U:\Sessions\Session 5\Project\Projet_Fin_Session\Projet-5e-Session\Poste-De-Commande\Programmes\PC\CommandCenter\obj\Debug\CommandCenter.pdb
 U:\Sessions\Session 5\Project\Projet_Fin_Session\Projet-5e-Session\Poste-De-Commande\Programmes\PC\CommandCenter\obj\Debug\CommandCenter.Form_MainMenu.resources
 U:\Sessions\Session 5\Project\Projet_Fin_Session\Projet-5e-Session\Poste-De-Commande\Programmes\PC\CommandCenter\obj\Debug\CommandCenter.Form_MainMenu.en.resources
+C:\Users\cous5\Source\Repos\Projet-5e-Session\Poste-De-Commande\Programmes\PC\CommandCenter\obj\Debug\CommandCenter.csproj.AssemblyReference.cache
+C:\Users\cous5\Source\Repos\Projet-5e-Session\Poste-De-Commande\Programmes\PC\CommandCenter\obj\Debug\CommandCenter.csproj.SuggestedBindingRedirects.cache
+C:\Users\cous5\Source\Repos\Projet-5e-Session\Poste-De-Commande\Programmes\PC\CommandCenter\obj\Debug\CommandCenter.Form_MainMenu.resources
+C:\Users\cous5\Source\Repos\Projet-5e-Session\Poste-De-Commande\Programmes\PC\CommandCenter\obj\Debug\CommandCenter.Properties.Resources.resources
+C:\Users\cous5\Source\Repos\Projet-5e-Session\Poste-De-Commande\Programmes\PC\CommandCenter\obj\Debug\CommandCenter.Form_MainMenu.en.resources
+C:\Users\cous5\Source\Repos\Projet-5e-Session\Poste-De-Commande\Programmes\PC\CommandCenter\obj\Debug\CommandCenter.csproj.GenerateResource.cache
+C:\Users\cous5\Source\Repos\Projet-5e-Session\Poste-De-Commande\Programmes\PC\CommandCenter\obj\Debug\CommandCenter.csproj.CoreCompileInputs.cache
+C:\Users\cous5\Source\Repos\Projet-5e-Session\Poste-De-Commande\Programmes\PC\CommandCenter\obj\Debug\CommandCenter.exe
+C:\Users\cous5\Source\Repos\Projet-5e-Session\Poste-De-Commande\Programmes\PC\CommandCenter\obj\Debug\CommandCenter.pdb
+C:\Users\cous5\Source\Repos\Projet-5e-Session\Poste-De-Commande\Programmes\PC\CommandCenter\bin\Debug\CommandCenter.exe.config
+C:\Users\cous5\Source\Repos\Projet-5e-Session\Poste-De-Commande\Programmes\PC\CommandCenter\bin\Debug\CommandCenter.exe
+C:\Users\cous5\Source\Repos\Projet-5e-Session\Poste-De-Commande\Programmes\PC\CommandCenter\bin\Debug\CommandCenter.pdb
+C:\Users\cous5\Source\Repos\Projet-5e-Session\Poste-De-Commande\Programmes\PC\CommandCenter\bin\Debug\en\CommandCenter.resources.dll
+C:\Users\cous5\Source\Repos\Projet-5e-Session\Poste-De-Commande\Programmes\PC\CommandCenter\obj\Debug\en\CommandCenter.resources.dll

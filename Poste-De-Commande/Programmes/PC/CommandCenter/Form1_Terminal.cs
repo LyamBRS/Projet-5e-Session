@@ -31,13 +31,29 @@ namespace CommandCenter
             if(CommandCenter.terminal.Window.Text == "")
             {
                 Debug.Success("terminal cleared!");
-                NewUserTextInfo("Cleared Window", 1);
+                NewUserTextInfo(UserInfos.Terminal.Cleared, 1);
             }
             else
             {
                 Debug.Aborted("terminal cleared!");
-                NewUserTextInfo("Canceled clearing", 3);
+                //NewUserTextInfo("Canceled clearing", 3);
             }
+            BRS.Debug.Header(false);
+        }
+        //#############################################################//
+        /// <summary>
+        /// Saves the beaglebone's terminal when this is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        //#############################################################//
+        private void Button_Save_Terminal_Click(object sender, EventArgs e)
+        {
+            BRS.Debug.Header(true);
+            BRS.Debug.Comment("Saving the beaglebones's terminal");
+            CommandCenter.terminal.SaveTerminal();
+            NewUserTextInfo(UserInfos.Terminal.Saved, 1);
+            CommandCenter.terminal.Clear();
             BRS.Debug.Header(false);
         }
         //#############################################################//
@@ -76,12 +92,12 @@ namespace CommandCenter
                     MasterProtocol.Send.ToBeagleBone.Quit();
                     MasterProtocol_Stop();
                     CommandCenter.terminal.Log_Comment("Closing BeagleBone Program",Color.HotPink);
-                    NewUserTextInfo("Closing BBB",1);
+                    NewUserTextInfo(UserInfos.BeagleBone.Closing,1);
                 }
                 catch
                 {
                     Debug.Error("Could not send END to beaglebone.");
-                    NewUserTextInfo("CAN'T CLOSE PROGRAM", 2);
+                    NewUserTextInfo(UserInfos.BeagleBone.ClosingError, 2);
                     CommandCenter.terminal.Log_Error("Could not close the BeagleBone program");
                 }
             }
@@ -92,19 +108,6 @@ namespace CommandCenter
             }
 
             BRS.Debug.Header(false);
-        }
-        //#############################################################//
-        /// <summary>
-        /// Adds an error log in red text at the end of the terminal.
-        /// </summary>
-        /// <param name="error">Text to display in the console</param>
-        //#############################################################//
-        public void ConsoleArea_LogError(string error)
-        {
-            ConsoleArea.SelectionStart = ConsoleArea.Text.Length;
-            ConsoleArea.SelectionColor = Color.Red;
-            ConsoleArea.SelectedText = "\n[!ERROR!]: " + error + "\n";
-            ConsoleArea.SelectionStart = ConsoleArea.Text.Length;
         }
         //#############################################################//
         //#############################################################//

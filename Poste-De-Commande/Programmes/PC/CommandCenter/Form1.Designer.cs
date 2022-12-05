@@ -33,6 +33,7 @@ namespace CommandCenter
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_MainMenu));
             this.TabControl_ModeSelector = new System.Windows.Forms.TabControl();
             this.Tab_Operation = new System.Windows.Forms.TabPage();
+            this.Operation_Save_Logs = new System.Windows.Forms.Button();
             this.Operation_Module_Global = new System.Windows.Forms.Button();
             this.Operation_Terminal_Clear = new System.Windows.Forms.Button();
             this.Operation_Module_Vehicle = new System.Windows.Forms.Button();
@@ -50,6 +51,7 @@ namespace CommandCenter
             this.Tab_Calibration = new System.Windows.Forms.TabPage();
             this.Tab_Maintenance = new System.Windows.Forms.TabPage();
             this.Tab_Terminal = new System.Windows.Forms.TabPage();
+            this.Button_Save_Terminal = new System.Windows.Forms.Button();
             this.Button_CloseBeagleBone = new System.Windows.Forms.Button();
             this.Button_Terminal = new System.Windows.Forms.Button();
             this.ConsoleArea = new System.Windows.Forms.RichTextBox();
@@ -119,6 +121,7 @@ namespace CommandCenter
             // Tab_Operation
             // 
             this.Tab_Operation.BackColor = System.Drawing.Color.Black;
+            this.Tab_Operation.Controls.Add(this.Operation_Save_Logs);
             this.Tab_Operation.Controls.Add(this.Operation_Module_Global);
             this.Tab_Operation.Controls.Add(this.Operation_Terminal_Clear);
             this.Tab_Operation.Controls.Add(this.Operation_Module_Vehicle);
@@ -132,6 +135,21 @@ namespace CommandCenter
             resources.ApplyResources(this.Tab_Operation, "Tab_Operation");
             this.Tab_Operation.Name = "Tab_Operation";
             this.Tab_Operation.UseVisualStyleBackColor = true;
+            // 
+            // Operation_Save_Logs
+            // 
+            resources.ApplyResources(this.Operation_Save_Logs, "Operation_Save_Logs");
+            this.Operation_Save_Logs.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.Operation_Save_Logs.BackgroundImage = global::CommandCenter.Properties.Resources.Save_Disabled_Empty;
+            this.Operation_Save_Logs.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Operation_Save_Logs.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.Operation_Save_Logs.FlatAppearance.BorderSize = 0;
+            this.Operation_Save_Logs.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.Operation_Save_Logs.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
+            this.Operation_Save_Logs.Name = "Operation_Save_Logs";
+            this.Operation_Save_Logs.Tag = "Overview Terminal Clear logs";
+            this.Operation_Save_Logs.UseVisualStyleBackColor = true;
+            this.Operation_Save_Logs.Click += new System.EventHandler(this.Operation_Save_Logs_Click);
             // 
             // Operation_Module_Global
             // 
@@ -147,6 +165,7 @@ namespace CommandCenter
             this.Operation_Module_Global.Name = "Operation_Module_Global";
             this.Operation_Module_Global.Tag = "Global Module";
             this.Operation_Module_Global.UseVisualStyleBackColor = false;
+            this.Operation_Module_Global.Click += new System.EventHandler(this.Operation_Module_Global_Click);
             // 
             // Operation_Terminal_Clear
             // 
@@ -177,6 +196,7 @@ namespace CommandCenter
             this.Operation_Module_Vehicle.Name = "Operation_Module_Vehicle";
             this.Operation_Module_Vehicle.Tag = "Vehicle Module";
             this.Operation_Module_Vehicle.UseVisualStyleBackColor = false;
+            this.Operation_Module_Vehicle.Click += new System.EventHandler(this.Operation_Module_Vehicle_Click);
             // 
             // Operation_Pause
             // 
@@ -207,6 +227,7 @@ namespace CommandCenter
             this.Operation_Module_SortingStation.Name = "Operation_Module_SortingStation";
             this.Operation_Module_SortingStation.Tag = "Sorting Module";
             this.Operation_Module_SortingStation.UseVisualStyleBackColor = false;
+            this.Operation_Module_SortingStation.Click += new System.EventHandler(this.Operation_Module_SortingStation_Click);
             // 
             // Operation_Logs
             // 
@@ -236,6 +257,7 @@ namespace CommandCenter
             this.Operation_Module_WeightStation.Name = "Operation_Module_WeightStation";
             this.Operation_Module_WeightStation.Tag = "Weight Module";
             this.Operation_Module_WeightStation.UseVisualStyleBackColor = false;
+            this.Operation_Module_WeightStation.Click += new System.EventHandler(this.Operation_Module_WeightStation_Click);
             // 
             // Panel_Overview
             // 
@@ -254,7 +276,7 @@ namespace CommandCenter
             resources.ApplyResources(this.Overview_SortingStation, "Overview_SortingStation");
             this.Overview_SortingStation.AccessibleRole = System.Windows.Forms.AccessibleRole.Indicator;
             this.Overview_SortingStation.BackColor = System.Drawing.Color.Transparent;
-            this.Overview_SortingStation.BackgroundImage = global::CommandCenter.Properties.Resources.Sorting_Disabled_Empty;
+            this.Overview_SortingStation.BackgroundImage = global::CommandCenter.Properties.Resources.Sorting_Disabled_Filled;
             this.Overview_SortingStation.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Overview_SortingStation.DialogResult = System.Windows.Forms.DialogResult.Retry;
             this.Overview_SortingStation.FlatAppearance.BorderSize = 0;
@@ -345,12 +367,27 @@ namespace CommandCenter
             // Tab_Terminal
             // 
             this.Tab_Terminal.BackColor = System.Drawing.Color.Black;
+            this.Tab_Terminal.Controls.Add(this.Button_Save_Terminal);
             this.Tab_Terminal.Controls.Add(this.Button_CloseBeagleBone);
             this.Tab_Terminal.Controls.Add(this.Button_Terminal);
             this.Tab_Terminal.Controls.Add(this.ConsoleArea);
             this.Tab_Terminal.Cursor = System.Windows.Forms.Cursors.Arrow;
             resources.ApplyResources(this.Tab_Terminal, "Tab_Terminal");
             this.Tab_Terminal.Name = "Tab_Terminal";
+            // 
+            // Button_Save_Terminal
+            // 
+            resources.ApplyResources(this.Button_Save_Terminal, "Button_Save_Terminal");
+            this.Button_Save_Terminal.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.Button_Save_Terminal.BackgroundImage = global::CommandCenter.Properties.Resources.Save_Disabled_Empty;
+            this.Button_Save_Terminal.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Button_Save_Terminal.DialogResult = System.Windows.Forms.DialogResult.Retry;
+            this.Button_Save_Terminal.FlatAppearance.BorderSize = 0;
+            this.Button_Save_Terminal.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.Button_Save_Terminal.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
+            this.Button_Save_Terminal.Name = "Button_Save_Terminal";
+            this.Button_Save_Terminal.UseVisualStyleBackColor = true;
+            this.Button_Save_Terminal.Click += new System.EventHandler(this.Button_Save_Terminal_Click);
             // 
             // Button_CloseBeagleBone
             // 
@@ -435,7 +472,7 @@ namespace CommandCenter
             // 
             resources.ApplyResources(this.Button_AutoConnect, "Button_AutoConnect");
             this.Button_AutoConnect.AccessibleRole = System.Windows.Forms.AccessibleRole.CheckButton;
-            this.Button_AutoConnect.BackgroundImage = global::CommandCenter.Properties.Resources.CheckBox_Disabled_Empty;
+            this.Button_AutoConnect.BackgroundImage = global::CommandCenter.Properties.Resources.CheckBox_Inactive_Empty;
             this.Button_AutoConnect.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Button_AutoConnect.DialogResult = System.Windows.Forms.DialogResult.Retry;
             this.Button_AutoConnect.FlatAppearance.BorderSize = 0;
@@ -951,6 +988,8 @@ namespace CommandCenter
         private System.Windows.Forms.Button Operation_EmergencyStop;
         private System.Windows.Forms.Button Operation_Pause;
         private System.Windows.Forms.Button Operation_Terminal_Clear;
+        private System.Windows.Forms.Button Operation_Save_Logs;
+        private System.Windows.Forms.Button Button_Save_Terminal;
     }
 }
 

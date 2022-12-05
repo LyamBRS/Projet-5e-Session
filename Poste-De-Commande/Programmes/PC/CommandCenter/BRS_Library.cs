@@ -1403,6 +1403,12 @@ namespace BRS
         public bool PauseDrawing = false;
 
         /// <summary>
+        /// Specific the name of the folder where the logs of this
+        /// terminal will be saved into.
+        /// </summary>
+        public string SavingFolder = "default";
+
+        /// <summary>
         /// Will replace regular parsing with a special one made
         /// specifically to remove stupid data from the terminal.
         /// </summary>
@@ -1635,6 +1641,7 @@ namespace BRS
         //#########################################################//
         public void Log_Comment(string comment, Color colorToUse)
         {
+            PrintTime();
             Window.SelectionStart = Window.Text.Length;
             Window.SelectionColor = colorToUse;
             Window.SelectedText = comment + "\n";
@@ -1649,6 +1656,7 @@ namespace BRS
         //#########################################################//
         public void Log_Comment(string comment)
         {
+            PrintTime();
             Window.SelectionStart = Window.Text.Length;
             Window.SelectionColor = Colors.Comment;
             Window.SelectedText = comment + "\n";
@@ -1663,9 +1671,10 @@ namespace BRS
         //#########################################################//
         public void Log_Error(string error)
         {
+            PrintTime();
             Window.SelectionStart = Window.Text.Length;
             Window.SelectionColor = Colors.Error;
-            Window.SelectedText = "\n[!ERROR!]: " + error + "\n";
+            Window.SelectedText = " [!ERROR!]: " + error + "\n";
             Window.SelectionStart = Window.Text.Length;
         }
         //#########################################################//
@@ -1677,9 +1686,10 @@ namespace BRS
         //#########################################################//
         public void Log_Warning(string warning)
         {
+            PrintTime();
             Window.SelectionStart = Window.Text.Length;
             Window.SelectionColor = Colors.Warning;
-            Window.SelectedText = "\n[-WARNING-]: " + warning + "\n";
+            Window.SelectedText = " [-WARNING-]: " + warning + "\n";
             Window.SelectionStart = Window.Text.Length;
         }
         //#########################################################//
@@ -1695,6 +1705,21 @@ namespace BRS
             Window.SelectionStart = Window.Text.Length;
             Window.SelectionColor = Colors.Header;
             Window.SelectedText = "\n==================================================\n" + nameOfHeader + "\n ==================================================\n";
+            Window.SelectionStart = Window.Text.Length;
+        }
+        //#########################################################//
+        /// <summary>
+        /// This private function automatically prints the time
+        /// in hours, without days, without carriage returns at the
+        /// end. It automatically puts the time within square brackets
+        /// and adds a tabulation after printing it.
+        /// </summary>
+        //#########################################################//
+        private void PrintTime()
+        {
+            Window.SelectionStart = Window.Text.Length;
+            Window.SelectionColor = Colors.Comment;
+            Window.SelectedText = "[" + DateTime.Now.ToString("T") + "]\t";
             Window.SelectionStart = Window.Text.Length;
         }
         #endregion Drawing
@@ -1876,5 +1901,44 @@ namespace BRS
 
         }
         #endregion DataReception
+        #region DataSaving
+        //#########################################################//
+        /// <summary>
+        /// Saves the content of the terminal inside an rtf file.
+        /// This will pop up a file dialog
+        /// </summary>
+        //#########################################################//
+        public void SaveTerminal()
+        {
+            BRS.Debug.Comment("Attempting to save the terminal's content in a file");
+            #region Variables
+            string path = "";
+            bool LogsDirectoryFound = false;
+            bool SavingDirectoryFound = false;
+            #endregion Variables
+
+            BRS.Debug.Comment("Loading settings from XML file...");
+            ///////////////////////////////////////////////////////// - GETTING DIRECTORY PATH
+            BRS.Debug.Comment("Navigating directories to the logs emplacement...");
+            path = Directory.GetCurrentDirectory();
+            BRS.Debug.Success("Directory: " + path);
+            //////////////////////////////////////////////////////// - CHECK IF FULL PATH EXISTS
+            Directory.CreateDirectory(path + @"\Logs\" + SavingFolder);
+            path = path + @"\Logs\" + SavingFolder;
+            //////////////////////////////////////////////////////// - FILE DIALOG HANDLING
+            Window.Name = DateTime.Now.ToString();
+            Window.Name = Window.Name.Replace(':', ';');
+            BRS.Debug.Comment(path);
+            BRS.Debug.Comment(Window.Name);
+            try
+            {
+                Window.SaveFile(path + @"\" + Window.Name + ".rtf", RichTextBoxStreamType.RichText);
+            }
+            catch(Exception fuckUp)
+            {
+                BRS.PopUp.Error(fuckUp.Message,"Saving error");
+            }
+        }
+        #endregion DataSaving
     }
 }
