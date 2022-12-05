@@ -61,7 +61,7 @@
 #include "interfaceColonne.h"
 #include "piloteColonne.h"
 #include "interfaceB1.h"
-//#include "stm32f4xx_hal_conf.h"
+//#include "stm32f4xx_hal_conf.h" 
 //#include "stm32f4xx_it.h"
 /* USER CODE END Includes */
 
@@ -113,6 +113,7 @@ void main_initialiseApresLeHAL(void);
 void main_initialiseAvantLeHAL(void)
 {
   piloteTimer6Up_initialise();
+  serviceBaseDeTemps_initialise();
   // piloteCAN1_initialise(); //irait ici en temps normal... mais il y a un bug dans le cube
   // piloteUSART2_initialise();
   piloteIOB1_initialise();
@@ -120,15 +121,15 @@ void main_initialiseAvantLeHAL(void)
   piloteIOT2_initialise();
   piloteIOT3_initialise();
   piloteIOT4_initialise();
-  serviceBaseDeTemps_initialise();
+  
   interfaceT1_initialise();
   interfaceT2_initialise();
   interfaceT3_initialise();
   interfaceT4_initialise();
-  interfaceColonne_initialise();
   
-  interfaceUsine_Initialise();
   interfaceB1_initialise();
+  interfaceColonne_initialise();  
+  interfaceUsine_Initialise();  
 }
 
 void main_initialiseApresLeHAL(void)
@@ -148,9 +149,11 @@ void neFaitRien(void)
 
 // Variables globales
 bool bFlagUpdateMessageEcran;
+bool bFlagUpdateEtatEcran;
 bool bFlagUpdateModeEcran;
 bool flagTexteFini = 0;
 char messageEcran[40];
+char etatEcran[20];
 char modeEcran[20];
 /* USER CODE END 0 */
 
@@ -203,6 +206,7 @@ int main(void)
   interfaceLcd_Draw_Shape_RectF(0,43,128,2,1);
   interfaceLcd_Draw_Shape_RectF(0,27,128,2,1);
   vPutStringGLcd("Mode:               ", 4, 5);
+  vPutStringGLcd("Etat:Attend Bouton  ", 2, 5);
   unsigned char oldBruh = 0;
   while (1)
   {
@@ -215,7 +219,7 @@ int main(void)
     */
     if (bFlagUpdateMessageEcran)
     {
-      flagTexteFini;
+      flagTexteFini = 0;
       for (int i = 0; i <= 39; i++)
       {
         if (i <= 19)
@@ -231,6 +235,18 @@ int main(void)
         if (messageEcran[i + 1] == '\0')flagTexteFini = 1;
       }
       bFlagUpdateMessageEcran = 0;
+    }
+
+    if (bFlagUpdateEtatEcran)
+    {
+      flagTexteFini = 0;
+      for (int i = 0; i+5 <= 19; i++)
+      {       
+        if (!flagTexteFini)vPutCharGLcd(etatEcran[i], 2, i+5, 5);
+        else vPutCharGLcd(' ', 2, i+5, 5);
+        if (etatEcran[i + 1] == '\0') flagTexteFini = 1;
+      }
+      bFlagUpdateEtatEcran = 0;
     }
     
     if (bFlagUpdateModeEcran)
@@ -640,6 +656,17 @@ void updateMessageEcran(char const string[])
   for (int i = 0; i <= 39; i++)
   {
     messageEcran[i] = string[i];
+    if (string[i] == '\0')
+      return;
+  }
+}
+
+void updateEtatEcran(char const string[])
+{
+  bFlagUpdateEtatEcran = 1;
+  for (int i = 0; i <= 20; i++)
+  {
+    etatEcran[i] = string[i];
     if (string[i] == '\0')
       return;
   }

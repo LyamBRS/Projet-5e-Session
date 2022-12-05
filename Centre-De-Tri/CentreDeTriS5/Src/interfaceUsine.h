@@ -19,6 +19,13 @@
 
 //INFORMATION PUBLIQUE:
 //Definitions publiques:
+#define INTERFACEUSINE_BV_RELACHE  0
+#define INTERFACEUSINE_BV_APPUYE  1
+#define INTERFACEUSINE_BV_INCONNU 2
+
+#define INTERFACEUSINE_BR_RELACHE  0
+#define INTERFACEUSINE_BR_APPUYE  1
+#define INTERFACEUSINE_BR_INCONNU 2
 //pas de definitions publiques
 
 //Fonctions publiques:
@@ -28,6 +35,18 @@ void interfaceUsine_gere (void);
 void interfaceUsine_Initialise (void);
 void interfaceUsine_Reset (void);
 
+typedef struct
+{
+  //unsigned char etatDuModule;  
+  unsigned char information;
+  unsigned char etatDuBouton;
+} INTERFACEBOUTON;
+
+extern INTERFACEBOUTON interfaceUsine_BV;
+extern INTERFACEBOUTON interfaceUsine_BR;
+
+
+/*
 bool interfaceUsine_RequetePont (unsigned char ucPositiondemandee);
     
 #define INTERFACEUSINE_PONT_ETAT_ERREUR 0
@@ -40,6 +59,7 @@ bool interfaceUsine_RequetePont (unsigned char ucPositiondemandee);
 #define INTERFACEUSINE_PONT_POSITION0 2
 #define INTERFACEUSINE_PONT_POSITION1 3
 #define INTERFACEUSINE_PONT_POSITION2 4
+*/
 //Variables publiques:
 //pas de variables publiques
 
