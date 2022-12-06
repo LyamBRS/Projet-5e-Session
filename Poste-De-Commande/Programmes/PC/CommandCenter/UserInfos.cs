@@ -202,6 +202,12 @@ namespace CommandCenter
                 public static string waitingToWeight                = "Error: is waiting to weight";
                 public static string finishedWeighting              = "Error: has finished weighting";
                 public static string empty                          = "No more discs to sort";
+
+                public static string DiscIsRed                      = "Sorting has a red disc";
+                public static string DiscIsBlack                    = "Sorting has a black disc";
+                public static string DiscIsSilver                   = "Sorting has a metallic disc";
+                public static string DiscHasNoColor                 = "Sorting no longer has a disc";
+                public static string DiscNeverDetected              = "No disc has been seen";
             }
             /// <summary>
             /// Class containing the specific meaning of each status of the weight station
@@ -211,7 +217,7 @@ namespace CommandCenter
                 public static string emergencyStop = "Weight station in emergency";
                 public static string paused = "Weighting is paused";
                 public static string testing = "Error: Executing self test";
-                public static string processing = "Error: Is sorting";
+                public static string processing = "Weighting blocks";
                 public static string calibrating = "Station is calibrating";
                 public static string calibrated = "Station is calibrated";
                 public static string waiting = "Station is not operational";
@@ -233,7 +239,7 @@ namespace CommandCenter
                 public static string emergencyStop = "Truck in emergency";
                 public static string paused = "Driving is paused";
                 public static string testing = "Error: Executing self test";
-                public static string processing = "Error: Is sorting";
+                public static string processing = "Truck is moving";
                 public static string calibrating = "Truck is calibrating";
                 public static string calibrated = "Truck is calibrated";
                 public static string waiting = "Truck is waiting for something";
@@ -547,17 +553,44 @@ namespace CommandCenter
             }
         }
     }
-
+    /// <summary>
+    /// Class which contains the text to display as pop ups
+    /// in different situations.
+    /// </summary>
     public static class PopUpInfos
     {
         public static class Header
         {
+            /// <summary>
+            /// Pop up header shown when the pop up's
+            /// purpose in life is to warn the user
+            /// of something, or to ask for 
+            /// caution
+            /// </summary>
             public static string Warning = "Warning";
         }
         public static class ModeSwitching
         {
+            /// <summary>
+            /// Popup displayed when the user
+            /// is trying to change the current CAN bus mode
+            /// to an other without putting the latter to
+            /// pause initially.
+            /// </summary>
             public static string IsNotPaused = "Are you sure you want to change the command center's current mode? It is not currently paused and doing this may cause issues";
             public static string DisablingEmergency = "Are you sure you want to disable the ongoing emergency proceedure? Some modules may trigger it back ON if they have not been hard reset manually";
         }
+    }
+
+    /// <summary>
+    /// 3 letters or less for each state that
+    /// a scale can be in inside of this application
+    /// </summary>
+    public static class WeightInfos
+    {
+        public static string isOffline = "OFF";
+        public static string Metric = "KG";
+        public static string Imperial = "LB";
+        public static string isOnlineButNoValue = "--";
     }
 }

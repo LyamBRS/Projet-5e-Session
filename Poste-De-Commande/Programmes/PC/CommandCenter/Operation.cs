@@ -59,6 +59,10 @@ namespace CommandCenter
             Update_ModuleIcon_Sorting();
             Update_ModuleIcon_Vehicle();
             Update_ModuleIcon_Weight();
+            Update_ModuleIcon_Global();
+
+            Update_Disc_ColorIndicator();
+            OverView_Update_TruckPosition();
 
             //reset old values.
             Old.Operation.utils.MasterProtocol.Mode = MasterProtocol.mode;
@@ -312,6 +316,7 @@ namespace CommandCenter
                     }
                 }
             }
+            CommandCenter.Operation.Overview.SortingStation.State = CommandCenter.Operation.Buttons.SortingStation.State;
         }
         //#############################################################//
         /// <summary>
@@ -376,6 +381,7 @@ namespace CommandCenter
                     }
                 }
             }
+            CommandCenter.Operation.Overview.Vehicle.State = CommandCenter.Operation.Buttons.Vehicle.State;
         }
         //#############################################################//
         /// <summary>
@@ -440,6 +446,7 @@ namespace CommandCenter
                     }
                 }
             }
+            CommandCenter.Operation.Overview.WeightStation.State = CommandCenter.Operation.Buttons.WeightStation.State;
         }
         #endregion Modules
         //#############################################################//
@@ -549,6 +556,12 @@ namespace CommandCenter
             BRS.Debug.Header(false);
         }
         //#############################################################//
+        /// <summary>
+        /// Function called when the button to clear the terminal
+        /// is pressed.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         //#############################################################//
         private void Operation_Terminal_Clear_Click(object sender, EventArgs e)
         {
@@ -648,7 +661,7 @@ namespace CommandCenter
                     }
                     else
                     {
-                        if (ModuleData_SortingStation.Current.State == State_Offline)
+                        if (ModuleData_SortingStation.Current.State == State_Offline || ModuleData_SortingStation.Current.State == State_ClassInitialised)
                         {
                             NewUserTextInfo(UserInfos.Modules.IsUnresponsive, 3);
                         }
@@ -676,7 +689,7 @@ namespace CommandCenter
                                 if (ModuleData_SortingStation.Current.State == States_Ref.waiting)                       { NewUserTextInfo(UserInfos.Modules.SortingStation.waiting, 3); }
                                 if (ModuleData_SortingStation.Current.State == States_Ref.waitingToSort)                 { NewUserTextInfo(UserInfos.Modules.SortingStation.waitingToSort, 1); }
                                 if (ModuleData_SortingStation.Current.State == States_Ref.waitingToWeight)               { NewUserTextInfo(UserInfos.Modules.SortingStation.waitingToWeight, 2); }
-                                if (ModuleData_SortingStation.IsStateAllowed())
+                                if (!ModuleData_SortingStation.IsStateAllowed())
                                 {
                                     OperationLogs.Window.Log_Comment("[USER CONTROL]: " + ModuleData_SortingStation.name + "'s status: " + ModuleData_SortingStation.Current.State.ToString() + " does not match with the current mode: " + MasterProtocol.mode, Color.Tomato);
                                 }
@@ -718,7 +731,7 @@ namespace CommandCenter
                     }
                     else
                     {
-                        if (ModuleData_Vehicle.Current.State == State_Offline)
+                        if (ModuleData_Vehicle.Current.State == State_Offline || ModuleData_Vehicle.Current.State == State_ClassInitialised)
                         {
                             NewUserTextInfo(UserInfos.Modules.IsUnresponsive, 3);
                         }
@@ -746,7 +759,7 @@ namespace CommandCenter
                                 if (ModuleData_Vehicle.Current.State == States_Ref.waiting)                       { NewUserTextInfo(UserInfos.Modules.Vehicle.waiting, 3); }
                                 if (ModuleData_Vehicle.Current.State == States_Ref.waitingToSort)                 { NewUserTextInfo(UserInfos.Modules.Vehicle.waitingToSort, 1); }
                                 if (ModuleData_Vehicle.Current.State == States_Ref.waitingToWeight)               { NewUserTextInfo(UserInfos.Modules.Vehicle.waitingToWeight, 2); }
-                                if(ModuleData_Vehicle.IsStateAllowed())
+                                if(!ModuleData_Vehicle.IsStateAllowed())
                                 {
                                     OperationLogs.Window.Log_Comment("[USER CONTROL]: " + ModuleData_Vehicle.name + "'s status: " + ModuleData_Vehicle.Current.State.ToString() + " does not match with the current mode: " + MasterProtocol.mode, Color.Tomato);
                                 }
@@ -788,7 +801,7 @@ namespace CommandCenter
                     }
                     else
                     {
-                        if (ModuleData_WeightStation.Current.State == State_Offline)
+                        if (ModuleData_WeightStation.Current.State == State_Offline || ModuleData_WeightStation.Current.State == State_ClassInitialised)
                         {
                             NewUserTextInfo(UserInfos.Modules.IsUnresponsive, 3);
                         }
@@ -816,7 +829,7 @@ namespace CommandCenter
                                 if (ModuleData_WeightStation.Current.State == States_Ref.waitingToSort)                 { NewUserTextInfo(UserInfos.Modules.WeightStation.waitingToSort, 1); }
                                 if (ModuleData_WeightStation.Current.State == States_Ref.waitingToWeight)               { NewUserTextInfo(UserInfos.Modules.WeightStation.waitingToWeight, 2); }
                                 
-                                if(ModuleData_WeightStation.IsStateAllowed())
+                                if(!ModuleData_WeightStation.IsStateAllowed())
                                 {
                                     OperationLogs.Window.Log_Comment("[USER CONTROL]: " + ModuleData_WeightStation.name + "'s status: " + ModuleData_WeightStation.Current.State.ToString() + " does not match with the current mode: " + MasterProtocol.mode, Color.Tomato);
                                 }
@@ -889,9 +902,337 @@ namespace CommandCenter
         #endregion ModuleButtons 
         #endregion Button_Clicks
 
-        #region OperationSpecificLogs
+        #region OverView
+        #region Positions
         //#############################################################//
+        /// <summary>
+        /// Updates the visualized location of the truck inside of the
+        /// OverView present inside of Tab_Operation
+        /// </summary>
         //#############################################################//
-        #endregion OperationSpecificLogs
+        public void OverView_Update_TruckPosition()
+        {
+            if (MasterProtocol.mode == Modes_Ref.operation)
+            {
+                //--------------------------------------------------------//
+                // Get Button locations 
+                //--------------------------------------------------------//
+                Point SortingPosition = Overview_SortingStation.Location;
+                Point WeightPosition = Overview_WeightStation.Location;
+                Point VehiclePosition = Overview_Vehicle.Location;
+                //--------------------------------------------------------//
+                // Get float equivalent of button locations
+                //--------------------------------------------------------//
+                float sortingX = (float)(SortingPosition.X);
+                float weightX = (float)(WeightPosition.X);
+                float vehicleX = (float)(VehiclePosition.X);
+
+                //Defaults to middle of the 2
+                float wantedX = ((weightX - sortingX) / 2) + sortingX;
+                //--------------------------------------------------------//
+                // Check vehicle location
+                //--------------------------------------------------------//
+                bool atWeightStation = (ModuleData_Vehicle.Current.State == States_Ref.atWeightStation) || ModuleData_Vehicle.Current.State == States_Ref.empty || ModuleData_Vehicle.Current.State == States_Ref.waiting || ModuleData_Vehicle.Current.State == State_ClassInitialised;
+
+                if (ModuleData_Vehicle.Current.State == States_Ref.atSortingFactory)
+                {
+                    wantedX = sortingX + ((float)(Overview_SortingStation.Size.Width));
+                }
+
+                if (atWeightStation)
+                {
+                    wantedX = weightX - ((float)(Overview_WeightStation.Size.Width));
+                }
+                //--------------------------------------------------------//
+                // Lerp vehicle location
+                //--------------------------------------------------------//
+                float newXLocation = BRS.Smoothing.Lerp(vehicleX, wantedX, 0.1f);
+                //--------------------------------------------------------//
+                // Set buttons to new location
+                //--------------------------------------------------------//
+                Overview_Vehicle.Location = new Point(((int)(newXLocation)), VehiclePosition.Y);
+                CommandCenter.Operation.Overview.Vehicle.UpdateOriginalPositions(Overview_Vehicle.Location);
+            }
+        }
+        #endregion Positions
+        #region Clicks
+        //#############################################################//
+        /// <summary>
+        /// Happens everytime you click on the Vehicule.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        //#############################################################//
+        private void Overview_Vehicle_Click(object sender, EventArgs e)
+        {
+            Operation_Module_Vehicle_Click(sender, e);
+        }
+        //#############################################################//
+        /// <summary>
+        /// Executed each time the sorting station button is pressed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        //#############################################################//
+        private void Overview_SortingStation_Click(object sender, EventArgs e)
+        {
+            Operation_Module_SortingStation_Click(sender, e);
+        }
+        //#############################################################//
+        /// <summary>
+        /// Happens everytime you click on the Weight Station.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        //#############################################################//
+        private void Overview_WeightStation_Click(object sender, EventArgs e)
+        {
+            Operation_Module_WeightStation_Click(sender, e);
+        }
+        #endregion Clicks
+        #endregion OverView
+
+        #region DiscColorStuff
+        //#############################################################//
+        /// <summary>
+        /// used to update the icon of the disc color present in
+        /// the Tab_Operation
+        /// </summary>
+        //#############################################################//
+        public void Update_Disc_ColorIndicator()
+        {
+            //--------------------------------------------------------//
+            // If USB is opened
+            //--------------------------------------------------------//
+            if(!BRS.ComPort.Port.IsOpen)
+            {
+                CommandCenter.Operation.Buttons.Disc.State = ControlState.Inactive;
+                ModuleData_SortingStation.DetectedDiscColor(DiscColor.NoData);
+            }
+            else
+            {
+                //--------------------------------------------------------//
+                // If the CAN bus is online
+                //--------------------------------------------------------//
+                if (MasterProtocol.isActive)
+                {
+                    //--------------------------------------------------------//
+                    // Check if module is offline
+                    //--------------------------------------------------------//
+                    if (ModuleData_SortingStation.Current.State == State_Offline || ModuleData_SortingStation.Current.State == State_ClassInitialised)
+                    {
+                        CommandCenter.Operation.Buttons.Disc.State = ControlState.Inactive;
+                        ModuleData_SortingStation.DetectedDiscColor(DiscColor.NoData);
+                    }
+                    else
+                    {
+                        DiscColor currentColor = ModuleData_SortingStation.DetectedDiscColor();
+
+                        //--------------------------------------------------------//
+                        // Never received disc related data
+                        //--------------------------------------------------------//
+                        if (currentColor == DiscColor.NoData)
+                        {
+                            CommandCenter.Operation.Buttons.Disc.State = ControlState.Inactive;
+                        }
+                        //--------------------------------------------------------//
+                        // Orange disc color
+                        //--------------------------------------------------------//
+                        if (currentColor == DiscColor.Red)
+                        {
+                            CommandCenter.Operation.Buttons.Disc.State = ControlState.Error;
+                        }
+                        //--------------------------------------------------------//
+                        // Black disc color
+                        //--------------------------------------------------------//
+                        if (currentColor == DiscColor.Black)
+                        {
+                            CommandCenter.Operation.Buttons.Disc.State = ControlState.Warning;
+                        }
+                        //--------------------------------------------------------//
+                        // Metallic / Silver disc color
+                        //--------------------------------------------------------//
+                        if (currentColor == DiscColor.Metallic)
+                        {
+                            CommandCenter.Operation.Buttons.Disc.State = ControlState.Active;
+                        }
+                        //--------------------------------------------------------//
+                        // No more disc
+                        //--------------------------------------------------------//
+                        if (currentColor == DiscColor.NoDisc)
+                        {
+                            CommandCenter.Operation.Buttons.Disc.State = ControlState.Inactive;
+                        }
+                    }
+                }
+                else
+                {
+                    CommandCenter.Operation.Buttons.Disc.State = ControlState.Inactive;
+                    ModuleData_SortingStation.DetectedDiscColor(DiscColor.NoData);
+                }
+            }
+        }
+        //#############################################################//
+        /// <summary>
+        /// Event related function which is called whenever the button
+        /// is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        //#############################################################//
+        private void Operation_Disc_Color_Click(object sender, EventArgs e)
+        {
+            BRS.Debug.Header(true);
+            BRS.Debug.Comment("Giving information about currently detected disc color...");
+
+            if(BRS.ComPort.Port.IsOpen)
+            {
+                Debug.Success("Port is opened");
+                if(MasterProtocol.isActive)
+                {
+                    Debug.Success("CAN is online");
+
+                    DiscColor result = ModuleData_SortingStation.DetectedDiscColor();
+
+                    if(result == DiscColor.Black)
+                    {
+                        BRS.Debug.Comment("Sorting station is seeing a black disc");
+                        NewUserTextInfo(UserInfos.Modules.SortingStation.DiscIsBlack,1);
+                    }
+                    if (result == DiscColor.Metallic)
+                    {
+                        BRS.Debug.Comment("Sorting station is seeing a metallic disc");
+                        NewUserTextInfo(UserInfos.Modules.SortingStation.DiscIsSilver, 1);
+                    }
+                    if (result == DiscColor.Red)
+                    {
+                        BRS.Debug.Comment("Sorting station is seeing a red disc");
+                        NewUserTextInfo(UserInfos.Modules.SortingStation.DiscIsRed, 1);
+                    }
+                    if (result == DiscColor.NoDisc)
+                    {
+                        BRS.Debug.Comment("Sorting station no longer seeing colored disc");
+                        NewUserTextInfo(UserInfos.Modules.SortingStation.DiscHasNoColor, 1);
+                    }
+                    if (result == DiscColor.NoData)
+                    {
+                        BRS.Debug.Comment("Sorting station has never seen a disc");
+                        NewUserTextInfo(UserInfos.Modules.SortingStation.DiscNeverDetected, 1);
+                    }
+                }
+                else
+                {
+                    Debug.Aborted("Can is offline");
+                    NewUserTextInfo(UserInfos.MasterProtocol.IsOffline,2);
+                }
+            }
+            else
+            {
+                BRS.Debug.Aborted("USB is offline");
+                NewUserTextInfo(UserInfos.ComPort.IsOffline,2);
+            }
+            BRS.Debug.Header(false);
+        }
+        #endregion DiscColorStuff
+
+        #region Scale
+        /// <summary>
+        /// Class containing the colors to use when displaying the
+        /// weight gotten from the scale on the screen. These colos
+        /// are exactly matched with icons used throughout this
+        /// application
+        /// </summary>
+        public static class WeightColors
+        {
+            public static Color Active = Color.FromArgb(64, 192, 87);
+            public static Color Disabled = Color.FromArgb(77,77,77);
+            public static Color Warning = Color.FromArgb(250,176,5);
+            public static Color Error = Color.FromArgb(250, 82, 82);
+            public static Color Inactive = Color.FromArgb(115, 115, 115);
+        }
+        //#############################################################//
+        /// <summary>
+        /// Update the displayed weight depending on ModuleData_Weight
+        /// and other factors such as the COM port.
+        /// </summary>
+        //#############################################################//
+        public void Operation_Update_Weight()
+        {
+            string Weight = "--";
+
+            if(BRS.ComPort.Port.IsOpen)
+            {
+                if(MasterProtocol.isActive)
+                {
+                    byte weight = ModuleData_WeightStation.Current.Weight;
+
+                    bool useImperial = ModuleData_WeightStation.Received.Values.unit_Imperial == DataState.Received;
+                    bool useMetric = ModuleData_WeightStation.Received.Values.unit_Metric == DataState.Received;
+                    bool bothReceived = useImperial && useMetric;
+                    bool noneReceived = !(useImperial || useMetric);
+
+                    //--------------------------------------------------//
+                    if (noneReceived)
+                    {
+
+                    }
+                    //--------------------------------------------------//
+                    if (bothReceived)
+                    {
+
+                    }
+                    //--------------------------------------------------//
+                    if (useImperial)
+                    {
+
+                    }
+                    //--------------------------------------------------//
+                    if (useMetric)
+                    {
+
+                    }
+                }
+                else
+                {
+                    Weight = WeightInfos.isOnlineButNoValue;
+                    //Weight = Weight + (DropDown_ScaleUnit.Text.Contains("Metric") ? " KG" : "LB");
+                    Operation_Weight_Label.ForeColor = Color.DarkGray;
+                }
+            }
+            else
+            {
+                Weight = WeightInfos.isOffline;
+                //Weight = Weight + (DropDown_ScaleUnit.Text.Contains("Metric") ? " KG" : "LB");
+            }
+
+            switch(CommandCenter.Operation.Buttons.WeightStation.State)
+            {
+                case (ControlState.Active):
+                    Operation_Weight_Label.ForeColor = WeightColors.Active;
+                    break;
+
+                case (ControlState.Disabled):
+                    Operation_Weight_Label.ForeColor = WeightColors.Disabled;
+                    break;
+
+                case (ControlState.Inactive):
+                    Operation_Weight_Label.ForeColor = WeightColors.Inactive;
+                    break;
+
+                case (ControlState.Warning):
+                    Operation_Weight_Label.ForeColor = WeightColors.Warning;
+                    break;
+
+                case (ControlState.Error):
+                    Operation_Weight_Label.ForeColor = WeightColors.Error;
+                    break;
+            }
+
+            if(Operation_Weight_Label.Text != Weight)
+            {
+                Operation_Weight_Label.Text = Weight;
+            }
+        }
+        #endregion Scale
     }
 }

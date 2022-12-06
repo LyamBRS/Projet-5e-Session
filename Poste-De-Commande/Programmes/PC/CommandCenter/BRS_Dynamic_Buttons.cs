@@ -546,6 +546,8 @@ namespace BRS
             /// </summary>
             private bool enabled = true;
 
+            private ControlState oldState = ControlState.Disabled;
+
             /// <summary>
             /// Zoom in on the button when the cursor enters the button
             /// while it is enabled
@@ -748,6 +750,9 @@ namespace BRS
                             Debug.Error("Potential error occured when trying to set the state of this GenericButton");
                             break;
                     }
+                    if (Hovering) { FormButton.BackgroundImage = currentBitmaps.Hovering; }
+                    if (Pressed)  { FormButton.BackgroundImage = currentBitmaps.Pressing; }
+                    if (!Hovering && !Pressed) { FormButton.BackgroundImage = currentBitmaps.Default; }
                 }
             }
             //#############################################################//
@@ -758,8 +763,6 @@ namespace BRS
             //#############################################################//
             public void Update()
             {
-                //BRS.Debug.Comment(FormButton.BackColor.ToString());
-
                 if (Animated)
                 {
                     if (!Pressed)
@@ -813,11 +816,11 @@ namespace BRS
                 if(oldStateBitmaps != Bitmaps)
                 {
                     oldStateBitmaps = Bitmaps;
-                    if (State == ControlState.Active) { currentBitmaps = Bitmaps.Active; }
-                    if (State == ControlState.Disabled) { currentBitmaps = Bitmaps.Disabled; }
-                    if (State == ControlState.Error) { currentBitmaps = Bitmaps.Error; }
-                    if (State == ControlState.Warning) { currentBitmaps = Bitmaps.Warning; }
-                    if (State == ControlState.Inactive) { currentBitmaps = Bitmaps.Inactive; }
+                    if (currentState == ControlState.Active) { currentBitmaps = Bitmaps.Active; }
+                    if (currentState == ControlState.Disabled) { currentBitmaps = Bitmaps.Disabled; }
+                    if (currentState == ControlState.Error) { currentBitmaps = Bitmaps.Error; }
+                    if (currentState == ControlState.Warning) { currentBitmaps = Bitmaps.Warning; }
+                    if (currentState == ControlState.Inactive) { currentBitmaps = Bitmaps.Inactive; }
                 }
                 // If individual bitmap changed
                 if(oldBitmaps != currentBitmaps)

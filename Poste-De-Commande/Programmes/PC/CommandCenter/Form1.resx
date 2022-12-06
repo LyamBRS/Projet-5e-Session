@@ -124,6 +124,92 @@
   <data name="TabControl_ModeSelector.Appearance" type="System.Windows.Forms.TabAppearance, System.Windows.Forms">
     <value>FlatButtons</value>
   </data>
+  <data name="Operation_Weight_Label.AccessibleDescription" xml:space="preserve">
+    <value>Displays the last gathered weight that the scale sent</value>
+  </data>
+  <data name="Operation_Weight_Label.AccessibleName" xml:space="preserve">
+    <value>Scale weight</value>
+  </data>
+  <data name="Operation_Weight_Label.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="Operation_Weight_Label.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Consolas, 24pt, style=Bold</value>
+  </data>
+  <data name="Operation_Weight_Label.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Operation_Weight_Label.Location" type="System.Drawing.Point, System.Drawing">
+    <value>447, 9</value>
+  </data>
+  <data name="Operation_Weight_Label.Size" type="System.Drawing.Size, System.Drawing">
+    <value>178, 50</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Operation_Weight_Label.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="Operation_Weight_Label.Text" xml:space="preserve">
+    <value>-- XX</value>
+  </data>
+  <data name="Operation_Weight_Label.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;Operation_Weight_Label.Name" xml:space="preserve">
+    <value>Operation_Weight_Label</value>
+  </data>
+  <data name="&gt;&gt;Operation_Weight_Label.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Operation_Weight_Label.Parent" xml:space="preserve">
+    <value>Tab_Operation</value>
+  </data>
+  <data name="&gt;&gt;Operation_Weight_Label.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="Operation_Disc_Color.AccessibleDescription" xml:space="preserve">
+    <value>Visualises the detected disc color through a button which when clicked displays what it actually is as far as colors goes</value>
+  </data>
+  <data name="Operation_Disc_Color.AccessibleName" xml:space="preserve">
+    <value>Detected Disc Color</value>
+  </data>
+  <data name="Operation_Disc_Color.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="Operation_Disc_Color.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="Operation_Disc_Color.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Operation_Disc_Color.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Operation_Disc_Color.Location" type="System.Drawing.Point, System.Drawing">
+    <value>381, 9</value>
+  </data>
+  <data name="Operation_Disc_Color.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>10, 3, 0, 3</value>
+  </data>
+  <data name="Operation_Disc_Color.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 50</value>
+  </data>
+  <data name="Operation_Disc_Color.TabIndex" type="System.Int32, mscorlib">
+    <value>50</value>
+  </data>
+  <data name="&gt;&gt;Operation_Disc_Color.Name" xml:space="preserve">
+    <value>Operation_Disc_Color</value>
+  </data>
+  <data name="&gt;&gt;Operation_Disc_Color.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Operation_Disc_Color.Parent" xml:space="preserve">
+    <value>Tab_Operation</value>
+  </data>
+  <data name="&gt;&gt;Operation_Disc_Color.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="Operation_Save_Logs.AccessibleDescription" xml:space="preserve">
     <value>Save the stored operation logs</value>
   </data>
@@ -142,14 +228,12 @@
   <data name="Operation_Save_Logs.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="Operation_Save_Logs.Location" type="System.Drawing.Point, System.Drawing">
     <value>637, 168</value>
   </data>
   <data name="Operation_Save_Logs.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 100</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="Operation_Save_Logs.TabIndex" type="System.Int32, mscorlib">
     <value>49</value>
   </data>
@@ -163,7 +247,7 @@
     <value>Tab_Operation</value>
   </data>
   <data name="&gt;&gt;Operation_Save_Logs.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
   </data>
   <data name="Operation_Module_Global.AccessibleDescription" xml:space="preserve">
     <value>Indicates the current state of the total of all modules from the CAN bus</value>
@@ -202,7 +286,7 @@
     <value>Tab_Operation</value>
   </data>
   <data name="&gt;&gt;Operation_Module_Global.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="Operation_Terminal_Clear.AccessibleDescription" xml:space="preserve">
     <value>Clears the logged operation mode data</value>
@@ -241,7 +325,7 @@
     <value>Tab_Operation</value>
   </data>
   <data name="&gt;&gt;Operation_Terminal_Clear.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="Operation_Module_Vehicle.AccessibleDescription" xml:space="preserve">
     <value>Indicates the current state of the total of the vehicle modules from the CAN bus</value>
@@ -280,7 +364,7 @@
     <value>Tab_Operation</value>
   </data>
   <data name="&gt;&gt;Operation_Module_Vehicle.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="Operation_Pause.AccessibleDescription" xml:space="preserve">
     <value>Button which pauses the modules</value>
@@ -319,7 +403,7 @@
     <value>Tab_Operation</value>
   </data>
   <data name="&gt;&gt;Operation_Pause.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>6</value>
   </data>
   <data name="Operation_Module_SortingStation.AccessibleDescription" xml:space="preserve">
     <value>Indicates the current state of the sorting station modules from the CAN bus</value>
@@ -358,7 +442,7 @@
     <value>Tab_Operation</value>
   </data>
   <data name="&gt;&gt;Operation_Module_SortingStation.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>7</value>
   </data>
   <data name="Operation_Logs.AccessibleDescription" xml:space="preserve">
     <value>Contains the logs for the operation mode</value>
@@ -397,7 +481,7 @@
     <value>Tab_Operation</value>
   </data>
   <data name="&gt;&gt;Operation_Logs.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>8</value>
   </data>
   <data name="Operation_Module_WeightStation.AccessibleDescription" xml:space="preserve">
     <value>Indicates the current state of the weight station from the CAN bus data</value>
@@ -436,7 +520,7 @@
     <value>Tab_Operation</value>
   </data>
   <data name="&gt;&gt;Operation_Module_WeightStation.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>9</value>
   </data>
   <data name="Panel_Overview.AccessibleDescription" xml:space="preserve">
     <value>Overview of the state of operations for all modules currently in operation mode</value>
@@ -580,7 +664,7 @@
     <value>Tab_Operation</value>
   </data>
   <data name="&gt;&gt;Panel_Overview.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>10</value>
   </data>
   <data name="ProgressBar_CurrentTask.AccessibleDescription" xml:space="preserve">
     <value>Displays how long a task should be taking and where we are supposed to be in % until that task is finished</value>
@@ -613,7 +697,7 @@
     <value>Tab_Operation</value>
   </data>
   <data name="&gt;&gt;ProgressBar_CurrentTask.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>11</value>
   </data>
   <data name="Operation_EmergencyStop.AccessibleDescription" xml:space="preserve">
     <value>Button which puts the connected modules into an emergency mode</value>
@@ -652,7 +736,7 @@
     <value>Tab_Operation</value>
   </data>
   <data name="&gt;&gt;Operation_EmergencyStop.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>12</value>
   </data>
   <data name="Tab_Operation.ImageKey" xml:space="preserve">
     <value>Operation_Disabled_Filled.png</value>
@@ -2066,7 +2150,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAB2
-        ZgAAAk1TRnQBSQFMAgEBKQEAATABAgEwAQIBIAEAASABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        ZgAAAk1TRnQBSQFMAgEBKQEAAWgBAgFoAQIBIAEAASABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABgAMAAWABAQIAAQEBAAEIBgABsBgAAYACAAGAAwACgAEAAYADAAGAAQABgAEAAoACAAPAAQABwAHc
         AcABAAHwAcoBpgEAATMFAAEzAQABMwEAATMBAAIzAgADFgEAAxwBAAMiAQADKQEAA1UBAANNAQADQgEA
         AzkBAAGAAXwB/wEAAlAB/wEAAZMBAAHWAQAB/wHsAcwBAAHGAdYB7wEAAdYC5wEAAZABqQGtAgAB/wEz
@@ -2663,7 +2747,7 @@
     <value>True</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>25</value>
+    <value>79</value>
   </metadata>
   <data name="$this.AccessibleDescription" xml:space="preserve">
     <value>The program used to control the command center's operation for a sorting and weighting </value>

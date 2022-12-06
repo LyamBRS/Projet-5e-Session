@@ -58,6 +58,7 @@ namespace CommandCenter
             CommandCenter.Operation.Buttons.Vehicle = new GenericButton(Operation_Module_Vehicle, Icons.Vehicle.GetStatesColors(), Icons.Vehicle.GetStatesBitmaps());
             CommandCenter.Operation.Buttons.WeightStation = new GenericButton(Operation_Module_WeightStation, Icons.Balance.GetStatesColors(), Icons.Balance.GetStatesBitmaps());
             CommandCenter.Operation.Buttons.SortingStation = new GenericButton(Operation_Module_SortingStation, Icons.Sorting.GetStatesColors(), Icons.Sorting.GetStatesBitmaps());
+            CommandCenter.Operation.Buttons.Disc = new GenericButton(Operation_Disc_Color, Icons.Disc.GetStatesColors(), Icons.Disc.GetStatesBitmaps());
 
             CommandCenter.Operation.Overview.Vehicle = new GenericButton(Overview_Vehicle, OverviewColors, Icons.Vehicle.GetStatesBitmaps());
             CommandCenter.Operation.Overview.WeightStation = new GenericButton(Overview_WeightStation, OverviewColors, Icons.Balance.GetStatesBitmaps());
@@ -89,6 +90,7 @@ namespace CommandCenter
             CommandCenter.Operation.Buttons.WeightStation.Animated = true;
             CommandCenter.Operation.Buttons.SortingStation.Animated = true;
             CommandCenter.Operation.Buttons.SaveOperationTerminal.Animated = true;
+            CommandCenter.Operation.Buttons.Disc.Animated = true;
             /*
             CommandCenter.Operation.Buttons.EmergencyStop.SizeMultiplier_MouseHover = 1;
             CommandCenter.Operation.Buttons.Global.SizeMultiplier_MouseHover = 1;
@@ -129,6 +131,7 @@ namespace CommandCenter
             CommandCenter.Operation.Buttons.WeightStation.State              = ControlState.Inactive;
             CommandCenter.Operation.Buttons.SortingStation.State             = ControlState.Inactive;
             CommandCenter.Operation.Buttons.SaveOperationTerminal.State      = ControlState.Inactive;
+            CommandCenter.Operation.Buttons.Disc.State                       = ControlState.Disabled;
 
             CommandCenter.Operation.Overview.Vehicle.State                   = ControlState.Inactive;
             CommandCenter.Operation.Overview.WeightStation.State             = ControlState.Inactive;
@@ -676,6 +679,9 @@ namespace CommandCenter
         /// </summary>
         public class Operation
         {
+            /// <summary>
+            /// All genericButtons used in the Tab_Operation
+            /// </summary>
             public class Buttons
             {
                 public static GenericButton Global;
@@ -686,6 +692,7 @@ namespace CommandCenter
                 public static GenericButton EmergencyStop;
                 public static GenericButton ClearTerminal;
                 public static GenericButton SaveOperationTerminal;
+                public static GenericButton Disc;
             }
             /// <summary>
             /// Overview of operation process indicators buttons stuff

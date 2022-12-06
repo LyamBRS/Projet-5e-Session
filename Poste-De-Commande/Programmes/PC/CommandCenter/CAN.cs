@@ -73,7 +73,7 @@ namespace CommandCenter
                         MasterProtocol.slot = CAN_Slot.Master;
 
                         //----------------------------------// Get last lines until SYNC is seen
-                        string[] lines = { "", "", "", "", "", "", "", "" };
+                        string[] lines = { "[RX]", "", "", "", "", "", "", "" };
 
                         BRS.Debug.Comment("\n");
                         for (int i=0; i<8; ++i)
@@ -89,12 +89,12 @@ namespace CommandCenter
 
                             }
 
-                            //BRS.Debug.Comment(lastLine);
-
                             if (lastLine.Contains("SYNC") && i <= 1)
                             {
-                                //NewUserTextInfo("FUCK...", 2);
-                                BRS.Debug.Comment("FUCK");
+                                //Increases their connection attempt by 1
+                                ModuleData_SortingStation.ParseFromMasterProtocol("[RX],100");
+                                ModuleData_Vehicle.ParseFromMasterProtocol("[RX],100");
+                                ModuleData_WeightStation.ParseFromMasterProtocol("[RX],100");
                                 i = 8;
                                 break;
                             }
@@ -102,8 +102,7 @@ namespace CommandCenter
                             {
                                 if (lastLine.Contains("SYNC") && i > 0)
                                 {
-                                    //NewUserTextInfo("Epic!", 1);
-                                    BRS.Debug.Comment("Nice");
+                                    //Last line has been parsed
                                     break;
                                 }
                                 else
@@ -364,7 +363,7 @@ namespace CommandCenter
                 /// Not the real address.
                 /// The real address is 0x200;
                 /// </summary>
-                public static int Vehicule = 523;
+                public static int Vehicule = 513;
                 /// <summary>
                 /// Specific address used by the sorting station to receive data.
                 /// This address is corresponding to the BeagleBoneBlue's terminal output.
@@ -378,7 +377,7 @@ namespace CommandCenter
                 /// Not the real address.
                 /// The real address is 0x400;
                 /// </summary>
-                public static int WeightStation = 0x400;
+                public static int WeightStation = 1025;
             }
             /// <summary>
             /// Structure containing the CAN bus address used by modules
@@ -396,7 +395,7 @@ namespace CommandCenter
                 /// Not the real address.
                 /// The real address is 0x200;
                 /// </summary>
-                public static int Vehicule = 523;
+                public static int Vehicule = 513;
                 /// <summary>
                 /// Specific address used by the sorting station to receive data.
                 /// This address is corresponding to the BeagleBoneBlue's terminal output.
@@ -410,7 +409,7 @@ namespace CommandCenter
                 /// Not the real address.
                 /// The real address is 0x400;
                 /// </summary>
-                public static int WeightStation = 0x401;
+                public static int WeightStation = 1025;
             }
         }
         //#############################################################//
@@ -1049,7 +1048,7 @@ namespace CommandCenter
             /// A failed attempt means that the address specified in the parsed
             /// data does not match this module's address stored in it's structure.
             /// </summary>
-            public byte AmountOfAttemptsToBeOffline = 10;
+            public byte AmountOfAttemptsToBeOffline = 20;
             /*
             /// <summary>
             /// Class containing each states that this module can have
@@ -1234,49 +1233,49 @@ namespace CommandCenter
                         Current.AllowedStates.waitingToWeight               = DataState.Available;
                         Current.AllowedStates.finishedWeighting             = DataState.Available;
                         Current.AllowedStates.empty                         = DataState.Available;
-                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.VirtualModes.IsNow.Operating, Color.PeachPuff);
+                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.VirtualModes.IsNow.Operating);
                     }
                     if (newMode == Modes_Ref.maintenance)
                     {
                         Current.AllowedStates.SetAllTo(DataState.Unused);
                         Current.AllowedStates.processing = DataState.Available;
                         Current.AllowedStates.safe       = DataState.Available;
-                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.VirtualModes.IsNow.Maintenance, Color.PeachPuff);
+                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.VirtualModes.IsNow.Maintenance);
                     }
                     if (newMode == Modes_Ref.testing)
                     {
                         Current.AllowedStates.SetAllTo(DataState.Unused);
-                        Current.AllowedStates.testing    = DataState.Available;
+                        //Current.AllowedStates.testing    = DataState.Available;
                         Current.AllowedStates.processing = DataState.Available;
                         Current.AllowedStates.waiting    = DataState.Available;
-                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.VirtualModes.IsNow.Testing, Color.PeachPuff);
+                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.VirtualModes.IsNow.Testing);
                     }
                     if (newMode == Modes_Ref.pause)
                     {
                         Current.AllowedStates.SetAllTo(DataState.Unused);
                         Current.AllowedStates.paused     = DataState.Available;
                         Current.AllowedStates.processing = DataState.Available;
-                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.VirtualModes.IsNow.Paused, Color.PeachPuff);
+                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.VirtualModes.IsNow.Paused);
                     }
                     if (newMode == Modes_Ref.reinitialisation)
                     {
                         Current.AllowedStates.SetAllTo(DataState.Unused);
                         Current.AllowedStates.processing = DataState.Available;
                         Current.AllowedStates.waiting    = DataState.Available;
-                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.VirtualModes.IsNow.Initialising, Color.PeachPuff);
+                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.VirtualModes.IsNow.Initialising);
                     }
                     if (newMode == Modes_Ref.calibration)
                     {
                         Current.AllowedStates.SetAllTo(DataState.Unused);
                         Current.AllowedStates.calibrating = DataState.Available;
                         Current.AllowedStates.calibrated  = DataState.Available;
-                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.VirtualModes.IsNow.Calibrating, Color.PeachPuff);
+                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.VirtualModes.IsNow.Calibrating);
                     }
                     if (newMode == Modes_Ref.emergencyStop)
                     {
                         Current.AllowedStates.SetAllTo(DataState.Unused);
                         Current.AllowedStates.emergencyStop = DataState.Available;
-                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.VirtualModes.IsNow.Emergency, Color.PeachPuff);
+                        OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.VirtualModes.IsNow.Emergency);
                     }
                 }
 
@@ -1900,6 +1899,94 @@ namespace CommandCenter
                 }
             }
             #endregion Methods
+            #region Disc_Color
+            #region Enum
+            /// <summary>
+            /// All the possible values of colors that this module can
+            /// detect are stored here.
+            /// </summary>
+            public enum DiscColor
+            {
+                /// <summary>
+                /// Means that this module has received no disc color
+                /// related Values since it's last reset
+                /// </summary>
+                NoData,
+                /// <summary>
+                /// Means that this module no longer detects a disc of
+                /// color but previously was.
+                /// </summary>
+                NoDisc,
+                /// <summary>
+                /// Means that this module is detecting an orange/redish
+                /// disc at the moment
+                /// </summary>
+                Red,
+                /// <summary>
+                /// Means that this module is detecting a black disc at
+                /// the moment
+                /// </summary>
+                Black,
+                /// <summary>
+                /// Means that this module is detecting a metallic disc at
+                /// the moment.
+                /// </summary>
+                Metallic
+            }
+            #endregion Enum
+            //#############################################################//
+            /// <summary>
+            /// Function which returns this module's currently detected disc
+            /// color.
+            /// </summary>
+            /// <returns>enum DiscColor</returns>
+            //#############################################################//
+            public DiscColor DetectedDiscColor()
+            {
+                if(Received.Values.disc_NoColor == DataState.Received)
+                {
+                    return DiscColor.NoDisc;
+                }
+
+                if (Received.Values.disc_Black == DataState.Received)
+                {
+                    return DiscColor.Black;
+                }
+
+                if (Received.Values.disc_Red == DataState.Received)
+                {
+                    return DiscColor.Red;
+                }
+
+                if (Received.Values.disc_Silver == DataState.Received)
+                {
+                    return DiscColor.Metallic;
+                }
+
+                return DiscColor.NoData;
+            }
+            //#############################################################//
+            /// <summary>
+            /// Function which resets detected disc colors
+            /// </summary>
+            /// <returns>enum DiscColor</returns>
+            //#############################################################//
+            public void DetectedDiscColor(DiscColor setAll)
+            {
+                switch(setAll)
+                {
+                    case (DiscColor.NoData):
+                        Received.Values.disc_Black = DataState.NoData;
+                        Received.Values.disc_Red = DataState.NoData;
+                        Received.Values.disc_Silver = DataState.NoData;
+                        Received.Values.disc_NoColor = DataState.NoData;
+                        break;
+                    default:
+                        // Bruh 
+                        break;
+                }
+            }
+            #endregion Disc_Color
         }
         #endregion Modules
 

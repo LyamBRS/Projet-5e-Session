@@ -33,6 +33,7 @@ namespace CommandCenter
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_MainMenu));
             this.TabControl_ModeSelector = new System.Windows.Forms.TabControl();
             this.Tab_Operation = new System.Windows.Forms.TabPage();
+            this.Operation_Disc_Color = new System.Windows.Forms.Button();
             this.Operation_Save_Logs = new System.Windows.Forms.Button();
             this.Operation_Module_Global = new System.Windows.Forms.Button();
             this.Operation_Terminal_Clear = new System.Windows.Forms.Button();
@@ -94,6 +95,7 @@ namespace CommandCenter
             this.CAN_TIMER = new System.Windows.Forms.Timer(this.components);
             this.Button_Mode = new System.Windows.Forms.Button();
             this.Button_USB = new System.Windows.Forms.Button();
+            this.Operation_Weight_Label = new System.Windows.Forms.Label();
             this.TabControl_ModeSelector.SuspendLayout();
             this.Tab_Operation.SuspendLayout();
             this.Panel_Overview.SuspendLayout();
@@ -121,6 +123,8 @@ namespace CommandCenter
             // Tab_Operation
             // 
             this.Tab_Operation.BackColor = System.Drawing.Color.Black;
+            this.Tab_Operation.Controls.Add(this.Operation_Weight_Label);
+            this.Tab_Operation.Controls.Add(this.Operation_Disc_Color);
             this.Tab_Operation.Controls.Add(this.Operation_Save_Logs);
             this.Tab_Operation.Controls.Add(this.Operation_Module_Global);
             this.Tab_Operation.Controls.Add(this.Operation_Terminal_Clear);
@@ -135,6 +139,22 @@ namespace CommandCenter
             resources.ApplyResources(this.Tab_Operation, "Tab_Operation");
             this.Tab_Operation.Name = "Tab_Operation";
             this.Tab_Operation.UseVisualStyleBackColor = true;
+            // 
+            // Operation_Disc_Color
+            // 
+            resources.ApplyResources(this.Operation_Disc_Color, "Operation_Disc_Color");
+            this.Operation_Disc_Color.AccessibleRole = System.Windows.Forms.AccessibleRole.Indicator;
+            this.Operation_Disc_Color.BackColor = System.Drawing.Color.Transparent;
+            this.Operation_Disc_Color.BackgroundImage = global::CommandCenter.Properties.Resources.Disc_Disabled_Empty;
+            this.Operation_Disc_Color.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Operation_Disc_Color.DialogResult = System.Windows.Forms.DialogResult.Retry;
+            this.Operation_Disc_Color.FlatAppearance.BorderSize = 0;
+            this.Operation_Disc_Color.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.Operation_Disc_Color.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
+            this.Operation_Disc_Color.Name = "Operation_Disc_Color";
+            this.Operation_Disc_Color.Tag = "Disc Color Sorting Station";
+            this.Operation_Disc_Color.UseVisualStyleBackColor = false;
+            this.Operation_Disc_Color.Click += new System.EventHandler(this.Operation_Disc_Color_Click);
             // 
             // Operation_Save_Logs
             // 
@@ -285,6 +305,7 @@ namespace CommandCenter
             this.Overview_SortingStation.Name = "Overview_SortingStation";
             this.Overview_SortingStation.Tag = "Sorting Module";
             this.Overview_SortingStation.UseVisualStyleBackColor = false;
+            this.Overview_SortingStation.Click += new System.EventHandler(this.Overview_SortingStation_Click);
             // 
             // Overview_WeightStation
             // 
@@ -300,6 +321,7 @@ namespace CommandCenter
             this.Overview_WeightStation.Name = "Overview_WeightStation";
             this.Overview_WeightStation.Tag = "Weight Module";
             this.Overview_WeightStation.UseVisualStyleBackColor = false;
+            this.Overview_WeightStation.Click += new System.EventHandler(this.Overview_WeightStation_Click);
             // 
             // Overview_Vehicle
             // 
@@ -315,6 +337,7 @@ namespace CommandCenter
             this.Overview_Vehicle.Name = "Overview_Vehicle";
             this.Overview_Vehicle.Tag = "Vehicle Module";
             this.Overview_Vehicle.UseVisualStyleBackColor = false;
+            this.Overview_Vehicle.Click += new System.EventHandler(this.Overview_Vehicle_Click);
             // 
             // ProgressBar_CurrentTask
             // 
@@ -901,6 +924,14 @@ namespace CommandCenter
             this.Button_USB.Name = "Button_USB";
             this.Button_USB.UseVisualStyleBackColor = false;
             // 
+            // Operation_Weight_Label
+            // 
+            resources.ApplyResources(this.Operation_Weight_Label, "Operation_Weight_Label");
+            this.Operation_Weight_Label.AccessibleRole = System.Windows.Forms.AccessibleRole.Indicator;
+            this.Operation_Weight_Label.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Operation_Weight_Label.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.Operation_Weight_Label.Name = "Operation_Weight_Label";
+            // 
             // Form_MainMenu
             // 
             resources.ApplyResources(this, "$this");
@@ -990,6 +1021,8 @@ namespace CommandCenter
         private System.Windows.Forms.Button Operation_Terminal_Clear;
         private System.Windows.Forms.Button Operation_Save_Logs;
         private System.Windows.Forms.Button Button_Save_Terminal;
+        private System.Windows.Forms.Button Operation_Disc_Color;
+        private System.Windows.Forms.Label Operation_Weight_Label;
     }
 }
 

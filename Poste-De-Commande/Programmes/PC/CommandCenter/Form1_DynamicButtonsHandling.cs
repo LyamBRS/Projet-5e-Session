@@ -122,7 +122,6 @@ namespace CommandCenter
 
                 if (Old.MasterProtocol.Mode != MasterProtocol.mode || Old.MasterProtocol.isActive != MasterProtocol.isActive)
                 {   Old.MasterProtocol.Mode = MasterProtocol.mode;
-                    Debug.Aborted("HERE");
                     //-------------------------------------------------------------------------------------// OPERATION
                     if (MasterProtocol.mode == Modes_Ref.operation)
                     {
@@ -232,10 +231,13 @@ namespace CommandCenter
                 CommandCenter.Operation.Buttons.WeightStation.Update();
                 CommandCenter.Operation.Buttons.SortingStation.Update();
                 CommandCenter.Operation.Buttons.SaveOperationTerminal.Update();
+                CommandCenter.Operation.Buttons.Disc.Update();
 
                 CommandCenter.Operation.Overview.Vehicle.Update();
                 CommandCenter.Operation.Overview.WeightStation.Update();
                 CommandCenter.Operation.Overview.SortingStation.Update();
+
+                Operation_Update_Weight();
             }
             #endregion Index_Operation
             UpdateModeIcons();
@@ -318,11 +320,12 @@ namespace CommandCenter
             CommandCenter.Operation.Buttons.Vehicle.UpdateOriginalPositions(Operation_Module_Vehicle.Location);
             CommandCenter.Operation.Buttons.WeightStation.UpdateOriginalPositions(Operation_Module_WeightStation.Location);
             CommandCenter.Operation.Buttons.SortingStation.UpdateOriginalPositions(Operation_Module_SortingStation.Location);
+            CommandCenter.Operation.Buttons.SaveOperationTerminal.UpdateOriginalPositions(Operation_Save_Logs.Location);
+            CommandCenter.Operation.Buttons.Disc.UpdateOriginalPositions(Operation_Disc_Color.Location);
 
             CommandCenter.Operation.Overview.Vehicle.UpdateOriginalPositions(Overview_Vehicle.Location);
             CommandCenter.Operation.Overview.WeightStation.UpdateOriginalPositions(Overview_WeightStation.Location);
             CommandCenter.Operation.Overview.SortingStation.UpdateOriginalPositions(Overview_SortingStation.Location);
-            CommandCenter.Operation.Buttons.SaveOperationTerminal.UpdateOriginalPositions(Operation_Save_Logs.Location);
             #endregion Index_Operation
         }
     }

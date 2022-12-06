@@ -538,6 +538,19 @@
     <None Include="Icons\Saving\Save_Inactive_Filled.png" />
     <None Include="Icons\Saving\Save_Warning_Empty.png" />
     <None Include="Icons\Saving\Save_Warning_Filled.png" />
+    <None Include="Icons\Disc\Disc_Black_Click.png" />
+    <None Include="Icons\Disc\Disc_Black_Default.png" />
+    <None Include="Icons\Disc\Disc_Black_Hover.png" />
+    <None Include="Icons\Disc\Disc_Disabled_Empty.png" />
+    <None Include="Icons\Disc\Disc_Disabled_Filled.png" />
+    <None Include="Icons\Disc\Disc_Inactive_Empty.png" />
+    <None Include="Icons\Disc\Disc_Inactive_Filled.png" />
+    <None Include="Icons\Disc\Disc_Metallic_Click.png" />
+    <None Include="Icons\Disc\Disc_Metallic_Default.png" />
+    <None Include="Icons\Disc\Disc_Metallic_Hover.png" />
+    <None Include="Icons\Disc\Disc_Red_Click.png" />
+    <None Include="Icons\Disc\Disc_Red_Empty.png" />
+    <None Include="Icons\Disc\Disc_Red_Hover.png" />
     <Content Include="Settings.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
