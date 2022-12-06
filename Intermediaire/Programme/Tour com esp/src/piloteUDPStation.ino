@@ -66,7 +66,7 @@ void receiveUDP(void)
         Serial.println("Recus:");
          for(int i=0; i<8; ++i)
          {
-           ERUDP.write(readBuffer[i]);
+           //ERUDP.write(readBuffer[i]);
            printf("[%i]: %i",i,readBuffer[i]);
          }
          Serial.println("\n");
@@ -76,15 +76,16 @@ void receiveUDP(void)
 //************************************************************************************
 void transUDP(unsigned char* transmitBuffer, char sizeOfBuffer)
 {
-  ERUDP.parsePacket();
+ // ERUDP.parsePacket();
+
   ERUDP.beginPacket(IPCom6, 11800);
-  Serial.println("[TX]");
-  for(int i=0; i<sizeOfBuffer; ++i)
+  Serial.println("[TX]:\n");
+  for(int i=0; i<8; ++i)
   {
     ERUDP.write(transmitBuffer[i]);
-    //printf("[%i]: %i",i,transmitBuffer[i]);
+    printf("%i\n",transmitBuffer[i]);
   }
-  //Serial.println("\n");
+  Serial.println("\n");
   ERUDP.endPacket();
 
 }

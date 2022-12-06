@@ -19,15 +19,15 @@ void interfacePassUDPtoUart(void)
 {
  int i;
   
- //receiveUDP();
- readBuffer[0] = 'M'; 
+ receiveUDP();
+ /*readBuffer[0] = 'M'; 
  readBuffer[1] = 'E'; 
  readBuffer[2] = 'S'; 
  readBuffer[3] = 'S'; 
  readBuffer[4] = 'A'; 
  readBuffer[5] = 'G'; 
  readBuffer[6] = 'E'; 
- readBuffer[7] = 'S'; 
+ readBuffer[7] = 'S'; */
  if(readBuffer[0] != 0)
  {
    serviceProtocole637.nombreATransmettre = 0x08;
@@ -42,13 +42,28 @@ void interfacePassUartToUDP(void)
   static int i = 0;
   static unsigned char ucUarttoUDP[8] = {0,0,0,0,0,0,0,0};
   //transUDP(serviceProtocole637.octetsRecus, 8);
+
   ucData = piloteUART2_RX();
+
+  if(ucData == 255)
+  {
+    //bruh moment
+    return;
+  }
+
   if(ucData == 0x08)
   {
     ucLongueur = 1;
+    i = 0;
   }
+
   else if(ucLongueur == 1)
   {
+    if(ucData == 0x00 && i<1)
+    {
+      ucLongueur = 0;
+      return;
+    }
     if(i == 0)
     {
       ucUarttoUDP[0] = ucData;

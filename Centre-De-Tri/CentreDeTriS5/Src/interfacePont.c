@@ -11,8 +11,9 @@
 //pas de definitions privees
 
 //Declarations de fonctions privees:
-//pas de fonction privees
-
+bool interfacePont_ReadyForOperation(void);
+bool interfacePont_AckStart(void);
+bool interfacePont_MotionComplete(void);
 //Definitions de variables privees:
 //pas de variables privees
 
@@ -23,17 +24,68 @@
 //pas de variables publiques
 
 //Definitions de fonctions publiques:
-void interfacePont_Position1(void)
+bool interfacePont_Position0(void)
 {
-  inter
+  if(interfacePont_ReadyForOperation() == INTERFACEUSINE_OUTPUT_LOW)  // CONTROLLER RELEASE PAS ACTIVER?
+  {return 0;}
+  interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_START,INTERFACEUSINE_OUTPUT_HIGH);
+  interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_POS0,INTERFACEUSINE_OUTPUT_HIGH);
+  if(interfacePont_AckStart() == INTERFACEUSINE_OUTPUT_HIGH)         // ACK START PAS RECU
+  {return 0;}
+  interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_START,INTERFACEUSINE_OUTPUT_LOW);
+  if(interfacePont_MotionComplete())                                 // MOTION COMPLETE?
+  {return 1;}
 }
 
-void interfaceT4_eteint(void)
+bool interfacePont_Position1(void)
 {
-  piloteIOT4_metLaSortieA(INTERFACET4_VALEUR_POUR_ETEINDRE);
+  if(interfacePont_ReadyForOperation() == INTERFACEUSINE_OUTPUT_LOW)  // CONTROLLER RELEASE PAS ACTIVER?
+  {return 0;}
+  interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_START,INTERFACEUSINE_OUTPUT_HIGH);
+  interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_POS1,INTERFACEUSINE_OUTPUT_HIGH);
+  if(interfacePont_AckStart() == INTERFACEUSINE_OUTPUT_HIGH)         // ACK START PAS RECU
+  {return 0;}
+  interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_START,INTERFACEUSINE_OUTPUT_LOW);
+  if(interfacePont_MotionComplete())                                 // MOTION COMPLETE?
+  {return 1;}
 }
 
-void interfaceT4_initialise(void)
+bool interfacePont_Position2(void)
 {
-  piloteIOT4_metLaSortieA(INTERFACET4_VALEUR_POUR_ETEINDRE);
+  if(interfacePont_ReadyForOperation() == INTERFACEUSINE_OUTPUT_LOW)  // CONTROLLER RELEASE PAS ACTIVER?
+  {return 0;}
+  interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_START,INTERFACEUSINE_OUTPUT_HIGH);
+  interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_POS2,INTERFACEUSINE_OUTPUT_HIGH);
+  if(interfacePont_AckStart() == INTERFACEUSINE_OUTPUT_HIGH)         // ACK START PAS RECU
+  {return 0;}
+  interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_START,INTERFACEUSINE_OUTPUT_LOW);
+  if(interfacePont_MotionComplete())                                 // MOTION COMPLETE?
+  {return 1;}
 }
+
+void interfacePont_initialise(void)
+{
+  interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_CONTROLLER,INTERFACEUSINE_OUTPUT_HIGH);
+  interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_START,INTERFACEUSINE_OUTPUT_LOW);
+  interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_POS0,INTERFACEUSINE_OUTPUT_LOW);
+  interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_POS1,INTERFACEUSINE_OUTPUT_LOW);
+  interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_POS2,INTERFACEUSINE_OUTPUT_LOW);
+}
+//Definitions de fonctions privées:
+bool interfacePont_ReadyForOperation(void)
+{
+ return interfaceUsine_LitUnElement(INTERFACEUSINE_ID_PONT_READY_FOR_OPERATION);
+}
+
+bool interfacePont_AckStart(void)
+{
+  return interfaceUsine_LitUnElement(INTERFACEUSINE_ID_PONT_DEFAULT_ACK_START);
+}
+
+bool interfacePont_MotionComplete(void)
+{
+  while (INTERFACEUSINE_ID_PONT_DEFAULT_MOTION_COMPLETE != INTERFACEUSINE_OUTPUT_HIGH)
+  {}
+  return 1;
+}
+

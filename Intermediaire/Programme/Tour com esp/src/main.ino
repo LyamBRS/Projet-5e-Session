@@ -39,7 +39,7 @@ void main_initialise(void);
 //Definitions de fonctions privees:
 void main_initialise(void)
 {
-  //piloteUDPStation_initialise();
+  piloteUDPStation_initialise();
   piloteUART2_initialise();
   piloteEntree1_initialise();
   piloteAnalogue0_initialise();

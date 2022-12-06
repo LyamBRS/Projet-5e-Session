@@ -22,9 +22,10 @@
 //pas de definitions publiques
 
 //Fonctions publiques:
-void interfacePont_Position1(void);
-void interfaceT4_eteint(void);
-void interfaceT4_initialise(void);
+bool interfacePont_Position0(void);
+bool interfacePont_Position1(void);
+bool interfacePont_Position2(void);
+void interfacePont_initialise(void);
 
 //Variables publiques:
 //pas de variables publiques
