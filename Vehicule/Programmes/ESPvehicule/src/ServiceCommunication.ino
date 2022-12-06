@@ -21,6 +21,9 @@
 #include "xserviceBaseDeTemps.h"
 #include "piloteUDP.h"
 
+#include <WiFi.h>
+#include <WiFiUdp.h>
+
 #pragma endregion INCLUDES
 //#############################################################################
 #pragma region EXTERN_DECLARATIONS
@@ -440,6 +443,7 @@ void Parse_CanBusReceptions(unsigned char *Buffer)
                         }
 
                         // Reset counts and slots indentifications
+                        printf("MODE RECEIVED\n");
                         interruptCount = 0;
                         currentSlot = 0;
                         ModuleData.CantConnect = 0x00;
@@ -636,9 +640,13 @@ void Parse_Interrupts(void)
         currentSlot = ((unsigned char)(timeSinceReset)) / CAN_SLOT_DURATION_MS;
     }
 
-    if(currentSlot > 10)
+    if(currentSlot > 5)
     {
-        ModuleData.CantConnect = 0xFF;
+        printf("HERE\n");
+        interruptCount = 0;
+        currentSlot = 0;
+        serviceCommunication_ErrorState = ERROR_TIMEDOUT;
+        //ModuleData.CantConnect = 0xFF;
     }
 }
 /**
@@ -1112,11 +1120,12 @@ void ServiceCommunication_TXParsingHandler(void)
     static bool sent = 0;
     //Check where we are in the CAN stuff.
     Parse_Interrupts();
-
+    //printf("%i\n",currentSlot);
     if(currentSlot == CAN_ALLOCATED_SLOT)
     {
         if(!sent)
         {
+            printf("Bruh\n");
             //Parses QUEUE into transmittable buffer
             TX_BuildCANBuffer(MODULE_CAN_TX);
             transUDP1(MODULE_CAN_TX);

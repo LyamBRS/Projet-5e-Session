@@ -42,11 +42,18 @@ void processusVehicule_AttendPriseParRobot(void);
 // Fonction du Processus
 void processusVehicule_initialise(void)
 {
-    
     serviceBaseDeTemps_execute[PROCESSUSVEHICULE_PHASE] = processusVehicule_AttendUneRequete;
 }
 void processusVehicule_AttendUneRequete(void)
 {
+    static unsigned char lastError = 0;
+
+    if(lastError != serviceCommunication_ErrorState)
+    {
+        printf("CURRENT ERROR CODE: %i\n",serviceCommunication_ErrorState);
+        //serviceCommunication_ErrorState = NO_ERROR;
+        lastError = serviceCommunication_ErrorState;
+    }
     // Test si la benne est bien calibré
     if(processusBenne.etatDuModule != PROCESSUSBENNE_MODULE_EN_FONCTION)
     {
@@ -54,9 +61,18 @@ void processusVehicule_AttendUneRequete(void)
     }
     
     // Test Pour la communication
+    if(ModuleData.Mode == Modes.pause)
+    {
+        ModuleData.State = States.paused;
+    }
+
     if(ModuleData.Mode == Modes.reinitialisation)
     {
         ModuleData.State = States.waiting;
+    }
+    if(ModuleData.Mode == Modes.emergencyStop)
+    {
+        ModuleData.State = States.emergencyStop;
     }
 
     //printf("%i",ModuleData.Mode);
@@ -64,35 +80,41 @@ void processusVehicule_AttendUneRequete(void)
     {
         return;
     }
+    if(ModuleData.StatesReceived.waitingToSort != RECEIVED)
+    {
+        return;
+    }
 
-
+    ModuleData_SetAll_ValuesReceived(PARSED);
+    ModuleData_SetAll_StatesReceived(PARSED);
     processusConduite.requete = PROCESSUSCONDUITE_REQUETE_ACTIVE;
-    // Pour faire des test normalement c'est les if de communication qui vont mettre la requete de Conduite active
-    //processusConduite.requete = PROCESSUSCONDUITE_REQUETE_ACTIVE;
     serviceBaseDeTemps_execute[PROCESSUSVEHICULE_PHASE] = processusVehicule_AttendArriveTri;
 }
 
 void processusVehicule_AttendArriveTri(void)
 {
+    ModuleData_SetAll_ValuesReceived(PARSED);
+    ModuleData_SetAll_StatesReceived(PARSED);
+    ModuleData.State = States.processing;
     if(processusConduite.etatDuModule != PROCESSUSCONDUITE_MODULE_ARRIVE_TRI)
     {
-        ModuleData.State = States.processing;
         return;
     }
 
     ModuleData.State = States.atSortingFactory;
     serviceBaseDeTemps_execute[PROCESSUSVEHICULE_PHASE] = processusVehicule_AttendFinChargement;
-
 }
+
 void processusVehicule_AttendFinChargement(void)
 {
+    ModuleData.State = States.atSortingFactory;
     if(ModuleData.StatesReceived.finishedSortingAndHasLoaded != RECEIVED)  
     {
         return;
     }
     ModuleData.StatesReceived.finishedSortingAndHasLoaded = PARSED;
 
-    serviceTank_uturnGauche(PROCESSUSCONDUITE_VITESSESTANDARD);
+    serviceTank_uturnDroit(PROCESSUSCONDUITE_VITESSESTANDARD);
     serviceBaseDeTemps_execute[PROCESSUSVEHICULE_PHASE] = processusVehicule_Uturn;
 }
 void processusVehicule_Uturn(void)
@@ -117,11 +139,12 @@ void processusVehicule_Uturn(void)
 }
 void processusVehicule_AttendArrivePesage(void)
 {
+    ModuleData.State = States.processing;
     if(processusConduite.etatDuModule != PROCESSUSCONDUITE_MODULE_ARRIVE_PESAGE)
     {
-        ModuleData.State = States.processing;
         return;
     }
+
     serviceTank_uturnGauche(PROCESSUSCONDUITE_VITESSESTANDARD);
     serviceBaseDeTemps_execute[PROCESSUSVEHICULE_PHASE] = processusVehicule_Repositionnement;
 }
@@ -145,48 +168,50 @@ void processusVehicule_Repositionnement(void)
         return;
     }
     serviceTank_Arret(); // Si le suiveur a vu la ligne au milieu il est en position
-
-
+    ModuleData.State = States.atWeightStation;
     // SI la rondelle est en Métal
     if(ModuleData.ValuesReceived.disc_Silver == RECEIVED)
     {
         ModuleData.ValuesReceived.disc_Silver = PARSED;
-        ModuleData.State = States.waitingToWeight;
         serviceBaseDeTemps_execute[PROCESSUSVEHICULE_PHASE] = processusVehicule_AttendPriseParRobot;
-    } 
+        return;
+    }
 
-    //serviceBaseDeTemps_execute[PROCESSUSVEHICULE_PHASE] = processusVehicule_AttendPriseParRobot;
-    
     //SI la rondelle est une rondelle Orange
     if(ModuleData.ValuesReceived.disc_Red == RECEIVED)
     {
         ModuleData.ValuesReceived.disc_Red = PARSED;
-        ModuleData.State = States.atWeightStation;
         processusBenne.requete = PROCESSUSBENNE_REQUETE_ACTIVE;
         serviceBaseDeTemps_execute[PROCESSUSVEHICULE_PHASE] = processusVehicule_AttendDechargementBenne;
+        return;
     } 
-
 
 }
 void processusVehicule_AttendDechargementBenne(void)
 {
     // On attend que la benne finisse de 
     
-    if(processusBenne.etatDuModule != PROCESSUSBENNE_REQUETE_TRAITE)
+    if(processusBenne.requete != PROCESSUSBENNE_REQUETE_TRAITE)
     {
         return;
     }
     
-
+    ModuleData_SetAll_StatesReceived(PARSED);
+    ModuleData_SetAll_ValuesReceived(PARSED);
+    ModuleData.State = States.empty;
     serviceBaseDeTemps_execute[PROCESSUSVEHICULE_PHASE] = processusVehicule_AttendUneRequete;
     // ON A fini de décharger
 }
 void processusVehicule_AttendPriseParRobot(void)
 {
+    ModuleData.State = States.atWeightStation;
     if(ModuleData.StatesReceived.finishedWeighting != RECEIVED)
     {
         return;   
     }
     // SI le bras a bel et bien pris la rondelle
+    ModuleData_SetAll_StatesReceived(PARSED);
+    ModuleData_SetAll_ValuesReceived(PARSED);
+    ModuleData.State = States.empty;
     serviceBaseDeTemps_execute[PROCESSUSVEHICULE_PHASE] = processusVehicule_AttendUneRequete;
 }

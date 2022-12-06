@@ -37,10 +37,7 @@ IPAddress IPCom4 (192,168,4,89);
 
 unsigned int localPort = 11800;
 
-
-
 WiFiUDP Udp;
-
 
 void piloteUDP_initialise(void)
 {
@@ -65,12 +62,14 @@ void piloteUDP_initialise(void)
 //*************************************************************************************
 void receiveUDP1(void)
 {
-    int len = Udp.parsePacket();
+    //int len = Udp.parsePacket();
     //printf("%i\n",len);
-    if (len >= 1)
-    {
-    Serial.println("RX:\n");
+    //if (len >= 1)
+    //{
+    //Serial.println("RX:\n");
+
         Udp.read(piloteUDP.readBuffer, 8);
+        
         /*
         Serial.println("Recu:");
         Serial.println(piloteUDP.readBuffer[0]);
@@ -82,13 +81,13 @@ void receiveUDP1(void)
         Serial.println(piloteUDP.readBuffer[6]);
         Serial.println(piloteUDP.readBuffer[7]);
         */
-    }
+    //}
 
 }
 //*************************************************************************************
-void transUDP1(unsigned char transmet[255])
+void transUDP1(unsigned char *transmet)
 {
-    Serial.println(IPCom4);
+    //Serial.println(IPCom4);
     Udp.beginPacket(IPCom4, 11000);  // Changer IPCom4 pour adresse ip de l'esp camion
 
     Udp.write(transmet[0]);
@@ -104,3 +103,7 @@ void transUDP1(unsigned char transmet[255])
     Serial.println("TX:\n");
 }
 //*************************************************************************************
+int GetUDPSize()
+{
+    return Udp.parsePacket();
+}

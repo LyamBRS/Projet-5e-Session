@@ -13,7 +13,6 @@
  * @copyright Copyright (c) 2022
  * 
  */
-
 //#############################################################################
 #pragma region SERVICECOMMUNICATION_ERROR_DEFINES
 //-----------------------------------------------------------------------------
@@ -190,12 +189,12 @@ unsigned char TemporaryFunctionBuffer[7];
  * @brief The address from the timebase buffer (index) which will be used to put
  * \ref ServiceCommunication_RXParsingHandler() in
  */
-#define SCOMMS_PARSE_RX_BUFFER_ADR 4
+#define SCOMMS_PARSE_RX_BUFFER_ADR 0
 /**
  * @brief The address from the timebase buffer (index) which will be used to put
  * \ref ServiceCommunication_TXParsingHandler() in
  */
-#define SCOMMS_PARSE_TX_BUFFER_ADR 5
+#define SCOMMS_PARSE_TX_BUFFER_ADR 1
 /**
  * @brief The allocated slot for your module considering that the 
  * synchronisation slot is 0. Please refer to the datasheet available on
@@ -238,7 +237,7 @@ unsigned char temporaryMasterBuffer[8];
  * @endcode
  * @warning DO NOT PUT SEMI-COLONS IN THIS DEFINE
  */
-#define MODULE_CAN_TX bufferUDPtransmet
+#define MODULE_CAN_TX piloteUDP.replyBuffer
 /**
  * @brief Specify how to request a CAN transmission to the other TimeBase
  * functions. This is either a flag or a function which tells other TimeBase
@@ -266,7 +265,7 @@ unsigned char temporaryMasterBuffer[8];
  * It is false if no messages have been received.
  * MUST CORRESPOND TO \ref MODULE_CAN_RX_BUFFER
  */
-#define CHECK_MODULE_CAN_RECEPTION 0xFF  // Doit etre a
+#define CHECK_MODULE_CAN_RECEPTION GetUDPSize()  // Doit etre a
 /**
  * @brief Statement which is true only if a CAN message addressed to your
  * module is available.

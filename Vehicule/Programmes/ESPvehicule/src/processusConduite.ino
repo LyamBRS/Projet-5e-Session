@@ -107,7 +107,7 @@ void processusConduite_ArriveTri(void)
   processusConduite.etatDuModule = PROCESSUSCONDUITE_MODULE_ARRIVE_TRI;
   processusConduite.requete = PROCESSUSCONDUITE_REQUETE_TRAITE;
   serviceBaseDeTemps_execute[PROCESSUSCONDUITE_PHASE] = processusConduite_attendUneRequete;
-  
+  return;
 }
 /// @brief Méthode qui arrête le véhicule et qui attend une requête
 /// @param  
@@ -117,6 +117,7 @@ void processusConduite_ArrivePesage(void)
   processusConduite.etatDuModule = PROCESSUSCONDUITE_MODULE_ARRIVE_PESAGE;
   processusConduite.requete = PROCESSUSCONDUITE_REQUETE_TRAITE;
   serviceBaseDeTemps_execute[PROCESSUSCONDUITE_PHASE] = processusConduite_attendUneRequete;
+  return;
 }
 
 /// @brief Fonction d'initialisation du Processus Conduite 
