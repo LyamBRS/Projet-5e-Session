@@ -48,7 +48,7 @@ int piloteSerieUSB_initialise(void)
   
   if (piloteSerieUSB_fichier == -1)
   {
-    printf("erreur d'ouverture\n");
+    printf("erreur d'ouverture du BRAS\n");
     return 1;
   }
   

@@ -1,5 +1,5 @@
 // ProcessusBras 
-// Fichier contenant le state Machine du centre de pesage
+// Fichier contenant le state Machine de la détection d'un bloc
 
 
 #include "main.h"
@@ -25,6 +25,7 @@ int z = PROCESSUSDETECTION_HAUTEUR_DE_SCAN;
 
 
 void processusDetection_attendReponseInit(void);
+void processusDetection_attendUneRequete(void);
 void processusDetection_Bouge(void);
 void processusDetection_attendReponseCmd(void);
 void processusDetection_changeCoordonne(void);
@@ -32,10 +33,13 @@ void processusDetection_lit(void);
 void processusDetection_alignement(void);
 void processusDetection_descend(void);
 void processusDetection_remonte(void);
+void processusDetection_pese(void);
+
 
 void processusDetection_initialise(void)
 {
-    interfaceBras_initialise();
+    processusDetection.requete = PROCESSUSDETECTION_REQUETE_TRAITE;
+    processusDetection.etatDuModule = PROCESSUSDETECTION_MODULE_PAS_EN_FONCTION;
     serviceBaseDeTemps_execute[PROCESSUSDETECTION_PHASE] = processusDetection_attendReponseInit;
 }
 
@@ -54,20 +58,29 @@ void processusDetection_attendReponseInit(void)
     fflush(stdout);
     memset(reponse, 0, sizeof reponse);
     
+    serviceBaseDeTemps_execute[PROCESSUSDETECTION_PHASE] = processusDetection_attendUneRequete;
+}
+
+void processusDetection_attendUneRequete(void)
+{
+    if(processusDetection.requete != PROCESSUSDETECTION_REQUETE_ACTIVE)
+    {
+        return;
+    }
+    
+    processusDetection.requete = PROCESSUSDETECTION_REQUETE_TRAITE;
+    processusDetection.etatDuModule = PROCESSUSDETECTION_MODULE_EN_FONCTION;
     serviceBaseDeTemps_execute[PROCESSUSDETECTION_PHASE] = processusDetection_Bouge;
 }
 
+
+
+
 void processusDetection_Bouge(void)
 {
-    //processusDetection_changeCoordonne();
-    y = y + 10;
-    if(y == 100)
-    {
-        y = -100;
-        x = x + 15;
-    }
-    
-    
+    // Fonction qui gere les valeur de coordonnés
+    processusDetection_changeCoordonne();
+
     
     sprintf(commande, "#1 G0 X%d Y%d Z%d F8000\n", x, y, z);
     interfaceBras_ecritUneCommande(commande, sizeof commande);
@@ -122,7 +135,7 @@ void processusDetection_lit(void)
 
 void processusDetection_alignement(void)
 {
-    x = x + 65;
+    x = x + 60;
     //y = y + 5;
     sprintf(commande, "#1 G0 X%d Y%d Z%d F8000\n", x, y, z);
     interfaceBras_ecritUneCommande(commande, sizeof commande);
@@ -178,7 +191,16 @@ void processusDetection_remonte(void)
     sprintf(commande, "#1 G0 X%d Y%d Z%d F8000\n", x, y, z);
     interfaceBras_ecritUneCommande(commande, sizeof commande);
     memset(commande, 0, 64);
+    
+    processusDetection.requete = PROCESSUSDETECTION_REQUETE_TRAITE;
+    serviceBaseDeTemps_execute[PROCESSUSDETECTION_PHASE] = processusDetection_pese;
 }
+
+void processusDetection_pese(void)
+{
+    
+}
+
 
 // Fonction Utilitaire Pour modifier les position
 void processusDetection_changeCoordonne(void)
@@ -187,11 +209,12 @@ void processusDetection_changeCoordonne(void)
     if(y == 100)
     {
         y = -100;
-        x = x + 20;
+        x = x + 15;
     }
+    
     // Pour recommencer la détection
-    // if(x == 300)
-    // {
-    //     x = 200;
-    // }
+    if(x >= 320)
+    {
+        x = 200;
+    }
 }
