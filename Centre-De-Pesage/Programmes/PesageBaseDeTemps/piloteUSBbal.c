@@ -85,8 +85,8 @@ int piloteUSBbal_initialise(void)
   piloteUSBbal_configuration.c_lflag &= ~IEXTEN; //pas de traitement des entrees "extended"
   piloteUSBbal_configuration.c_lflag &= ~ISIG ;  //pas de signalisation de caracteres
   piloteUSBbal_configuration.c_lflag &= ~ECHOE;  //pas d'echo...
-//  piloteUSBbal_configuration.c_lflag |= ICANON;  //mode canonique pour fonctionner par ligne
-  piloteUSBbal_configuration.c_lflag &= ~ICANON;  //mode canonique pour ne pas fonctionner par ligne
+  piloteUSBbal_configuration.c_lflag |= ICANON;  //mode canonique pour fonctionner par ligne
+//  piloteUSBbal_configuration.c_lflag &= ~ICANON;  //mode canonique pour ne pas fonctionner par ligne
   
 //configuration materielle
   piloteUSBbal_configuration.c_cflag &= ~CSIZE; //efface la configuration actuelle du nombre de bits

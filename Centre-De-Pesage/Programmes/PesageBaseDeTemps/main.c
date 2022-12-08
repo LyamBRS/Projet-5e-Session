@@ -45,8 +45,6 @@ int main_initialise(void)
     processusPesage_initialise();
     piloteCAN_ouvreUneInterface();
     
-    sprintf(commande, "T<cr><lf>");
-    interfaceBalance_ecritUneCommande(commande, sizeof commande);
     return 0;
 }
 

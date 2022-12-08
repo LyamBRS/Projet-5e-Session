@@ -12,6 +12,8 @@ typedef struct
   unsigned char etatDuModule;  
   unsigned char information;
   unsigned char requete;
+  unsigned char unite;
+  int weight;
 } PROCESSUSPESAGE;
 
 PROCESSUSPESAGE processusPesage;

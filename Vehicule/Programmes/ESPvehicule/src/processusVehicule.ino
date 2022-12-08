@@ -82,6 +82,7 @@ void processusVehicule_AttendUneRequete(void)
     }
     if(ModuleData.StatesReceived.waitingToSort != RECEIVED)
     {
+        ModuleData.State = States.waiting;
         return;
     }
 
@@ -137,6 +138,7 @@ void processusVehicule_Uturn(void)
     compteurT = 0;
     serviceBaseDeTemps_execute[PROCESSUSVEHICULE_PHASE] = processusVehicule_AttendArrivePesage;
 }
+
 void processusVehicule_AttendArrivePesage(void)
 {
     ModuleData.State = States.processing;
@@ -145,10 +147,10 @@ void processusVehicule_AttendArrivePesage(void)
         return;
     }
 
+    ModuleData.WeightToSend
     serviceTank_uturnGauche(PROCESSUSCONDUITE_VITESSESTANDARD);
     serviceBaseDeTemps_execute[PROCESSUSVEHICULE_PHASE] = processusVehicule_Repositionnement;
 }
-
 void processusVehicule_Repositionnement(void)
 {
     ModuleData.State = States.processing;

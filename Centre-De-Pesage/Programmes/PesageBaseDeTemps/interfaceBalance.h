@@ -34,6 +34,10 @@
 //pas de definitions publiques
 
 //Fonctions publiques:
+void interfaceBalance_prepareLecture(void);
+void interfaceBalance_lit(char *reponse);
+void interfaceBalance_changeUnite(void);
+
 int interfaceBalance_ecritUneCommande(char *Commande, unsigned char Longueur);
 int interfaceBalance_recoitUneReponse(char *Reponse, unsigned int LongueurMaximale);
 int interfaceBalance_initialise(void);
