@@ -11,16 +11,16 @@
 #include "processusDetection.h"
 
 // Définition des variables privées
-int compteur;
+int compteur = 0;
 char reponse[64];
 char commande[64];
-int x;
-int y;
+int x2;
+int y2;
 
 void processusPesage_attendUneRequete(void);
 void processusPesage_depose(void);
 void processusPesage_attendFinDepot(void);
-void processusPesage_prepareMesueBalance(void);
+void processusPesage_prepareMesureBalance(void);
 void processusPesage_attendLecture(void);
 void processusPesage_repriseRondelle(void);
 void processusPesage_disposeRondelle(void);
@@ -30,6 +30,7 @@ void processusPesage_gere(void);
 void processusPesage_initialise(void)
 {
     ModuleData.WeightToSend = UNUSED;
+    
     processusPesage.unite = PROCESSUSPESAGE_UNITE_G;
     processusPesage.requete = PROCESSUSPESAGE_REQUETE_TRAITE;
     processusPesage.etatDuModule = PROCESSUSPESAGE_MODULE_PAS_EN_FONCTION;
@@ -56,6 +57,7 @@ void processusPesage_attendUneRequete(void)
         return;
     }
     
+    //printf("ON a recu OPÉRATION\n");
     ModuleData.WeightToSend = 0x00;
     ModuleData.State = States.waitingToWeight;
     // Si le véhicule est a la station de pesage
@@ -63,7 +65,7 @@ void processusPesage_attendUneRequete(void)
     {
         return;
     }
-
+    printf("ON est en Waiting to Weight\n");
     // Si le véhicule a bien le bloc dans sa benne
     if(ModuleData.StatesReceived.finishedSortingAndHasLoaded != RECEIVED)
     {
@@ -74,7 +76,7 @@ void processusPesage_attendUneRequete(void)
     {
         return;
     }
-
+    printf("Démarrage de la détection\n");
     ModuleData.StatesReceived.atWeightStation = PARSED;
     ModuleData.StatesReceived.finishedSortingAndHasLoaded = PARSED;
     ModuleData.ValuesReceived.disc_Silver = PARSED;
@@ -84,78 +86,73 @@ void processusPesage_attendUneRequete(void)
     processusPesage.requete = PROCESSUSPESAGE_REQUETE_TRAITE;
     processusPesage.etatDuModule = PROCESSUSPESAGE_MODULE_EN_FONCTION;
 
-
-    /////////////////////////////////////    TEST POUR LES UNITÉ     /////////////////////////////
-    
-    if(ModuleData.ValuesReceived.unit_Metric == RECEIVED) // Si on a recu un demande d'unité métrique on met notre unité a métrique 
-    {
-        ModuleData_SetUnits(Values.unit_Metric); 
-        ModuleData.ValuesReceived.unit_Metric = PARSED;
-        if(processusPesage.unite == PROCESSUSPESAGE_UNITE_OZ) // Si on est en imérial on change les unite de la balance
-        {
-            interfaceBalance_changeUnite();
-        }
-    }
-    if(ModuleData.ValuesReceived.unit_Imperial == RECEIVED) // Si on a recu une demande d'unité Impérial on met notre unite a impérial
-    {
-        ModuleData_SetUnits(Values.unit_Imperial);
-        ModuleData.ValuesReceived.unit_Imperial = PARSED;
-        if(processusPesage.unite == PROCESSUSPESAGE_UNITE_G)  // Si on est en métrique on change l'unite de la balance
-        {
-            interfaceBalance_changeUnite();
-        }
-    }
-    ////////////////////////////////////////////////////////////////////////////////////////////////
     
     // On lance une détection
     processusDetection.requete = PROCESSUSDETECTION_REQUETE_ACTIVE;
-
+    compteur = 0;
     serviceBaseDeTemps_execute[PROCESSUSPESAGE_PHASE] = processusPesage_depose;
 
 }
 void processusPesage_depose(void)
 {
+    ModuleData.State = States.processing;
     if(processusDetection.requete != PROCESSUSDETECTION_REQUETE_TRAITE)
     {
         return;
     }
+    //printf("processusPesage_depose: Fin du procesSUS de détection\n");
     
-    y = 100;
-    x = 100;
-    // Va mettre le poid su la balance
-    sprintf(commande, "#1 G0 X%d Y%d Z-43 F8000\n", x, y);
-    interfaceBras_ecritUneCommande(commande, sizeof commande);
-    memset(commande, 0, 64);
-
-    serviceBaseDeTemps_execute[PROCESSUSPESAGE_PHASE] = processusPesage_attendFinDepot;
-}
-
-void processusPesage_attendFinDepot(void)
-{
-    compteur ++;
-    if(compteur != PROCESSUSDETECTION_COMPTEPOURREPONSE_CMD)
+    compteur++;
+    if(compteur <= 1000)
     {
         return;
     }
     interfaceBras_recoitUneReponse(reponse,64);
     printf("%s", reponse);
     fflush(stdout);
+    printf("processusPesage_depose: Fin de la remonté!\n");
+    
+    y2 = -278;
+    x2 = 81;
+    
+    printf("On va a la Balance\n");
+    // Va mettre le poid sur la balance
+    sprintf(commande, "#1 G0 X%d Y%d Z-43 F8000\n", x2, y2);  // On va au coordonne de la balance
+    interfaceBras_ecritUneCommande(commande, sizeof commande);
+    memset(commande, 0, 64);
+    
+    compteur = 0;
+    serviceBaseDeTemps_execute[PROCESSUSPESAGE_PHASE] = processusPesage_attendFinDepot;
+}
+
+void processusPesage_attendFinDepot(void)
+{
+    compteur ++;
+    if(compteur <= 2000)  // Gros délais pour s'assurer que le bras est rendu a la balance
+    {
+        return;
+    }
+    interfaceBras_recoitUneReponse(reponse,64);
+    printf("%s", reponse);
+    fflush(stdout);
+    
+    /*
     if(reponse[0] != '$')
     {
         return;
     }
-    
+    */
     compteur = 0;
-    
+    printf("On Relache le Cube\n");
     // ON envoie au bras d'arreter la ventouse
-    sprintf(commande, "#1 M2231 V0\n");    
+    sprintf(commande, "#6 M2231 V0\n");    
     interfaceBras_ecritUneCommande(commande, sizeof commande);
     memset(commande, 0, 64);
     
-    serviceBaseDeTemps_execute[PROCESSUSPESAGE_PHASE] = processusPesage_prepareMesueBalance;
+    serviceBaseDeTemps_execute[PROCESSUSPESAGE_PHASE] = processusPesage_prepareMesureBalance;
 }
 
-void processusPesage_prepareMesueBalance(void)
+void processusPesage_prepareMesureBalance(void)
 {
     compteur ++;
     if(compteur <= 500) // Délais qui permet au bras de laché la rondelle
@@ -165,10 +162,13 @@ void processusPesage_prepareMesueBalance(void)
     interfaceBras_recoitUneReponse(reponse,64); // On attend la réponse du bras qui nous 
     printf("%s", reponse);                      // indique que la ventouse est a OFF
     fflush(stdout);
+    
+    /*
     if(reponse[0] != '$')
     {
         return;
     }
+    */
     
     // Si le decompte pour un delais est fini
     compteur = 0;
@@ -177,7 +177,7 @@ void processusPesage_prepareMesueBalance(void)
     printf("Préparation de la lecture\n");
     fflush(stdout);
     
-    sprintf(commande, "#1 G0 X%d Y%d Z0 F8000\n", x, y);  // On dit au bras de remonter a 0 pendant le pesage
+    sprintf(commande, "#1 G0 X%d Y%d Z0 F8000\n", x2, y2);  // On dit au bras de remonter a 0 pendant le pesage
     interfaceBras_ecritUneCommande(commande, sizeof commande);
     memset(commande, 0, 64);
 
@@ -186,9 +186,9 @@ void processusPesage_prepareMesueBalance(void)
 void processusPesage_attendLecture(void)
 {
     char str[64];
-    if(compteur <= 600) // Délais pour attendre avant de lire la réponse de la balance
+    compteur++;
+    if(compteur <= 1000) // Délais pour attendre avant de lire la réponse de la balance
     {
-        compteur++;
         return;
     }
     
@@ -196,12 +196,14 @@ void processusPesage_attendLecture(void)
     interfaceBras_recoitUneReponse(reponse,64);
     printf("%s", reponse);
     fflush(stdout);
+    /*
     if(reponse[0] != '$')  // On attend d'avoir recu la réponse du bras qui confirme qu'il est monté
     {
         return;
     }
+    */
     
-    // Quand le délais est terminé et que on a recu la réponse
+    // Quand le délais est terminé on assume qu'on est pret 
     compteur = 0;
     interfaceBalance_lit(reponse);  // On lit la balance 
 
@@ -223,7 +225,7 @@ void processusPesage_attendLecture(void)
       {
           printf( "Poid: %s\n", token );
           processusPesage.weight = atoi(token);
-          printf("%d\n", x);
+          printf("%d\n", processusPesage.weight);
       }
       if(index == 2)
       {
@@ -246,34 +248,9 @@ void processusPesage_attendLecture(void)
     ModuleData.WeightToSend = processusPesage.weight;
     
     /////////////////////////////////////////////////////////////////////////////////////// 
-
-
-
-
-    /////////////////////////////////////    TEST POUR LES UNITÉ     /////////////////////////////
-    
-    if(ModuleData.ValuesReceived.unit_Metric == RECEIVED) // Si on a recu un demande d'unité métrique on met notre unité a métrique 
-    {
-        ModuleData_SetUnits(Values.unit_Metric); 
-        ModuleData.ValuesReceived.unit_Metric = PARSED;
-        if(processusPesage.unite == PROCESSUSPESAGE_UNITE_OZ) // Si on est en imérial on change les unite de la balance
-        {
-            interfaceBalance_changeUnite();
-        }
-    }
-    if(ModuleData.ValuesReceived.unit_Imperial == RECEIVED) // Si on a recu une demande d'unité Impérial on met notre unite a impérial
-    {
-        ModuleData_SetUnits(Values.unit_Imperial);
-        ModuleData.ValuesReceived.unit_Imperial = PARSED;
-        if(processusPesage.unite == PROCESSUSPESAGE_UNITE_G)  // Si on est en métrique on change l'unite de la balance
-        {
-            interfaceBalance_changeUnite();
-        }
-    }
-    ////////////////////////////////////////////////////////////////////////////////////////////////
     
     // on dit au bras de redescendre prendre la rondelle 
-    sprintf(commande, "#1 G0 X%d Y%d Z-43 F8000\n", x, y); 
+    sprintf(commande, "#1 G0 X%d Y%d Z-43 F8000\n", x2, y2); 
     interfaceBras_ecritUneCommande(commande, sizeof commande);
     memset(commande, 0, 64);
     
@@ -282,6 +259,11 @@ void processusPesage_attendLecture(void)
 
 void processusPesage_repriseRondelle(void)
 {
+    /////////////////////////////////////////////////////
+    //
+    //      ATTENTION PROBLEME A REGLER
+    //
+    ////////////////////////////////////////////////////////
     interfaceBras_recoitUneReponse(reponse,64);
     printf("%s", reponse);
     fflush(stdout);
@@ -290,7 +272,7 @@ void processusPesage_repriseRondelle(void)
         return;
     }
     
-    sprintf(commande, "#1 M2231 V1\n");    
+    sprintf(commande, "#1 M2231 V1\n");
     interfaceBras_ecritUneCommande(commande, sizeof commande);
     memset(commande, 0, 64);
     
@@ -303,9 +285,9 @@ void processusPesage_repriseRondelle(void)
     // quand le delais est fini on envoie un autre commande
     compteur = 0;
     
-    x = 100;  // Coordonné de lespace de stockage des rondelles
-    y = 100;
-    sprintf(commande, "#1 G0 X%d Y%d Z100 F8000\n", x, y);   // on envoie une commande pour qu'il remonte avec la rondelle
+    x2 = 172;  // Coordonné de lespace de stockage des rondelles
+    y2 = 268;
+    sprintf(commande, "#1 G0 X%d Y%d Z-86 F8000\n", x2, y2);   // on envoie une commande pour qu'il remonte avec la rondelle
     interfaceBras_ecritUneCommande(commande, sizeof commande);
     memset(commande, 0, 64);
     
@@ -323,7 +305,7 @@ void processusPesage_disposeRondelle(void)
         return;
     }
     
-    sprintf(commande, "#1 G0 X%d Y%d Z-60 F8000\n", x, y);  // Coordonné pour aller stocker la rondelle
+    sprintf(commande, "#1 G0 X%d Y%d Z-60 F8000\n", x2, y2);  // Coordonné pour aller stocker la rondelle
     interfaceBras_ecritUneCommande(commande, sizeof commande);
     memset(commande, 0, 64);
     

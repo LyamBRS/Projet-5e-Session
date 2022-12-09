@@ -67,9 +67,10 @@ void receiveUDP1(void)
     //if (len >= 1)
     //{
     //Serial.println("RX:\n");
-
+        printf("RECU\n");
         Udp.read(piloteUDP.readBuffer, 8);
         
+
         /*
         Serial.println("Recu:");
         Serial.println(piloteUDP.readBuffer[0]);

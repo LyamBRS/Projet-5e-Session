@@ -16,6 +16,7 @@
 
 #include "processusDetection.h"
 #include "processusPesage.h"
+#include "processusGestionCom.h"
 
 // Variable Privé
 char commande[64];
@@ -35,7 +36,7 @@ int main_initialise(void)
     
     
     if (interfaceVL6810x_initialise() < 0)  {printf("erreur: main_initialise interfaceVL6180x\n");return -1;}
-	interfaceBras_initialise();
+	if (interfaceBras_initialise() < 0)  {printf("erreur: main_initialise Bras Robot\n");return -1;}
 	interfaceBalance_initialise();
     
     serviceBaseDeTemps_initialise();
@@ -43,6 +44,7 @@ int main_initialise(void)
     
     processusDetection_initialise();
     processusPesage_initialise();
+    processusGestionCom_initialise();
     piloteCAN_ouvreUneInterface();
     
     return 0;

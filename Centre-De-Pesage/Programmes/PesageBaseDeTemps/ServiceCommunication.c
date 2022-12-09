@@ -1124,8 +1124,8 @@ void ServiceCommunication_TXParsingHandler(void)
 
     if(currentSlot == CAN_ALLOCATED_SLOT)
     {
-        	printf("TX\n");
-	        fflush(stdout);
+        //printf("TX\n");
+	    //fflush(stdout);
         if(sent == 0)
         {
             //Parses QUEUE into transmittable buffer

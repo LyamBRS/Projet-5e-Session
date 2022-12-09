@@ -55,11 +55,14 @@ void processusVehicule_AttendUneRequete(void)
         lastError = serviceCommunication_ErrorState;
     }
     // Test si la benne est bien calibré
+    /*
     if(processusBenne.etatDuModule != PROCESSUSBENNE_MODULE_EN_FONCTION)
     {
         return;
     }
-    
+    */
+
+
     // Test Pour la communication
     if(ModuleData.Mode == Modes.pause)
     {
@@ -75,27 +78,27 @@ void processusVehicule_AttendUneRequete(void)
         ModuleData.State = States.emergencyStop;
     }
 
-    //printf("%i",ModuleData.Mode);
     if(ModuleData.Mode != Modes.operation)
     {
+        
         return;
     }
+    ModuleData.State = States.calibrating;
     if(ModuleData.StatesReceived.waitingToSort != RECEIVED)
     {
+        printf("%i",ModuleData.Mode);
         ModuleData.State = States.waiting;
         return;
     }
 
-    ModuleData_SetAll_ValuesReceived(PARSED);
-    ModuleData_SetAll_StatesReceived(PARSED);
+    //ModuleData_SetAll_ValuesReceived(PARSED);
+    //ModuleData_SetAll_StatesReceived(PARSED);
     processusConduite.requete = PROCESSUSCONDUITE_REQUETE_ACTIVE;
     serviceBaseDeTemps_execute[PROCESSUSVEHICULE_PHASE] = processusVehicule_AttendArriveTri;
 }
 
 void processusVehicule_AttendArriveTri(void)
 {
-    ModuleData_SetAll_ValuesReceived(PARSED);
-    ModuleData_SetAll_StatesReceived(PARSED);
     ModuleData.State = States.processing;
     if(processusConduite.etatDuModule != PROCESSUSCONDUITE_MODULE_ARRIVE_TRI)
     {
@@ -146,8 +149,6 @@ void processusVehicule_AttendArrivePesage(void)
     {
         return;
     }
-
-    ModuleData.WeightToSend
     serviceTank_uturnGauche(PROCESSUSCONDUITE_VITESSESTANDARD);
     serviceBaseDeTemps_execute[PROCESSUSVEHICULE_PHASE] = processusVehicule_Repositionnement;
 }

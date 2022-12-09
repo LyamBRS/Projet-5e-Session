@@ -36,6 +36,8 @@ struct termios piloteUSBbal_configuration;
 //Definitions de fonctions publiques:
 int piloteUSBbal_initialise(void)
 {
+  piloteUSBbal_termine(); // On ferme le pilote USB avant de le rouvrir
+  
   memset(&piloteUSBbal_configuration,0,sizeof(piloteUSBbal_configuration));
   piloteUSBbal_configuration.c_iflag=0;
   piloteUSBbal_configuration.c_oflag=0;

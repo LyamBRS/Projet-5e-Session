@@ -642,7 +642,7 @@ void Parse_Interrupts(void)
 
     if(currentSlot > 5)
     {
-        printf("HERE\n");
+        //printf("HERE\n");
         interruptCount = 0;
         currentSlot = 0;
         serviceCommunication_ErrorState = ERROR_TIMEDOUT;
@@ -1082,7 +1082,6 @@ void ServiceCommunication_RXParsingHandler(void)
 {
     //########################################## LOCAL VAR
     //##########################################
-
     // CAN DATA IS AVAILABLE
     if(CHECK_MODULE_CAN_RECEPTION) // Doit etre a TRUE
     {
@@ -1125,7 +1124,7 @@ void ServiceCommunication_TXParsingHandler(void)
     {
         if(!sent)
         {
-            printf("Bruh\n");
+            //printf("Bruh\n");
             //Parses QUEUE into transmittable buffer
             TX_BuildCANBuffer(MODULE_CAN_TX);
             transUDP1(MODULE_CAN_TX);

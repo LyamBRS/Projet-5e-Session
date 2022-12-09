@@ -28,6 +28,9 @@ int interfaceBras_recoitUneReponse(char *Reponse, unsigned int LongueurMaximale)
 
 int interfaceBras_initialise(void)
 {
-    piloteSerieUSB_initialise();
+    if(piloteSerieUSB_initialise() < 0)
+    {
+      return -1;
+    }
     return 0;
 }
