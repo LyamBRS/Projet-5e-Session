@@ -38,7 +38,10 @@ void interfacePassCANtoUart(void)
   if(piloteCAN1_messageDisponible() && !WeAlreadyTransmitting)
  {
    WeAlreadyTransmitting = 1;
-   piloteCAN1_litUnMessageRecu(serviceProtocole637.octetsATransmettre);
+   if(piloteCAN1_litUnMessageRecu(serviceProtocole637.octetsATransmettre) == PILOTECAN1_PAS_DISPONIBLE)
+   {
+     piloteCAN1_initialise();
+   }
    // Doesnt go there
    interfaceT2_allume(); // ORANGE
 
@@ -50,7 +53,6 @@ void interfacePassCANtoUart(void)
       WeAlreadyTransmitting = 0;
       interfaceT2_eteint();
  }
-   
 }
 
 //******************************************************************************
