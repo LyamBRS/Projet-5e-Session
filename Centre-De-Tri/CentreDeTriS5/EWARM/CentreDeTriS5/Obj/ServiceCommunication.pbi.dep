@@ -44,4 +44,5 @@ ServiceCommunication.pbi: \
   C:\IAR\ARM\8.50\arm\inc\c\DLib_Product_string.h \
   C:\IAR\ARM\8.50\arm\inc\c\stdio.h \
   C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/serviceBaseDeTemps.h \
-  C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/interfaceCAN1.h
+  C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/interfaceCAN1.h \
+  C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/piloteCAN1.h

@@ -202,9 +202,10 @@ int main(void)
   interfaceColonne_allume(INTERFACECOLONNE_JAUNE);
 
   
-  interfaceLcd_Draw_Shape_RectF(0,0,127,10,1);
+  
   interfaceLcd_Draw_Shape_RectF(0,43,128,2,1);
   interfaceLcd_Draw_Shape_RectF(0,27,128,2,1);
+  interfaceLcd_Draw_Shape_RectF(0,11,128,2,1);
   vPutStringGLcd("Mode:               ", 4, 5);
   vPutStringGLcd("Etat:Attend Bouton  ", 2, 5);
   unsigned char oldBruh = 0;
@@ -264,11 +265,11 @@ int main(void)
     //Affichage de l'état du CAN
     if (!ModuleData.CantConnect) // Pas connecté
     {
-      vPutStringGLcdINV("CAN Connected       ", 0, 5);
+      vPutStringGLcd("CAN Connected       ", 0, 5);
     }
     else
     {
-      vPutStringGLcdINV("CAN Disconnected    ", 0, 5);
+      vPutStringGLcd("CAN Disconnected    ", 0, 5);
     }
     
      if (piloteCAN1_messageDisponible()) // Pas connecté

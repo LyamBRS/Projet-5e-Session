@@ -47,7 +47,7 @@ void processusClignotant_attendAvantDAllumerLeTemoinLumineux(void)
   //ServiceUDPStation();
  // printf("OK voici un test \n");
   //ServiceUDP();
-  interfaceT1_allume();
+  //interfaceT1_allume();
   processusClignotant_compteur = 0;
   serviceBaseDeTemps_execute[PROCESSUSCLIGNOTANT_PHASE] = processusClignotant_attendAvantDEteindreLeTemoinLumineux;
 }

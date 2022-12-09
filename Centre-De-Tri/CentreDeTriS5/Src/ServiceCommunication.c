@@ -20,6 +20,7 @@
 #include <stdio.h>
 #include "serviceBaseDeTemps.h"
 #include "interfaceCAN1.h"
+#include "piloteCAN1.h"
 #pragma endregion INCLUDES
 
 //#############################################################################
@@ -1082,7 +1083,10 @@ void ServiceCommunication_RXParsingHandler(void)
     // CAN DATA IS AVAILABLE
     if(CHECK_MODULE_CAN_RECEPTION)
     {        
-        interfaceCAN1_litUnMessageRecu(MODULE_CAN_RX_BUFFER);
+        if(interfaceCAN1_litUnMessageRecu(MODULE_CAN_RX_BUFFER) == PILOTECAN1_PAS_DISPONIBLE)
+        {
+            piloteCAN1_initialise();
+        }
         Parse_CanBusReceptions(MODULE_CAN_RX_BUFFER);
     }
 

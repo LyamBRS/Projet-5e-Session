@@ -22,9 +22,10 @@
 #include "interfaceUsine.h"
 #include "interfaceColonne.h"
 #include "interfaceB1.h"
+#include "interfacePont.h"
 //Definitions privees
 //Les unités des valeurs de délai suivantes corerespondent à la base de temps : 1/2ms
-#define DELAI_MAX_INITIALISATION 5000
+#define DELAI_MAX_INITIALISATION 50000
 #define DELAI_MAX_EJECTION 1000
 #define DELAI_MAX_DETECTION 1000
 #define DELAI_AVANT_DETECTION 100
@@ -32,6 +33,7 @@
 #define DELAI_MAX_ATTEND_CHUTE 10000
 #define DELAI_VENTOUSE_DESCEND 1000
 #define DELAI_MAX_PISTON 3000
+#define DELAI2SEC 4000
 
 #define BLOC_AUCUN 0
 #define BLOC_ROUGE 1
@@ -54,6 +56,15 @@
 #define ETAT_CAPTEUR_CAP_POUR_BLOC_AUCUN 0
 #define ETAT_CAPTEUR_MAG_POUR_BLOC_AUCUN 0
 #define ETAT_CAPTEUR_OPT_POUR_BLOC_AUCUN 0
+
+#define VALEUR_ADC_BLOC_PRESENT 0
+
+#define DELAITEST_RESET 1
+#define DELAITEST_UTILISE 0
+#define DELAITEST_TERMINE 1
+#define DELAITEST_EN_COURS 0
+#define VALEUR_DELAI_MODE_DE_TEST 4000
+
 //Declarations de fonctions privees:
 void modeOperation_lanceInitialisation (void);
 void modeOperation_attendFinInitialisation (void);
@@ -63,10 +74,13 @@ void modeOperation_monteElevateur (void);
 void modeOperation_attendElevateurEnHaut (void);
 void modeOperation_ejecteUnBloc (void);
 void modeOperation_attendBlocChute (void);
+void modeOperation_attendPontPos0(void);
 void modeOperation_attendBlocAspire(void);
 void modeOperation_attendVentouseHaut(void);
 void modeOperation_vaALaFosse(void);
 void modeOperation_vaALAscenseur(void);
+void modeOperation_attendFinJetteBloc (void);
+void modeDeTests_testeLaColonneLumineuse (void);
 void modeDeTests_testeLesEntrees (void);
 void modeDeTests_activeLeVerinDuMagasin (void);
 void modeDeTests_desactiveLeVerinDuMagasin (void);
@@ -75,19 +89,23 @@ void modeDeTests_descendElevateur (void);
 void modeDeTests_activeleConvoyeur (void);
 void modeDeTests_desactiveLeConvoyeur (void);
 void modeDeTests_activeEjecteur (void);
+void modeDeTests_desactiveEjecteur (void);
 void modeDeTests_activeLaVentouse (void);
 void modeDeTests_desactiveLaVentouse (void);
 void modeDeTests_descendLaVentouse (void);
 void modeDeTests_monteLaVentouse (void);
+void modeDeTests_attFinInitPont (void);
 void modeDeTests_deplaceLaVentouse (void);
 void modeDeTests_replaceLaventouse (void);
+bool delaiModeDeTest (bool reset);
+void updateDiscColor(void);
 void modeErreur (void);
 //Definitions de variables privees:
 void (*modeOperation_execute)(void);
 void (*modeTest_execute)(void);
 
 unsigned char ucTypeDeBloc;
-//string messageErreur;
+
 
 
 //Definitions de fonctions privees:
@@ -105,38 +123,60 @@ unsigned char ucTypeDeBloc;
 void processusUsine_attente (void)
 {
   updateModeEcran("Attente");
+  updateMessageEcran("Btn Vert: Operation Btn Bleu: Test");
   interfaceColonne_eteint(INTERFACECOLONNE_JAUNE);
   interfaceColonne_eteint(INTERFACECOLONNE_ROUGE);
   interfaceColonne_clignote(INTERFACECOLONNE_VERT);
-  if (interfaceUsine_LitUnElement(INTERFACEUSINE_ID_BOUTON_VERT) == INTERFACEUSINE_BOUTON_APPUYE) 
-  {
-    interfaceT1_allume();
-    interfaceColonne_eteint(INTERFACECOLONNE_VERT);
-    modeOperation_execute = modeOperation_lanceInitialisation;
-    serviceBaseDeTemps_execute[PROCESSUSUSINE_GERE] = processusUsine_operation;
-    #ifndef MODE_BYPASS_POSTE_DE_COMMANDE
-    ModuleData.State = States.waiting;                                      // ADDED FOR CC TESTS
-    #endif
-  }
-  
-  //if (HAL_GPIO_ReadPin(PILOTEIOB1_PORT, PILOTEIOB1_ENTREE))serviceBaseDeTemps_execute[PROCESSUSUSINE_GERE] = processusUsine_tests;
-  
 
+  //Check le bouton vert || Si le mode de Technicien est activé par le poste de commande, on bypass l'attente.
+  if (interfaceUsine_BV.information == INFORMATION_DISPONIBLE || ModuleData.Mode == Modes.testing)
+  {
+    interfaceUsine_BV.information = INFORMATION_TRAITEE;
+    if (interfaceUsine_BV.etatDuBouton == INTERFACEUSINE_BV_APPUYE || ModuleData.Mode == Modes.testing)
+    {
+      interfaceColonne_eteint(INTERFACECOLONNE_VERT);
+      modeOperation_execute = modeOperation_lanceInitialisation;
+      serviceBaseDeTemps_execute[PROCESSUSUSINE_GERE] = processusUsine_operation;
+      updateMessageEcran("");
+      #ifndef MODE_BYPASS_POSTE_DE_COMMANDE
+      ModuleData.State = States.waiting;                                      // ADDED FOR CC TESTS
+      #endif
+    }
+  }  
+  
+  //Check le bouton rouge
+  if (interfaceUsine_BR.information == INFORMATION_DISPONIBLE)
+  {
+    interfaceUsine_BR.information = INFORMATION_TRAITEE;
+    if (interfaceUsine_BR.etatDuBouton == INTERFACEUSINE_BV_APPUYE)
+    {
+      interfaceColonne_eteint(INTERFACECOLONNE_VERT);
+      serviceBaseDeTemps_execute[PROCESSUSUSINE_GERE] = processusUsine_arret;
+      #ifndef MODE_BYPASS_POSTE_DE_COMMANDE
+      ModuleData.State = States.waiting;                                      // ADDED FOR CC TESTS
+      #endif
+    }
+  } 
+  
+  //Check le bouton bleu men
+  if (interfaceB1.information == INFORMATION_DISPONIBLE)
+  {
+    interfaceB1.information = INFORMATION_TRAITEE;
     if (interfaceB1.etatDuBouton == INTERFACEB1_APPUYE) 
     {
-      interfaceT2_allume();
+      modeTest_execute = modeDeTests_testeLaColonneLumineuse;
       serviceBaseDeTemps_execute[PROCESSUSUSINE_GERE] = processusUsine_tests;
       #ifndef MODE_BYPASS_POSTE_DE_COMMANDE
       ModuleData.State = States.testing;                                      // ADDED FOR CC TESTS
       #endif
       interfaceColonne_eteint(INTERFACECOLONNE_VERT);
     }
-  
+  }
 }
 
 void processusUsine_operation (void)
 {
-  interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_CONTROLLER, INTERFACEUSINE_OUTPUT_HIGH);
+  updateModeEcran("Operation");
   //  La série de "if" suivante sert à exécuter un mode différent 
   //  en fonction de ce qui est demandé par le poste de commande.
   //  Le mode de fonctionnement normal (mode opération) qui est 
@@ -149,15 +189,29 @@ void processusUsine_operation (void)
 
   #ifndef MODE_BYPASS_POSTE_DE_COMMANDE
 
-  if(ModuleData.Mode == Modes.operation)
+  if(ModuleData.Mode == Modes.operation || (ModuleData.CommandsReceived.start_Sorting == RECEIVED && ModuleData.Mode == Modes.testing))
   {
+    updateMessageEcran("Tri en cours!");
     updateEtatEcran("Operation");
-    modeOperation_execute();
+    if(ModuleData.StatesReceived.atSortingFactory == RECEIVED || (ModuleData.CommandsReceived.start_Sorting == RECEIVED && ModuleData.Mode == Modes.testing))
+    {
+      modeOperation_execute();
+    }
+    else
+    {
+      updateMessageEcran("En attente du vehicule");
+      modeOperation_execute = modeOperation_lanceInitialisation;
+      ModuleData.State = States.waitingToSort;
+      ModuleData_SetAll_ValuesReceived(PARSED);
+      ModuleData_SetAll_StatesReceived(PARSED);      
+    }
+
   }
 
   if(ModuleData.Mode == Modes.emergencyStop)
   {
     updateEtatEcran("EMERGENCY");
+    updateMessageEcran("En arret d'urgence! TT les I/O sont a 0");
     interfaceUsine_Reset ();
     #ifndef MODE_BYPASS_POSTE_DE_COMMANDE
     ModuleData.State = States.emergencyStop;
@@ -166,7 +220,9 @@ void processusUsine_operation (void)
 
   if(ModuleData.Mode == Modes.pause)
   {
-    processusUsine_attente();
+    updateEtatEcran("Pause");
+    updateMessageEcran("En attente d'une demande de tri");
+    //processusUsine_attente();
     #ifndef MODE_BYPASS_POSTE_DE_COMMANDE
     ModuleData.State = States.paused;
     #endif
@@ -175,6 +231,7 @@ void processusUsine_operation (void)
   if(ModuleData.Mode == Modes.reinitialisation)
   {
     updateEtatEcran("Initialising");
+    updateMessageEcran("En initialisation (selon poste commande)");
     interfaceUsine_Reset ();
     #ifndef MODE_BYPASS_POSTE_DE_COMMANDE
     ModuleData.State = States.processing;
@@ -184,14 +241,121 @@ void processusUsine_operation (void)
   if(ModuleData.Mode == Modes.testing)
   {
     updateEtatEcran("Technician");
+    updateDiscColor();
+    //Envoie continuellement la valeur du block
+    //modeOperation_detecteLeBloc();
+
+    if(ModuleData.CommandsReceived.move_left == RECEIVED)
+    {
+      ModuleData.CommandsReceived.move_left = PARSED;
+      interfaceUsine_RequetePont(INTERFACEUSINE_PONT_POSITION2);
+      interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_POUSSOIR, INTERFACEUSINE_OUTPUT_HIGH);
+    }
+
+    if(ModuleData.CommandsReceived.move_right == RECEIVED)
+    {
+      ModuleData.CommandsReceived.move_right = PARSED;
+      interfaceUsine_RequetePont(INTERFACEUSINE_PONT_POSITION0);
+      interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_POUSSOIR, INTERFACEUSINE_OUTPUT_LOW);
+    }
+    // Move Upwards
+    if(ModuleData.CommandsReceived.move_up == RECEIVED)
+    {
+      ModuleData.CommandsReceived.move_up = PARSED;
+      interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_ELEVATEUR_MONTE, INTERFACEUSINE_OUTPUT_HIGH);
+      interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_ELEVATEUR_DESCEND, INTERFACEUSINE_OUTPUT_LOW);
+
+      interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_VENTOUSE_MONTE, INTERFACEUSINE_OUTPUT_HIGH);
+      interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_VENTOUSE_DESCEND, INTERFACEUSINE_OUTPUT_LOW);
+    }
+    // Move Downwards
+    if(ModuleData.CommandsReceived.move_down == RECEIVED)
+    {
+      ModuleData.CommandsReceived.move_down = PARSED;
+      interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_ELEVATEUR_MONTE, INTERFACEUSINE_OUTPUT_LOW);
+      interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_ELEVATEUR_DESCEND, INTERFACEUSINE_OUTPUT_HIGH);
+
+      interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_VENTOUSE_MONTE, INTERFACEUSINE_OUTPUT_LOW);
+      interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_VENTOUSE_DESCEND, INTERFACEUSINE_OUTPUT_HIGH);
+    }
+    //Move forwards (elements moves towards the bridge)
+    if(ModuleData.CommandsReceived.move_forward == RECEIVED)
+    {
+      ModuleData.CommandsReceived.move_forward = PARSED;
+      interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_EJECTEUR_IN, INTERFACEUSINE_OUTPUT_LOW);
+      interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_EJECTEUR_OUT, INTERFACEUSINE_OUTPUT_HIGH);
+      interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_CONVOYEUR, INTERFACEUSINE_OUTPUT_HIGH);
+    }
+    //Move forwards (elements moves away from the bridge)
+    if(ModuleData.CommandsReceived.move_backward == RECEIVED)
+    {
+      ModuleData.CommandsReceived.move_backward = PARSED;
+      interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_EJECTEUR_OUT, INTERFACEUSINE_OUTPUT_LOW);
+      interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_EJECTEUR_IN, INTERFACEUSINE_OUTPUT_HIGH);
+      interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_CONVOYEUR, INTERFACEUSINE_OUTPUT_LOW);
+    }
+
+    if(ModuleData.CommandsReceived.light_A_ON == RECEIVED)
+    {
+      ModuleData.CommandsReceived.light_A_ON = PARSED;
+      interfaceColonne_allume(INTERFACECOLONNE_VERT);
+    }
+
+    if(ModuleData.CommandsReceived.light_A_OFF == RECEIVED)
+    {
+      ModuleData.CommandsReceived.light_A_OFF = PARSED;
+      interfaceColonne_eteint(INTERFACECOLONNE_VERT);
+    }
+
+    if(ModuleData.CommandsReceived.light_B_ON == RECEIVED)
+    {
+      ModuleData.CommandsReceived.light_B_ON = PARSED;
+      interfaceColonne_allume(INTERFACECOLONNE_JAUNE);
+    }
+
+    if(ModuleData.CommandsReceived.light_B_OFF == RECEIVED)
+    {
+      ModuleData.CommandsReceived.light_B_OFF = PARSED;
+      interfaceColonne_eteint(INTERFACECOLONNE_JAUNE);
+    }
+
+    if(ModuleData.CommandsReceived.light_C_ON == RECEIVED)
+    {
+      ModuleData.CommandsReceived.light_C_ON = PARSED;
+      interfaceColonne_allume(INTERFACECOLONNE_ROUGE);
+    }
+
+    if(ModuleData.CommandsReceived.light_C_OFF == RECEIVED)
+    {
+      ModuleData.CommandsReceived.light_C_OFF = PARSED;
+      interfaceColonne_eteint(INTERFACECOLONNE_ROUGE);
+    }
+    
+    if(ModuleData.CommandsReceived.suction_ON == RECEIVED)
+    {
+      ModuleData.CommandsReceived.suction_ON = PARSED;
+      interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_AIR_TRIG, INTERFACEUSINE_OUTPUT_HIGH);
+    }
+
+    if(ModuleData.CommandsReceived.suction_OFF == RECEIVED)
+    {
+      ModuleData.CommandsReceived.suction_OFF = PARSED;
+      interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_AIR_TRIG, INTERFACEUSINE_OUTPUT_LOW);
+    }  
+    
     #ifndef MODE_BYPASS_POSTE_DE_COMMANDE
     ModuleData.State = States.waiting;
     #endif
   }
-
+  else
+  {
+    // Reinitialisation de la demande de debut de tri au cas ou
+    ModuleData.CommandsReceived.start_Sorting = PARSED;
+  }
   if(ModuleData.Mode == Modes.maintenance)
   {
     updateEtatEcran("Maintenance");
+    updateMessageEcran("En maintenance!     TT les I/O sont a 0");
     interfaceUsine_Reset ();
     #ifndef MODE_BYPASS_POSTE_DE_COMMANDE
     ModuleData.State = States.safe;
@@ -202,6 +366,20 @@ void processusUsine_operation (void)
   if (ucTypeDeBloc == BLOC_ROUGE)  ModuleData_SetDiscColor(Values.disc_Red);
   if (ucTypeDeBloc == BLOC_METAL)  ModuleData_SetDiscColor(Values.disc_Silver);
   #endif
+
+  //Check le bouton rouge
+  if (interfaceUsine_BR.information == INFORMATION_DISPONIBLE)
+  {
+    interfaceUsine_BR.information = INFORMATION_TRAITEE;
+    if (interfaceUsine_BR.etatDuBouton == INTERFACEUSINE_BV_APPUYE)
+    {
+      interfaceColonne_eteint(INTERFACECOLONNE_VERT);
+      serviceBaseDeTemps_execute[PROCESSUSUSINE_GERE] = processusUsine_arret;
+      #ifndef MODE_BYPASS_POSTE_DE_COMMANDE
+      ModuleData.State = States.waiting;                                      // ADDED FOR CC TESTS
+      #endif
+    }
+  } 
 }
 #pragma region EtatsModeOperation
 
@@ -209,7 +387,7 @@ void modeOperation_lanceInitialisation (void)
 {
   updateEtatEcran("Lance Init");
   ucTypeDeBloc = BLOC_AUCUN;
-  //interfaceUsine_RequetePont (INTERFACEUSINE_PONT_POSITIONH);
+  interfaceUsine_RequetePont (INTERFACEUSINE_PONT_POSITIONH);
   interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_PONT_CONTROLLER, INTERFACEUSINE_OUTPUT_HIGH);
   //Lumière
   interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_LED, INTERFACEUSINE_ETEINT);
@@ -260,6 +438,7 @@ void modeOperation_attendFinInitialisation (void)
   if (interfaceUsine_LitUnElement(INTERFACEUSINE_ID_SENSOR_OPTIQUE_BLOC) != INTERFACEUSINE_SENSOR_LOW)return;
   if (interfaceUsine_LitUnElement(INTERFACEUSINE_ID_SENSOR_VENTOUSE_HAUT) != INTERFACEUSINE_SENSOR_HIGH)return;
   if (interfaceUsine_LitUnElement(INTERFACEUSINE_ID_SENSOR_VENTOUSE_BAS) != INTERFACEUSINE_SENSOR_LOW)return;
+  if (interfaceUsine_EtatPont() != INTERFACEUSINE_PONT_ETAT_FINI || interfaceUsine_PositionPont() != INTERFACEUSINE_PONT_POSITIONH)return;
   
   interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_LED, INTERFACEUSINE_ALLUME);
   updateEtatEcran("Pousse 1 bloc");
@@ -275,7 +454,7 @@ void modeOperation_pousseUnBloc (void)
   compteurTempsEjectionBloc++;
   if (compteurTempsEjectionBloc >= DELAI_MAX_EJECTION)
   {
-    //messageErreur = "Erreur d'ejection";
+    updateMessageEcran("Oups! Timeout d'ejection atteint");
     serviceBaseDeTemps_execute[PROCESSUSUSINE_GERE] =  modeErreur;
   }
 
@@ -299,12 +478,12 @@ void modeOperation_detecteLeBloc (void)
   #ifndef MODE_BYPASS_POSTE_DE_COMMANDE
   ModuleData.State = States.processing; // ADDED TO TEST STUFF
   #endif
+
   static unsigned int compteurTempsDetectionBloc = 0;
   compteurTempsDetectionBloc++;
   if (compteurTempsDetectionBloc >= DELAI_MAX_DETECTION + DELAI_AVANT_DETECTION)
   {
-    //messageErreur = "Erreur de détection";
-    
+    updateMessageEcran("Oops! Timeout de detection atteint");
     serviceBaseDeTemps_execute[PROCESSUSUSINE_GERE] =  modeErreur;
   }
 
@@ -318,10 +497,11 @@ void modeOperation_detecteLeBloc (void)
     {
       ucTypeDeBloc = BLOC_ROUGE;
       updateMessageEcran("Succes:Bloc ROUGE!");
-      interfaceColonne_allume(INTERFACECOLONNE_JAUNE);
-      interfaceColonne_eteint(INTERFACECOLONNE_ROUGE);
-      interfaceColonne_eteint(INTERFACECOLONNE_VERT);
-      modeOperation_execute = modeOperation_monteElevateur;
+
+        interfaceColonne_allume(INTERFACECOLONNE_JAUNE);
+        interfaceColonne_eteint(INTERFACECOLONNE_ROUGE);
+        interfaceColonne_eteint(INTERFACECOLONNE_VERT);
+        modeOperation_execute = modeOperation_monteElevateur;
     }
     
     else if (
@@ -330,14 +510,14 @@ void modeOperation_detecteLeBloc (void)
             && interfaceUsine_LitUnElement(INTERFACEUSINE_ID_SENSOR_OPTIQUE_BLOC) == ETAT_CAPTEUR_OPT_POUR_BLOC_NOIR
               )
     {
-      ucTypeDeBloc = BLOC_NOIR;
-      updateMessageEcran("Succes:Bloc NOIR!");
-      interfaceColonne_clignote(INTERFACECOLONNE_JAUNE);
-      interfaceColonne_eteint(INTERFACECOLONNE_ROUGE);
-      interfaceColonne_eteint(INTERFACECOLONNE_VERT);
-      modeOperation_execute = modeOperation_monteElevateur;
+        ucTypeDeBloc = BLOC_NOIR;
+        updateMessageEcran("Succes:Bloc NOIR!");
+        interfaceColonne_clignote(INTERFACECOLONNE_JAUNE);
+        interfaceColonne_eteint(INTERFACECOLONNE_ROUGE);
+        interfaceColonne_eteint(INTERFACECOLONNE_VERT);
+        modeOperation_execute = modeOperation_monteElevateur;
     }
-    
+
     else if (
         interfaceUsine_LitUnElement(INTERFACEUSINE_ID_SENSOR_CAP) == ETAT_CAPTEUR_CAP_POUR_BLOC_METAL
           && interfaceUsine_LitUnElement(INTERFACEUSINE_ID_SENSOR_MAG) == ETAT_CAPTEUR_MAG_POUR_BLOC_METAL
@@ -351,7 +531,7 @@ void modeOperation_detecteLeBloc (void)
       interfaceColonne_allume(INTERFACECOLONNE_VERT);
       modeOperation_execute = modeOperation_monteElevateur;
     }
-    
+
     else if (
         interfaceUsine_LitUnElement(INTERFACEUSINE_ID_SENSOR_CAP) == ETAT_CAPTEUR_CAP_POUR_BLOC_AUCUN
           && interfaceUsine_LitUnElement(INTERFACEUSINE_ID_SENSOR_MAG) == ETAT_CAPTEUR_MAG_POUR_BLOC_AUCUN
@@ -359,14 +539,22 @@ void modeOperation_detecteLeBloc (void)
               )
     {
       ucTypeDeBloc = BLOC_AUCUN;
-      updateMessageEcran("Erreur:Magasin vide!");
+      updateMessageEcran("Erreur: Magasin vide!");
+      ModuleData.State = States.empty;
       serviceBaseDeTemps_execute[PROCESSUSUSINE_GERE] =  modeErreur;
     }
     else
     {
       ucTypeDeBloc = BLOC_INCONNU;
-      updateMessageEcran("Erreur:Bloc inconnu!");
-      serviceBaseDeTemps_execute[PROCESSUSUSINE_GERE] =  modeErreur;
+      if(ModuleData.Mode != Modes.testing)
+      {
+        updateMessageEcran("Erreur: Bloc inconnu!");
+        serviceBaseDeTemps_execute[PROCESSUSUSINE_GERE] =  modeErreur;
+      }
+      else
+      {
+        ModuleData_SetDiscColor(Values.disc_NoColor);
+      }
     }
   }
   
@@ -385,7 +573,7 @@ void modeOperation_monteElevateur (void)
     modeOperation_execute = modeOperation_attendElevateurEnHaut;
     return;
   }
-  //messageErreur = "Erreur elevateur pas en bas";
+  updateMessageEcran("Erreur: elevateur pas en bas");
   serviceBaseDeTemps_execute[PROCESSUSUSINE_GERE] =  modeErreur;
 }
 
@@ -394,20 +582,39 @@ void modeOperation_attendElevateurEnHaut (void)
   #ifndef MODE_BYPASS_POSTE_DE_COMMANDE
   ModuleData.State = States.processing; // ADDED TO TEST STUFF
   #endif
+  static unsigned int compteurDelaiTpsADC = 0;
   static unsigned int compteurTempsElevateurEnHaut = 0;
   compteurTempsElevateurEnHaut++;
   if (compteurTempsElevateurEnHaut >= DELAI_MAX_ELEVATEUR_HAUT)
   {
-    //messageErreur = "Erreur montee de l'elevateur";
+    updateMessageEcran("Erreur: montee de l'elevateur impossible");
     serviceBaseDeTemps_execute[PROCESSUSUSINE_GERE] =  modeErreur;
   }
 
-  if (interfaceUsine_LitUnElement(INTERFACEUSINE_ID_SENSOR_ELEVATEUR_HAUT) == INTERFACEUSINE_SENSOR_HIGH)
+  if (interfaceUsine_LitUnElement(INTERFACEUSINE_ID_SENSOR_ELEVATEUR_HAUT) == INTERFACEUSINE_SENSOR_HIGH )
   {
+    updateMessageEcran("Arrived up");
+    compteurDelaiTpsADC++;
     //Part le convoyeur
-    interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_CONVOYEUR, INTERFACEUSINE_OUTPUT_HIGH);
-    updateEtatEcran("EjectionBloc");
-    modeOperation_execute = modeOperation_ejecteUnBloc;
+    if (compteurDelaiTpsADC >= 100)
+    {
+      updateMessageEcran("ADC_DELAY");
+      if (interfaceUsine_LitADC() >= 0x0D)
+      {
+        updateMessageEcran("ERROR ADC");
+        updateMessageEcran("Erreur: Capteur analog voit pas de bloc!");
+        serviceBaseDeTemps_execute[PROCESSUSUSINE_GERE] = modeErreur;
+      }
+      else
+      {
+        updateMessageEcran("NEXT STEP");
+        interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_CONVOYEUR, INTERFACEUSINE_OUTPUT_HIGH);
+        updateEtatEcran("EjectionBloc");
+        modeOperation_execute = modeOperation_ejecteUnBloc;
+      }
+      compteurDelaiTpsADC = 0;
+      compteurTempsElevateurEnHaut = 0;
+    }
   }
 }
 
@@ -454,7 +661,7 @@ void modeOperation_attendBlocChute(void)
   if (compteurTempsAttendChute >= DELAI_MAX_ATTEND_CHUTE)
   {
     interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_CONVOYEUR, INTERFACEUSINE_OUTPUT_LOW);
-    //messageErreur = "Erreur montee de l'elevateur";
+    updateMessageEcran("Oups! Bloc perdu entre ejecteur et chute");
     serviceBaseDeTemps_execute[PROCESSUSUSINE_GERE] =  modeErreur;
   }
   if (interfaceUsine_LitUnElement(INTERFACEUSINE_ID_SENSOR_OPTIQUE_CHUTE) == INTERFACEUSINE_SENSOR_HIGH)
@@ -462,14 +669,23 @@ void modeOperation_attendBlocChute(void)
     compteurDelaiVentouseBas++;
     if (compteurDelaiVentouseBas >= DELAI_VENTOUSE_DESCEND)
     {
-      interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_CONVOYEUR, INTERFACEUSINE_OUTPUT_LOW);
+      interfaceUsine_RequetePont(INTERFACEUSINE_PONT_POSITION0);
+      modeOperation_execute = modeOperation_attendPontPos0;
+    }
+  }
+}
+
+void modeOperation_attendPontPos0(void)
+{
+  if (interfaceUsine_EtatPont() == INTERFACEUSINE_PONT_ETAT_FINI && interfaceUsine_PositionPont() == INTERFACEUSINE_PONT_POSITION0)
+  {
+    interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_CONVOYEUR, INTERFACEUSINE_OUTPUT_LOW);
       interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_VENTOUSE_DESCEND, INTERFACEUSINE_OUTPUT_HIGH);  
       interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_VENTOUSE_MONTE, INTERFACEUSINE_OUTPUT_LOW);  
       interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_AIR_TRIG, INTERFACEUSINE_OUTPUT_HIGH);
       updateEtatEcran("AttendAspire");
       modeOperation_execute = modeOperation_attendBlocAspire;
-    }
-  }
+  }  
 }
 
 void modeOperation_attendBlocAspire(void)
@@ -477,7 +693,6 @@ void modeOperation_attendBlocAspire(void)
   #ifndef MODE_BYPASS_POSTE_DE_COMMANDE
   ModuleData.State = States.processing; // ADDED TO TEST STUFF
   #endif
-  interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_LED, INTERFACEUSINE_ETEINT);
   if (interfaceUsine_LitUnElement(INTERFACEUSINE_ID_SENSOR_PRESSION) == INTERFACEUSINE_SENSOR_LOW)
   {
     interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_VENTOUSE_DESCEND, INTERFACEUSINE_OUTPUT_LOW);
@@ -497,7 +712,7 @@ void modeOperation_attendVentouseHaut(void)
   compteurTempsMouvement++;
   if (compteurTempsMouvement >= DELAI_MAX_PISTON)
   {
-    updateMessageEcran("Erreur: Delai montee ventouse expirer");
+    updateMessageEcran("Erreur: Timeout montee ventouse atteint");
     serviceBaseDeTemps_execute[PROCESSUSUSINE_GERE] =  modeErreur;
   }
   if (interfaceUsine_LitUnElement(INTERFACEUSINE_ID_SENSOR_VENTOUSE_HAUT) == INTERFACEUSINE_SENSOR_HIGH)
@@ -505,13 +720,20 @@ void modeOperation_attendVentouseHaut(void)
     switch (ucTypeDeBloc)
     {
       case BLOC_NOIR:
-      updateEtatEcran("PontVersFosse");
-      modeOperation_execute = modeOperation_vaALaFosse;
+      if(interfaceUsine_RequetePont (INTERFACEUSINE_PONT_POSITION1))
+      {
+        updateEtatEcran("PontVersFosse");
+        modeOperation_execute = modeOperation_vaALaFosse;
+      }
+      
       break;
       case BLOC_ROUGE:
       case BLOC_METAL:
-      updateEtatEcran("PontVersAsc");
-      modeOperation_execute = modeOperation_vaALAscenseur;
+      if(interfaceUsine_RequetePont (INTERFACEUSINE_PONT_POSITION2))
+      {
+        modeOperation_execute = modeOperation_vaALAscenseur;
+        updateEtatEcran("PontVersAsc");
+      }      
       break;
     }
   }
@@ -520,27 +742,75 @@ void modeOperation_attendVentouseHaut(void)
 
 void modeOperation_vaALaFosse(void)
 {
-  //interfaceUsine_RequetePont (INTERFACEUSINE_PONT_POSITION1);
-  #ifndef MODE_BYPASS_POSTE_DE_COMMANDE
-  ModuleData.State = States.waitingToSort; // ADDED TO TEST STUFF TEMPORARLY
-  #endif
+  
+  if (interfaceUsine_EtatPont() == INTERFACEUSINE_PONT_ETAT_FINI && interfaceUsine_PositionPont() == INTERFACEUSINE_PONT_POSITION1)
+  {
+    interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_VENTOUSE_MONTE, INTERFACEUSINE_OUTPUT_LOW);
+    interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_VENTOUSE_DESCEND, INTERFACEUSINE_OUTPUT_HIGH);
+    modeOperation_execute = modeOperation_attendFinJetteBloc;
+    return;
+  }
+
+  ModuleData.State = States.waitingToSort;
+  //interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_AIR_TRIG, INTERFACEUSINE_OUTPUT_LOW);
+  
 }
 
 void modeOperation_vaALAscenseur(void)
 {
-  //interfaceUsine_RequetePont (INTERFACEUSINE_PONT_POSITION2);
-  #ifndef MODE_BYPASS_POSTE_DE_COMMANDE
-  ModuleData.State = States.finishedSortingAndHasLoaded; // ADDED TO TEST STUFF TEMPORARLY
-  #endif
+  
+  if (interfaceUsine_EtatPont() == INTERFACEUSINE_PONT_ETAT_FINI && interfaceUsine_PositionPont() == INTERFACEUSINE_PONT_POSITION2)
+  {
+    interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_VENTOUSE_MONTE, INTERFACEUSINE_OUTPUT_LOW);
+    interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_VENTOUSE_DESCEND, INTERFACEUSINE_OUTPUT_HIGH);
+    modeOperation_execute = modeOperation_attendFinJetteBloc;
+    return;
+  }
+  
+
+  //interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_AIR_TRIG, INTERFACEUSINE_OUTPUT_LOW);
+}
+
+void modeOperation_attendFinJetteBloc (void)
+{
+  if (interfaceUsine_LitUnElement(INTERFACEUSINE_ID_SENSOR_VENTOUSE_BAS) == INTERFACEUSINE_SENSOR_HIGH)
+  {
+    interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_AIR_TRIG, INTERFACEUSINE_OUTPUT_LOW);
+    interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_VENTOUSE_MONTE, INTERFACEUSINE_OUTPUT_HIGH);
+    interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_VENTOUSE_DESCEND, INTERFACEUSINE_OUTPUT_HIGH);
+    if (ucTypeDeBloc == BLOC_ROUGE || ucTypeDeBloc == BLOC_METAL)  ModuleData.State = States.finishedSortingAndHasLoaded; // ADDED TO TEST STUFF TEMPORARLY
+    if (ucTypeDeBloc == BLOC_NOIR) ModuleData.State = States.waitingToSort; // ADDED TO TEST STUFF TEMPORARLY
+    ModuleData_SetDiscColor(Values.disc_NoColor);
+    updateMessageEcran("Tri fini!");
+    // Au cas ou c'est la commande de demande de début de tri qui fait trier l'usine
+    ModuleData.CommandsReceived.start_Sorting = PARSED;
+  }
+  
+  
 }
 
 #pragma endregion EtatsModeOperation
 
-
+/// @brief 
+/// @param  
 void processusUsine_arret (void)
 {
   updateModeEcran("Arret");
-  if (interfaceUsine_LitUnElement(INTERFACEUSINE_ID_BOUTON_VERT) == INTERFACEUSINE_BOUTON_APPUYE) serviceBaseDeTemps_execute[PROCESSUSUSINE_GERE] = processusUsine_operation;
+  updateMessageEcran("Mode arret. Pesez vert pour mode attente");
+  interfaceUsine_Reset();
+  //Check le bouton vert
+  if (interfaceUsine_BV.information == INFORMATION_DISPONIBLE)
+  {
+    interfaceUsine_BV.information = INFORMATION_TRAITEE;
+    if (interfaceUsine_BV.etatDuBouton == INTERFACEUSINE_BV_APPUYE)
+    {
+      interfaceColonne_eteint(INTERFACECOLONNE_VERT);
+      serviceBaseDeTemps_execute[PROCESSUSUSINE_GERE] = processusUsine_attente;
+      #ifndef MODE_BYPASS_POSTE_DE_COMMANDE
+      ModuleData.State = States.waiting;                                      // ADDED FOR CC TESTS
+      #endif
+    }
+  } 
 }
 
 void processusUsine_tests (void)
@@ -610,61 +880,299 @@ void processusUsine_tests (void)
 }
 
 #pragma region EtatsDuModeDeTests
+
+void modeDeTests_testeLaColonneLumineuse (void)
+{
+  updateEtatEcran("test Colonne");
+  updateMessageEcran("Fin dans 2 sec");
+  static unsigned int compteurDelai = 0;
+  compteurDelai++;
+  if(compteurDelai>=4000)
+  {
+    modeTest_execute = modeDeTests_monteLaVentouse;/////////////////////////////////////////////////////////////////
+    interfaceColonne_eteint(INTERFACECOLONNE_ROUGE);
+    interfaceColonne_eteint(INTERFACECOLONNE_VERT);
+    interfaceColonne_eteint(INTERFACECOLONNE_JAUNE);
+    return;
+  }
+  interfaceColonne_allume(INTERFACECOLONNE_ROUGE);
+  interfaceColonne_allume(INTERFACECOLONNE_VERT);
+  interfaceColonne_allume(INTERFACECOLONNE_JAUNE);
+}
+
 void modeDeTests_testeLesEntrees (void)
 {
-
+  updateEtatEcran("test Entrees");
+  updateMessageEcran("Test des entrees.   PesezBtnVPrContinuer");
+  if (interfaceUsine_BV.information == INFORMATION_DISPONIBLE)
+  {
+    interfaceUsine_BV.information = INFORMATION_TRAITEE;
+    if (interfaceUsine_BV.etatDuBouton == INTERFACEUSINE_BV_APPUYE)
+    {
+      modeTest_execute = modeDeTests_activeLeVerinDuMagasin;
+      delaiModeDeTest(DELAITEST_RESET);
+    }
+  }
 }
 void modeDeTests_activeLeVerinDuMagasin (void)
 {
+  updateEtatEcran("Act. Verin Mag.");
+  interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_POUSSOIR, INTERFACEUSINE_OUTPUT_HIGH);
+  if (delaiModeDeTest(DELAITEST_UTILISE))
+  {
+    modeTest_execute = modeDeTests_desactiveLeVerinDuMagasin;
+  }
+      
 
 }
 void modeDeTests_desactiveLeVerinDuMagasin (void)
 {
-
+  updateEtatEcran("Des. Verin Mag.");
+  interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_POUSSOIR, INTERFACEUSINE_OUTPUT_LOW);
+  
+  //AttendBtnPourProchainEtat
+  updateMessageEcran("Pesez bouton vert   pour test elevateur");
+  if (interfaceUsine_BV.information == INFORMATION_DISPONIBLE)
+  {
+    interfaceUsine_BV.information = INFORMATION_TRAITEE;
+    if (interfaceUsine_BV.etatDuBouton == INTERFACEUSINE_BV_APPUYE)
+    {
+      modeTest_execute = modeDeTests_monteElevateur;
+      updateMessageEcran("");
+      delaiModeDeTest(DELAITEST_RESET);
+    }
+  }
 }
 void modeDeTests_monteElevateur (void)
 {
+  updateEtatEcran("Monte Elev.");
 
+  interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_ELEVATEUR_MONTE, INTERFACEUSINE_OUTPUT_HIGH);
+  interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_ELEVATEUR_DESCEND, INTERFACEUSINE_OUTPUT_LOW);
+
+  //Attend delai pour prochain etat
+  if (delaiModeDeTest(DELAITEST_UTILISE))
+  {
+    modeTest_execute = modeDeTests_descendElevateur;
+    delaiModeDeTest(DELAITEST_RESET);
+  }
 }
 void modeDeTests_descendElevateur (void)
 {
+  interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_ELEVATEUR_MONTE, INTERFACEUSINE_OUTPUT_LOW);
+  interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_ELEVATEUR_DESCEND, INTERFACEUSINE_OUTPUT_HIGH);
+  updateEtatEcran("Descend Elev.");
 
+  //AttendBtnPourProchainEtat
+  updateMessageEcran("Pesez bouton vert   pour test convoyeur");
+  if (interfaceUsine_BV.information == INFORMATION_DISPONIBLE)
+  {
+    interfaceUsine_BV.information = INFORMATION_TRAITEE;
+    if (interfaceUsine_BV.etatDuBouton == INTERFACEUSINE_BV_APPUYE)
+    {
+      modeTest_execute = modeDeTests_activeleConvoyeur;
+      updateMessageEcran("");
+      delaiModeDeTest(DELAITEST_RESET);
+    }
+  }
 }
 void modeDeTests_activeleConvoyeur (void)
 {
-
+  updateEtatEcran("Act. Convoyeur.");
+  interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_CONVOYEUR, INTERFACEUSINE_OUTPUT_HIGH);
+    //Attend delai pour prochain etat
+  if (delaiModeDeTest(DELAITEST_UTILISE))
+  {
+    modeTest_execute = modeDeTests_desactiveLeConvoyeur;
+    delaiModeDeTest(DELAITEST_RESET);
+  }
 }
 void modeDeTests_desactiveLeConvoyeur (void)
 {
+  updateEtatEcran("Des. Convoyeur.");
+  interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_CONVOYEUR, INTERFACEUSINE_OUTPUT_LOW);
 
+    //AttendBtnPourProchainEtat
+  updateMessageEcran("Pesez bouton vert   pour test ejecteur");
+  if (interfaceUsine_BV.information == INFORMATION_DISPONIBLE)
+  {
+    interfaceUsine_BV.information = INFORMATION_TRAITEE;
+    if (interfaceUsine_BV.etatDuBouton == INTERFACEUSINE_BV_APPUYE)
+    {
+      modeTest_execute = modeDeTests_activeEjecteur;
+      updateMessageEcran("");
+      delaiModeDeTest(DELAITEST_RESET);
+    }
+  }
 }
 void modeDeTests_activeEjecteur (void)
 {
-
+  updateEtatEcran("Act. Ejecteur.");
+  interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_EJECTEUR_OUT, INTERFACEUSINE_OUTPUT_HIGH);
+  interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_EJECTEUR_IN, INTERFACEUSINE_OUTPUT_LOW);
+  //Attend delai pour prochain etat
+  if (delaiModeDeTest(DELAITEST_UTILISE))
+  {
+    modeTest_execute = modeDeTests_desactiveEjecteur;
+    delaiModeDeTest(DELAITEST_RESET);
+  }
+}
+void modeDeTests_desactiveEjecteur (void)
+{
+  updateEtatEcran("Des. Ejecteur.");
+  interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_EJECTEUR_OUT, INTERFACEUSINE_OUTPUT_LOW);
+  interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_EJECTEUR_IN, INTERFACEUSINE_OUTPUT_HIGH);
+    //AttendBtnPourProchainEtat
+  updateMessageEcran("Pesez bouton vert   pour test Air");
+  if (interfaceUsine_BV.information == INFORMATION_DISPONIBLE)
+  {
+    interfaceUsine_BV.information = INFORMATION_TRAITEE;
+    if (interfaceUsine_BV.etatDuBouton == INTERFACEUSINE_BV_APPUYE)
+    {
+      modeTest_execute = modeDeTests_activeLaVentouse;
+      updateMessageEcran("");
+      delaiModeDeTest(DELAITEST_RESET);
+    }
+  }
 }
 void modeDeTests_activeLaVentouse (void)
 {
-  
+  updateEtatEcran("Active Air");
+  interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_AIR_TRIG, INTERFACEUSINE_OUTPUT_HIGH);
+
+  //Attend delai pour prochain etat
+  if (delaiModeDeTest(DELAITEST_UTILISE))
+  {
+    modeTest_execute = modeDeTests_desactiveLaVentouse;
+    delaiModeDeTest(DELAITEST_RESET);
+  }
 }
 void modeDeTests_desactiveLaVentouse (void)
 {
+  updateEtatEcran("Desact. Air");
+  interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_AIR_TRIG, INTERFACEUSINE_OUTPUT_LOW);
 
+  //AttendBtnPourProchainEtat
+  updateMessageEcran("Pesez bouton vert   pour test Ventouse");
+  if (interfaceUsine_BV.information == INFORMATION_DISPONIBLE)
+  {
+    interfaceUsine_BV.information = INFORMATION_TRAITEE;
+    if (interfaceUsine_BV.etatDuBouton == INTERFACEUSINE_BV_APPUYE)
+    {
+      modeTest_execute = modeDeTests_descendLaVentouse;
+      updateMessageEcran("");
+      delaiModeDeTest(DELAITEST_RESET);
+    }
+  }
 }
 void modeDeTests_descendLaVentouse (void)
 {
+  updateEtatEcran("Descend Vent");
 
+    interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_VENTOUSE_DESCEND, INTERFACEUSINE_OUTPUT_HIGH);
+  interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_VENTOUSE_MONTE, INTERFACEUSINE_OUTPUT_LOW);
+
+  //Attend delai pour prochain etat
+  if (delaiModeDeTest(DELAITEST_UTILISE))
+  {
+    modeTest_execute = modeDeTests_monteLaVentouse;
+    delaiModeDeTest(DELAITEST_RESET);
+  }
 }
 void modeDeTests_monteLaVentouse (void)
 {
+  updateEtatEcran("Monte Vent.");
 
+    interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_VENTOUSE_DESCEND, INTERFACEUSINE_OUTPUT_LOW);
+  interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_VENTOUSE_MONTE, INTERFACEUSINE_OUTPUT_HIGH);
+
+  //AttendBtnPourProchainEtat
+  updateMessageEcran("Pesez bouton vert   pour test Pont");
+  if (interfaceUsine_BV.information == INFORMATION_DISPONIBLE)
+  {
+    interfaceUsine_BV.information = INFORMATION_TRAITEE;
+    if (interfaceUsine_BV.etatDuBouton == INTERFACEUSINE_BV_APPUYE)
+    {
+      interfacePont_initialise();
+      modeTest_execute = modeDeTests_attFinInitPont;
+      interfaceUsine_RequetePont(INTERFACEUSINE_PONT_POSITIONH);
+      updateMessageEcran("Test du pont en cours");
+      delaiModeDeTest(DELAITEST_RESET);
+    }
+  }
+}
+void modeDeTests_attFinInitPont (void)
+{
+  updateEtatEcran("Deplace Vent.");
+  
+  static unsigned int compteurTempsInitPont = 0;
+  compteurTempsInitPont++;
+  if (compteurTempsInitPont >= 20000) //Timeout de 10sec
+  {
+    updateMessageEcran("Oups! Timeout init pont atteint");
+    serviceBaseDeTemps_execute[PROCESSUSUSINE_GERE] =  modeErreur;
+  }
+  
+  if (interfaceUsine_LitUnElement(INTERFACEUSINE_ID_PONT_DEFAULT_MOTION_COMPLETE) == INTERFACEUSINE_SENSOR_HIGH)
+  {
+    updateMessageEcran("Init pont fini");
+    modeTest_execute = modeDeTests_deplaceLaVentouse;
+    interfacePont_pos2();
+  }
+  /*
+  if (interfaceUsine_PositionPont() == INTERFACEUSINE_PONT_POSITIONH && interfaceUsine_EtatPont() == INTERFACEUSINE_PONT_ETAT_FINI)
+  {
+    modeTest_execute = modeDeTests_deplaceLaVentouse;
+    interfaceUsine_RequetePont(INTERFACEUSINE_PONT_POSITION1);
+  }
+  */
+  
 }
 void modeDeTests_deplaceLaVentouse (void)
 {
-
+  updateEtatEcran("Deplace Vent.");
+  if (interfacePont_fini())
+  {
+    modeTest_execute = modeDeTests_replaceLaventouse;
+    interfacePont_pos0();
+  }
 }
 void modeDeTests_replaceLaventouse (void)
 {
+  updateEtatEcran("Replace Vent.");
+  if (interfacePont_fini())
+  {
+    modeTest_execute = modeDeTests_testeLaColonneLumineuse;
+    updateMessageEcran("Pont fonctionnel");
+  }
+}
 
+/**
+ * @brief Cette fonction, appelée de façon récurrente, compte jusqu'à VALEUR_DELAI_MODE_DE_TEST, puis retourne un 1
+ * cela permet de 
+ * 
+ * @param reset Reset le compteur du délai si on reçoit un 1 en paramètre
+ * @return true si délai écoulé
+ * @return false si délai en cours
+ */
+bool delaiModeDeTest (bool reset)
+{
+  
+  //Paramètre d'entrée: 1 si on veut reset, 0 si on veut utiliser le délai
+  //Paramètre de sortie: 1 si le délai est terminé, 0 si il n'est pas terminé
+  static unsigned int iCompteurDelaiTest;
+  if (reset) 
+  {
+    iCompteurDelaiTest = 0;
+    return 0;
+  }
+  if (iCompteurDelaiTest >= VALEUR_DELAI_MODE_DE_TEST)
+  {
+    iCompteurDelaiTest = 0;
+    return 1;
+  }
+  iCompteurDelaiTest++;
+  return 0;
 }
 
 #pragma endregion EtatsDuModeDeTests
@@ -681,10 +1189,65 @@ void modeErreur (void)
   interfaceColonne_allume(INTERFACECOLONNE_ROUGE);
   interfaceColonne_eteint(INTERFACECOLONNE_VERT);
   static int compteurClignote;
-  if (compteurClignote < 1000) interfaceT4_eteint();
-  if (compteurClignote > 1000) interfaceT4_allume();
+  if (compteurClignote < 1000)
+  if (compteurClignote > 1000) 
   if (compteurClignote > 2000) compteurClignote = 0;
   compteurClignote++;
+
+  //Reinitialise le processus usine depuis le tout début
+  #ifndef MODE_BYPASS_POSTE_DE_COMMANDE
+  if(ModuleData.Mode == Modes.reinitialisation)
+  {
+    serviceBaseDeTemps_execute[PROCESSUSUSINE_GERE] =  processusUsine_initialise;
+  }
+  #endif
+}
+
+void updateDiscColor(void)
+{
+  unsigned char tempTypeDeBloc;
+  if (
+      interfaceUsine_LitUnElement(INTERFACEUSINE_ID_SENSOR_CAP) == ETAT_CAPTEUR_CAP_POUR_BLOC_ROUGE 
+      && interfaceUsine_LitUnElement(INTERFACEUSINE_ID_SENSOR_MAG) == ETAT_CAPTEUR_MAG_POUR_BLOC_ROUGE 
+      && interfaceUsine_LitUnElement(INTERFACEUSINE_ID_SENSOR_OPTIQUE_BLOC) == ETAT_CAPTEUR_OPT_POUR_BLOC_ROUGE)
+  {
+    tempTypeDeBloc = BLOC_ROUGE;
+  }
+
+  else if (
+      interfaceUsine_LitUnElement(INTERFACEUSINE_ID_SENSOR_CAP) == ETAT_CAPTEUR_CAP_POUR_BLOC_NOIR 
+      && interfaceUsine_LitUnElement(INTERFACEUSINE_ID_SENSOR_MAG) == ETAT_CAPTEUR_MAG_POUR_BLOC_NOIR 
+      && interfaceUsine_LitUnElement(INTERFACEUSINE_ID_SENSOR_OPTIQUE_BLOC) == ETAT_CAPTEUR_OPT_POUR_BLOC_NOIR)
+  {
+    tempTypeDeBloc = BLOC_NOIR;
+  }
+
+  else if (
+      interfaceUsine_LitUnElement(INTERFACEUSINE_ID_SENSOR_CAP) == ETAT_CAPTEUR_CAP_POUR_BLOC_METAL 
+      && interfaceUsine_LitUnElement(INTERFACEUSINE_ID_SENSOR_MAG) == ETAT_CAPTEUR_MAG_POUR_BLOC_METAL 
+      && interfaceUsine_LitUnElement(INTERFACEUSINE_ID_SENSOR_OPTIQUE_BLOC) == ETAT_CAPTEUR_OPT_POUR_BLOC_METAL)
+  {
+    tempTypeDeBloc = BLOC_METAL;
+  }
+
+  else if (
+      interfaceUsine_LitUnElement(INTERFACEUSINE_ID_SENSOR_CAP) == ETAT_CAPTEUR_CAP_POUR_BLOC_AUCUN 
+      && interfaceUsine_LitUnElement(INTERFACEUSINE_ID_SENSOR_MAG) == ETAT_CAPTEUR_MAG_POUR_BLOC_AUCUN 
+      && interfaceUsine_LitUnElement(INTERFACEUSINE_ID_SENSOR_OPTIQUE_BLOC) == ETAT_CAPTEUR_OPT_POUR_BLOC_AUCUN)
+  {
+    tempTypeDeBloc = BLOC_AUCUN;
+    ModuleData_SetDiscColor(Values.disc_NoColor);
+  }
+  else
+  {
+    tempTypeDeBloc = BLOC_INCONNU;
+    ModuleData_SetDiscColor(Values.disc_NoColor);
+  }
+
+  if (tempTypeDeBloc == BLOC_AUCUN)  ModuleData_SetDiscColor(Values.disc_NoColor);
+  if (tempTypeDeBloc == BLOC_NOIR)  ModuleData_SetDiscColor(Values.disc_Black);
+  if (tempTypeDeBloc == BLOC_ROUGE)  ModuleData_SetDiscColor(Values.disc_Red);
+  if (tempTypeDeBloc == BLOC_METAL)  ModuleData_SetDiscColor(Values.disc_Silver);
 }
 
 void processusUsine_initialise(void)

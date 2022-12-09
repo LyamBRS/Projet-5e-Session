@@ -44,4 +44,6 @@ interfaceUsine.pbi: \
   C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/piloteI2C.h \
   C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/interfaceUsine.h \
   C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/serviceBaseDeTemps.h \
-  C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/interfaceT3.h
+  C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/interfaceT3.h \
+  C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/interfaceT1.h \
+  C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/interfaceT2.h

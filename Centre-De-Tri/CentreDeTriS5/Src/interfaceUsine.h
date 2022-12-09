@@ -31,9 +31,12 @@
 //Fonctions publiques:
 void interfaceUsine_EcritUnElement (unsigned char elementID, bool etatAEcrire);
 bool interfaceUsine_LitUnElement (unsigned char elementID);
+unsigned char interfaceUsine_LitADC (void);
 void interfaceUsine_gere (void);
 void interfaceUsine_Initialise (void);
 void interfaceUsine_Reset (void);
+
+//bool interfaceUsine_DetecteUnFrontSurLeBoutonVert (void);
 
 typedef struct
 {
@@ -46,8 +49,10 @@ extern INTERFACEBOUTON interfaceUsine_BV;
 extern INTERFACEBOUTON interfaceUsine_BR;
 
 
-/*
+
 bool interfaceUsine_RequetePont (unsigned char ucPositiondemandee);
+unsigned char interfaceUsine_PositionPont(void);
+unsigned char interfaceUsine_EtatPont(void);
     
 #define INTERFACEUSINE_PONT_ETAT_ERREUR 0
 #define INTERFACEUSINE_PONT_ETAT_EN_COURS 1
@@ -59,7 +64,7 @@ bool interfaceUsine_RequetePont (unsigned char ucPositiondemandee);
 #define INTERFACEUSINE_PONT_POSITION0 2
 #define INTERFACEUSINE_PONT_POSITION1 3
 #define INTERFACEUSINE_PONT_POSITION2 4
-*/
+
 //Variables publiques:
 //pas de variables publiques
 

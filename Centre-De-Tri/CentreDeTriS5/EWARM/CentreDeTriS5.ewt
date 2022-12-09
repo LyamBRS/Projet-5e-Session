@@ -1424,6 +1424,12 @@
                     <name>$PROJ_DIR$\..\Src\interfaceLcd.h</name>
                 </file>
                 <file>
+                    <name>$PROJ_DIR$\..\Src\interfacePont.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\Src\interfacePont.h</name>
+                </file>
+                <file>
                     <name>$PROJ_DIR$\..\Src\interfaceT1.c</name>
                 </file>
                 <file>

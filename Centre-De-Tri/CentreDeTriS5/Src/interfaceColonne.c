@@ -8,7 +8,7 @@
 #include "interfaceColonne.h"
 #include "piloteColonne.h"
 //Definitions privees
-#define vitesseClignotant 2000 //période en 1/2ms
+#define VITESSECLIGNOTANT 2000 //période en 1/2ms
 #define ETEINT 0
 #define ALLUME 1
 #define CLIGNOTE 2
@@ -31,13 +31,13 @@ unsigned int interfaceColonne_compteur;
 void interfaceColonne_gere(void)
 {
   interfaceColonne_compteur++;
-  if (interfaceColonne_compteur == vitesseClignotant/2)
+  if (interfaceColonne_compteur == VITESSECLIGNOTANT/2)
   {
     if (etatRouge == CLIGNOTE)piloteColonne_allume(PILOTECOLONNE_ROUGE);
     if (etatVert == CLIGNOTE)piloteColonne_allume(PILOTECOLONNE_VERT);
     if (etatJaune == CLIGNOTE)piloteColonne_allume(PILOTECOLONNE_JAUNE);
   }
-    if (interfaceColonne_compteur >= vitesseClignotant)
+    if (interfaceColonne_compteur >= VITESSECLIGNOTANT)
   {
     if (etatRouge == CLIGNOTE)piloteColonne_eteint(PILOTECOLONNE_ROUGE);
     if (etatVert == CLIGNOTE)piloteColonne_eteint(PILOTECOLONNE_VERT);
