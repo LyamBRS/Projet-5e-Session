@@ -175,7 +175,7 @@
     <value>Detected Disc Color</value>
   </data>
   <data name="Operation_Disc_Color.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top</value>
+    <value>Top, Left, Right</value>
   </data>
   <data name="Operation_Disc_Color.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Stretch</value>
@@ -771,6 +771,1011 @@
   <data name="&gt;&gt;Tab_Operation.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="Technician_Label_CanOutput.AccessibleDescription" xml:space="preserve">
+    <value>Indicates that the box below stores a visual representation of what will be sent on the CAN bus by the Tech mode</value>
+  </data>
+  <data name="Technician_Label_CanOutput.AccessibleName" xml:space="preserve">
+    <value>Tech CAN bus data</value>
+  </data>
+  <data name="Technician_Label_CanOutput.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Technician_Label_CanOutput.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Technician_Label_CanOutput.Location" type="System.Drawing.Point, System.Drawing">
+    <value>148, 23</value>
+  </data>
+  <data name="Technician_Label_CanOutput.Size" type="System.Drawing.Size, System.Drawing">
+    <value>96, 17</value>
+  </data>
+  <data name="Technician_Label_CanOutput.TabIndex" type="System.Int32, mscorlib">
+    <value>90</value>
+  </data>
+  <data name="Technician_Label_CanOutput.Text" xml:space="preserve">
+    <value>CAN Output:</value>
+  </data>
+  <data name="&gt;&gt;Technician_Label_CanOutput.Name" xml:space="preserve">
+    <value>Technician_Label_CanOutput</value>
+  </data>
+  <data name="&gt;&gt;Technician_Label_CanOutput.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Technician_Label_CanOutput.Parent" xml:space="preserve">
+    <value>Tab_Technician</value>
+  </data>
+  <data name="&gt;&gt;Technician_Label_CanOutput.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="Technician_TextBox_CANData.AccessibleDescription" xml:space="preserve">
+    <value>Contains a visual representation of the data which will be output on the CAN network by the tech mode</value>
+  </data>
+  <data name="Technician_TextBox_CANData.AccessibleName" xml:space="preserve">
+    <value>CAN Data</value>
+  </data>
+  <data name="Technician_TextBox_CANData.Location" type="System.Drawing.Point, System.Drawing">
+    <value>151, 42</value>
+  </data>
+  <data name="Technician_TextBox_CANData.Size" type="System.Drawing.Size, System.Drawing">
+    <value>192, 23</value>
+  </data>
+  <data name="Technician_TextBox_CANData.TabIndex" type="System.Int32, mscorlib">
+    <value>89</value>
+  </data>
+  <data name="&gt;&gt;Technician_TextBox_CANData.Name" xml:space="preserve">
+    <value>Technician_TextBox_CANData</value>
+  </data>
+  <data name="&gt;&gt;Technician_TextBox_CANData.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Technician_TextBox_CANData.Parent" xml:space="preserve">
+    <value>Tab_Technician</value>
+  </data>
+  <data name="&gt;&gt;Technician_TextBox_CANData.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="Technician_Label_DataB.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="Technician_Label_DataB.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Technician_Label_DataB.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Technician_Label_DataB.Location" type="System.Drawing.Point, System.Drawing">
+    <value>349, 160</value>
+  </data>
+  <data name="Technician_Label_DataB.Size" type="System.Drawing.Size, System.Drawing">
+    <value>56, 17</value>
+  </data>
+  <data name="Technician_Label_DataB.TabIndex" type="System.Int32, mscorlib">
+    <value>88</value>
+  </data>
+  <data name="Technician_Label_DataB.Text" xml:space="preserve">
+    <value>Data B</value>
+  </data>
+  <data name="&gt;&gt;Technician_Label_DataB.Name" xml:space="preserve">
+    <value>Technician_Label_DataB</value>
+  </data>
+  <data name="&gt;&gt;Technician_Label_DataB.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Technician_Label_DataB.Parent" xml:space="preserve">
+    <value>Tab_Technician</value>
+  </data>
+  <data name="&gt;&gt;Technician_Label_DataB.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="Technician_Label_DataA.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="Technician_Label_DataA.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Technician_Label_DataA.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Technician_Label_DataA.Location" type="System.Drawing.Point, System.Drawing">
+    <value>349, 102</value>
+  </data>
+  <data name="Technician_Label_DataA.Size" type="System.Drawing.Size, System.Drawing">
+    <value>56, 17</value>
+  </data>
+  <data name="Technician_Label_DataA.TabIndex" type="System.Int32, mscorlib">
+    <value>87</value>
+  </data>
+  <data name="Technician_Label_DataA.Text" xml:space="preserve">
+    <value>Data A</value>
+  </data>
+  <data name="&gt;&gt;Technician_Label_DataA.Name" xml:space="preserve">
+    <value>Technician_Label_DataA</value>
+  </data>
+  <data name="&gt;&gt;Technician_Label_DataA.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Technician_Label_DataA.Parent" xml:space="preserve">
+    <value>Tab_Technician</value>
+  </data>
+  <data name="&gt;&gt;Technician_Label_DataA.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="Technician_Label_DataTypeB.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="Technician_Label_DataTypeB.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Technician_Label_DataTypeB.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Technician_Label_DataTypeB.Location" type="System.Drawing.Point, System.Drawing">
+    <value>349, 131</value>
+  </data>
+  <data name="Technician_Label_DataTypeB.Size" type="System.Drawing.Size, System.Drawing">
+    <value>96, 17</value>
+  </data>
+  <data name="Technician_Label_DataTypeB.TabIndex" type="System.Int32, mscorlib">
+    <value>86</value>
+  </data>
+  <data name="Technician_Label_DataTypeB.Text" xml:space="preserve">
+    <value>Data type B</value>
+  </data>
+  <data name="&gt;&gt;Technician_Label_DataTypeB.Name" xml:space="preserve">
+    <value>Technician_Label_DataTypeB</value>
+  </data>
+  <data name="&gt;&gt;Technician_Label_DataTypeB.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Technician_Label_DataTypeB.Parent" xml:space="preserve">
+    <value>Tab_Technician</value>
+  </data>
+  <data name="&gt;&gt;Technician_Label_DataTypeB.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="Technician_Label_DataTypeA.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="Technician_Label_DataTypeA.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Technician_Label_DataTypeA.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Technician_Label_DataTypeA.Location" type="System.Drawing.Point, System.Drawing">
+    <value>349, 73</value>
+  </data>
+  <data name="Technician_Label_DataTypeA.Size" type="System.Drawing.Size, System.Drawing">
+    <value>96, 17</value>
+  </data>
+  <data name="Technician_Label_DataTypeA.TabIndex" type="System.Int32, mscorlib">
+    <value>85</value>
+  </data>
+  <data name="Technician_Label_DataTypeA.Text" xml:space="preserve">
+    <value>Data type A</value>
+  </data>
+  <data name="&gt;&gt;Technician_Label_DataTypeA.Name" xml:space="preserve">
+    <value>Technician_Label_DataTypeA</value>
+  </data>
+  <data name="&gt;&gt;Technician_Label_DataTypeA.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Technician_Label_DataTypeA.Parent" xml:space="preserve">
+    <value>Tab_Technician</value>
+  </data>
+  <data name="&gt;&gt;Technician_Label_DataTypeA.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="Technician_Label_Mode.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="Technician_Label_Mode.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Technician_Label_Mode.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Technician_Label_Mode.Location" type="System.Drawing.Point, System.Drawing">
+    <value>349, 15</value>
+  </data>
+  <data name="Technician_Label_Mode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>40, 17</value>
+  </data>
+  <data name="Technician_Label_Mode.TabIndex" type="System.Int32, mscorlib">
+    <value>84</value>
+  </data>
+  <data name="Technician_Label_Mode.Text" xml:space="preserve">
+    <value>Mode</value>
+  </data>
+  <data name="&gt;&gt;Technician_Label_Mode.Name" xml:space="preserve">
+    <value>Technician_Label_Mode</value>
+  </data>
+  <data name="&gt;&gt;Technician_Label_Mode.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Technician_Label_Mode.Parent" xml:space="preserve">
+    <value>Tab_Technician</value>
+  </data>
+  <data name="&gt;&gt;Technician_Label_Mode.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="Technician_Label_Status.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="Technician_Label_Status.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Technician_Label_Status.Location" type="System.Drawing.Point, System.Drawing">
+    <value>349, 44</value>
+  </data>
+  <data name="Technician_Label_Status.Size" type="System.Drawing.Size, System.Drawing">
+    <value>56, 17</value>
+  </data>
+  <data name="Technician_Label_Status.TabIndex" type="System.Int32, mscorlib">
+    <value>83</value>
+  </data>
+  <data name="Technician_Label_Status.Text" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="&gt;&gt;Technician_Label_Status.Name" xml:space="preserve">
+    <value>Technician_Label_Status</value>
+  </data>
+  <data name="&gt;&gt;Technician_Label_Status.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Technician_Label_Status.Parent" xml:space="preserve">
+    <value>Tab_Technician</value>
+  </data>
+  <data name="&gt;&gt;Technician_Label_Status.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="Technician_DropDown_Modes.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="Technician_DropDown_Modes.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Consolas, 9.75pt, style=Bold</value>
+  </data>
+  <data name="Technician_DropDown_Modes.IntegralHeight" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="Technician_DropDown_Modes.Location" type="System.Drawing.Point, System.Drawing">
+    <value>450, 11</value>
+  </data>
+  <data name="Technician_DropDown_Modes.Size" type="System.Drawing.Size, System.Drawing">
+    <value>178, 23</value>
+  </data>
+  <data name="Technician_DropDown_Modes.TabIndex" type="System.Int32, mscorlib">
+    <value>82</value>
+  </data>
+  <data name="&gt;&gt;Technician_DropDown_Modes.Name" xml:space="preserve">
+    <value>Technician_DropDown_Modes</value>
+  </data>
+  <data name="&gt;&gt;Technician_DropDown_Modes.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Technician_DropDown_Modes.Parent" xml:space="preserve">
+    <value>Tab_Technician</value>
+  </data>
+  <data name="&gt;&gt;Technician_DropDown_Modes.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="Technician_DropDown_DataTypeA.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="Technician_DropDown_DataTypeA.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Consolas, 9.75pt, style=Bold</value>
+  </data>
+  <data name="Technician_DropDown_DataTypeA.IntegralHeight" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="Technician_DropDown_DataTypeA.Location" type="System.Drawing.Point, System.Drawing">
+    <value>450, 69</value>
+  </data>
+  <data name="Technician_DropDown_DataTypeA.Size" type="System.Drawing.Size, System.Drawing">
+    <value>178, 23</value>
+  </data>
+  <data name="Technician_DropDown_DataTypeA.TabIndex" type="System.Int32, mscorlib">
+    <value>81</value>
+  </data>
+  <data name="&gt;&gt;Technician_DropDown_DataTypeA.Name" xml:space="preserve">
+    <value>Technician_DropDown_DataTypeA</value>
+  </data>
+  <data name="&gt;&gt;Technician_DropDown_DataTypeA.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Technician_DropDown_DataTypeA.Parent" xml:space="preserve">
+    <value>Tab_Technician</value>
+  </data>
+  <data name="&gt;&gt;Technician_DropDown_DataTypeA.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="Technician_DropDown_DataA.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="Technician_DropDown_DataA.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Consolas, 9.75pt, style=Bold</value>
+  </data>
+  <data name="Technician_DropDown_DataA.IntegralHeight" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="Technician_DropDown_DataA.Location" type="System.Drawing.Point, System.Drawing">
+    <value>450, 98</value>
+  </data>
+  <data name="Technician_DropDown_DataA.Size" type="System.Drawing.Size, System.Drawing">
+    <value>178, 23</value>
+  </data>
+  <data name="Technician_DropDown_DataA.TabIndex" type="System.Int32, mscorlib">
+    <value>80</value>
+  </data>
+  <data name="&gt;&gt;Technician_DropDown_DataA.Name" xml:space="preserve">
+    <value>Technician_DropDown_DataA</value>
+  </data>
+  <data name="&gt;&gt;Technician_DropDown_DataA.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Technician_DropDown_DataA.Parent" xml:space="preserve">
+    <value>Tab_Technician</value>
+  </data>
+  <data name="&gt;&gt;Technician_DropDown_DataA.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="Technician_DropDown_DataTypeB.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="Technician_DropDown_DataTypeB.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Consolas, 9.75pt, style=Bold</value>
+  </data>
+  <data name="Technician_DropDown_DataTypeB.IntegralHeight" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="Technician_DropDown_DataTypeB.Location" type="System.Drawing.Point, System.Drawing">
+    <value>450, 127</value>
+  </data>
+  <data name="Technician_DropDown_DataTypeB.Size" type="System.Drawing.Size, System.Drawing">
+    <value>178, 23</value>
+  </data>
+  <data name="Technician_DropDown_DataTypeB.TabIndex" type="System.Int32, mscorlib">
+    <value>79</value>
+  </data>
+  <data name="&gt;&gt;Technician_DropDown_DataTypeB.Name" xml:space="preserve">
+    <value>Technician_DropDown_DataTypeB</value>
+  </data>
+  <data name="&gt;&gt;Technician_DropDown_DataTypeB.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Technician_DropDown_DataTypeB.Parent" xml:space="preserve">
+    <value>Tab_Technician</value>
+  </data>
+  <data name="&gt;&gt;Technician_DropDown_DataTypeB.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="Technician_DropDown_DataB.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="Technician_DropDown_DataB.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Consolas, 9.75pt, style=Bold</value>
+  </data>
+  <data name="Technician_DropDown_DataB.IntegralHeight" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="Technician_DropDown_DataB.Location" type="System.Drawing.Point, System.Drawing">
+    <value>450, 156</value>
+  </data>
+  <data name="Technician_DropDown_DataB.Size" type="System.Drawing.Size, System.Drawing">
+    <value>178, 23</value>
+  </data>
+  <data name="Technician_DropDown_DataB.TabIndex" type="System.Int32, mscorlib">
+    <value>78</value>
+  </data>
+  <data name="&gt;&gt;Technician_DropDown_DataB.Name" xml:space="preserve">
+    <value>Technician_DropDown_DataB</value>
+  </data>
+  <data name="&gt;&gt;Technician_DropDown_DataB.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Technician_DropDown_DataB.Parent" xml:space="preserve">
+    <value>Tab_Technician</value>
+  </data>
+  <data name="&gt;&gt;Technician_DropDown_DataB.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="Technician_DropDown_Status.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="Technician_DropDown_Status.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Consolas, 9.75pt, style=Bold</value>
+  </data>
+  <data name="Technician_DropDown_Status.IntegralHeight" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="Technician_DropDown_Status.Location" type="System.Drawing.Point, System.Drawing">
+    <value>450, 40</value>
+  </data>
+  <data name="Technician_DropDown_Status.Size" type="System.Drawing.Size, System.Drawing">
+    <value>178, 23</value>
+  </data>
+  <data name="Technician_DropDown_Status.TabIndex" type="System.Int32, mscorlib">
+    <value>77</value>
+  </data>
+  <data name="&gt;&gt;Technician_DropDown_Status.Name" xml:space="preserve">
+    <value>Technician_DropDown_Status</value>
+  </data>
+  <data name="&gt;&gt;Technician_DropDown_Status.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Technician_DropDown_Status.Parent" xml:space="preserve">
+    <value>Tab_Technician</value>
+  </data>
+  <data name="&gt;&gt;Technician_DropDown_Status.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="Technician_Module_Vehicle.AccessibleDescription" xml:space="preserve">
+    <value>Indicates the current state of the total of the vehicle modules from the CAN bus</value>
+  </data>
+  <data name="Technician_Module_Vehicle.AccessibleName" xml:space="preserve">
+    <value>Vehicle State</value>
+  </data>
+  <data name="Technician_Module_Vehicle.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="Technician_Module_Vehicle.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="Technician_Module_Vehicle.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Technician_Module_Vehicle.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Technician_Module_Vehicle.Location" type="System.Drawing.Point, System.Drawing">
+    <value>663, 74</value>
+  </data>
+  <data name="Technician_Module_Vehicle.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>10, 3, 10, 3</value>
+  </data>
+  <data name="Technician_Module_Vehicle.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 50</value>
+  </data>
+  <data name="Technician_Module_Vehicle.TabIndex" type="System.Int32, mscorlib">
+    <value>65</value>
+  </data>
+  <data name="&gt;&gt;Technician_Module_Vehicle.Name" xml:space="preserve">
+    <value>Technician_Module_Vehicle</value>
+  </data>
+  <data name="&gt;&gt;Technician_Module_Vehicle.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Technician_Module_Vehicle.Parent" xml:space="preserve">
+    <value>Tab_Technician</value>
+  </data>
+  <data name="&gt;&gt;Technician_Module_Vehicle.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="Technician_Module_SortingStation.AccessibleDescription" xml:space="preserve">
+    <value>Indicates the current state of the sorting station modules from the CAN bus</value>
+  </data>
+  <data name="Technician_Module_SortingStation.AccessibleName" xml:space="preserve">
+    <value>Sorting Station State</value>
+  </data>
+  <data name="Technician_Module_SortingStation.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="Technician_Module_SortingStation.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="Technician_Module_SortingStation.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Technician_Module_SortingStation.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Technician_Module_SortingStation.Location" type="System.Drawing.Point, System.Drawing">
+    <value>663, 18</value>
+  </data>
+  <data name="Technician_Module_SortingStation.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>10, 3, 10, 3</value>
+  </data>
+  <data name="Technician_Module_SortingStation.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 50</value>
+  </data>
+  <data name="Technician_Module_SortingStation.TabIndex" type="System.Int32, mscorlib">
+    <value>66</value>
+  </data>
+  <data name="&gt;&gt;Technician_Module_SortingStation.Name" xml:space="preserve">
+    <value>Technician_Module_SortingStation</value>
+  </data>
+  <data name="&gt;&gt;Technician_Module_SortingStation.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Technician_Module_SortingStation.Parent" xml:space="preserve">
+    <value>Tab_Technician</value>
+  </data>
+  <data name="&gt;&gt;Technician_Module_SortingStation.ZOrder" xml:space="preserve">
+    <value>15</value>
+  </data>
+  <data name="Technician_Module_WeightStation.AccessibleDescription" xml:space="preserve">
+    <value>Indicates the current state of the weight station from the CAN bus data</value>
+  </data>
+  <data name="Technician_Module_WeightStation.AccessibleName" xml:space="preserve">
+    <value>Weight Station State</value>
+  </data>
+  <data name="Technician_Module_WeightStation.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="Technician_Module_WeightStation.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="Technician_Module_WeightStation.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Technician_Module_WeightStation.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Technician_Module_WeightStation.Location" type="System.Drawing.Point, System.Drawing">
+    <value>663, 127</value>
+  </data>
+  <data name="Technician_Module_WeightStation.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>10, 3, 0, 3</value>
+  </data>
+  <data name="Technician_Module_WeightStation.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 50</value>
+  </data>
+  <data name="Technician_Module_WeightStation.TabIndex" type="System.Int32, mscorlib">
+    <value>67</value>
+  </data>
+  <data name="&gt;&gt;Technician_Module_WeightStation.Name" xml:space="preserve">
+    <value>Technician_Module_WeightStation</value>
+  </data>
+  <data name="&gt;&gt;Technician_Module_WeightStation.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Technician_Module_WeightStation.Parent" xml:space="preserve">
+    <value>Tab_Technician</value>
+  </data>
+  <data name="&gt;&gt;Technician_Module_WeightStation.ZOrder" xml:space="preserve">
+    <value>16</value>
+  </data>
+  <data name="Technician_Label_SendOnce.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Technician_Label_SendOnce.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Consolas, 11.25pt, style=Bold</value>
+  </data>
+  <data name="Technician_Label_SendOnce.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Technician_Label_SendOnce.Location" type="System.Drawing.Point, System.Drawing">
+    <value>224, 122</value>
+  </data>
+  <data name="Technician_Label_SendOnce.Size" type="System.Drawing.Size, System.Drawing">
+    <value>136, 27</value>
+  </data>
+  <data name="Technician_Label_SendOnce.TabIndex" type="System.Int32, mscorlib">
+    <value>64</value>
+  </data>
+  <data name="Technician_Label_SendOnce.Text" xml:space="preserve">
+    <value>Send Once</value>
+  </data>
+  <data name="Technician_Label_SendOnce.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;Technician_Label_SendOnce.Name" xml:space="preserve">
+    <value>Technician_Label_SendOnce</value>
+  </data>
+  <data name="&gt;&gt;Technician_Label_SendOnce.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Technician_Label_SendOnce.Parent" xml:space="preserve">
+    <value>Tab_Technician</value>
+  </data>
+  <data name="&gt;&gt;Technician_Label_SendOnce.ZOrder" xml:space="preserve">
+    <value>17</value>
+  </data>
+  <data name="Technician_Button_SendOnce.AccessibleDescription" xml:space="preserve">
+    <value>Tells the program if it should automatically attempt to connect to a BeagleBone when you link to a serial port</value>
+  </data>
+  <data name="Technician_Button_SendOnce.AccessibleName" xml:space="preserve">
+    <value>Autonomous connection</value>
+  </data>
+  <data name="Technician_Button_SendOnce.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="Technician_Button_SendOnce.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Technician_Button_SendOnce.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Technician_Button_SendOnce.Location" type="System.Drawing.Point, System.Drawing">
+    <value>188, 122</value>
+  </data>
+  <data name="Technician_Button_SendOnce.Size" type="System.Drawing.Size, System.Drawing">
+    <value>27, 27</value>
+  </data>
+  <data name="Technician_Button_SendOnce.TabIndex" type="System.Int32, mscorlib">
+    <value>63</value>
+  </data>
+  <data name="&gt;&gt;Technician_Button_SendOnce.Name" xml:space="preserve">
+    <value>Technician_Button_SendOnce</value>
+  </data>
+  <data name="&gt;&gt;Technician_Button_SendOnce.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Technician_Button_SendOnce.Parent" xml:space="preserve">
+    <value>Tab_Technician</value>
+  </data>
+  <data name="&gt;&gt;Technician_Button_SendOnce.ZOrder" xml:space="preserve">
+    <value>18</value>
+  </data>
+  <data name="Technician_Label_ClearAfterSend.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Technician_Label_ClearAfterSend.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Consolas, 11.25pt, style=Bold</value>
+  </data>
+  <data name="Technician_Label_ClearAfterSend.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Technician_Label_ClearAfterSend.Location" type="System.Drawing.Point, System.Drawing">
+    <value>224, 155</value>
+  </data>
+  <data name="Technician_Label_ClearAfterSend.Size" type="System.Drawing.Size, System.Drawing">
+    <value>136, 27</value>
+  </data>
+  <data name="Technician_Label_ClearAfterSend.TabIndex" type="System.Int32, mscorlib">
+    <value>62</value>
+  </data>
+  <data name="Technician_Label_ClearAfterSend.Text" xml:space="preserve">
+    <value>Clear After</value>
+  </data>
+  <data name="Technician_Label_ClearAfterSend.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;Technician_Label_ClearAfterSend.Name" xml:space="preserve">
+    <value>Technician_Label_ClearAfterSend</value>
+  </data>
+  <data name="&gt;&gt;Technician_Label_ClearAfterSend.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Technician_Label_ClearAfterSend.Parent" xml:space="preserve">
+    <value>Tab_Technician</value>
+  </data>
+  <data name="&gt;&gt;Technician_Label_ClearAfterSend.ZOrder" xml:space="preserve">
+    <value>19</value>
+  </data>
+  <data name="Technician_CheckBox_ClearAfterSend.AccessibleDescription" xml:space="preserve">
+    <value>This enables or disables the automatic clearing or not of the Tech dropdowns each time SendOnce is pressed</value>
+  </data>
+  <data name="Technician_CheckBox_ClearAfterSend.AccessibleName" xml:space="preserve">
+    <value>Clear the Config after send</value>
+  </data>
+  <data name="Technician_CheckBox_ClearAfterSend.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="Technician_CheckBox_ClearAfterSend.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Technician_CheckBox_ClearAfterSend.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Technician_CheckBox_ClearAfterSend.Location" type="System.Drawing.Point, System.Drawing">
+    <value>188, 155</value>
+  </data>
+  <data name="Technician_CheckBox_ClearAfterSend.Size" type="System.Drawing.Size, System.Drawing">
+    <value>27, 27</value>
+  </data>
+  <data name="Technician_CheckBox_ClearAfterSend.TabIndex" type="System.Int32, mscorlib">
+    <value>61</value>
+  </data>
+  <data name="&gt;&gt;Technician_CheckBox_ClearAfterSend.Name" xml:space="preserve">
+    <value>Technician_CheckBox_ClearAfterSend</value>
+  </data>
+  <data name="&gt;&gt;Technician_CheckBox_ClearAfterSend.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Technician_CheckBox_ClearAfterSend.Parent" xml:space="preserve">
+    <value>Tab_Technician</value>
+  </data>
+  <data name="&gt;&gt;Technician_CheckBox_ClearAfterSend.ZOrder" xml:space="preserve">
+    <value>20</value>
+  </data>
+  <data name="Technician_Button_StartStop.AccessibleDescription" xml:space="preserve">
+    <value>Start or stops the technician mode</value>
+  </data>
+  <data name="Technician_Button_StartStop.AccessibleName" xml:space="preserve">
+    <value>Tech enable</value>
+  </data>
+  <data name="Technician_Button_StartStop.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="Technician_Button_StartStop.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Technician_Button_StartStop.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Technician_Button_StartStop.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 6</value>
+  </data>
+  <data name="Technician_Button_StartStop.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 100</value>
+  </data>
+  <data name="Technician_Button_StartStop.TabIndex" type="System.Int32, mscorlib">
+    <value>60</value>
+  </data>
+  <data name="&gt;&gt;Technician_Button_StartStop.Name" xml:space="preserve">
+    <value>Technician_Button_StartStop</value>
+  </data>
+  <data name="&gt;&gt;Technician_Button_StartStop.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Technician_Button_StartStop.Parent" xml:space="preserve">
+    <value>Tab_Technician</value>
+  </data>
+  <data name="&gt;&gt;Technician_Button_StartStop.ZOrder" xml:space="preserve">
+    <value>21</value>
+  </data>
+  <data name="Technician_Label_SimulateModes.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Technician_Label_SimulateModes.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Consolas, 11.25pt, style=Bold</value>
+  </data>
+  <data name="Technician_Label_SimulateModes.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Technician_Label_SimulateModes.Location" type="System.Drawing.Point, System.Drawing">
+    <value>47, 122</value>
+  </data>
+  <data name="Technician_Label_SimulateModes.Size" type="System.Drawing.Size, System.Drawing">
+    <value>136, 27</value>
+  </data>
+  <data name="Technician_Label_SimulateModes.TabIndex" type="System.Int32, mscorlib">
+    <value>57</value>
+  </data>
+  <data name="Technician_Label_SimulateModes.Text" xml:space="preserve">
+    <value>Simulate Modes</value>
+  </data>
+  <data name="Technician_Label_SimulateModes.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;Technician_Label_SimulateModes.Name" xml:space="preserve">
+    <value>Technician_Label_SimulateModes</value>
+  </data>
+  <data name="&gt;&gt;Technician_Label_SimulateModes.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Technician_Label_SimulateModes.Parent" xml:space="preserve">
+    <value>Tab_Technician</value>
+  </data>
+  <data name="&gt;&gt;Technician_Label_SimulateModes.ZOrder" xml:space="preserve">
+    <value>22</value>
+  </data>
+  <data name="Technician_ChrckBox_SimulateModes.AccessibleDescription" xml:space="preserve">
+    <value>Tells the program if it should automatically attempt to connect to a BeagleBone when you link to a serial port</value>
+  </data>
+  <data name="Technician_ChrckBox_SimulateModes.AccessibleName" xml:space="preserve">
+    <value>Autonomous connection</value>
+  </data>
+  <data name="Technician_ChrckBox_SimulateModes.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="Technician_ChrckBox_SimulateModes.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Technician_ChrckBox_SimulateModes.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Technician_ChrckBox_SimulateModes.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 122</value>
+  </data>
+  <data name="Technician_ChrckBox_SimulateModes.Size" type="System.Drawing.Size, System.Drawing">
+    <value>27, 27</value>
+  </data>
+  <data name="Technician_ChrckBox_SimulateModes.TabIndex" type="System.Int32, mscorlib">
+    <value>56</value>
+  </data>
+  <data name="&gt;&gt;Technician_ChrckBox_SimulateModes.Name" xml:space="preserve">
+    <value>Technician_ChrckBox_SimulateModes</value>
+  </data>
+  <data name="&gt;&gt;Technician_ChrckBox_SimulateModes.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Technician_ChrckBox_SimulateModes.Parent" xml:space="preserve">
+    <value>Tab_Technician</value>
+  </data>
+  <data name="&gt;&gt;Technician_ChrckBox_SimulateModes.ZOrder" xml:space="preserve">
+    <value>23</value>
+  </data>
+  <data name="Technician_Label_KeepCanOn.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Technician_Label_KeepCanOn.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Consolas, 11.25pt, style=Bold</value>
+  </data>
+  <data name="Technician_Label_KeepCanOn.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Technician_Label_KeepCanOn.Location" type="System.Drawing.Point, System.Drawing">
+    <value>47, 155</value>
+  </data>
+  <data name="Technician_Label_KeepCanOn.Size" type="System.Drawing.Size, System.Drawing">
+    <value>136, 27</value>
+  </data>
+  <data name="Technician_Label_KeepCanOn.TabIndex" type="System.Int32, mscorlib">
+    <value>55</value>
+  </data>
+  <data name="Technician_Label_KeepCanOn.Text" xml:space="preserve">
+    <value>Keep CAN Online</value>
+  </data>
+  <data name="Technician_Label_KeepCanOn.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;Technician_Label_KeepCanOn.Name" xml:space="preserve">
+    <value>Technician_Label_KeepCanOn</value>
+  </data>
+  <data name="&gt;&gt;Technician_Label_KeepCanOn.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Technician_Label_KeepCanOn.Parent" xml:space="preserve">
+    <value>Tab_Technician</value>
+  </data>
+  <data name="&gt;&gt;Technician_Label_KeepCanOn.ZOrder" xml:space="preserve">
+    <value>24</value>
+  </data>
+  <data name="Technician_CheckBox_KeepCanOnline.AccessibleDescription" xml:space="preserve">
+    <value>Tells the program if it should automatically attempt to connect to a BeagleBone when you link to a serial port</value>
+  </data>
+  <data name="Technician_CheckBox_KeepCanOnline.AccessibleName" xml:space="preserve">
+    <value>Autonomous connection</value>
+  </data>
+  <data name="Technician_CheckBox_KeepCanOnline.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="Technician_CheckBox_KeepCanOnline.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Technician_CheckBox_KeepCanOnline.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Technician_CheckBox_KeepCanOnline.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 155</value>
+  </data>
+  <data name="Technician_CheckBox_KeepCanOnline.Size" type="System.Drawing.Size, System.Drawing">
+    <value>27, 27</value>
+  </data>
+  <data name="Technician_CheckBox_KeepCanOnline.TabIndex" type="System.Int32, mscorlib">
+    <value>54</value>
+  </data>
+  <data name="&gt;&gt;Technician_CheckBox_KeepCanOnline.Name" xml:space="preserve">
+    <value>Technician_CheckBox_KeepCanOnline</value>
+  </data>
+  <data name="&gt;&gt;Technician_CheckBox_KeepCanOnline.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Technician_CheckBox_KeepCanOnline.Parent" xml:space="preserve">
+    <value>Tab_Technician</value>
+  </data>
+  <data name="&gt;&gt;Technician_CheckBox_KeepCanOnline.ZOrder" xml:space="preserve">
+    <value>25</value>
+  </data>
+  <data name="Technician_Save_Logs.AccessibleDescription" xml:space="preserve">
+    <value>Saved the stored technician specific logs inside a correlating folder</value>
+  </data>
+  <data name="Technician_Save_Logs.AccessibleName" xml:space="preserve">
+    <value>Save Logs</value>
+  </data>
+  <data name="Technician_Save_Logs.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="Technician_Save_Logs.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="Technician_Save_Logs.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Technician_Save_Logs.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Technician_Save_Logs.Location" type="System.Drawing.Point, System.Drawing">
+    <value>637, 189</value>
+  </data>
+  <data name="Technician_Save_Logs.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 100</value>
+  </data>
+  <data name="Technician_Save_Logs.TabIndex" type="System.Int32, mscorlib">
+    <value>52</value>
+  </data>
+  <data name="&gt;&gt;Technician_Save_Logs.Name" xml:space="preserve">
+    <value>Technician_Save_Logs</value>
+  </data>
+  <data name="&gt;&gt;Technician_Save_Logs.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Technician_Save_Logs.Parent" xml:space="preserve">
+    <value>Tab_Technician</value>
+  </data>
+  <data name="&gt;&gt;Technician_Save_Logs.ZOrder" xml:space="preserve">
+    <value>26</value>
+  </data>
+  <data name="Technician_terminal_Clear.AccessibleDescription" xml:space="preserve">
+    <value>Clears the logged technician terminal data</value>
+  </data>
+  <data name="Technician_terminal_Clear.AccessibleName" xml:space="preserve">
+    <value>Clear Technician Logs</value>
+  </data>
+  <data name="Technician_terminal_Clear.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="Technician_terminal_Clear.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="Technician_terminal_Clear.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Technician_terminal_Clear.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Technician_terminal_Clear.Location" type="System.Drawing.Point, System.Drawing">
+    <value>637, 295</value>
+  </data>
+  <data name="Technician_terminal_Clear.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 100</value>
+  </data>
+  <data name="Technician_terminal_Clear.TabIndex" type="System.Int32, mscorlib">
+    <value>51</value>
+  </data>
+  <data name="&gt;&gt;Technician_terminal_Clear.Name" xml:space="preserve">
+    <value>Technician_terminal_Clear</value>
+  </data>
+  <data name="&gt;&gt;Technician_terminal_Clear.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Technician_terminal_Clear.Parent" xml:space="preserve">
+    <value>Tab_Technician</value>
+  </data>
+  <data name="&gt;&gt;Technician_terminal_Clear.ZOrder" xml:space="preserve">
+    <value>27</value>
+  </data>
+  <data name="Technician_Logs.AccessibleDescription" xml:space="preserve">
+    <value>Contains the logs for the operation mode</value>
+  </data>
+  <data name="Technician_Logs.AccessibleName" xml:space="preserve">
+    <value>Operation mode logs</value>
+  </data>
+  <data name="Technician_Logs.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="Technician_Logs.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 189</value>
+  </data>
+  <data name="Technician_Logs.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="Technician_Logs.Size" type="System.Drawing.Size, System.Drawing">
+    <value>617, 210</value>
+  </data>
+  <data name="Technician_Logs.TabIndex" type="System.Int32, mscorlib">
+    <value>50</value>
+  </data>
+  <data name="Technician_Logs.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Technician_Logs.WordWrap" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;Technician_Logs.Name" xml:space="preserve">
+    <value>Technician_Logs</value>
+  </data>
+  <data name="&gt;&gt;Technician_Logs.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Technician_Logs.Parent" xml:space="preserve">
+    <value>Tab_Technician</value>
+  </data>
+  <data name="&gt;&gt;Technician_Logs.ZOrder" xml:space="preserve">
+    <value>28</value>
+  </data>
   <data name="Tab_Technician.ImageKey" xml:space="preserve">
     <value>Tech_Disabled_Filled.png</value>
   </data>
@@ -804,6 +1809,324 @@
   <data name="&gt;&gt;Tab_Technician.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="Calibration_Save_Logs.AccessibleDescription" xml:space="preserve">
+    <value>Saved the stored technician specific logs inside a correlating folder</value>
+  </data>
+  <data name="Calibration_Save_Logs.AccessibleName" xml:space="preserve">
+    <value>Save Logs</value>
+  </data>
+  <data name="Calibration_Save_Logs.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="Calibration_Save_Logs.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="Calibration_Save_Logs.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Calibration_Save_Logs.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Calibration_Save_Logs.Location" type="System.Drawing.Point, System.Drawing">
+    <value>637, 295</value>
+  </data>
+  <data name="Calibration_Save_Logs.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 100</value>
+  </data>
+  <data name="Calibration_Save_Logs.TabIndex" type="System.Int32, mscorlib">
+    <value>68</value>
+  </data>
+  <data name="&gt;&gt;Calibration_Save_Logs.Name" xml:space="preserve">
+    <value>Calibration_Save_Logs</value>
+  </data>
+  <data name="&gt;&gt;Calibration_Save_Logs.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Calibration_Save_Logs.Parent" xml:space="preserve">
+    <value>Tab_Calibration</value>
+  </data>
+  <data name="&gt;&gt;Calibration_Save_Logs.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="Calibration_Clear_Logs.AccessibleDescription" xml:space="preserve">
+    <value>Clears the logged technician terminal data</value>
+  </data>
+  <data name="Calibration_Clear_Logs.AccessibleName" xml:space="preserve">
+    <value>Clear Technician Logs</value>
+  </data>
+  <data name="Calibration_Clear_Logs.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="Calibration_Clear_Logs.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="Calibration_Clear_Logs.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Calibration_Clear_Logs.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Calibration_Clear_Logs.Location" type="System.Drawing.Point, System.Drawing">
+    <value>637, 189</value>
+  </data>
+  <data name="Calibration_Clear_Logs.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 100</value>
+  </data>
+  <data name="Calibration_Clear_Logs.TabIndex" type="System.Int32, mscorlib">
+    <value>67</value>
+  </data>
+  <data name="&gt;&gt;Calibration_Clear_Logs.Name" xml:space="preserve">
+    <value>Calibration_Clear_Logs</value>
+  </data>
+  <data name="&gt;&gt;Calibration_Clear_Logs.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Calibration_Clear_Logs.Parent" xml:space="preserve">
+    <value>Tab_Calibration</value>
+  </data>
+  <data name="&gt;&gt;Calibration_Clear_Logs.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="Calibration_Logs.AccessibleDescription" xml:space="preserve">
+    <value>Contains the logs for the operation mode</value>
+  </data>
+  <data name="Calibration_Logs.AccessibleName" xml:space="preserve">
+    <value>Operation mode logs</value>
+  </data>
+  <data name="Calibration_Logs.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="Calibration_Logs.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 189</value>
+  </data>
+  <data name="Calibration_Logs.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="Calibration_Logs.Size" type="System.Drawing.Size, System.Drawing">
+    <value>617, 210</value>
+  </data>
+  <data name="Calibration_Logs.TabIndex" type="System.Int32, mscorlib">
+    <value>66</value>
+  </data>
+  <data name="Calibration_Logs.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Calibration_Logs.WordWrap" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;Calibration_Logs.Name" xml:space="preserve">
+    <value>Calibration_Logs</value>
+  </data>
+  <data name="&gt;&gt;Calibration_Logs.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Calibration_Logs.Parent" xml:space="preserve">
+    <value>Tab_Calibration</value>
+  </data>
+  <data name="&gt;&gt;Calibration_Logs.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="Calibration_Module_All.AccessibleDescription" xml:space="preserve">
+    <value>Indicates the current state of the total of all modules from the CAN bus</value>
+  </data>
+  <data name="Calibration_Module_All.AccessibleName" xml:space="preserve">
+    <value>Global State</value>
+  </data>
+  <data name="Calibration_Module_All.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="Calibration_Module_All.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Calibration_Module_All.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Calibration_Module_All.Location" type="System.Drawing.Point, System.Drawing">
+    <value>121, 3</value>
+  </data>
+  <data name="Calibration_Module_All.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 10, 3</value>
+  </data>
+  <data name="Calibration_Module_All.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 100</value>
+  </data>
+  <data name="Calibration_Module_All.TabIndex" type="System.Int32, mscorlib">
+    <value>62</value>
+  </data>
+  <data name="&gt;&gt;Calibration_Module_All.Name" xml:space="preserve">
+    <value>Calibration_Module_All</value>
+  </data>
+  <data name="&gt;&gt;Calibration_Module_All.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Calibration_Module_All.Parent" xml:space="preserve">
+    <value>Tab_Calibration</value>
+  </data>
+  <data name="&gt;&gt;Calibration_Module_All.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="Calibration_Module_Vehicle.AccessibleDescription" xml:space="preserve">
+    <value>Indicates the current state of the total of the vehicle modules from the CAN bus</value>
+  </data>
+  <data name="Calibration_Module_Vehicle.AccessibleName" xml:space="preserve">
+    <value>Vehicle State</value>
+  </data>
+  <data name="Calibration_Module_Vehicle.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="Calibration_Module_Vehicle.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="Calibration_Module_Vehicle.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Calibration_Module_Vehicle.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Calibration_Module_Vehicle.Location" type="System.Drawing.Point, System.Drawing">
+    <value>512, 3</value>
+  </data>
+  <data name="Calibration_Module_Vehicle.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>10, 3, 10, 3</value>
+  </data>
+  <data name="Calibration_Module_Vehicle.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 100</value>
+  </data>
+  <data name="Calibration_Module_Vehicle.TabIndex" type="System.Int32, mscorlib">
+    <value>63</value>
+  </data>
+  <data name="&gt;&gt;Calibration_Module_Vehicle.Name" xml:space="preserve">
+    <value>Calibration_Module_Vehicle</value>
+  </data>
+  <data name="&gt;&gt;Calibration_Module_Vehicle.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Calibration_Module_Vehicle.Parent" xml:space="preserve">
+    <value>Tab_Calibration</value>
+  </data>
+  <data name="&gt;&gt;Calibration_Module_Vehicle.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="Calibration_Module_Sorting.AccessibleDescription" xml:space="preserve">
+    <value>Indicates the current state of the sorting station modules from the CAN bus</value>
+  </data>
+  <data name="Calibration_Module_Sorting.AccessibleName" xml:space="preserve">
+    <value>Sorting Station State</value>
+  </data>
+  <data name="Calibration_Module_Sorting.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="Calibration_Module_Sorting.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="Calibration_Module_Sorting.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Calibration_Module_Sorting.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Calibration_Module_Sorting.Location" type="System.Drawing.Point, System.Drawing">
+    <value>392, 3</value>
+  </data>
+  <data name="Calibration_Module_Sorting.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>10, 3, 10, 3</value>
+  </data>
+  <data name="Calibration_Module_Sorting.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 100</value>
+  </data>
+  <data name="Calibration_Module_Sorting.TabIndex" type="System.Int32, mscorlib">
+    <value>64</value>
+  </data>
+  <data name="&gt;&gt;Calibration_Module_Sorting.Name" xml:space="preserve">
+    <value>Calibration_Module_Sorting</value>
+  </data>
+  <data name="&gt;&gt;Calibration_Module_Sorting.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Calibration_Module_Sorting.Parent" xml:space="preserve">
+    <value>Tab_Calibration</value>
+  </data>
+  <data name="&gt;&gt;Calibration_Module_Sorting.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="Calibration_Module_Weight.AccessibleDescription" xml:space="preserve">
+    <value>Indicates the current state of the weight station from the CAN bus data</value>
+  </data>
+  <data name="Calibration_Module_Weight.AccessibleName" xml:space="preserve">
+    <value>Weight Station State</value>
+  </data>
+  <data name="Calibration_Module_Weight.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="Calibration_Module_Weight.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="Calibration_Module_Weight.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Calibration_Module_Weight.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Calibration_Module_Weight.Location" type="System.Drawing.Point, System.Drawing">
+    <value>632, 3</value>
+  </data>
+  <data name="Calibration_Module_Weight.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>10, 3, 0, 3</value>
+  </data>
+  <data name="Calibration_Module_Weight.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 100</value>
+  </data>
+  <data name="Calibration_Module_Weight.TabIndex" type="System.Int32, mscorlib">
+    <value>65</value>
+  </data>
+  <data name="&gt;&gt;Calibration_Module_Weight.Name" xml:space="preserve">
+    <value>Calibration_Module_Weight</value>
+  </data>
+  <data name="&gt;&gt;Calibration_Module_Weight.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Calibration_Module_Weight.Parent" xml:space="preserve">
+    <value>Tab_Calibration</value>
+  </data>
+  <data name="&gt;&gt;Calibration_Module_Weight.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="Calibration_Button_StartStop.AccessibleDescription" xml:space="preserve">
+    <value>Starts or stop the calibrating process of the connected module</value>
+  </data>
+  <data name="Calibration_Button_StartStop.AccessibleName" xml:space="preserve">
+    <value>Calibration Enable</value>
+  </data>
+  <data name="Calibration_Button_StartStop.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="Calibration_Button_StartStop.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Calibration_Button_StartStop.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Calibration_Button_StartStop.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 3</value>
+  </data>
+  <data name="Calibration_Button_StartStop.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 100</value>
+  </data>
+  <data name="Calibration_Button_StartStop.TabIndex" type="System.Int32, mscorlib">
+    <value>61</value>
+  </data>
+  <data name="&gt;&gt;Calibration_Button_StartStop.Name" xml:space="preserve">
+    <value>Calibration_Button_StartStop</value>
+  </data>
+  <data name="&gt;&gt;Calibration_Button_StartStop.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Calibration_Button_StartStop.Parent" xml:space="preserve">
+    <value>Tab_Calibration</value>
+  </data>
+  <data name="&gt;&gt;Calibration_Button_StartStop.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
   <data name="Tab_Calibration.ImageKey" xml:space="preserve">
     <value>Calibration_Disabled_Filled.png</value>
   </data>
@@ -833,6 +2156,324 @@
   </data>
   <data name="&gt;&gt;Tab_Calibration.ZOrder" xml:space="preserve">
     <value>2</value>
+  </data>
+  <data name="Maintenance_Save_Logs.AccessibleDescription" xml:space="preserve">
+    <value>Saved the stored technician specific logs inside a correlating folder</value>
+  </data>
+  <data name="Maintenance_Save_Logs.AccessibleName" xml:space="preserve">
+    <value>Save Logs</value>
+  </data>
+  <data name="Maintenance_Save_Logs.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="Maintenance_Save_Logs.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="Maintenance_Save_Logs.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Maintenance_Save_Logs.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Maintenance_Save_Logs.Location" type="System.Drawing.Point, System.Drawing">
+    <value>637, 189</value>
+  </data>
+  <data name="Maintenance_Save_Logs.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 100</value>
+  </data>
+  <data name="Maintenance_Save_Logs.TabIndex" type="System.Int32, mscorlib">
+    <value>76</value>
+  </data>
+  <data name="&gt;&gt;Maintenance_Save_Logs.Name" xml:space="preserve">
+    <value>Maintenance_Save_Logs</value>
+  </data>
+  <data name="&gt;&gt;Maintenance_Save_Logs.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Maintenance_Save_Logs.Parent" xml:space="preserve">
+    <value>Tab_Maintenance</value>
+  </data>
+  <data name="&gt;&gt;Maintenance_Save_Logs.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="Maintenance_Clear_Logs.AccessibleDescription" xml:space="preserve">
+    <value>Clears the logged technician terminal data</value>
+  </data>
+  <data name="Maintenance_Clear_Logs.AccessibleName" xml:space="preserve">
+    <value>Clear Technician Logs</value>
+  </data>
+  <data name="Maintenance_Clear_Logs.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="Maintenance_Clear_Logs.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="Maintenance_Clear_Logs.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Maintenance_Clear_Logs.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Maintenance_Clear_Logs.Location" type="System.Drawing.Point, System.Drawing">
+    <value>637, 295</value>
+  </data>
+  <data name="Maintenance_Clear_Logs.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 100</value>
+  </data>
+  <data name="Maintenance_Clear_Logs.TabIndex" type="System.Int32, mscorlib">
+    <value>75</value>
+  </data>
+  <data name="&gt;&gt;Maintenance_Clear_Logs.Name" xml:space="preserve">
+    <value>Maintenance_Clear_Logs</value>
+  </data>
+  <data name="&gt;&gt;Maintenance_Clear_Logs.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Maintenance_Clear_Logs.Parent" xml:space="preserve">
+    <value>Tab_Maintenance</value>
+  </data>
+  <data name="&gt;&gt;Maintenance_Clear_Logs.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="Maintenance_Logs.AccessibleDescription" xml:space="preserve">
+    <value>Contains the logs for the operation mode</value>
+  </data>
+  <data name="Maintenance_Logs.AccessibleName" xml:space="preserve">
+    <value>Operation mode logs</value>
+  </data>
+  <data name="Maintenance_Logs.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="Maintenance_Logs.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 189</value>
+  </data>
+  <data name="Maintenance_Logs.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="Maintenance_Logs.Size" type="System.Drawing.Size, System.Drawing">
+    <value>617, 210</value>
+  </data>
+  <data name="Maintenance_Logs.TabIndex" type="System.Int32, mscorlib">
+    <value>74</value>
+  </data>
+  <data name="Maintenance_Logs.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Maintenance_Logs.WordWrap" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;Maintenance_Logs.Name" xml:space="preserve">
+    <value>Maintenance_Logs</value>
+  </data>
+  <data name="&gt;&gt;Maintenance_Logs.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Maintenance_Logs.Parent" xml:space="preserve">
+    <value>Tab_Maintenance</value>
+  </data>
+  <data name="&gt;&gt;Maintenance_Logs.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="Maintenance_Module_All.AccessibleDescription" xml:space="preserve">
+    <value>Indicates the current state of the total of all modules from the CAN bus</value>
+  </data>
+  <data name="Maintenance_Module_All.AccessibleName" xml:space="preserve">
+    <value>Global State</value>
+  </data>
+  <data name="Maintenance_Module_All.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="Maintenance_Module_All.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Maintenance_Module_All.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Maintenance_Module_All.Location" type="System.Drawing.Point, System.Drawing">
+    <value>121, 3</value>
+  </data>
+  <data name="Maintenance_Module_All.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 10, 3</value>
+  </data>
+  <data name="Maintenance_Module_All.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 100</value>
+  </data>
+  <data name="Maintenance_Module_All.TabIndex" type="System.Int32, mscorlib">
+    <value>70</value>
+  </data>
+  <data name="&gt;&gt;Maintenance_Module_All.Name" xml:space="preserve">
+    <value>Maintenance_Module_All</value>
+  </data>
+  <data name="&gt;&gt;Maintenance_Module_All.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Maintenance_Module_All.Parent" xml:space="preserve">
+    <value>Tab_Maintenance</value>
+  </data>
+  <data name="&gt;&gt;Maintenance_Module_All.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="Maintenance_Module_Vehicle.AccessibleDescription" xml:space="preserve">
+    <value>Indicates the current state of the total of the vehicle modules from the CAN bus</value>
+  </data>
+  <data name="Maintenance_Module_Vehicle.AccessibleName" xml:space="preserve">
+    <value>Vehicle State</value>
+  </data>
+  <data name="Maintenance_Module_Vehicle.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="Maintenance_Module_Vehicle.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="Maintenance_Module_Vehicle.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Maintenance_Module_Vehicle.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Maintenance_Module_Vehicle.Location" type="System.Drawing.Point, System.Drawing">
+    <value>512, 3</value>
+  </data>
+  <data name="Maintenance_Module_Vehicle.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>10, 3, 10, 3</value>
+  </data>
+  <data name="Maintenance_Module_Vehicle.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 100</value>
+  </data>
+  <data name="Maintenance_Module_Vehicle.TabIndex" type="System.Int32, mscorlib">
+    <value>71</value>
+  </data>
+  <data name="&gt;&gt;Maintenance_Module_Vehicle.Name" xml:space="preserve">
+    <value>Maintenance_Module_Vehicle</value>
+  </data>
+  <data name="&gt;&gt;Maintenance_Module_Vehicle.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Maintenance_Module_Vehicle.Parent" xml:space="preserve">
+    <value>Tab_Maintenance</value>
+  </data>
+  <data name="&gt;&gt;Maintenance_Module_Vehicle.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="Maintenance_Module_Sorting.AccessibleDescription" xml:space="preserve">
+    <value>Indicates the current state of the sorting station modules from the CAN bus</value>
+  </data>
+  <data name="Maintenance_Module_Sorting.AccessibleName" xml:space="preserve">
+    <value>Sorting Station State</value>
+  </data>
+  <data name="Maintenance_Module_Sorting.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="Maintenance_Module_Sorting.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="Maintenance_Module_Sorting.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Maintenance_Module_Sorting.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Maintenance_Module_Sorting.Location" type="System.Drawing.Point, System.Drawing">
+    <value>392, 3</value>
+  </data>
+  <data name="Maintenance_Module_Sorting.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>10, 3, 10, 3</value>
+  </data>
+  <data name="Maintenance_Module_Sorting.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 100</value>
+  </data>
+  <data name="Maintenance_Module_Sorting.TabIndex" type="System.Int32, mscorlib">
+    <value>72</value>
+  </data>
+  <data name="&gt;&gt;Maintenance_Module_Sorting.Name" xml:space="preserve">
+    <value>Maintenance_Module_Sorting</value>
+  </data>
+  <data name="&gt;&gt;Maintenance_Module_Sorting.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Maintenance_Module_Sorting.Parent" xml:space="preserve">
+    <value>Tab_Maintenance</value>
+  </data>
+  <data name="&gt;&gt;Maintenance_Module_Sorting.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="Maintenance_Module_Weight.AccessibleDescription" xml:space="preserve">
+    <value>Indicates the current state of the weight station from the CAN bus data</value>
+  </data>
+  <data name="Maintenance_Module_Weight.AccessibleName" xml:space="preserve">
+    <value>Weight Station State</value>
+  </data>
+  <data name="Maintenance_Module_Weight.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="Maintenance_Module_Weight.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="Maintenance_Module_Weight.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Maintenance_Module_Weight.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Maintenance_Module_Weight.Location" type="System.Drawing.Point, System.Drawing">
+    <value>632, 3</value>
+  </data>
+  <data name="Maintenance_Module_Weight.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>10, 3, 0, 3</value>
+  </data>
+  <data name="Maintenance_Module_Weight.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 100</value>
+  </data>
+  <data name="Maintenance_Module_Weight.TabIndex" type="System.Int32, mscorlib">
+    <value>73</value>
+  </data>
+  <data name="&gt;&gt;Maintenance_Module_Weight.Name" xml:space="preserve">
+    <value>Maintenance_Module_Weight</value>
+  </data>
+  <data name="&gt;&gt;Maintenance_Module_Weight.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Maintenance_Module_Weight.Parent" xml:space="preserve">
+    <value>Tab_Maintenance</value>
+  </data>
+  <data name="&gt;&gt;Maintenance_Module_Weight.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="Maintenance_Button_StartStop.AccessibleDescription" xml:space="preserve">
+    <value>Starts or stop the calibrating process of the connected module</value>
+  </data>
+  <data name="Maintenance_Button_StartStop.AccessibleName" xml:space="preserve">
+    <value>Calibration Enable</value>
+  </data>
+  <data name="Maintenance_Button_StartStop.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="Maintenance_Button_StartStop.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Maintenance_Button_StartStop.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Maintenance_Button_StartStop.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 3</value>
+  </data>
+  <data name="Maintenance_Button_StartStop.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 100</value>
+  </data>
+  <data name="Maintenance_Button_StartStop.TabIndex" type="System.Int32, mscorlib">
+    <value>69</value>
+  </data>
+  <data name="&gt;&gt;Maintenance_Button_StartStop.Name" xml:space="preserve">
+    <value>Maintenance_Button_StartStop</value>
+  </data>
+  <data name="&gt;&gt;Maintenance_Button_StartStop.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Maintenance_Button_StartStop.Parent" xml:space="preserve">
+    <value>Tab_Maintenance</value>
+  </data>
+  <data name="&gt;&gt;Maintenance_Button_StartStop.ZOrder" xml:space="preserve">
+    <value>7</value>
   </data>
   <data name="Tab_Maintenance.ImageKey" xml:space="preserve">
     <value>Maintenance_Disabled_Filled.png</value>
@@ -2150,7 +3791,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAB2
-        ZgAAAk1TRnQBSQFMAgEBKQEAAWgBAgFoAQIBIAEAASABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        ZgAAAk1TRnQBSQFMAgEBKQEAAWgBAwFoAQMBIAEAASABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABgAMAAWABAQIAAQEBAAEIBgABsBgAAYACAAGAAwACgAEAAYADAAGAAQABgAEAAoACAAPAAQABwAHc
         AcABAAHwAcoBpgEAATMFAAEzAQABMwEAATMBAAIzAgADFgEAAxwBAAMiAQADKQEAA1UBAANNAQADQgEA
         AzkBAAGAAXwB/wEAAlAB/wEAAZMBAAHWAQAB/wHsAcwBAAHGAdYB7wEAAdYC5wEAAZABqQGtAgAB/wEz

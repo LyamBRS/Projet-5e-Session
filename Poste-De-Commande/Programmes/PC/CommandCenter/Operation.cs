@@ -188,7 +188,7 @@ namespace CommandCenter
         //#############################################################//
         /// <summary>
         /// Updates the pause/play mode button present inside the
-        /// Tab_Operation according to bunch of parameters.
+        /// entire application
         /// </summary>
         //#############################################################//
         public void Update_Button_StartStop()
@@ -254,8 +254,8 @@ namespace CommandCenter
         }
         //#############################################################//
         /// <summary>
-        /// Updates the sorting factory's mode button present inside the
-        /// Tab_Operation according to bunch of parameters.
+        /// Updates the sorting factory's mode buttons present inside 
+        /// the entire applicationb
         /// </summary>
         //#############################################################//
         #region Modules
@@ -316,12 +316,13 @@ namespace CommandCenter
                     }
                 }
             }
+            CommandCenter.Technician.Buttons.SortingStation.State = CommandCenter.Operation.Buttons.SortingStation.State;
             CommandCenter.Operation.Overview.SortingStation.State = CommandCenter.Operation.Buttons.SortingStation.State;
         }
         //#############################################################//
         /// <summary>
-        /// Updates the vehicle's mode button present inside the
-        /// Tab_Operation according to bunch of parameters.
+        /// Updates the vehicle's mode buttons present inside the
+        /// entire application
         /// </summary>
         //#############################################################//
         public void Update_ModuleIcon_Vehicle()
@@ -381,12 +382,13 @@ namespace CommandCenter
                     }
                 }
             }
+            CommandCenter.Technician.Buttons.Vehicle.State = CommandCenter.Operation.Buttons.Vehicle.State;
             CommandCenter.Operation.Overview.Vehicle.State = CommandCenter.Operation.Buttons.Vehicle.State;
         }
         //#############################################################//
         /// <summary>
         /// Updates the weight station's mode button present inside the
-        /// Tab_Operation according to bunch of parameters.
+        /// entire application
         /// </summary>
         //#############################################################//
         public void Update_ModuleIcon_Weight()
@@ -446,6 +448,7 @@ namespace CommandCenter
                     }
                 }
             }
+            CommandCenter.Technician.Buttons.WeightStation.State = CommandCenter.Operation.Buttons.WeightStation.State;
             CommandCenter.Operation.Overview.WeightStation.State = CommandCenter.Operation.Buttons.WeightStation.State;
         }
         #endregion Modules
@@ -551,7 +554,6 @@ namespace CommandCenter
                 Debug.Aborted("USB is closed, the Mode cannot be set to be an emergency Stop");
                 NewUserTextInfo(UserInfos.ComPort.IsOffline,2);
             }
-
             Update_OperationTab();
             BRS.Debug.Header(false);
         }
@@ -1136,20 +1138,6 @@ namespace CommandCenter
         #endregion DiscColorStuff
 
         #region Scale
-        /// <summary>
-        /// Class containing the colors to use when displaying the
-        /// weight gotten from the scale on the screen. These colos
-        /// are exactly matched with icons used throughout this
-        /// application
-        /// </summary>
-        public static class WeightColors
-        {
-            public static Color Active = Color.FromArgb(64, 192, 87);
-            public static Color Disabled = Color.FromArgb(77,77,77);
-            public static Color Warning = Color.FromArgb(250,176,5);
-            public static Color Error = Color.FromArgb(250, 82, 82);
-            public static Color Inactive = Color.FromArgb(115, 115, 115);
-        }
         //#############################################################//
         /// <summary>
         /// Update the displayed weight depending on ModuleData_Weight
@@ -1166,69 +1154,101 @@ namespace CommandCenter
                 {
                     byte weight = ModuleData_WeightStation.Current.Weight;
 
-                    bool useImperial = ModuleData_WeightStation.Received.Values.unit_Imperial == DataState.Received;
-                    bool useMetric = ModuleData_WeightStation.Received.Values.unit_Metric == DataState.Received;
-                    bool bothReceived = useImperial && useMetric;
-                    bool noneReceived = !(useImperial || useMetric);
-
-                    //--------------------------------------------------//
-                    if (noneReceived)
+                    if (weight == Weight_Offline)
                     {
-
+                        Weight = WeightInfos.isOffline;
                     }
-                    //--------------------------------------------------//
-                    if (bothReceived)
+                    else
                     {
+                        //--------------------------------------------------// Display empty or the actual weight
+                        if (weight == Weight_ScaleEmpty)
+                        {
+                            Weight = WeightInfos.isEmpty;
+                        }
+                        else
+                        {
+                            Weight = weight.ToString();
+                        }
 
-                    }
-                    //--------------------------------------------------//
-                    if (useImperial)
-                    {
+                        //--------------------------------------------------//
+                        if (ModuleData_WeightStation.IsWeightUnitCorrect(WeightUnits.None))
+                        {
+                            Weight = Weight + WeightInfos.Units.UnknownUnit;
+                        }
+                        //--------------------------------------------------//
+                        else
+                        {
+                            if (ModuleData_WeightStation.IsWeightUnitCorrect(WeightUnits.Multiple))
+                            {
+                                Weight = Weight + WeightInfos.Units.UnknownUnit;
+                                ModuleData_WeightStation.Reset_WeightDatas();
+                            }
+                            //--------------------------------------------------//
+                            else
+                            {
+                                WeightUnits currentlyWanted = DropDown_ScaleUnit.Text.Contains("Metric") ? WeightUnits.Metric : WeightUnits.Imperial;
 
-                    }
-                    //--------------------------------------------------//
-                    if (useMetric)
-                    {
-
+                                if (ModuleData_WeightStation.IsWeightUnitCorrect(currentlyWanted))
+                                {
+                                    if(currentlyWanted == WeightUnits.Imperial)
+                                    {
+                                        Weight = Weight + WeightInfos.Units.Imperial;
+                                    }
+                                    else
+                                    {
+                                        Weight = Weight + WeightInfos.Units.Metric;
+                                    }
+                                }
+                                else
+                                {
+                                    Weight = WeightInfos.isError;
+                                }
+                            }
+                        }
                     }
                 }
                 else
                 {
-                    Weight = WeightInfos.isOnlineButNoValue;
-                    //Weight = Weight + (DropDown_ScaleUnit.Text.Contains("Metric") ? " KG" : "LB");
+                    Weight = WeightInfos.isOffline;
                     Operation_Weight_Label.ForeColor = Color.DarkGray;
                 }
             }
             else
             {
                 Weight = WeightInfos.isOffline;
-                //Weight = Weight + (DropDown_ScaleUnit.Text.Contains("Metric") ? " KG" : "LB");
             }
-
-            switch(CommandCenter.Operation.Buttons.WeightStation.State)
+            //----------------------------------------------------------//
+            // Display the correct color for the weight label
+            //----------------------------------------------------------//
+            switch (CommandCenter.Operation.Buttons.WeightStation.State)
             {
                 case (ControlState.Active):
-                    Operation_Weight_Label.ForeColor = WeightColors.Active;
+                    Operation_Weight_Label.ForeColor = ControlStateColors.Active;
                     break;
 
                 case (ControlState.Disabled):
-                    Operation_Weight_Label.ForeColor = WeightColors.Disabled;
+                    Operation_Weight_Label.ForeColor = ControlStateColors.Disabled;
                     break;
 
                 case (ControlState.Inactive):
-                    Operation_Weight_Label.ForeColor = WeightColors.Inactive;
+                    Operation_Weight_Label.ForeColor = ControlStateColors.Inactive;
                     break;
 
                 case (ControlState.Warning):
-                    Operation_Weight_Label.ForeColor = WeightColors.Warning;
+                    Operation_Weight_Label.ForeColor = ControlStateColors.Warning;
                     break;
 
                 case (ControlState.Error):
-                    Operation_Weight_Label.ForeColor = WeightColors.Error;
+                    Operation_Weight_Label.ForeColor = ControlStateColors.Error;
                     break;
             }
-
-            if(Operation_Weight_Label.Text != Weight)
+            //------------------------------------------------------------//
+            // Only update the text if it differs from what's currently
+            // shown. Note that this doesn't increase performences at all..
+            // it's there just to prevent visual glitches from repetitive
+            // updating
+            //------------------------------------------------------------//
+            if (Operation_Weight_Label.Text != Weight)
             {
                 Operation_Weight_Label.Text = Weight;
             }

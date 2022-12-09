@@ -64,6 +64,25 @@ namespace CommandCenter
             CommandCenter.Operation.Overview.WeightStation = new GenericButton(Overview_WeightStation, OverviewColors, Icons.Balance.GetStatesBitmaps());
             CommandCenter.Operation.Overview.SortingStation = new GenericButton(Overview_SortingStation, OverviewColors, Icons.Sorting.GetStatesBitmaps());
             #endregion Index_Operation
+            #region Index_Calibration
+            CommandCenter.Calibration.Buttons.Calibration = new GenericButton(Calibration_Button_StartStop, Icons.Calibration.GetStatesColors(), Icons.Calibration.GetStatesBitmaps());
+            CommandCenter.Calibration.Buttons.Global = new GenericButton(Calibration_Module_All, Icons.EveryModules.GetStatesColors(), Icons.EveryModules.GetStatesBitmaps());
+            CommandCenter.Calibration.Buttons.Vehicle = new GenericButton(Calibration_Module_Vehicle, Icons.Vehicle.GetStatesColors(), Icons.Vehicle.GetStatesBitmaps());
+            CommandCenter.Calibration.Buttons.WeightStation = new GenericButton(Calibration_Module_Weight, Icons.Balance.GetStatesColors(), Icons.Balance.GetStatesBitmaps());
+            CommandCenter.Calibration.Buttons.SortingStation = new GenericButton(Calibration_Module_Sorting, Icons.Sorting.GetStatesColors(), Icons.Sorting.GetStatesBitmaps());
+            CommandCenter.Calibration.Buttons.ClearTerminal = new GenericButton(Calibration_Clear_Logs, Icons.Save.GetStatesColors(), Icons.Save.GetStatesBitmaps());
+            CommandCenter.Calibration.Buttons.SaveTerminal = new GenericButton(Calibration_Save_Logs, Icons.Terminal.GetStatesColors(), Icons.Terminal.GetStatesBitmaps());
+            #endregion Index_Calibration
+            #region Index_Maintenance
+            CommandCenter.Maintenance.Buttons.Maintenance = new GenericButton(Maintenance_Button_StartStop, Icons.Maintenance.GetStatesColors(), Icons.Maintenance.GetStatesBitmaps());
+            CommandCenter.Maintenance.Buttons.Global = new GenericButton(Maintenance_Module_All, Icons.EveryModules.GetStatesColors(), Icons.EveryModules.GetStatesBitmaps());
+            CommandCenter.Maintenance.Buttons.Vehicle = new GenericButton(Maintenance_Module_Vehicle, Icons.Vehicle.GetStatesColors(), Icons.Vehicle.GetStatesBitmaps());
+            CommandCenter.Maintenance.Buttons.WeightStation = new GenericButton(Maintenance_Module_Weight, Icons.Balance.GetStatesColors(), Icons.Balance.GetStatesBitmaps());
+            CommandCenter.Maintenance.Buttons.SortingStation = new GenericButton(Maintenance_Module_Sorting, Icons.Sorting.GetStatesColors(), Icons.Sorting.GetStatesBitmaps());
+            CommandCenter.Maintenance.Buttons.ClearTerminal = new GenericButton(Maintenance_Clear_Logs, Icons.Terminal.GetStatesColors(), Icons.Terminal.GetStatesBitmaps());
+            CommandCenter.Maintenance.Buttons.SaveTerminal = new GenericButton(Maintenance_Save_Logs, Icons.Save.GetStatesColors(), Icons.Save.GetStatesBitmaps());
+
+            #endregion Index_Maintenance
             Debug.Success("");
             //----------------------------------------------------------
             BRS.Debug.Comment("Toggeling Dynamic Buttons animations states...");
@@ -105,6 +124,24 @@ namespace CommandCenter
             CommandCenter.Operation.Overview.WeightStation.Animated = false;
             CommandCenter.Operation.Overview.SortingStation.Animated = false;
             #endregion Index_Operation
+            #region Index_Calibration
+            CommandCenter.Calibration.Buttons.Calibration.Animated = true;
+            CommandCenter.Calibration.Buttons.Global.Animated = true;
+            CommandCenter.Calibration.Buttons.Vehicle.Animated = true;
+            CommandCenter.Calibration.Buttons.WeightStation.Animated = true;
+            CommandCenter.Calibration.Buttons.SortingStation.Animated = true;
+            CommandCenter.Calibration.Buttons.ClearTerminal.Animated = true;
+            CommandCenter.Calibration.Buttons.SaveTerminal.Animated = true;
+            #endregion Index_Calibration
+            #region Index_Maintenance
+            CommandCenter.Maintenance.Buttons.Maintenance.Animated = true;
+            CommandCenter.Maintenance.Buttons.Global.Animated = true;
+            CommandCenter.Maintenance.Buttons.Vehicle.Animated = true;
+            CommandCenter.Maintenance.Buttons.WeightStation.Animated = true;
+            CommandCenter.Maintenance.Buttons.SortingStation.Animated = true;
+            CommandCenter.Maintenance.Buttons.ClearTerminal.Animated = true;
+            CommandCenter.Maintenance.Buttons.SaveTerminal.Animated = true;
+            #endregion Index_Maintenance
             Debug.Success("");
             //----------------------------------------------------------
             BRS.Debug.Comment("Setting Dynamic buttons initial values...");
@@ -137,6 +174,24 @@ namespace CommandCenter
             CommandCenter.Operation.Overview.WeightStation.State             = ControlState.Inactive;
             CommandCenter.Operation.Overview.SortingStation.State            = ControlState.Inactive;
             #endregion Index_Operation
+            #region Index_Calibration
+            CommandCenter.Calibration.Buttons.Calibration.State = ControlState.Disabled;
+            CommandCenter.Calibration.Buttons.Global.State = ControlState.Disabled;
+            CommandCenter.Calibration.Buttons.Vehicle.State = ControlState.Disabled;
+            CommandCenter.Calibration.Buttons.WeightStation.State = ControlState.Disabled;
+            CommandCenter.Calibration.Buttons.SortingStation.State = ControlState.Disabled;
+            CommandCenter.Calibration.Buttons.ClearTerminal.State = ControlState.Inactive;
+            CommandCenter.Calibration.Buttons.SaveTerminal.State = ControlState.Inactive;
+            #endregion Index_Calibration
+            #region Index_Maintenance
+            CommandCenter.Maintenance.Buttons.Maintenance.State = ControlState.Disabled;
+            CommandCenter.Maintenance.Buttons.Global.State = ControlState.Disabled;
+            CommandCenter.Maintenance.Buttons.Vehicle.State = ControlState.Disabled;
+            CommandCenter.Maintenance.Buttons.WeightStation.State = ControlState.Disabled;
+            CommandCenter.Maintenance.Buttons.SortingStation.State = ControlState.Disabled;
+            CommandCenter.Maintenance.Buttons.ClearTerminal.State = ControlState.Inactive;
+            CommandCenter.Maintenance.Buttons.SaveTerminal.State = ControlState.Inactive;
+            #endregion Index_Maintenance
             Debug.Success("");
             #endregion DynamicButtons
             /////////////////////////////////////////////////////////////
@@ -201,13 +256,31 @@ namespace CommandCenter
             OperationLogs.Window = new Terminal(Operation_Logs, this);
             OperationLogs.Window.ShowTX = false;
 
+            CommandCenter.Technician.terminal = new Terminal(Technician_Logs, this);
+            CommandCenter.Technician.terminal.ShowTX = false;
+
+            CommandCenter.Calibration.terminal = new Terminal(Calibration_Logs, this);
+            CommandCenter.Calibration.terminal.ShowTX = false;
+
+            CommandCenter.Maintenance.terminal = new Terminal(Maintenance_Logs, this);
+            CommandCenter.Maintenance.terminal.ShowTX = false;
+
             OperationLogs.Window.SavingFolder = "Operation";
             CommandCenter.terminal.SavingFolder = "BeagleBone";
-            
+            CommandCenter.Technician.terminal.SavingFolder = "Technician";
+            CommandCenter.Maintenance.terminal.SavingFolder = "Maintenance";
+            CommandCenter.Calibration.terminal.SavingFolder = "Calibration";
+
             BRS.ComPort.createInfoReceivedEvent();
             BRS.ComPort.DataReceivedAction = CommandCenter.terminal.DataReceiverHandling;
             Debug.Success();
             #endregion Terminal
+
+            #region Technician
+            Technician_Initialise();
+            MasterProtocol.scaleUnit = DropDown_ScaleUnit.Text.Contains("Metric") ? Commands_Ref.units_Metric : Commands_Ref.units_Imperial;
+            #endregion Technician
+
             BRS.Debug.Header(false);
         }
         //#############################################################//
@@ -224,10 +297,10 @@ namespace CommandCenter
             BRS.Debug.Comment("Changing user header info...");
             switch (style)
             {
-                case 0: UserInfo.ForeColor = Color.FromArgb(100, 100, 100); break; // Neutral
-                case 1: UserInfo.ForeColor = Color.FromArgb(60, 255, 60); break; // Good!
-                case 2: UserInfo.ForeColor = Color.FromArgb(255, 60, 60); break; // Bad
-                case 3: UserInfo.ForeColor = Color.FromArgb(255, 125, 60); break; // Attempting
+                case 0: UserInfo.ForeColor = ControlStateColors.Inactive; break; // Neutral
+                case 1: UserInfo.ForeColor = ControlStateColors.Active; break; // Good!
+                case 2: UserInfo.ForeColor = ControlStateColors.Error; break; // Bad
+                case 3: UserInfo.ForeColor = ControlStateColors.Warning; break; // Attempting
             }
 
             UserInfo.Text = info;
@@ -241,7 +314,8 @@ namespace CommandCenter
         }
         //#############################################################// 
         /// <summary>
-        /// Show the user which mode we are currently in.
+        /// Show the user which mode we are currently in. Will be a
+        /// warning color if the current mode is simulated
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -251,30 +325,43 @@ namespace CommandCenter
             BRS.Debug.Header(true);
             BRS.Debug.Comment("Displaying which mode the command center is currently in...");
 
+            BRS.Debug.Comment("Checking if master protocol is active");
             if (MasterProtocol.isActive)
             {
-                switch (MasterProtocol.mode)
+                byte modeToCheck = MasterProtocol.mode;
+                BRS.Debug.Comment("Checking if technician mode is active");
+                if(Technician.isActive && Technician.SimulateModes)
+                {
+                    Debug.Success("Using simulated mode as button answer");
+                    modeToCheck = Convert.ToByte(Technician.SelectedIndexes.Mode);
+                }
+
+                switch (modeToCheck)
                 {
                     case (0x00):
-                        NewUserTextInfo(UserInfos.Modes.IsEmergency, 2);
+                        NewUserTextInfo(UserInfos.Modes.IsEmergency, 1);
                         break;
                     case (0x01):
-                        NewUserTextInfo(UserInfos.Modes.IsPaused, 2);
+                        NewUserTextInfo(UserInfos.Modes.IsPaused, 1);
                         break;
                     case (0x02):
-                        NewUserTextInfo(UserInfos.Modes.IsTesting, 2);
+                        NewUserTextInfo(UserInfos.Modes.IsTesting, 1);
                         break;
                     case (0x03):
-                        NewUserTextInfo(UserInfos.Modes.IsMaintenance, 2);
+                        NewUserTextInfo(UserInfos.Modes.IsMaintenance, 1);
                         break;
                     case (0x04):
-                        NewUserTextInfo(UserInfos.Modes.IsOperating, 2);
+                        NewUserTextInfo(UserInfos.Modes.IsOperating, 1);
                         break;
                     case (0x05):
-                        NewUserTextInfo(UserInfos.Modes.IsCalibrating, 2);
+                        NewUserTextInfo(UserInfos.Modes.IsCalibrating, 1);
                         break;
                     case (0x06):
-                        NewUserTextInfo(UserInfos.Modes.IsInitialising, 2);
+                        NewUserTextInfo(UserInfos.Modes.IsInitialising, 1);
+                        break;
+
+                    default:
+                        NewUserTextInfo(UserInfos.Modes.DoesntExist, 2);
                         break;
                 }
             }
@@ -317,8 +404,9 @@ namespace CommandCenter
         /// </summary>
         /// <param name="mode"></param>
         //#############################################################//
-        public void SetGlobalModeTo(WantedMode mode)
+        public bool SetGlobalModeTo(WantedMode mode)
         {
+            bool worked = false;
             BRS.Debug.Header(true);
             BRS.Debug.Comment("Parsing new wanted mode...");
             if(BRS.ComPort.Port.IsOpen)
@@ -348,6 +436,7 @@ namespace CommandCenter
                                     ModuleData_SortingStation.SetNewMode(Modes_Ref.operation);
                                     ModuleData_WeightStation.SetNewMode(Modes_Ref.operation);
                                     ModuleData_Vehicle.SetNewMode(Modes_Ref.operation);
+                                    worked = true;
                                 }
                                 else
                                 {
@@ -362,6 +451,7 @@ namespace CommandCenter
                                         ModuleData_SortingStation.SetNewMode(Modes_Ref.operation);
                                         ModuleData_WeightStation.SetNewMode(Modes_Ref.operation);
                                         ModuleData_Vehicle.SetNewMode(Modes_Ref.operation);
+                                        worked = true;
                                     }
                                 }
                             }
@@ -398,6 +488,7 @@ namespace CommandCenter
                                     NewUserTextInfo(UserInfos.Modes.EmergencyDisabled, 2);
                                     OperationLogs.Window.Log_header(LogsInfos.Operations.NoMoreEmergency);           
                                     OperationLogs.Window.Log_Warning(LogsInfos.Operations.NowPaused);
+                                    worked = true;
                                 }
                                 else
                                 {
@@ -415,6 +506,7 @@ namespace CommandCenter
                                 ModuleData_SortingStation.SetNewMode(Modes_Ref.pause);
                                 ModuleData_WeightStation.SetNewMode(Modes_Ref.pause);
                                 ModuleData_Vehicle.SetNewMode(Modes_Ref.pause);
+                                worked = true;
                             }
                         }
                     }
@@ -441,6 +533,7 @@ namespace CommandCenter
                                     ModuleData_SortingStation.SetNewMode(Modes_Ref.maintenance);
                                     ModuleData_WeightStation.SetNewMode(Modes_Ref.maintenance);
                                     ModuleData_Vehicle.SetNewMode(Modes_Ref.maintenance);
+                                    worked = true;
                                 }
                                 else
                                 {
@@ -459,6 +552,7 @@ namespace CommandCenter
                                         ModuleData_SortingStation.SetNewMode(Modes_Ref.operation);
                                         ModuleData_WeightStation.SetNewMode(Modes_Ref.maintenance);
                                         ModuleData_Vehicle.SetNewMode(Modes_Ref.maintenance);
+                                        worked = true;
                                     }
                                 }
                             }
@@ -491,6 +585,7 @@ namespace CommandCenter
                                     ModuleData_SortingStation.SetNewMode(Modes_Ref.calibration);
                                     ModuleData_WeightStation.SetNewMode(Modes_Ref.calibration);
                                     ModuleData_Vehicle.SetNewMode(Modes_Ref.calibration);
+                                    worked = true;
                                 }
                                 else
                                 {
@@ -509,6 +604,7 @@ namespace CommandCenter
                                         ModuleData_SortingStation.SetNewMode(Modes_Ref.calibration);
                                         ModuleData_WeightStation.SetNewMode(Modes_Ref.calibration);
                                         ModuleData_Vehicle.SetNewMode(Modes_Ref.calibration);
+                                        worked = true;
                                     }
                                 }
                             }
@@ -531,6 +627,7 @@ namespace CommandCenter
                         ModuleData_WeightStation.SetNewMode(Modes_Ref.emergencyStop);
                         NewUserTextInfo(UserInfos.Modes.EmergencyEnabled, 2);
                         OperationLogs.Window.Log_header(LogsInfos.Operations.NowInEmergency);
+                        worked = true;
                     }
                     //--------------------------------------------------//
                     if (mode == WantedMode.Testing)
@@ -555,6 +652,7 @@ namespace CommandCenter
                                     ModuleData_SortingStation.SetNewMode(Modes_Ref.testing);
                                     ModuleData_WeightStation.SetNewMode(Modes_Ref.testing);
                                     ModuleData_Vehicle.SetNewMode(Modes_Ref.testing);
+                                    worked = true;
                                 }
                                 else
                                 {
@@ -573,6 +671,7 @@ namespace CommandCenter
                                         ModuleData_SortingStation.SetNewMode(Modes_Ref.testing);
                                         ModuleData_WeightStation.SetNewMode(Modes_Ref.testing);
                                         ModuleData_Vehicle.SetNewMode(Modes_Ref.testing);
+                                        worked = true;
                                     }
                                 }
                             }
@@ -605,6 +704,7 @@ namespace CommandCenter
                                     ModuleData_SortingStation.SetNewMode(Modes_Ref.reinitialisation);
                                     ModuleData_WeightStation.SetNewMode(Modes_Ref.reinitialisation);
                                     ModuleData_Vehicle.SetNewMode(Modes_Ref.reinitialisation);
+                                    worked = true;
                                 }
                                 else
                                 {
@@ -624,6 +724,7 @@ namespace CommandCenter
                                         ModuleData_SortingStation.SetNewMode(Modes_Ref.reinitialisation);
                                         ModuleData_WeightStation.SetNewMode(Modes_Ref.reinitialisation);
                                         ModuleData_Vehicle.SetNewMode(Modes_Ref.reinitialisation);
+                                        worked = true;
                                     }
                                 }
                             }
@@ -647,8 +748,25 @@ namespace CommandCenter
             }
             UpdateModeIcons();
             BRS.Debug.Header(false);
+            return worked;
         }
         #endregion SetMode
+
+
+        /// <summary>
+        /// Class containing the colors to use when displaying the
+        /// weight gotten from the scale on the screen. These colos
+        /// are exactly matched with icons used throughout this
+        /// application
+        /// </summary>
+        public static class ControlStateColors
+        {
+            public static Color Active = Color.FromArgb(64, 192, 87);
+            public static Color Disabled = Color.FromArgb(77, 77, 77);
+            public static Color Warning = Color.FromArgb(250, 176, 5);
+            public static Color Error = Color.FromArgb(250, 82, 82);
+            public static Color Inactive = Color.FromArgb(115, 115, 115);
+        }
     }
 
     //#############################################################//
@@ -704,7 +822,70 @@ namespace CommandCenter
                 public static GenericButton WeightStation;
             }
         }
+        /// <summary>
+        /// Class containing all the buttons specific to the
+        /// Technician tab
+        /// </summary>
+        public class Technician
+        {
+            public class Buttons
+            {
+                public static GenericButton Vehicle;
+                public static GenericButton SortingStation;
+                public static GenericButton WeightStation;
+                public static GenericButton ClearTerminal;
+                public static GenericButton SaveTerminal;
 
+                public static GenericButton SendConfig;
+                public static GenericButton ClearAfterSend;
+                public static GenericButton SimulateModes;
+                public static GenericButton KeepCanOn;
+
+                public static GenericButton TechMode;
+            }
+
+            public static Terminal terminal;
+        }
+        /// <summary>
+        /// Class containing all the buttons specific to the
+        /// Calibration tab
+        /// </summary>
+        public class Calibration
+        {
+            public class Buttons
+            {
+                public static GenericButton Vehicle;
+                public static GenericButton SortingStation;
+                public static GenericButton WeightStation;
+                public static GenericButton Global;
+                public static GenericButton ClearTerminal;
+                public static GenericButton SaveTerminal;
+
+                public static GenericButton Calibration;
+            }
+
+            public static Terminal terminal;
+        }
+        /// <summary>
+        /// Class containing all the buttons specific to the
+        /// Calibration tab
+        /// </summary>
+        public class Maintenance
+        {
+            public class Buttons
+            {
+                public static GenericButton Vehicle;
+                public static GenericButton SortingStation;
+                public static GenericButton WeightStation;
+                public static GenericButton Global;
+                public static GenericButton ClearTerminal;
+                public static GenericButton SaveTerminal;
+
+                public static GenericButton Maintenance;
+            }
+
+            public static Terminal terminal;
+        }
         public static RichTextBox tempo;
         /// <summary>
         /// The command center's terminal.

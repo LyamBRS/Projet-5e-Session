@@ -575,7 +575,7 @@ namespace BRS
             /// Third parameter of a lerp function. You'll need to tune it according to your timer's intervals
             /// 1 = Instant.
             /// </summary>
-            public float LerpingSpeed = 0.25f;
+            public float LerpingSpeed = 0.45f;
 
             /// <summary>
             /// Decides if your button should animate using Lerps.
@@ -853,6 +853,7 @@ namespace BRS
 
                 OriginalX = ButtonPos.X;
                 OriginalY = ButtonPos.Y;
+                Update();
             }
             //#############################################################//
             //#############################################################//

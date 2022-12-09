@@ -844,6 +844,7 @@ namespace CommandCenter
             if(Settings.Scale_Unit(DropDown_ScaleUnit.Text))
             {
                 NewUserTextInfo(UserInfos.Settings.SavedWeightStationUnit, 1);
+                MasterProtocol.scaleUnit = DropDown_ScaleUnit.Text.Contains("Metric") ? Commands_Ref.units_Metric : Commands_Ref.units_Imperial;
             }
             else
             {
