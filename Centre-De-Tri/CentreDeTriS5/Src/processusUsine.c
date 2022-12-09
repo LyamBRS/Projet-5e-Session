@@ -21,6 +21,7 @@
 #include "interfaceT4.h"
 #include "interfaceUsine.h"
 #include "interfaceColonne.h"
+#include "interfacePont.h"
 #include "interfaceB1.h"
 //Definitions privees
 //Les unités des valeurs de délai suivantes corerespondent à la base de temps : 1/2ms

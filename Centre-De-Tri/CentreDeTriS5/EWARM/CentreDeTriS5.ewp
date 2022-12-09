@@ -1076,6 +1076,12 @@
             <group>
                 <name>INTERFACES</name>
                 <file>
+                    <name>$PROJ_DIR$\..\Src\interfaceAscenseur.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\Src\interfaceAscenseur.h</name>
+                </file>
+                <file>
                     <name>$PROJ_DIR$\..\Src\interfaceB1.c</name>
                 </file>
                 <file>
@@ -1098,6 +1104,12 @@
                 </file>
                 <file>
                     <name>$PROJ_DIR$\..\Src\interfaceLcd.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\Src\interfacePont.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\Src\interfacePont.h</name>
                 </file>
                 <file>
                     <name>$PROJ_DIR$\..\Src\interfaceT1.c</name>

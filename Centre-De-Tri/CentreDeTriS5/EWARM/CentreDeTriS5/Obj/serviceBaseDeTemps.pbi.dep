@@ -42,4 +42,6 @@ serviceBaseDeTemps.pbi: \
   C:\IAR\ARM\8.50\arm\inc\c\string.h \
   C:\IAR\ARM\8.50\arm\inc\c\DLib_Product_string.h \
   C:\Projet\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/piloteTimer6Up.h \
+  C:\Projet\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/interfacePont.h \
+  C:\Projet\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/interfaceAscenseur.h \
   C:\Projet\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/serviceBaseDeTemps.h

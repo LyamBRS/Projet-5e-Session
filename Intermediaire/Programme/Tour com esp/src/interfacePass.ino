@@ -44,15 +44,19 @@ void interfacePassUartToUDP(void)
   //transUDP(serviceProtocole637.octetsRecus, 8);
 
   ucData = piloteUART2_RX();
-
   if(ucData == 255)
   {
     //bruh moment
     return;
   }
+  else
+  {
+      printf("\nla criss de donnée: %i\n",ucData);
+  }
 
   if(ucData == 0x08)
   {
+    printf("Lenght RX\n");
     ucLongueur = 1;
     i = 0;
   }

@@ -5,6 +5,8 @@
 //INCLUSIONS
 #include "main.h"
 #include "piloteTimer6Up.h"
+#include "interfacePont.h"
+#include "interfaceAscenseur.h"
 #include "serviceBaseDeTemps.h"
 
 //Definitions privees
@@ -19,13 +21,27 @@ void serviceBaseDeTemps_gere(void);
 //Definitions de fonctions privees:
 void serviceBaseDeTemps_gere(void)
 {
+static unsigned char compteurPont = 0; 
+static unsigned char compteurAscenseur = 0; 
 unsigned char i;
+  compteurPont++;
+  compteurAscenseur++;
+  BaseDeTempsPont(&compteurPont);
+  interfaceAscenseur_BaseDeTemps(&compteurAscenseur);
   for (i = 0; i < SERVICEBASEDETEMPS_NOMBRE_DE_PHASES; i++)
   {
     serviceBaseDeTemps_execute[i]();
   }
+  if(compteurPont >= SERVICEBASEDETEMPS_NOMBRE_DE_PHASES_PONT)
+  {
+    compteurPont = 0;
+  }
+  if(compteurAscenseur >= SERVICEBASEDETEMPS_NOMBRE_DE_PHASES_ASCENSEUR)
+  {
+    compteurAscenseur = 0;
+  }
 }
-    
+  
 //Definitions de variables publiques:
 void (*serviceBaseDeTemps_execute[SERVICEBASEDETEMPS_NOMBRE_DE_PHASES])(void);
 

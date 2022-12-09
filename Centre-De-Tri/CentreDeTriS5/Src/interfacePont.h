@@ -1,20 +1,16 @@
 #ifndef INTERFACEPONT_H
 #define INTERFACEPONT_H
 
-//MODULE: interfaceT4
-//DESCRIPTION: pour interagir avec un temoin lumineux T4 relie a un STM32F407. 
+//MODULE: interfacePont
+//DESCRIPTION: pour interagir avec le pont relie a un STM32F407. 
 
 //HISTORIQUE:
-// 2018-09-30, Yves Roy, creation
+// 2022-12-08, Karl Naudin, creation
 
 //DEFINITIONS REQUISES PAR LE MODULE:
 //Dependances materielles
-//(copiez et adaptez ce qui suit dans "main.h")
-//#define INTERFACET4_VALEUR_POUR_ALLUMER  1   
-//#define INTERFACET4_VALEUR_POUR_ETEINDRE 0
 
 //Dependances logicielles
-//(copiez et adaptez ce qui suit dans "main.h")
 //pas de dependances logicielles
 
 //INFORMATION PUBLIQUE:
@@ -22,10 +18,15 @@
 //pas de definitions publiques
 
 //Fonctions publiques:
+void BaseDeTempsPont(unsigned char *ucLisBaseTempsPont);
 bool interfacePont_Position0(void);
 bool interfacePont_Position1(void);
 bool interfacePont_Position2(void);
 void interfacePont_initialise(void);
+extern void (*interfacePont_execute)(void);
+extern unsigned char ucPosition;
+extern unsigned char ucResultatDeplacement;
+extern unsigned char ucError;
 
 //Variables publiques:
 //pas de variables publiques
