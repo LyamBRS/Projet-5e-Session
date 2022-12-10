@@ -23,9 +23,10 @@ void processusPesage_attendFinDepot(void);
 void processusPesage_prepareMesureBalance(void);
 void processusPesage_attendLecture(void);
 void processusPesage_repriseRondelle(void);
+void processusPesage_repriseRondellePart2(void);
 void processusPesage_disposeRondelle(void);
 void processusPesage_gere(void);
-
+void processusPesage_retourEtatInit(void);
 
 void processusPesage_initialise(void)
 {
@@ -259,71 +260,122 @@ void processusPesage_attendLecture(void)
 
 void processusPesage_repriseRondelle(void)
 {
-    /////////////////////////////////////////////////////
-    //
-    //      ATTENTION PROBLEME A REGLER
-    //
-    ////////////////////////////////////////////////////////
+    memset(reponse, 0, 64); // On vide le buffer de réponse 
+    
     interfaceBras_recoitUneReponse(reponse,64);
     printf("%s", reponse);
     fflush(stdout);
+    
+    /*
     if(reponse[0] != '$')  // On attend d'avoir recu la réponse du bras qui confirme qu'il est REDESCENDU
     {
         return;
     }
     
-    sprintf(commande, "#1 M2231 V1\n");
+    */
+    
+    if(compteur <= 1000) // Délais pour attendre avant d'envoyer une autre commande au bras
+    {
+        compteur++;
+        return;
+    }
+    
+    sprintf(commande, "#1 M2231 V1\n");   // ON allume la ventouse
     interfaceBras_ecritUneCommande(commande, sizeof commande);
     memset(commande, 0, 64);
     
-    if(compteur <= 600) // Délais pour attendre avant d'envoyer une autre commande au bras
+    compteur = 0;
+    serviceBaseDeTemps_execute[PROCESSUSPESAGE_PHASE] = processusPesage_repriseRondellePart2;
+}
+
+
+void processusPesage_repriseRondellePart2(void)
+{
+    if(compteur <= 1000) // Délais pour attendre avant d'envoyer une autre commande au bras
     {
         compteur++;
         return;
     }
     
     // quand le delais est fini on envoie un autre commande
-    compteur = 0;
+    interfaceBras_recoitUneReponse(reponse,64);  // On lit la reponse meme si on l'utilise pas 
+    printf("%s", reponse);
+    fflush(stdout);
     
-    x2 = 172;  // Coordonné de lespace de stockage des rondelles
-    y2 = 268;
-    sprintf(commande, "#1 G0 X%d Y%d Z-86 F8000\n", x2, y2);   // on envoie une commande pour qu'il remonte avec la rondelle
+    sprintf(commande, "#1 G0 X%d Y%d Z100 F8000\n", x2, y2);   // on envoie une commande pour qu'il remonte avec la rondelle
     interfaceBras_ecritUneCommande(commande, sizeof commande);
     memset(commande, 0, 64);
     
-    
-    serviceBaseDeTemps_execute[PROCESSUSPESAGE_PHASE] = processusPesage_disposeRondelle;
+    compteur = 0;
+    serviceBaseDeTemps_execute[PROCESSUSPESAGE_PHASE] = processusPesage_disposeRondelle; 
 }
+
 
 void processusPesage_disposeRondelle(void)
 {
-    interfaceBras_recoitUneReponse(reponse,64);
-    printf("%s", reponse);
-    fflush(stdout);
+    
+    /*
     if(reponse[0] != '$')  // On attend d'avoir recu la réponse du bras qui confirme qu'il a monté avec la rondelle
     {
         return;
     }
-    
-    sprintf(commande, "#1 G0 X%d Y%d Z-60 F8000\n", x2, y2);  // Coordonné pour aller stocker la rondelle
-    interfaceBras_ecritUneCommande(commande, sizeof commande);
-    memset(commande, 0, 64);
-    
-    if(compteur <= 600) // Délais pour attendre avant d'envoyer une autre commande au bras
+    */
+    if(compteur <= 1000) // Délais pour attendre avant d'envoyer une autre commande au bras
     {
         compteur++;
         return;
     }
     
-    sprintf(commande, "#1 M2231 V0\n");    // Commande pour relacher la rondelle 
+    memset(reponse, 0, 64);
+    interfaceBras_recoitUneReponse(reponse,64);
+    printf("%s", reponse);
+    fflush(stdout);
+    
+    x2 = 200;  // Coordonné de lespace de stockage des rondelles
+    y2 = 150;
+    sprintf(commande, "#1 G0 X%d Y%d Z-86 F8000\n", x2, y2);  // Coordonné pour aller stocker la rondelle
     interfaceBras_ecritUneCommande(commande, sizeof commande);
     memset(commande, 0, 64);
     
+    compteur = 0;
     serviceBaseDeTemps_execute[PROCESSUSPESAGE_PHASE] = processusPesage_gere;
 }
 
 void processusPesage_gere(void)
 {
+    memset(reponse, 0, 64);
+    interfaceBras_recoitUneReponse(reponse,64);
+    printf("%s", reponse);
+    fflush(stdout);
     
+    if(compteur <= 3000) // Délais pour attendre que le bras soit en position
+    {
+        compteur++;
+        return;
+    }
+    
+    
+    sprintf(commande, "#2 M2231 V0\n");    // Commande pour relacher la rondelle 
+    interfaceBras_ecritUneCommande(commande, sizeof commande);
+    memset(commande, 0, 64);
+    
+    compteur = 0;
+    serviceBaseDeTemps_execute[PROCESSUSPESAGE_PHASE] = processusPesage_retourEtatInit;
+}
 
+void processusPesage_retourEtatInit(void)
+{
+    if(compteur <= 1000) // Délais pour attendre avant d'envoyer une autre commande au bras
+    {
+        compteur++;
+        return;
+    }
+    
+    sprintf(commande, "#1 G0 X200 Y0 Z100 F8000\n");    // Commande pour retourner en position d'init
+    interfaceBras_ecritUneCommande(commande, sizeof commande);
+    memset(commande, 0, 64);
+    compteur = 0;
+    
+    
+    serviceBaseDeTemps_execute[PROCESSUSPESAGE_PHASE] = processusPesage_attendUneRequete;
 }

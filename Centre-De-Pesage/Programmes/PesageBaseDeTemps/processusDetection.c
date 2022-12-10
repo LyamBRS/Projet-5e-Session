@@ -47,6 +47,7 @@ void processusDetection_initialise(void)
 
 void processusDetection_attendReponseInit(void)
 {
+    
     processusDetection_compteur ++;
     if(processusDetection_compteur != PROCESSUSDETECTION_COMPTEPOURREPONSE_INIT)
     {
@@ -70,6 +71,9 @@ void processusDetection_attendUneRequete(void)
         return;
     }
     
+    x = 200;
+    y = -100;
+    z = PROCESSUSDETECTION_HAUTEUR_DE_SCAN;
     
     processusDetection.etatDuModule = PROCESSUSDETECTION_MODULE_EN_FONCTION;
     serviceBaseDeTemps_execute[PROCESSUSDETECTION_PHASE] = processusDetection_Bouge;
@@ -208,7 +212,7 @@ void processusDetection_remonte(void)
 
     printf("processusDetection_remonte: processusDetection_NeFaitRien est la prochaine commande\n");
     processusDetection.requete = PROCESSUSDETECTION_REQUETE_TRAITE;
-    serviceBaseDeTemps_execute[PROCESSUSDETECTION_PHASE] = processusDetection_pese;
+    serviceBaseDeTemps_execute[PROCESSUSDETECTION_PHASE] = processusDetection_attendUneRequete;
 }
 
 void processusDetection_pese(void)
