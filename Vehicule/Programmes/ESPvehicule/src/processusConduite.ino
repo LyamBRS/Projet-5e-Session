@@ -1,7 +1,14 @@
 /**
  * @file processusConduite.ino
  * @author Camille Fortin  CamFo (camfortin2022@gmail.com)
- * @brief 
+ * 
+ * @brief Le processus Conduite est une phase du service base de temps qui est appeler 
+ *  à chaques périodes de la base de temps. Cela permet de démarrer une requête de conduite
+ *  depuis un autre processus quand il est nécessaire. Le processus conduite a pour but de
+ *  suivre la ligne noir installé au sol pour le projet de 5e session de TSO. Il utilise le \ref
+ *  xserviceTank.h ainsi que \ref xinterfaceSuiveur.h pour conduire le vehicule et détecter 
+ *  l'arrivé a destination.
+ *  
  * @version 0.1
  * @date 2022-11-21
  * 
@@ -23,25 +30,27 @@
 
 
 //Definitions de variables privees:
+/**
+ * @brief Variable qui sert a faire des délais dans le State Machine
+ *  puisque le programme fonctionne avec une base de temps
+ */
 unsigned long processusConduite_compteur;
+/**
+ * @brief Variable qui stock la valeur lu par le suiveur de ligne 
+ */
 unsigned char suiveurValue;
 
 //Definitions de fonctions privees:
 void processusConduite_attendUneRequete(void);
-void processusConduite_Reperage(void);
 void processusConduite_Gere(void);
-
 void processusConduite_ArriveTri(void);
 void processusConduite_ArrivePesage(void);
-void processusConduite_Positionnement(void);
-
-//Definitions de variables publiques:
 
 
-//FONCTION DU PROCESSUS
+// FONCTION DU PROCESSUS 
 
 /// @brief Méthode qui attend une requete pour suive la ligne
-/// @param  Aucun
+/// @param  void
 void processusConduite_attendUneRequete(void)
 { 
   if(processusConduite.requete != PROCESSUSCONDUITE_REQUETE_ACTIVE)
@@ -54,11 +63,9 @@ void processusConduite_attendUneRequete(void)
 }
 
 /// @brief Gere la lecture du suiveur et la direction dans lequel aller
-/// @param  Aucun
+/// @param  void
 void processusConduite_Gere(void)
 {
-
-
   suiveurValue = interfaceSuiveur_litOctet();
   switch (suiveurValue)
   {
@@ -89,31 +96,37 @@ void processusConduite_Gere(void)
   case 0xF0:  //1111 0000 0xF0 Grosse droite (1110 1111) 0xEF
     serviceTank_uturnDroit(PROCESSUSCONDUITE_VITESSESTANDARD);
     break; 
-  case 0xFF: //Si les 5 Capteur voit du NOIR, Le véhicule est arrivé
+  case 0xFF: //Si les 5 Capteur voit du NOIR, Le véhicule est arrivé au centre de pesage
+    
+    // On doit ajouter un test de dernier etat
     serviceBaseDeTemps_execute[PROCESSUSCONDUITE_PHASE] = processusConduite_ArrivePesage;
     break;
   case 0xF1:  //1111 0001 Valeur pour indiquer l'arrivé au centre de tri
+
+    // On doit ajouter un test de dernier etat
     serviceBaseDeTemps_execute[PROCESSUSCONDUITE_PHASE] = processusConduite_ArriveTri;
     break;
   }
 }
 
-
 /// @brief Méthode qui arrête le véhicule et qui attend une requête
-/// @param  
+/// @param  void
 void processusConduite_ArriveTri(void)
 {
   serviceTank_Arret();
+  processusConduite.dernierArrive = PROCESSUSCONDUITE_DERNIERETAT_TRI;
   processusConduite.etatDuModule = PROCESSUSCONDUITE_MODULE_ARRIVE_TRI;
   processusConduite.requete = PROCESSUSCONDUITE_REQUETE_TRAITE;
   serviceBaseDeTemps_execute[PROCESSUSCONDUITE_PHASE] = processusConduite_attendUneRequete;
   return;
 }
+
 /// @brief Méthode qui arrête le véhicule et qui attend une requête
-/// @param  
+/// @param  void
 void processusConduite_ArrivePesage(void)
 {
   serviceTank_Arret();
+  processusConduite.dernierArrive = PROCESSUSCONDUITE_DERNIERETAT_PESAGE;
   processusConduite.etatDuModule = PROCESSUSCONDUITE_MODULE_ARRIVE_PESAGE;
   processusConduite.requete = PROCESSUSCONDUITE_REQUETE_TRAITE;
   serviceBaseDeTemps_execute[PROCESSUSCONDUITE_PHASE] = processusConduite_attendUneRequete;
@@ -121,10 +134,11 @@ void processusConduite_ArrivePesage(void)
 }
 
 /// @brief Fonction d'initialisation du Processus Conduite 
-/// @param  
+/// @param  void
 void processusConduite_initialise(void)
 {
   serviceTank_Arret();
+  processusConduite.dernierArrive = PROCESSUSCONDUITE_DERNIERETAT_PESAGE;
   processusConduite.etatDuModule = PROCESSUSCONDUITE_MODULE_PAS_EN_FONCTION;
   processusConduite.requete = PROCESSUSCONDUITE_REQUETE_TRAITE;
   serviceBaseDeTemps_execute[PROCESSUSCONDUITE_PHASE] = processusConduite_attendUneRequete;

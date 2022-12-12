@@ -30,7 +30,15 @@ void serviceBaseDeTemps_gereDansLoop(void);
 void serviceBaseDeTemps_initialise(void);
 
 //Variables publiques:
+
+/**
+ * @brief Tableau de pointeur de fonction qui peuvent être assigné par leur processus respectif.
+ *  Ce tableau est au centre du fonctionnement de la base de temps. Pour plus d'explication voir 
+ *  le fichier de définition de la base de temps \ref xserviceBaseDeTemps.h
+ * 
+ */
 extern void (*serviceBaseDeTemps_execute[SERVICEBASEDETEMPS_NOMBRE_DE_PHASES])(void);
+
 extern void (*serviceBaseDeTemps_executeDansLoop[SERVICEBASEDETEMPS_NOMBRE_DE_PHASES_DANS_LOOP])(void);
 
 #endif

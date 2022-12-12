@@ -31,7 +31,8 @@ void processusBenne_initialise(void)
     processusBenne.etatDuModule = PROCESSUSBENNE_MODULE_PAS_EN_FONCTION;
     serviceBaseDeTemps_execute[PROCESSUSBENNE_PHASE] = processusBenne_AttendBouttonEnFonction;
 }
-
+/// @brief 
+/// @param  
 void processusBenne_AttendBouttonEnFonction(void)
 {
     if(interfaceEntree1.etatDuModule == INTERFACEENTREE1_MODULE_PAS_EN_FONCTION)

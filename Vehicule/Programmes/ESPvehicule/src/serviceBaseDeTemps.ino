@@ -32,10 +32,19 @@ unsigned char i;
 }
     
 //Definitions de variables publiques:
+
+/**
+ * @brief Tableau de pointeur de fonction qui peuvent être assigné par leur processus respectif.
+ *  Ce tableau est au centre du fonctionnement de la base de temps. Pour plus d'explication voir 
+ *  le fichier de définition de la base de temps \ref xserviceBaseDeTemps.h
+ * 
+ */
 void (*serviceBaseDeTemps_execute[SERVICEBASEDETEMPS_NOMBRE_DE_PHASES])(void);
+
 void (*serviceBaseDeTemps_executeDansLoop[SERVICEBASEDETEMPS_NOMBRE_DE_PHASES_DANS_LOOP])(void);
 
 //Definitions de fonctions publiques:
+
 void serviceBaseDeTemps_gereDansLoop(void)
 {
 unsigned char i;

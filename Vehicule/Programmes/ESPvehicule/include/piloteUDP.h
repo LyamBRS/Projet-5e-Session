@@ -1,7 +1,7 @@
 /**
  * @file piloteUDP.h
  * @author Camille Fortin (camfortin2022@gmail.com)
- * @brief 
+ * @brief Le pilote UDP sers à la communication wifi UDP
  * @version 0.1
  * @date 2022-11-18
  * 
@@ -29,19 +29,35 @@
 // pas de definitions publiques
 
 //Fonctions publiques:
+
+/// @brief Fonction d'initialisation du piloteUDP
+/// @param  void
 void piloteUDP_initialise(void);
+
+/// @brief Fonction permettant de savoir la longueur d'un packet UDP
+/// @return Un entier indiquant la quantité de caractère du packet
 int GetUDPSize();
+
+/// @brief Fonction permettant de recevoir un packet envoyé en par wifi en utilisant UDP
+/// @param  void
 void receiveUDP1(void);
+
+/// @brief Fonction qui envoie un packet UDP
+/// @param send Buffer with maximum of 255 unsigned char
 void transUDP1(unsigned char send[255]);
+
 //Variables publiques:
 typedef struct
 {
-  unsigned char replyBuffer[8]; //buffer to hold incoming packet
-  unsigned char readBuffer[8];  //buffer to send packet
+  /// @brief Buffer to send packet
+  unsigned char replyBuffer[8]; 
+
+  /// @brief Buffer to hold incoming packet
+  unsigned char readBuffer[8];
 
 } stPILOTEUDP;
 
-
+/// @brief Structure contenant 2 tableau de 8 unsigned char pour la réception et la transmition UDP
 stPILOTEUDP piloteUDP;
 
 #endif

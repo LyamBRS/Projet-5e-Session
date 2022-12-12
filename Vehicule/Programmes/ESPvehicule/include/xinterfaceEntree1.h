@@ -30,6 +30,8 @@
 
 //INFORMATION PUBLIQUE:
 //Definitions publiques:
+
+
 #define INTERFACEENTREE1_MODULE_EN_FONCTION 1
 #define INTERFACEENTREE1_MODULE_PAS_EN_FONCTION 0
 #define INTERFACEENTREE1_INFORMATION_DISPONIBLE 1
@@ -38,6 +40,7 @@
 #define INTERFACEENTREE1_ACTIVE  1
 #define INTERFACEENTREE1_PAS_EN_FONCTION 2
 
+/// @brief Structure public qui permet de savoir et de changer l'état du module  
 typedef struct
 {
   unsigned char etatDuModule;  
