@@ -316,7 +316,7 @@ namespace CommandCenter
             this.Operation_Logs.AutoWordSelection = true;
             this.Operation_Logs.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.Operation_Logs.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.Operation_Logs.Cursor = System.Windows.Forms.Cursors.Default;
+            this.Operation_Logs.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.Operation_Logs.ForeColor = System.Drawing.Color.Aqua;
             this.Operation_Logs.Name = "Operation_Logs";
             this.Operation_Logs.ReadOnly = true;
@@ -842,7 +842,7 @@ namespace CommandCenter
             this.Calibration_Logs.AutoWordSelection = true;
             this.Calibration_Logs.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.Calibration_Logs.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.Calibration_Logs.Cursor = System.Windows.Forms.Cursors.Default;
+            this.Calibration_Logs.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.Calibration_Logs.ForeColor = System.Drawing.Color.Aqua;
             this.Calibration_Logs.Name = "Calibration_Logs";
             this.Calibration_Logs.ReadOnly = true;
@@ -982,7 +982,7 @@ namespace CommandCenter
             this.Maintenance_Logs.AutoWordSelection = true;
             this.Maintenance_Logs.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.Maintenance_Logs.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.Maintenance_Logs.Cursor = System.Windows.Forms.Cursors.Default;
+            this.Maintenance_Logs.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.Maintenance_Logs.ForeColor = System.Drawing.Color.Aqua;
             this.Maintenance_Logs.Name = "Maintenance_Logs";
             this.Maintenance_Logs.ReadOnly = true;
@@ -1128,7 +1128,7 @@ namespace CommandCenter
             this.ConsoleArea.AutoWordSelection = true;
             this.ConsoleArea.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ConsoleArea.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.ConsoleArea.Cursor = System.Windows.Forms.Cursors.Default;
+            this.ConsoleArea.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.ConsoleArea.ForeColor = System.Drawing.Color.Aqua;
             this.ConsoleArea.Name = "ConsoleArea";
             this.ConsoleArea.ReadOnly = true;

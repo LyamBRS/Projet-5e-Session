@@ -76,7 +76,6 @@
     <Compile Include="Form1_Settings.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FR_UserInfos.cs" />
     <Compile Include="Maintenance.cs">
       <SubType>Form</SubType>
     </Compile>
