@@ -104,7 +104,7 @@ void processusVehicule_AttendUneRequete(void)
         
         return;
     }
-    ModuleData.State = States.calibrating;
+    ModuleData.State = States.atWeightStation;
     if(ModuleData.StatesReceived.waitingToSort != RECEIVED)
     {
         printf("%i",ModuleData.Mode);
