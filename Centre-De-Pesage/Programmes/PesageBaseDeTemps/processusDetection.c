@@ -4,12 +4,15 @@
 
 #include "main.h"
 #include "serviceBaseDeTemps.h"
+#include "ServiceCommunication.h"
 #include "interfaceVL6180x.h"
 #include "interfaceBras.h"
 #include "processusDetection.h"
 
 
 // Définition des variables privées
+//int compteur = 0;
+
 char reponse[2000];
 unsigned long processusDetection_compteur;
 char commande[64];
@@ -19,7 +22,7 @@ float dernieredistance = 25;
 
 
 int x = 200;
-int y = -100;
+int y = -80;
 int z = PROCESSUSDETECTION_HAUTEUR_DE_SCAN;
 
 
@@ -72,7 +75,7 @@ void processusDetection_attendUneRequete(void)
     }
     
     x = 200;
-    y = -100;
+    y = -80;
     z = PROCESSUSDETECTION_HAUTEUR_DE_SCAN;
     
     processusDetection.etatDuModule = PROCESSUSDETECTION_MODULE_EN_FONCTION;
@@ -112,29 +115,39 @@ void processusDetection_attendReponseCmd(void)
 
 void processusDetection_lit(void)
 {
-    if (interfaceVL6180x_litUneDistance(&distance) < 0)
-   	{
-		printf("erreur: interfaceVL6180x_litUneDistance");
-        fflush(stdout);		
-        return;
-    }
-    if(dernieredistance <= 19)
+    if(ModuleData.Mode == Modes.operation)
     {
-        if(distance <= 19)
-        {
-            //On a vu deux fois la meme distance donc c'est probablement le cube
-            printf("CUUUBE\n");
-            fflush(stdout);
-            processusDetection.information = PROCESSUSDETECTION_INFORMATION_CUBEDETECTED;
-            serviceBaseDeTemps_execute[PROCESSUSDETECTION_PHASE] = processusDetection_alignement;
+        if (interfaceVL6180x_litUneDistance(&distance) < 0)
+           {
+        	printf("erreur: interfaceVL6180x_litUneDistance");
+            fflush(stdout);		
             return;
         }
+        if(dernieredistance <= 19)
+        {
+            if(distance <= 19)
+            {
+                //On a vu deux fois la meme distance donc c'est probablement le cube
+                printf("CUUUBE\n");
+                fflush(stdout);
+                processusDetection.information = PROCESSUSDETECTION_INFORMATION_CUBEDETECTED;
+                serviceBaseDeTemps_execute[PROCESSUSDETECTION_PHASE] = processusDetection_alignement;
+                return;
+            }
+        }
+        
+        dernieredistance = distance;
+        printf("%2.1f\n", distance);
+        fflush(stdout);
+        serviceBaseDeTemps_execute[PROCESSUSDETECTION_PHASE] = processusDetection_Bouge;
     }
-    
-    dernieredistance = distance;
-    printf("%2.1f\n", distance);
-    fflush(stdout);
-    serviceBaseDeTemps_execute[PROCESSUSDETECTION_PHASE] = processusDetection_Bouge;
+    else
+    {
+        if(ModuleData.Mode == Modes.pause)
+        {
+            ModuleData.State = States.paused;
+        }
+    }
 }
 
 
@@ -209,8 +222,6 @@ void processusDetection_remonte(void)
     memset(commande, 0, 64);
     printf("processusDetection_remonte: Commande de monté envoyé.\n");
             
-
-    printf("processusDetection_remonte: processusDetection_NeFaitRien est la prochaine commande\n");
     processusDetection.requete = PROCESSUSDETECTION_REQUETE_TRAITE;
     serviceBaseDeTemps_execute[PROCESSUSDETECTION_PHASE] = processusDetection_attendUneRequete;
 }
@@ -225,15 +236,16 @@ void processusDetection_pese(void)
 void processusDetection_changeCoordonne(void)
 {
     y = y + 10;
-    if(y == 100)
+    if(y == 80)
     {
-        y = -100;
+        y = -80;
         x = x + 15;
     }
     
     // Pour recommencer la détection
     if(x >= 320)
     {
+        //ModuleData.ValuesToSend = Values.disc_CouldNotBeFound;
         x = 200;
     }
 }

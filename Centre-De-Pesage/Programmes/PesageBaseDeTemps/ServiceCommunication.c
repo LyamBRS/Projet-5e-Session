@@ -83,7 +83,7 @@ unsigned int interruptCount = 0;
  * 4: Reserved\n
  * 5: Reserved
  */
-unsigned char currentSlot = 0;
+int currentSlot = 0;
 /**
  * @brief This buffer is used to store which commands or values were \ref QUEUE
  * by he program, to send them x by x amount each time the CAN slot is equal to
@@ -405,7 +405,7 @@ void Parse_ModuleDataForTransmission(void)
 void Parse_CanBusReceptions(unsigned char *Buffer)
 {
     //############################################ LOCAL VARS
-    static unsigned char oldReceivedMode;
+    static unsigned char oldReceivedMode = 0;
     //############################################
     for(int i=0; i<8; i+=2)
     {
@@ -426,13 +426,14 @@ void Parse_CanBusReceptions(unsigned char *Buffer)
                             case(0x06): ModuleData.Mode = Modes.reinitialisation; break;
                             default:
                                         //If received mode matched nothing, an error occured.
-                                        ModuleData.State = States.error;
+                                        //ModuleData.State = States.error;
                                         serviceCommunication_ErrorState = ERROR_RX_MODE_DOESNT_EXIST;
                                         break;                  
                         }
                         // The mode changed from the previous one!
                         if(oldReceivedMode != ModuleData.Mode)
                         {
+                            printf("New mode was received: %i\n",ModuleData.Mode);
                             oldReceivedMode = ModuleData.Mode;
                             ModuleData_SetAll_ReceivedCommands(NO_DATA);
                             ModuleData_SetAll_StatesReceived(NO_DATA);
@@ -443,9 +444,7 @@ void Parse_CanBusReceptions(unsigned char *Buffer)
                         interruptCount = 0;
                         currentSlot = 0;
                         ModuleData.CantConnect = 0x00;
-                        
-                    	printf("MASTER\n");
-                        fflush(stdout);
+                        //fflush(stdout);
             break;
             case(CHAR_COMMAND):
                         switch(Buffer[i+1])
@@ -506,14 +505,18 @@ void Parse_CanBusReceptions(unsigned char *Buffer)
                             case(0x14): ModuleData.CommandsReceived.discharge           = RECEIVED; break;
 
                             case(0x16): ModuleData.CommandsReceived.units_Metric        = RECEIVED;
-                                        ModuleData.CommandsReceived.units_Imperial      = NO_DATA;  
+                                        ModuleData.CommandsReceived.units_Imperial      = NO_DATA;
+                                        //printf("===================== I GOT METRIC\n");
+                                        //fflush(stdout);
                                         break;
                             case(0x17): ModuleData.CommandsReceived.units_Imperial      = RECEIVED;
-                                        ModuleData.CommandsReceived.units_Metric        = NO_DATA;  
+                                        ModuleData.CommandsReceived.units_Metric        = NO_DATA;
+                                        //printf("===================== I GOT IMPERIAL\n");
+                                        //fflush(stdout);
                                         break;
                             default:
                                         //If received mode matched nothing, an error occured.
-                                        ModuleData.State = States.error;
+                                        //ModuleData.State = States.error;
                                         serviceCommunication_ErrorState = ERROR_RX_COMMAND_DOESNT_EXIST;
                                         break;                  
                         }
@@ -564,10 +567,11 @@ void Parse_CanBusReceptions(unsigned char *Buffer)
                                         break;
                             default:
                                         //If received mode matched nothing, an error occured.
-                                        ModuleData.State = States.error;
+                                        //ModuleData.State = States.error;
                                         serviceCommunication_ErrorState = ERROR_RX_VALUE_DOESNT_EXIST;
                                         break;                  
                         }
+
             break;
             case(CHAR_STATE):
                         switch(Buffer[i+1])
@@ -590,10 +594,20 @@ void Parse_CanBusReceptions(unsigned char *Buffer)
                             case(0x08): ModuleData.StatesReceived.safe                        = RECEIVED; break;
                             case(0x09): ModuleData.StatesReceived.error                       = RECEIVED; break;
 
-                            case(0x0A): ModuleData.StatesReceived.atSortingFactory            = RECEIVED;
+                            case(0x0A): 
+                                        if(ModuleData.StatesReceived.atSortingFactory != RECEIVED)
+                                        {
+                                            printf("Le véhicule est rendu là-bas genre\n");
+                                        }
+                                        ModuleData.StatesReceived.atSortingFactory            = RECEIVED;
                                         ModuleData.StatesReceived.atWeightStation             = NO_DATA; 
                                         break;
-                            case(0x0B): ModuleData.StatesReceived.atWeightStation             = RECEIVED;
+                            case(0x0B): 
+                                        if(ModuleData.StatesReceived.atWeightStation != RECEIVED)
+                                        {
+                                            printf("Le véhicule est chez nous\n");
+                                        }
+                                        ModuleData.StatesReceived.atWeightStation             = RECEIVED;
                                         ModuleData.StatesReceived.atSortingFactory            = NO_DATA;
                                         break;
                             case(0x0C): ModuleData.StatesReceived.finishedSortingAndHasLoaded = RECEIVED; break;
@@ -603,7 +617,7 @@ void Parse_CanBusReceptions(unsigned char *Buffer)
                             case(0x10): ModuleData.StatesReceived.empty                       = RECEIVED; break;
                             default:
                                         //If received mode matched nothing, an error occured.
-                                        ModuleData.State = States.error;
+                                        //ModuleData.State = States.error;
                                         serviceCommunication_ErrorState = ERROR_RX_STATE_DOESNT_EXIST;
                                         break;                  
                         }
@@ -636,10 +650,10 @@ void Parse_Interrupts(void)
     //Current slot.
     if(ModuleData.CantConnect == 0x00)
     {
-        currentSlot = ((unsigned char)(timeSinceReset)) / CAN_SLOT_DURATION_MS;
+        currentSlot = ((int)(timeSinceReset)) / CAN_SLOT_DURATION_MS;
     }
 
-    if(currentSlot > 10)
+    if(currentSlot > 20)
     {
         ModuleData.CantConnect = 0xFF;
     }
@@ -1130,7 +1144,8 @@ void ServiceCommunication_TXParsingHandler(void)
         {
             //Parses QUEUE into transmittable buffer
             TX_BuildCANBuffer(MODULE_CAN_TX);
-            printf("CAN: %i\n",piloteCAN_transmet(PILOIECAN_ADRESSE_EN_TRANSMITION, MODULE_CAN_TX, 0x08));
+            piloteCAN_transmet(PILOIECAN_ADRESSE_EN_TRANSMITION, MODULE_CAN_TX, 0x08);
+            //printf("CAN: %i\n",piloteCAN_transmet(PILOIECAN_ADRESSE_EN_TRANSMITION, MODULE_CAN_TX, 0x08));
             sent = 1;
         }
     }

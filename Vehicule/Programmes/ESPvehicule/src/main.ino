@@ -53,13 +53,14 @@
 
 /// @brief Fonction qui permet de tester certain module en activant 
 //      leur requête tout de suite après leur initialisation
-/// @param Aucun
+/// @param void
 void main_faitUnTest(void)
 {
   
 }
-/// @brief Fonction qui fait l'initialisation de tout les modules permettant au fonctionnement global
-/// @param  
+/// @brief Fonction qui fait l'initialisation de tout les modules permettant
+//   au fonctionnement global du véhicule.
+/// @param void
 void main_initialise(void);
 
 //Definitions de variables privees:

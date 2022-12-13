@@ -3,7 +3,7 @@
  * @author Camille Fortin (camfortin2022@gmail.com)
  * @brief   Fichier conteneant le code du pilote I2C fonctionnant avec 
  *    un ESP32. Le pilote utilise la librairie \ref Wire.h fourni avec 
- *   l'environnement arduino. 
+ *    l'environnement arduino. 
  * 
  * @version 0.1
  * @date 2022-11-14
@@ -33,6 +33,11 @@
 //pas de variables publiques
 
 //Definitions de fonctions publiques:
+
+
+/// @brief Fonction qui lit un octect précédament envoyé sur le port I2C 
+/// @param Adresse Adresse I2C
+/// @return La valeur lu sur le port I2C
 unsigned char piloteI2C1_lisUnOctet(unsigned char Adresse)
 {
   Wire.requestFrom((uint8_t)Adresse, (uint8_t)1);

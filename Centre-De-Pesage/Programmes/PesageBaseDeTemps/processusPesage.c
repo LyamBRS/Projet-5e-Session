@@ -42,7 +42,7 @@ void processusPesage_initialise(void)
 void processusPesage_attendUneRequete(void)
 {
 
-
+    
     if(ModuleData.Mode == Modes.pause)
     {
         ModuleData.State = States.paused;
@@ -52,6 +52,23 @@ void processusPesage_attendUneRequete(void)
         ModuleData.State = States.waiting;
     }
 
+    if(ModuleData.ValuesReceived.disc_Red == RECEIVED)
+    {
+        //printf("RESET -- VALUES\n");
+        fflush(stdout);
+        ModuleData_SetAll_ValuesReceived(PARSED);
+        ModuleData_SetAll_StatesReceived(PARSED);
+        return;
+    }
+    if(ModuleData.ValuesReceived.disc_Black == RECEIVED)
+    {
+        //printf("RESET -- VALUES\n");
+        fflush(stdout);
+        ModuleData_SetAll_ValuesReceived(PARSED);
+        ModuleData_SetAll_StatesReceived(PARSED);
+        return;
+    }
+    
     // Si on recois le mode Opération on commence a detecté
     if(ModuleData.Mode != Modes.operation)
     {
@@ -77,6 +94,14 @@ void processusPesage_attendUneRequete(void)
     {
         return;
     }
+    
+    if(ModuleData.Mode == Modes.pause) // Si on est en mode pause on retourne sans aller au prochaine état
+    {
+        ModuleData.State = States.paused;
+        return;
+    }
+    
+    
     printf("Démarrage de la détection\n");
     ModuleData.StatesReceived.atWeightStation = PARSED;
     ModuleData.StatesReceived.finishedSortingAndHasLoaded = PARSED;
@@ -96,61 +121,86 @@ void processusPesage_attendUneRequete(void)
 }
 void processusPesage_depose(void)
 {
-    ModuleData.State = States.processing;
-    if(processusDetection.requete != PROCESSUSDETECTION_REQUETE_TRAITE)
+    if(ModuleData.Mode == Modes.operation) // Si on est en mode opération on continue  
     {
+        ModuleData.State = States.processing;
+        if(processusDetection.requete != PROCESSUSDETECTION_REQUETE_TRAITE)
+        {
+            return;
+        }
+        //printf("processusPesage_depose: Fin du procesSUS de détection\n");
+        
+        compteur++;
+        if(compteur <= 1000)
+        {
+            return;
+        }
+        interfaceBras_recoitUneReponse(reponse,64);
+        printf("%s", reponse);
+        fflush(stdout);
+        printf("processusPesage_depose: Fin de la remonté!\n");
+        
+        y2 = -278;
+        x2 = 81;
+        
+        printf("On va a la Balance\n");
+        // Va mettre le poid sur la balance
+        sprintf(commande, "#1 G0 X%d Y%d Z-43 F8000\n", x2, y2);  // On va au coordonne de la balance
+        interfaceBras_ecritUneCommande(commande, sizeof commande);
+        memset(commande, 0, 64);
+        
+        compteur = 0;
+        serviceBaseDeTemps_execute[PROCESSUSPESAGE_PHASE] = processusPesage_attendFinDepot;
         return;
     }
-    //printf("processusPesage_depose: Fin du procesSUS de détection\n");
-    
-    compteur++;
-    if(compteur <= 1000)
+    else
     {
-        return;
-    }
-    interfaceBras_recoitUneReponse(reponse,64);
-    printf("%s", reponse);
-    fflush(stdout);
-    printf("processusPesage_depose: Fin de la remonté!\n");
-    
-    y2 = -278;
-    x2 = 81;
-    
-    printf("On va a la Balance\n");
-    // Va mettre le poid sur la balance
-    sprintf(commande, "#1 G0 X%d Y%d Z-43 F8000\n", x2, y2);  // On va au coordonne de la balance
-    interfaceBras_ecritUneCommande(commande, sizeof commande);
-    memset(commande, 0, 64);
-    
-    compteur = 0;
-    serviceBaseDeTemps_execute[PROCESSUSPESAGE_PHASE] = processusPesage_attendFinDepot;
+        printf("Psa en operation\n");
+        fflush(stdout);
+        if(ModuleData.Mode == Modes.pause)
+        {
+            ModuleData.State = States.paused;
+        }
+    }   
 }
 
 void processusPesage_attendFinDepot(void)
 {
-    compteur ++;
-    if(compteur <= 2000)  // Gros délais pour s'assurer que le bras est rendu a la balance
+    if(ModuleData.Mode == Modes.operation)
     {
-        return;
+        compteur++;
+        if(compteur <= 2000)  // Gros délais pour s'assurer que le bras est rendu a la balance
+        {
+            return;
+        }
+        interfaceBras_recoitUneReponse(reponse,64);
+        printf("%s", reponse);
+        fflush(stdout);
+        
+        /*
+        if(reponse[0] != '$')
+        {
+            return;
+        }
+        */
+        printf("On Relache le Cube\n");
+        // ON envoie au bras d'arreter la ventouse
+        sprintf(commande, "#6 M2231 V0\n");    
+        interfaceBras_ecritUneCommande(commande, sizeof commande);
+        memset(commande, 0, 64);
+        compteur = 0;
+        
+        serviceBaseDeTemps_execute[PROCESSUSPESAGE_PHASE] = processusPesage_prepareMesureBalance;
     }
-    interfaceBras_recoitUneReponse(reponse,64);
-    printf("%s", reponse);
-    fflush(stdout);
-    
-    /*
-    if(reponse[0] != '$')
+    else
     {
-        return;
-    }
-    */
-    compteur = 0;
-    printf("On Relache le Cube\n");
-    // ON envoie au bras d'arreter la ventouse
-    sprintf(commande, "#6 M2231 V0\n");    
-    interfaceBras_ecritUneCommande(commande, sizeof commande);
-    memset(commande, 0, 64);
-    
-    serviceBaseDeTemps_execute[PROCESSUSPESAGE_PHASE] = processusPesage_prepareMesureBalance;
+        printf("Psa en operation\n");
+        fflush(stdout);
+        if(ModuleData.Mode == Modes.pause)
+        {
+            ModuleData.State = States.paused;
+        }
+    } 
 }
 
 void processusPesage_prepareMesureBalance(void)
@@ -233,11 +283,11 @@ void processusPesage_attendLecture(void)
           printf( "Unite: %s\n", token );
           if(token[0] == 'g')
           {
-              processusPesage.unite = PROCESSUSPESAGE_UNITE_G;
+              //processusPesage.unite = PROCESSUSPESAGE_UNITE_G;
           }
           if(token[0] == 'o')
           {
-              processusPesage.unite = PROCESSUSPESAGE_UNITE_OZ;
+              //processusPesage.unite = PROCESSUSPESAGE_UNITE_OZ;
           }
       }
       token = strtok(NULL, s);
@@ -260,54 +310,75 @@ void processusPesage_attendLecture(void)
 
 void processusPesage_repriseRondelle(void)
 {
-    memset(reponse, 0, 64); // On vide le buffer de réponse 
-    
-    interfaceBras_recoitUneReponse(reponse,64);
-    printf("%s", reponse);
-    fflush(stdout);
-    
-    /*
-    if(reponse[0] != '$')  // On attend d'avoir recu la réponse du bras qui confirme qu'il est REDESCENDU
+    if(ModuleData.Mode == Modes.operation)
     {
-        return;
+        memset(reponse, 0, 64); // On vide le buffer de réponse 
+        
+        interfaceBras_recoitUneReponse(reponse,64);
+        printf("%s", reponse);
+        fflush(stdout);
+        
+        /*
+        if(reponse[0] != '$')  // On attend d'avoir recu la réponse du bras qui confirme qu'il est REDESCENDU
+        {
+            return;
+        }
+        
+        */
+        
+        if(compteur <= 1000) // Délais pour attendre avant d'envoyer une autre commande au bras
+        {
+            compteur++;
+            return;
+        }
+        
+        sprintf(commande, "#1 M2231 V1\n");   // ON allume la ventouse
+        interfaceBras_ecritUneCommande(commande, sizeof commande);
+        memset(commande, 0, 64);
+        
+        compteur = 0;
+        serviceBaseDeTemps_execute[PROCESSUSPESAGE_PHASE] = processusPesage_repriseRondellePart2;
     }
-    
-    */
-    
-    if(compteur <= 1000) // Délais pour attendre avant d'envoyer une autre commande au bras
+    else
     {
-        compteur++;
-        return;
-    }
-    
-    sprintf(commande, "#1 M2231 V1\n");   // ON allume la ventouse
-    interfaceBras_ecritUneCommande(commande, sizeof commande);
-    memset(commande, 0, 64);
-    
-    compteur = 0;
-    serviceBaseDeTemps_execute[PROCESSUSPESAGE_PHASE] = processusPesage_repriseRondellePart2;
+        if(ModuleData.Mode == Modes.pause)
+        {
+            ModuleData.State = States.paused;
+        }
+    } 
 }
 
 
 void processusPesage_repriseRondellePart2(void)
 {
-    if(compteur <= 1000) // Délais pour attendre avant d'envoyer une autre commande au bras
+    if(ModuleData.Mode == Modes.operation)
     {
-        compteur++;
-        return;
+        if(compteur <= 1000) // Délais pour attendre avant d'envoyer une autre commande au bras
+        {
+            compteur++;
+            return;
+        }
+        
+        // quand le delais est fini on envoie un autre commande
+        interfaceBras_recoitUneReponse(reponse,64);  // On lit la reponse meme si on l'utilise pas 
+        printf("%s", reponse);
+        fflush(stdout);
+        
+        sprintf(commande, "#1 G0 X%d Y%d Z100 F8000\n", x2, y2);   // on envoie une commande pour qu'il remonte avec la rondelle
+        interfaceBras_ecritUneCommande(commande, sizeof commande);
+        memset(commande, 0, 64);
+        
+        compteur = 0;
+        ModuleData.State = States.finishedWeighting; 
+        serviceBaseDeTemps_execute[PROCESSUSPESAGE_PHASE] = processusPesage_disposeRondelle;
     }
-    
-    // quand le delais est fini on envoie un autre commande
-    interfaceBras_recoitUneReponse(reponse,64);  // On lit la reponse meme si on l'utilise pas 
-    printf("%s", reponse);
-    fflush(stdout);
-    
-    sprintf(commande, "#1 G0 X%d Y%d Z100 F8000\n", x2, y2);   // on envoie une commande pour qu'il remonte avec la rondelle
-    interfaceBras_ecritUneCommande(commande, sizeof commande);
-    memset(commande, 0, 64);
-    
-    compteur = 0;
-    serviceBaseDeTemps_execute[PROCESSUSPESAGE_PHASE] = processusPesage_disposeRondelle; 
+    else
+    {
+        if(ModuleData.Mode == Modes.pause)
+        {
+            ModuleData.State = States.paused;
+        }
+    } 
 }
 
 
@@ -332,8 +403,8 @@ void processusPesage_disposeRondelle(void)
     fflush(stdout);
     
     x2 = 200;  // Coordonné de lespace de stockage des rondelles
-    y2 = 150;
-    sprintf(commande, "#1 G0 X%d Y%d Z-86 F8000\n", x2, y2);  // Coordonné pour aller stocker la rondelle
+    y2 = 250;
+    sprintf(commande, "#1 G0 X%d Y%d Z0 F8000\n", x2, y2);  // Coordonné pour aller stocker la rondelle
     interfaceBras_ecritUneCommande(commande, sizeof commande);
     memset(commande, 0, 64);
     
@@ -376,6 +447,8 @@ void processusPesage_retourEtatInit(void)
     memset(commande, 0, 64);
     compteur = 0;
     
-    
+    ModuleData_SetAll_ValuesReceived(PARSED);
+    ModuleData_SetAll_StatesReceived(PARSED);
+    ModuleData.State = States.finishedWeighting;
     serviceBaseDeTemps_execute[PROCESSUSPESAGE_PHASE] = processusPesage_attendUneRequete;
 }

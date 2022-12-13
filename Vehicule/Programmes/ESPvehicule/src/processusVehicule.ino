@@ -38,6 +38,7 @@ int compteurT = 0;
 
 //Définition Privé
 
+
 void processusVehicule_AttendUneRequete(void);
 void processusVehicule_AttendArriveTri(void);
 void processusVehicule_AttendFinChargement(void);
@@ -82,7 +83,6 @@ void processusVehicule_AttendUneRequete(void)
         return;
     }
     */
-
 
     // Test Pour la communication
     if(ModuleData.Mode == Modes.pause)

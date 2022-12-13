@@ -96,15 +96,21 @@ void processusConduite_Gere(void)
   case 0xF0:  //1111 0000 0xF0 Grosse droite (1110 1111) 0xEF
     serviceTank_uturnDroit(PROCESSUSCONDUITE_VITESSESTANDARD);
     break; 
-  case 0xFF: //Si les 5 Capteur voit du NOIR, Le véhicule est arrivé au centre de pesage
+  case 0xFF: // 1111 1111 Si les 5 Capteur voit du NOIR, Le véhicule est arrivé au centre de pesage
     
     // On doit ajouter un test de dernier etat
-    serviceBaseDeTemps_execute[PROCESSUSCONDUITE_PHASE] = processusConduite_ArrivePesage;
+    if(processusConduite.dernierArrive == PROCESSUSCONDUITE_DERNIERETAT_TRI)
+    {
+      serviceBaseDeTemps_execute[PROCESSUSCONDUITE_PHASE] = processusConduite_ArrivePesage;
+    }
     break;
   case 0xF1:  //1111 0001 Valeur pour indiquer l'arrivé au centre de tri
 
     // On doit ajouter un test de dernier etat
-    serviceBaseDeTemps_execute[PROCESSUSCONDUITE_PHASE] = processusConduite_ArriveTri;
+    if(processusConduite.dernierArrive == PROCESSUSCONDUITE_DERNIERETAT_PESAGE)
+    {
+      serviceBaseDeTemps_execute[PROCESSUSCONDUITE_PHASE] = processusConduite_ArriveTri;
+    }
     break;
   }
 }
