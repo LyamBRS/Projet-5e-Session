@@ -13,7 +13,7 @@
     <BeagleBone_FilePath>/var/lib/cloud9/Projet/CommandCenter</BeagleBone_FilePath>
     <BeagleBone_FileName>testPiloteCAN</BeagleBone_FileName>
     <Scale_Unit>Metric</Scale_Unit>
-    <BeagleBone_AutoConnect>True</BeagleBone_AutoConnect>
-    <Language>Français</Language>
+    <BeagleBone_AutoConnect>False</BeagleBone_AutoConnect>
+    <Language>English</Language>
   </appSettings>
 </configuration>
