@@ -976,13 +976,7 @@ namespace CommandCenter
                 /// Defaults to reinitialisation.
                 /// </summary>
                 public byte Mode;
-                /// <summary>
-                /// The current state of this module. Stores the
-                /// last received state from this module during a
-                /// MasterCommunication. Is set to waiting by
-                /// default
-                /// </summary>
-                public byte State;
+
                 /// <summary>
                 /// Holds the current weight that the module has
                 /// sent.
@@ -1066,6 +1060,36 @@ namespace CommandCenter
             /// printed on the Tech terminal
             /// </summary>
             public bool ResetReceivedData = true;
+            /// <summary>
+            /// The current state of this module. Stores the
+            /// last received state from this module during a
+            /// MasterCommunication. Is set to offline by
+            /// default
+            /// </summary>
+            public byte State
+            {
+                get
+                {
+                    return _state;
+                }
+                set
+                {
+                    if (value == State_Offline || value == State_ClassInitialised)
+                    {
+                        Received.Commands.SetAllTo(DataState.NoData);
+                        Received.States.SetAllTo(DataState.NoData);
+                        Received.Values.SetAllTo(DataState.NoData);
+                        Current.Weight = Weight_Offline;
+                    }
+
+                    _state = value;
+                }
+            }
+            /// <summary>
+            /// referenced State value
+            /// </summary>
+            private byte _state;
+
             #endregion Variables
             #region Constructor
             /////////////////////////////////////////////////////////////
@@ -1093,7 +1117,8 @@ namespace CommandCenter
 
                 BRS.Debug.Comment("Setting Current structure's values to initial parameters");
                 Current.Mode = Modes_Ref.reinitialisation;
-                Current.State = State_ClassInitialised;
+                
+                State = State_ClassInitialised;
                 Current.Weight = Weight_Offline;
                 Current.AllowedStates.SetAllTo(DataState.Unused);
 
@@ -1156,7 +1181,7 @@ namespace CommandCenter
                 }
                 else
                 {
-                    if (Current.State == State_ClassInitialised)
+                    if (_state == State_ClassInitialised)
                     {
 
                     }
@@ -1332,10 +1357,10 @@ namespace CommandCenter
                     //}
 
                     // Setup new state and log it.
-                    if (Current.State != State_ClassInitialised && Current.State != State_Offline)
+                    if (_state != State_ClassInitialised && _state != State_Offline)
                     {
                         BRS.Debug.Comment(name + " has been detected as Offline.",true);
-                        Current.State = State_Offline;
+                        State = State_Offline;
                         Reset_WeightDatas();
                         OperationLogs.Window.Log_Warning(name + LogsInfos.Operations.Modules.NoLongerOnline);
                     }
@@ -1355,7 +1380,7 @@ namespace CommandCenter
                 HandleAttemptIncrements();
 
                 // Remove unresponsive error
-                if (Current.State == State_Offline)
+                if (_state == State_Offline)
                 {
                     OperationLogs.Window.Log_Warning(name + LogsInfos.Operations.Modules.NoLongerOffline);
                     error = Module_Errors.none;
@@ -1363,7 +1388,7 @@ namespace CommandCenter
                 else
                 {
                     // First time being online
-                    if(Current.State == State_ClassInitialised)
+                    if(_state == State_ClassInitialised)
                     {
                         OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.FirstTimeOnline, Color.Lime);
                     }
@@ -1874,7 +1899,7 @@ namespace CommandCenter
                                 error = Module_Errors.unexpectedData;
                                 break;
                         }
-                        Current.State = commandNumber;
+                        _state = commandNumber;
                         break;
                     case (87):  // A weight was received.
                         Current.Weight = commandNumber;
@@ -1890,7 +1915,7 @@ namespace CommandCenter
             //#############################################################//
             public bool IsStateAllowed()
             {
-                switch (Current.State)
+                switch (_state)
                 {
                     // Parsing of received states from the communicating module
                     case (0x00): return (Current.AllowedStates.emergencyStop == DataState.Available); break;
@@ -2103,7 +2128,7 @@ namespace CommandCenter
                 //---------------------------------------------------------//
                 TerminalToLogItIn.Log_header(ModuleLogging.Headers.Current);
                 TerminalToLogItIn.Log_Comment(ModuleLogging.Types.Mode + Current.Mode.ToString(), Color.LightBlue);
-                TerminalToLogItIn.Log_Comment(ModuleLogging.Types.State + Current.State.ToString(), Color.LightBlue);
+                TerminalToLogItIn.Log_Comment(ModuleLogging.Types.State + State.ToString(), Color.LightBlue);
                 TerminalToLogItIn.Log_Comment(ModuleLogging.Types.Weight + Current.Weight.ToString(), Color.LightBlue);
                 //---------------------------------------------------------//
                 //---------------------------------------------------------//

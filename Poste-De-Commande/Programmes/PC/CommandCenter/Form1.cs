@@ -839,6 +839,7 @@ namespace CommandCenter
             if(Technician.isActive)
             {
                 Debug.Comment("Terminating technician mode");
+                SetGlobalModeTo(WantedMode.Paused);
                 Technician.Close(this);
             }
         }

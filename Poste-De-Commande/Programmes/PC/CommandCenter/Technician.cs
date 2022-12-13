@@ -239,10 +239,13 @@ namespace CommandCenter
         private void Technician_ChrckBox_SimulateModes_Click(object sender, EventArgs e)
         {
             BRS.Debug.Header(true);
+            BRS.Debug.Comment("Checking if technician is active...");
             if(Technician.isActive)
             {
+                BRS.Debug.Comment("Checking if module simulation is already ON");
                 if(Technician.SimulateModes)
                 {
+                    Debug.Comment("Turning OFF mode simulation");
                     Technician.SimulateModes = false;
                     CommandCenter.Technician.Buttons.SimulateModes.State = ControlState.Inactive;
                     Technician_Label_SimulateModes.ForeColor = ControlStateColors.Inactive;
@@ -253,9 +256,11 @@ namespace CommandCenter
                     Technician.SelectedIndexes.Mode = 2;
                     NewUserTextInfo(UserInfos.Technician.stoppedSimulatingModes, 1);
                     CommandCenter.Technician.terminal.Log_Comment(LogsInfos.Technician.NoLongerSimulatingModes, ControlStateColors.Warning);
+                    Debug.Success();
                 }
                 else
                 {
+                    Debug.Comment("Turning ON mode simulation");
                     Technician.SimulateModes = true;
                     CommandCenter.Technician.Buttons.SimulateModes.State = ControlState.Active;
                     Technician_Label_SimulateModes.ForeColor = ControlStateColors.Active;
@@ -265,6 +270,7 @@ namespace CommandCenter
                     Technician_Label_Mode.ForeColor = ControlStateColors.Active;
                     NewUserTextInfo(UserInfos.Technician.nowSimulatingModes, 1);
                     CommandCenter.Technician.terminal.Log_Comment(LogsInfos.Technician.NowSimulatingModes, ControlStateColors.Active);
+                    Debug.Success();
                 }
             }
             BRS.Debug.Header(false);
@@ -418,6 +424,7 @@ namespace CommandCenter
                 CommandCenter.Technician.terminal.Clear();
                 BRS.Debug.Comment("Logging all of the Sorting Station's data");
                 ModuleData_SortingStation.LogAllIn(CommandCenter.Technician.terminal);
+                ModuleData_SortingStation.Reset();
             }
 
             BRS.Debug.Header(false);
@@ -448,6 +455,7 @@ namespace CommandCenter
                 CommandCenter.Technician.terminal.Clear();
                 BRS.Debug.Comment("Logging all of the Vehicle's data");
                 ModuleData_Vehicle.LogAllIn(CommandCenter.Technician.terminal);
+                ModuleData_Vehicle.Reset();
             }
 
             BRS.Debug.Header(false);
@@ -478,6 +486,7 @@ namespace CommandCenter
                 CommandCenter.Technician.terminal.Clear();
                 BRS.Debug.Comment("Logging all of the Weight Station's data");
                 ModuleData_WeightStation.LogAllIn(CommandCenter.Technician.terminal);
+                ModuleData_WeightStation.Reset();
             }
 
             BRS.Debug.Header(false);
