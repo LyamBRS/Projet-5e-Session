@@ -164,6 +164,8 @@ void Error_Handler(void);
 #define Audio_RST_GPIO_Port GPIOD
 #define OTG_FS_OverCurrent_Pin GPIO_PIN_5
 #define OTG_FS_OverCurrent_GPIO_Port GPIOD
+#define HORN_Pin GPIO_PIN_6
+#define HORN_GPIO_Port GPIOD
 #define CLN_B_Pin GPIO_PIN_7
 #define CLN_B_GPIO_Port GPIOD
 #define SWO_Pin GPIO_PIN_3
@@ -382,7 +384,7 @@ void Error_Handler(void);
 //Dependances logicielles:
 
 
-#define MODE_BYPASS_POSTE_DE_COMMANDE
+//#define MODE_BYPASS_POSTE_DE_COMMANDE
 
 
 #define FREQUENCE_DE_LA_BASE_DE_TEMPS_EN_HZ 2000.0
@@ -407,8 +409,8 @@ void Error_Handler(void);
 //BASE DE TEMPS
 #define SERVICEBASEDETEMPS_NOMBRE_DE_PHASES  7
 #define INTERFACEB1_PHASE 0
-#define SERVICECOMMUNICATION_GERE1 1
-#define SERVICECOMMUNICATION_GERE2 2
+#define SERVICECOMMUNICATION_GERE1 2
+#define SERVICECOMMUNICATION_GERE2 1
 #define PROCESSUSUSINE_GERE 3
 #define INTERFACEUSINE_GERE 4
 #define INTERFACEPONT_GERE 5

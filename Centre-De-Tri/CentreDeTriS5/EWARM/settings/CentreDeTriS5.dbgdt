@@ -846,7 +846,7 @@
                 <expressions>
                     <item>unionCartesI2CUsine.structCartesI2C.PCF3</item>
                     <item>valeurDuADC</item>
-                    <item></item>
+                    <item />
                 </expressions>
                 <col-names>
                     <item>Expression</item>
