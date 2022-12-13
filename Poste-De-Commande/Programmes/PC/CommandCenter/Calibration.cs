@@ -26,8 +26,63 @@ namespace CommandCenter
     {
         #region Buttons
         #region Clicks
+        #region Terminal
         //#############################################################//
+        /// <summary>
+        /// Click event called each time the clear button for the
+        /// calibration terminal is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         //#############################################################//
+        private void Calibration_Clear_Logs_Click(object sender, EventArgs e)
+        {
+            BRS.Debug.Header(true);
+            BRS.Debug.Comment("Attempting to clear the terminal");
+            CommandCenter.Calibration.terminal.Clear();
+
+            if (CommandCenter.Calibration.terminal.Window.Text == "")
+            {
+                Debug.Success("terminal cleared!");
+                NewUserTextInfo(UserInfos.Terminal.Cleared, 1);
+            }
+            else
+            {
+                Debug.Aborted("terminal cleared!");
+                //NewUserTextInfo("Canceled clearing", 3);
+            }
+            BRS.Debug.Header(false);
+        }
+        //#############################################################//
+        /// <summary>
+        /// Click event called each time the calibration's terminal is
+        /// being saved by pressing the save icon
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        //#############################################################//
+        private void Calibration_Save_Logs_Click(object sender, EventArgs e)
+        {
+            BRS.Debug.Header(true);
+            BRS.Debug.Comment("Attempting to save the Maintenance's logs");
+            CommandCenter.Calibration.terminal.SaveTerminal();
+            NewUserTextInfo(UserInfos.Terminal.Saved, 1);
+            Debug.Success();
+            CommandCenter.Calibration.terminal.Clear();
+            BRS.Debug.Header(false);
+        }
+        //#############################################################//
+        /// <summary>
+        /// Il faut accepter que l'on a pas le temps de tout faire!
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        //#############################################################//
+        private void Calibration_Button_StartStop_Click(object sender, EventArgs e)
+        {
+            BRS.PopUp.Error(PopUpInfos.ThisIsntAvailable, PopUpInfos.Header.Warning);
+        }
+        #endregion Terminal
         #endregion Clicks
         #region Updates
         //#############################################################//

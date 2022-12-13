@@ -349,6 +349,7 @@ namespace CommandCenter
             public static string SavedFileName = "Saved BeagleBone's program's name";
             public static string SavedPassword = "Saved BeagleBone's password";
             public static string SavedUser = "Saved BeagleBone's user";
+            public static string SavedLanguage = "Saved new language";
         }
         /// <summary>
         /// User info related to BRS.Terminal
@@ -663,6 +664,9 @@ namespace CommandCenter
             public static string DoYouWantToPrintInfo = "Do you want to print this module's current data in the terminal? This will clear the terminal first";
             public static string DoYouWantToSaveInstead = "Do you want to save the current terminal instead of just clearing it?";
         }
+
+        public static string PleaseReboot = "In order for these changes to take place, please reboot the application";
+        public static string ThisIsntAvailable = "This mode is not available due to a lack of time and funding, thanks for your understanding";
     }
 
     /// <summary>
@@ -846,7 +850,10 @@ namespace CommandCenter
             /// </summary>
             public static string Received = "All the seen by this module since last print ";
         }
-
+        /// <summary>
+        /// Class representing the type of data which is
+        /// logged inside of terminal related to modules
+        /// </summary>
         public static class Types
         {
             public static string Mode = "[MODE]:\t";
@@ -855,7 +862,11 @@ namespace CommandCenter
             public static string Weight = "[WEIGHT]:\t";
             public static string Command = "[COMMAND]:\t";
         }
-
+        /// <summary>
+        /// Separates data when logging all the received data
+        /// from a module while in Technician Mode. These are
+        /// used as minimalist headers basically
+        /// </summary>
         public static class Separators
         {
             public static string Mode = "///////////////////////////////// - [MODES]";
@@ -864,5 +875,71 @@ namespace CommandCenter
             public static string Weight = "///////////////////////////////// - [WEIGHTS]";
             public static string Commands = "///////////////////////////////// - [COMMANDS]";
         }
+        /// <summary>
+        /// String which is logged when a range of data cannot be logged
+        /// due to it's inexistance or the fact that it is not used by
+        /// modules. This is the case for Commands, which modules are not
+        /// supposed to be sending
+        /// </summary>
+        public static string DataUnavaibale = "DISABLED";
+        /// <summary>
+        /// Warns the user that the module which has been printed on the
+        /// screen just had all of it's stored data accumulated since the
+        /// last print flushed from memory.
+        /// </summary>
+        public static string DataResetWarning = "This module's received data has been flushed";
+    }
+
+    /// <summary>
+    /// Class containing all the names displayed
+    /// to the end user to label their selected
+    /// tabs
+    /// </summary>
+    public static class Tab_Names
+    {
+        public static string Operation = "Operation";
+        public static string Technician = "Technician";
+        public static string Calibration = "Calibration";
+        public static string Maintenance = "Maintenance";
+        public static string Terminal = "Terminal";
+        public static string Settings = "Settings";
+    }
+    /// <summary>
+    /// Class containing all the names of labels
+    /// inside of this application
+    /// </summary>
+    public static class Label_Names
+    {
+        public static string Label_User = "User:";
+        public static string Label_Password = "Password:";
+        public static string Label_FileName = "File name:";
+        public static string Label_FilePath = "File path:";
+        public static string Label_AutoConnect = "Auto Con.";
+        public static string Label_Language = "Language:";
+        public static string Label_ScaleUnit = "Scale Unit:";
+
+        public static string Technician_Label_Mode = "Mode";
+        public static string Technician_Label_Status = "Status";
+        public static string Technician_Label_DataTypeA = "Data type A";
+        public static string Technician_Label_DataTypeB = "Data type B";
+        public static string Technician_Label_DataA = "Data A";
+        public static string Technician_Label_DataB = "Data B";
+        public static string Technician_Label_CanOutput = "CAN Output:";
+
+        public static string Technician_Label_SimulateModes = "Simulate Modes";
+        public static string Technician_Label_KeepCanOn = "Keep CAN Online";
+        public static string Technician_Label_ClearAfterSend = "Clear After";
+        public static string Technician_Label_SendOnce = "Send Once";
+    }
+    /// <summary>
+    /// Class holding the names of modules which will
+    /// be displayed to the end user
+    /// </summary>
+    public static class Module_Names
+    {
+        public static string OfflineModules = "Offline module: ";
+        public static string SortingStation = "Sorting Station";
+        public static string Vehicle = "Vehicle";
+        public static string WeightStation = "Weight Station";
     }
 }

@@ -103,6 +103,8 @@ namespace CommandCenter
             this.Button_Terminal = new System.Windows.Forms.Button();
             this.ConsoleArea = new System.Windows.Forms.RichTextBox();
             this.Tab_Settings = new System.Windows.Forms.TabPage();
+            this.DropDown_Languages = new System.Windows.Forms.ComboBox();
+            this.Label_Language = new System.Windows.Forms.Button();
             this.Button_AutoConnect = new System.Windows.Forms.Button();
             this.Label_AutoConnect = new System.Windows.Forms.Button();
             this.BeagleBone_FilePath = new System.Windows.Forms.TextBox();
@@ -779,7 +781,7 @@ namespace CommandCenter
             this.Technician_Logs.AutoWordSelection = true;
             this.Technician_Logs.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.Technician_Logs.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.Technician_Logs.Cursor = System.Windows.Forms.Cursors.Default;
+            this.Technician_Logs.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.Technician_Logs.ForeColor = System.Drawing.Color.Aqua;
             this.Technician_Logs.Name = "Technician_Logs";
             this.Technician_Logs.ReadOnly = true;
@@ -815,6 +817,7 @@ namespace CommandCenter
             this.Calibration_Save_Logs.Name = "Calibration_Save_Logs";
             this.Calibration_Save_Logs.Tag = "Overview Terminal Clear logs";
             this.Calibration_Save_Logs.UseVisualStyleBackColor = true;
+            this.Calibration_Save_Logs.Click += new System.EventHandler(this.Calibration_Save_Logs_Click);
             // 
             // Calibration_Clear_Logs
             // 
@@ -829,6 +832,7 @@ namespace CommandCenter
             this.Calibration_Clear_Logs.Name = "Calibration_Clear_Logs";
             this.Calibration_Clear_Logs.Tag = "Overview Terminal Clear logs";
             this.Calibration_Clear_Logs.UseVisualStyleBackColor = true;
+            this.Calibration_Clear_Logs.Click += new System.EventHandler(this.Calibration_Clear_Logs_Click);
             // 
             // Calibration_Logs
             // 
@@ -858,6 +862,7 @@ namespace CommandCenter
             this.Calibration_Module_All.Name = "Calibration_Module_All";
             this.Calibration_Module_All.Tag = "Global Module";
             this.Calibration_Module_All.UseVisualStyleBackColor = false;
+            this.Calibration_Module_All.Click += new System.EventHandler(this.Operation_Module_Global_Click);
             // 
             // Calibration_Module_Vehicle
             // 
@@ -873,6 +878,7 @@ namespace CommandCenter
             this.Calibration_Module_Vehicle.Name = "Calibration_Module_Vehicle";
             this.Calibration_Module_Vehicle.Tag = "Vehicle Module";
             this.Calibration_Module_Vehicle.UseVisualStyleBackColor = false;
+            this.Calibration_Module_Vehicle.Click += new System.EventHandler(this.Operation_Module_Vehicle_Click);
             // 
             // Calibration_Module_Sorting
             // 
@@ -888,6 +894,7 @@ namespace CommandCenter
             this.Calibration_Module_Sorting.Name = "Calibration_Module_Sorting";
             this.Calibration_Module_Sorting.Tag = "Sorting Module";
             this.Calibration_Module_Sorting.UseVisualStyleBackColor = false;
+            this.Calibration_Module_Sorting.Click += new System.EventHandler(this.Operation_Module_SortingStation_Click);
             // 
             // Calibration_Module_Weight
             // 
@@ -903,6 +910,7 @@ namespace CommandCenter
             this.Calibration_Module_Weight.Name = "Calibration_Module_Weight";
             this.Calibration_Module_Weight.Tag = "Weight Module";
             this.Calibration_Module_Weight.UseVisualStyleBackColor = false;
+            this.Calibration_Module_Weight.Click += new System.EventHandler(this.Operation_Module_WeightStation_Click);
             // 
             // Calibration_Button_StartStop
             // 
@@ -917,6 +925,7 @@ namespace CommandCenter
             this.Calibration_Button_StartStop.Name = "Calibration_Button_StartStop";
             this.Calibration_Button_StartStop.Tag = "Overview Terminal Clear logs";
             this.Calibration_Button_StartStop.UseVisualStyleBackColor = true;
+            this.Calibration_Button_StartStop.Click += new System.EventHandler(this.Calibration_Button_StartStop_Click);
             // 
             // Tab_Maintenance
             // 
@@ -993,6 +1002,7 @@ namespace CommandCenter
             this.Maintenance_Module_All.Name = "Maintenance_Module_All";
             this.Maintenance_Module_All.Tag = "Global Module";
             this.Maintenance_Module_All.UseVisualStyleBackColor = false;
+            this.Maintenance_Module_All.Click += new System.EventHandler(this.Operation_Module_Global_Click);
             // 
             // Maintenance_Module_Vehicle
             // 
@@ -1008,6 +1018,7 @@ namespace CommandCenter
             this.Maintenance_Module_Vehicle.Name = "Maintenance_Module_Vehicle";
             this.Maintenance_Module_Vehicle.Tag = "Vehicle Module";
             this.Maintenance_Module_Vehicle.UseVisualStyleBackColor = false;
+            this.Maintenance_Module_Vehicle.Click += new System.EventHandler(this.Operation_Module_Vehicle_Click);
             // 
             // Maintenance_Module_Sorting
             // 
@@ -1023,6 +1034,7 @@ namespace CommandCenter
             this.Maintenance_Module_Sorting.Name = "Maintenance_Module_Sorting";
             this.Maintenance_Module_Sorting.Tag = "Sorting Module";
             this.Maintenance_Module_Sorting.UseVisualStyleBackColor = false;
+            this.Maintenance_Module_Sorting.Click += new System.EventHandler(this.Operation_Module_SortingStation_Click);
             // 
             // Maintenance_Module_Weight
             // 
@@ -1038,6 +1050,7 @@ namespace CommandCenter
             this.Maintenance_Module_Weight.Name = "Maintenance_Module_Weight";
             this.Maintenance_Module_Weight.Tag = "Weight Module";
             this.Maintenance_Module_Weight.UseVisualStyleBackColor = false;
+            this.Maintenance_Module_Weight.Click += new System.EventHandler(this.Operation_Module_WeightStation_Click);
             // 
             // Maintenance_Button_StartStop
             // 
@@ -1052,6 +1065,7 @@ namespace CommandCenter
             this.Maintenance_Button_StartStop.Name = "Maintenance_Button_StartStop";
             this.Maintenance_Button_StartStop.Tag = "Overview Terminal Clear logs";
             this.Maintenance_Button_StartStop.UseVisualStyleBackColor = true;
+            this.Maintenance_Button_StartStop.Click += new System.EventHandler(this.Maintenance_Button_StartStop_Click);
             // 
             // Tab_Terminal
             // 
@@ -1123,6 +1137,8 @@ namespace CommandCenter
             // Tab_Settings
             // 
             this.Tab_Settings.BackColor = System.Drawing.Color.Black;
+            this.Tab_Settings.Controls.Add(this.DropDown_Languages);
+            this.Tab_Settings.Controls.Add(this.Label_Language);
             this.Tab_Settings.Controls.Add(this.Button_AutoConnect);
             this.Tab_Settings.Controls.Add(this.Label_AutoConnect);
             this.Tab_Settings.Controls.Add(this.BeagleBone_FilePath);
@@ -1158,6 +1174,30 @@ namespace CommandCenter
             this.Tab_Settings.ForeColor = System.Drawing.Color.Transparent;
             this.Tab_Settings.Name = "Tab_Settings";
             this.Tab_Settings.Resize += new System.EventHandler(this.Tab_Settings_Resize);
+            // 
+            // DropDown_Languages
+            // 
+            resources.ApplyResources(this.DropDown_Languages, "DropDown_Languages");
+            this.DropDown_Languages.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.DropDown_Languages.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.DropDown_Languages.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.DropDown_Languages.DropDownWidth = 100;
+            this.DropDown_Languages.ForeColor = System.Drawing.Color.MediumSpringGreen;
+            this.DropDown_Languages.Items.AddRange(new object[] {
+            resources.GetString("DropDown_Languages.Items"),
+            resources.GetString("DropDown_Languages.Items1")});
+            this.DropDown_Languages.Name = "DropDown_Languages";
+            this.DropDown_Languages.SelectionChangeCommitted += new System.EventHandler(this.DropDown_Languages_SelectionChangeCommitted);
+            // 
+            // Label_Language
+            // 
+            resources.ApplyResources(this.Label_Language, "Label_Language");
+            this.Label_Language.FlatAppearance.BorderSize = 0;
+            this.Label_Language.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.Label_Language.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.Label_Language.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.Label_Language.Name = "Label_Language";
+            this.Label_Language.UseVisualStyleBackColor = true;
             // 
             // Button_AutoConnect
             // 
@@ -1732,6 +1772,8 @@ namespace CommandCenter
         private System.Windows.Forms.Button Maintenance_Module_Sorting;
         private System.Windows.Forms.Button Maintenance_Module_Weight;
         private System.Windows.Forms.Button Maintenance_Button_StartStop;
+        private System.Windows.Forms.ComboBox DropDown_Languages;
+        private System.Windows.Forms.Button Label_Language;
     }
 }
 

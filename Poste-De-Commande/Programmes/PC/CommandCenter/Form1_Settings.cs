@@ -80,6 +80,14 @@ namespace CommandCenter
             public static Form_MainMenu formSettings;
             #endregion Variables
             #region Individual_Settings_Changes
+            #region Language
+            /// <summary> Gets the value from Settings.xml </summary>
+            /// <returns>Value of Language</returns>
+            public static string Language() { return ReadAppSettings("Language"); }
+
+            /// <summary> Gets the value from Settings.xml </summary>
+            public static bool Language(string valueToSave) { return (UpdateOrCreate("Language", valueToSave)); }
+            #endregion Language
             #region BeagleBone_AutoConnect
             /// <summary> Gets the value from Settings.xml </summary>
             /// <returns>Value of AutoConnect</returns>
@@ -425,6 +433,7 @@ namespace CommandCenter
                 UpdateOrCreate("BeagleBone_AutoConnect", (CommandCenter.Buttons.AutoConnection.State == ControlState.Active).ToString());
 
                 UpdateOrCreate("Scale_Unit", formSettings.DropDown_ScaleUnit.Text);
+                UpdateOrCreate("Language", "English");
             }
         }
 
@@ -845,6 +854,7 @@ namespace CommandCenter
             {
                 NewUserTextInfo(UserInfos.Settings.SavedWeightStationUnit, 1);
                 MasterProtocol.scaleUnit = DropDown_ScaleUnit.Text.Contains("Metric") ? Commands_Ref.units_Metric : Commands_Ref.units_Imperial;
+                BRS.Debug.Comment("Scale unit is now: " + MasterProtocol.scaleUnit.ToString());
             }
             else
             {
@@ -889,6 +899,26 @@ namespace CommandCenter
             if(Settings.BeagleBone_User(BeagleBone_User.Text))
             {
                 NewUserTextInfo(UserInfos.Settings.SavedUser, 1);
+            }
+            else
+            {
+                NewUserTextInfo(UserInfos.Settings.SavingError, 2);
+            }
+        }
+        private void DropDown_Languages_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            if (Settings.Language(DropDown_Languages.Text))
+            {
+                if(DropDown_Languages.Text.Contains("Fr"))
+                {
+                    Languages.SetLanguageToFrench();
+                }
+                else
+                {
+                    Languages.SetLanguageToEnglish();
+                }
+                ReloadForm();
+                NewUserTextInfo(UserInfos.Settings.SavedLanguage, 1);
             }
             else
             {

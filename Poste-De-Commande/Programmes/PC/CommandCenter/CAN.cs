@@ -83,7 +83,7 @@ namespace CommandCenter
                             //----------------------------------// Get last lines until SYNC is seen
                             string[] lines = { "[RX]", "", "", "", "", "", "", "" };
 
-                            BRS.Debug.Comment("\n");
+                            //BRS.Debug.Comment("\n");
                             for (int i = 0; i < 8; ++i)
                             {
                                 int lineCount = CommandCenter.terminal.Window.Lines.Length;
@@ -1316,7 +1316,7 @@ namespace CommandCenter
                 // Handling increments
                 //---------------------------------------------------------//
                 currentAmountOfAttempts++;
-                BRS.Debug.Comment(name + " Attempts: " + currentAmountOfAttempts.ToString());
+                //BRS.Debug.Comment(name + " Attempts: " + currentAmountOfAttempts.ToString());
                 //---------------------------------------------------------//
                 // Handling reaching the maximum allowed
                 //---------------------------------------------------------//
@@ -1336,6 +1336,7 @@ namespace CommandCenter
                     {
                         BRS.Debug.Comment(name + " has been detected as Offline.",true);
                         Current.State = State_Offline;
+                        Reset_WeightDatas();
                         OperationLogs.Window.Log_Warning(name + LogsInfos.Operations.Modules.NoLongerOnline);
                     }
                 }
@@ -1632,23 +1633,23 @@ namespace CommandCenter
                                 {
                                     OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Values.NowInMetric, Color.Lime);
                                 }
-                                Received.Values.unit_Metric           = DataState.Received;
 
                                 if (ResetReceivedData)
                                 {
-                                    Received.Values.unit_Imperial = DataState.NoData;
+                                    Reset_WeightDatas();
                                 }
+                                Received.Values.unit_Metric = DataState.Received;
                                 break;
                             case (0x08):
                                 if (Received.Values.unit_Imperial != DataState.Received)
                                 {
                                     OperationLogs.Window.Log_Comment(name + LogsInfos.Operations.Modules.Values.NowInImperial, Color.Lime);
                                 }
-                                Received.Values.unit_Imperial = DataState.Received;
                                 if (ResetReceivedData)
                                 {
-                                    Received.Values.unit_Metric = DataState.NoData;
+                                    Reset_WeightDatas();
                                 }
+                                Received.Values.unit_Imperial = DataState.Received;
                                 break;
                             default:
                                 //If received mode matched nothing, an error occured.
@@ -2142,7 +2143,10 @@ namespace CommandCenter
                 //---------------------------------------------------------//
                 //---------------------------------------------------------//
                 TerminalToLogItIn.Log_Comment(ModuleLogging.Separators.Commands, Color.Orange);
-                TerminalToLogItIn.Log_Warning("DISABLED");
+                TerminalToLogItIn.Log_Warning(ModuleLogging.DataUnavaibale);
+                //---------------------------------------------------------//
+                //---------------------------------------------------------//
+                TerminalToLogItIn.Log_Warning(ModuleLogging.DataResetWarning);
             }
             #endregion Logging
         }
@@ -2459,9 +2463,9 @@ namespace CommandCenter
                             Send.ToBeagleBone.Address(CAN_Addresses.TX.CommandCenter);
                             Send.ToBeagleBone.Value('M');
                             Send.ToBeagleBone.Value(mode);
-                            Send.ToBeagleBone.Value(0);
                             Send.ToBeagleBone.Value('C');
                             Send.ToBeagleBone.Value(scaleUnit);
+                            Send.ToBeagleBone.Value(0);
                             Send.ToBeagleBone.Value(0);
                             Send.ToBeagleBone.Value('S');
                             Send.ToBeagleBone.Value(state);

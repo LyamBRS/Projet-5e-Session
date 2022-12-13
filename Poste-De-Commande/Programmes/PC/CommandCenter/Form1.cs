@@ -70,8 +70,8 @@ namespace CommandCenter
             CommandCenter.Calibration.Buttons.Vehicle = new GenericButton(Calibration_Module_Vehicle, Icons.Vehicle.GetStatesColors(), Icons.Vehicle.GetStatesBitmaps());
             CommandCenter.Calibration.Buttons.WeightStation = new GenericButton(Calibration_Module_Weight, Icons.Balance.GetStatesColors(), Icons.Balance.GetStatesBitmaps());
             CommandCenter.Calibration.Buttons.SortingStation = new GenericButton(Calibration_Module_Sorting, Icons.Sorting.GetStatesColors(), Icons.Sorting.GetStatesBitmaps());
-            CommandCenter.Calibration.Buttons.ClearTerminal = new GenericButton(Calibration_Clear_Logs, Icons.Save.GetStatesColors(), Icons.Save.GetStatesBitmaps());
-            CommandCenter.Calibration.Buttons.SaveTerminal = new GenericButton(Calibration_Save_Logs, Icons.Terminal.GetStatesColors(), Icons.Terminal.GetStatesBitmaps());
+            CommandCenter.Calibration.Buttons.ClearTerminal = new GenericButton(Calibration_Clear_Logs, Icons.Terminal.GetStatesColors(), Icons.Terminal.GetStatesBitmaps());
+            CommandCenter.Calibration.Buttons.SaveTerminal = new GenericButton(Calibration_Save_Logs, Icons.Save.GetStatesColors(), Icons.Save.GetStatesBitmaps());
             #endregion Index_Calibration
             #region Index_Maintenance
             CommandCenter.Maintenance.Buttons.Maintenance = new GenericButton(Maintenance_Button_StartStop, Icons.Maintenance.GetStatesColors(), Icons.Maintenance.GetStatesBitmaps());
@@ -241,6 +241,7 @@ namespace CommandCenter
             BeagleBone_FilePath.Text = Settings.BeagleBone_FilePath();
 
             DropDown_ScaleUnit.Text = Settings.Scale_Unit();
+            DropDown_Languages.Text = Settings.Language();
 
             CommandCenter.Buttons.AutoConnection.State = (Settings.BeagleBone_AutoConnect().Equals("True") ? ControlState.Active : ControlState.Inactive);
             AutoConnect = (Settings.BeagleBone_AutoConnect().Equals("True") ? true : false);
@@ -275,12 +276,26 @@ namespace CommandCenter
             BRS.ComPort.DataReceivedAction = CommandCenter.terminal.DataReceiverHandling;
             Debug.Success();
             #endregion Terminal
-
+            /////////////////////////////////////////////////////////////
             #region Technician
             Technician_Initialise();
             MasterProtocol.scaleUnit = DropDown_ScaleUnit.Text.Contains("Metric") ? Commands_Ref.units_Metric : Commands_Ref.units_Imperial;
             #endregion Technician
 
+
+            //Initial initialisation of the previously selected language into the form as it opens
+            Debug.Comment("Initialising the language used by the end user");
+            if (DropDown_Languages.Text.Contains("Fr"))
+            {
+                Debug.Success("Selecting french");
+                Languages.SetLanguageToFrench();
+            }
+            else
+            {
+                Debug.Success("Selecting english (looks better tbh)");
+                Languages.SetLanguageToEnglish();
+            }
+            ReloadForm();
             BRS.Debug.Header(false);
         }
         //#############################################################//
@@ -766,6 +781,66 @@ namespace CommandCenter
             public static Color Warning = Color.FromArgb(250, 176, 5);
             public static Color Error = Color.FromArgb(250, 82, 82);
             public static Color Inactive = Color.FromArgb(115, 115, 115);
+        }
+        //#############################################################//
+        /// <summary>
+        /// Reloads the entire form's languages. This enables french or
+        /// english to be replaced in the form
+        /// </summary>
+        //#############################################################//
+        public void ReloadForm()
+        {
+            Debug.Comment("Replacing Label names inside the application");
+            Label_FileName.Text = Label_Names.Label_FileName;
+            Label_User.Text = Label_Names.Label_User;
+            Label_Password.Text = Label_Names.Label_Password;
+            Label_FileName.Text = Label_Names.Label_FileName;
+            Label_FilePath.Text = Label_Names.Label_FilePath;
+            Label_AutoConnect.Text = Label_Names.Label_AutoConnect;
+            Label_Language.Text = Label_Names.Label_Language;
+            Label_ScaleUnit.Text = Label_Names.Label_ScaleUnit;
+
+            Debug.Comment("Replacing Label specific to the technician mode");
+            Technician_Label_Mode.Text = Label_Names.Technician_Label_Mode;
+            Technician_Label_Status.Text = Label_Names.Technician_Label_Status;
+            Technician_Label_DataTypeA.Text = Label_Names.Technician_Label_DataTypeA;
+            Technician_Label_DataTypeB.Text = Label_Names.Technician_Label_DataTypeB;
+            Technician_Label_DataA.Text = Label_Names.Technician_Label_DataA;
+            Technician_Label_DataB.Text = Label_Names.Technician_Label_DataB;
+            Technician_Label_CanOutput.Text = Label_Names.Technician_Label_CanOutput;
+
+            Debug.Comment("Replacing Label specific to buttons inside the technician mode");
+            Technician_Label_SimulateModes.Text = Label_Names.Technician_Label_SimulateModes;
+            Technician_Label_KeepCanOn.Text = Label_Names.Technician_Label_KeepCanOn;
+            Technician_Label_ClearAfterSend.Text = Label_Names.Technician_Label_ClearAfterSend;
+            Technician_Label_SendOnce.Text = Label_Names.Technician_Label_SendOnce;
+
+            Debug.Comment("Replacing tab names");
+            Tab_Calibration.Text = Tab_Names.Calibration;
+            Tab_Maintenance.Text = Tab_Names.Maintenance;
+            Tab_Operation.Text = Tab_Names.Operation;
+            Tab_Settings.Text = Tab_Names.Settings;
+            Tab_Technician.Text = Tab_Names.Technician;
+            Tab_Terminal.Text = Tab_Names.Terminal;
+
+            Debug.Comment("Replacing module names");
+            ModuleData_SortingStation.name = Module_Names.SortingStation;
+            ModuleData_Vehicle.name = Module_Names.Vehicle;
+            ModuleData_WeightStation.name = Module_Names.WeightStation;
+
+            // terminal reset
+            Debug.Comment("Clearing terminals with no prior warnings cuz I couldn't be asked");
+            CommandCenter.Technician.terminal.Clear();
+            CommandCenter.terminal.Clear();
+            CommandCenter.Maintenance.terminal.Clear();
+            CommandCenter.Calibration.terminal.Clear();
+
+            // Close technician mode (basically to reset dropdowns)
+            if(Technician.isActive)
+            {
+                Debug.Comment("Terminating technician mode");
+                Technician.Close(this);
+            }
         }
     }
 

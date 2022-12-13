@@ -42,7 +42,7 @@ namespace CommandCenter
             {
                 if(MasterProtocol.isActive)
                 {
-                    if(MasterProtocol.mode == Modes_Ref.emergencyStop && Technician.InEmergency == false)
+                    if(MasterProtocol.mode == Modes_Ref.emergencyStop)
                     {
                         Technician.Emergency(this);
                     }
@@ -1133,31 +1133,35 @@ namespace CommandCenter
             //#############################################################//
             public static void Emergency(Form_MainMenu Bruh)
             {
-                FormReference = Bruh;
-                CommandCenter.Technician.terminal.Log_Error(LogsInfos.Technician.NowEmergency);
-                InEmergency = true;
-                Close(Bruh);
-                InEmergency = true;
-                Bruh.Technician_Emergency_CanVisualisation(Bruh);
-                CommandCenter.Technician.Buttons.ClearTerminal.State = ControlState.Error;
-                CommandCenter.Technician.Buttons.SaveTerminal.State = ControlState.Error;
-                CommandCenter.Technician.Buttons.KeepCanOn.State = ControlState.Error;
-                CommandCenter.Technician.Buttons.ClearAfterSend.State = ControlState.Error;
-                CommandCenter.Technician.Buttons.SimulateModes.State = ControlState.Error;
-                CommandCenter.Technician.Buttons.SendConfig.State = ControlState.Error;
-                CommandCenter.Technician.Buttons.TechMode.State = ControlState.Error;
+                if (InEmergency == false)
+                {
+                    BRS.Debug.Comment("Enabling emergency style for technician mode",true);
+                    FormReference = Bruh;
+                    CommandCenter.Technician.terminal.Log_Error(LogsInfos.Technician.NowEmergency);
+                    InEmergency = true;
+                    Close(Bruh);
+                    InEmergency = true;
+                    Bruh.Technician_Emergency_CanVisualisation(Bruh);
+                    CommandCenter.Technician.Buttons.ClearTerminal.State = ControlState.Error;
+                    CommandCenter.Technician.Buttons.SaveTerminal.State = ControlState.Error;
+                    CommandCenter.Technician.Buttons.KeepCanOn.State = ControlState.Error;
+                    CommandCenter.Technician.Buttons.ClearAfterSend.State = ControlState.Error;
+                    CommandCenter.Technician.Buttons.SimulateModes.State = ControlState.Error;
+                    CommandCenter.Technician.Buttons.SendConfig.State = ControlState.Error;
+                    CommandCenter.Technician.Buttons.TechMode.State = ControlState.Error;
 
-                Bruh.Technician_Label_SimulateModes.ForeColor = ControlStateColors.Error;
-                Bruh.Technician_Label_SendOnce.ForeColor = ControlStateColors.Error;
-                Bruh.Technician_Label_KeepCanOn.ForeColor = ControlStateColors.Error;
+                    Bruh.Technician_Label_SimulateModes.ForeColor = ControlStateColors.Error;
+                    Bruh.Technician_Label_SendOnce.ForeColor = ControlStateColors.Error;
+                    Bruh.Technician_Label_KeepCanOn.ForeColor = ControlStateColors.Error;
 
-                Bruh.Technician_Label_ClearAfterSend.ForeColor = ControlStateColors.Error;
-                Bruh.Technician_Label_Status.ForeColor = ControlStateColors.Error;
-                Bruh.Technician_Label_Mode.ForeColor = ControlStateColors.Error;
-                Bruh.Technician_Label_DataTypeA.ForeColor = ControlStateColors.Error;
-                Bruh.Technician_Label_DataTypeB.ForeColor = ControlStateColors.Error;
-                Bruh.Technician_Label_DataA.ForeColor = ControlStateColors.Error;
-                Bruh.Technician_Label_DataB.ForeColor = ControlStateColors.Error;
+                    Bruh.Technician_Label_ClearAfterSend.ForeColor = ControlStateColors.Error;
+                    Bruh.Technician_Label_Status.ForeColor = ControlStateColors.Error;
+                    Bruh.Technician_Label_Mode.ForeColor = ControlStateColors.Error;
+                    Bruh.Technician_Label_DataTypeA.ForeColor = ControlStateColors.Error;
+                    Bruh.Technician_Label_DataTypeB.ForeColor = ControlStateColors.Error;
+                    Bruh.Technician_Label_DataA.ForeColor = ControlStateColors.Error;
+                    Bruh.Technician_Label_DataB.ForeColor = ControlStateColors.Error;
+                }
             }
 
             #endregion Methods

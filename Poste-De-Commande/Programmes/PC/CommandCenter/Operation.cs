@@ -318,6 +318,8 @@ namespace CommandCenter
             }
             CommandCenter.Technician.Buttons.SortingStation.State = CommandCenter.Operation.Buttons.SortingStation.State;
             CommandCenter.Operation.Overview.SortingStation.State = CommandCenter.Operation.Buttons.SortingStation.State;
+            CommandCenter.Maintenance.Buttons.SortingStation.State = CommandCenter.Operation.Buttons.SortingStation.State;
+            CommandCenter.Calibration.Buttons.SortingStation.State = CommandCenter.Operation.Buttons.SortingStation.State;
         }
         //#############################################################//
         /// <summary>
@@ -384,6 +386,8 @@ namespace CommandCenter
             }
             CommandCenter.Technician.Buttons.Vehicle.State = CommandCenter.Operation.Buttons.Vehicle.State;
             CommandCenter.Operation.Overview.Vehicle.State = CommandCenter.Operation.Buttons.Vehicle.State;
+            CommandCenter.Maintenance.Buttons.Vehicle.State = CommandCenter.Operation.Buttons.Vehicle.State;
+            CommandCenter.Calibration.Buttons.Vehicle.State = CommandCenter.Operation.Buttons.Vehicle.State;
         }
         //#############################################################//
         /// <summary>
@@ -450,6 +454,8 @@ namespace CommandCenter
             }
             CommandCenter.Technician.Buttons.WeightStation.State = CommandCenter.Operation.Buttons.WeightStation.State;
             CommandCenter.Operation.Overview.WeightStation.State = CommandCenter.Operation.Buttons.WeightStation.State;
+            CommandCenter.Maintenance.Buttons.WeightStation.State = CommandCenter.Operation.Buttons.WeightStation.State;
+            CommandCenter.Calibration.Buttons.WeightStation.State = CommandCenter.Operation.Buttons.WeightStation.State;
         }
         #endregion Modules
         //#############################################################//
@@ -511,6 +517,8 @@ namespace CommandCenter
                     CommandCenter.Operation.Buttons.Global.State = ControlState.Loading;
                 }
             }
+            CommandCenter.Maintenance.Buttons.Global.State = CommandCenter.Operation.Buttons.Global.State;
+            CommandCenter.Calibration.Buttons.Global.State = CommandCenter.Operation.Buttons.Global.State;
         }
         #endregion Individual_Updates
         #endregion Operation_Specifics
@@ -730,6 +738,8 @@ namespace CommandCenter
                     if (ModuleData_Vehicle.error != Module_Errors.none)
                     {
                         NewUserTextInfo(ModuleData_Vehicle.error.ToString(), 1);
+                        //Patch because there seems to be CAN errors
+                        ModuleData_Vehicle.error = Module_Errors.none;
                     }
                     else
                     {
@@ -874,15 +884,19 @@ namespace CommandCenter
                     //-----------------------------------------------------------------//
                     if (sortingStationOffline || weightStationOffline || vehicleOffline)
                     {
-                        string sortingStationMessage = sortingStationOffline ? " Sorting," : "";
-                        string vehicleMessage        = vehicleOffline        ? " Vehicle," : "";
-                        string weightStationMessage  = weightStationOffline  ? " Weight," : "";
+                        string NameOfSortingStation = Module_Names.SortingStation.Replace("Station","").Replace("Centre de", "");
+                        string NameOfVehicle = Module_Names.Vehicle.Replace("Station", "");
+                        string NameOfWeightStation = (Module_Names.WeightStation.Replace("Station", "")).Replace("de ","");
+
+                        string sortingStationMessage = sortingStationOffline ? NameOfSortingStation + "," : "";
+                        string vehicleMessage        = vehicleOffline        ? NameOfVehicle + "," : "";
+                        string weightStationMessage  = weightStationOffline  ? NameOfWeightStation + "," : "";
 
                         string result = sortingStationMessage + vehicleMessage + weightStationMessage;
 
                         //Remove last comma from the sentence
                         if (result.EndsWith(",")) { result = result.Remove(result.Length - 1, 1); }
-                        NewUserTextInfo("Offline modules:" + result,2);
+                        NewUserTextInfo(Module_Names.OfflineModules + result,2);
                     }
                     else
                     {
@@ -1141,7 +1155,8 @@ namespace CommandCenter
         //#############################################################//
         /// <summary>
         /// Update the displayed weight depending on ModuleData_Weight
-        /// and other factors such as the COM port.
+        /// and other factors such as the COM port and if the scale
+        /// is currently offline
         /// </summary>
         //#############################################################//
         public void Operation_Update_Weight()
@@ -1154,9 +1169,14 @@ namespace CommandCenter
                 {
                     byte weight = ModuleData_WeightStation.Current.Weight;
 
-                    if (weight == Weight_Offline)
+                    if (weight == Weight_Offline || ModuleData_WeightStation.Current.State == State_Offline)
                     {
                         Weight = WeightInfos.isOffline;
+                        // Reset display and gathered weight to offline
+                        if(ModuleData_WeightStation.Current.State == State_Offline)
+                        {
+                            ModuleData_WeightStation.Current.Weight = Weight_Offline;
+                        }
                     }
                     else
                     {
@@ -1187,8 +1207,9 @@ namespace CommandCenter
                             else
                             {
                                 WeightUnits currentlyWanted = DropDown_ScaleUnit.Text.Contains("Metric") ? WeightUnits.Metric : WeightUnits.Imperial;
+                                bool isTheCorrectUnit = ModuleData_WeightStation.IsWeightUnitCorrect(currentlyWanted);
 
-                                if (ModuleData_WeightStation.IsWeightUnitCorrect(currentlyWanted))
+                                if (isTheCorrectUnit)
                                 {
                                     if(currentlyWanted == WeightUnits.Imperial)
                                     {
@@ -1252,6 +1273,8 @@ namespace CommandCenter
             {
                 Operation_Weight_Label.Text = Weight;
             }
+
+            //BRS.Debug.Comment("Imperial: " + (ModuleData_WeightStation.Received.Values.unit_Imperial == DataState.Received).ToString() + " Metric: " + (ModuleData_WeightStation.Received.Values.unit_Metric == DataState.Received).ToString());
         }
         #endregion Scale
     }

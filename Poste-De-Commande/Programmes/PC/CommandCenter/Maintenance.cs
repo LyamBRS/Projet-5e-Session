@@ -27,6 +27,12 @@ namespace CommandCenter
         #region Buttons
         #region Clicks
         //#############################################################//
+        /// <summary>
+        /// Click event called each time the button to save logs is
+        /// pressed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         //#############################################################//
         private void Maintenance_Save_Logs_Click(object sender, EventArgs e)
         {
@@ -39,6 +45,12 @@ namespace CommandCenter
             BRS.Debug.Header(false);
         }
         //#############################################################//
+        /// <summary>
+        /// Click event called each time the button to clear the
+        /// maintenance logs is pressed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         //#############################################################//
         private void Maintenance_Clear_Logs_Click(object sender, EventArgs e)
         {
@@ -57,6 +69,12 @@ namespace CommandCenter
                 //NewUserTextInfo("Canceled clearing", 3);
             }
             BRS.Debug.Header(false);
+        }
+        //#############################################################//
+        //#############################################################//
+        private void Maintenance_Button_StartStop_Click(object sender, EventArgs e)
+        {
+            BRS.PopUp.Error(PopUpInfos.ThisIsntAvailable,PopUpInfos.Header.Warning);
         }
         #endregion Clicks
         #region Updates
