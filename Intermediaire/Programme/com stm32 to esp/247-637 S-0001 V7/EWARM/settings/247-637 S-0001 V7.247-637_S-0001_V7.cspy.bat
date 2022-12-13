@@ -25,7 +25,7 @@ if not "%~1" == "" goto debugFile
 
 @echo on 
 
-"C:\IAR\ARM\8.50\common\bin\cspybat" -f "U:\session 5\projet final\11-Gestion des transports et tour communications\247-637 S-0001 V7\EWARM\settings\247-637 S-0001 V7.247-637_S-0001_V7.general.xcl" --backend -f "U:\session 5\projet final\11-Gestion des transports et tour communications\247-637 S-0001 V7\EWARM\settings\247-637 S-0001 V7.247-637_S-0001_V7.driver.xcl" 
+"C:\IAR\ARM\8.50\common\bin\cspybat" -f "C:\Projet\Projet-5e-Session\Intermediaire\Programme\com stm32 to esp\247-637 S-0001 V7\EWARM\settings\247-637 S-0001 V7.247-637_S-0001_V7.general.xcl" --backend -f "C:\Projet\Projet-5e-Session\Intermediaire\Programme\com stm32 to esp\247-637 S-0001 V7\EWARM\settings\247-637 S-0001 V7.247-637_S-0001_V7.driver.xcl" 
 
 @echo off 
 goto end 
@@ -34,7 +34,7 @@ goto end
 
 @echo on 
 
-"C:\IAR\ARM\8.50\common\bin\cspybat" -f "U:\session 5\projet final\11-Gestion des transports et tour communications\247-637 S-0001 V7\EWARM\settings\247-637 S-0001 V7.247-637_S-0001_V7.general.xcl" "--debug_file=%~1" --backend -f "U:\session 5\projet final\11-Gestion des transports et tour communications\247-637 S-0001 V7\EWARM\settings\247-637 S-0001 V7.247-637_S-0001_V7.driver.xcl" 
+"C:\IAR\ARM\8.50\common\bin\cspybat" -f "C:\Projet\Projet-5e-Session\Intermediaire\Programme\com stm32 to esp\247-637 S-0001 V7\EWARM\settings\247-637 S-0001 V7.247-637_S-0001_V7.general.xcl" "--debug_file=%~1" --backend -f "C:\Projet\Projet-5e-Session\Intermediaire\Programme\com stm32 to esp\247-637 S-0001 V7\EWARM\settings\247-637 S-0001 V7.247-637_S-0001_V7.driver.xcl" 
 
 @echo off 
 :end

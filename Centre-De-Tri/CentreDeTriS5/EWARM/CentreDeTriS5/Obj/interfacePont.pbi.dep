@@ -43,4 +43,5 @@ interfacePont.pbi: \
   C:\IAR\ARM\8.50\arm\inc\c\DLib_Product_string.h \
   C:\Projet\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/serviceBaseDeTemps.h \
   C:\Projet\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/interfacePont.h \
-  C:\Projet\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/interfaceUsine.h
+  C:\Projet\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/interfaceUsine.h \
+  C:\Projet\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/interfaceT4.h

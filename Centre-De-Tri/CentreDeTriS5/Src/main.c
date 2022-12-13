@@ -54,6 +54,7 @@
 //#include "processusBoutonConnecte.h"
 #include "processusUsine.h"
 #include "interfaceUsine.h"
+#include "interfaceAscenseur.h"
 #include "piloteLcd.h"
 #include "interfaceLcd.h"
 #include "interfaceCAN1.h"
@@ -66,7 +67,10 @@
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
-/* USER CODE BEGIN PTD */
+#define JAUNE  STEP0_Pin
+#define BLANC  STEP1_Pin
+#define ORANGE STEP2_Pin
+#define ROUGE  STEP3_Pin
 
 /* USER CODE END PTD */
 
@@ -126,6 +130,7 @@ void main_initialiseAvantLeHAL(void)
   interfaceT2_initialise();
   interfaceT3_initialise();
   interfaceT4_initialise();
+  interfaceAscenseur_initialise();
   
   interfaceB1_initialise();
   interfaceColonne_initialise();  
@@ -208,8 +213,176 @@ int main(void)
   vPutStringGLcd("Mode:               ", 4, 5);
   vPutStringGLcd("Etat:Attend Bouton  ", 2, 5);
   unsigned char oldBruh = 0;
+  
   while (1)
   {
+    
+//    HAL_GPIO_WritePin(STEP0_GPIO_Port, STEP0_Pin, (GPIO_PinState)1);  //1
+//    HAL_GPIO_WritePin(STEP1_GPIO_Port, STEP1_Pin, (GPIO_PinState)0); 
+//    HAL_GPIO_WritePin(STEP2_GPIO_Port, STEP2_Pin, (GPIO_PinState)0); 
+//    HAL_GPIO_WritePin(STEP3_GPIO_Port, STEP3_Pin, (GPIO_PinState)0); 
+//    HAL_Delay(100);
+//    HAL_GPIO_WritePin(STEP0_GPIO_Port, STEP0_Pin, (GPIO_PinState)0);  //1
+//    HAL_GPIO_WritePin(STEP1_GPIO_Port, STEP1_Pin, (GPIO_PinState)1); 
+//    HAL_GPIO_WritePin(STEP2_GPIO_Port, STEP2_Pin, (GPIO_PinState)0); 
+//    HAL_GPIO_WritePin(STEP3_GPIO_Port, STEP3_Pin, (GPIO_PinState)0); 
+//    HAL_Delay(100);
+//    HAL_GPIO_WritePin(STEP0_GPIO_Port, STEP0_Pin, (GPIO_PinState)0);  //1
+//    HAL_GPIO_WritePin(STEP1_GPIO_Port, STEP1_Pin, (GPIO_PinState)0); 
+//    HAL_GPIO_WritePin(STEP2_GPIO_Port, STEP2_Pin, (GPIO_PinState)1); 
+//    HAL_GPIO_WritePin(STEP3_GPIO_Port, STEP3_Pin, (GPIO_PinState)0); 
+//    HAL_Delay(100);
+//    HAL_GPIO_WritePin(STEP0_GPIO_Port, STEP0_Pin, (GPIO_PinState)0);  //1
+//    HAL_GPIO_WritePin(STEP1_GPIO_Port, STEP1_Pin, (GPIO_PinState)0); 
+//    HAL_GPIO_WritePin(STEP2_GPIO_Port, STEP2_Pin, (GPIO_PinState)0); 
+//    HAL_GPIO_WritePin(STEP3_GPIO_Port, STEP3_Pin, (GPIO_PinState)1); 
+//    HAL_Delay(100);
+    HAL_GPIO_WritePin(STEP0_GPIO_Port, JAUNE, (GPIO_PinState)0);  //1
+    HAL_GPIO_WritePin(STEP1_GPIO_Port, BLANC, (GPIO_PinState)1); 
+    HAL_GPIO_WritePin(STEP2_GPIO_Port, ORANGE, (GPIO_PinState)0); 
+    HAL_GPIO_WritePin(STEP3_GPIO_Port, ROUGE, (GPIO_PinState)0); 
+    HAL_Delay(400);
+    HAL_GPIO_WritePin(STEP0_GPIO_Port, JAUNE, (GPIO_PinState)0);  //1
+    HAL_GPIO_WritePin(STEP1_GPIO_Port, BLANC, (GPIO_PinState)1); 
+    HAL_GPIO_WritePin(STEP2_GPIO_Port, ORANGE, (GPIO_PinState)0); 
+    HAL_GPIO_WritePin(STEP3_GPIO_Port, ROUGE, (GPIO_PinState)1); 
+    HAL_Delay(400);
+    HAL_GPIO_WritePin(STEP0_GPIO_Port, JAUNE, (GPIO_PinState)0);  //1
+    HAL_GPIO_WritePin(STEP1_GPIO_Port, BLANC, (GPIO_PinState)1); 
+    HAL_GPIO_WritePin(STEP2_GPIO_Port, ORANGE, (GPIO_PinState)1); 
+    HAL_GPIO_WritePin(STEP3_GPIO_Port, ROUGE, (GPIO_PinState)1); 
+    HAL_Delay(400);
+    while(1)
+    {
+    HAL_GPIO_WritePin(STEP0_GPIO_Port, JAUNE, (GPIO_PinState)0);  //1
+    HAL_GPIO_WritePin(STEP1_GPIO_Port, BLANC, (GPIO_PinState)0); 
+    HAL_GPIO_WritePin(STEP2_GPIO_Port, ORANGE, (GPIO_PinState)1); 
+    HAL_GPIO_WritePin(STEP3_GPIO_Port, ROUGE, (GPIO_PinState)1); 
+    HAL_Delay(400);
+    HAL_GPIO_WritePin(STEP0_GPIO_Port, JAUNE, (GPIO_PinState)1);  //1
+    HAL_GPIO_WritePin(STEP1_GPIO_Port, BLANC, (GPIO_PinState)0); 
+    HAL_GPIO_WritePin(STEP2_GPIO_Port, ORANGE, (GPIO_PinState)1); 
+    HAL_GPIO_WritePin(STEP3_GPIO_Port, ROUGE, (GPIO_PinState)1); 
+    HAL_Delay(400);
+    HAL_GPIO_WritePin(STEP0_GPIO_Port, JAUNE, (GPIO_PinState)1);  //1
+    HAL_GPIO_WritePin(STEP1_GPIO_Port, BLANC, (GPIO_PinState)0); 
+    HAL_GPIO_WritePin(STEP2_GPIO_Port, ORANGE, (GPIO_PinState)1); 
+    HAL_GPIO_WritePin(STEP3_GPIO_Port, ROUGE, (GPIO_PinState)0); 
+    HAL_Delay(400);
+    HAL_GPIO_WritePin(STEP0_GPIO_Port, JAUNE, (GPIO_PinState)1);  //1
+    HAL_GPIO_WritePin(STEP1_GPIO_Port, BLANC, (GPIO_PinState)1); 
+    HAL_GPIO_WritePin(STEP2_GPIO_Port, ORANGE, (GPIO_PinState)1); 
+    HAL_GPIO_WritePin(STEP3_GPIO_Port, ROUGE, (GPIO_PinState)0); 
+    HAL_Delay(400);
+    HAL_GPIO_WritePin(STEP0_GPIO_Port, JAUNE, (GPIO_PinState)1);  //1
+    HAL_GPIO_WritePin(STEP1_GPIO_Port, BLANC, (GPIO_PinState)1); 
+    HAL_GPIO_WritePin(STEP2_GPIO_Port, ORANGE, (GPIO_PinState)0); 
+    HAL_GPIO_WritePin(STEP3_GPIO_Port, ROUGE, (GPIO_PinState)0); 
+    HAL_Delay(400);
+    HAL_GPIO_WritePin(STEP0_GPIO_Port, JAUNE, (GPIO_PinState)1);  //1
+    HAL_GPIO_WritePin(STEP1_GPIO_Port, BLANC, (GPIO_PinState)1); 
+    HAL_GPIO_WritePin(STEP2_GPIO_Port, ORANGE, (GPIO_PinState)0); 
+    HAL_GPIO_WritePin(STEP3_GPIO_Port, ROUGE, (GPIO_PinState)1); 
+    HAL_Delay(400);
+    HAL_GPIO_WritePin(STEP0_GPIO_Port, JAUNE, (GPIO_PinState)0);  //1
+    HAL_GPIO_WritePin(STEP1_GPIO_Port, BLANC, (GPIO_PinState)1); 
+    HAL_GPIO_WritePin(STEP2_GPIO_Port, ORANGE, (GPIO_PinState)0); 
+    HAL_GPIO_WritePin(STEP3_GPIO_Port, ROUGE, (GPIO_PinState)1); 
+    HAL_Delay(400);
+    HAL_GPIO_WritePin(STEP0_GPIO_Port, JAUNE, (GPIO_PinState)0);  //1
+    HAL_GPIO_WritePin(STEP1_GPIO_Port, BLANC, (GPIO_PinState)1); 
+    HAL_GPIO_WritePin(STEP2_GPIO_Port, ORANGE, (GPIO_PinState)1); 
+    HAL_GPIO_WritePin(STEP3_GPIO_Port, ROUGE, (GPIO_PinState)1); 
+    HAL_Delay(400);
+    }
+    
+//    HAL_GPIO_WritePin(STEP0_GPIO_Port, STEP0_Pin, (GPIO_PinState)1);  //2
+//    HAL_GPIO_WritePin(STEP1_GPIO_Port, STEP1_Pin, (GPIO_PinState)0); 
+//    HAL_GPIO_WritePin(STEP2_GPIO_Port, STEP2_Pin, (GPIO_PinState)0); 
+//    HAL_GPIO_WritePin(STEP3_GPIO_Port, STEP3_Pin, (GPIO_PinState)0); 
+//     HAL_Delay(100);
+//    HAL_GPIO_WritePin(STEP0_GPIO_Port, STEP0_Pin, (GPIO_PinState)0);  //3
+//    HAL_GPIO_WritePin(STEP1_GPIO_Port, STEP1_Pin, (GPIO_PinState)1); 
+//    HAL_GPIO_WritePin(STEP2_GPIO_Port, STEP2_Pin, (GPIO_PinState)0); 
+//    HAL_GPIO_WritePin(STEP3_GPIO_Port, STEP3_Pin, (GPIO_PinState)0); 
+//     HAL_Delay(100);
+//    HAL_GPIO_WritePin(STEP0_GPIO_Port, STEP0_Pin, (GPIO_PinState)1);  //4
+//    HAL_GPIO_WritePin(STEP1_GPIO_Port, STEP1_Pin, (GPIO_PinState)1); 
+//    HAL_GPIO_WritePin(STEP2_GPIO_Port, STEP2_Pin, (GPIO_PinState)0); 
+//    HAL_GPIO_WritePin(STEP3_GPIO_Port, STEP3_Pin, (GPIO_PinState)0); //PARTIE 1
+//     HAL_Delay(100);  
+//    HAL_GPIO_WritePin(STEP0_GPIO_Port, STEP0_Pin, (GPIO_PinState)0);  //8
+//    HAL_GPIO_WritePin(STEP1_GPIO_Port, STEP1_Pin, (GPIO_PinState)0); 
+//    HAL_GPIO_WritePin(STEP2_GPIO_Port, STEP2_Pin, (GPIO_PinState)1); 
+//    HAL_GPIO_WritePin(STEP3_GPIO_Port, STEP3_Pin, (GPIO_PinState)0); //PARTIE 2
+//     HAL_Delay(100);  
+//    HAL_GPIO_WritePin(STEP0_GPIO_Port, STEP0_Pin, (GPIO_PinState)1);  //4
+//    HAL_GPIO_WritePin(STEP1_GPIO_Port, STEP1_Pin, (GPIO_PinState)0); 
+//    HAL_GPIO_WritePin(STEP2_GPIO_Port, STEP2_Pin, (GPIO_PinState)1); 
+//    HAL_GPIO_WritePin(STEP3_GPIO_Port, STEP3_Pin, (GPIO_PinState)0); //PARTIE 4
+//     HAL_Delay(100);  
+//     HAL_GPIO_WritePin(STEP0_GPIO_Port, STEP0_Pin, (GPIO_PinState)0);  //4
+//     HAL_GPIO_WritePin(STEP1_GPIO_Port, STEP1_Pin, (GPIO_PinState)1); 
+//     HAL_GPIO_WritePin(STEP2_GPIO_Port, STEP2_Pin, (GPIO_PinState)1); 
+//     HAL_GPIO_WritePin(STEP3_GPIO_Port, STEP3_Pin, (GPIO_PinState)0); //PARTIE 4
+//     HAL_Delay(100);  
+//     HAL_GPIO_WritePin(STEP0_GPIO_Port, STEP0_Pin, (GPIO_PinState)1);  //4
+//     HAL_GPIO_WritePin(STEP1_GPIO_Port, STEP1_Pin, (GPIO_PinState)1); 
+//     HAL_GPIO_WritePin(STEP2_GPIO_Port, STEP2_Pin, (GPIO_PinState)1); 
+//     HAL_GPIO_WritePin(STEP3_GPIO_Port, STEP3_Pin, (GPIO_PinState)0); //PARTIE 4
+//     HAL_Delay(100);  
+//     HAL_GPIO_WritePin(STEP0_GPIO_Port, STEP0_Pin, (GPIO_PinState)1);  //4
+//     HAL_GPIO_WritePin(STEP1_GPIO_Port, STEP1_Pin, (GPIO_PinState)1); 
+//     HAL_GPIO_WritePin(STEP2_GPIO_Port, STEP2_Pin, (GPIO_PinState)1); 
+//     HAL_GPIO_WritePin(STEP3_GPIO_Port, STEP3_Pin, (GPIO_PinState)0); //PARTIE 4
+//     HAL_Delay(100);  
+//     HAL_GPIO_WritePin(STEP0_GPIO_Port, STEP0_Pin, (GPIO_PinState)0);  //4
+//     HAL_GPIO_WritePin(STEP1_GPIO_Port, STEP1_Pin, (GPIO_PinState)0); 
+//     HAL_GPIO_WritePin(STEP2_GPIO_Port, STEP2_Pin, (GPIO_PinState)0); 
+//     HAL_GPIO_WritePin(STEP3_GPIO_Port, STEP3_Pin, (GPIO_PinState)1); //PARTIE 4
+//     HAL_Delay(100);
+//     HAL_GPIO_WritePin(STEP0_GPIO_Port, STEP0_Pin, (GPIO_PinState)1);  //4
+//     HAL_GPIO_WritePin(STEP1_GPIO_Port, STEP1_Pin, (GPIO_PinState)0); 
+//     HAL_GPIO_WritePin(STEP2_GPIO_Port, STEP2_Pin, (GPIO_PinState)0); 
+//     HAL_GPIO_WritePin(STEP3_GPIO_Port, STEP3_Pin, (GPIO_PinState)1); //PARTIE 4
+//     HAL_Delay(100);
+//     HAL_GPIO_WritePin(STEP0_GPIO_Port, STEP0_Pin, (GPIO_PinState)0);  //4
+//     HAL_GPIO_WritePin(STEP1_GPIO_Port, STEP1_Pin, (GPIO_PinState)1); 
+//     HAL_GPIO_WritePin(STEP2_GPIO_Port, STEP2_Pin, (GPIO_PinState)0); 
+//     HAL_GPIO_WritePin(STEP3_GPIO_Port, STEP3_Pin, (GPIO_PinState)1); //PARTIE 4
+//     HAL_Delay(100);
+//     HAL_GPIO_WritePin(STEP0_GPIO_Port, STEP0_Pin, (GPIO_PinState)1);  //4
+//     HAL_GPIO_WritePin(STEP1_GPIO_Port, STEP1_Pin, (GPIO_PinState)1); 
+//     HAL_GPIO_WritePin(STEP2_GPIO_Port, STEP2_Pin, (GPIO_PinState)1); 
+//     HAL_GPIO_WritePin(STEP3_GPIO_Port, STEP3_Pin, (GPIO_PinState)0); //PARTIE 4
+//     HAL_Delay(100);  
+//     HAL_GPIO_WritePin(STEP0_GPIO_Port, STEP0_Pin, (GPIO_PinState)1);  //4
+//     HAL_GPIO_WritePin(STEP1_GPIO_Port, STEP1_Pin, (GPIO_PinState)1); 
+//     HAL_GPIO_WritePin(STEP2_GPIO_Port, STEP2_Pin, (GPIO_PinState)0); 
+//     HAL_GPIO_WritePin(STEP3_GPIO_Port, STEP3_Pin, (GPIO_PinState)1); //PARTIE 4
+//     HAL_Delay(100);
+//     HAL_GPIO_WritePin(STEP0_GPIO_Port, STEP0_Pin, (GPIO_PinState)0);  //4
+//     HAL_GPIO_WritePin(STEP1_GPIO_Port, STEP1_Pin, (GPIO_PinState)0); 
+//     HAL_GPIO_WritePin(STEP2_GPIO_Port, STEP2_Pin, (GPIO_PinState)1); 
+//     HAL_GPIO_WritePin(STEP3_GPIO_Port, STEP3_Pin, (GPIO_PinState)1); //PARTIE 4
+//     HAL_Delay(100);
+//     HAL_GPIO_WritePin(STEP0_GPIO_Port, STEP0_Pin, (GPIO_PinState)1);  //4
+//     HAL_GPIO_WritePin(STEP1_GPIO_Port, STEP1_Pin, (GPIO_PinState)0); 
+//     HAL_GPIO_WritePin(STEP2_GPIO_Port, STEP2_Pin, (GPIO_PinState)1); 
+//     HAL_GPIO_WritePin(STEP3_GPIO_Port, STEP3_Pin, (GPIO_PinState)1); //PARTIE 4
+//     HAL_Delay(100);
+//     HAL_GPIO_WritePin(STEP0_GPIO_Port, STEP0_Pin, (GPIO_PinState)0);  //4
+//     HAL_GPIO_WritePin(STEP1_GPIO_Port, STEP1_Pin, (GPIO_PinState)1); 
+//     HAL_GPIO_WritePin(STEP2_GPIO_Port, STEP2_Pin, (GPIO_PinState)1); 
+//     HAL_GPIO_WritePin(STEP3_GPIO_Port, STEP3_Pin, (GPIO_PinState)1); //PARTIE 4
+//     HAL_Delay(100);
+//     HAL_GPIO_WritePin(STEP0_GPIO_Port, STEP0_Pin, (GPIO_PinState)1);  //4
+//     HAL_GPIO_WritePin(STEP1_GPIO_Port, STEP1_Pin, (GPIO_PinState)1); 
+//     HAL_GPIO_WritePin(STEP2_GPIO_Port, STEP2_Pin, (GPIO_PinState)1); 
+//     HAL_GPIO_WritePin(STEP3_GPIO_Port, STEP3_Pin, (GPIO_PinState)1); //PARTIE 4
+//     HAL_Delay(100);
+     
+     
     /*
     //Test du step moteur
     HAL_GPIO_WritePin(STEP0_GPIO_Port, STEP0_Pin, (GPIO_PinState)1);  
@@ -217,89 +390,90 @@ int main(void)
     HAL_GPIO_WritePin(STEP2_GPIO_Port, STEP2_Pin, (GPIO_PinState)0); 
     HAL_GPIO_WritePin(STEP3_GPIO_Port, STEP3_Pin, (GPIO_PinState)0); 
     */
-    if (bFlagUpdateMessageEcran)
-    {
-      flagTexteFini = 0;
-      for (int i = 0; i <= 39; i++)
-      {
-        if (i <= 19)
-        {
-          if (!flagTexteFini)vPutCharGLcd(messageEcran[i], 6, i, 5);
-          else vPutCharGLcd(' ', 6, i, 5);
-        }
-        else if (i <= (39))
-        {
-          if (!flagTexteFini)vPutCharGLcd(messageEcran[i], 7, i - 20, 5);
-          else vPutCharGLcd(' ', 7, i - 20, 5);
-        }
-        if (messageEcran[i + 1] == '\0')flagTexteFini = 1;
-      }
-      bFlagUpdateMessageEcran = 0;
-    }
-
-    if (bFlagUpdateEtatEcran)
-    {
-      flagTexteFini = 0;
-      for (int i = 0; i+5 <= 19; i++)
-      {       
-        if (!flagTexteFini)vPutCharGLcd(etatEcran[i], 2, i+5, 5);
-        else vPutCharGLcd(' ', 2, i+5, 5);
-        if (etatEcran[i + 1] == '\0') flagTexteFini = 1;
-      }
-      bFlagUpdateEtatEcran = 0;
-    }
-    
-    if (bFlagUpdateModeEcran)
-    {
-      flagTexteFini = 0;
-      for (int i = 0; i+5 <= 19; i++)
-      {       
-        if (!flagTexteFini)vPutCharGLcd(modeEcran[i], 4, i+5, 5);
-        else vPutCharGLcd(' ', 4, i+5, 5);
-        if (modeEcran[i + 1] == '\0') flagTexteFini = 1;
-      }
-      bFlagUpdateModeEcran = 0;
-    }
-
-    //Affichage de l'état du CAN
-    if (!ModuleData.CantConnect) // Pas connecté
-    {
-      vPutStringGLcdINV("CAN Connected       ", 0, 5);
-    }
-    else
-    {
-      vPutStringGLcdINV("CAN Disconnected    ", 0, 5);
-    }
-    
-     if (piloteCAN1_messageDisponible()) // Pas connecté
-    {
-      //vPutStringGLcdINV("Message disponible  ", 2, 5);
-    }
-    else
-    {
-      //vPutStringGLcdINV("No Message?         ", 2, 5);
-    }
-
-    if(true)
-    {
-      unsigned int bruh = piloteCAN1_litLesErreurs();
-      static unsigned char index = 0;
-
-      if(bruh != oldBruh)
-      {
-        interfaceLcd_Draw_Text_Integer(32,16+(6*index),bruh,3,1);
-        index++;
-        oldBruh = bruh;
-      }  
-    }
-
-    //interfaceLcd_Draw_Text_Integer(0,32,ModuleData.Mode,2,1);
-
-    /* USER CODE END WHILE */
-
-    /* USER CODE BEGIN 3 */
+//    if (bFlagUpdateMessageEcran)
+//    {
+//      flagTexteFini = 0;
+//      for (int i = 0; i <= 39; i++)
+//      {
+//        if (i <= 19)
+//        {
+//          if (!flagTexteFini)vPutCharGLcd(messageEcran[i], 6, i, 5);
+//          else vPutCharGLcd(' ', 6, i, 5);
+//        }
+//        else if (i <= (39))
+//        {
+//          if (!flagTexteFini)vPutCharGLcd(messageEcran[i], 7, i - 20, 5);
+//          else vPutCharGLcd(' ', 7, i - 20, 5);
+//        }
+//        if (messageEcran[i + 1] == '\0')flagTexteFini = 1;
+//      }
+//      bFlagUpdateMessageEcran = 0;
+//    }
+//
+//    if (bFlagUpdateEtatEcran)
+//    {
+//      flagTexteFini = 0;
+//      for (int i = 0; i+5 <= 19; i++)
+//      {       
+//        if (!flagTexteFini)vPutCharGLcd(etatEcran[i], 2, i+5, 5);
+//        else vPutCharGLcd(' ', 2, i+5, 5);
+//        if (etatEcran[i + 1] == '\0') flagTexteFini = 1;
+//      }
+//      bFlagUpdateEtatEcran = 0;
+//    }
+//    
+//    if (bFlagUpdateModeEcran)
+//    {
+//      flagTexteFini = 0;
+//      for (int i = 0; i+5 <= 19; i++)
+//      {       
+//        if (!flagTexteFini)vPutCharGLcd(modeEcran[i], 4, i+5, 5);
+//        else vPutCharGLcd(' ', 4, i+5, 5);
+//        if (modeEcran[i + 1] == '\0') flagTexteFini = 1;
+//      }
+//      bFlagUpdateModeEcran = 0;
+//    }
+//
+//    //Affichage de l'état du CAN
+//    if (!ModuleData.CantConnect) // Pas connecté
+//    {
+//      vPutStringGLcdINV("CAN Connected       ", 0, 5);
+//    }
+//    else
+//    {
+//      vPutStringGLcdINV("CAN Disconnected    ", 0, 5);
+//    }
+//    
+//     if (piloteCAN1_messageDisponible()) // Pas connecté
+//    {
+//      //vPutStringGLcdINV("Message disponible  ", 2, 5);
+//    }
+//    else
+//    {
+//      //vPutStringGLcdINV("No Message?         ", 2, 5);
+//    }
+//
+//    if(true)
+//    {
+//      unsigned int bruh = piloteCAN1_litLesErreurs();
+//      static unsigned char index = 0;
+//
+//      if(bruh != oldBruh)
+//      {
+//        interfaceLcd_Draw_Text_Integer(32,16+(6*index),bruh,3,1);
+//        index++;
+//        oldBruh = bruh;
+//      }  
+//    }
+//
+//    //interfaceLcd_Draw_Text_Integer(0,32,ModuleData.Mode,2,1);
+//
+//    /* USER CODE END WHILE */
+//
+//    /* USER CODE BEGIN 3 */
+//  }
+//  /* USER CODE END 3 */
   }
-  /* USER CODE END 3 */
 }
 
 /**

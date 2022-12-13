@@ -19,14 +19,12 @@
 
 //Fonctions publiques:
 void BaseDeTempsPont(unsigned char *ucLisBaseTempsPont);
-bool interfacePont_Position0(void);
-bool interfacePont_Position1(void);
-bool interfacePont_Position2(void);
+void interfacePont_pos0 (void);
+void interfacePont_pos1 (void);
+void interfacePont_pos2 (void);
 void interfacePont_initialise(void);
-extern void (*interfacePont_execute)(void);
-extern unsigned char ucPosition;
-extern unsigned char ucResultatDeplacement;
-extern unsigned char ucError;
+bool interfacePont_fini (void);
+
 
 //Variables publiques:
 //pas de variables publiques

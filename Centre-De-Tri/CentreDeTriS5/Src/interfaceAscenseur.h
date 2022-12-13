@@ -18,9 +18,9 @@
 //pas de definitions publiques
 
 //Fonctions publiques:
-void interfaceAscenseur_BaseDeTemps(unsigned char *ucLisBaseTempsAscenseur);
-void interfaceAscenseur_Descend(void);
-void interfaceAscenseur_Monte(void);
+void interfaceAscenseur_initialise(void);
+void interfaceAscen_descend(void);
+void interfaceAscen_monte(void);
 //Variables publiques:
 //pas de variables publiques
 

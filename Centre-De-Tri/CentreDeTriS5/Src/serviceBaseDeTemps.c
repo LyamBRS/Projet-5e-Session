@@ -21,24 +21,10 @@ void serviceBaseDeTemps_gere(void);
 //Definitions de fonctions privees:
 void serviceBaseDeTemps_gere(void)
 {
-static unsigned char compteurPont = 0; 
-static unsigned char compteurAscenseur = 0; 
 unsigned char i;
-  compteurPont++;
-  compteurAscenseur++;
-  BaseDeTempsPont(&compteurPont);
-  interfaceAscenseur_BaseDeTemps(&compteurAscenseur);
   for (i = 0; i < SERVICEBASEDETEMPS_NOMBRE_DE_PHASES; i++)
   {
     serviceBaseDeTemps_execute[i]();
-  }
-  if(compteurPont >= SERVICEBASEDETEMPS_NOMBRE_DE_PHASES_PONT)
-  {
-    compteurPont = 0;
-  }
-  if(compteurAscenseur >= SERVICEBASEDETEMPS_NOMBRE_DE_PHASES_ASCENSEUR)
-  {
-    compteurAscenseur = 0;
   }
 }
   
