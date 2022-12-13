@@ -431,7 +431,7 @@ void Parse_CanBusReceptions(unsigned char *Buffer)
                             case(0x06): ModuleData.Mode = Modes.reinitialisation; break;
                             default:
                                         //If received mode matched nothing, an error occured.
-                                        ModuleData.State = States.error;
+                                        //ModuleData.State = States.error;
                                         serviceCommunication_ErrorState = ERROR_RX_MODE_DOESNT_EXIST;
                                         break;                  
                         }
@@ -515,7 +515,7 @@ void Parse_CanBusReceptions(unsigned char *Buffer)
                                         break;
                             default:
                                         //If received mode matched nothing, an error occured.
-                                        ModuleData.State = States.error;
+                                        //ModuleData.State = States.error;
                                         serviceCommunication_ErrorState = ERROR_RX_COMMAND_DOESNT_EXIST;
                                         break;                  
                         }
@@ -566,7 +566,7 @@ void Parse_CanBusReceptions(unsigned char *Buffer)
                                         break;
                             default:
                                         //If received mode matched nothing, an error occured.
-                                        ModuleData.State = States.error;
+                                        //ModuleData.State = States.error;
                                         serviceCommunication_ErrorState = ERROR_RX_VALUE_DOESNT_EXIST;
                                         break;                  
                         }
@@ -605,7 +605,7 @@ void Parse_CanBusReceptions(unsigned char *Buffer)
                             case(0x10): ModuleData.StatesReceived.empty                       = RECEIVED; break;
                             default:
                                         //If received mode matched nothing, an error occured.
-                                        ModuleData.State = States.error;
+                                        //ModuleData.State = States.error;
                                         serviceCommunication_ErrorState = ERROR_RX_STATE_DOESNT_EXIST;
                                         break;                  
                         }

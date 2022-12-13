@@ -24,6 +24,7 @@
 #include "interfaceColonne.h"
 #include "interfaceB1.h"
 #include "interfacePont.h"
+#include "interfaceStepMoteur.h"
 //Definitions privees
 //Les unités des valeurs de délai suivantes corerespondent à la base de temps : 1/2ms
 #define DELAI_MAX_INITIALISATION 50000
@@ -67,7 +68,7 @@
 #define DELAITEST_TERMINE 1
 #define DELAITEST_EN_COURS 0
 #define VALEUR_DELAI_MODE_DE_TEST 4000
-#define DELAI_MAX_TESTS 3000 //1.5 sec (ne doit pas dépasser 2 sec)
+#define DELAI_MAX_TESTS 3900 //1.5 sec (ne doit pas dépasser 2 sec)
 #define DELAI_MAX_TESTS_PONT 30000 //15 sec
 
 //Declarations de fonctions privees:
@@ -85,6 +86,7 @@ void modeOperation_attendVentouseHaut(void);
 void modeOperation_vaALaFosse(void);
 void modeOperation_vaALAscenseur(void);
 void modeOperation_attendFinJetteBloc (void);
+void modeOperation_attendAscenseurBas (void);
 void modeDeTests_testeLaColonneLumineuse (void);
 void modeDeTests_testeLesEntrees (void);
 void modeDeTests_activeLeVerinDuMagasin (void);
@@ -425,6 +427,8 @@ void modeOperation_lanceInitialisation (void)
   interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_EJECTEUR_OUT, INTERFACEUSINE_OUTPUT_LOW);
   interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_EJECTEUR_IN, INTERFACEUSINE_OUTPUT_HIGH);
   
+  //ASCENCEUR
+  interfaceStepMoteur_requete(INTERFACESTEPMOTEUR_POSITION_HAUTE);
   //VENTOUSE
   interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_VENTOUSE_DESCEND, INTERFACEUSINE_OUTPUT_LOW);
   
@@ -809,7 +813,8 @@ void modeOperation_vaALAscenseur(void)
 }
 void modeOperation_attendFinJetteBloc (void)
 {
-  static bool flagSequenceFinie;
+  static unsigned int delaiRestart = 0;
+  static bool flagSequenceFinie = 0;
   if (interfaceUsine_LitUnElement(INTERFACEUSINE_ID_SENSOR_VENTOUSE_BAS) == INTERFACEUSINE_SENSOR_HIGH)
   {
     if (flagSequenceFinie == 0)
@@ -817,30 +822,37 @@ void modeOperation_attendFinJetteBloc (void)
       interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_AIR_TRIG, INTERFACEUSINE_OUTPUT_LOW);
       interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_VENTOUSE_MONTE, INTERFACEUSINE_OUTPUT_HIGH);
       interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_VENTOUSE_DESCEND, INTERFACEUSINE_OUTPUT_HIGH);
-      if (ucTypeDeBloc == BLOC_ROUGE || ucTypeDeBloc == BLOC_METAL)
-        ModuleData.State = States.finishedSortingAndHasLoaded; // ADDED TO TEST STUFF TEMPORARLY
-      if (ucTypeDeBloc == BLOC_NOIR)
-        ModuleData.State = States.waitingToSort; // ADDED TO TEST STUFF TEMPORARLY
-      ModuleData_SetDiscColor(Values.disc_NoColor);
-      updateMessageEcran("Tri fini!");
+      
       // Au cas ou c'est la commande de demande de début de tri qui fait trier l'usine
       ModuleData.CommandsReceived.start_Sorting = PARSED;
       flagSequenceFinie = 1;
     }
-    else updateMessageEcran("En delai avant restart");
-
-   
-      if (ModuleData.StatesReceived.atWeightStation == RECEIVED)
-      {
-        ModuleData.StatesReceived.atWeightStation = PARSED;
-        ModuleData.State = States.waitingToSort;
-        ModuleData_SetAll_StatesReceived(PARSED);
-        ModuleData_SetAll_ValuesReceived(PARSED);
-        modeOperation_execute = modeOperation_lanceInitialisation;
-      }
-      if (ucTypeDeBloc == BLOC_NOIR)modeOperation_execute = modeOperation_lanceInitialisation;
-
-
+    else 
+    {
+        
+        
+        if (ucTypeDeBloc == BLOC_NOIR)
+        {
+          ModuleData.State = States.waitingToSort; // ADDED TO TEST STUFF TEMPORARLY
+          ModuleData_SetDiscColor(Values.disc_NoColor);
+          updateMessageEcran("Tri fini!");
+          flagSequenceFinie = 0;
+          modeOperation_execute = modeOperation_lanceInitialisation;
+        }
+        if (ucTypeDeBloc == BLOC_ROUGE || ucTypeDeBloc == BLOC_METAL)
+        {
+          updateMessageEcran("En delai avant restart");
+          
+          delaiRestart++;
+          if (delaiRestart > 4000)
+          {
+            flagSequenceFinie = 0;
+            delaiRestart = 0;
+            interfaceStepMoteur_requete(INTERFACESTEPMOTEUR_POSITION_BASSE);
+            modeOperation_execute = modeOperation_attendAscenseurBas;
+          }
+        }
+    }
   }
   else 
   {
@@ -849,6 +861,26 @@ void modeOperation_attendFinJetteBloc (void)
   
   
 }
+void modeOperation_attendAscenseurBas (void)
+{
+  static unsigned int delai = 0;
+  delai++;
+  if (delai > 20000)
+  {
+    delai = 0;
+    ModuleData.State = States.finishedSortingAndHasLoaded; // ADDED TO TEST STUFF TEMPORARLY        
+    if (ModuleData.StatesReceived.atWeightStation == RECEIVED)
+      {
+        ModuleData_SetDiscColor(Values.disc_NoColor);
+        ModuleData.StatesReceived.atWeightStation = PARSED;
+        ModuleData.State = States.waitingToSort;
+        ModuleData_SetAll_StatesReceived(PARSED);
+        ModuleData_SetAll_ValuesReceived(PARSED);
+        modeOperation_execute = modeOperation_lanceInitialisation;
+      }
+  }
+}
+
 
 #pragma endregion EtatsModeOperation
 
@@ -937,6 +969,20 @@ void processusUsine_tests (void)
     interfaceColonne_clignote(INTERFACECOLONNE_ROUGE);
     break;
   }
+  //Check le bouton rouge
+  if (interfaceUsine_BR.information == INFORMATION_DISPONIBLE)
+  {
+    interfaceUsine_BR.information = INFORMATION_TRAITEE;
+    if (interfaceUsine_BR.etatDuBouton == INTERFACEUSINE_BV_APPUYE)
+    {
+      interfaceColonne_eteint(INTERFACECOLONNE_VERT);
+      interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_LED, INTERFACEUSINE_ETEINT);
+      serviceBaseDeTemps_execute[PROCESSUSUSINE_GERE] = processusUsine_arret;
+      #ifndef MODE_BYPASS_POSTE_DE_COMMANDE
+      ModuleData.State = States.waiting;                                      // ADDED FOR CC TESTS
+      #endif
+    }
+  } 
   modeTest_execute();
   modeTest_clignote();
 }
@@ -984,7 +1030,7 @@ void modeDeTests_activeLeVerinDuMagasin (void)
   if (compteurTempsEjectionBloc >= DELAI_MAX_TESTS)
   {
     updateMessageEcran("Oups! Timeout poussoir out atteint!");
-    serviceBaseDeTemps_execute[PROCESSUSUSINE_GERE] =  processusUsine_erreur;
+    //serviceBaseDeTemps_execute[PROCESSUSUSINE_GERE] =  processusUsine_erreur;
   }
   if (interfaceUsine_LitUnElement(INTERFACEUSINE_ID_SENSOR_POUSSOIR_OUT) == INTERFACEUSINE_SENSOR_HIGH) flagMouvementTermine = 1;
 
@@ -1008,7 +1054,7 @@ void modeDeTests_desactiveLeVerinDuMagasin (void)
   if (compteurTempsTimeout >= DELAI_MAX_TESTS)
   {
     updateMessageEcran("Oups! Timeout poussoir in atteint!");
-    serviceBaseDeTemps_execute[PROCESSUSUSINE_GERE] =  processusUsine_erreur;
+    //serviceBaseDeTemps_execute[PROCESSUSUSINE_GERE] =  processusUsine_erreur;
   }
   if (interfaceUsine_LitUnElement(INTERFACEUSINE_ID_SENSOR_POUSSOIR_IN) == INTERFACEUSINE_SENSOR_HIGH) flagMouvementTermine = 1;
 
@@ -1056,6 +1102,7 @@ void modeDeTests_monteElevateur (void)
   //Attend delai pour prochain etat
   if (delaiModeDeTest(DELAITEST_UTILISE))
   {
+    compteurTempsTimeout = 0;
     modeTest_execute = modeDeTests_descendElevateur;
     delaiModeDeTest(DELAITEST_RESET);
   }
@@ -1086,6 +1133,7 @@ void modeDeTests_descendElevateur (void)
     interfaceUsine_BV.information = INFORMATION_TRAITEE;
     if (interfaceUsine_BV.etatDuBouton == INTERFACEUSINE_BV_APPUYE)
     {
+      compteurTempsTimeout = 0;
       modeTest_execute = modeDeTests_activeleConvoyeur;
       updateMessageEcran("");
       delaiModeDeTest(DELAITEST_RESET);
@@ -1142,6 +1190,7 @@ void modeDeTests_activeEjecteur (void)
   //Attend delai pour prochain etat
   if (delaiModeDeTest(DELAITEST_UTILISE))
   {
+    compteurTempsTimeout = 0;
     modeTest_execute = modeDeTests_desactiveEjecteur;
     delaiModeDeTest(DELAITEST_RESET);
   }
@@ -1171,6 +1220,7 @@ void modeDeTests_desactiveEjecteur (void)
     interfaceUsine_BV.information = INFORMATION_TRAITEE;
     if (interfaceUsine_BV.etatDuBouton == INTERFACEUSINE_BV_APPUYE)
     {
+      compteurTempsTimeout = 0;
       modeTest_execute = modeDeTests_activeLaVentouse;
       updateMessageEcran("");
       delaiModeDeTest(DELAITEST_RESET);
@@ -1230,6 +1280,7 @@ void modeDeTests_descendLaVentouse (void)
   //Attend delai pour prochain etat
   if (delaiModeDeTest(DELAITEST_UTILISE))
   {
+    compteurTempsTimeout = 0;
     modeTest_execute = modeDeTests_monteLaVentouse;
     delaiModeDeTest(DELAITEST_RESET);
   }
@@ -1385,7 +1436,7 @@ void processusUsine_erreur (void)
   interfaceUsine_Reset ();
   updateModeEcran("Erreur");
   interfaceColonne_eteint(INTERFACECOLONNE_JAUNE);
-  interfaceColonne_allume(INTERFACECOLONNE_ROUGE);
+  interfaceColonne_clignote(INTERFACECOLONNE_ROUGE);
   interfaceColonne_eteint(INTERFACECOLONNE_VERT);
   static int compteurClignote;
   if (compteurClignote < 1000)
