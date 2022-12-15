@@ -13,7 +13,7 @@
 //pas de fonctions privees
 
 //Declarations de variables privees:
-extern CAN_HandleTypeDef hcan1; //défini par le hal dans main
+extern CAN_HandleTypeDef hcan1; //dï¿½fini par le hal dans main
 
 //Definitions de variables privees:
 CAN_RxHeaderTypeDef piloteCAN1_reception;

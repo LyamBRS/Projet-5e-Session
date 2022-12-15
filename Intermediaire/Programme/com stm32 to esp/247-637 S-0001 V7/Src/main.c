@@ -104,30 +104,19 @@ static void MX_TIM6_Init(void);
 /* USER CODE BEGIN 0 */
 void main_initialise(void)
 {
- // unsigned int uiCANInit  = 0x0001;
-  
-  piloteTimer6Up_initialise();
-//  while(uiCANInit != 0)
-//  {
-//   uiCANInit = piloteCAN1_initialise();
-//  }
-  piloteUSART2_initialise();
-  //piloteIOB1_initialise();
- // piloteIOT1_initialise();
-  piloteIOT2_initialise();
-  piloteIOT3_initialise();
-  piloteIOT4_initialise();
-  serviceBaseDeTemps_initialise();
-  serviceProtocole637_initialise();
-  //interfaceB1_initialise();
-  //interfaceT1_initialise();
-  interfaceT2_initialise();
-  interfaceT3_initialise();
-  interfaceT4_initialise();
-  //interfaceS0002_initialise();
-  interfacePass_initialise();
-  processusClignotant_initialise();
-  //processusBoutonConnecte_initialise();
+    piloteTimer6Up_initialise();
+    piloteUSART2_initialise();
+    piloteCAN1_initialise();
+    piloteIOT2_initialise();
+    piloteIOT3_initialise();
+    piloteIOT4_initialise();
+    serviceBaseDeTemps_initialise();
+    serviceProtocole637_initialise();
+    interfaceT2_initialise();
+    interfaceT3_initialise();
+    interfaceT4_initialise();
+    interfacePass_initialise();
+    processusClignotant_initialise();
 }
 
 void neFaitRien(void)
@@ -152,8 +141,6 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
- // unsigned int uiCanTrans = 0x0005;
-//  unsigned char ucCanData[5] = {0x12, 0x24, 0x48, 0x94, 0x33};
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -174,42 +161,8 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  // ajouter
-//CAN_TxHeaderTypeDef   TxHeader;
-//uint8_t               TxData[8];
-//uint32_t              TxMailbox;
-//
-//TxHeader.IDE = CAN_ID_STD;
-//TxHeader.StdId = 0x446;
-//TxHeader.RTR = CAN_RTR_DATA;
-//TxHeader.DLC = 2;
-//
-//TxData[0] = 50;  
-//TxData[1] = 0xAA;
-//ajouter
-  piloteCAN1_initialise();
   while (1)
-  {
-    //ajouter
-//    if (HAL_CAN_AddTxMessage(&hcan1, &TxHeader, TxData, &TxMailbox) != HAL_OK)
-//{
-//   Error_Handler ();
-//}
-//ajouter
-    /* USER CODE END WHILE */
-
-    /* USER CODE BEGIN 3 */
-   // interfacePassUartToCAN();
-//    piloteUSART2_transmet(piloteUSART2_litUnOctetRecu());
-    //interfacePassUartToCAN();
- //   piloteCAN1_transmetDesDonnes(0x157,TxData,0x02);
-//    piloteUSART2_transmet(0x52);
-//     uiCanTrans = piloteCAN1_transmetDesDonnes(PILOTECAN1_IDENTIFICATION_EN_TRANSMISSION,TxData,0x02); // Fonctionne
- //    HAL_CAN_AddTxMessage(&hcan1, &TxHeader, TxData, &TxMailbox);                                   // Fonctionne
-//     uiCanTrans =  piloteCAN1_messageTransmis();
-                                                                                  // Fonctionne
-
-  }
+  {}
   /* USER CODE END 3 */
 }
 
@@ -287,7 +240,6 @@ static void MX_CAN1_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN CAN1_Init 2 */
-  piloteCAN1_initialise();
   /* USER CODE END CAN1_Init 2 */
 
 }

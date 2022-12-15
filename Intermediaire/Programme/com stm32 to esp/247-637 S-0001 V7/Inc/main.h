@@ -39,7 +39,7 @@ extern "C" {
 /* USER CODE BEGIN ET */
 
 //DEFINITIONS REQUISES PAR LE PROGRAMME:
-//Dépendances matérielles:
+//Dï¿½pendances matï¿½rielles:
 #define FREQUENCE_D_OSCILLATEUR_EN_KHZ  84000.0
 //#define FREQUENCE_D_OSCILLATEUR_EN_KHZ  115200.0
 #define PILOTEIOT1_PORT  LD6_GPIO_Port
@@ -64,7 +64,7 @@ extern "C" {
 #define INTERFACET4_VALEUR_POUR_ALLUMER  1   
 #define INTERFACET4_VALEUR_POUR_ETEINDRE 0 
 
-//Dépendances logicielles:
+//Dï¿½pendances logicielles:
 #define FREQUENCE_DE_LA_BASE_DE_TEMPS_EN_HZ 2000.0
 #define PILOTECAN1_IDENTIFICATION_EN_TRANSMISSION  (0x201<<5)
 #define PILOTECAN1_IDENTIFICATION_EN_RECEPTION  (0x245<<5) //0x246
@@ -110,11 +110,6 @@ extern "C" {
 void neFaitRien(void);
 
 //Variables publiques:
-
-//copiez et adaptes les lignes qui suivent dans les fichiers .h des modules
-//qui utilisent ces variables qui sont definies par htim6
-//extern TIM_HandleTypeDef htim6;
-//extern UART_HandleTypeDef huart2;
 
 /* USER CODE END ET */
 

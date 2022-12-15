@@ -30,19 +30,18 @@
 //Definitions de fonctions publiques:
 //******************************************************************************
 void interfacePassCANtoUart(void)
-{
+{// Convertit de reception CAN a transmission UART
   int i;
   unsigned char ucRecuCAN = PILOTECAN1_PAS_DISPONIBLE;
   static unsigned char WeAlreadyTransmitting = 0;
 
-  if(piloteCAN1_messageDisponible() && !WeAlreadyTransmitting)
+  if(piloteCAN1_messageDisponible() && !WeAlreadyTransmitting)//Message CAN dispo et pas deja transmis?
  {
    WeAlreadyTransmitting = 1;
    if(piloteCAN1_litUnMessageRecu(serviceProtocole637.octetsATransmettre) == PILOTECAN1_PAS_DISPONIBLE)
    {
      piloteCAN1_initialise();
    }
-   // Doesnt go there
    interfaceT2_allume(); // ORANGE
 
    serviceProtocole637.requete = REQUETE_ACTIVE;
@@ -57,16 +56,16 @@ void interfacePassCANtoUart(void)
 
 //******************************************************************************
 void interfacePassUartToCAN(void)
-{
+{//Convertit de reception UART a transmission CAN
   int i;
   
-  //Check if there is data stored inside the buffer
+  //regarde si du data est enregistrer dans le buffer
   if(serviceProtocole637.octetsRecus[7] != 0)
   {
-    // Transmit the buffer on can
+    // Transmet le buffer en CAN
     piloteCAN1_transmetDesDonnes(0x0201,serviceProtocole637.octetsRecus,0x08);
-    interfaceT3_allume(); // GREEN
-    //Reset the buffer back to 0
+    interfaceT3_allume(); // VERT
+    //Reset le buffer a 0
     for(i=0; i<8; ++i)
     {
       serviceProtocole637.octetsRecus[i] = 0;
