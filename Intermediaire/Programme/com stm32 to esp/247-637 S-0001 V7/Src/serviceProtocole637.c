@@ -54,9 +54,7 @@ unsigned char serviceProtocole637_checksumDeReception;
 unsigned char serviceProtocole637_checksumDeTransmission;
 
 //Definitions de fonctions privees:
-
-// machine a etats serviceBaseDeTemps_execute[SERVICEPROTOCOLE637_PHASE_TRANSMISSION]
-
+/*******************************************************************/
 void serviceProtocole637_attendUneRequete(void)
 {
   if (serviceProtocole637_gereLaSynchronisationDesTransmissions()
@@ -72,7 +70,7 @@ void serviceProtocole637_attendUneRequete(void)
       serviceProtocole637_transmetLaLongueur;
     return;
 }
-
+/*******************************************************************/
 void serviceProtocole637_transmetLaLongueur(void)
 {  
   if (serviceProtocole637_gereLaSynchronisationDesTransmissions()
@@ -87,7 +85,7 @@ void serviceProtocole637_transmetLaLongueur(void)
   serviceBaseDeTemps_execute[SERVICEPROTOCOLE637_PHASE_TRANSMISSION] =
       serviceProtocole637_transmetUneDonnee;
 }
-
+/*******************************************************************/
 void serviceProtocole637_transmetUneDonnee(void)
 {
 static unsigned char donnee = 0;
@@ -154,7 +152,7 @@ static unsigned char donnee = 0;
   serviceBaseDeTemps_execute[SERVICEPROTOCOLE637_PHASE_TRANSMISSION] =
       serviceProtocole637_transmetUnChecksum;
 }
-
+/*******************************************************************/
 void serviceProtocole637_transmetUnChecksum(void)
 {
   if (serviceProtocole637_gereLaSynchronisationDesTransmissions() 
@@ -167,7 +165,7 @@ void serviceProtocole637_transmetUnChecksum(void)
   serviceBaseDeTemps_execute[SERVICEPROTOCOLE637_PHASE_TRANSMISSION] =
       serviceProtocole637_attendUneRequete;   
 }
-
+/*******************************************************************/
 unsigned char serviceProtocole637_gereLaSynchronisationDesTransmissions(void)
 {
   serviceProtocole637_compteurDeSynchronisationDesTransmissions++;
@@ -179,9 +177,7 @@ unsigned char serviceProtocole637_gereLaSynchronisationDesTransmissions(void)
   serviceProtocole637_compteurDeSynchronisationDesTransmissions = 0;
   return SERVICEPROTOCOLE637_TRANSMISSION_PERMISE;
 }
-
-// machine a etats serviceBaseDeTemps_execute[SERVICEPROTOCOLE637_PHASE_RECEPTION]
-
+/*******************************************************************/
 void serviceProtocole637_attendUnDebut(void)
 {
    if (serviceProtocole637_gereUneReception() == SERVICEPROTOCOLE637_LECTURE_PAS_DISPONIBLE)
@@ -189,85 +185,68 @@ void serviceProtocole637_attendUnDebut(void)
     return;
   }
   serviceProtocole637_reception = piloteUSART2_litUnOctetRecu();
-  //////////////////////////////////////////////////////////////////////////
-  /////////////////////////////////////////////////////////////////////////
   static unsigned char ucLongueur = 0x00;
   static unsigned char ucChecksum = 0x00;
   static int i = 0;
   static unsigned char ucUarttoUDP[8] = {0,0,0,0,0,0,0,0};
   
-  unsigned char ucUarttoUDP2[8] = {9,2,5,4,3,2,8,5};
+  unsigned char ucUarttoUDP2[8] = {9,2,5,4,3,2,8,5};//Data de depart recu?
     if(serviceProtocole637_reception == 0x24)
     {
      ucChecksum = serviceProtocole637_reception;
-     //piloteUSART2_transmet(ucChecksum);
     }
     if(serviceProtocole637_reception == 0x08)
     {
       ucLongueur = 1;
-      //piloteUSART2_transmet(ucLongueur);
     }
     else if((ucLongueur == 1))
-    {
+    {//debut diagramme etat reception
       if(i == 0)
       {
         serviceProtocole637.octetsRecus[i] = serviceProtocole637_reception;
-        //piloteUSART2_transmet(ucUarttoUDP[0]);
         i++;
       }
       else if(i == 1)
       {
         serviceProtocole637.octetsRecus[i] = serviceProtocole637_reception;
-       // piloteUSART2_transmet(ucUarttoUDP[1]);
-        //piloteUSART2_transmet(ucChecksum);
         i++;
       }
       else if(i == 2)
       {
         serviceProtocole637.octetsRecus[i] = serviceProtocole637_reception;
-        //piloteUSART2_transmet(ucUarttoUDP[2]);
         i++;
       }
       else if(i == 3)
       {
         serviceProtocole637.octetsRecus[i] = serviceProtocole637_reception;
-        //piloteUSART2_transmet(ucUarttoUDP[3]);
         i++;
       }
       else if(i == 4)
       {
         serviceProtocole637.octetsRecus[i] = serviceProtocole637_reception;
-        //piloteUSART2_transmet(ucUarttoUDP[4]);
         i++;
       }
       else if(i == 5)
       {
         serviceProtocole637.octetsRecus[i] = serviceProtocole637_reception;
-        //piloteUSART2_transmet(ucUarttoUDP[5]);
         i++;
       }
       else if(i == 6)
       {
         serviceProtocole637.octetsRecus[i] = serviceProtocole637_reception;
-        //piloteUSART2_transmet(ucUarttoUDP[6]);
         i++;
       }
       else if(i == 7)
       {
         serviceProtocole637.octetsRecus[i] = serviceProtocole637_reception;
-        //piloteUSART2_transmet(ucUarttoUDP[7]);
-       // piloteCAN1_transmetDesDonnes(0x0201,ucUarttoUDP,0x08);
         i = 0;
         ucLongueur = 0x00;
         ucChecksum = 0x00;
       }
   }
-  /////////////////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////
   if (serviceProtocole637_reception == SERVICEPROTOCOLE637_DEBUT_DE_TRAME)
   {
     serviceProtocole637_compteurDeTempsDAttente = 0;
-    //piloteUSART2_transmet(serviceProtocole637_reception);
     serviceBaseDeTemps_execute[SERVICEPROTOCOLE637_PHASE_RECEPTION] =
         serviceProtocole637_attendLaLongueur;
     return;
@@ -275,7 +254,7 @@ void serviceProtocole637_attendUnDebut(void)
   serviceProtocole637.statut = SERVICEPROTOCOLE637_ERREUR_EN_ATTENTE;
   serviceProtocole637.information = INFORMATION_DISPONIBLE;
 }
-
+/*******************************************************************/
 void serviceProtocole637_attendLaLongueur(void)
 { 
   if (serviceProtocole637_gereLaSynchronisationDesReceptions()
@@ -310,16 +289,11 @@ void serviceProtocole637_attendLaLongueur(void)
   serviceProtocole637.nombreARecevoir = piloteUSART2_litUnOctetRecu();
   serviceProtocole637_compteurDeReceptions = 0;
   serviceProtocole637_checksum = 0;
-//  piloteUSART2_transmet(serviceProtocole637.nombreARecevoir);
-//  if(serviceProtocole637.nombreARecevoir == 0x08)
-//  {
-//   
-//  }
   serviceProtocole637_checksumDeReception = 0x00;
   serviceBaseDeTemps_execute[SERVICEPROTOCOLE637_PHASE_RECEPTION] =
       serviceProtocole637_attendUneDonnee;
 }
-
+/*******************************************************************/
 void serviceProtocole637_attendUneDonnee(void)
 {
   static uint8_t DataUartToCAN[8] = {1,2,3,4,5,6,7,8};
@@ -347,7 +321,6 @@ void serviceProtocole637_attendUneDonnee(void)
   serviceProtocole637_reception = piloteUSART2_litUnOctetRecu();
   serviceProtocole637.octetsRecus[serviceProtocole637_compteurDeReceptions]
       = serviceProtocole637_reception;
- // piloteUSART2_transmet(serviceProtocole637.octetsRecus[serviceProtocole637_compteurDeReceptions]);
   serviceProtocole637_checksumDeReception += serviceProtocole637.octetsRecus[serviceProtocole637_compteurDeReceptions];
   serviceProtocole637_compteurDeReceptions++;
   if (serviceProtocole637_compteurDeReceptions == serviceProtocole637.nombreARecevoir)
@@ -357,7 +330,7 @@ void serviceProtocole637_attendUneDonnee(void)
     return;
   }
 }
-
+/*******************************************************************/
 void serviceProtocole637_attendUnChecksum(void)
 {
  if (serviceProtocole637_gereLaSynchronisationDesReceptions()
@@ -393,7 +366,7 @@ void serviceProtocole637_attendUnChecksum(void)
    serviceBaseDeTemps_execute[SERVICEPROTOCOLE637_PHASE_RECEPTION] =
         serviceProtocole637_attendUnDebut;      
 }
-
+/*******************************************************************/
 unsigned char serviceProtocole637_gereLaSynchronisationDesReceptions(void)
 {
   serviceProtocole637_compteurDeSynchronisationDesReceptions++;
@@ -405,7 +378,7 @@ unsigned char serviceProtocole637_gereLaSynchronisationDesReceptions(void)
   serviceProtocole637_compteurDeSynchronisationDesReceptions = 0;
   return SERVICEPROTOCOLE637_RECEPTION_PERMISE;
 }
-
+/*******************************************************************/
 unsigned char serviceProtocole637_gereLeTempsDAttente(void)
 {
   serviceProtocole637_compteurDeTempsDAttente++;
@@ -416,17 +389,16 @@ unsigned char serviceProtocole637_gereLeTempsDAttente(void)
   }
   return SERVICEPROTOCOLE637_TEMPS_DEPASSE;
 }
-
+/*******************************************************************/
 unsigned char serviceProtocole637_gereUneReception(void)
 {
   if(piloteUSART2_octetDisponible() == PILOTEUSART2_PAS_DISPONIBLE)
   {
     return SERVICEPROTOCOLE637_LECTURE_PAS_DISPONIBLE;
   }
-  //serviceProtocole637_reception = piloteUSART2_litUnOctetRecu();
   return SERVICEPROTOCOLE637_LECTURE_DISPONIBLE;
 }
-
+/*******************************************************************/
 //Definitions de variables publiques:
 SERVICEPROTOCOLE637 serviceProtocole637;
 
