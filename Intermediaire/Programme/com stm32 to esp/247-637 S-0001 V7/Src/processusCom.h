@@ -1,5 +1,5 @@
-#ifndef PROCESSUSCLIGNOTANT_H
-#define PROCESSUSCLIGNOTANT_H
+#ifndef PROCESSUSCOM_H
+#define PROCESSUSCOM_H
 
 //MODULE: processusClignotant
 //DESCRIPTION: implemente la gestion d'un clignotant en utilise un pointeur de
@@ -14,19 +14,13 @@
 //pas de dependances materielles
 
 //Dependances logicielles
-//(copiez et adaptez ce qui suit dans "main.h")
-//#define PROCESSUSCLIGNOTANT_PHASE 0
-//#define PROCESSUSCLIGNOTANT_TEMPS_COURT_ETEINT_EN_MS  300
-//#define PROCESSUSCLIGNOTANT_TEMPS_COURT_ALLUME_EN_MS  200
-//#define PROCESSUSCLIGNOTANT_TEMPS_LONG_ETEINT_EN_MS  500
-//#define PROCESSUSCLIGNOTANT_TEMPS_LONG_ALLUME_EN_MS  1000
 
 //INFORMATION PUBLIQUE:
 //Definitions publiques:
 //pas de definitions publiques
 
 //Fonctions publiques:
-void processusClignotant_initialise(void);
+void processusCom_initialise(void);
 
 //Variables publiques:
 //pas de variables publiques

@@ -50,7 +50,7 @@ void processusClignotant_allumeUnPeu(void)
 //pas de variables publiques
 
 //Definitions de fonctions publiques:
-void processusClignotant_initialise(void)
+void processusCom_initialise(void)
 {
   processusClignotant_compteur = 0;
   interfaceT2_eteint();
