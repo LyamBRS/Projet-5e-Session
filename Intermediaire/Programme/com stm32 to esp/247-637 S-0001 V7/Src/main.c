@@ -54,7 +54,7 @@
 #include "interfaceT4.h"
 //#include "interfaceS0002.h"
 #include "interfacePass.h"
-#include "processusClignotant.h"
+#include "processusCom.h"
 //#include "processusBouton.h"
     
 /* USER CODE END Includes */

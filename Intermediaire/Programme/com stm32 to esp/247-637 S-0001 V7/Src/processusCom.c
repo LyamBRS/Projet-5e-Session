@@ -8,7 +8,7 @@
 #include "serviceBaseDeTemps.h"
 #include "interfaceT2.h"
 #include "interfacePass.h"
-#include "processusClignotant.h"
+#include "processusCom.h"
 
 //Definitions privees
 #define PROCESSUSCLIGNOTANT_COMPTE_COURT_ETEINT (\
@@ -31,7 +31,7 @@ void processusClignotant_eteintUnPeu(void)
   interfacePassUartToCAN();
   interfacePassCANtoUart();
 }
-
+/*****************************************************************************************/
 void processusClignotant_allumeUnPeu(void)
 {
   processusClignotant_compteur++;
@@ -45,11 +45,7 @@ void processusClignotant_allumeUnPeu(void)
   serviceBaseDeTemps_execute[PROCESSUSCLIGNOTANT_PHASE] =
       processusClignotant_eteintUnPeu;  
 }
-
-//Definitions de variables publiques:
-//pas de variables publiques
-
-//Definitions de fonctions publiques:
+/*****************************************************************************************/
 void processusCom_initialise(void)
 {
   processusClignotant_compteur = 0;
