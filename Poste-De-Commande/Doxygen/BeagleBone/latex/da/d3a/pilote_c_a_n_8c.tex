@@ -1,0 +1,317 @@
+\hypertarget{pilote_c_a_n_8c}{}\doxysection{U\+:/\+Sessions/\+Session 5/\+Project/\+Projet\+\_\+\+Fin\+\_\+\+Session/\+Projet-\/5e-\/\+Session/\+Poste-\/\+De-\/\+Commande/\+Programmes/\+Beagle\+Bone/pilote\+CAN.c File Reference}
+\label{pilote_c_a_n_8c}\index{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Poste-\/De-\/Commande/Programmes/BeagleBone/piloteCAN.c@{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Poste-\/De-\/Commande/Programmes/BeagleBone/piloteCAN.c}}
+
+
+Contains the code necessary to interface with the CAN stuff of a beagle\+Bone\+Blue.~\newline
+Modified by Shawn Couture\+:~\newline
+.  
+
+
+{\ttfamily \#include \char`\"{}main.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$signal.\+h$>$}\newline
+{\ttfamily \#include $<$sys/socket.\+h$>$}\newline
+{\ttfamily \#include $<$sys/ioctl.\+h$>$}\newline
+{\ttfamily \#include $<$linux/can.\+h$>$}\newline
+{\ttfamily \#include $<$linux/can/raw.\+h$>$}\newline
+{\ttfamily \#include $<$net/if.\+h$>$}\newline
+{\ttfamily \#include $<$fcntl.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}pilote\+CAN.\+h\char`\"{}}\newline
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{pilote_c_a_n_8c_aeac0c3db7a1e021f17987bcc76893849}{PF\+\_\+\+CAN}}~29
+\item 
+\#define \mbox{\hyperlink{pilote_c_a_n_8c_aaee765557b6cf47db132c3bdf11db01c}{CAN\+\_\+\+INTERFACE}}~\char`\"{}can0\char`\"{}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{pilote_c_a_n_8c_ac9a16455c0cfca453e1a34119352b9c8}{CAN\+\_\+\+Handle\+Signal}} (int signo)
+\item 
+void \mbox{\hyperlink{pilote_c_a_n_8c_abd4b2cb4e22c704ee8da0c0aed8ba02d}{CAN\+\_\+\+Open\+Interface}} (void)
+\item 
+void \mbox{\hyperlink{pilote_c_a_n_8c_af33dd7bd01a70c6442ebb6cecaffe208}{CAN\+\_\+\+Close\+Interface}} (void)
+\item 
+int \mbox{\hyperlink{pilote_c_a_n_8c_ae39d9136cf43e95ba7639030c8e43128}{CAN\+\_\+\+Transmit}} (unsigned long Address, unsigned char $\ast$transmit\+Buffer, unsigned char Number\+To\+Send)
+\begin{DoxyCompactList}\small\item\em Function setting all values in an array to the same input value. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{pilote_c_a_n_8c_a2332adc5f70b4deb14522c629c0a6072}{CAN\+\_\+\+Receive\+Message}} (unsigned long $\ast$Address, unsigned char $\ast$receive\+Buffer, unsigned char $\ast$amount\+Of\+Bytes\+Received)
+\begin{DoxyCompactList}\small\item\em Function returning data if a CAN message was sent to this specified address. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{pilote_c_a_n_8c_a16aad588dbb9de21c8d4ce714b0b6f82}{CAN\+\_\+\+Type\+Of\+Received\+Message}} (void)
+\item 
+int \mbox{\hyperlink{pilote_c_a_n_8c_af193f9d67a3bd005c454b0955dd98bc3}{CAN\+\_\+\+Initialise}} (void)
+\begin{DoxyCompactList}\small\item\em Initialises the pilote for Beagle\+Bone\+Blue code. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{pilote_c_a_n_8c_abe834374c336adc3108d818c147daf5c}{CAN\+\_\+socket}}
+\item 
+struct sockaddr\+\_\+can \mbox{\hyperlink{pilote_c_a_n_8c_a3ce4f66e00b507b0ddbcca1bec994fca}{CAN\+\_\+\+Address}}
+\item 
+struct ifreq \mbox{\hyperlink{pilote_c_a_n_8c_aca9ef050caa339b14af3ff1153e468b9}{CAN\+\_\+ifr}}
+\item 
+struct can\+\_\+frame \mbox{\hyperlink{pilote_c_a_n_8c_aa88eed5f98dec19cc72af07047c049b9}{CAN\+\_\+message\+To\+Send}}
+\item 
+struct can\+\_\+frame \mbox{\hyperlink{pilote_c_a_n_8c_a2d6ec05fb94ae6add7cf3339e5fda5f2}{CAN\+\_\+received\+Message}}
+\item 
+struct can\+\_\+filter \mbox{\hyperlink{pilote_c_a_n_8c_a2456f7bad6f2b72fa6e918b4b2397c83}{CAN\+\_\+r\+Filter}}
+\item 
+int \mbox{\hyperlink{pilote_c_a_n_8c_a2ce3792b30a290878b88700e62aa100f}{CAN\+\_\+\+Module\+State}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Contains the code necessary to interface with the CAN stuff of a beagle\+Bone\+Blue.~\newline
+Modified by Shawn Couture\+:~\newline
+. 
+
+\begin{DoxyAuthor}{Author}
+Yves Roy
+\begin{DoxyItemize}
+\item File is now coded with an universally accessible language (english)~\newline
+
+\item 
+\end{DoxyItemize}
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+2.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2022-\/11-\/24
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2022 
+\end{DoxyCopyright}
+
+
+Definition in file \mbox{\hyperlink{pilote_c_a_n_8c_source}{pilote\+CAN.\+c}}.
+
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{pilote_c_a_n_8c_aaee765557b6cf47db132c3bdf11db01c}\label{pilote_c_a_n_8c_aaee765557b6cf47db132c3bdf11db01c}} 
+\index{piloteCAN.c@{piloteCAN.c}!CAN\_INTERFACE@{CAN\_INTERFACE}}
+\index{CAN\_INTERFACE@{CAN\_INTERFACE}!piloteCAN.c@{piloteCAN.c}}
+\doxysubsubsection{\texorpdfstring{CAN\_INTERFACE}{CAN\_INTERFACE}}
+{\footnotesize\ttfamily \#define CAN\+\_\+\+INTERFACE~\char`\"{}can0\char`\"{}}
+
+
+
+Definition at line \mbox{\hyperlink{pilote_c_a_n_8c_source_l00043}{43}} of file \mbox{\hyperlink{pilote_c_a_n_8c_source}{pilote\+CAN.\+c}}.
+
+\mbox{\Hypertarget{pilote_c_a_n_8c_aeac0c3db7a1e021f17987bcc76893849}\label{pilote_c_a_n_8c_aeac0c3db7a1e021f17987bcc76893849}} 
+\index{piloteCAN.c@{piloteCAN.c}!PF\_CAN@{PF\_CAN}}
+\index{PF\_CAN@{PF\_CAN}!piloteCAN.c@{piloteCAN.c}}
+\doxysubsubsection{\texorpdfstring{PF\_CAN}{PF\_CAN}}
+{\footnotesize\ttfamily \#define PF\+\_\+\+CAN~29}
+
+
+
+Definition at line \mbox{\hyperlink{pilote_c_a_n_8c_source_l00037}{37}} of file \mbox{\hyperlink{pilote_c_a_n_8c_source}{pilote\+CAN.\+c}}.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{pilote_c_a_n_8c_af33dd7bd01a70c6442ebb6cecaffe208}\label{pilote_c_a_n_8c_af33dd7bd01a70c6442ebb6cecaffe208}} 
+\index{piloteCAN.c@{piloteCAN.c}!CAN\_CloseInterface@{CAN\_CloseInterface}}
+\index{CAN\_CloseInterface@{CAN\_CloseInterface}!piloteCAN.c@{piloteCAN.c}}
+\doxysubsubsection{\texorpdfstring{CAN\_CloseInterface()}{CAN\_CloseInterface()}}
+{\footnotesize\ttfamily void CAN\+\_\+\+Close\+Interface (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{pilote_c_a_n_8c_source_l00109}{109}} of file \mbox{\hyperlink{pilote_c_a_n_8c_source}{pilote\+CAN.\+c}}.
+
+\mbox{\Hypertarget{pilote_c_a_n_8c_ac9a16455c0cfca453e1a34119352b9c8}\label{pilote_c_a_n_8c_ac9a16455c0cfca453e1a34119352b9c8}} 
+\index{piloteCAN.c@{piloteCAN.c}!CAN\_HandleSignal@{CAN\_HandleSignal}}
+\index{CAN\_HandleSignal@{CAN\_HandleSignal}!piloteCAN.c@{piloteCAN.c}}
+\doxysubsubsection{\texorpdfstring{CAN\_HandleSignal()}{CAN\_HandleSignal()}}
+{\footnotesize\ttfamily void CAN\+\_\+\+Handle\+Signal (\begin{DoxyParamCaption}\item[{int}]{signo }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{pilote_c_a_n_8c_source_l00062}{62}} of file \mbox{\hyperlink{pilote_c_a_n_8c_source}{pilote\+CAN.\+c}}.
+
+\mbox{\Hypertarget{pilote_c_a_n_8c_af193f9d67a3bd005c454b0955dd98bc3}\label{pilote_c_a_n_8c_af193f9d67a3bd005c454b0955dd98bc3}} 
+\index{piloteCAN.c@{piloteCAN.c}!CAN\_Initialise@{CAN\_Initialise}}
+\index{CAN\_Initialise@{CAN\_Initialise}!piloteCAN.c@{piloteCAN.c}}
+\doxysubsubsection{\texorpdfstring{CAN\_Initialise()}{CAN\_Initialise()}}
+{\footnotesize\ttfamily int CAN\+\_\+\+Initialise (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Initialises the pilote for Beagle\+Bone\+Blue code. 
+
+\begin{DoxyAuthor}{Author}
+Yves Roy 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+24/11/2022 
+\end{DoxyDate}
+\begin{DoxyReturn}{Returns}
+int 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{pilote_c_a_n_8c_source_l00197}{197}} of file \mbox{\hyperlink{pilote_c_a_n_8c_source}{pilote\+CAN.\+c}}.
+
+\mbox{\Hypertarget{pilote_c_a_n_8c_abd4b2cb4e22c704ee8da0c0aed8ba02d}\label{pilote_c_a_n_8c_abd4b2cb4e22c704ee8da0c0aed8ba02d}} 
+\index{piloteCAN.c@{piloteCAN.c}!CAN\_OpenInterface@{CAN\_OpenInterface}}
+\index{CAN\_OpenInterface@{CAN\_OpenInterface}!piloteCAN.c@{piloteCAN.c}}
+\doxysubsubsection{\texorpdfstring{CAN\_OpenInterface()}{CAN\_OpenInterface()}}
+{\footnotesize\ttfamily void CAN\+\_\+\+Open\+Interface (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{pilote_c_a_n_8c_source_l00072}{72}} of file \mbox{\hyperlink{pilote_c_a_n_8c_source}{pilote\+CAN.\+c}}.
+
+\mbox{\Hypertarget{pilote_c_a_n_8c_a2332adc5f70b4deb14522c629c0a6072}\label{pilote_c_a_n_8c_a2332adc5f70b4deb14522c629c0a6072}} 
+\index{piloteCAN.c@{piloteCAN.c}!CAN\_ReceiveMessage@{CAN\_ReceiveMessage}}
+\index{CAN\_ReceiveMessage@{CAN\_ReceiveMessage}!piloteCAN.c@{piloteCAN.c}}
+\doxysubsubsection{\texorpdfstring{CAN\_ReceiveMessage()}{CAN\_ReceiveMessage()}}
+{\footnotesize\ttfamily int CAN\+\_\+\+Receive\+Message (\begin{DoxyParamCaption}\item[{unsigned long $\ast$}]{Address,  }\item[{unsigned char $\ast$}]{receive\+Buffer,  }\item[{unsigned char $\ast$}]{amount\+Of\+Bytes\+Received }\end{DoxyParamCaption})}
+
+
+
+Function returning data if a CAN message was sent to this specified address. 
+
+\begin{DoxyAuthor}{Author}
+Yves Roy 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+24/11/2022 
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em Address} & 11 bits CAN address to check for RX messages \\
+\hline
+{\em receive\+Buffer} & char buffer of 8 bytes \\
+\hline
+{\em amount\+Of\+Bytes\+Received} & 8 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{pilote_c_a_n_8c_source_l00160}{160}} of file \mbox{\hyperlink{pilote_c_a_n_8c_source}{pilote\+CAN.\+c}}.
+
+\mbox{\Hypertarget{pilote_c_a_n_8c_ae39d9136cf43e95ba7639030c8e43128}\label{pilote_c_a_n_8c_ae39d9136cf43e95ba7639030c8e43128}} 
+\index{piloteCAN.c@{piloteCAN.c}!CAN\_Transmit@{CAN\_Transmit}}
+\index{CAN\_Transmit@{CAN\_Transmit}!piloteCAN.c@{piloteCAN.c}}
+\doxysubsubsection{\texorpdfstring{CAN\_Transmit()}{CAN\_Transmit()}}
+{\footnotesize\ttfamily int CAN\+\_\+\+Transmit (\begin{DoxyParamCaption}\item[{unsigned long}]{Address,  }\item[{unsigned char $\ast$}]{transmit\+Buffer,  }\item[{unsigned char}]{Number\+To\+Send }\end{DoxyParamCaption})}
+
+
+
+Function setting all values in an array to the same input value. 
+
+\begin{DoxyAuthor}{Author}
+Yves Roy 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+24/11/2022 
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em Address} & Can address to use 11 bits \\
+\hline
+{\em transmit\+Buffer} & char buffer of 8 bytes \\
+\hline
+{\em Number\+To\+Send} & 8 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{pilote_c_a_n_8c_source_l00137}{137}} of file \mbox{\hyperlink{pilote_c_a_n_8c_source}{pilote\+CAN.\+c}}.
+
+\mbox{\Hypertarget{pilote_c_a_n_8c_a16aad588dbb9de21c8d4ce714b0b6f82}\label{pilote_c_a_n_8c_a16aad588dbb9de21c8d4ce714b0b6f82}} 
+\index{piloteCAN.c@{piloteCAN.c}!CAN\_TypeOfReceivedMessage@{CAN\_TypeOfReceivedMessage}}
+\index{CAN\_TypeOfReceivedMessage@{CAN\_TypeOfReceivedMessage}!piloteCAN.c@{piloteCAN.c}}
+\doxysubsubsection{\texorpdfstring{CAN\_TypeOfReceivedMessage()}{CAN\_TypeOfReceivedMessage()}}
+{\footnotesize\ttfamily int CAN\+\_\+\+Type\+Of\+Received\+Message (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{pilote_c_a_n_8c_source_l00182}{182}} of file \mbox{\hyperlink{pilote_c_a_n_8c_source}{pilote\+CAN.\+c}}.
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{pilote_c_a_n_8c_a3ce4f66e00b507b0ddbcca1bec994fca}\label{pilote_c_a_n_8c_a3ce4f66e00b507b0ddbcca1bec994fca}} 
+\index{piloteCAN.c@{piloteCAN.c}!CAN\_Address@{CAN\_Address}}
+\index{CAN\_Address@{CAN\_Address}!piloteCAN.c@{piloteCAN.c}}
+\doxysubsubsection{\texorpdfstring{CAN\_Address}{CAN\_Address}}
+{\footnotesize\ttfamily struct sockaddr\+\_\+can CAN\+\_\+\+Address}
+
+
+
+Definition at line \mbox{\hyperlink{pilote_c_a_n_8c_source_l00056}{56}} of file \mbox{\hyperlink{pilote_c_a_n_8c_source}{pilote\+CAN.\+c}}.
+
+\mbox{\Hypertarget{pilote_c_a_n_8c_aca9ef050caa339b14af3ff1153e468b9}\label{pilote_c_a_n_8c_aca9ef050caa339b14af3ff1153e468b9}} 
+\index{piloteCAN.c@{piloteCAN.c}!CAN\_ifr@{CAN\_ifr}}
+\index{CAN\_ifr@{CAN\_ifr}!piloteCAN.c@{piloteCAN.c}}
+\doxysubsubsection{\texorpdfstring{CAN\_ifr}{CAN\_ifr}}
+{\footnotesize\ttfamily struct ifreq CAN\+\_\+ifr}
+
+
+
+Definition at line \mbox{\hyperlink{pilote_c_a_n_8c_source_l00057}{57}} of file \mbox{\hyperlink{pilote_c_a_n_8c_source}{pilote\+CAN.\+c}}.
+
+\mbox{\Hypertarget{pilote_c_a_n_8c_aa88eed5f98dec19cc72af07047c049b9}\label{pilote_c_a_n_8c_aa88eed5f98dec19cc72af07047c049b9}} 
+\index{piloteCAN.c@{piloteCAN.c}!CAN\_messageToSend@{CAN\_messageToSend}}
+\index{CAN\_messageToSend@{CAN\_messageToSend}!piloteCAN.c@{piloteCAN.c}}
+\doxysubsubsection{\texorpdfstring{CAN\_messageToSend}{CAN\_messageToSend}}
+{\footnotesize\ttfamily struct can\+\_\+frame CAN\+\_\+message\+To\+Send}
+
+
+
+Definition at line \mbox{\hyperlink{pilote_c_a_n_8c_source_l00058}{58}} of file \mbox{\hyperlink{pilote_c_a_n_8c_source}{pilote\+CAN.\+c}}.
+
+\mbox{\Hypertarget{pilote_c_a_n_8c_a2ce3792b30a290878b88700e62aa100f}\label{pilote_c_a_n_8c_a2ce3792b30a290878b88700e62aa100f}} 
+\index{piloteCAN.c@{piloteCAN.c}!CAN\_ModuleState@{CAN\_ModuleState}}
+\index{CAN\_ModuleState@{CAN\_ModuleState}!piloteCAN.c@{piloteCAN.c}}
+\doxysubsubsection{\texorpdfstring{CAN\_ModuleState}{CAN\_ModuleState}}
+{\footnotesize\ttfamily int CAN\+\_\+\+Module\+State}
+
+
+
+Definition at line \mbox{\hyperlink{pilote_c_a_n_8c_source_l00069}{69}} of file \mbox{\hyperlink{pilote_c_a_n_8c_source}{pilote\+CAN.\+c}}.
+
+\mbox{\Hypertarget{pilote_c_a_n_8c_a2d6ec05fb94ae6add7cf3339e5fda5f2}\label{pilote_c_a_n_8c_a2d6ec05fb94ae6add7cf3339e5fda5f2}} 
+\index{piloteCAN.c@{piloteCAN.c}!CAN\_receivedMessage@{CAN\_receivedMessage}}
+\index{CAN\_receivedMessage@{CAN\_receivedMessage}!piloteCAN.c@{piloteCAN.c}}
+\doxysubsubsection{\texorpdfstring{CAN\_receivedMessage}{CAN\_receivedMessage}}
+{\footnotesize\ttfamily struct can\+\_\+frame CAN\+\_\+received\+Message}
+
+
+
+Definition at line \mbox{\hyperlink{pilote_c_a_n_8c_source_l00059}{59}} of file \mbox{\hyperlink{pilote_c_a_n_8c_source}{pilote\+CAN.\+c}}.
+
+\mbox{\Hypertarget{pilote_c_a_n_8c_a2456f7bad6f2b72fa6e918b4b2397c83}\label{pilote_c_a_n_8c_a2456f7bad6f2b72fa6e918b4b2397c83}} 
+\index{piloteCAN.c@{piloteCAN.c}!CAN\_rFilter@{CAN\_rFilter}}
+\index{CAN\_rFilter@{CAN\_rFilter}!piloteCAN.c@{piloteCAN.c}}
+\doxysubsubsection{\texorpdfstring{CAN\_rFilter}{CAN\_rFilter}}
+{\footnotesize\ttfamily struct can\+\_\+filter CAN\+\_\+r\+Filter}
+
+
+
+Definition at line \mbox{\hyperlink{pilote_c_a_n_8c_source_l00060}{60}} of file \mbox{\hyperlink{pilote_c_a_n_8c_source}{pilote\+CAN.\+c}}.
+
+\mbox{\Hypertarget{pilote_c_a_n_8c_abe834374c336adc3108d818c147daf5c}\label{pilote_c_a_n_8c_abe834374c336adc3108d818c147daf5c}} 
+\index{piloteCAN.c@{piloteCAN.c}!CAN\_socket@{CAN\_socket}}
+\index{CAN\_socket@{CAN\_socket}!piloteCAN.c@{piloteCAN.c}}
+\doxysubsubsection{\texorpdfstring{CAN\_socket}{CAN\_socket}}
+{\footnotesize\ttfamily int CAN\+\_\+socket}
+
+
+
+Definition at line \mbox{\hyperlink{pilote_c_a_n_8c_source_l00055}{55}} of file \mbox{\hyperlink{pilote_c_a_n_8c_source}{pilote\+CAN.\+c}}.
+

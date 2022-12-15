@@ -1248,5 +1248,75 @@ namespace CommandCenter
             }
         }
 
+        //#############################################################//
+        /// <summary>
+        /// Class containing all the pngs used to display the Disc stuff
+        /// </summary>
+        //#############################################################//
+        public class Disc
+        {
+            /////////////////////////////////////////////////////////////
+            private static EventsColors Default = new EventsColors(Color.Black);
+
+            //////////////////////////////////////////////////////////// - LOADING
+            private static Bitmap Loading_Default = Resources.Generic_Loading;
+            private static Bitmap Loading_Hovering = Resources.Generic_Loading;
+            private static Bitmap Loading_Pressing = Resources.Generic_Loading;
+            private static EventsBitmaps Loading_Bitmaps;
+
+            //////////////////////////////////////////////////////////// - ACTIVE (METALLIC)
+            private static Bitmap Active_Default = Resources.Disc_Metallic_Default;
+            private static Bitmap Active_Hovering = Resources.Disc_Metallic_Hover;
+            private static Bitmap Active_Pressing = Resources.Disc_Metallic_Click;
+            private static EventsBitmaps Active_Bitmaps;
+
+            private static EventsColors Active = new EventsColors(Color.Black, Color.Black, Color.FromArgb(0, 128, 255));
+            //////////////////////////////////////////////////////////// - Disabled
+            private static Bitmap Disabled_Default = Resources.Disc_Disabled_Empty;
+            private static Bitmap Disabled_Hovering = Resources.Disc_Disabled_Empty;
+            private static Bitmap Disabled_Pressing = Resources.Disc_Disabled_Filled;
+            private static EventsBitmaps Disabled_Bitmaps;
+            //////////////////////////////////////////////////////////// - No color
+            private static Bitmap Inactive_Default = Resources.Disc_Inactive_Empty;
+            private static Bitmap Inactive_Hovering = Resources.Disc_Inactive_Empty;
+            private static Bitmap Inactive_Pressing = Resources.Disc_Inactive_Filled;
+            private static EventsBitmaps Inactive_Bitmaps;
+            //////////////////////////////////////////////////////////// - Error (RED DISC)
+            private static Bitmap Error_Default = Resources.Disc_Red_Empty;
+            private static Bitmap Error_Hovering = Resources.Disc_Red_Hover;
+            private static Bitmap Error_Pressing = Resources.Disc_Red_Click;
+            private static EventsBitmaps Error_Bitmaps;
+
+            private static EventsColors Red = new EventsColors(Color.Black, Color.Black, Color.FromArgb(255, 64, 0));
+            //////////////////////////////////////////////////////////// - Warning (Black disc)
+            private static Bitmap Warning_Default = Resources.Disc_Black_Default;
+            private static Bitmap Warning_Hovering = Resources.Disc_Black_Hover;
+            private static Bitmap Warning_Pressing = Resources.Disc_Black_Click;
+            private static EventsBitmaps Warning_Bitmaps;
+            ////////////////////////////////////////////////////////////
+            private static StatesBitmaps statesBitmaps;
+            private static StatesColors statesColors;
+
+            public static StatesColors GetStatesColors()
+            {
+                statesColors = new StatesColors(Default, Active, Red, Red, Default, Default);
+                return (statesColors);
+            }
+
+            public static StatesBitmaps GetStatesBitmaps()
+            {
+                Loading_Bitmaps  = new EventsBitmaps(Loading_Default, Loading_Hovering, Loading_Pressing);
+                Active_Bitmaps   = new EventsBitmaps(Active_Default, Active_Hovering, Active_Pressing);
+                Disabled_Bitmaps = new EventsBitmaps(Disabled_Default, Disabled_Hovering, Disabled_Pressing);
+                Error_Bitmaps    = new EventsBitmaps(Error_Default, Error_Hovering, Error_Pressing);
+                Warning_Bitmaps  = new EventsBitmaps(Warning_Default, Warning_Hovering, Warning_Pressing);
+                Inactive_Bitmaps = new EventsBitmaps(Inactive_Default, Inactive_Hovering, Inactive_Pressing);
+
+                statesBitmaps = new StatesBitmaps(Disabled_Bitmaps, Active_Bitmaps, Error_Bitmaps, Warning_Bitmaps, Loading_Bitmaps, Inactive_Bitmaps);
+
+                return (statesBitmaps);
+            }
+        }
+
     }
 }

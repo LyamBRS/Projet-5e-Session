@@ -220,6 +220,45 @@
   <data name="CheckMark_Warning_Filled" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\Selection\Check\CheckMark_Warning_Filled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Disc_Black_Click" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Disc\Disc_Black_Click.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Disc_Black_Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Disc\Disc_Black_Default.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Disc_Black_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Disc\Disc_Black_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Disc_Disabled_Empty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Disc\Disc_Disabled_Empty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Disc_Disabled_Filled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Disc\Disc_Disabled_Filled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Disc_Inactive_Empty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Disc\Disc_Inactive_Empty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Disc_Inactive_Filled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Disc\Disc_Inactive_Filled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Disc_Metallic_Click" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Disc\Disc_Metallic_Click.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Disc_Metallic_Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Disc\Disc_Metallic_Default.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Disc_Metallic_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Disc\Disc_Metallic_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Disc_Red_Click" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Disc\Disc_Red_Click.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Disc_Red_Empty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Disc\Disc_Red_Empty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Disc_Red_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Disc\Disc_Red_Hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Generic_Loading" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\Generic\Loading\Generic_Loading.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

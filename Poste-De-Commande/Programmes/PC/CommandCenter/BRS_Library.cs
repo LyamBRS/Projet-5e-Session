@@ -1401,7 +1401,14 @@ namespace BRS
         /// Stop the terminal from showing inputs.
         /// </summary>
         public bool PauseDrawing = false;
-
+        /// <summary>
+        /// Maximum amount of lines your terminal can reach
+        /// </summary>
+        public int MaxLines = 150;
+        /// <summary>
+        /// Saves and clears the terminal when the maximum is reached
+        /// </summary>
+        public bool SaveAutomaticallyIfMaxReached = false;
         /// <summary>
         /// Specific the name of the folder where the logs of this
         /// terminal will be saved into.
@@ -1551,7 +1558,14 @@ namespace BRS
             Debug.Success();
             Debug.Success("terminal handler was successfully created!");
         }
-
+        //#########################################################//
+        /// <summary>
+        /// This forms constructor. Put your RichTextBox in the
+        /// input parameters that you want to use as a terminal.
+        /// This makes it so no serial port is necessary for the
+        /// terminal to work.
+        /// </summary>
+        //#########################################################//
         public Terminal(RichTextBox terminalRichTextBox, Form formHostingTerminal)
         {
             BRS.Debug.Comment("Creating terminal handler...");
@@ -1646,6 +1660,8 @@ namespace BRS
             Window.SelectionColor = colorToUse;
             Window.SelectedText = comment + "\n";
             Window.SelectionStart = Window.Text.Length;
+
+            CheckLines();
         }
         //#########################################################//
         /// <summary>
@@ -1661,6 +1677,8 @@ namespace BRS
             Window.SelectionColor = Colors.Comment;
             Window.SelectedText = comment + "\n";
             Window.SelectionStart = Window.Text.Length;
+
+            CheckLines();
         }
         //#########################################################//
         /// <summary>
@@ -1676,6 +1694,8 @@ namespace BRS
             Window.SelectionColor = Colors.Error;
             Window.SelectedText = " [!ERROR!]: " + error + "\n";
             Window.SelectionStart = Window.Text.Length;
+
+            CheckLines();
         }
         //#########################################################//
         /// <summary>
@@ -1691,6 +1711,8 @@ namespace BRS
             Window.SelectionColor = Colors.Warning;
             Window.SelectedText = " [-WARNING-]: " + warning + "\n";
             Window.SelectionStart = Window.Text.Length;
+
+            CheckLines();
         }
         //#########################################################//
         /// <summary>
@@ -1706,6 +1728,8 @@ namespace BRS
             Window.SelectionColor = Colors.Header;
             Window.SelectedText = "\n==================================================\n" + nameOfHeader + "\n ==================================================\n";
             Window.SelectionStart = Window.Text.Length;
+
+            CheckLines();
         }
         //#########################################################//
         /// <summary>
@@ -1770,6 +1794,36 @@ namespace BRS
         }
         #endregion Events
         #region DataReception
+        //#########################################################//
+        /// <summary>
+        /// Counts the amount of lines and handles the terminal
+        /// accordingly
+        /// </summary>
+        /// <returns></returns>
+        //#########################################################//
+        private void CheckLines()
+        {
+            if (MaxLines > 0)
+            {
+                if (Window.Lines.Count() > MaxLines)
+                {
+                    if (SaveAutomaticallyIfMaxReached)
+                    {
+                        SaveTerminal();
+                    }
+                    else
+                    {
+                        /*
+                        int lineDifference = Window.Lines.Count() - MaxLines;
+                        Window.SelectionStart = 0;
+                        Window.SelectionLength = Window.Text.IndexOf("\n",0)+1;
+                        Window.SelectedText = "";
+                        */
+                        Clear();
+                    }
+                }
+            }
+        }
         private bool receivingRX = false;
         //#############################################################//
         /// <summary>
@@ -1819,6 +1873,7 @@ namespace BRS
                 }
             }
             justSentData = "";
+            CheckLines();
         }
         //#############################################################//
         /// <summary>
@@ -1857,7 +1912,8 @@ namespace BRS
 
             Window.SelectedText = received;
             Window.SelectionStart = Window.Text.Length;
-
+            
+            CheckLines();
         }
         //#############################################################//
         /// <summary>

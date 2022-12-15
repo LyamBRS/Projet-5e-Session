@@ -1,0 +1,72 @@
+\hypertarget{interface_pipes_8c_source}{}\doxysection{interface\+Pipes.\+c}
+\label{interface_pipes_8c_source}\index{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Poste-\/De-\/Commande/Programmes/BeagleBone/interfacePipes.c@{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Poste-\/De-\/Commande/Programmes/BeagleBone/interfacePipes.c}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00001}00001 \textcolor{comment}{//****************************************************************//}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00002}00002 \textcolor{comment}{// Modified by: Shawn Couture}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00003}00003 \textcolor{comment}{// Date:        October 6 2022}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00004}00004 \textcolor{comment}{//              Added more functions, and simplified functions \&}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00005}00005 \textcolor{comment}{//              variables to be easily read and understood}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00006}00006 \textcolor{comment}{//****************************************************************//}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00007}00007 \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ Includes -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\///}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00008}00008 \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00009}00009 \textcolor{comment}{\#include "{}main.h"{}}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00010}00010 \textcolor{comment}{\#include "{}interfacePipes.h"{}}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00011}00011 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00012}00012 \textcolor{comment}{\#include <stdio.h>}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00013}00013 \textcolor{comment}{\#include <stdlib.h>}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00014}00014 \textcolor{comment}{\#include <sys/wait.h>}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00015}00015 \textcolor{comment}{\#include <errno.h>}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00016}00016 \textcolor{comment}{\#include <unistd.h>}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00017}00017 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00018}00018 \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ Private Defines -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\///}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00019}00019 \textcolor{comment}{\#define MAYLAN\_CMD\_BUFFER\_SIZE 64}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00020}00020 \textcolor{comment}{\#define MAYLAN\_ANS\_BUFFER\_SIZE 64}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00021}00021 \textcolor{comment}{\#define ERROR -\/1}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00022}00022 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00023}00023 \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ Private Functions -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\///}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00024}00024 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00025}00025 \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ Private Variables -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\///}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00026}00026 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00027}00027 \textcolor{comment}{//\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#//}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00028}00028 \textcolor{comment}{//\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#//}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00029}00029 \textcolor{comment}{int Pipe\_FileToBuffer(int file, char* buffer, unsigned int bufferLength)}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00030}00030 \textcolor{comment}{\{}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00031}00031 \textcolor{comment}{    unsigned char end = 0;}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00032}00032 \textcolor{comment}{    float tooLong = 0;}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00033}00033 \textcolor{comment}{    }}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00034}00034 \textcolor{comment}{    while (end == 0)}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00035}00035 \textcolor{comment}{    \{}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00036}00036 \textcolor{comment}{        tooLong++;}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00037}00037 \textcolor{comment}{        if (!feof(file)) // si la fin du fichier est atteinte}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00038}00038 \textcolor{comment}{        \{}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00039}00039 \textcolor{comment}{            end = 1;}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00040}00040 \textcolor{comment}{        \}}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00041}00041 \textcolor{comment}{        if (!ferror(file)) // si une erreur de fichier est presente}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00042}00042 \textcolor{comment}{        \{}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00043}00043 \textcolor{comment}{            end = 1;}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00044}00044 \textcolor{comment}{        \}}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00045}00045 \textcolor{comment}{        if (fgets(buffer, bufferLength, file) != NULL) //si erreur de lecture}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00046}00046 \textcolor{comment}{        \{}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00047}00047 \textcolor{comment}{            end = 1;}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00048}00048 \textcolor{comment}{        \}}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00049}00049 \textcolor{comment}{        }}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00050}00050 \textcolor{comment}{        if(tooLong > 100)}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00051}00051 \textcolor{comment}{        \{}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00052}00052 \textcolor{comment}{            end=1;}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00053}00053 \textcolor{comment}{        \}}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00054}00054 \textcolor{comment}{    \}}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00055}00055 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00056}00056 \textcolor{comment}{    return(end);}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00057}00057 \textcolor{comment}{\}}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00058}00058 \textcolor{comment}{//\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#//}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00059}00059 \textcolor{comment}{// MAYBE SHIT FUCKS UP}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00060}00060 \textcolor{comment}{//\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#//}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00061}00061 \textcolor{comment}{void Pipe\_BufferToFile(const char* buffer, int file)}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00062}00062 \textcolor{comment}{\{}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00063}00063 \textcolor{comment}{    fprintf(file, "{}\%s\(\backslash\)n"{}, buffer); //copie et ajout d'une fin de ligne}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00064}00064 \textcolor{comment}{    fflush(file);                  //on dit au systÃ¨me d'Ã©crire tout de suite}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00065}00065 \textcolor{comment}{\}}}
+\DoxyCodeLine{\Hypertarget{interface_pipes_8c_source_l00066}00066 \textcolor{comment}{*/}}
+
+\end{DoxyCode}

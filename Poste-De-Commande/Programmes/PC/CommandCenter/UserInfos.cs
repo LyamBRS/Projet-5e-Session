@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Collections;
 
 namespace CommandCenter
 {
@@ -26,7 +27,7 @@ namespace CommandCenter
             /// <summary>
             /// Event related text to tell the user that their attempts at linking to a serial port was a success
             /// </summary>
-            public static string SuccessfulLink  = "Serial port linked successfully";
+            public static string SuccessfulLink = "Serial port linked successfully";
             /// <summary>
             /// Event related text telling the user that an error occured while attempting to link to their specified Serial Port
             /// </summary>
@@ -164,44 +165,50 @@ namespace CommandCenter
             /// </summary>
             public class States
             {
-                public static string emergencyStop                  = "Status: In emergency";
-                public static string paused                         = "Status: Paused";
-                public static string testing                        = "Status: self testing";
-                public static string processing                     = "Status: executing a task";
-                public static string calibrating                    = "Status: calibrating";
-                public static string calibrated                     = "Status: is calibrated";
-                public static string waiting                        = "Status: waiting for something";
-                public static string safe                           = "Status: is safe for handling";
-                public static string error                          = "Status: in error";
-                public static string atSortingFactory               = "Status: at the sorting station";
-                public static string atWeightStation                = "Status: at the weight station";
-                public static string finishedSortingAndHasLoaded    = "Status: has loaded the truck";
-                public static string waitingToSort                  = "Status: is waiting to sort";
-                public static string waitingToWeight                = "Status: is waiting to weight";
-                public static string finishedWeighting              = "Status: has finished weighting";
-                public static string empty                          = "Status: is empty";
+                public static string emergencyStop = "Status: In emergency";
+                public static string paused = "Status: Paused";
+                public static string testing = "Status: self testing";
+                public static string processing = "Status: executing a task";
+                public static string calibrating = "Status: calibrating";
+                public static string calibrated = "Status: is calibrated";
+                public static string waiting = "Status: waiting for something";
+                public static string safe = "Status: is safe for handling";
+                public static string error = "Status: in error";
+                public static string atSortingFactory = "Status: at the sorting station";
+                public static string atWeightStation = "Status: at the weight station";
+                public static string finishedSortingAndHasLoaded = "Status: has loaded the truck";
+                public static string waitingToSort = "Status: is waiting to sort";
+                public static string waitingToWeight = "Status: is waiting to weight";
+                public static string finishedWeighting = "Status: has finished weighting";
+                public static string empty = "Status: is empty";
             }
             /// <summary>
             /// Class containing the specific meaning of each status of the sorting station
             /// </summary>
             public class SortingStation
             {
-                public static string emergencyStop                  = "Sorting station in emergency";
-                public static string paused                         = "Sorting is paused";
-                public static string testing                        = "Executing self diagnostic";
-                public static string processing                     = "Is sorting";
-                public static string calibrating                    = "Station is calibrating";
-                public static string calibrated                     = "Station is calibrated";
-                public static string waiting                        = "Station is not operational";
-                public static string safe                           = "Station is safe to handle";
-                public static string error                          = "Status: in error";
-                public static string atSortingFactory               = "Error: at the sorting station";
-                public static string atWeightStation                = "Error: at the weight station";
-                public static string finishedSortingAndHasLoaded    = "Sorting finished, and truck loaded";
-                public static string waitingToSort                  = "Station is waiting for a truck";
-                public static string waitingToWeight                = "Error: is waiting to weight";
-                public static string finishedWeighting              = "Error: has finished weighting";
-                public static string empty                          = "No more discs to sort";
+                public static string emergencyStop = "Sorting station in emergency";
+                public static string paused = "Sorting is paused";
+                public static string testing = "Executing self diagnostic";
+                public static string processing = "Is sorting";
+                public static string calibrating = "Station is calibrating";
+                public static string calibrated = "Station is calibrated";
+                public static string waiting = "Station is not operational";
+                public static string safe = "Station is safe to handle";
+                public static string error = "Status: in error";
+                public static string atSortingFactory = "Error: at the sorting station";
+                public static string atWeightStation = "Error: at the weight station";
+                public static string finishedSortingAndHasLoaded = "Sorting finished, and truck loaded";
+                public static string waitingToSort = "Station is waiting for a truck";
+                public static string waitingToWeight = "Error: is waiting to weight";
+                public static string finishedWeighting = "Error: has finished weighting";
+                public static string empty = "No more discs to sort";
+
+                public static string DiscIsRed = "Sorting has a red disc";
+                public static string DiscIsBlack = "Sorting has a black disc";
+                public static string DiscIsSilver = "Sorting has a metallic disc";
+                public static string DiscHasNoColor = "Sorting no longer has a disc";
+                public static string DiscNeverDetected = "No disc has been seen";
             }
             /// <summary>
             /// Class containing the specific meaning of each status of the weight station
@@ -211,7 +218,7 @@ namespace CommandCenter
                 public static string emergencyStop = "Weight station in emergency";
                 public static string paused = "Weighting is paused";
                 public static string testing = "Error: Executing self test";
-                public static string processing = "Error: Is sorting";
+                public static string processing = "Weighting blocks";
                 public static string calibrating = "Station is calibrating";
                 public static string calibrated = "Station is calibrated";
                 public static string waiting = "Station is not operational";
@@ -233,7 +240,7 @@ namespace CommandCenter
                 public static string emergencyStop = "Truck in emergency";
                 public static string paused = "Driving is paused";
                 public static string testing = "Error: Executing self test";
-                public static string processing = "Error: Is sorting";
+                public static string processing = "Truck is moving";
                 public static string calibrating = "Truck is calibrating";
                 public static string calibrated = "Truck is calibrated";
                 public static string waiting = "Truck is waiting for something";
@@ -299,18 +306,23 @@ namespace CommandCenter
             public static string IsCalibrating = "Ongoing calibration";
 
             /// <summary>
+            /// Tells the user that the current mode is unexpected and does not exist
+            /// </summary>
+            public static string DoesntExist = "Error: Mode does not exist";
+
+            /// <summary>
             /// Class reminding the user that their attempts at changing the current mode
             /// is futile, as it is already that mode which is being used
             /// </summary>
             public class Already
             {
-                public static string Emergency      = "Network is already in emergency";
-                public static string Operating      = "Network is already operating";
-                public static string Paused         = "Network is already paused";
-                public static string Maintenance    = "network is already in maintnance";
-                public static string Testing        = "Network is already in Technician mode";
-                public static string Initialising   = "Network is already initialising";
-                public static string Calibrating    = "network is already ongoing calibration";
+                public static string Emergency = "Network is already in emergency";
+                public static string Operating = "Network is already operating";
+                public static string Paused = "Network is already paused";
+                public static string Maintenance = "network is already in maintnance";
+                public static string Testing = "Network is already in Technician mode";
+                public static string Initialising = "Network is already initialising";
+                public static string Calibrating = "network is already ongoing calibration";
             }
         }
         /// <summary>
@@ -337,6 +349,7 @@ namespace CommandCenter
             public static string SavedFileName = "Saved BeagleBone's program's name";
             public static string SavedPassword = "Saved BeagleBone's password";
             public static string SavedUser = "Saved BeagleBone's user";
+            public static string SavedLanguage = "Saved new language";
         }
         /// <summary>
         /// User info related to BRS.Terminal
@@ -352,6 +365,31 @@ namespace CommandCenter
             /// Tells the user that a new log file has been created for the specific terminal
             /// </summary>
             public static string Saved = "New log file created";
+        }
+        /// <summary>
+        /// UserInfo displayed to the user which are
+        /// specific to the Technician mode
+        /// </summary>
+        public class Technician
+        {
+            public static string hasStarted = "Enabled technician mode";
+            public static string userStopped = "Disabled technician mode";
+            public static string unexpectedTermination = "Error: Tech mode TERMINATED";
+
+            public static string nowSimulatingModes = "Mode simulation enabled";
+            public static string stoppedSimulatingModes = "Mode simulation has stopped";
+
+            public static string configSending = "Sending configuration...";
+            public static string configSent = "Config has been sent!";
+
+            public static string nowClearingConfigAfterSending = "Continously sending config";
+            public static string stoppedConstantSending = "Continuous config sending stopped";
+
+            public static string nowKeepingCanOn = "Can network is kept online";
+            public static string stoppedKeepingCanON = "Can network only ON when sending";
+
+            public static string CanVisualisationClosed = "--,--,--,--,--,--,--,--";
+            public static string CanVisualisationInEmergency = "-EMERGENCY-";
         }
     }
 
@@ -417,25 +455,25 @@ namespace CommandCenter
                 {
                     public static string UnexpectedData = " tried sending unexisting command";
                     #region Movements
-                    public static string MoveLeft       = " asked modules to move left";
-                    public static string MoveRight      = " asked modules to move right";
-                    public static string MoveForwards   = " asked modules to move forwards";
-                    public static string MoveBackwards  = " asked modules to move backwards";
-                    public static string MoveUp         = " asked modules to move upwards";
-                    public static string MoveDown       = " asked modules to move downwards";
+                    public static string MoveLeft = " asked modules to move left";
+                    public static string MoveRight = " asked modules to move right";
+                    public static string MoveForwards = " asked modules to move forwards";
+                    public static string MoveBackwards = " asked modules to move backwards";
+                    public static string MoveUp = " asked modules to move upwards";
+                    public static string MoveDown = " asked modules to move downwards";
                     #endregion Movements
                     #region Suction
                     public static string SuctionOn = " has asked to turn ON suction";
                     public static string SuctionOff = " has asked to turn OFF suction";
                     #endregion Suction
                     #region Lights
-                    public static string LightAOn  = " has sent Light A ON.";
+                    public static string LightAOn = " has sent Light A ON.";
                     public static string LightAOff = " has sent Light A OFF.";
-                    public static string LightBOn  = " has sent Light B ON.";
+                    public static string LightBOn = " has sent Light B ON.";
                     public static string LightBOff = " has sent Light B OFF.";
-                    public static string LightCOn  = " has sent Light C ON.";
+                    public static string LightCOn = " has sent Light C ON.";
                     public static string LightCOff = " has sent Light C OFF.";
-                    public static string LightDOn  = " has sent Light D ON.";
+                    public static string LightDOn = " has sent Light D ON.";
                     public static string LightDOff = " has sent Light D OFF.";
                     #endregion Lights
                     #region Gotos
@@ -535,29 +573,373 @@ namespace CommandCenter
                     /// </summary>
                     public class IsNow
                     {
-                        public static string Emergency      = " is now supposed to be in it's emergency proceedure";
-                        public static string Paused         = " is now supposed to have paused ongoing processes";
-                        public static string Maintenance    = " should start it's proceedure to be safe for maintenance";
-                        public static string Testing        = " should have entered Technician Mode";
-                        public static string Operating      = " should now start standard operations";
-                        public static string Initialising   = " should be initialising itself";
-                        public static string Calibrating    = " should start self calibation proceedure";
+                        public static string Emergency = " is now supposed to be in it's emergency proceedure";
+                        public static string Paused = " is now supposed to have paused ongoing processes";
+                        public static string Maintenance = " should start it's proceedure to be safe for maintenance";
+                        public static string Testing = " should have entered Technician Mode";
+                        public static string Operating = " should now start standard operations";
+                        public static string Initialising = " should be initialising itself";
+                        public static string Calibrating = " should start self calibation proceedure";
                     }
                 }
             }
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        public static class Technician
+        {
+            public static string NowEmergency = "Technician debugging tools has detetected an Emergency";
+            public static string ClosingForSafety = "Debug tools are closing for safety reasons";
+            public static string NowDebugging = "Technician debugging and simulations started";
+            public static string userStopped = "User has closed Technician debug session";
+            public static string UnexpectedEnd = "Technician session came to an unexpected end";
+            /// <summary>
+            /// Logged in the technician terminal each time a CAN tram is sent
+            /// once. 
+            /// </summary>
+            public static string HasSentOnce = "CAN config successfully sent";
+            /// <summary>
+            /// logged message each time the CAN data being sent changes from
+            /// the previous values. keep a whitespace before the last quote
+            /// to pervent the printed data from sticking to your string
+            /// </summary>
+            public static string DataChangedAnsIsNow = "Data being sent is now: ";
+            /// <summary>
+            /// Logged message each time the dropdowns are reset to their
+            /// original values because of the checkbox for that setting
+            /// being enabled
+            /// </summary>
+            public static string ConfigCleared = "Config reset to default values";
+            /// <summary>
+            /// Tells the user through the logs that continuous sending is now
+            /// enabled through Keep CAN online.
+            /// </summary>
+            public static string NowSendingConstantly = "Periodic sending has been enabled";
+            public static string NoLongerSendingConstantly = "Periodic sending has been disabled";
+            /// <summary>
+            /// Message logged in the console when the setting for the Technician mode
+            /// changes for the Clear Config button.
+            /// </summary>
+            public static string NowClearingConfigWhenSending = "CAN config will now reset after each Send Once";
+            public static string NoLongerClearingConfig = "CAN config no longer resets after each Send Once";
+            /// <summary>
+            /// Message sent to the user in the Technician terminal to indicate that 
+            /// Mode simulation started from there on.
+            /// </summary>
+            public static string NowSimulatingModes = "Program is now simulating modes to modules";
+            public static string NoLongerSimulatingModes = "Program is no longer simulating modes";
+        }
     }
-
+    /// <summary>
+    /// Class which contains the text to display as pop ups
+    /// in different situations.
+    /// </summary>
     public static class PopUpInfos
     {
         public static class Header
         {
+            /// <summary>
+            /// Pop up header shown when the pop up's
+            /// purpose in life is to warn the user
+            /// of something, or to ask for 
+            /// caution
+            /// </summary>
             public static string Warning = "Warning";
         }
         public static class ModeSwitching
         {
+            /// <summary>
+            /// Popup displayed when the user
+            /// is trying to change the current CAN bus mode
+            /// to an other without putting the latter to
+            /// pause initially.
+            /// </summary>
             public static string IsNotPaused = "Are you sure you want to change the command center's current mode? It is not currently paused and doing this may cause issues";
             public static string DisablingEmergency = "Are you sure you want to disable the ongoing emergency proceedure? Some modules may trigger it back ON if they have not been hard reset manually";
         }
+
+        public static class Technician
+        {
+            public static string DoYouWantToPrintInfo = "Do you want to print this module's current data in the terminal? This will clear the terminal first";
+            public static string DoYouWantToSaveInstead = "Do you want to save the current terminal instead of just clearing it?";
+        }
+
+        public static string PleaseReboot = "In order for these changes to take place, please reboot the application";
+        public static string ThisIsntAvailable = "This mode is not available due to a lack of time and funding, thanks for your understanding";
+    }
+
+    /// <summary>
+    /// 3 letters or less for each state that
+    /// a scale can be in inside of this application
+    /// </summary>
+    public static class WeightInfos
+    {
+        /// <summary>
+        /// Displayed when the facilities used
+        /// to get the scale weight are offline,
+        /// or if the scale itself is offline.
+        /// </summary>
+        public static string isOffline = "OFF";
+
+        public static string isEmpty = "Empt";
+        /// <summary>
+        /// Class containing units used when
+        /// displaying measurement to the user
+        /// of this application
+        /// </summary>
+        public static class Units
+        {
+            /// <summary>
+            /// The number prior is in Grams
+            /// </summary>
+            public static string Metric = "g";
+            /// <summary>
+            /// The number prior is in ounces
+            /// </summary>
+            public static string Imperial = "oz";
+            /// <summary>
+            /// The unit of measurement of the number
+            /// prior is undefined or unknown
+            /// </summary>
+            public static string UnknownUnit = "?";
+        }
+        /// <summary>
+        /// No values is given by the scale
+        /// </summary>
+        public static string isOnlineButNoValue = "--";
+        /// <summary>
+        /// Something went wrong with the scale.
+        /// If the latter is not giving the correct unit
+        /// in comparaison with the wanted one, this
+        /// message is shown
+        /// </summary>
+        public static string isError = "ERR";
+    }
+
+
+    public static class ListsInfos
+    {
+        public static class BaudRates
+        {
+
+        }
+
+        public static class Units
+        {
+
+        }
+        /// <summary>
+        /// List of all the possible modes.
+        /// On the left is how the code accesses this
+        /// dictionary, on the right is what the end
+        /// user will know these modes as. Do not
+        /// change the left side of this table.
+        /// </summary>
+        public static Dictionary<int, string> Modes = new Dictionary<int, string>
+        {
+            {0,"Emergency Stop" },
+            {1,"Pause" },
+            {2,"Technician" },
+            {3,"Maintenance" },
+            {4,"Stand. Operations" },
+            {5,"Calibration" },
+            {6,"Initialisations" },
+            {250,"[Inexisting Mode]" },
+        };
+
+        public static Dictionary<int, string> DataTypes = new Dictionary<int, string>
+        {
+            {0,        "None" },
+            {1,    "Command" },
+            {2,      "Value" },
+            {3,      "State" },
+        };
+
+        public static Dictionary<int, string> EmptyData = new Dictionary<int, string>
+        {
+            {0,        "" },
+        };
+
+        public static Dictionary<int, string> States = new Dictionary<int, string>
+        {
+            {0,     "In emergency" },
+            {1,     "Is paused" },
+            {2,     "Self diagnosing" },
+            {3,     "Is processing" },
+            {4,     "In operation" },
+            {5,     "Is calibrating" },
+            {6,     "Is calibrated" },
+            {7,     "Is waiting" },
+            {8,     "Is safe" },
+            {9,     "Has an Error" },
+            {10,    "At sorting station" },
+            {11,    "At weight station" },
+            {12,    "Finished sorting and loaded" },
+            {13,    "Is waiting to sort" },
+            {14,    "Is waiting to weight" },
+            {15,    "Has finished weighting" },
+            {16,    "Is empty" },
+            {250,   "[Inexisting State]" },
+        };
+
+        public static Dictionary<int, string> Values = new Dictionary<int, string>
+        {
+            {0,     "Has an orange disc" },
+            {1,     "Has a metallic disc" },
+            {2,     "Has a black disc" },
+            {3,     "No longer see colors" },
+            {4,     "Has detected a disc" },
+            {5,     "No longer detects discs" },
+            {6,     "Couldn't detect discs" },
+            {7,     "Is using Metric" },
+            {8,     "Is using Imperial" },
+            {250,   "[Inexisting Value]" },
+        };
+
+        public static Dictionary<int, string> Commands = new Dictionary<int, string>
+        {
+            {0x00,     "Move left" },
+            {0x01,     "Move right" },
+            {0x02,     "Move forwards" },
+            {0x03,     "Move backwards" },
+            {0x04,     "Move upwards" },
+            {0x05,     "Move downwards" },
+            {0x06,     "Activate sucking" },
+            {0x07,     "Deactivate sucking" },
+            {0x08,     "[A] Light ON" },
+            {0x09,     "[A] Light OFF" },
+            {0x0A,     "[B] Light ON" },
+            {0x0B,     "[B] Light OFF" },
+            {0x0C,     "[C] Light ON"},
+            {0x0D,     "[C] Light OFF" },
+            {0x0E,     "[D] Light ON"  },
+            {0x0F,     "[D] Light OFF"},
+            {0x10,     "Go to the sorting station" },
+            {0x11,     "Go to the weight station" },
+            {0x12,     "Start sorting process" },
+            {0x13,     "Start weighting process" },
+            {0x14,     "Discharge" },
+            {0x15,     "UNUSED" },
+            {0x16,     "Use metric units" },
+            {0x17,     "Use imperial units" },
+
+            {250,       "[Inexisting Command]" },
+        };
+    }
+
+    /// <summary>
+    /// Distinctive class used by the Module Classes
+    /// when the specific function: LogAllIn is called.
+    /// </summary>
+    public static class ModuleLogging
+    {
+        /// <summary>
+        /// Data displayed infront of the logged comments
+        /// </summary>
+        public static class Headers
+        {
+            /// <summary>
+            /// Header which below it will be all the current data of the module
+            /// Leave a white space at the end of your string
+            /// </summary>
+            public static string Current = "The last, currently stored data of: ";
+            /// <summary>
+            /// Header which below it will be all the received data of the module
+            /// Leave a white space at the end of your string
+            /// </summary>
+            public static string Received = "All the seen by this module since last print ";
+        }
+        /// <summary>
+        /// Class representing the type of data which is
+        /// logged inside of terminal related to modules
+        /// </summary>
+        public static class Types
+        {
+            public static string Mode = "[MODE]:\t";
+            public static string State = "[STATE]:\t";
+            public static string Value = "[VALUE]:\t";
+            public static string Weight = "[WEIGHT]:\t";
+            public static string Command = "[COMMAND]:\t";
+        }
+        /// <summary>
+        /// Separates data when logging all the received data
+        /// from a module while in Technician Mode. These are
+        /// used as minimalist headers basically
+        /// </summary>
+        public static class Separators
+        {
+            public static string Mode = "///////////////////////////////// - [MODES]";
+            public static string States = "///////////////////////////////// - [STATES]";
+            public static string Values = "///////////////////////////////// - [VALUES]";
+            public static string Weight = "///////////////////////////////// - [WEIGHTS]";
+            public static string Commands = "///////////////////////////////// - [COMMANDS]";
+        }
+        /// <summary>
+        /// String which is logged when a range of data cannot be logged
+        /// due to it's inexistance or the fact that it is not used by
+        /// modules. This is the case for Commands, which modules are not
+        /// supposed to be sending
+        /// </summary>
+        public static string DataUnavaibale = "DISABLED";
+        /// <summary>
+        /// Warns the user that the module which has been printed on the
+        /// screen just had all of it's stored data accumulated since the
+        /// last print flushed from memory.
+        /// </summary>
+        public static string DataResetWarning = "This module's received data has been flushed";
+    }
+
+    /// <summary>
+    /// Class containing all the names displayed
+    /// to the end user to label their selected
+    /// tabs
+    /// </summary>
+    public static class Tab_Names
+    {
+        public static string Operation = "Operation";
+        public static string Technician = "Technician";
+        public static string Calibration = "Calibration";
+        public static string Maintenance = "Maintenance";
+        public static string Terminal = "Terminal";
+        public static string Settings = "Settings";
+    }
+    /// <summary>
+    /// Class containing all the names of labels
+    /// inside of this application
+    /// </summary>
+    public static class Label_Names
+    {
+        public static string Label_User = "User:";
+        public static string Label_Password = "Password:";
+        public static string Label_FileName = "File name:";
+        public static string Label_FilePath = "File path:";
+        public static string Label_AutoConnect = "Auto Con.";
+        public static string Label_Language = "Language:";
+        public static string Label_ScaleUnit = "Scale Unit:";
+
+        public static string Technician_Label_Mode = "Mode";
+        public static string Technician_Label_Status = "Status";
+        public static string Technician_Label_DataTypeA = "Data type A";
+        public static string Technician_Label_DataTypeB = "Data type B";
+        public static string Technician_Label_DataA = "Data A";
+        public static string Technician_Label_DataB = "Data B";
+        public static string Technician_Label_CanOutput = "CAN Output:";
+
+        public static string Technician_Label_SimulateModes = "Simulate Modes";
+        public static string Technician_Label_KeepCanOn = "Keep CAN Online";
+        public static string Technician_Label_ClearAfterSend = "Clear After";
+        public static string Technician_Label_SendOnce = "Send Once";
+    }
+    /// <summary>
+    /// Class holding the names of modules which will
+    /// be displayed to the end user
+    /// </summary>
+    public static class Module_Names
+    {
+        public static string OfflineModules = "Offline module: ";
+        public static string SortingStation = "Sorting Station";
+        public static string Vehicle = "Vehicle";
+        public static string WeightStation = "Weight Station";
     }
 }

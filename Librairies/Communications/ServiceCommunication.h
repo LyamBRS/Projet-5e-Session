@@ -226,6 +226,7 @@ unsigned char temporaryMasterBuffer[8];
  * contains received CAN data from the MASTER's address\n
  * this unique buffer must contain whatever info was received from the master's
  * address
+ * @deprecated WAS NOT USED BECAUSE EVERYONE READS FROM EVERYONE
  */
 #define MASTER_CAN_RX_BUFFER temporaryMasterBuffer
 /**

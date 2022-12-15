@@ -1,0 +1,59 @@
+\hypertarget{pilote_c_a_n_8h_source}{}\doxysection{pilote\+CAN.\+h}
+\label{pilote_c_a_n_8h_source}\index{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Poste-\/De-\/Commande/Programmes/BeagleBone/piloteCAN.h@{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Poste-\/De-\/Commande/Programmes/BeagleBone/piloteCAN.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00001}00001 \textcolor{preprocessor}{\#ifndef PILOTECAN\_H}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00002}00002 \textcolor{preprocessor}{\#define PILOTECAN\_H}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00003}00003 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00004}00004 \textcolor{comment}{//MODULE: piloteCAN}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00005}00005 \textcolor{comment}{//DESCRIPTION: }}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00006}00006 \textcolor{comment}{//Ce programme suppose que la librairie can-\/utils est installée}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00007}00007 \textcolor{comment}{//Ce module permet d'ouvrir une interface et de la fermer avant de quitter}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00008}00008 \textcolor{comment}{//Il faut ouvrir une interface avant de faire appel à CAN\_Initialise}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00009}00009 \textcolor{comment}{//Le programme qui utilise le module piloteCAN doit de gérer la fermeture}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00010}00010 \textcolor{comment}{//de l'interface à l'aide de la fonction CAN\_CloseInterface.}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00011}00011 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00012}00012 \textcolor{comment}{//Ce module utilise la définition CAN\_VIRTUAL\_INTERFACE pour savoir s'il doit utiliser vcan0}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00013}00013 \textcolor{comment}{//Ce module utilise la définition CAN\_REAL\_INTERFACE pour savoir s'il doit utiliser can0}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00014}00014 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00015}00015 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00016}00016 \textcolor{comment}{//======================================================== HISTORY // }}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00017}00017 \textcolor{comment}{// 2021-\/10-\/28, Yves Roy, creation}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00018}00018 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00019}00019 \textcolor{comment}{//DEFINITIONS REQUISES PAR LE MODULE:}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00020}00020 \textcolor{comment}{//Dependances materielles}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00021}00021 \textcolor{comment}{//(copiez et adaptez ce qui suit dans "{}main.h"{})}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00022}00022 \textcolor{comment}{//pour utiliser vcan0 pour des tests locaux}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00023}00023 \textcolor{comment}{//\#define CAN\_VIRTUAL\_INTERFACE }}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00024}00024 \textcolor{comment}{//pour utiliser can0 connecté à un réseau CAN}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00025}00025 \textcolor{comment}{//\#define CAN\_REAL\_INTERFACE}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00026}00026 \textcolor{comment}{//pour utiliser can0 pour recevoir ce qu'on transmet}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00027}00027 \textcolor{comment}{//\#define CAN\_REAL\_WITH\_LOOPBACK}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00029}00029 \textcolor{comment}{//Dependances logicielles}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00030}00030 \textcolor{comment}{//(copiez et adaptez ce qui suit dans "{}main.h"{})}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00031}00031 \textcolor{comment}{//\#define CAN\_RECEIVING\_ADDRESS 0x123 (0 pour tout recevoir)}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00032}00032 \textcolor{comment}{//\#define CAN\_RECEIVING\_MASK 0x000007FFU (0 pour ne pas filtrer)}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00033}00033 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00034}00034 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00035}00035 \textcolor{comment}{//INFORMATION PUBLIQUE:}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00036}00036 \textcolor{comment}{//Definitions publiques:}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00037}00037 \textcolor{preprocessor}{\#define CAN\_WORKING 0}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00038}00038 \textcolor{preprocessor}{\#define CAN\_UNAVAILABLE 1}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00039}00039 \textcolor{preprocessor}{\#define CAN\_MESSAGE\_WITH\_DATA 1}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00040}00040 \textcolor{preprocessor}{\#define CAN\_MESSAGE\_EMPTY 0}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00041}00041 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00042}00042 \textcolor{comment}{//Fonctions publiques:}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00043}00043 \textcolor{keywordtype}{void} CAN\_OpenInterface(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00044}00044 \textcolor{keywordtype}{void} CAN\_CloseInterface(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00045}00045 \textcolor{keywordtype}{int} \mbox{\hyperlink{pilote_c_a_n_8c_ae39d9136cf43e95ba7639030c8e43128}{CAN\_Transmit}}(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} Address, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} *transmitBuffer, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} NumberToSend);}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00046}00046 \textcolor{keywordtype}{int} \mbox{\hyperlink{pilote_c_a_n_8c_a2332adc5f70b4deb14522c629c0a6072}{CAN\_ReceiveMessage}}(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} *Address, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} *receiveBuffer, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} *amountOfBytesReceived);}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00047}00047 \textcolor{keywordtype}{int} CAN\_TypeOfReceivedMessage(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00048}00048 \textcolor{keywordtype}{int} \mbox{\hyperlink{pilote_c_a_n_8c_af193f9d67a3bd005c454b0955dd98bc3}{CAN\_Initialise}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00049}00049 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00050}00050 \textcolor{comment}{//Variables publiques:}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00051}00051 \textcolor{keyword}{extern} \textcolor{keywordtype}{int} CAN\_ModuleState;}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00052}00052 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8h_source_l00053}00053 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

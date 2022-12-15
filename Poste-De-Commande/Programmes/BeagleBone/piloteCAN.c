@@ -86,8 +86,11 @@ void CAN_OpenInterface(void)
 	system("sudo modprobe can");
 	system("sudo modprobe can-dev");
 	system("sudo modprobe can-raw");
+	system("sudo ip link set can0 type can restart-ms 5");
 	system("sudo ip link set can0 type can loopback off");	
 	system("sudo ip link set can0 up type can bitrate 50000");
+	system("sudo ip link set can0 type can restart-ms 20");
+	system("sudo ip link set can0 type can restart-ms 20");
 	system("sudo ip link set can0 type can restart-ms 20");
 #endif
 #ifdef CAN_REAL_WITH_LOOPBACK

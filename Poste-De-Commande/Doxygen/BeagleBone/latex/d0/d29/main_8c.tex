@@ -1,0 +1,420 @@
+\hypertarget{main_8c}{}\doxysection{U\+:/\+Sessions/\+Session 5/\+Project/\+Projet\+\_\+\+Fin\+\_\+\+Session/\+Projet-\/5e-\/\+Session/\+Poste-\/\+De-\/\+Commande/\+Programmes/\+Beagle\+Bone/main.c File Reference}
+\label{main_8c}\index{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Poste-\/De-\/Commande/Programmes/BeagleBone/main.c@{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Poste-\/De-\/Commande/Programmes/BeagleBone/main.c}}
+
+
+This file\textquotesingle{}s purpose is to handle a terminal communication between the Command\+Center.\+exe program and a beagle\+Bone\+Blue. it parses what is received in the terminal and outputs CAN once a proper data tram is received.~\newline
+~\newline
+Data trams are as followed\+:~\newline
+0x\+FE/\+ADR1/\+ADR2/\+ADR3/\textquotesingle{}M\textquotesingle{}/\+Mode/\+C1/command1/\+C2/command2/\textquotesingle{}S\textquotesingle{}/\+State~\newline
+Each time a data tram is sent, \mbox{[}-\/SYNC-\/\mbox{]} is shown on the terminal.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$sys/wait.\+h$>$}\newline
+{\ttfamily \#include $<$errno.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$fcntl.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}main.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}pilote\+CAN.\+h\char`\"{}}\newline
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{main_8c_ab711666ad09d7f6c0b91576525ea158e}{CONTINUE}}~1
+\item 
+\#define \mbox{\hyperlink{main_8c_ae19b6bb2940d2fbe0a79852b070eeafd}{STOP}}~0
+\item 
+\#define \mbox{\hyperlink{main_8c_a7d4c071d4189c387b2d764a6a4b9283c}{MAIN\+\_\+\+BUFFER\+\_\+\+SIZE}}~99
+\item 
+\#define \mbox{\hyperlink{main_8c_a8fe83ac76edc595f6b98cd4a4127aed5}{ERROR}}~-\/1
+\item 
+\#define \mbox{\hyperlink{main_8c_aa90cac659d18e8ef6294c7ae337f6b58}{SUCCESS}}~0
+\item 
+\#define \mbox{\hyperlink{main_8c_a62a5af53e9534a0e5fa5a11ca6eddd86}{END\+\_\+\+EVERYTHING}}~0x\+FF
+\item 
+\#define \mbox{\hyperlink{main_8c_a6c3f748f6138bf4509cb4705b347e8a7}{READING}}~0
+\item 
+\#define \mbox{\hyperlink{main_8c_ac0ee8646017f8861ccdb83b22b630522}{WRITING}}~1
+\item 
+\#define \mbox{\hyperlink{main_8c_a4eeea263034e2501cb1083a96a53e2d7}{NOT\+\_\+\+READY}}~0x00
+\item 
+\#define \mbox{\hyperlink{main_8c_ad1235d5ce36f7267285e82dccd428aa6}{READY}}~0x\+FF
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{main_8c_acdcc598365ec4eed0aac357fe5d2ebec}{Main\+\_\+\+Initialise}} (void)
+\begin{DoxyCompactList}\small\item\em This function is used to initialise every pilotes or interfaces needed in order to properly execute this program.~\newline
+In this particular state, it opens CAN interfaces and initialises the latter properly. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{main_8c_af2731bf7f97ef3fa2afffce80916c186}\label{main_8c_af2731bf7f97ef3fa2afffce80916c186}} 
+void {\bfseries Main\+\_\+test} (void)
+\item 
+void \mbox{\hyperlink{main_8c_abe511b40c0d0f8927df96afa911ee1ad}{Handle\+Transmission}} (void)
+\begin{DoxyCompactList}\small\item\em Handles the CAN transmission on the CAN bus.~\newline
+The command center handles how often SYNCH trams are to be sent.~\newline
+Each time a synch tram is sent, \mbox{[}-\/SYNC-\/\mbox{]} is shown in the terminal. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{main_8c_a84d37c9a25cd0cc80dac703f4aae10d2}{Handle\+Reception}} (void)
+\begin{DoxyCompactList}\small\item\em handles CAN receptions. Each time a CAN communication is intercepted, it gets printed as integers displayed as ASCII chars in the terminal, with \mbox{[}RX\mbox{]} in front of the data.~\newline
+Data is separated via commas to ease parsing on the Command\+Center. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{main_8c_a80652d9ab2d4d1c2993aa07448b5569d}{Get\+Hex\+Value}} (unsigned char charcter)
+\begin{DoxyCompactList}\small\item\em Returns the real hexadecimal value of the ascii letter which represents said hex value.~\newline
+For example, \textquotesingle{}F\textquotesingle{} does not equal to 0x0F.~\newline
+Thus this function takes \textquotesingle{}F\textquotesingle{} as the input parameter, and returns 0x0F. \end{DoxyCompactList}\item 
+unsigned char \mbox{\hyperlink{main_8c_a9ac8924216c97de8d7c528ac9e8bc924}{Check\+If\+Special\+Char}} (int special, int $\ast$Temporary2\+Letter\+Buffer)
+\begin{DoxyCompactList}\small\item\em Checks if 2 consecutive characters are meant to represent a special character. While this function is far from perfect, considering the structure of the CAN protocol used by this device, it works just fine.~\newline
+This function allows values upwards of 0x7F to 0x\+FF to be sent exclusively through terminal get\+Char().~\newline
+Why? Cuz I was lazy and couldn\textquotesingle{}t be bothered to make the actual USB function. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{main_8c_a840291bc02cba5474a4cb46a9b9566fe}{main}} (void)
+\begin{DoxyCompactList}\small\item\em Main function of this program. Used to create forks or threads and initialise needed programs. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{main_8c_aa68c838bc796ffbc101a2335955a25aa}{reception\+To\+Transmission}} \mbox{[}2\mbox{]}
+\item 
+int \mbox{\hyperlink{main_8c_a8b9e345fee45e8480a1eedbaf09fc33f}{transmission\+To\+Reception}} \mbox{[}2\mbox{]}
+\item 
+int \mbox{\hyperlink{main_8c_a66668f5179777556f4b2921e4d0f0eb2}{CAN\+\_\+\+Is\+Sending}} = 0
+\item 
+int \mbox{\hyperlink{main_8c_a4ddaf3683a63b126bb394d7ff8f38069}{CAN\+\_\+\+Is\+Reading}} = 0
+\item 
+unsigned char \mbox{\hyperlink{main_8c_aa1a87d729dd4f51054462a1c454a2542}{Manual\+Execution}} = 0
+\begin{DoxyCompactList}\small\item\em Tells the program that special characters will be used instead of exact hex values through the terminal.~\newline
+In regular operation, the Command Center sends exact hex values properly to the application, but it is impossible for a manual user using this script through a terminal to send exact hex values.~\newline
+This this allows just that. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file\textquotesingle{}s purpose is to handle a terminal communication between the Command\+Center.\+exe program and a beagle\+Bone\+Blue. it parses what is received in the terminal and outputs CAN once a proper data tram is received.~\newline
+~\newline
+Data trams are as followed\+:~\newline
+0x\+FE/\+ADR1/\+ADR2/\+ADR3/\textquotesingle{}M\textquotesingle{}/\+Mode/\+C1/command1/\+C2/command2/\textquotesingle{}S\textquotesingle{}/\+State~\newline
+Each time a data tram is sent, \mbox{[}-\/SYNC-\/\mbox{]} is shown on the terminal. 
+
+\begin{DoxyAuthor}{Author}
+Shawn Couture / Lyam\+BRS 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+2.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2022-\/11-\/25
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2022 
+\end{DoxyCopyright}
+
+
+Definition in file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{main_8c_ab711666ad09d7f6c0b91576525ea158e}\label{main_8c_ab711666ad09d7f6c0b91576525ea158e}} 
+\index{main.c@{main.c}!CONTINUE@{CONTINUE}}
+\index{CONTINUE@{CONTINUE}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{CONTINUE}{CONTINUE}}
+{\footnotesize\ttfamily \#define CONTINUE~1}
+
+
+
+Definition at line \mbox{\hyperlink{main_8c_source_l00031}{31}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\mbox{\Hypertarget{main_8c_a62a5af53e9534a0e5fa5a11ca6eddd86}\label{main_8c_a62a5af53e9534a0e5fa5a11ca6eddd86}} 
+\index{main.c@{main.c}!END\_EVERYTHING@{END\_EVERYTHING}}
+\index{END\_EVERYTHING@{END\_EVERYTHING}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{END\_EVERYTHING}{END\_EVERYTHING}}
+{\footnotesize\ttfamily \#define END\+\_\+\+EVERYTHING~0x\+FF}
+
+
+
+Definition at line \mbox{\hyperlink{main_8c_source_l00036}{36}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\mbox{\Hypertarget{main_8c_a8fe83ac76edc595f6b98cd4a4127aed5}\label{main_8c_a8fe83ac76edc595f6b98cd4a4127aed5}} 
+\index{main.c@{main.c}!ERROR@{ERROR}}
+\index{ERROR@{ERROR}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{ERROR}{ERROR}}
+{\footnotesize\ttfamily \#define ERROR~-\/1}
+
+
+
+Definition at line \mbox{\hyperlink{main_8c_source_l00034}{34}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\mbox{\Hypertarget{main_8c_a7d4c071d4189c387b2d764a6a4b9283c}\label{main_8c_a7d4c071d4189c387b2d764a6a4b9283c}} 
+\index{main.c@{main.c}!MAIN\_BUFFER\_SIZE@{MAIN\_BUFFER\_SIZE}}
+\index{MAIN\_BUFFER\_SIZE@{MAIN\_BUFFER\_SIZE}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{MAIN\_BUFFER\_SIZE}{MAIN\_BUFFER\_SIZE}}
+{\footnotesize\ttfamily \#define MAIN\+\_\+\+BUFFER\+\_\+\+SIZE~99}
+
+
+
+Definition at line \mbox{\hyperlink{main_8c_source_l00033}{33}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\mbox{\Hypertarget{main_8c_a4eeea263034e2501cb1083a96a53e2d7}\label{main_8c_a4eeea263034e2501cb1083a96a53e2d7}} 
+\index{main.c@{main.c}!NOT\_READY@{NOT\_READY}}
+\index{NOT\_READY@{NOT\_READY}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{NOT\_READY}{NOT\_READY}}
+{\footnotesize\ttfamily \#define NOT\+\_\+\+READY~0x00}
+
+
+
+Definition at line \mbox{\hyperlink{main_8c_source_l00040}{40}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\mbox{\Hypertarget{main_8c_a6c3f748f6138bf4509cb4705b347e8a7}\label{main_8c_a6c3f748f6138bf4509cb4705b347e8a7}} 
+\index{main.c@{main.c}!READING@{READING}}
+\index{READING@{READING}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{READING}{READING}}
+{\footnotesize\ttfamily \#define READING~0}
+
+
+
+Definition at line \mbox{\hyperlink{main_8c_source_l00038}{38}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\mbox{\Hypertarget{main_8c_ad1235d5ce36f7267285e82dccd428aa6}\label{main_8c_ad1235d5ce36f7267285e82dccd428aa6}} 
+\index{main.c@{main.c}!READY@{READY}}
+\index{READY@{READY}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{READY}{READY}}
+{\footnotesize\ttfamily \#define READY~0x\+FF}
+
+
+
+Definition at line \mbox{\hyperlink{main_8c_source_l00041}{41}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\mbox{\Hypertarget{main_8c_ae19b6bb2940d2fbe0a79852b070eeafd}\label{main_8c_ae19b6bb2940d2fbe0a79852b070eeafd}} 
+\index{main.c@{main.c}!STOP@{STOP}}
+\index{STOP@{STOP}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{STOP}{STOP}}
+{\footnotesize\ttfamily \#define STOP~0}
+
+
+
+Definition at line \mbox{\hyperlink{main_8c_source_l00032}{32}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\mbox{\Hypertarget{main_8c_aa90cac659d18e8ef6294c7ae337f6b58}\label{main_8c_aa90cac659d18e8ef6294c7ae337f6b58}} 
+\index{main.c@{main.c}!SUCCESS@{SUCCESS}}
+\index{SUCCESS@{SUCCESS}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{SUCCESS}{SUCCESS}}
+{\footnotesize\ttfamily \#define SUCCESS~0}
+
+
+
+Definition at line \mbox{\hyperlink{main_8c_source_l00035}{35}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\mbox{\Hypertarget{main_8c_ac0ee8646017f8861ccdb83b22b630522}\label{main_8c_ac0ee8646017f8861ccdb83b22b630522}} 
+\index{main.c@{main.c}!WRITING@{WRITING}}
+\index{WRITING@{WRITING}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{WRITING}{WRITING}}
+{\footnotesize\ttfamily \#define WRITING~1}
+
+
+
+Definition at line \mbox{\hyperlink{main_8c_source_l00039}{39}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{main_8c_a9ac8924216c97de8d7c528ac9e8bc924}\label{main_8c_a9ac8924216c97de8d7c528ac9e8bc924}} 
+\index{main.c@{main.c}!CheckIfSpecialChar@{CheckIfSpecialChar}}
+\index{CheckIfSpecialChar@{CheckIfSpecialChar}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{CheckIfSpecialChar()}{CheckIfSpecialChar()}}
+{\footnotesize\ttfamily unsigned char Check\+If\+Special\+Char (\begin{DoxyParamCaption}\item[{int}]{special,  }\item[{int $\ast$}]{Temporary2\+Letter\+Buffer }\end{DoxyParamCaption})}
+
+
+
+Checks if 2 consecutive characters are meant to represent a special character. While this function is far from perfect, considering the structure of the CAN protocol used by this device, it works just fine.~\newline
+This function allows values upwards of 0x7F to 0x\+FF to be sent exclusively through terminal get\+Char().~\newline
+Why? Cuz I was lazy and couldn\textquotesingle{}t be bothered to make the actual USB function. 
+
+\begin{DoxyAuthor}{Author}
+Shawn Couture / Lyam\+BRS 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+24/11/2022 
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em special} & current gotten get\+Char (int) \\
+\hline
+{\em Temporary2\+Letter\+Buffer} & 2 letters int buffer which corresponds to the output of this functions. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+unsigned char\+: 0x\+FF = Buffer ready for parsing, 0x00 Buffer processing. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{main_8c_source_l00168}{168}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\mbox{\Hypertarget{main_8c_a80652d9ab2d4d1c2993aa07448b5569d}\label{main_8c_a80652d9ab2d4d1c2993aa07448b5569d}} 
+\index{main.c@{main.c}!GetHexValue@{GetHexValue}}
+\index{GetHexValue@{GetHexValue}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{GetHexValue()}{GetHexValue()}}
+{\footnotesize\ttfamily int Get\+Hex\+Value (\begin{DoxyParamCaption}\item[{unsigned char}]{character }\end{DoxyParamCaption})}
+
+
+
+Returns the real hexadecimal value of the ascii letter which represents said hex value.~\newline
+For example, \textquotesingle{}F\textquotesingle{} does not equal to 0x0F.~\newline
+Thus this function takes \textquotesingle{}F\textquotesingle{} as the input parameter, and returns 0x0F. 
+
+\begin{DoxyAuthor}{Author}
+Shawn Couture / Lyam\+BRS 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+24/11/2022 
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em character} & ASCII to transform into hexadecimal. (0x00-\/0x0F). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Represents the hexadecimal value of the ascii letters converted to hex. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{main_8c_source_l00131}{131}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\mbox{\Hypertarget{main_8c_a84d37c9a25cd0cc80dac703f4aae10d2}\label{main_8c_a84d37c9a25cd0cc80dac703f4aae10d2}} 
+\index{main.c@{main.c}!HandleReception@{HandleReception}}
+\index{HandleReception@{HandleReception}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{HandleReception()}{HandleReception()}}
+{\footnotesize\ttfamily void Handle\+Reception (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+handles CAN receptions. Each time a CAN communication is intercepted, it gets printed as integers displayed as ASCII chars in the terminal, with \mbox{[}RX\mbox{]} in front of the data.~\newline
+Data is separated via commas to ease parsing on the Command\+Center. 
+
+\begin{DoxyAuthor}{Author}
+Shawn Couture / Lyam\+BRS 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+24/11/2022 
+\end{DoxyDate}
+
+
+Definition at line \mbox{\hyperlink{main_8c_source_l00438}{438}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\mbox{\Hypertarget{main_8c_abe511b40c0d0f8927df96afa911ee1ad}\label{main_8c_abe511b40c0d0f8927df96afa911ee1ad}} 
+\index{main.c@{main.c}!HandleTransmission@{HandleTransmission}}
+\index{HandleTransmission@{HandleTransmission}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{HandleTransmission()}{HandleTransmission()}}
+{\footnotesize\ttfamily void Handle\+Transmission (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Handles the CAN transmission on the CAN bus.~\newline
+The command center handles how often SYNCH trams are to be sent.~\newline
+Each time a synch tram is sent, \mbox{[}-\/SYNC-\/\mbox{]} is shown in the terminal. 
+
+\begin{DoxyAuthor}{Author}
+Shawn Couture / Lyam\+BRS 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+24/11/2022 
+\end{DoxyDate}
+
+
+Definition at line \mbox{\hyperlink{main_8c_source_l00222}{222}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\mbox{\Hypertarget{main_8c_a840291bc02cba5474a4cb46a9b9566fe}\label{main_8c_a840291bc02cba5474a4cb46a9b9566fe}} 
+\index{main.c@{main.c}!main@{main}}
+\index{main@{main}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Main function of this program. Used to create forks or threads and initialise needed programs. 
+
+\begin{DoxyReturn}{Returns}
+int 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{main_8c_source_l00507}{507}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\mbox{\Hypertarget{main_8c_acdcc598365ec4eed0aac357fe5d2ebec}\label{main_8c_acdcc598365ec4eed0aac357fe5d2ebec}} 
+\index{main.c@{main.c}!Main\_Initialise@{Main\_Initialise}}
+\index{Main\_Initialise@{Main\_Initialise}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{Main\_Initialise()}{Main\_Initialise()}}
+{\footnotesize\ttfamily int Main\+\_\+\+Initialise (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+This function is used to initialise every pilotes or interfaces needed in order to properly execute this program.~\newline
+In this particular state, it opens CAN interfaces and initialises the latter properly. 
+
+\begin{DoxyAuthor}{Author}
+Yves Roy 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+28/11/2022 
+\end{DoxyDate}
+\begin{DoxyReturn}{Returns}
+int Error State. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{main_8c_source_l00111}{111}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{main_8c_a4ddaf3683a63b126bb394d7ff8f38069}\label{main_8c_a4ddaf3683a63b126bb394d7ff8f38069}} 
+\index{main.c@{main.c}!CAN\_IsReading@{CAN\_IsReading}}
+\index{CAN\_IsReading@{CAN\_IsReading}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{CAN\_IsReading}{CAN\_IsReading}}
+{\footnotesize\ttfamily int CAN\+\_\+\+Is\+Reading = 0}
+
+
+
+Definition at line \mbox{\hyperlink{main_8c_source_l00088}{88}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\mbox{\Hypertarget{main_8c_a66668f5179777556f4b2921e4d0f0eb2}\label{main_8c_a66668f5179777556f4b2921e4d0f0eb2}} 
+\index{main.c@{main.c}!CAN\_IsSending@{CAN\_IsSending}}
+\index{CAN\_IsSending@{CAN\_IsSending}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{CAN\_IsSending}{CAN\_IsSending}}
+{\footnotesize\ttfamily int CAN\+\_\+\+Is\+Sending = 0}
+
+
+
+Definition at line \mbox{\hyperlink{main_8c_source_l00087}{87}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\mbox{\Hypertarget{main_8c_aa1a87d729dd4f51054462a1c454a2542}\label{main_8c_aa1a87d729dd4f51054462a1c454a2542}} 
+\index{main.c@{main.c}!ManualExecution@{ManualExecution}}
+\index{ManualExecution@{ManualExecution}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{ManualExecution}{ManualExecution}}
+{\footnotesize\ttfamily unsigned char Manual\+Execution = 0}
+
+
+
+Tells the program that special characters will be used instead of exact hex values through the terminal.~\newline
+In regular operation, the Command Center sends exact hex values properly to the application, but it is impossible for a manual user using this script through a terminal to send exact hex values.~\newline
+This this allows just that. 
+
+
+
+Definition at line \mbox{\hyperlink{main_8c_source_l00099}{99}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\mbox{\Hypertarget{main_8c_aa68c838bc796ffbc101a2335955a25aa}\label{main_8c_aa68c838bc796ffbc101a2335955a25aa}} 
+\index{main.c@{main.c}!receptionToTransmission@{receptionToTransmission}}
+\index{receptionToTransmission@{receptionToTransmission}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{receptionToTransmission}{receptionToTransmission}}
+{\footnotesize\ttfamily int reception\+To\+Transmission\mbox{[}2\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{main_8c_source_l00084}{84}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\mbox{\Hypertarget{main_8c_a8b9e345fee45e8480a1eedbaf09fc33f}\label{main_8c_a8b9e345fee45e8480a1eedbaf09fc33f}} 
+\index{main.c@{main.c}!transmissionToReception@{transmissionToReception}}
+\index{transmissionToReception@{transmissionToReception}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{transmissionToReception}{transmissionToReception}}
+{\footnotesize\ttfamily int transmission\+To\+Reception\mbox{[}2\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{main_8c_source_l00085}{85}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
