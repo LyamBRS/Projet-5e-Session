@@ -69,8 +69,12 @@ unsigned char serviceCommunication_ErrorState = NO_ERROR;
 /**
  * @brief Variable keeping track of the amount of interrupt which hapenned
  * since the reception of a \ref stModes by the synchronisation CAN tram.
+ * @warning You can only have a certain amount of interrupts counted as this
+ * variable's type only allows up to the integer limit of an unsigned int.\n
+ * If your time base is too fast, you'll need to change this to a bigger
+ * variable type
  */
-unsigned char interruptCount = 0;
+unsigned int interruptCount = 0;
 /**
  * @brief Variable which indicates which slots in the CAN protocol the count
  * is current at. This is used to keep track of which person needs to
@@ -82,7 +86,7 @@ unsigned char interruptCount = 0;
  * 4: Reserved\n
  * 5: Reserved
  */
-unsigned char currentSlot = 0;
+unsigned int currentSlot = 0;
 /**
  * @brief This buffer is used to store which commands or values were \ref QUEUE
  * by he program, to send them x by x amount each time the CAN slot is equal to
@@ -331,6 +335,7 @@ void TX_BuildCANBuffer(unsigned char* Buffer)
 * it is called.
 * @author Lyam / Shawn Couture
 * @date 14/11/2022
+* @warning ModuleData.State is no longer automatically set to States.error when incorrect data is detected.
 * @param void
 */
 void Parse_ModuleDataForTransmission(void)
@@ -425,7 +430,7 @@ void Parse_CanBusReceptions(unsigned char *Buffer)
                             case(0x06): ModuleData.Mode = Modes.reinitialisation; break;
                             default:
                                         //If received mode matched nothing, an error occured.
-                                        ModuleData.State = States.error;
+                                        //ModuleData.State = States.error; - Removed due to some modules sending incorrect Data
                                         serviceCommunication_ErrorState = ERROR_RX_MODE_DOESNT_EXIST;
                                         break;                  
                         }
@@ -509,7 +514,7 @@ void Parse_CanBusReceptions(unsigned char *Buffer)
                                         break;
                             default:
                                         //If received mode matched nothing, an error occured.
-                                        ModuleData.State = States.error;
+                                        //ModuleData.State = States.error; - Removed due to some modules sending incorrect Data
                                         serviceCommunication_ErrorState = ERROR_RX_COMMAND_DOESNT_EXIST;
                                         break;                  
                         }
@@ -560,7 +565,7 @@ void Parse_CanBusReceptions(unsigned char *Buffer)
                                         break;
                             default:
                                         //If received mode matched nothing, an error occured.
-                                        ModuleData.State = States.error;
+                                        //ModuleData.State = States.error; - Removed due to some modules sending incorrect Data
                                         serviceCommunication_ErrorState = ERROR_RX_VALUE_DOESNT_EXIST;
                                         break;                  
                         }
@@ -599,7 +604,7 @@ void Parse_CanBusReceptions(unsigned char *Buffer)
                             case(0x10): ModuleData.StatesReceived.empty                       = RECEIVED; break;
                             default:
                                         //If received mode matched nothing, an error occured.
-                                        ModuleData.State = States.error;
+                                        //ModuleData.State = States.error; - Removed due to some modules sending incorrect Data
                                         serviceCommunication_ErrorState = ERROR_RX_STATE_DOESNT_EXIST;
                                         break;                  
                         }
@@ -1080,10 +1085,12 @@ void ServiceCommunication_RXParsingHandler(void)
         Parse_CanBusReceptions(MODULE_CAN_RX_BUFFER);
     }
 
+    /* - DEPRECATED
     if(CHECK_MASTER_CAN_RECEPTION)
     {
         Parse_CanBusReceptions(MASTER_CAN_RX_BUFFER);        
     }
+    */
 }
 /**
 * @brief Function periodically called via the time base's interruptions. It is
@@ -1097,18 +1104,28 @@ void ServiceCommunication_RXParsingHandler(void)
 */
 void ServiceCommunication_TXParsingHandler(void)
 {
+    /**
+     * @brief This variable prevents communications from being
+     * sent multiple times per allowed CAN slots. Otherwise, modules spammed
+     * their data multiple time per allowed Slots, which caused issues in the
+     * Command Center
+     */
+    static bool sent = 0;
+
     //Check where we are in the CAN stuff.
     Parse_Interrupts();
 
-    if(currentSlot == CAN_ALLOCATED_SLOT)
+    if(currentSlot == CAN_ALLOCATED_SLOT && sent == 0)
     {
         //Parses QUEUE into transmittable buffer
         TX_BuildCANBuffer(MODULE_CAN_TX);
+        sent = 1;
     }
     else
     {
         //Put structure in QUEUE buffers to transmit faster once the CAN slot is ours.
         Parse_ModuleDataForTransmission();
+        sent = 0;
     }
 }
 /**
