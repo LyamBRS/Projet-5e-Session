@@ -1,6 +1,14 @@
-//piloteIOB1:
-//Historique: 
-// 2018-09-08, Yves Roy, creation
+/**
+ * @file interfaceStepMoteur.c
+ * @author Renaud Gagnon
+ * @brief Fichier contenant le code qui permet d'utiliser l'ascenceur du centre de tri. 
+ * Ce fichier a été créer pour remplacer les fichier d'interface de l'ascenseur de Karl parce-que ceux-ci ne fonctionnent pas.
+ * @version 0.1
+ * @date 2022-12-14
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 
 //INCLUSIONS
 #include "main.h"
@@ -34,6 +42,10 @@ bool jam = 0;
                              {0,0,0,1,1,1,0,0},
                              {0,0,0,0,0,1,1,1}};
 
+/**
+ * @brief 
+ * 
+ */
 void interfaceStepMoteur_gere(void)
 {
   

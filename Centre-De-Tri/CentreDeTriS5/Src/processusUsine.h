@@ -1,4 +1,12 @@
-
+/**
+ * @file processusUsine.h
+ * @author Renaud Gagnon
+ * @version 0.1
+ * @date 2022-12-15
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 #ifndef PROCESSUSUSINE_H
 #define PROCESSUSUSINE_H
 

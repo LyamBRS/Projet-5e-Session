@@ -1,3 +1,15 @@
+/**
+ * @file interfaceStepMoteur.h
+ * @author Renaud Gagnon
+ * @brief Fichier contenant le code qui permet d'utiliser l'ascenceur du centre de tri. 
+ * Ce fichier a été créer pour remplacer les fichier d'interface de l'ascenseur de Karl parce-que ceux-ci ne fonctionnent pas.
+ * @version 0.1
+ * @date 2022-12-14
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
+
 #ifndef INTERFACESTEPMOTEUR_H
 #define INTERFACESTEPMOTEUR_H
 

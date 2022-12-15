@@ -1,8 +1,7 @@
-
 /**
  * @file processusUsine.c
- * @author your name (you@domain.com)
- * @brief 
+ * @author Renaud Gagnon
+ * @brief Processus principal du centre de tri pour le projet de 5e session.
  * @version 0.1
  * @date 2022-11-18
  * 
@@ -27,51 +26,186 @@
 #include "interfaceStepMoteur.h"
 //Definitions privees
 //Les unités des valeurs de délai suivantes corerespondent à la base de temps : 1/2ms
+/**
+ * @brief Delai maximal du timeout de l'initialisation.
+ * 
+ */
 #define DELAI_MAX_INITIALISATION 50000
+/**
+ * @brief Delai maximal du timeout de l'éjection.
+ * 
+ */
 #define DELAI_MAX_EJECTION 1000
+/**
+ * @brief Delai maximal du timeout de la détection d'un bloc.
+ * 
+ */
 #define DELAI_MAX_DETECTION 5000
+/**
+ * @brief Delai d'attente avant de déceter le bloc.
+ * 
+ */
 #define DELAI_AVANT_DETECTION 1000
+/**
+ * @brief Delai maximal du timeout de l'élévateur en haut.
+ * 
+ */
 #define DELAI_MAX_ELEVATEUR_HAUT 10000
+/**
+ * @brief Delai maximal du timeout de l'attente d'un bloc à la chute.
+ * 
+ */
 #define DELAI_MAX_ATTEND_CHUTE 10000
+/**
+ * @brief Delai maximal du timeout de la déscente de la ventouse.
+ * 
+ */
 #define DELAI_VENTOUSE_DESCEND 1000
+/**
+ * @brief Delai maximal du timeout de la montée de la ventouse
+ * 
+ */
 #define DELAI_MAX_PISTON 3000
+/**
+ * @brief Valeur a utiliser pour faire un délai de 2 secondes.
+ * 
+ */
 #define DELAI2SEC 4000
 
+/**
+ * @brief Période du clignotement de la lumière verte en mode de tests.
+ * 
+ */
 #define TEST_VITESSELEDCLIGNOTE 2000
 
+/**
+ * @brief État de \ref ucTypeDeBloc lorsqu'il n'y a pas de bloc.
+ * 
+ */
 #define BLOC_AUCUN 0
+/**
+ * @brief État de \ref ucTypeDeBloc quand le bloc est rouge.
+ * 
+ */
 #define BLOC_ROUGE 1
+/**
+ * @brief État de \ref ucTypeDeBloc quand le bloc est noir.
+ * 
+ */
 #define BLOC_NOIR 2
+/**
+ * @brief État de \ref ucTypeDeBloc quand le bloc est métallique
+ * 
+ */
 #define BLOC_METAL 3
+/**
+ * @brief État de \ref ucTypeDeBloc quand il y a un bloc de type inconnu
+ * 
+ */
 #define BLOC_INCONNU 4
 
+/**
+ * @brief État du capteur capacitif lorsque le bloc est noir
+ * 
+ */
 #define ETAT_CAPTEUR_CAP_POUR_BLOC_NOIR 1
+/**
+ * @brief État du capteur magnétique lorsque le bloc est noir.
+ * 
+ */
 #define ETAT_CAPTEUR_MAG_POUR_BLOC_NOIR 0
+/**
+ * @brief État du capteur optique lorsque le bloc est noir.
+ * 
+ */
 #define ETAT_CAPTEUR_OPT_POUR_BLOC_NOIR 0
 
+/**
+ * @brief État du capteur capacitif lorsque le bloc est rouge
+ * 
+ */
 #define ETAT_CAPTEUR_CAP_POUR_BLOC_ROUGE 1
+/**
+ * @brief État du capteur magnétique lorsque le bloc est rouge
+ * 
+ */
 #define ETAT_CAPTEUR_MAG_POUR_BLOC_ROUGE 0
+/**
+ * @brief État du capteur optique lorsque le bloc est rouge
+ * 
+ */
 #define ETAT_CAPTEUR_OPT_POUR_BLOC_ROUGE 1
 
+/**
+ * @brief État du capteur capacitif lorsque le bloc est métallique
+ * 
+ */
 #define ETAT_CAPTEUR_CAP_POUR_BLOC_METAL 1
+/**
+ * @brief État du capteur magnétique lorsque le bloc est métallique
+ * 
+ */
 #define ETAT_CAPTEUR_MAG_POUR_BLOC_METAL 1
+/**
+ * @brief État du capteur optique lorsque le bloc est métallique
+ * 
+ */
 #define ETAT_CAPTEUR_OPT_POUR_BLOC_METAL 1
 
+/**
+ * @brief État du capteur capacitif lorsqu'il n'y a pas de bloc
+ * 
+ */
 #define ETAT_CAPTEUR_CAP_POUR_BLOC_AUCUN 0
+/**
+ * @brief État du capteur magnétique lorsqu'il n'y a pas de bloc
+ * 
+ */
 #define ETAT_CAPTEUR_MAG_POUR_BLOC_AUCUN 0
+/**
+ * @brief État du capteur optique lorsqu'il n'y a pas de bloc
+ * 
+ */
 #define ETAT_CAPTEUR_OPT_POUR_BLOC_AUCUN 0
 
-#define VALEUR_ADC_BLOC_PRESENT 0
-
+/**
+ * @brief Valeur a envoyer a la fonction \ref delaiModeDeTest quand on veut mettre le delai à 0.
+ * 
+ */
 #define DELAITEST_RESET 1
+/**
+ * @brief Valeur a envoyer a la fonction \ref delaiModeDeTest quand on veut utiliser le delai.
+ * 
+ */
 #define DELAITEST_UTILISE 0
+/**
+ * @brief Valeur retournée par la fonction \ref delaiModeDeTest quand le délai est terminé.
+ * 
+ */
 #define DELAITEST_TERMINE 1
+/**
+ * @brief Valeur retournée par la fonction \ref delaiModeDeTest quand le délai n'est pas terminé.
+ * 
+ */
 #define DELAITEST_EN_COURS 0
+/**
+ * @brief Valeur en 1/2ms du délai de la fonction \ref delaiModeDeTest.
+ * 
+ */
 #define VALEUR_DELAI_MODE_DE_TEST 4000
+/**
+ * @brief Valeur maximale du compteur de timeout pour le mode de test
+ * 
+ */
 #define DELAI_MAX_TESTS 3900 //1.5 sec (ne doit pas dépasser 2 sec)
+/**
+ * @brief Valeur maximale du compteur de timeout pour le pont en mode de test
+ * 
+ */
 #define DELAI_MAX_TESTS_PONT 30000 //15 sec
 
-//Declarations de fonctions privees:
+//////////Declarations de fonctions privees://////////
+//Mode opération
 void modeOperation_lanceInitialisation (void);
 void modeOperation_attendFinInitialisation (void);
 void modeOperation_pousseUnBloc (void);
@@ -87,6 +221,7 @@ void modeOperation_vaALaFosse(void);
 void modeOperation_vaALAscenseur(void);
 void modeOperation_attendFinJetteBloc (void);
 void modeOperation_attendAscenseurBas (void);
+//Mode de tests
 void modeDeTests_testeLaColonneLumineuse (void);
 void modeDeTests_testeLesEntrees (void);
 void modeDeTests_activeLeVerinDuMagasin (void);
@@ -108,8 +243,17 @@ bool delaiModeDeTest (bool reset);
 void modeTest_clignote(void);
 void updateDiscColor(void);
 void processusUsine_erreur (void);
+
 //Definitions de variables privees:
+/**
+ * @brief Pointeur de fonction utilisé pour la sous machine à états du mode opération.
+ * 
+ */
 void (*modeOperation_execute)(void);
+/**
+ * @brief Pointeur de fonction utilisé pour la sous machine à états du mode de tests
+ * 
+ */
 void (*modeTest_execute)(void);
 
 unsigned char ucTypeDeBloc;
@@ -119,15 +263,8 @@ unsigned char ucTypeDeBloc;
 //Definitions de fonctions privees:
 
 /**
- * @brief Fonction qui gère le fonct...
- * @author Renaud Gagnon
- * @date 2022-11-18
- * @param void aucun paramètre d'entrée
- * @return void 
- * @warning
- * @example 
+ * @brief État attente de la machine à état des modes de l'usine
  */
-// Références: \ref "variable" crée un lien cliquable qui mène a la variable ou a la fonction
 void processusUsine_attente (void)
 {
   updateModeEcran("Attente");
@@ -184,6 +321,10 @@ void processusUsine_attente (void)
   }
 }
 
+/**
+ * @brief État mode opération de la machine à état des modes de l'usine
+ * 
+ */
 void processusUsine_operation (void)
 {
   updateModeEcran("Operation");
@@ -884,8 +1025,10 @@ void modeOperation_attendAscenseurBas (void)
 
 #pragma endregion EtatsModeOperation
 
-/// @brief 
-/// @param  
+/**
+ * @brief État mode arrêt de la machine à état des modes de l'usine
+ * 
+ */
 void processusUsine_arret (void)
 {
   updateModeEcran("Arret");
@@ -905,7 +1048,10 @@ void processusUsine_arret (void)
     }
   } 
 }
-
+/**
+ * @brief État mode tests de la machine à état des modes de l'usine
+ * 
+ */
 void processusUsine_tests (void)
 {
   #ifndef MODE_BYPASS_POSTE_DE_COMMANDE
@@ -988,7 +1134,7 @@ void processusUsine_tests (void)
 }
 
 #pragma region EtatsDuModeDeTests
-
+//Début des états du mode de tests
 void modeDeTests_testeLaColonneLumineuse (void)
 {
   updateEtatEcran("test Colonne");
@@ -1381,12 +1527,13 @@ void modeDeTests_replaceLaventouse (void)
     updateMessageEcran("Pont fonctionnel");
   }
 }
+//Fin des états du mode de tests
 
 /**
  * @brief Cette fonction, appelée de façon récurrente, compte jusqu'à VALEUR_DELAI_MODE_DE_TEST, puis retourne un 1
- * cela permet de 
+ * cela permet de faire un délai de 2 sec pour plusieurs des étais du mode de tests sans copier coller un gros bout de code à chaque fois.
  * 
- * @param reset Reset le compteur du délai si on reçoit un 1 en paramètre
+ * @param reset est mis a \ref DELAITEST_RESET pour mettre le délai à zéro ou est mis à \ref DELAITEST_UTILISE pour uliliser le délai.
  * @return true si délai écoulé
  * @return false si délai en cours
  */
@@ -1410,6 +1557,10 @@ bool delaiModeDeTest (bool reset)
   return 0;
 }
 
+/**
+ * @brief Fais clignoter la lumière verte pour signifier que l'usine est en mode de tests.
+ * 
+ */
 void modeTest_clignote(void)
 {
   static unsigned int compteurTpsClignote;
@@ -1427,7 +1578,10 @@ void modeTest_clignote(void)
 #pragma endregion EtatsDuModeDeTests
 
 
-
+/**
+ * @brief État erreur de la machine à état des modes de l'usine
+ * 
+ */
 void processusUsine_erreur (void)
 {
   #ifndef MODE_BYPASS_POSTE_DE_COMMANDE
@@ -1502,6 +1656,10 @@ void updateDiscColor(void)
   if (tempTypeDeBloc == BLOC_METAL)  ModuleData_SetDiscColor(Values.disc_Silver);
 }
 
+/**
+ * @brief État initialise de la machine à état des modes de l'usine.
+ * 
+ */
 void processusUsine_initialise(void)
 {
   modeOperation_execute = modeOperation_lanceInitialisation;

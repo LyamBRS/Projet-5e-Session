@@ -1,6 +1,14 @@
-// interfaceT4:
-// Historique:
-//  2018-09-30, , creation
+/**
+ * @file interfaceUsine.c
+ * @author Renaud Gagnon
+ * @brief Fichier qui contient le code permettant de gérer toute l'usine incluant le pont.
+ * @warning Tout le code de ce fichier a été écrit par Renaud Gagnon. Incluant le code relatif au pont du centre de tri.
+ * @version 0.1
+ * @date 2022-12-14
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 
 // INCLUSIONS
 #include "main.h"
@@ -11,8 +19,22 @@
 #include "interfaceT1.h"
 #include "interfaceT2.h"
 // Definitions privees
+/**
+ * @brief Définit le délai entre chaque communication avec les cartes I2C en 1/2ms
+ * 
+ */
 #define INTERFACEUSINE_INTERVAL_TRANSMISSION 20
+
+/**
+ * @brief Définit le délai maximal après lequel les fonctions du pont tombent en erreur si elles n'ont pas reçu de ack de sa part
+ * 
+ */
 #define DELAI_MAX_PONT_ACK 200               // 100ms
+
+/**
+ * @brief Définit le délai maximal après lequel les fonctions du pont tombent en erreur si elles n'ont pas reçu de ack de sa part
+ * 
+ */
 #define DELAI_MAX_PONT_MOTION_COMPLETE 40000 // 20sec
 
 #define INTERFACEBV_COMPTE_MAXIMUM_AVANT_LECTURE ( \
@@ -27,14 +49,33 @@
 // pas de definitions privees
 
 // Declarations de fonctions privees:
+/**
+ * @brief Fonction qui gere l'anti rebond et la detection de front du bouton vert du centre de tri.
+ * 
+ */
 void gereLeBoutonVert(void);
+
+/**
+ * @brief Fonction qui gere l'anti rebond et la detection de front du bouton rouge du centre de tri.
+ * 
+ */
 void gereLeBoutonRouge(void);
+
+/**
+ * @brief Fonction qui gere le timing du pont
+ * @author Renaud Gagnon
+ * @warning Négligence de la part de Karl
+ */
 void gereLePont(void);
 // pas de fonction privees
 
 // Definitions de variables privees:
 int i;
 
+/**
+ * @brief Structure qui sert de variable temporaire pour la mise à jour des valeurs des cartes I2C
+ * 
+ */
 struct CartesI2C
 {
   unsigned char PCF1;
@@ -45,6 +86,10 @@ struct CartesI2C
 };
 
 
+/**
+ * @brief Structure qui représente un I/O de l'usine (ex: la lumière verte)
+ * 
+ */
 struct elementUsine
 {
   unsigned int NoDePcf;
@@ -69,6 +114,10 @@ union UnionCartesI2CUsine
   unsigned char tabCartesI2C[sizeof(structCartesI2C)];
 } unionCartesI2CUsine;
 
+/**
+ * @brief Variable temporaire de la valeur lue par l'ADC
+ * 
+ */
 uint8_t valeurDuADC;
 
 unsigned char ucEtatPont;
@@ -86,6 +135,12 @@ INTERFACEBOUTON interfaceUsine_BR;
 
 // Definitions de fonctions publiques:
 
+/**
+ * @brief Fonction de gestion de lusine qui est appelée par la base de temps. 
+ * Elle met a jour la valeur des variables temporaires en fonction de l'état des I/O des cartes I2C et inversement.
+ * Elle appele les fonctions de gestion de boutons de l'usine et la fonction de gestion du pont.
+ * 
+ */
 void interfaceUsine_gere(void)
 {
   static unsigned int compteurDeTransmission;
