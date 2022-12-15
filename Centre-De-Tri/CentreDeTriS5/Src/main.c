@@ -61,6 +61,8 @@
 #include "interfaceColonne.h"
 #include "piloteColonne.h"
 #include "interfaceB1.h"
+#include "interfaceStepMoteur.h"
+#include "piloteStepMoteur.h"
 //#include "stm32f4xx_hal_conf.h" 
 //#include "stm32f4xx_it.h"
 /* USER CODE END Includes */
@@ -130,6 +132,7 @@ void main_initialiseAvantLeHAL(void)
   interfaceB1_initialise();
   interfaceColonne_initialise();  
   interfaceUsine_Initialise();  
+  interfaceStepMoteur_initialise();
 }
 
 void main_initialiseApresLeHAL(void)
@@ -202,20 +205,23 @@ int main(void)
   interfaceColonne_allume(INTERFACECOLONNE_JAUNE);
 
   
-  interfaceLcd_Draw_Shape_RectF(0,0,127,10,1);
+  
   interfaceLcd_Draw_Shape_RectF(0,43,128,2,1);
   interfaceLcd_Draw_Shape_RectF(0,27,128,2,1);
+  interfaceLcd_Draw_Shape_RectF(0,11,128,2,1);
   vPutStringGLcd("Mode:               ", 4, 5);
   vPutStringGLcd("Etat:Attend Bouton  ", 2, 5);
-  unsigned char oldBruh = 0;
+  //unsigned char oldBruh = 0;
   while (1)
   {
-    /*
+    piloteTimer6Up_permetLesInterruptions();
+    
     //Test du step moteur
-    HAL_GPIO_WritePin(STEP0_GPIO_Port, STEP0_Pin, (GPIO_PinState)1);  
-    HAL_GPIO_WritePin(STEP1_GPIO_Port, STEP1_Pin, (GPIO_PinState)0); 
-    HAL_GPIO_WritePin(STEP2_GPIO_Port, STEP2_Pin, (GPIO_PinState)0); 
-    HAL_GPIO_WritePin(STEP3_GPIO_Port, STEP3_Pin, (GPIO_PinState)0); 
+    /*
+    piloteStepMoteur_EcritSortie(PILOTESTEPMOTEUR_STEP0, PILOTESTEPMOTEUR_ACTIVE);
+    piloteStepMoteur_EcritSortie(PILOTESTEPMOTEUR_STEP1, PILOTESTEPMOTEUR_ACTIVE);
+    piloteStepMoteur_EcritSortie(PILOTESTEPMOTEUR_STEP2, PILOTESTEPMOTEUR_ACTIVE);
+    piloteStepMoteur_EcritSortie(PILOTESTEPMOTEUR_STEP3, PILOTESTEPMOTEUR_ACTIVE);
     */
     if (bFlagUpdateMessageEcran)
     {
@@ -264,33 +270,11 @@ int main(void)
     //Affichage de l'état du CAN
     if (!ModuleData.CantConnect) // Pas connecté
     {
-      vPutStringGLcdINV("CAN Connected       ", 0, 5);
+      vPutStringGLcd("CAN Connected       ", 0, 5);
     }
     else
     {
-      vPutStringGLcdINV("CAN Disconnected    ", 0, 5);
-    }
-    
-     if (piloteCAN1_messageDisponible()) // Pas connecté
-    {
-      //vPutStringGLcdINV("Message disponible  ", 2, 5);
-    }
-    else
-    {
-      //vPutStringGLcdINV("No Message?         ", 2, 5);
-    }
-
-    if(true)
-    {
-      unsigned int bruh = piloteCAN1_litLesErreurs();
-      static unsigned char index = 0;
-
-      if(bruh != oldBruh)
-      {
-        interfaceLcd_Draw_Text_Integer(32,16+(6*index),bruh,3,1);
-        index++;
-        oldBruh = bruh;
-      }  
+      vPutStringGLcd("CAN Disconnected    ", 0, 5);
     }
 
     //interfaceLcd_Draw_Text_Integer(0,32,ModuleData.Mode,2,1);
@@ -366,7 +350,7 @@ static void MX_CAN1_Init(void)
   hcan1.Init.TimeSeg1 = CAN_BS1_3TQ;
   hcan1.Init.TimeSeg2 = CAN_BS2_1TQ;
   hcan1.Init.TimeTriggeredMode = DISABLE;
-  hcan1.Init.AutoBusOff = DISABLE;
+  hcan1.Init.AutoBusOff = ENABLE;
   hcan1.Init.AutoWakeUp = DISABLE;
   hcan1.Init.AutoRetransmission = DISABLE;
   hcan1.Init.ReceiveFifoLocked = DISABLE;
@@ -519,7 +503,7 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOD, A0_Pin|A1_Pin|A2_Pin|A3_Pin
                           |LD4_Pin|LD3_Pin|LD5_Pin|LD6_Pin
-                          |Audio_RST_Pin|CLN_B_Pin, GPIO_PIN_RESET);
+                          |Audio_RST_Pin|HORN_Pin|CLN_B_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pins : CS_I2C_SPI_Pin TRIAC_OUT_Pin STEP0_Pin */
   GPIO_InitStruct.Pin = CS_I2C_SPI_Pin|TRIAC_OUT_Pin|STEP0_Pin;
@@ -528,11 +512,11 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : TRIAC_IN_Pin */
-  GPIO_InitStruct.Pin = TRIAC_IN_Pin;
+  /*Configure GPIO pins : TRIAC_IN_Pin SW_ASC_Pin */
+  GPIO_InitStruct.Pin = TRIAC_IN_Pin|SW_ASC_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(TRIAC_IN_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
   /*Configure GPIO pin : OTG_FS_PowerSwitchOn_Pin */
   GPIO_InitStruct.Pin = OTG_FS_PowerSwitchOn_Pin;
@@ -603,10 +587,10 @@ static void MX_GPIO_Init(void)
 
   /*Configure GPIO pins : A0_Pin A1_Pin A2_Pin A3_Pin
                            LD4_Pin LD3_Pin LD5_Pin LD6_Pin
-                           Audio_RST_Pin CLN_B_Pin */
+                           Audio_RST_Pin HORN_Pin CLN_B_Pin */
   GPIO_InitStruct.Pin = A0_Pin|A1_Pin|A2_Pin|A3_Pin
                           |LD4_Pin|LD3_Pin|LD5_Pin|LD6_Pin
-                          |Audio_RST_Pin|CLN_B_Pin;
+                          |Audio_RST_Pin|HORN_Pin|CLN_B_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -695,6 +679,10 @@ void Error_Handler(void)
   /* User can add his own implementation to report the HAL error return state */
   while (1)
   {
+    piloteCAN1_initialise();
+    piloteTimer6Up_initialise();
+    piloteTimer6Up_permetLesInterruptions();
+    HAL_GPIO_WritePin(HORN_GPIO_Port, HORN_Pin, (GPIO_PinState)1);  
   }
   /* USER CODE END Error_Handler_Debug */
 }

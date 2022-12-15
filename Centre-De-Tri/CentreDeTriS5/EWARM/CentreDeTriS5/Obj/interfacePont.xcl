@@ -1,9 +1,14 @@
+<<<<<<< HEAD
 "C:\Projet\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src\interfacePont.c"
+=======
+"C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src\interfacePont.c"
+>>>>>>> dee272e1a505a6efe1ca3ec339be59f1279cf86b
 -std=c++17
 -ferror-limit=0
 -fbracket-depth=512
 -MD
 -MF
+<<<<<<< HEAD
 C:\Projet\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\EWARM\CentreDeTriS5\Obj\interfacePont.pbi.dep
 -o
 interfacePont.pbi
@@ -19,6 +24,23 @@ C:\Projet\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\EWARM/../Drivers/STM32F4
 C:\Projet\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\EWARM/../Drivers/CMSIS/Device/ST/STM32F4xx/Include
 -I
 C:\Projet\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\EWARM/../Drivers/CMSIS/Include
+=======
+C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\EWARM\CentreDeTriS5\Obj\interfacePont.pbi.dep
+-o
+interfacePont.pbi
+-I
+C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src
+-I
+C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\EWARM/../Inc
+-I
+C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\EWARM/../Drivers/STM32F4xx_HAL_Driver/Inc
+-I
+C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\EWARM/../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy
+-I
+C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\EWARM/../Drivers/CMSIS/Device/ST/STM32F4xx/Include
+-I
+C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\EWARM/../Drivers/CMSIS/Include
+>>>>>>> dee272e1a505a6efe1ca3ec339be59f1279cf86b
 -I
 C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src
 -I
@@ -28,6 +50,7 @@ C:\IAR\ARM\8.50\arm\inc\c
 -I
 C:\IAR\ARM\8.50\arm\inc\cpp
 -I
+<<<<<<< HEAD
 C:\Projet\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Inc
 -I
 C:\Projet\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Drivers\STM32F4xx_HAL_Driver\Inc
@@ -37,6 +60,17 @@ C:\Projet\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Drivers\STM32F4xx_HAL_Dr
 C:\Projet\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Drivers\CMSIS\Device\ST\STM32F4xx\Include
 -I
 C:\Projet\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Drivers\CMSIS\Include
+=======
+C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Inc
+-I
+C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Drivers\STM32F4xx_HAL_Driver\Inc
+-I
+C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy
+-I
+C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Drivers\CMSIS\Device\ST\STM32F4xx\Include
+-I
+C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Drivers\CMSIS\Include
+>>>>>>> dee272e1a505a6efe1ca3ec339be59f1279cf86b
 -I
 C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src
 -D__CHAR_BITS__=8

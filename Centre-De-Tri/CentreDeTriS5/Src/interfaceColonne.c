@@ -1,6 +1,14 @@
-//interfaceColonne:
-//Historique: 
-// 2018-09-24, Yves Roy, creation
+/**
+ * @file interfaceColonne.c
+ * @author Renaud Gagnon
+ * @brief Ce fichier contient le code permettant de gérer la colonne lumineuse, c'est à dire, 
+ * des fonctions permettant de changer l'état de chacune des lumières à \ref ALLUME \ref ETEINT ou \ref CLIGNOTE
+ * @version 0.1
+ * @date 2022-12-14
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 
 //INCLUSIONS
 #include "main.h"
@@ -8,7 +16,8 @@
 #include "interfaceColonne.h"
 #include "piloteColonne.h"
 //Definitions privees
-#define vitesseClignotant 2000 //période en 1/2ms
+
+#define VITESSECLIGNOTANT 2000 //période en 1/2ms
 #define ETEINT 0
 #define ALLUME 1
 #define CLIGNOTE 2
@@ -16,28 +25,46 @@
 
     
 //Declarations de fonctions privees:
-void interfaceColonne_allume(unsigned char couleur);
-void interfaceColonne_eteint(unsigned char couleur);
-void interfaceColonne_clignote(unsigned char couleur);
+//pas de fonctions privées
 
+/**
+ * @brief État actuel de la lumière rouge.
+ * 
+ */
 unsigned char etatRouge = ETEINT;
+
+/**
+ * @brief État actuel de la lumière verte.
+ * 
+ */
 unsigned char etatVert = ETEINT;
+
+/**
+ * @brief État actuel de la lumière Jaune.
+ * 
+ */
 unsigned char etatJaune = ETEINT;
 
 //Definitions de variables privees:
-unsigned int interfaceColonne_compteur;
+
 
 //Definitions de fonctions privees:
+
+/**
+ * @brief Cette fonction est appelée par la base de temps pour gérer le clignotement de façon à ce que toutes les lumières qui clignotent soient syncronisées.
+ * 
+ */
 void interfaceColonne_gere(void)
 {
+  static unsigned int interfaceColonne_compteur = 0;
   interfaceColonne_compteur++;
-  if (interfaceColonne_compteur == vitesseClignotant/2)
+  if (interfaceColonne_compteur == VITESSECLIGNOTANT/2)
   {
     if (etatRouge == CLIGNOTE)piloteColonne_allume(PILOTECOLONNE_ROUGE);
     if (etatVert == CLIGNOTE)piloteColonne_allume(PILOTECOLONNE_VERT);
     if (etatJaune == CLIGNOTE)piloteColonne_allume(PILOTECOLONNE_JAUNE);
   }
-    if (interfaceColonne_compteur >= vitesseClignotant)
+    if (interfaceColonne_compteur >= VITESSECLIGNOTANT)
   {
     if (etatRouge == CLIGNOTE)piloteColonne_eteint(PILOTECOLONNE_ROUGE);
     if (etatVert == CLIGNOTE)piloteColonne_eteint(PILOTECOLONNE_VERT);
@@ -48,6 +75,11 @@ void interfaceColonne_gere(void)
   
 }
 
+/**
+ * @brief Permet de changer l'état de la lumière voulue à ALLUME.
+ * 
+ * @param couleur correspondra a la lumière que l'on veut allumer: \ref INTERFACECOLONNE_ROUGE , \ref INTERFACECOLONNE_VERT ou \ref INTERFACECOLONNE_JAUNE.
+ */
 void interfaceColonne_allume(unsigned char couleur)
 {
   switch (couleur)
@@ -66,6 +98,12 @@ void interfaceColonne_allume(unsigned char couleur)
     break;
   }
 }
+
+/**
+ * @brief Permet de changer l'état de la lumière voulue à ETEINT.
+ * 
+ * @param couleur correspondra a la lumière que l'on veut éteindre: \ref INTERFACECOLONNE_ROUGE , \ref INTERFACECOLONNE_VERT ou \ref INTERFACECOLONNE_JAUNE.
+ */
 void interfaceColonne_eteint(unsigned char couleur)
 {
   switch (couleur)
@@ -84,6 +122,12 @@ void interfaceColonne_eteint(unsigned char couleur)
     break;
   }
 }
+
+/**
+ * @brief Permet de changer l'état de la lumière voulue à CLIGNOTE.
+ * 
+ * @param couleur correspondra a la lumière que l'on veut faire clignoter: \ref INTERFACECOLONNE_ROUGE , \ref INTERFACECOLONNE_VERT ou \ref INTERFACECOLONNE_JAUNE.
+ */
 void interfaceColonne_clignote(unsigned char couleur)
 {
   switch (couleur)
@@ -103,9 +147,13 @@ void interfaceColonne_clignote(unsigned char couleur)
 //pas de variables publiques
 
 //Definitions de fonctions publiques:
+
+/**
+ * @brief Initialise le module interfaceColonne
+ * 
+ */
 void interfaceColonne_initialise(void)
 {
-  interfaceColonne_compteur = 0;
   piloteColonne_eteint(PILOTECOLONNE_ROUGE);
   piloteColonne_eteint(PILOTECOLONNE_VERT);
   piloteColonne_eteint(PILOTECOLONNE_JAUNE);

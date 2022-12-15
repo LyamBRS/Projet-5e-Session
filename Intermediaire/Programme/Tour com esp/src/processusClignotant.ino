@@ -39,8 +39,16 @@ void processusClignotant_attendAvantDAllumerLeTemoinLumineux(void)
 {
   static unsigned char ucControl = 0;
   interfacePassUDPtoUart();
+<<<<<<< HEAD
   interfacePassUartToUDP();
   interfaceT1_allume();
+=======
+  
+  //ServiceUDPStation();
+ // printf("OK voici un test \n");
+  //ServiceUDP();
+  //interfaceT1_allume();
+>>>>>>> dee272e1a505a6efe1ca3ec339be59f1279cf86b
   processusClignotant_compteur = 0;
   //serviceBaseDeTemps_execute[PROCESSUSCLIGNOTANT_PHASE] = processusClignotant_attendAvantDEteindreLeTemoinLumineux;
 }

@@ -1,4 +1,8 @@
 {
+<<<<<<< HEAD
     "ewp": "u:\\Sessions\\Session 5\\Project\\Projet_Fin_Session\\Projet-5e-Session\\Centre-De-Tri\\CentreDeTriS5\\EWARM\\CentreDeTriS5.ewp",
+=======
+    "ewp": "${workspaceFolder}\\Centre-De-Tri\\CentreDeTriS5\\EWARM\\CentreDeTriS5.ewp",
+>>>>>>> dee272e1a505a6efe1ca3ec339be59f1279cf86b
     "configuration": "CentreDeTriS5"
 }

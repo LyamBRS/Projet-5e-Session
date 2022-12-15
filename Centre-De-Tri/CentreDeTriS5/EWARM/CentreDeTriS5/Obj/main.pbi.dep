@@ -41,6 +41,7 @@ main.pbi: \
   C:\Projet\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\EWARM/../Drivers/STM32F4xx_HAL_Driver/Inc\stm32f4xx_hal_uart.h \
   C:\IAR\ARM\8.50\arm\inc\c\string.h \
   C:\IAR\ARM\8.50\arm\inc\c\DLib_Product_string.h \
+<<<<<<< HEAD
   C:\Projet\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/piloteTimer6Up.h \
   C:\Projet\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/piloteCAN1.h \
   C:\Projet\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/piloteUSART2.h \
@@ -71,3 +72,22 @@ main.pbi: \
   C:\Projet\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/ServiceCommunication.h \
   C:\Projet\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/interfaceColonne.h \
   C:\Projet\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/piloteColonne.h
+=======
+  C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/piloteTimer6Up.h \
+  C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/piloteCAN1.h \
+  C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/piloteIOB1.h \
+  C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/piloteIOT1.h \
+  C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/piloteIOT2.h \
+  C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/piloteIOT3.h \
+  C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/piloteIOT4.h \
+  C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/serviceBaseDeTemps.h \
+  C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/interfaceB1.h \
+  C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/interfaceT1.h \
+  C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/interfaceT2.h \
+  C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/interfaceT3.h \
+  C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/interfaceT4.h \
+  C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/processusUsine.h \
+  C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/interfaceUsine.h \
+  C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/piloteLcd.h \
+  C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/IO_BUS.h
+>>>>>>> dee272e1a505a6efe1ca3ec339be59f1279cf86b
