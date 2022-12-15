@@ -1,0 +1,420 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.5"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Recycling Center: Référence du fichier U:/Sessions/Session 5/Project/Projet_Fin_Session/Projet-5e-Session/Centre-De-Tri/CentreDeTriS5/Src/interfaceColonne.c</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../resize.js"></script>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="../../BRS (S) Icon.ico"/></td>
+  <td id="projectalign">
+   <div id="projectname">Recycling Center<span id="projectnumber">&#160;1</span>
+   </div>
+   <div id="projectbrief">Centre de tri</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.5 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('../../',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('d6/d0d/interface_colonne_8c.html','../../'); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Chargement...</div>
+<div class="SRStatus" id="Searching">Recherche...</div>
+<div class="SRStatus" id="NoMatches">Aucune correspondance</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Fonctions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle"><div class="title">Référence du fichier interfaceColonne.c</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Ce fichier contient le code permettant de gérer la colonne lumineuse, c'est à dire, des fonctions permettant de changer l'état de chacune des lumières à ALLUME ETEINT ou CLIGNOTE.  
+<a href="#details">Plus de détails...</a></p>
+<div class="textblock"><code>#include &quot;main.h&quot;</code><br />
+<code>#include &quot;serviceBaseDeTemps.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d7/d5d/interface_colonne_8h_source.html">interfaceColonne.h</a>&quot;</code><br />
+<code>#include &quot;piloteColonne.h&quot;</code><br />
+</div>
+<p><a href="../../d6/d0d/interface_colonne_8c_source.html">Aller au code source de ce fichier.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a4e62d8657ab9a1052ff8752757182b74"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d0d/interface_colonne_8c.html#a4e62d8657ab9a1052ff8752757182b74">VITESSECLIGNOTANT</a>&#160;&#160;&#160;2000</td></tr>
+<tr class="separator:a4e62d8657ab9a1052ff8752757182b74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a731667f79870595283efb4cf30d3b308"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d0d/interface_colonne_8c.html#a731667f79870595283efb4cf30d3b308">ETEINT</a>&#160;&#160;&#160;0</td></tr>
+<tr class="separator:a731667f79870595283efb4cf30d3b308"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3cbc6e19c691152caa8ca4bfd966dd6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d0d/interface_colonne_8c.html#af3cbc6e19c691152caa8ca4bfd966dd6">ALLUME</a>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:af3cbc6e19c691152caa8ca4bfd966dd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41b4964a7b71f43a0be8dcc93fcf1506"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d0d/interface_colonne_8c.html#a41b4964a7b71f43a0be8dcc93fcf1506">CLIGNOTE</a>&#160;&#160;&#160;2</td></tr>
+<tr class="separator:a41b4964a7b71f43a0be8dcc93fcf1506"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:a39537dca72d96818f29dce072ee00111"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d0d/interface_colonne_8c.html#a39537dca72d96818f29dce072ee00111">interfaceColonne_gere</a> (void)</td></tr>
+<tr class="memdesc:a39537dca72d96818f29dce072ee00111"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cette fonction est appelée par la base de temps pour gérer le clignotement de façon à ce que toutes les lumières qui clignotent soient syncronisées.  <a href="../../d6/d0d/interface_colonne_8c.html#a39537dca72d96818f29dce072ee00111">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a39537dca72d96818f29dce072ee00111"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc2b67c1060c4e2dddba4c5fec05f396"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d0d/interface_colonne_8c.html#afc2b67c1060c4e2dddba4c5fec05f396">interfaceColonne_allume</a> (unsigned char couleur)</td></tr>
+<tr class="memdesc:afc2b67c1060c4e2dddba4c5fec05f396"><td class="mdescLeft">&#160;</td><td class="mdescRight">Permet de changer l'état de la lumière voulue à ALLUME.  <a href="../../d6/d0d/interface_colonne_8c.html#afc2b67c1060c4e2dddba4c5fec05f396">Plus de détails...</a><br /></td></tr>
+<tr class="separator:afc2b67c1060c4e2dddba4c5fec05f396"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d54e20fda3d105b180a2308a59fbd08"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d0d/interface_colonne_8c.html#a7d54e20fda3d105b180a2308a59fbd08">interfaceColonne_eteint</a> (unsigned char couleur)</td></tr>
+<tr class="memdesc:a7d54e20fda3d105b180a2308a59fbd08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Permet de changer l'état de la lumière voulue à ETEINT.  <a href="../../d6/d0d/interface_colonne_8c.html#a7d54e20fda3d105b180a2308a59fbd08">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a7d54e20fda3d105b180a2308a59fbd08"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42eb96bc9e44debde90d83cd5052c022"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d0d/interface_colonne_8c.html#a42eb96bc9e44debde90d83cd5052c022">interfaceColonne_clignote</a> (unsigned char couleur)</td></tr>
+<tr class="memdesc:a42eb96bc9e44debde90d83cd5052c022"><td class="mdescLeft">&#160;</td><td class="mdescRight">Permet de changer l'état de la lumière voulue à CLIGNOTE.  <a href="../../d6/d0d/interface_colonne_8c.html#a42eb96bc9e44debde90d83cd5052c022">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a42eb96bc9e44debde90d83cd5052c022"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3bd99a0eb1e2924849db73e0d88b8828"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d0d/interface_colonne_8c.html#a3bd99a0eb1e2924849db73e0d88b8828">interfaceColonne_initialise</a> (void)</td></tr>
+<tr class="memdesc:a3bd99a0eb1e2924849db73e0d88b8828"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialise le module interfaceColonne.  <a href="../../d6/d0d/interface_colonne_8c.html#a3bd99a0eb1e2924849db73e0d88b8828">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a3bd99a0eb1e2924849db73e0d88b8828"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a658cea9257866851b308ff23a664d886"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d0d/interface_colonne_8c.html#a658cea9257866851b308ff23a664d886">etatRouge</a> = ETEINT</td></tr>
+<tr class="memdesc:a658cea9257866851b308ff23a664d886"><td class="mdescLeft">&#160;</td><td class="mdescRight">État actuel de la lumière rouge.  <a href="../../d6/d0d/interface_colonne_8c.html#a658cea9257866851b308ff23a664d886">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a658cea9257866851b308ff23a664d886"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1660dc52ee72b26da94a2f55b984c371"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d0d/interface_colonne_8c.html#a1660dc52ee72b26da94a2f55b984c371">etatVert</a> = ETEINT</td></tr>
+<tr class="memdesc:a1660dc52ee72b26da94a2f55b984c371"><td class="mdescLeft">&#160;</td><td class="mdescRight">État actuel de la lumière verte.  <a href="../../d6/d0d/interface_colonne_8c.html#a1660dc52ee72b26da94a2f55b984c371">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a1660dc52ee72b26da94a2f55b984c371"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a840d7efec6743615d8b6ea9ce5250ced"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d0d/interface_colonne_8c.html#a840d7efec6743615d8b6ea9ce5250ced">etatJaune</a> = ETEINT</td></tr>
+<tr class="memdesc:a840d7efec6743615d8b6ea9ce5250ced"><td class="mdescLeft">&#160;</td><td class="mdescRight">État actuel de la lumière Jaune.  <a href="../../d6/d0d/interface_colonne_8c.html#a840d7efec6743615d8b6ea9ce5250ced">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a840d7efec6743615d8b6ea9ce5250ced"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p >Ce fichier contient le code permettant de gérer la colonne lumineuse, c'est à dire, des fonctions permettant de changer l'état de chacune des lumières à ALLUME ETEINT ou CLIGNOTE. </p>
+<dl class="section author"><dt>Auteur</dt><dd>Renaud Gagnon </dd></dl>
+<dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2022-12-14</dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2022 </dd></dl>
+
+<p class="definition">Définition dans le fichier <a class="el" href="../../d6/d0d/interface_colonne_8c_source.html">interfaceColonne.c</a>.</p>
+</div><h2 class="groupheader">Documentation des macros</h2>
+<a id="af3cbc6e19c691152caa8ca4bfd966dd6" name="af3cbc6e19c691152caa8ca4bfd966dd6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3cbc6e19c691152caa8ca4bfd966dd6">&#9670;&#160;</a></span>ALLUME</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ALLUME&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d6/d0d/interface_colonne_8c_source.html#l00022">22</a> du fichier <a class="el" href="../../d6/d0d/interface_colonne_8c_source.html">interfaceColonne.c</a>.</p>
+
+</div>
+</div>
+<a id="a41b4964a7b71f43a0be8dcc93fcf1506" name="a41b4964a7b71f43a0be8dcc93fcf1506"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41b4964a7b71f43a0be8dcc93fcf1506">&#9670;&#160;</a></span>CLIGNOTE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CLIGNOTE&#160;&#160;&#160;2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d6/d0d/interface_colonne_8c_source.html#l00023">23</a> du fichier <a class="el" href="../../d6/d0d/interface_colonne_8c_source.html">interfaceColonne.c</a>.</p>
+
+</div>
+</div>
+<a id="a731667f79870595283efb4cf30d3b308" name="a731667f79870595283efb4cf30d3b308"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a731667f79870595283efb4cf30d3b308">&#9670;&#160;</a></span>ETEINT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ETEINT&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d6/d0d/interface_colonne_8c_source.html#l00021">21</a> du fichier <a class="el" href="../../d6/d0d/interface_colonne_8c_source.html">interfaceColonne.c</a>.</p>
+
+</div>
+</div>
+<a id="a4e62d8657ab9a1052ff8752757182b74" name="a4e62d8657ab9a1052ff8752757182b74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e62d8657ab9a1052ff8752757182b74">&#9670;&#160;</a></span>VITESSECLIGNOTANT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define VITESSECLIGNOTANT&#160;&#160;&#160;2000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d6/d0d/interface_colonne_8c_source.html#l00020">20</a> du fichier <a class="el" href="../../d6/d0d/interface_colonne_8c_source.html">interfaceColonne.c</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentation des fonctions</h2>
+<a id="afc2b67c1060c4e2dddba4c5fec05f396" name="afc2b67c1060c4e2dddba4c5fec05f396"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc2b67c1060c4e2dddba4c5fec05f396">&#9670;&#160;</a></span>interfaceColonne_allume()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void interfaceColonne_allume </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>couleur</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Permet de changer l'état de la lumière voulue à ALLUME. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">couleur</td><td>correspondra a la lumière que l'on veut allumer: <a class="el" href="../../d7/d5d/interface_colonne_8h.html#a6b80a7af4e9370adaab8a72386297f5d">INTERFACECOLONNE_ROUGE</a> , <a class="el" href="../../d7/d5d/interface_colonne_8h.html#acadae6ae883d1881757a76e94104d18f">INTERFACECOLONNE_VERT</a> ou <a class="el" href="../../d7/d5d/interface_colonne_8h.html#a49a937863ae3d1b01187acae8d216874">INTERFACECOLONNE_JAUNE</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d6/d0d/interface_colonne_8c_source.html#l00083">83</a> du fichier <a class="el" href="../../d6/d0d/interface_colonne_8c_source.html">interfaceColonne.c</a>.</p>
+
+</div>
+</div>
+<a id="a42eb96bc9e44debde90d83cd5052c022" name="a42eb96bc9e44debde90d83cd5052c022"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42eb96bc9e44debde90d83cd5052c022">&#9670;&#160;</a></span>interfaceColonne_clignote()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void interfaceColonne_clignote </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>couleur</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Permet de changer l'état de la lumière voulue à CLIGNOTE. </p>
+<p >Permet de changer l'état de la lumière voulue à CLIGNOTER.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">couleur</td><td>correspondra a la lumière que l'on veut faire clignoter: <a class="el" href="../../d7/d5d/interface_colonne_8h.html#a6b80a7af4e9370adaab8a72386297f5d">INTERFACECOLONNE_ROUGE</a> , <a class="el" href="../../d7/d5d/interface_colonne_8h.html#acadae6ae883d1881757a76e94104d18f">INTERFACECOLONNE_VERT</a> ou <a class="el" href="../../d7/d5d/interface_colonne_8h.html#a49a937863ae3d1b01187acae8d216874">INTERFACECOLONNE_JAUNE</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d6/d0d/interface_colonne_8c_source.html#l00131">131</a> du fichier <a class="el" href="../../d6/d0d/interface_colonne_8c_source.html">interfaceColonne.c</a>.</p>
+
+</div>
+</div>
+<a id="a7d54e20fda3d105b180a2308a59fbd08" name="a7d54e20fda3d105b180a2308a59fbd08"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d54e20fda3d105b180a2308a59fbd08">&#9670;&#160;</a></span>interfaceColonne_eteint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void interfaceColonne_eteint </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>couleur</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Permet de changer l'état de la lumière voulue à ETEINT. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">couleur</td><td>correspondra a la lumière que l'on veut éteindre: <a class="el" href="../../d7/d5d/interface_colonne_8h.html#a6b80a7af4e9370adaab8a72386297f5d">INTERFACECOLONNE_ROUGE</a> , <a class="el" href="../../d7/d5d/interface_colonne_8h.html#acadae6ae883d1881757a76e94104d18f">INTERFACECOLONNE_VERT</a> ou <a class="el" href="../../d7/d5d/interface_colonne_8h.html#a49a937863ae3d1b01187acae8d216874">INTERFACECOLONNE_JAUNE</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d6/d0d/interface_colonne_8c_source.html#l00107">107</a> du fichier <a class="el" href="../../d6/d0d/interface_colonne_8c_source.html">interfaceColonne.c</a>.</p>
+
+</div>
+</div>
+<a id="a39537dca72d96818f29dce072ee00111" name="a39537dca72d96818f29dce072ee00111"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39537dca72d96818f29dce072ee00111">&#9670;&#160;</a></span>interfaceColonne_gere()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void interfaceColonne_gere </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Cette fonction est appelée par la base de temps pour gérer le clignotement de façon à ce que toutes les lumières qui clignotent soient syncronisées. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d6/d0d/interface_colonne_8c_source.html#l00057">57</a> du fichier <a class="el" href="../../d6/d0d/interface_colonne_8c_source.html">interfaceColonne.c</a>.</p>
+
+</div>
+</div>
+<a id="a3bd99a0eb1e2924849db73e0d88b8828" name="a3bd99a0eb1e2924849db73e0d88b8828"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3bd99a0eb1e2924849db73e0d88b8828">&#9670;&#160;</a></span>interfaceColonne_initialise()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void interfaceColonne_initialise </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initialise le module interfaceColonne. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d6/d0d/interface_colonne_8c_source.html#l00155">155</a> du fichier <a class="el" href="../../d6/d0d/interface_colonne_8c_source.html">interfaceColonne.c</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentation des variables</h2>
+<a id="a840d7efec6743615d8b6ea9ce5250ced" name="a840d7efec6743615d8b6ea9ce5250ced"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a840d7efec6743615d8b6ea9ce5250ced">&#9670;&#160;</a></span>etatJaune</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char etatJaune = ETEINT</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>État actuel de la lumière Jaune. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d6/d0d/interface_colonne_8c_source.html#l00046">46</a> du fichier <a class="el" href="../../d6/d0d/interface_colonne_8c_source.html">interfaceColonne.c</a>.</p>
+
+</div>
+</div>
+<a id="a658cea9257866851b308ff23a664d886" name="a658cea9257866851b308ff23a664d886"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a658cea9257866851b308ff23a664d886">&#9670;&#160;</a></span>etatRouge</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char etatRouge = ETEINT</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>État actuel de la lumière rouge. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d6/d0d/interface_colonne_8c_source.html#l00034">34</a> du fichier <a class="el" href="../../d6/d0d/interface_colonne_8c_source.html">interfaceColonne.c</a>.</p>
+
+</div>
+</div>
+<a id="a1660dc52ee72b26da94a2f55b984c371" name="a1660dc52ee72b26da94a2f55b984c371"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1660dc52ee72b26da94a2f55b984c371">&#9670;&#160;</a></span>etatVert</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char etatVert = ETEINT</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>État actuel de la lumière verte. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d6/d0d/interface_colonne_8c_source.html#l00040">40</a> du fichier <a class="el" href="../../d6/d0d/interface_colonne_8c_source.html">interfaceColonne.c</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="../../dir_1960eb5326e5d9e33055aa33e524e3d7.html">Projet-5e-Session</a></li><li class="navelem"><a class="el" href="../../dir_cabb922a6f0086bfb6fe28e07bda4828.html">Centre-De-Tri</a></li><li class="navelem"><a class="el" href="../../dir_e264173ee9885e47de6a48711356bc55.html">CentreDeTriS5</a></li><li class="navelem"><a class="el" href="../../dir_4cab58644c3b44e68232096e0cdbe804.html">Src</a></li><li class="navelem"><a class="el" href="../../d6/d0d/interface_colonne_8c.html">interfaceColonne.c</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5 </li>
+  </ul>
+</div>
+</body>
+</html>

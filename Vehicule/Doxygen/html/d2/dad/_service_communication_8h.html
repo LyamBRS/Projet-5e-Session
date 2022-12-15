@@ -1,0 +1,1484 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.5"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Recycling Center: Référence du fichier U:/Sessions/Session 5/Project/Projet_Fin_Session/Projet-5e-Session/Vehicule/Programmes/ESPvehicule/include/ServiceCommunication.h</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../resize.js"></script>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="../../BRS (S) Icon.ico"/></td>
+  <td id="projectalign">
+   <div id="projectname">Recycling Center<span id="projectnumber">&#160;1</span>
+   </div>
+   <div id="projectbrief">Véhicule</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.5 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('../../',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('d2/dad/_service_communication_8h.html','../../'); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Chargement...</div>
+<div class="SRStatus" id="Searching">Recherche...</div>
+<div class="SRStatus" id="NoMatches">Aucune correspondance</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Structures de données</a> &#124;
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Fonctions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle"><div class="title">Référence du fichier ServiceCommunication.h</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>This service is a c library which goal is to parse data sent or data received for a school project. This file requires premade functions and buffers which are labeled and described in this document in order to work properly or at all. This service's goal is to allow the user to solely use structures in order to check for received info or send info. The communication protocol range from UART to CAN. However, you will need ot parse UART data a bit more.  
+<a href="#details">Plus de détails...</a></p>
+
+<p><a href="../../d2/dad/_service_communication_8h_source.html">Aller au code source de ce fichier.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Structures de données</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d2b/structst_modes.html">stModes</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Struct containing all the possible states that a module can have. This is a list of states and must not be changed, but only refered to.  <a href="../../d1/d2b/structst_modes.html#details">Plus de détails...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/df4/structst_states.html">stStates</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Struct containing all the possible states that a module can have. This is a list of states and must not be changed, but only referred to.  <a href="../../d4/df4/structst_states.html#details">Plus de détails...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d05/structst_commands.html">stCommands</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Struct containing all the possible commands that a module can have. This is a list of commands and must not be changed, but only referred to.  <a href="../../d6/d05/structst_commands.html#details">Plus de détails...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dca/structst_values.html">stValues</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Struct containing all the possible values that a module can transmit. This is a list of values and must not be changed, Only refer to it when you need to set or change your module's structure values.  <a href="../../d3/dca/structst_values.html#details">Plus de détails...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d5f/structst_module_data.html">stModuleData</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The actual structure used by the module. Used to get/set different values and commands. For example, reading the Mode that the master sent. Checking if receiving info from the CAN etc. Use DEFINES present in this file in order to set Commands or values of such.  <a href="../../df/d5f/structst_module_data.html#details">Plus de détails...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a258bb72419ef143530a2f8f55e7d57af"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#a258bb72419ef143530a2f8f55e7d57af">NO_ERROR</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:a258bb72419ef143530a2f8f55e7d57af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates that the library is not currently in any errors.  <a href="../../d2/dad/_service_communication_8h.html#a258bb72419ef143530a2f8f55e7d57af">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a258bb72419ef143530a2f8f55e7d57af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f7b437135029d449beddc789e646bb0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#a5f7b437135029d449beddc789e646bb0">ERROR_RX_MODE_DOESNT_EXIST</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:a5f7b437135029d449beddc789e646bb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates that there was an error when parsing a received <a class="el" href="../../d1/d2b/structst_modes.html">stModes</a> from a communicating module. The received <a class="el" href="../../d1/d2b/structst_modes.html">stModes</a> didn't match availables <a class="el" href="../../d1/d2b/structst_modes.html">stModes</a> and couldn't be put in ModuleData.  <a href="../../d2/dad/_service_communication_8h.html#a5f7b437135029d449beddc789e646bb0">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a5f7b437135029d449beddc789e646bb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac64ec1978a6f8dee2535e32709e984b3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#ac64ec1978a6f8dee2535e32709e984b3">ERROR_RX_STATE_DOESNT_EXIST</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:ac64ec1978a6f8dee2535e32709e984b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates that there was an error when parsing a received <a class="el" href="../../d4/df4/structst_states.html">stStates</a> from a communicating module. The received <a class="el" href="../../d4/df4/structst_states.html">stStates</a> didn't match availables <a class="el" href="../../d4/df4/structst_states.html">stStates</a> and couldn't be put in ModuleData.  <a href="../../d2/dad/_service_communication_8h.html#ac64ec1978a6f8dee2535e32709e984b3">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ac64ec1978a6f8dee2535e32709e984b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae558105445f8bf9d95cb6bafefbbd3a8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#ae558105445f8bf9d95cb6bafefbbd3a8">ERROR_RX_COMMAND_DOESNT_EXIST</a>&#160;&#160;&#160;3</td></tr>
+<tr class="memdesc:ae558105445f8bf9d95cb6bafefbbd3a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates that there was an error when parsing a received <a class="el" href="../../d6/d05/structst_commands.html">stCommands</a> from a communicating module. The received <a class="el" href="../../d6/d05/structst_commands.html">stCommands</a> didn't match availables <a class="el" href="../../d6/d05/structst_commands.html">stCommands</a> and couldn't be put in ModuleData.  <a href="../../d2/dad/_service_communication_8h.html#ae558105445f8bf9d95cb6bafefbbd3a8">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ae558105445f8bf9d95cb6bafefbbd3a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e5b5d8d27c3b3e4c399de41cac09413"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#a6e5b5d8d27c3b3e4c399de41cac09413">ERROR_RX_VALUE_DOESNT_EXIST</a>&#160;&#160;&#160;4</td></tr>
+<tr class="memdesc:a6e5b5d8d27c3b3e4c399de41cac09413"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates that there was an error when parsing a received <a class="el" href="../../d3/dca/structst_values.html">stValues</a> from a communicating module. The received <a class="el" href="../../d3/dca/structst_values.html">stValues</a> didn't match availables <a class="el" href="../../d3/dca/structst_values.html">stValues</a> and couldn't be put in <a class="el" href="../../d3/dca/structst_values.html">stValues</a>.  <a href="../../d2/dad/_service_communication_8h.html#a6e5b5d8d27c3b3e4c399de41cac09413">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a6e5b5d8d27c3b3e4c399de41cac09413"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a87e3edee90d8fddbd93d9c0c23d16d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#a7a87e3edee90d8fddbd93d9c0c23d16d">ERROR_TIMEDOUT</a>&#160;&#160;&#160;5</td></tr>
+<tr class="memdesc:a7a87e3edee90d8fddbd93d9c0c23d16d"><td class="mdescLeft">&#160;</td><td class="mdescRight">The library timed out and could not receive an <a class="el" href="../../d1/d2b/structst_modes.html">stModes</a> from a CAN slot in the given time.  <a href="../../d2/dad/_service_communication_8h.html#a7a87e3edee90d8fddbd93d9c0c23d16d">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a7a87e3edee90d8fddbd93d9c0c23d16d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a7963d3c65e2270966f8d0855723f05"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#a1a7963d3c65e2270966f8d0855723f05">ERROR_SPECIFIC_TO_MODULE</a>&#160;&#160;&#160;6</td></tr>
+<tr class="memdesc:a1a7963d3c65e2270966f8d0855723f05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates that the module using this library encountered an error due to factors outside of this library.  <a href="../../d2/dad/_service_communication_8h.html#a1a7963d3c65e2270966f8d0855723f05">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a1a7963d3c65e2270966f8d0855723f05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf9947507c8c7b4c8791492bbb73b024"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#adf9947507c8c7b4c8791492bbb73b024">ERROR_TX_COMMAND_DOESNT_EXIST</a>&#160;&#160;&#160;7</td></tr>
+<tr class="memdesc:adf9947507c8c7b4c8791492bbb73b024"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates that there was an error when trying to parse <a class="el" href="../../df/d5f/structst_module_data.html">stModuleData</a> into the CAN transmission buffer <a class="el" href="../../d2/dad/_service_communication_8h.html#a4806d56d5345eaa5cb1003b550f56864">MODULE_CAN_TX</a>. The command <a class="el" href="../../d2/dad/_service_communication_8h.html#af0411b67a2dba87758fee4f77c888558">IN_QUEUE</a> <br  />
+ did not exist in the <code>switch</code> <code>case</code> found in TX_PutCommandQueueInBuffer()  <a href="../../d2/dad/_service_communication_8h.html#adf9947507c8c7b4c8791492bbb73b024">Plus de détails...</a><br /></td></tr>
+<tr class="separator:adf9947507c8c7b4c8791492bbb73b024"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace81153c3e7c169bccfee7877312da18"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#ace81153c3e7c169bccfee7877312da18">ERROR_TX_VALUE_DOESNT_EXIST</a>&#160;&#160;&#160;8</td></tr>
+<tr class="memdesc:ace81153c3e7c169bccfee7877312da18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates that there was an error when trying to parse <a class="el" href="../../df/d5f/structst_module_data.html">stModuleData</a> into the CAN transmission buffer <a class="el" href="../../d2/dad/_service_communication_8h.html#a4806d56d5345eaa5cb1003b550f56864">MODULE_CAN_TX</a>. The value <a class="el" href="../../d2/dad/_service_communication_8h.html#af0411b67a2dba87758fee4f77c888558">IN_QUEUE</a> <br  />
+ did not exist in the <code>switch</code> <code>case</code> found in TX_PutValueQueueInBuffer()  <a href="../../d2/dad/_service_communication_8h.html#ace81153c3e7c169bccfee7877312da18">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ace81153c3e7c169bccfee7877312da18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:addf5ec070e9499d36b7f2009ce736076"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#addf5ec070e9499d36b7f2009ce736076">UNUSED</a>&#160;&#160;&#160;0xFF</td></tr>
+<tr class="memdesc:addf5ec070e9499d36b7f2009ce736076"><td class="mdescLeft">&#160;</td><td class="mdescRight">Means that the value or commands is not used by this specific module. This is important as the functions use this to figure out which data needs to be send when a CAN slot is <a class="el" href="../../d2/dad/_service_communication_8h.html#a38f81619bc0b028efc4d5222e6cae89f">AVAILABLE</a> for the module.  <a href="../../d2/dad/_service_communication_8h.html#addf5ec070e9499d36b7f2009ce736076">Plus de détails...</a><br /></td></tr>
+<tr class="separator:addf5ec070e9499d36b7f2009ce736076"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aafc57d44738df70f43ac87ed969eed47"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#aafc57d44738df70f43ac87ed969eed47">QUEUE</a>&#160;&#160;&#160;0xFE</td></tr>
+<tr class="memdesc:aafc57d44738df70f43ac87ed969eed47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies that you want a specific command inside <a class="el" href="../../d6/d05/structst_commands.html">stCommands</a> queued for the next CAN transmission.  <a href="../../d2/dad/_service_communication_8h.html#aafc57d44738df70f43ac87ed969eed47">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aafc57d44738df70f43ac87ed969eed47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0411b67a2dba87758fee4f77c888558"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#af0411b67a2dba87758fee4f77c888558">IN_QUEUE</a>&#160;&#160;&#160;0xFD</td></tr>
+<tr class="memdesc:af0411b67a2dba87758fee4f77c888558"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates that the <a class="el" href="../../d6/d05/structst_commands.html">stCommands</a> is already in queue for a transmission.  <a href="../../d2/dad/_service_communication_8h.html#af0411b67a2dba87758fee4f77c888558">Plus de détails...</a><br /></td></tr>
+<tr class="separator:af0411b67a2dba87758fee4f77c888558"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38f81619bc0b028efc4d5222e6cae89f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#a38f81619bc0b028efc4d5222e6cae89f">AVAILABLE</a>&#160;&#160;&#160;0xAA</td></tr>
+<tr class="memdesc:a38f81619bc0b028efc4d5222e6cae89f"><td class="mdescLeft">&#160;</td><td class="mdescRight">tells you that this <a class="el" href="../../d6/d05/structst_commands.html">stCommands</a> is AVAILABLE for a <a class="el" href="../../d2/dad/_service_communication_8h.html#aafc57d44738df70f43ac87ed969eed47">QUEUE</a> request.  <a href="../../d2/dad/_service_communication_8h.html#a38f81619bc0b028efc4d5222e6cae89f">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a38f81619bc0b028efc4d5222e6cae89f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90ca767ddb3c52ec640e7ed8a09dd5d8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#a90ca767ddb3c52ec640e7ed8a09dd5d8">RECEIVED</a>&#160;&#160;&#160;0xBB</td></tr>
+<tr class="memdesc:a90ca767ddb3c52ec640e7ed8a09dd5d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tells you that you received a request to execute this specific <a class="el" href="../../d6/d05/structst_commands.html">stCommands</a>.  <a href="../../d2/dad/_service_communication_8h.html#a90ca767ddb3c52ec640e7ed8a09dd5d8">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a90ca767ddb3c52ec640e7ed8a09dd5d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f6404e3e6de5aa345a9208af100d4f8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#a7f6404e3e6de5aa345a9208af100d4f8">PARSED</a>&#160;&#160;&#160;0xCC</td></tr>
+<tr class="memdesc:a7f6404e3e6de5aa345a9208af100d4f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tells the program that you parsed the <a class="el" href="../../d2/dad/_service_communication_8h.html#a90ca767ddb3c52ec640e7ed8a09dd5d8">RECEIVED</a> command in <a class="el" href="../../df/d5f/structst_module_data.html">stModuleData</a>.  <a href="../../d2/dad/_service_communication_8h.html#a7f6404e3e6de5aa345a9208af100d4f8">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a7f6404e3e6de5aa345a9208af100d4f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68de9030c39965958f08402f7d452ad9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#a68de9030c39965958f08402f7d452ad9">NO_DATA</a>&#160;&#160;&#160;0x00</td></tr>
+<tr class="memdesc:a68de9030c39965958f08402f7d452ad9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tells you that no requests have been received for this specific command. If there was a request, the command would be equal to <a class="el" href="../../d2/dad/_service_communication_8h.html#a90ca767ddb3c52ec640e7ed8a09dd5d8">RECEIVED</a>.  <a href="../../d2/dad/_service_communication_8h.html#a68de9030c39965958f08402f7d452ad9">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a68de9030c39965958f08402f7d452ad9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a1dd2552832819ef662fee343b48c55"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#a1a1dd2552832819ef662fee343b48c55">CHAR_MODE</a>&#160;&#160;&#160;'M'</td></tr>
+<tr class="memdesc:a1a1dd2552832819ef662fee343b48c55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the character needed to parse <a class="el" href="../../d1/d2b/structst_modes.html">stModes</a> during transmission or reception of data. Refer to P-S5_Communications for more details.  <a href="../../d2/dad/_service_communication_8h.html#a1a1dd2552832819ef662fee343b48c55">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a1a1dd2552832819ef662fee343b48c55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9d321d90762288d936775d6a9450426"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#ad9d321d90762288d936775d6a9450426">CHAR_STATE</a>&#160;&#160;&#160;'S'</td></tr>
+<tr class="memdesc:ad9d321d90762288d936775d6a9450426"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the character needed to parse <a class="el" href="../../d4/df4/structst_states.html">stStates</a> during transmission or reception of data. Refer to P-S5_Communications for more details.  <a href="../../d2/dad/_service_communication_8h.html#ad9d321d90762288d936775d6a9450426">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ad9d321d90762288d936775d6a9450426"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2509a1955825a71b5f73682bfbc49ca6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#a2509a1955825a71b5f73682bfbc49ca6">CHAR_VALUE</a>&#160;&#160;&#160;'V'</td></tr>
+<tr class="memdesc:a2509a1955825a71b5f73682bfbc49ca6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the character needed to parse <a class="el" href="../../d3/dca/structst_values.html">stValues</a> during transmission or reception of data. Refer to P-S5_Communications for more details.  <a href="../../d2/dad/_service_communication_8h.html#a2509a1955825a71b5f73682bfbc49ca6">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a2509a1955825a71b5f73682bfbc49ca6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86b6c774f2718558e434c2bc58715565"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#a86b6c774f2718558e434c2bc58715565">CHAR_COMMAND</a>&#160;&#160;&#160;'C'</td></tr>
+<tr class="memdesc:a86b6c774f2718558e434c2bc58715565"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the character needed to parse <a class="el" href="../../d6/d05/structst_commands.html">stCommands</a> during transmission or reception of data. Refer to P-S5_Communications for more details.  <a href="../../d2/dad/_service_communication_8h.html#a86b6c774f2718558e434c2bc58715565">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a86b6c774f2718558e434c2bc58715565"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ded9f050868902fab114fba2fe7a0bd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#a7ded9f050868902fab114fba2fe7a0bd">CHAR_WEIGHT</a>&#160;&#160;&#160;'W'</td></tr>
+<tr class="memdesc:a7ded9f050868902fab114fba2fe7a0bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the character needed to parse Weight during transmission or reception of data. Refer to P-S5_Communications for more details.  <a href="../../d2/dad/_service_communication_8h.html#a7ded9f050868902fab114fba2fe7a0bd">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a7ded9f050868902fab114fba2fe7a0bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5f5cc38a4f590cf0a17c7678dd22f84"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#ae5f5cc38a4f590cf0a17c7678dd22f84">CHAR_START</a>&#160;&#160;&#160;'$'</td></tr>
+<tr class="memdesc:ae5f5cc38a4f590cf0a17c7678dd22f84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the character needed to parse a data tram during transmission or reception of data when CAN isn't the medium used for the latter.  <a href="../../d2/dad/_service_communication_8h.html#ae5f5cc38a4f590cf0a17c7678dd22f84">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ae5f5cc38a4f590cf0a17c7678dd22f84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acfc5bd5d7a0f57b6e6e0f63a28b18473"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#acfc5bd5d7a0f57b6e6e0f63a28b18473">TIME_BASE_FREQUENCY_HZ</a>&#160;&#160;&#160;<a class="el" href="../../de/df5/xmain_8h.html#a6276b0f7c474c476289248b4eecd63ee">SERVICEBASEDETEMPS_FREQUENCE_EN_HZ</a></td></tr>
+<tr class="memdesc:acfc5bd5d7a0f57b6e6e0f63a28b18473"><td class="mdescLeft">&#160;</td><td class="mdescRight">The time base frequency. Usually defined in main.h Used to automatically calculate CAN slots allocations.  <a href="../../d2/dad/_service_communication_8h.html#acfc5bd5d7a0f57b6e6e0f63a28b18473">Plus de détails...</a><br /></td></tr>
+<tr class="separator:acfc5bd5d7a0f57b6e6e0f63a28b18473"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb3bb528a93b70f6dde1db6c5c694bfe"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#abb3bb528a93b70f6dde1db6c5c694bfe">TIME_BASE_BUFFER_SIZE</a>&#160;&#160;&#160;<a class="el" href="../../de/df5/xmain_8h.html#a9470a0f17392d89a537141466f6f0e98">SERVICEBASEDETEMPS_NOMBRE_DE_PHASES</a></td></tr>
+<tr class="memdesc:abb3bb528a93b70f6dde1db6c5c694bfe"><td class="mdescLeft">&#160;</td><td class="mdescRight">The time base's functions buffer size. Usually defined in main.h. Used to figure out the intervals at which the execute function is called to calculate slot's time frames for the CAN protocol.  <a href="../../d2/dad/_service_communication_8h.html#abb3bb528a93b70f6dde1db6c5c694bfe">Plus de détails...</a><br /></td></tr>
+<tr class="separator:abb3bb528a93b70f6dde1db6c5c694bfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a081e5fd13e1fee392e6660d0c1c81a4d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#a081e5fd13e1fee392e6660d0c1c81a4d">TIME_BASE_BUFFER</a>&#160;&#160;&#160;<a class="el" href="../../d1/d8b/xservice_base_de_temps_8h.html#a103583940036ccbb95b6b4c1f73b74d6">serviceBaseDeTemps_execute</a></td></tr>
+<tr class="memdesc:a081e5fd13e1fee392e6660d0c1c81a4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">The time base's functions buffer size. Usually defined in main.h. Used to figure out the intervals at which the execute function is called to calculate slot's time frames for the CAN protocol.  <a href="../../d2/dad/_service_communication_8h.html#a081e5fd13e1fee392e6660d0c1c81a4d">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a081e5fd13e1fee392e6660d0c1c81a4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2181baff0108e65db391889452ebf420"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#a2181baff0108e65db391889452ebf420">SCOMMS_PARSE_RX_BUFFER_ADR</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:a2181baff0108e65db391889452ebf420"><td class="mdescLeft">&#160;</td><td class="mdescRight">The address from the timebase buffer (index) which will be used to put <a class="el" href="../../d2/dad/_service_communication_8h.html#a1de35ae7bf14532ceef3d4c2b4c08ffc">ServiceCommunication_RXParsingHandler()</a> in.  <a href="../../d2/dad/_service_communication_8h.html#a2181baff0108e65db391889452ebf420">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a2181baff0108e65db391889452ebf420"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45b60fe63e05c21feb4d13af7fc9a299"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#a45b60fe63e05c21feb4d13af7fc9a299">SCOMMS_PARSE_TX_BUFFER_ADR</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:a45b60fe63e05c21feb4d13af7fc9a299"><td class="mdescLeft">&#160;</td><td class="mdescRight">The address from the timebase buffer (index) which will be used to put <a class="el" href="../../d2/dad/_service_communication_8h.html#a44987354dee4c9ad0dfcf7073cc41d8d">ServiceCommunication_TXParsingHandler()</a> in.  <a href="../../d2/dad/_service_communication_8h.html#a45b60fe63e05c21feb4d13af7fc9a299">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a45b60fe63e05c21feb4d13af7fc9a299"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0878e3dac0bcbc54e3b0adfc65f888d8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#a0878e3dac0bcbc54e3b0adfc65f888d8">CAN_ALLOCATED_SLOT</a>&#160;&#160;&#160;3</td></tr>
+<tr class="memdesc:a0878e3dac0bcbc54e3b0adfc65f888d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">The allocated slot for your module considering that the synchronisation slot is 0. Please refer to the datasheet available on google drive in order to figure out your module's time frame.  <a href="../../d2/dad/_service_communication_8h.html#a0878e3dac0bcbc54e3b0adfc65f888d8">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a0878e3dac0bcbc54e3b0adfc65f888d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0710f3b5e2cc14c23f4da87fdcb32559"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#a0710f3b5e2cc14c23f4da87fdcb32559">CAN_SLOT_DURATION_MS</a>&#160;&#160;&#160;20</td></tr>
+<tr class="memdesc:a0710f3b5e2cc14c23f4da87fdcb32559"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies the duration in milliseconds of a slot. See Google drive documentation to put the right value in this.  <a href="../../d2/dad/_service_communication_8h.html#a0710f3b5e2cc14c23f4da87fdcb32559">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a0710f3b5e2cc14c23f4da87fdcb32559"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aedbb61e1e0650e2c3b7705ae7546a97a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#aedbb61e1e0650e2c3b7705ae7546a97a">MODULE_CAN_RX_BUFFER</a>&#160;&#160;&#160;piloteUDP.readBuffer</td></tr>
+<tr class="memdesc:aedbb61e1e0650e2c3b7705ae7546a97a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specify how to access the unsigned char array of 8 bytes which contains your module's received CAN data.<br  />
+this unique buffer must contain whatever info was received by your module's. address.  <a href="../../d2/dad/_service_communication_8h.html#aedbb61e1e0650e2c3b7705ae7546a97a">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aedbb61e1e0650e2c3b7705ae7546a97a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8afc8fb8677a3d13b3bbaaca46f109f4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#a8afc8fb8677a3d13b3bbaaca46f109f4">MASTER_CAN_RX_BUFFER</a>&#160;&#160;&#160;piloteUDP.readBuffer</td></tr>
+<tr class="memdesc:a8afc8fb8677a3d13b3bbaaca46f109f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specify how to access the unsigned char array of 8 bytes which contains received CAN data from the MASTER's address<br  />
+this unique buffer must contain whatever info was received from the master's address.  <a href="../../d2/dad/_service_communication_8h.html#a8afc8fb8677a3d13b3bbaaca46f109f4">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a8afc8fb8677a3d13b3bbaaca46f109f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4806d56d5345eaa5cb1003b550f56864"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#a4806d56d5345eaa5cb1003b550f56864">MODULE_CAN_TX</a>&#160;&#160;&#160;piloteUDP.replyBuffer</td></tr>
+<tr class="memdesc:a4806d56d5345eaa5cb1003b550f56864"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specify how to access the unsigned char array of 8 bytes which is used to send CAN data during the allocated time frame for your module.<br  />
+Example:  <a href="../../d2/dad/_service_communication_8h.html#a4806d56d5345eaa5cb1003b550f56864">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a4806d56d5345eaa5cb1003b550f56864"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8d66c734b139a7df743dec3f730c252"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#ac8d66c734b139a7df743dec3f730c252">MODULE_SEND_CAN</a></td></tr>
+<tr class="memdesc:ac8d66c734b139a7df743dec3f730c252"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specify how to request a CAN transmission to the other TimeBase functions. This is either a flag or a function which tells other TimeBase functions that their <a class="el" href="../../d2/dad/_service_communication_8h.html#a4806d56d5345eaa5cb1003b550f56864">MODULE_CAN_TX</a> buffer is ready to be sent.<br  />
+This can also be a function which sends the CAN directly through pilots made for it. the disadvantage of using a dedicated function, is the lack of address changing possibilities.  <a href="../../d2/dad/_service_communication_8h.html#ac8d66c734b139a7df743dec3f730c252">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ac8d66c734b139a7df743dec3f730c252"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4029258177159315b46b6653dcf05a06"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#a4029258177159315b46b6653dcf05a06">CHECK_MODULE_CAN_RECEPTION</a>&#160;&#160;&#160;<a class="el" href="../../d0/d24/pilote_u_d_p_8h.html#a333e2ad1513c643d08d5bbe40c5261fc">GetUDPSize</a>()</td></tr>
+<tr class="memdesc:a4029258177159315b46b6653dcf05a06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Statement which is true only if a CAN message addressed to your module is available. It is false if no messages have been received. MUST CORRESPOND TO <a class="el" href="../../d2/dad/_service_communication_8h.html#aedbb61e1e0650e2c3b7705ae7546a97a">MODULE_CAN_RX_BUFFER</a>.  <a href="../../d2/dad/_service_communication_8h.html#a4029258177159315b46b6653dcf05a06">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a4029258177159315b46b6653dcf05a06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ddb96c13a6bb53d79c56e373866474f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#a6ddb96c13a6bb53d79c56e373866474f">CHECK_MASTER_CAN_RECEPTION</a>&#160;&#160;&#160;0xFF</td></tr>
+<tr class="memdesc:a6ddb96c13a6bb53d79c56e373866474f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Statement which is true only if a CAN message addressed to your module is available. It is false if no messages have been received. MUST CORRESPOND TO <a class="el" href="../../d2/dad/_service_communication_8h.html#a8afc8fb8677a3d13b3bbaaca46f109f4">MASTER_CAN_RX_BUFFER</a>.  <a href="../../d2/dad/_service_communication_8h.html#a6ddb96c13a6bb53d79c56e373866474f">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a6ddb96c13a6bb53d79c56e373866474f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:a3d0c93c9577cbca6a1e880d1bbd9a1c8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#a3d0c93c9577cbca6a1e880d1bbd9a1c8">CB_UpdateBuffer</a> (unsigned char *Buffer, unsigned char sizeOfBuffer)</td></tr>
+<tr class="memdesc:a3d0c93c9577cbca6a1e880d1bbd9a1c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function compressing data downwards in a buffer. It slides data downwards by 1 index if the one below the data is equal to 0xFF.  <a href="../../d2/dad/_service_communication_8h.html#a3d0c93c9577cbca6a1e880d1bbd9a1c8">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a3d0c93c9577cbca6a1e880d1bbd9a1c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aebff2982a206799f3d174baf9df497b2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#aebff2982a206799f3d174baf9df497b2">CB_QueueDataInBuffer</a> (unsigned char *Buffer, unsigned char sizeOfBuffer, unsigned char *DataToCheck, unsigned char DataValueFromRefStruct)</td></tr>
+<tr class="memdesc:aebff2982a206799f3d174baf9df497b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds an unsigned char to the referenced buffer at whichever index is first available for it (0xFF). If it's all 0xFF, it will be added at the bottom of the buffer.  <a href="../../d2/dad/_service_communication_8h.html#aebff2982a206799f3d174baf9df497b2">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aebff2982a206799f3d174baf9df497b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1de35ae7bf14532ceef3d4c2b4c08ffc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#a1de35ae7bf14532ceef3d4c2b4c08ffc">ServiceCommunication_RXParsingHandler</a> (void)</td></tr>
+<tr class="memdesc:a1de35ae7bf14532ceef3d4c2b4c08ffc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function periodically called via the time base's interruptions. It is important to allocate a buffer address in your time base for this function. Do this via your main.h file, and <a class="el" href="../../d2/dad/_service_communication_8h.html" title="This service is a c library which goal is to parse data sent or data received for a school project....">ServiceCommunication.h</a>. You will need to set SCOMMS_PARSE_RX_BUFFER_ADR to the appropriated number in your buffer.  <a href="../../d2/dad/_service_communication_8h.html#a1de35ae7bf14532ceef3d4c2b4c08ffc">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a1de35ae7bf14532ceef3d4c2b4c08ffc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44987354dee4c9ad0dfcf7073cc41d8d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#a44987354dee4c9ad0dfcf7073cc41d8d">ServiceCommunication_TXParsingHandler</a> (void)</td></tr>
+<tr class="memdesc:a44987354dee4c9ad0dfcf7073cc41d8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function periodically called via the time base's interruptions. It is important to allocate a buffer address in your time base for this function. Do this via your main.h file, and <a class="el" href="../../d2/dad/_service_communication_8h.html" title="This service is a c library which goal is to parse data sent or data received for a school project....">ServiceCommunication.h</a>. You will need to set SCOMMS_PARSE_TX_BUFFER_ADR to the appropriated number in your buffer.  <a href="../../d2/dad/_service_communication_8h.html#a44987354dee4c9ad0dfcf7073cc41d8d">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a44987354dee4c9ad0dfcf7073cc41d8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a873572755106e16f635f8712fde8b8d1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#a873572755106e16f635f8712fde8b8d1">ServiceCommunication_initialise</a> (void)</td></tr>
+<tr class="memdesc:a873572755106e16f635f8712fde8b8d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function called which initialises all the structures necessary. it is important to call this function before main execution of the program starts as it is necessary to initialise all the data structure used by this service.  <a href="../../d2/dad/_service_communication_8h.html#a873572755106e16f635f8712fde8b8d1">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a873572755106e16f635f8712fde8b8d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29057fe82a4a52ec4c24eb36d010508d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#a29057fe82a4a52ec4c24eb36d010508d">ModuleData_SetAll_ReceivedCommands</a> (unsigned char ValueAppliedToAll)</td></tr>
+<tr class="memdesc:a29057fe82a4a52ec4c24eb36d010508d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the received command structure (ModuleData.CommandsReceived) to the same input value. Useful to reset any received commands when a new mode has been received from the master.  <a href="../../d2/dad/_service_communication_8h.html#a29057fe82a4a52ec4c24eb36d010508d">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a29057fe82a4a52ec4c24eb36d010508d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e812962d5f7419f86ec02de11431fe5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#a2e812962d5f7419f86ec02de11431fe5">ModuleData_SetAll_SentCommands</a> (unsigned char ValueAppliedToAll)</td></tr>
+<tr class="memdesc:a2e812962d5f7419f86ec02de11431fe5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the queued command structure (ModuleData.CommandsToSend) to the same input value. Useful to reset any queued commands when a new mode has been received from the master.  <a href="../../d2/dad/_service_communication_8h.html#a2e812962d5f7419f86ec02de11431fe5">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a2e812962d5f7419f86ec02de11431fe5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ecde68acd8f3105b7da568e6db317ae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#a3ecde68acd8f3105b7da568e6db317ae">ModuleData_SetAll_ValuesToSend</a> (unsigned char ValueAppliedToAll)</td></tr>
+<tr class="memdesc:a3ecde68acd8f3105b7da568e6db317ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the values to send structure of the ModuleData to the same value.  <a href="../../d2/dad/_service_communication_8h.html#a3ecde68acd8f3105b7da568e6db317ae">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a3ecde68acd8f3105b7da568e6db317ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeffc3a637225c738529acf463e90160d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#aeffc3a637225c738529acf463e90160d">ModuleData_SetAll_ValuesReceived</a> (unsigned char ValueAppliedToAll)</td></tr>
+<tr class="memdesc:aeffc3a637225c738529acf463e90160d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets all the received value structure to the same value.  <a href="../../d2/dad/_service_communication_8h.html#aeffc3a637225c738529acf463e90160d">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aeffc3a637225c738529acf463e90160d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af91ebf03d5c59428b1019aa2619c9402"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#af91ebf03d5c59428b1019aa2619c9402">ModuleData_SetAll_StatesReceived</a> (unsigned char ValueAppliedToAll)</td></tr>
+<tr class="memdesc:af91ebf03d5c59428b1019aa2619c9402"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets all the states in a <a class="el" href="../../d4/df4/structst_states.html">stStates</a> structure to the same value.  <a href="../../d2/dad/_service_communication_8h.html#af91ebf03d5c59428b1019aa2619c9402">Plus de détails...</a><br /></td></tr>
+<tr class="separator:af91ebf03d5c59428b1019aa2619c9402"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05bc85fe1889a6e743299fdaeec706be"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#a05bc85fe1889a6e743299fdaeec706be">ModuleData_SetUnits</a> (unsigned char UnitsToPutInValues)</td></tr>
+<tr class="memdesc:a05bc85fe1889a6e743299fdaeec706be"><td class="mdescLeft">&#160;</td><td class="mdescRight">handles the units value sending for you to avoid sending 2 at the time and to automatically remove from QUEUE previous values.  <a href="../../d2/dad/_service_communication_8h.html#a05bc85fe1889a6e743299fdaeec706be">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a05bc85fe1889a6e743299fdaeec706be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1692cabce4f427865fabe67b80079c45"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#a1692cabce4f427865fabe67b80079c45">ModuleData_SetDiscColor</a> (unsigned char ColorToPutInValues)</td></tr>
+<tr class="memdesc:a1692cabce4f427865fabe67b80079c45"><td class="mdescLeft">&#160;</td><td class="mdescRight">handles the disc color value sending for you to avoid sending 2 at the time and to automatically remove from QUEUE previous values.  <a href="../../d2/dad/_service_communication_8h.html#a1692cabce4f427865fabe67b80079c45">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a1692cabce4f427865fabe67b80079c45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c26b93e2f6b782c74f2f823547e5dab"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#a6c26b93e2f6b782c74f2f823547e5dab">ModuleData_SetDiscDetection</a> (unsigned char ColorToPutInValues)</td></tr>
+<tr class="memdesc:a6c26b93e2f6b782c74f2f823547e5dab"><td class="mdescLeft">&#160;</td><td class="mdescRight">handles the disc detection value sending for you to avoid sending 2 at the time and to automatically remove from QUEUE previous values.  <a href="../../d2/dad/_service_communication_8h.html#a6c26b93e2f6b782c74f2f823547e5dab">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a6c26b93e2f6b782c74f2f823547e5dab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a201b752ad8025d5e229b7f3d5d3d85f7"><td class="memItemLeft" align="right" valign="top"><a id="a201b752ad8025d5e229b7f3d5d3d85f7" name="a201b752ad8025d5e229b7f3d5d3d85f7"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>CheckIfUnused</b> (unsigned char *checkedValue, unsigned char wantedNewValue)</td></tr>
+<tr class="separator:a201b752ad8025d5e229b7f3d5d3d85f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4501640cf1f1053f5d57a8e75f79dda"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#ad4501640cf1f1053f5d57a8e75f79dda">Parse_Interrupts</a> (void)</td></tr>
+<tr class="memdesc:ad4501640cf1f1053f5d57a8e75f79dda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function handling the count of interrupts and slot allocations for CAN communications made for this project. It is important to properly define clock speeds and oscillator speeds in <a class="el" href="../../d2/dad/_service_communication_8h.html" title="This service is a c library which goal is to parse data sent or data received for a school project....">ServiceCommunication.h</a>.  <a href="../../d2/dad/_service_communication_8h.html#ad4501640cf1f1053f5d57a8e75f79dda">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ad4501640cf1f1053f5d57a8e75f79dda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a1f422ed2cac01c9cd62a6125e0531c61"><td class="memItemLeft" align="right" valign="top"><a id="a1f422ed2cac01c9cd62a6125e0531c61" name="a1f422ed2cac01c9cd62a6125e0531c61"></a>
+unsigned char&#160;</td><td class="memItemRight" valign="bottom"><b>serviceCommunication_ErrorState</b></td></tr>
+<tr class="memdesc:a1f422ed2cac01c9cd62a6125e0531c61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Global extern variable which purpose is to indicate to other portions of the code which state this library is currently in. See:<br  />
+<a class="el" href="../../d2/dad/_service_communication_8h.html#a258bb72419ef143530a2f8f55e7d57af">NO_ERROR</a> .<br  />
+<a class="el" href="../../d2/dad/_service_communication_8h.html#a5f7b437135029d449beddc789e646bb0">ERROR_RX_MODE_DOESNT_EXIST</a> .<br  />
+<a class="el" href="../../d2/dad/_service_communication_8h.html#ac64ec1978a6f8dee2535e32709e984b3">ERROR_RX_STATE_DOESNT_EXIST</a> .<br  />
+<a class="el" href="../../d2/dad/_service_communication_8h.html#ae558105445f8bf9d95cb6bafefbbd3a8">ERROR_RX_COMMAND_DOESNT_EXIST</a> .<br  />
+<a class="el" href="../../d2/dad/_service_communication_8h.html#a6e5b5d8d27c3b3e4c399de41cac09413">ERROR_RX_VALUE_DOESNT_EXIST</a> .<br  />
+<a class="el" href="../../d2/dad/_service_communication_8h.html#a7a87e3edee90d8fddbd93d9c0c23d16d">ERROR_TIMEDOUT</a> .<br  />
+<a class="el" href="../../d2/dad/_service_communication_8h.html#a1a7963d3c65e2270966f8d0855723f05">ERROR_SPECIFIC_TO_MODULE</a> .<br  />
+. <br /></td></tr>
+<tr class="separator:a1f422ed2cac01c9cd62a6125e0531c61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a115c2f56dcaf6da3ef0ce4e6b13bc869"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#a115c2f56dcaf6da3ef0ce4e6b13bc869">TemporaryFunctionBuffer</a> [7]</td></tr>
+<tr class="separator:a115c2f56dcaf6da3ef0ce4e6b13bc869"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27144c1f0d64aa95ca244e38c033ac25"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#a27144c1f0d64aa95ca244e38c033ac25">bufferUDPtransmet</a> [8]</td></tr>
+<tr class="separator:a27144c1f0d64aa95ca244e38c033ac25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5381ed509bf973ce17e6e66c09f60aa7"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#a5381ed509bf973ce17e6e66c09f60aa7">temporaryModuleBuffer</a> [8]</td></tr>
+<tr class="separator:a5381ed509bf973ce17e6e66c09f60aa7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b86a1675d8828177770802176fb50d6"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dad/_service_communication_8h.html#a4b86a1675d8828177770802176fb50d6">temporaryMasterBuffer</a> [8]</td></tr>
+<tr class="separator:a4b86a1675d8828177770802176fb50d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d263995a90824787239b3b43fd22624"><td class="memItemLeft" align="right" valign="top"><a id="a8d263995a90824787239b3b43fd22624" name="a8d263995a90824787239b3b43fd22624"></a>
+<a class="el" href="../../d1/d2b/structst_modes.html">stModes</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Modes</b></td></tr>
+<tr class="separator:a8d263995a90824787239b3b43fd22624"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a438a30fee677441c56cb4010275f6811"><td class="memItemLeft" align="right" valign="top"><a id="a438a30fee677441c56cb4010275f6811" name="a438a30fee677441c56cb4010275f6811"></a>
+<a class="el" href="../../d4/df4/structst_states.html">stStates</a>&#160;</td><td class="memItemRight" valign="bottom"><b>States</b></td></tr>
+<tr class="separator:a438a30fee677441c56cb4010275f6811"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e1bd1188b94e4bbabbf01c05d2d83db"><td class="memItemLeft" align="right" valign="top"><a id="a4e1bd1188b94e4bbabbf01c05d2d83db" name="a4e1bd1188b94e4bbabbf01c05d2d83db"></a>
+<a class="el" href="../../d6/d05/structst_commands.html">stCommands</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Commands</b></td></tr>
+<tr class="separator:a4e1bd1188b94e4bbabbf01c05d2d83db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3088ff4e4e4ea73770c72f41563fa4e3"><td class="memItemLeft" align="right" valign="top"><a id="a3088ff4e4e4ea73770c72f41563fa4e3" name="a3088ff4e4e4ea73770c72f41563fa4e3"></a>
+<a class="el" href="../../d3/dca/structst_values.html">stValues</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Values</b></td></tr>
+<tr class="separator:a3088ff4e4e4ea73770c72f41563fa4e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1720969ebc798c3beb2569c6dd2fca70"><td class="memItemLeft" align="right" valign="top"><a id="a1720969ebc798c3beb2569c6dd2fca70" name="a1720969ebc798c3beb2569c6dd2fca70"></a>
+<a class="el" href="../../df/d5f/structst_module_data.html">stModuleData</a>&#160;</td><td class="memItemRight" valign="bottom"><b>ModuleData</b></td></tr>
+<tr class="separator:a1720969ebc798c3beb2569c6dd2fca70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p >This service is a c library which goal is to parse data sent or data received for a school project. This file requires premade functions and buffers which are labeled and described in this document in order to work properly or at all. This service's goal is to allow the user to solely use structures in order to check for received info or send info. The communication protocol range from UART to CAN. However, you will need ot parse UART data a bit more. </p>
+<dl class="section author"><dt>Auteur</dt><dd>Lyam / Shawn Couture (<a href="#" onclick="location.href='mai'+'lto:'+'cou'+'s5'+'830'+'@g'+'mai'+'l.'+'com'; return false;">cous5<span class="obfuscator">.nosp@m.</span>830@<span class="obfuscator">.nosp@m.</span>gmail<span class="obfuscator">.nosp@m.</span>.com</a>) </dd></dl>
+<dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2022-11-14 </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2022 </dd></dl>
+
+<p class="definition">Définition dans le fichier <a class="el" href="../../d2/dad/_service_communication_8h_source.html">ServiceCommunication.h</a>.</p>
+</div><h2 class="groupheader">Documentation des macros</h2>
+<a id="a38f81619bc0b028efc4d5222e6cae89f" name="a38f81619bc0b028efc4d5222e6cae89f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38f81619bc0b028efc4d5222e6cae89f">&#9670;&#160;</a></span>AVAILABLE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AVAILABLE&#160;&#160;&#160;0xAA</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>tells you that this <a class="el" href="../../d6/d05/structst_commands.html">stCommands</a> is AVAILABLE for a <a class="el" href="../../d2/dad/_service_communication_8h.html#aafc57d44738df70f43ac87ed969eed47">QUEUE</a> request. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d2/dad/_service_communication_8h_source.html#l00109">109</a> du fichier <a class="el" href="../../d2/dad/_service_communication_8h_source.html">ServiceCommunication.h</a>.</p>
+
+</div>
+</div>
+<a id="a0878e3dac0bcbc54e3b0adfc65f888d8" name="a0878e3dac0bcbc54e3b0adfc65f888d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0878e3dac0bcbc54e3b0adfc65f888d8">&#9670;&#160;</a></span>CAN_ALLOCATED_SLOT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CAN_ALLOCATED_SLOT&#160;&#160;&#160;3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The allocated slot for your module considering that the synchronisation slot is 0. Please refer to the datasheet available on google drive in order to figure out your module's time frame. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d2/dad/_service_communication_8h_source.html#l00203">203</a> du fichier <a class="el" href="../../d2/dad/_service_communication_8h_source.html">ServiceCommunication.h</a>.</p>
+
+</div>
+</div>
+<a id="a0710f3b5e2cc14c23f4da87fdcb32559" name="a0710f3b5e2cc14c23f4da87fdcb32559"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0710f3b5e2cc14c23f4da87fdcb32559">&#9670;&#160;</a></span>CAN_SLOT_DURATION_MS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CAN_SLOT_DURATION_MS&#160;&#160;&#160;20</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specifies the duration in milliseconds of a slot. See Google drive documentation to put the right value in this. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d2/dad/_service_communication_8h_source.html#l00208">208</a> du fichier <a class="el" href="../../d2/dad/_service_communication_8h_source.html">ServiceCommunication.h</a>.</p>
+
+</div>
+</div>
+<a id="a86b6c774f2718558e434c2bc58715565" name="a86b6c774f2718558e434c2bc58715565"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86b6c774f2718558e434c2bc58715565">&#9670;&#160;</a></span>CHAR_COMMAND</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CHAR_COMMAND&#160;&#160;&#160;'C'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Defines the character needed to parse <a class="el" href="../../d6/d05/structst_commands.html">stCommands</a> during transmission or reception of data. Refer to P-S5_Communications for more details. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d2/dad/_service_communication_8h_source.html#l00150">150</a> du fichier <a class="el" href="../../d2/dad/_service_communication_8h_source.html">ServiceCommunication.h</a>.</p>
+
+</div>
+</div>
+<a id="a1a1dd2552832819ef662fee343b48c55" name="a1a1dd2552832819ef662fee343b48c55"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a1dd2552832819ef662fee343b48c55">&#9670;&#160;</a></span>CHAR_MODE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CHAR_MODE&#160;&#160;&#160;'M'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Defines the character needed to parse <a class="el" href="../../d1/d2b/structst_modes.html">stModes</a> during transmission or reception of data. Refer to P-S5_Communications for more details. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d2/dad/_service_communication_8h_source.html#l00132">132</a> du fichier <a class="el" href="../../d2/dad/_service_communication_8h_source.html">ServiceCommunication.h</a>.</p>
+
+</div>
+</div>
+<a id="ae5f5cc38a4f590cf0a17c7678dd22f84" name="ae5f5cc38a4f590cf0a17c7678dd22f84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5f5cc38a4f590cf0a17c7678dd22f84">&#9670;&#160;</a></span>CHAR_START</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CHAR_START&#160;&#160;&#160;'$'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Defines the character needed to parse a data tram during transmission or reception of data when CAN isn't the medium used for the latter. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d2/dad/_service_communication_8h_source.html#l00162">162</a> du fichier <a class="el" href="../../d2/dad/_service_communication_8h_source.html">ServiceCommunication.h</a>.</p>
+
+</div>
+</div>
+<a id="ad9d321d90762288d936775d6a9450426" name="ad9d321d90762288d936775d6a9450426"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9d321d90762288d936775d6a9450426">&#9670;&#160;</a></span>CHAR_STATE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CHAR_STATE&#160;&#160;&#160;'S'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Defines the character needed to parse <a class="el" href="../../d4/df4/structst_states.html">stStates</a> during transmission or reception of data. Refer to P-S5_Communications for more details. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d2/dad/_service_communication_8h_source.html#l00138">138</a> du fichier <a class="el" href="../../d2/dad/_service_communication_8h_source.html">ServiceCommunication.h</a>.</p>
+
+</div>
+</div>
+<a id="a2509a1955825a71b5f73682bfbc49ca6" name="a2509a1955825a71b5f73682bfbc49ca6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2509a1955825a71b5f73682bfbc49ca6">&#9670;&#160;</a></span>CHAR_VALUE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CHAR_VALUE&#160;&#160;&#160;'V'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Defines the character needed to parse <a class="el" href="../../d3/dca/structst_values.html">stValues</a> during transmission or reception of data. Refer to P-S5_Communications for more details. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d2/dad/_service_communication_8h_source.html#l00144">144</a> du fichier <a class="el" href="../../d2/dad/_service_communication_8h_source.html">ServiceCommunication.h</a>.</p>
+
+</div>
+</div>
+<a id="a7ded9f050868902fab114fba2fe7a0bd" name="a7ded9f050868902fab114fba2fe7a0bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ded9f050868902fab114fba2fe7a0bd">&#9670;&#160;</a></span>CHAR_WEIGHT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CHAR_WEIGHT&#160;&#160;&#160;'W'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Defines the character needed to parse Weight during transmission or reception of data. Refer to P-S5_Communications for more details. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d2/dad/_service_communication_8h_source.html#l00156">156</a> du fichier <a class="el" href="../../d2/dad/_service_communication_8h_source.html">ServiceCommunication.h</a>.</p>
+
+</div>
+</div>
+<a id="a6ddb96c13a6bb53d79c56e373866474f" name="a6ddb96c13a6bb53d79c56e373866474f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ddb96c13a6bb53d79c56e373866474f">&#9670;&#160;</a></span>CHECK_MASTER_CAN_RECEPTION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CHECK_MASTER_CAN_RECEPTION&#160;&#160;&#160;0xFF</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Statement which is true only if a CAN message addressed to your module is available. It is false if no messages have been received. MUST CORRESPOND TO <a class="el" href="../../d2/dad/_service_communication_8h.html#a8afc8fb8677a3d13b3bbaaca46f109f4">MASTER_CAN_RX_BUFFER</a>. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d2/dad/_service_communication_8h_source.html#l00275">275</a> du fichier <a class="el" href="../../d2/dad/_service_communication_8h_source.html">ServiceCommunication.h</a>.</p>
+
+</div>
+</div>
+<a id="a4029258177159315b46b6653dcf05a06" name="a4029258177159315b46b6653dcf05a06"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4029258177159315b46b6653dcf05a06">&#9670;&#160;</a></span>CHECK_MODULE_CAN_RECEPTION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CHECK_MODULE_CAN_RECEPTION&#160;&#160;&#160;<a class="el" href="../../d0/d24/pilote_u_d_p_8h.html#a333e2ad1513c643d08d5bbe40c5261fc">GetUDPSize</a>()</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Statement which is true only if a CAN message addressed to your module is available. It is false if no messages have been received. MUST CORRESPOND TO <a class="el" href="../../d2/dad/_service_communication_8h.html#aedbb61e1e0650e2c3b7705ae7546a97a">MODULE_CAN_RX_BUFFER</a>. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d2/dad/_service_communication_8h_source.html#l00268">268</a> du fichier <a class="el" href="../../d2/dad/_service_communication_8h_source.html">ServiceCommunication.h</a>.</p>
+
+</div>
+</div>
+<a id="ae558105445f8bf9d95cb6bafefbbd3a8" name="ae558105445f8bf9d95cb6bafefbbd3a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae558105445f8bf9d95cb6bafefbbd3a8">&#9670;&#160;</a></span>ERROR_RX_COMMAND_DOESNT_EXIST</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ERROR_RX_COMMAND_DOESNT_EXIST&#160;&#160;&#160;3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Indicates that there was an error when parsing a received <a class="el" href="../../d6/d05/structst_commands.html">stCommands</a> from a communicating module. The received <a class="el" href="../../d6/d05/structst_commands.html">stCommands</a> didn't match availables <a class="el" href="../../d6/d05/structst_commands.html">stCommands</a> and couldn't be put in ModuleData. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d2/dad/_service_communication_8h_source.html#l00040">40</a> du fichier <a class="el" href="../../d2/dad/_service_communication_8h_source.html">ServiceCommunication.h</a>.</p>
+
+</div>
+</div>
+<a id="a5f7b437135029d449beddc789e646bb0" name="a5f7b437135029d449beddc789e646bb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f7b437135029d449beddc789e646bb0">&#9670;&#160;</a></span>ERROR_RX_MODE_DOESNT_EXIST</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ERROR_RX_MODE_DOESNT_EXIST&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Indicates that there was an error when parsing a received <a class="el" href="../../d1/d2b/structst_modes.html">stModes</a> from a communicating module. The received <a class="el" href="../../d1/d2b/structst_modes.html">stModes</a> didn't match availables <a class="el" href="../../d1/d2b/structst_modes.html">stModes</a> and couldn't be put in ModuleData. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d2/dad/_service_communication_8h_source.html#l00028">28</a> du fichier <a class="el" href="../../d2/dad/_service_communication_8h_source.html">ServiceCommunication.h</a>.</p>
+
+</div>
+</div>
+<a id="ac64ec1978a6f8dee2535e32709e984b3" name="ac64ec1978a6f8dee2535e32709e984b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac64ec1978a6f8dee2535e32709e984b3">&#9670;&#160;</a></span>ERROR_RX_STATE_DOESNT_EXIST</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ERROR_RX_STATE_DOESNT_EXIST&#160;&#160;&#160;2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Indicates that there was an error when parsing a received <a class="el" href="../../d4/df4/structst_states.html">stStates</a> from a communicating module. The received <a class="el" href="../../d4/df4/structst_states.html">stStates</a> didn't match availables <a class="el" href="../../d4/df4/structst_states.html">stStates</a> and couldn't be put in ModuleData. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d2/dad/_service_communication_8h_source.html#l00034">34</a> du fichier <a class="el" href="../../d2/dad/_service_communication_8h_source.html">ServiceCommunication.h</a>.</p>
+
+</div>
+</div>
+<a id="a6e5b5d8d27c3b3e4c399de41cac09413" name="a6e5b5d8d27c3b3e4c399de41cac09413"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e5b5d8d27c3b3e4c399de41cac09413">&#9670;&#160;</a></span>ERROR_RX_VALUE_DOESNT_EXIST</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ERROR_RX_VALUE_DOESNT_EXIST&#160;&#160;&#160;4</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Indicates that there was an error when parsing a received <a class="el" href="../../d3/dca/structst_values.html">stValues</a> from a communicating module. The received <a class="el" href="../../d3/dca/structst_values.html">stValues</a> didn't match availables <a class="el" href="../../d3/dca/structst_values.html">stValues</a> and couldn't be put in <a class="el" href="../../d3/dca/structst_values.html">stValues</a>. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d2/dad/_service_communication_8h_source.html#l00046">46</a> du fichier <a class="el" href="../../d2/dad/_service_communication_8h_source.html">ServiceCommunication.h</a>.</p>
+
+</div>
+</div>
+<a id="a1a7963d3c65e2270966f8d0855723f05" name="a1a7963d3c65e2270966f8d0855723f05"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a7963d3c65e2270966f8d0855723f05">&#9670;&#160;</a></span>ERROR_SPECIFIC_TO_MODULE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ERROR_SPECIFIC_TO_MODULE&#160;&#160;&#160;6</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Indicates that the module using this library encountered an error due to factors outside of this library. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d2/dad/_service_communication_8h_source.html#l00056">56</a> du fichier <a class="el" href="../../d2/dad/_service_communication_8h_source.html">ServiceCommunication.h</a>.</p>
+
+</div>
+</div>
+<a id="a7a87e3edee90d8fddbd93d9c0c23d16d" name="a7a87e3edee90d8fddbd93d9c0c23d16d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a87e3edee90d8fddbd93d9c0c23d16d">&#9670;&#160;</a></span>ERROR_TIMEDOUT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ERROR_TIMEDOUT&#160;&#160;&#160;5</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The library timed out and could not receive an <a class="el" href="../../d1/d2b/structst_modes.html">stModes</a> from a CAN slot in the given time. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d2/dad/_service_communication_8h_source.html#l00051">51</a> du fichier <a class="el" href="../../d2/dad/_service_communication_8h_source.html">ServiceCommunication.h</a>.</p>
+
+</div>
+</div>
+<a id="adf9947507c8c7b4c8791492bbb73b024" name="adf9947507c8c7b4c8791492bbb73b024"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf9947507c8c7b4c8791492bbb73b024">&#9670;&#160;</a></span>ERROR_TX_COMMAND_DOESNT_EXIST</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ERROR_TX_COMMAND_DOESNT_EXIST&#160;&#160;&#160;7</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Indicates that there was an error when trying to parse <a class="el" href="../../df/d5f/structst_module_data.html">stModuleData</a> into the CAN transmission buffer <a class="el" href="../../d2/dad/_service_communication_8h.html#a4806d56d5345eaa5cb1003b550f56864">MODULE_CAN_TX</a>. The command <a class="el" href="../../d2/dad/_service_communication_8h.html#af0411b67a2dba87758fee4f77c888558">IN_QUEUE</a> <br  />
+ did not exist in the <code>switch</code> <code>case</code> found in TX_PutCommandQueueInBuffer() </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d2/dad/_service_communication_8h_source.html#l00063">63</a> du fichier <a class="el" href="../../d2/dad/_service_communication_8h_source.html">ServiceCommunication.h</a>.</p>
+
+</div>
+</div>
+<a id="ace81153c3e7c169bccfee7877312da18" name="ace81153c3e7c169bccfee7877312da18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace81153c3e7c169bccfee7877312da18">&#9670;&#160;</a></span>ERROR_TX_VALUE_DOESNT_EXIST</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ERROR_TX_VALUE_DOESNT_EXIST&#160;&#160;&#160;8</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Indicates that there was an error when trying to parse <a class="el" href="../../df/d5f/structst_module_data.html">stModuleData</a> into the CAN transmission buffer <a class="el" href="../../d2/dad/_service_communication_8h.html#a4806d56d5345eaa5cb1003b550f56864">MODULE_CAN_TX</a>. The value <a class="el" href="../../d2/dad/_service_communication_8h.html#af0411b67a2dba87758fee4f77c888558">IN_QUEUE</a> <br  />
+ did not exist in the <code>switch</code> <code>case</code> found in TX_PutValueQueueInBuffer() </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d2/dad/_service_communication_8h_source.html#l00069">69</a> du fichier <a class="el" href="../../d2/dad/_service_communication_8h_source.html">ServiceCommunication.h</a>.</p>
+
+</div>
+</div>
+<a id="af0411b67a2dba87758fee4f77c888558" name="af0411b67a2dba87758fee4f77c888558"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0411b67a2dba87758fee4f77c888558">&#9670;&#160;</a></span>IN_QUEUE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IN_QUEUE&#160;&#160;&#160;0xFD</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Indicates that the <a class="el" href="../../d6/d05/structst_commands.html">stCommands</a> is already in queue for a transmission. </p>
+<dl class="section warning"><dt>Avertissement</dt><dd>Do not put your <a class="el" href="../../d6/d05/structst_commands.html">stCommands</a> back to <a class="el" href="../../d2/dad/_service_communication_8h.html#aafc57d44738df70f43ac87ed969eed47">QUEUE</a> while it is equal to this. </dd></dl>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d2/dad/_service_communication_8h_source.html#l00105">105</a> du fichier <a class="el" href="../../d2/dad/_service_communication_8h_source.html">ServiceCommunication.h</a>.</p>
+
+</div>
+</div>
+<a id="a8afc8fb8677a3d13b3bbaaca46f109f4" name="a8afc8fb8677a3d13b3bbaaca46f109f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8afc8fb8677a3d13b3bbaaca46f109f4">&#9670;&#160;</a></span>MASTER_CAN_RX_BUFFER</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MASTER_CAN_RX_BUFFER&#160;&#160;&#160;piloteUDP.readBuffer</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specify how to access the unsigned char array of 8 bytes which contains received CAN data from the MASTER's address<br  />
+this unique buffer must contain whatever info was received from the master's address. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d2/dad/_service_communication_8h_source.html#l00229">229</a> du fichier <a class="el" href="../../d2/dad/_service_communication_8h_source.html">ServiceCommunication.h</a>.</p>
+
+</div>
+</div>
+<a id="aedbb61e1e0650e2c3b7705ae7546a97a" name="aedbb61e1e0650e2c3b7705ae7546a97a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aedbb61e1e0650e2c3b7705ae7546a97a">&#9670;&#160;</a></span>MODULE_CAN_RX_BUFFER</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MODULE_CAN_RX_BUFFER&#160;&#160;&#160;piloteUDP.readBuffer</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specify how to access the unsigned char array of 8 bytes which contains your module's received CAN data.<br  />
+this unique buffer must contain whatever info was received by your module's. address. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d2/dad/_service_communication_8h_source.html#l00222">222</a> du fichier <a class="el" href="../../d2/dad/_service_communication_8h_source.html">ServiceCommunication.h</a>.</p>
+
+</div>
+</div>
+<a id="a4806d56d5345eaa5cb1003b550f56864" name="a4806d56d5345eaa5cb1003b550f56864"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4806d56d5345eaa5cb1003b550f56864">&#9670;&#160;</a></span>MODULE_CAN_TX</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MODULE_CAN_TX&#160;&#160;&#160;piloteUDP.replyBuffer</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specify how to access the unsigned char array of 8 bytes which is used to send CAN data during the allocated time frame for your module.<br  />
+Example: </p>
+<div class="fragment"><div class="line"><span class="preprocessor">#define MODULE_CAN_TX CANToTransmit</span></div>
+</div><!-- fragment --> <dl class="section warning"><dt>Avertissement</dt><dd>DO NOT PUT SEMI-COLONS IN THIS DEFINE </dd></dl>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d2/dad/_service_communication_8h_source.html#l00240">240</a> du fichier <a class="el" href="../../d2/dad/_service_communication_8h_source.html">ServiceCommunication.h</a>.</p>
+
+</div>
+</div>
+<a id="ac8d66c734b139a7df743dec3f730c252" name="ac8d66c734b139a7df743dec3f730c252"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8d66c734b139a7df743dec3f730c252">&#9670;&#160;</a></span>MODULE_SEND_CAN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MODULE_SEND_CAN</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specify how to request a CAN transmission to the other TimeBase functions. This is either a flag or a function which tells other TimeBase functions that their <a class="el" href="../../d2/dad/_service_communication_8h.html#a4806d56d5345eaa5cb1003b550f56864">MODULE_CAN_TX</a> buffer is ready to be sent.<br  />
+This can also be a function which sends the CAN directly through pilots made for it. the disadvantage of using a dedicated function, is the lack of address changing possibilities. </p>
+<div class="fragment"><div class="line"><span class="comment">// Example of Flag style:</span></div>
+<div class="line"><span class="preprocessor">#define MODULE_SEND_CAN CAN.Requete = REQUETE_ACTIVE</span></div>
+<div class="line"><span class="comment">// Example of Function style:</span></div>
+<div class="line"><span class="preprocessor">#define MODULE_SEND_CAN pCAN1_transmetDesDonnes(0x111, MODULE_CAN_TX, 8)</span></div>
+</div><!-- fragment --> <dl class="section warning"><dt>Avertissement</dt><dd>DO NOT PUT SEMI-COLONS IN THIS DEFINE @ </dd></dl>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d2/dad/_service_communication_8h_source.html#l00257">257</a> du fichier <a class="el" href="../../d2/dad/_service_communication_8h_source.html">ServiceCommunication.h</a>.</p>
+
+</div>
+</div>
+<a id="a68de9030c39965958f08402f7d452ad9" name="a68de9030c39965958f08402f7d452ad9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68de9030c39965958f08402f7d452ad9">&#9670;&#160;</a></span>NO_DATA</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define NO_DATA&#160;&#160;&#160;0x00</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Tells you that no requests have been received for this specific command. If there was a request, the command would be equal to <a class="el" href="../../d2/dad/_service_communication_8h.html#a90ca767ddb3c52ec640e7ed8a09dd5d8">RECEIVED</a>. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d2/dad/_service_communication_8h_source.html#l00125">125</a> du fichier <a class="el" href="../../d2/dad/_service_communication_8h_source.html">ServiceCommunication.h</a>.</p>
+
+</div>
+</div>
+<a id="a258bb72419ef143530a2f8f55e7d57af" name="a258bb72419ef143530a2f8f55e7d57af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a258bb72419ef143530a2f8f55e7d57af">&#9670;&#160;</a></span>NO_ERROR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define NO_ERROR&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Indicates that the library is not currently in any errors. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d2/dad/_service_communication_8h_source.html#l00022">22</a> du fichier <a class="el" href="../../d2/dad/_service_communication_8h_source.html">ServiceCommunication.h</a>.</p>
+
+</div>
+</div>
+<a id="a7f6404e3e6de5aa345a9208af100d4f8" name="a7f6404e3e6de5aa345a9208af100d4f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f6404e3e6de5aa345a9208af100d4f8">&#9670;&#160;</a></span>PARSED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PARSED&#160;&#160;&#160;0xCC</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Tells the program that you parsed the <a class="el" href="../../d2/dad/_service_communication_8h.html#a90ca767ddb3c52ec640e7ed8a09dd5d8">RECEIVED</a> command in <a class="el" href="../../df/d5f/structst_module_data.html">stModuleData</a>. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d2/dad/_service_communication_8h_source.html#l00120">120</a> du fichier <a class="el" href="../../d2/dad/_service_communication_8h_source.html">ServiceCommunication.h</a>.</p>
+
+</div>
+</div>
+<a id="aafc57d44738df70f43ac87ed969eed47" name="aafc57d44738df70f43ac87ed969eed47"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aafc57d44738df70f43ac87ed969eed47">&#9670;&#160;</a></span>QUEUE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define QUEUE&#160;&#160;&#160;0xFE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specifies that you want a specific command inside <a class="el" href="../../d6/d05/structst_commands.html">stCommands</a> queued for the next CAN transmission. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d2/dad/_service_communication_8h_source.html#l00099">99</a> du fichier <a class="el" href="../../d2/dad/_service_communication_8h_source.html">ServiceCommunication.h</a>.</p>
+
+</div>
+</div>
+<a id="a90ca767ddb3c52ec640e7ed8a09dd5d8" name="a90ca767ddb3c52ec640e7ed8a09dd5d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90ca767ddb3c52ec640e7ed8a09dd5d8">&#9670;&#160;</a></span>RECEIVED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define RECEIVED&#160;&#160;&#160;0xBB</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Tells you that you received a request to execute this specific <a class="el" href="../../d6/d05/structst_commands.html">stCommands</a>. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d2/dad/_service_communication_8h_source.html#l00115">115</a> du fichier <a class="el" href="../../d2/dad/_service_communication_8h_source.html">ServiceCommunication.h</a>.</p>
+
+</div>
+</div>
+<a id="a2181baff0108e65db391889452ebf420" name="a2181baff0108e65db391889452ebf420"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2181baff0108e65db391889452ebf420">&#9670;&#160;</a></span>SCOMMS_PARSE_RX_BUFFER_ADR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SCOMMS_PARSE_RX_BUFFER_ADR&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The address from the timebase buffer (index) which will be used to put <a class="el" href="../../d2/dad/_service_communication_8h.html#a1de35ae7bf14532ceef3d4c2b4c08ffc">ServiceCommunication_RXParsingHandler()</a> in. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d2/dad/_service_communication_8h_source.html#l00192">192</a> du fichier <a class="el" href="../../d2/dad/_service_communication_8h_source.html">ServiceCommunication.h</a>.</p>
+
+</div>
+</div>
+<a id="a45b60fe63e05c21feb4d13af7fc9a299" name="a45b60fe63e05c21feb4d13af7fc9a299"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45b60fe63e05c21feb4d13af7fc9a299">&#9670;&#160;</a></span>SCOMMS_PARSE_TX_BUFFER_ADR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SCOMMS_PARSE_TX_BUFFER_ADR&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The address from the timebase buffer (index) which will be used to put <a class="el" href="../../d2/dad/_service_communication_8h.html#a44987354dee4c9ad0dfcf7073cc41d8d">ServiceCommunication_TXParsingHandler()</a> in. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d2/dad/_service_communication_8h_source.html#l00197">197</a> du fichier <a class="el" href="../../d2/dad/_service_communication_8h_source.html">ServiceCommunication.h</a>.</p>
+
+</div>
+</div>
+<a id="a081e5fd13e1fee392e6660d0c1c81a4d" name="a081e5fd13e1fee392e6660d0c1c81a4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a081e5fd13e1fee392e6660d0c1c81a4d">&#9670;&#160;</a></span>TIME_BASE_BUFFER</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TIME_BASE_BUFFER&#160;&#160;&#160;<a class="el" href="../../d1/d8b/xservice_base_de_temps_8h.html#a103583940036ccbb95b6b4c1f73b74d6">serviceBaseDeTemps_execute</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The time base's functions buffer size. Usually defined in main.h. Used to figure out the intervals at which the execute function is called to calculate slot's time frames for the CAN protocol. </p>
+<dl class="section warning"><dt>Avertissement</dt><dd>Don't put semi-colons after your define. </dd></dl>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d2/dad/_service_communication_8h_source.html#l00187">187</a> du fichier <a class="el" href="../../d2/dad/_service_communication_8h_source.html">ServiceCommunication.h</a>.</p>
+
+</div>
+</div>
+<a id="abb3bb528a93b70f6dde1db6c5c694bfe" name="abb3bb528a93b70f6dde1db6c5c694bfe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb3bb528a93b70f6dde1db6c5c694bfe">&#9670;&#160;</a></span>TIME_BASE_BUFFER_SIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TIME_BASE_BUFFER_SIZE&#160;&#160;&#160;<a class="el" href="../../de/df5/xmain_8h.html#a9470a0f17392d89a537141466f6f0e98">SERVICEBASEDETEMPS_NOMBRE_DE_PHASES</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The time base's functions buffer size. Usually defined in main.h. Used to figure out the intervals at which the execute function is called to calculate slot's time frames for the CAN protocol. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d2/dad/_service_communication_8h_source.html#l00180">180</a> du fichier <a class="el" href="../../d2/dad/_service_communication_8h_source.html">ServiceCommunication.h</a>.</p>
+
+</div>
+</div>
+<a id="acfc5bd5d7a0f57b6e6e0f63a28b18473" name="acfc5bd5d7a0f57b6e6e0f63a28b18473"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acfc5bd5d7a0f57b6e6e0f63a28b18473">&#9670;&#160;</a></span>TIME_BASE_FREQUENCY_HZ</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TIME_BASE_FREQUENCY_HZ&#160;&#160;&#160;<a class="el" href="../../de/df5/xmain_8h.html#a6276b0f7c474c476289248b4eecd63ee">SERVICEBASEDETEMPS_FREQUENCE_EN_HZ</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The time base frequency. Usually defined in main.h Used to automatically calculate CAN slots allocations. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d2/dad/_service_communication_8h_source.html#l00174">174</a> du fichier <a class="el" href="../../d2/dad/_service_communication_8h_source.html">ServiceCommunication.h</a>.</p>
+
+</div>
+</div>
+<a id="addf5ec070e9499d36b7f2009ce736076" name="addf5ec070e9499d36b7f2009ce736076"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#addf5ec070e9499d36b7f2009ce736076">&#9670;&#160;</a></span>UNUSED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UNUSED&#160;&#160;&#160;0xFF</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Means that the value or commands is not used by this specific module. This is important as the functions use this to figure out which data needs to be send when a CAN slot is <a class="el" href="../../d2/dad/_service_communication_8h.html#a38f81619bc0b028efc4d5222e6cae89f">AVAILABLE</a> for the module. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d2/dad/_service_communication_8h_source.html#l00093">93</a> du fichier <a class="el" href="../../d2/dad/_service_communication_8h_source.html">ServiceCommunication.h</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentation des fonctions</h2>
+<a id="aebff2982a206799f3d174baf9df497b2" name="aebff2982a206799f3d174baf9df497b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aebff2982a206799f3d174baf9df497b2">&#9670;&#160;</a></span>CB_QueueDataInBuffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CB_QueueDataInBuffer </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>Buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>sizeOfBuffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>DataToCheck</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>DataValueFromRefStruct</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Adds an unsigned char to the referenced buffer at whichever index is first available for it (0xFF). If it's all 0xFF, it will be added at the bottom of the buffer. </p>
+<dl class="section author"><dt>Auteur</dt><dd>Lyam / Shawn Couture </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>17/11/2022 </dd></dl>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Buffer</td><td>Pointer pointing the address of the buffer to queue. </td></tr>
+    <tr><td class="paramname">sizeOfBuffer</td><td>How big is the buffer referenced. </td></tr>
+    <tr><td class="paramname">DataToCheck</td><td>Pointer to the data that potentially needs queuing. (in ModuleData) </td></tr>
+    <tr><td class="paramname">DataValueFromRefStruct</td><td>Value associated to this commands or value (<a class="el" href="../../d6/d05/structst_commands.html">stCommands</a> or <a class="el" href="../../d3/dca/structst_values.html">stValues</a>) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a3d0c93c9577cbca6a1e880d1bbd9a1c8" name="a3d0c93c9577cbca6a1e880d1bbd9a1c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d0c93c9577cbca6a1e880d1bbd9a1c8">&#9670;&#160;</a></span>CB_UpdateBuffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CB_UpdateBuffer </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>Buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>sizeOfBuffer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function compressing data downwards in a buffer. It slides data downwards by 1 index if the one below the data is equal to 0xFF. </p>
+<dl class="section author"><dt>Auteur</dt><dd>Lyam / Shawn Couture </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>17/11/2022 </dd></dl>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Buffer</td><td>Pointer pointing the address of the buffer to update. </td></tr>
+    <tr><td class="paramname">sizeOfBuffer</td><td>How big is the buffer referenced. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a29057fe82a4a52ec4c24eb36d010508d" name="a29057fe82a4a52ec4c24eb36d010508d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29057fe82a4a52ec4c24eb36d010508d">&#9670;&#160;</a></span>ModuleData_SetAll_ReceivedCommands()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ModuleData_SetAll_ReceivedCommands </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>ValueAppliedToAll</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the received command structure (ModuleData.CommandsReceived) to the same input value. Useful to reset any received commands when a new mode has been received from the master. </p>
+<dl class="section author"><dt>Auteur</dt><dd>Lyam / Shawn Couture </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>15/11/2022 </dd></dl>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ValueAppliedToAll</td><td>Value which will be applied to all commands not equal to <a class="el" href="../../d2/dad/_service_communication_8h.html#addf5ec070e9499d36b7f2009ce736076">UNUSED</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a2e812962d5f7419f86ec02de11431fe5" name="a2e812962d5f7419f86ec02de11431fe5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e812962d5f7419f86ec02de11431fe5">&#9670;&#160;</a></span>ModuleData_SetAll_SentCommands()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ModuleData_SetAll_SentCommands </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>ValueAppliedToAll</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the queued command structure (ModuleData.CommandsToSend) to the same input value. Useful to reset any queued commands when a new mode has been received from the master. </p>
+<dl class="section author"><dt>Auteur</dt><dd>Lyam / Shawn Couture </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>15/11/2022 </dd></dl>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ValueAppliedToAll</td><td>Value which will be applied to all commands not equal to UNUSED </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="af91ebf03d5c59428b1019aa2619c9402" name="af91ebf03d5c59428b1019aa2619c9402"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af91ebf03d5c59428b1019aa2619c9402">&#9670;&#160;</a></span>ModuleData_SetAll_StatesReceived()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ModuleData_SetAll_StatesReceived </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>ValueAppliedToAll</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets all the states in a <a class="el" href="../../d4/df4/structst_states.html">stStates</a> structure to the same value. </p>
+<dl class="section author"><dt>Auteur</dt><dd>Lyam / Shawn Couture </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>15/11/2022 </dd></dl>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ValueAppliedToAll</td><td>Value which will be applied to all commands not equal to <a class="el" href="../../d2/dad/_service_communication_8h.html#addf5ec070e9499d36b7f2009ce736076">UNUSED</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aeffc3a637225c738529acf463e90160d" name="aeffc3a637225c738529acf463e90160d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeffc3a637225c738529acf463e90160d">&#9670;&#160;</a></span>ModuleData_SetAll_ValuesReceived()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ModuleData_SetAll_ValuesReceived </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>ValueAppliedToAll</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets all the received value structure to the same value. </p>
+<dl class="section author"><dt>Auteur</dt><dd>Lyam / Shawn Couture </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>15/11/2022 </dd></dl>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ValueAppliedToAll</td><td>Value which will be applied to all commands not equal to UNUSED </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a3ecde68acd8f3105b7da568e6db317ae" name="a3ecde68acd8f3105b7da568e6db317ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ecde68acd8f3105b7da568e6db317ae">&#9670;&#160;</a></span>ModuleData_SetAll_ValuesToSend()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ModuleData_SetAll_ValuesToSend </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>ValueAppliedToAll</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the values to send structure of the ModuleData to the same value. </p>
+<dl class="section author"><dt>Auteur</dt><dd>Lyam / Shawn Couture </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>15/11/2022 </dd></dl>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ValueAppliedToAll</td><td>Value which will be applied to all commands not equal to UNUSED </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a1692cabce4f427865fabe67b80079c45" name="a1692cabce4f427865fabe67b80079c45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1692cabce4f427865fabe67b80079c45">&#9670;&#160;</a></span>ModuleData_SetDiscColor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ModuleData_SetDiscColor </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>ColorToPutInValues</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>handles the disc color value sending for you to avoid sending 2 at the time and to automatically remove from QUEUE previous values. </p>
+<dl class="section author"><dt>Auteur</dt><dd>Lyam / Shawn Couture </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>18/11/2022 </dd></dl>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">UnitsToPutInValues</td><td>reference from <a class="el" href="../../d3/dca/structst_values.html">stValues</a> Can also be <a class="el" href="../../d2/dad/_service_communication_8h.html#addf5ec070e9499d36b7f2009ce736076">UNUSED</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a6c26b93e2f6b782c74f2f823547e5dab" name="a6c26b93e2f6b782c74f2f823547e5dab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c26b93e2f6b782c74f2f823547e5dab">&#9670;&#160;</a></span>ModuleData_SetDiscDetection()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ModuleData_SetDiscDetection </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>ColorToPutInValues</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>handles the disc detection value sending for you to avoid sending 2 at the time and to automatically remove from QUEUE previous values. </p>
+<dl class="section author"><dt>Auteur</dt><dd>Lyam / Shawn Couture </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>18/11/2022 </dd></dl>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">UnitsToPutInValues</td><td>reference from <a class="el" href="../../d3/dca/structst_values.html">stValues</a> Can also be <a class="el" href="../../d2/dad/_service_communication_8h.html#addf5ec070e9499d36b7f2009ce736076">UNUSED</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a05bc85fe1889a6e743299fdaeec706be" name="a05bc85fe1889a6e743299fdaeec706be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05bc85fe1889a6e743299fdaeec706be">&#9670;&#160;</a></span>ModuleData_SetUnits()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ModuleData_SetUnits </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>UnitsToPutInValues</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>handles the units value sending for you to avoid sending 2 at the time and to automatically remove from QUEUE previous values. </p>
+<dl class="section author"><dt>Auteur</dt><dd>Lyam / Shawn Couture </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>18/11/2022 </dd></dl>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">UnitsToPutInValues</td><td>reference from <a class="el" href="../../d3/dca/structst_values.html">stValues</a> Can also be <a class="el" href="../../d2/dad/_service_communication_8h.html#addf5ec070e9499d36b7f2009ce736076">UNUSED</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad4501640cf1f1053f5d57a8e75f79dda" name="ad4501640cf1f1053f5d57a8e75f79dda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4501640cf1f1053f5d57a8e75f79dda">&#9670;&#160;</a></span>Parse_Interrupts()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Parse_Interrupts </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function handling the count of interrupts and slot allocations for CAN communications made for this project. It is important to properly define clock speeds and oscillator speeds in <a class="el" href="../../d2/dad/_service_communication_8h.html" title="This service is a c library which goal is to parse data sent or data received for a school project....">ServiceCommunication.h</a>. </p>
+<dl class="section author"><dt>Auteur</dt><dd>Lyam / Shawn Couture </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>15/11/2022 </dd></dl>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">void</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a873572755106e16f635f8712fde8b8d1" name="a873572755106e16f635f8712fde8b8d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a873572755106e16f635f8712fde8b8d1">&#9670;&#160;</a></span>ServiceCommunication_initialise()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ServiceCommunication_initialise </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function called which initialises all the structures necessary. it is important to call this function before main execution of the program starts as it is necessary to initialise all the data structure used by this service. </p>
+<dl class="section author"><dt>Auteur</dt><dd>Lyam / Shawn Couture </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>14/11/2022 </dd></dl>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">void</td><td>Initialisation functions take no parameters </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a1de35ae7bf14532ceef3d4c2b4c08ffc" name="a1de35ae7bf14532ceef3d4c2b4c08ffc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1de35ae7bf14532ceef3d4c2b4c08ffc">&#9670;&#160;</a></span>ServiceCommunication_RXParsingHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ServiceCommunication_RXParsingHandler </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function periodically called via the time base's interruptions. It is important to allocate a buffer address in your time base for this function. Do this via your main.h file, and <a class="el" href="../../d2/dad/_service_communication_8h.html" title="This service is a c library which goal is to parse data sent or data received for a school project....">ServiceCommunication.h</a>. You will need to set SCOMMS_PARSE_RX_BUFFER_ADR to the appropriated number in your buffer. </p>
+<dl class="section author"><dt>Auteur</dt><dd>Lyam / Shawn Couture </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>14/11/2022 </dd></dl>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">void</td><td>Time base functions take no parameters </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a44987354dee4c9ad0dfcf7073cc41d8d" name="a44987354dee4c9ad0dfcf7073cc41d8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44987354dee4c9ad0dfcf7073cc41d8d">&#9670;&#160;</a></span>ServiceCommunication_TXParsingHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ServiceCommunication_TXParsingHandler </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function periodically called via the time base's interruptions. It is important to allocate a buffer address in your time base for this function. Do this via your main.h file, and <a class="el" href="../../d2/dad/_service_communication_8h.html" title="This service is a c library which goal is to parse data sent or data received for a school project....">ServiceCommunication.h</a>. You will need to set SCOMMS_PARSE_TX_BUFFER_ADR to the appropriated number in your buffer. </p>
+<dl class="section author"><dt>Auteur</dt><dd>Lyam / Shawn Couture </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>15/11/2022 </dd></dl>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">void</td><td>Time base functions take no parameters </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Documentation des variables</h2>
+<a id="a27144c1f0d64aa95ca244e38c033ac25" name="a27144c1f0d64aa95ca244e38c033ac25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27144c1f0d64aa95ca244e38c033ac25">&#9670;&#160;</a></span>bufferUDPtransmet</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char bufferUDPtransmet[8]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d2/dad/_service_communication_8h_source.html#l00213">213</a> du fichier <a class="el" href="../../d2/dad/_service_communication_8h_source.html">ServiceCommunication.h</a>.</p>
+
+</div>
+</div>
+<a id="a115c2f56dcaf6da3ef0ce4e6b13bc869" name="a115c2f56dcaf6da3ef0ce4e6b13bc869"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a115c2f56dcaf6da3ef0ce4e6b13bc869">&#9670;&#160;</a></span>TemporaryFunctionBuffer</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char TemporaryFunctionBuffer[7]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d2/dad/_service_communication_8h_source.html#l00168">168</a> du fichier <a class="el" href="../../d2/dad/_service_communication_8h_source.html">ServiceCommunication.h</a>.</p>
+
+</div>
+</div>
+<a id="a4b86a1675d8828177770802176fb50d6" name="a4b86a1675d8828177770802176fb50d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b86a1675d8828177770802176fb50d6">&#9670;&#160;</a></span>temporaryMasterBuffer</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char temporaryMasterBuffer[8]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d2/dad/_service_communication_8h_source.html#l00215">215</a> du fichier <a class="el" href="../../d2/dad/_service_communication_8h_source.html">ServiceCommunication.h</a>.</p>
+
+</div>
+</div>
+<a id="a5381ed509bf973ce17e6e66c09f60aa7" name="a5381ed509bf973ce17e6e66c09f60aa7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5381ed509bf973ce17e6e66c09f60aa7">&#9670;&#160;</a></span>temporaryModuleBuffer</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char temporaryModuleBuffer[8]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d2/dad/_service_communication_8h_source.html#l00214">214</a> du fichier <a class="el" href="../../d2/dad/_service_communication_8h_source.html">ServiceCommunication.h</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="../../dir_1960eb5326e5d9e33055aa33e524e3d7.html">Projet-5e-Session</a></li><li class="navelem"><a class="el" href="../../dir_c66793c105aecc1a790734daf2676185.html">Vehicule</a></li><li class="navelem"><a class="el" href="../../dir_6a9b13c080b4ac7137c929796212df25.html">Programmes</a></li><li class="navelem"><a class="el" href="../../dir_67091ed8f46ec7ef63a73aafeff1588b.html">ESPvehicule</a></li><li class="navelem"><a class="el" href="../../dir_8fe6a367d8338cff6903dba32c9d2179.html">include</a></li><li class="navelem"><a class="el" href="../../d2/dad/_service_communication_8h.html">ServiceCommunication.h</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5 </li>
+  </ul>
+</div>
+</body>
+</html>

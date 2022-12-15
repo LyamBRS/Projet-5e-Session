@@ -1,0 +1,384 @@
+\hypertarget{main_8c}{}\doxysection{Référence du fichier U\+:/\+Sessions/\+Session 5/\+Project/\+Projet\+\_\+\+Fin\+\_\+\+Session/\+Projet-\/5e-\/\+Session/\+Centre-\/\+De-\/\+Tri/\+Centre\+De\+Tri\+S5/\+Src/main.c}
+\label{main_8c}\index{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Tri/CentreDeTriS5/Src/main.c@{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Tri/CentreDeTriS5/Src/main.c}}
+
+
+\+: Main program body  
+
+
+{\ttfamily \#include \char`\"{}main.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}pilote\+Timer6\+Up.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}pilote\+CAN1.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}pilote\+USART2.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}pilote\+IOB1.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}pilote\+IOT1.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}pilote\+IOT2.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}pilote\+IOT3.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}pilote\+IOT4.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}service\+Base\+De\+Temps.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}interface\+B1.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}interface\+T1.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}interface\+T2.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}interface\+T3.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}interface\+T4.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}processus\+Usine.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}interface\+Usine.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}interface\+Ascenseur.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}pilote\+Lcd.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}interface\+Lcd.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}interface\+CAN1.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Service\+Communication.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}interface\+Colonne.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}pilote\+Colonne.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}interface\+Step\+Moteur.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}pilote\+Step\+Moteur.\+h\char`\"{}}\newline
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{main_8c_a34c109ff6a0293c4706defe141ef7e0c}{JAUNE}}~STEP0\+\_\+\+Pin
+\item 
+\#define \mbox{\hyperlink{main_8c_a4371941fa5aa27c04b3e2b973c39f4b0}{BLANC}}~STEP1\+\_\+\+Pin
+\item 
+\#define \mbox{\hyperlink{main_8c_ac5b6e19bf06822021f35602c59658de3}{ORANGE}}~STEP2\+\_\+\+Pin
+\item 
+\#define \mbox{\hyperlink{main_8c_a358a59dd21062085dd34d5c228c5f136}{ROUGE}}~STEP3\+\_\+\+Pin
+\end{DoxyCompactItemize}
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{main_8c_a70af21c671abfcc773614a9a4f63d920}{System\+Clock\+\_\+\+Config}} (void)
+\begin{DoxyCompactList}\small\item\em System Clock Configuration. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{main_8c_aaa4f016f44a6c9fd209142adb7b55bc7}{main\+\_\+initialise\+Avant\+Le\+HAL}} (void)
+\item 
+void \mbox{\hyperlink{main_8c_ac6a282109f8b2b84f250b621aabc5275}{main\+\_\+initialise\+Apres\+Le\+HAL}} (void)
+\item 
+void \mbox{\hyperlink{main_8c_aa456ccd2790cf7ecccc9be3503675f02}{ne\+Fait\+Rien}} (void)
+\item 
+int \mbox{\hyperlink{main_8c_a840291bc02cba5474a4cb46a9b9566fe}{main}} (void)
+\begin{DoxyCompactList}\small\item\em The application entry point. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{main_8c_ac87b9aadfc6c688e2e316a1cbc7319fc}{update\+Message\+Ecran}} (char const string\mbox{[}$\,$\mbox{]})
+\item 
+void \mbox{\hyperlink{main_8c_a34896f9a04dec910a534789d7dd429db}{update\+Etat\+Ecran}} (char const string\mbox{[}$\,$\mbox{]})
+\item 
+void \mbox{\hyperlink{main_8c_a6aac82b7697c1151aecc29bdb1dddd6e}{update\+Mode\+Ecran}} (char const string\mbox{[}$\,$\mbox{]})
+\item 
+void \mbox{\hyperlink{main_8c_a1730ffe1e560465665eb47d9264826f9}{Error\+\_\+\+Handler}} (void)
+\begin{DoxyCompactList}\small\item\em This function is executed in case of error occurrence. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+CAN\+\_\+\+Handle\+Type\+Def \mbox{\hyperlink{main_8c_a1618d731d18d69e906e8a357b7cd3c8d}{hcan1}}
+\item 
+I2\+C\+\_\+\+Handle\+Type\+Def \mbox{\hyperlink{main_8c_af7b2c26e44dadaaa798a5c3d82914ba7}{hi2c1}}
+\item 
+TIM\+\_\+\+Handle\+Type\+Def \mbox{\hyperlink{main_8c_a1564492831a79fa18466467c3420c3c3}{htim6}}
+\item 
+UART\+\_\+\+Handle\+Type\+Def \mbox{\hyperlink{main_8c_aa9479c261d65eecedd3d9582f7f0f89c}{huart2}}
+\item 
+bool \mbox{\hyperlink{main_8c_a67f7d73ce8db7f4ed608df689f2ad68f}{b\+Flag\+Update\+Message\+Ecran}}
+\item 
+bool \mbox{\hyperlink{main_8c_a0569f9299c80f8661db3ee553c3ff22b}{b\+Flag\+Update\+Etat\+Ecran}}
+\item 
+bool \mbox{\hyperlink{main_8c_aa63d9e0e003a6fe415465a5a27d35618}{b\+Flag\+Update\+Mode\+Ecran}}
+\item 
+bool \mbox{\hyperlink{main_8c_ab16cebb29542dcb4d667729abfb35571}{flag\+Texte\+Fini}} = 0
+\item 
+char \mbox{\hyperlink{main_8c_a6d4ced879d082f57c0722d753da9488f}{message\+Ecran}} \mbox{[}40\mbox{]}
+\item 
+char \mbox{\hyperlink{main_8c_a817ea45c78ebb05fbaea719d6f9a4748}{etat\+Ecran}} \mbox{[}20\mbox{]}
+\item 
+char \mbox{\hyperlink{main_8c_a7c9707c63eca2a9881e6b5ff95a46f42}{mode\+Ecran}} \mbox{[}20\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+\+: Main program body 
+
+\begin{DoxyAttention}{Attention}
+
+\end{DoxyAttention}
+\doxysubsubsection*{\begin{center}\copyright{} Copyright (c) 2019 STMicroelectronics. All rights reserved.\end{center} }
+
+This software component is licensed by ST under BSD 3-\/Clause license, the \char`\"{}\+License\char`\"{}; You may not use this file except in compliance with the License. You may obtain a copy of the License at\+: opensource.\+org/licenses/\+BSD-\/3-\/\+Clause 
+
+Définition dans le fichier \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+
+
+\doxysubsection{Documentation des macros}
+\mbox{\Hypertarget{main_8c_a4371941fa5aa27c04b3e2b973c39f4b0}\label{main_8c_a4371941fa5aa27c04b3e2b973c39f4b0}} 
+\index{main.c@{main.c}!BLANC@{BLANC}}
+\index{BLANC@{BLANC}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{BLANC}{BLANC}}
+{\footnotesize\ttfamily \#define BLANC~STEP1\+\_\+\+Pin}
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8c_source_l00073}{73}} du fichier \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\mbox{\Hypertarget{main_8c_a34c109ff6a0293c4706defe141ef7e0c}\label{main_8c_a34c109ff6a0293c4706defe141ef7e0c}} 
+\index{main.c@{main.c}!JAUNE@{JAUNE}}
+\index{JAUNE@{JAUNE}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{JAUNE}{JAUNE}}
+{\footnotesize\ttfamily \#define JAUNE~STEP0\+\_\+\+Pin}
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8c_source_l00072}{72}} du fichier \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\mbox{\Hypertarget{main_8c_ac5b6e19bf06822021f35602c59658de3}\label{main_8c_ac5b6e19bf06822021f35602c59658de3}} 
+\index{main.c@{main.c}!ORANGE@{ORANGE}}
+\index{ORANGE@{ORANGE}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{ORANGE}{ORANGE}}
+{\footnotesize\ttfamily \#define ORANGE~STEP2\+\_\+\+Pin}
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8c_source_l00074}{74}} du fichier \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\mbox{\Hypertarget{main_8c_a358a59dd21062085dd34d5c228c5f136}\label{main_8c_a358a59dd21062085dd34d5c228c5f136}} 
+\index{main.c@{main.c}!ROUGE@{ROUGE}}
+\index{ROUGE@{ROUGE}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{ROUGE}{ROUGE}}
+{\footnotesize\ttfamily \#define ROUGE~STEP3\+\_\+\+Pin}
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8c_source_l00075}{75}} du fichier \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+
+
+\doxysubsection{Documentation des fonctions}
+\mbox{\Hypertarget{main_8c_a1730ffe1e560465665eb47d9264826f9}\label{main_8c_a1730ffe1e560465665eb47d9264826f9}} 
+\index{main.c@{main.c}!Error\_Handler@{Error\_Handler}}
+\index{Error\_Handler@{Error\_Handler}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{Error\_Handler()}{Error\_Handler()}}
+{\footnotesize\ttfamily void Error\+\_\+\+Handler (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+This function is executed in case of error occurrence. 
+
+
+\begin{DoxyRetVals}{Valeurs retournées}
+{\em None} & \\
+\hline
+\end{DoxyRetVals}
+
+
+Définition à la ligne \mbox{\hyperlink{main_8c_source_l00862}{862}} du fichier \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\mbox{\Hypertarget{main_8c_a840291bc02cba5474a4cb46a9b9566fe}\label{main_8c_a840291bc02cba5474a4cb46a9b9566fe}} 
+\index{main.c@{main.c}!main@{main}}
+\index{main@{main}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+The application entry point. 
+
+
+\begin{DoxyRetVals}{Valeurs retournées}
+{\em int} & \\
+\hline
+\end{DoxyRetVals}
+
+
+Définition à la ligne \mbox{\hyperlink{main_8c_source_l00192}{192}} du fichier \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\mbox{\Hypertarget{main_8c_ac6a282109f8b2b84f250b621aabc5275}\label{main_8c_ac6a282109f8b2b84f250b621aabc5275}} 
+\index{main.c@{main.c}!main\_initialiseApresLeHAL@{main\_initialiseApresLeHAL}}
+\index{main\_initialiseApresLeHAL@{main\_initialiseApresLeHAL}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{main\_initialiseApresLeHAL()}{main\_initialiseApresLeHAL()}}
+{\footnotesize\ttfamily void main\+\_\+initialise\+Apres\+Le\+HAL (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8c_source_l00163}{163}} du fichier \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\mbox{\Hypertarget{main_8c_aaa4f016f44a6c9fd209142adb7b55bc7}\label{main_8c_aaa4f016f44a6c9fd209142adb7b55bc7}} 
+\index{main.c@{main.c}!main\_initialiseAvantLeHAL@{main\_initialiseAvantLeHAL}}
+\index{main\_initialiseAvantLeHAL@{main\_initialiseAvantLeHAL}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{main\_initialiseAvantLeHAL()}{main\_initialiseAvantLeHAL()}}
+{\footnotesize\ttfamily void main\+\_\+initialise\+Avant\+Le\+HAL (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8c_source_l00119}{119}} du fichier \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\mbox{\Hypertarget{main_8c_aa456ccd2790cf7ecccc9be3503675f02}\label{main_8c_aa456ccd2790cf7ecccc9be3503675f02}} 
+\index{main.c@{main.c}!neFaitRien@{neFaitRien}}
+\index{neFaitRien@{neFaitRien}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{neFaitRien()}{neFaitRien()}}
+{\footnotesize\ttfamily void ne\+Fait\+Rien (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8c_source_l00174}{174}} du fichier \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\mbox{\Hypertarget{main_8c_a70af21c671abfcc773614a9a4f63d920}\label{main_8c_a70af21c671abfcc773614a9a4f63d920}} 
+\index{main.c@{main.c}!SystemClock\_Config@{SystemClock\_Config}}
+\index{SystemClock\_Config@{SystemClock\_Config}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{SystemClock\_Config()}{SystemClock\_Config()}}
+{\footnotesize\ttfamily void System\+Clock\+\_\+\+Config (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+System Clock Configuration. 
+
+
+\begin{DoxyRetVals}{Valeurs retournées}
+{\em None} & \\
+\hline
+\end{DoxyRetVals}
+Configure the main internal regulator output voltage
+
+Initializes the CPU, AHB and APB busses clocks
+
+Initializes the CPU, AHB and APB busses clocks
+
+Définition à la ligne \mbox{\hyperlink{main_8c_source_l00474}{474}} du fichier \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\mbox{\Hypertarget{main_8c_a34896f9a04dec910a534789d7dd429db}\label{main_8c_a34896f9a04dec910a534789d7dd429db}} 
+\index{main.c@{main.c}!updateEtatEcran@{updateEtatEcran}}
+\index{updateEtatEcran@{updateEtatEcran}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{updateEtatEcran()}{updateEtatEcran()}}
+{\footnotesize\ttfamily void update\+Etat\+Ecran (\begin{DoxyParamCaption}\item[{char const}]{string\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8c_source_l00834}{834}} du fichier \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\mbox{\Hypertarget{main_8c_ac87b9aadfc6c688e2e316a1cbc7319fc}\label{main_8c_ac87b9aadfc6c688e2e316a1cbc7319fc}} 
+\index{main.c@{main.c}!updateMessageEcran@{updateMessageEcran}}
+\index{updateMessageEcran@{updateMessageEcran}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{updateMessageEcran()}{updateMessageEcran()}}
+{\footnotesize\ttfamily void update\+Message\+Ecran (\begin{DoxyParamCaption}\item[{char const}]{string\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8c_source_l00823}{823}} du fichier \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\mbox{\Hypertarget{main_8c_a6aac82b7697c1151aecc29bdb1dddd6e}\label{main_8c_a6aac82b7697c1151aecc29bdb1dddd6e}} 
+\index{main.c@{main.c}!updateModeEcran@{updateModeEcran}}
+\index{updateModeEcran@{updateModeEcran}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{updateModeEcran()}{updateModeEcran()}}
+{\footnotesize\ttfamily void update\+Mode\+Ecran (\begin{DoxyParamCaption}\item[{char const}]{string\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8c_source_l00845}{845}} du fichier \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+
+
+\doxysubsection{Documentation des variables}
+\mbox{\Hypertarget{main_8c_a0569f9299c80f8661db3ee553c3ff22b}\label{main_8c_a0569f9299c80f8661db3ee553c3ff22b}} 
+\index{main.c@{main.c}!bFlagUpdateEtatEcran@{bFlagUpdateEtatEcran}}
+\index{bFlagUpdateEtatEcran@{bFlagUpdateEtatEcran}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{bFlagUpdateEtatEcran}{bFlagUpdateEtatEcran}}
+{\footnotesize\ttfamily bool b\+Flag\+Update\+Etat\+Ecran}
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8c_source_l00180}{180}} du fichier \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\mbox{\Hypertarget{main_8c_a67f7d73ce8db7f4ed608df689f2ad68f}\label{main_8c_a67f7d73ce8db7f4ed608df689f2ad68f}} 
+\index{main.c@{main.c}!bFlagUpdateMessageEcran@{bFlagUpdateMessageEcran}}
+\index{bFlagUpdateMessageEcran@{bFlagUpdateMessageEcran}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{bFlagUpdateMessageEcran}{bFlagUpdateMessageEcran}}
+{\footnotesize\ttfamily bool b\+Flag\+Update\+Message\+Ecran}
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8c_source_l00179}{179}} du fichier \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\mbox{\Hypertarget{main_8c_aa63d9e0e003a6fe415465a5a27d35618}\label{main_8c_aa63d9e0e003a6fe415465a5a27d35618}} 
+\index{main.c@{main.c}!bFlagUpdateModeEcran@{bFlagUpdateModeEcran}}
+\index{bFlagUpdateModeEcran@{bFlagUpdateModeEcran}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{bFlagUpdateModeEcran}{bFlagUpdateModeEcran}}
+{\footnotesize\ttfamily bool b\+Flag\+Update\+Mode\+Ecran}
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8c_source_l00181}{181}} du fichier \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\mbox{\Hypertarget{main_8c_a817ea45c78ebb05fbaea719d6f9a4748}\label{main_8c_a817ea45c78ebb05fbaea719d6f9a4748}} 
+\index{main.c@{main.c}!etatEcran@{etatEcran}}
+\index{etatEcran@{etatEcran}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{etatEcran}{etatEcran}}
+{\footnotesize\ttfamily char etat\+Ecran\mbox{[}20\mbox{]}}
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8c_source_l00184}{184}} du fichier \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\mbox{\Hypertarget{main_8c_ab16cebb29542dcb4d667729abfb35571}\label{main_8c_ab16cebb29542dcb4d667729abfb35571}} 
+\index{main.c@{main.c}!flagTexteFini@{flagTexteFini}}
+\index{flagTexteFini@{flagTexteFini}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{flagTexteFini}{flagTexteFini}}
+{\footnotesize\ttfamily bool flag\+Texte\+Fini = 0}
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8c_source_l00182}{182}} du fichier \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\mbox{\Hypertarget{main_8c_a1618d731d18d69e906e8a357b7cd3c8d}\label{main_8c_a1618d731d18d69e906e8a357b7cd3c8d}} 
+\index{main.c@{main.c}!hcan1@{hcan1}}
+\index{hcan1@{hcan1}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{hcan1}{hcan1}}
+{\footnotesize\ttfamily CAN\+\_\+\+Handle\+Type\+Def hcan1}
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8c_source_l00090}{90}} du fichier \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\mbox{\Hypertarget{main_8c_af7b2c26e44dadaaa798a5c3d82914ba7}\label{main_8c_af7b2c26e44dadaaa798a5c3d82914ba7}} 
+\index{main.c@{main.c}!hi2c1@{hi2c1}}
+\index{hi2c1@{hi2c1}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{hi2c1}{hi2c1}}
+{\footnotesize\ttfamily I2\+C\+\_\+\+Handle\+Type\+Def hi2c1}
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8c_source_l00092}{92}} du fichier \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\mbox{\Hypertarget{main_8c_a1564492831a79fa18466467c3420c3c3}\label{main_8c_a1564492831a79fa18466467c3420c3c3}} 
+\index{main.c@{main.c}!htim6@{htim6}}
+\index{htim6@{htim6}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{htim6}{htim6}}
+{\footnotesize\ttfamily TIM\+\_\+\+Handle\+Type\+Def htim6}
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8c_source_l00094}{94}} du fichier \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\mbox{\Hypertarget{main_8c_aa9479c261d65eecedd3d9582f7f0f89c}\label{main_8c_aa9479c261d65eecedd3d9582f7f0f89c}} 
+\index{main.c@{main.c}!huart2@{huart2}}
+\index{huart2@{huart2}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{huart2}{huart2}}
+{\footnotesize\ttfamily UART\+\_\+\+Handle\+Type\+Def huart2}
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8c_source_l00096}{96}} du fichier \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\mbox{\Hypertarget{main_8c_a6d4ced879d082f57c0722d753da9488f}\label{main_8c_a6d4ced879d082f57c0722d753da9488f}} 
+\index{main.c@{main.c}!messageEcran@{messageEcran}}
+\index{messageEcran@{messageEcran}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{messageEcran}{messageEcran}}
+{\footnotesize\ttfamily char message\+Ecran\mbox{[}40\mbox{]}}
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8c_source_l00183}{183}} du fichier \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\mbox{\Hypertarget{main_8c_a7c9707c63eca2a9881e6b5ff95a46f42}\label{main_8c_a7c9707c63eca2a9881e6b5ff95a46f42}} 
+\index{main.c@{main.c}!modeEcran@{modeEcran}}
+\index{modeEcran@{modeEcran}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{modeEcran}{modeEcran}}
+{\footnotesize\ttfamily char mode\+Ecran\mbox{[}20\mbox{]}}
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8c_source_l00185}{185}} du fichier \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+

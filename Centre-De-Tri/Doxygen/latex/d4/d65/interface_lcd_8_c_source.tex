@@ -1,0 +1,1238 @@
+\hypertarget{interface_lcd_8_c_source}{}\doxysection{interface\+Lcd.\+C}
+\label{interface_lcd_8_c_source}\index{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Tri/CentreDeTriS5/Src/interfaceLcd.C@{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Tri/CentreDeTriS5/Src/interfaceLcd.C}}
+\mbox{\hyperlink{interface_lcd_8_c}{Aller à la documentation de ce fichier.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00001}00001 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00012}00012 \textcolor{comment}{/*************************************************************************************************}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00013}00013 \textcolor{comment}{**************************************************************************************************}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00014}00014 \textcolor{comment}{**************************************************************************************************}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00015}00015 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00016}00016 \textcolor{comment}{    \#\#\#\#\#\#\#\#\#\#\#\#    \#\#\#\#\#\#\#\#\#\#\#\#     \#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00017}00017 \textcolor{comment}{    \#\#\#\#\#\#\#\#\#\#\#\#    \#\#\#\#\#\#\#\#\#\#\#\#     \#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00018}00018 \textcolor{comment}{              \#\#              \#\#   \#\# }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00019}00019 \textcolor{comment}{    \#\#\#\#    \#\#      \#\#\#\#    \#\#     \#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00020}00020 \textcolor{comment}{    \#\#\#\#    \#\#      \#\#\#\#    \#\#     \#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00021}00021 \textcolor{comment}{              \#\#              \#\#             \#\#}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00022}00022 \textcolor{comment}{    \#\#\#\#\#\#\#\#\#\#\#\#    \#\#\#\#      \#\#   \#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00023}00023 \textcolor{comment}{    \#\#\#\#\#\#\#\#\#\#\#\#    \#\#\#\#      \#\#   \#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00024}00024 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00025}00025 \textcolor{comment}{***************************************************************************************************}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00026}00026 \textcolor{comment}{** New:      BRS\_Lcd.c -\/-\/-\/ By Shawn Couture   *****************************************************}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00027}00027 \textcolor{comment}{** Original: GLcd.c    -\/-\/-\/ By Alain Champagne *****************************************************}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00028}00028 \textcolor{comment}{** Date: 24/03/2022               *****************************************************************}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00029}00029 \textcolor{comment}{***************************************************************************************************/}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00030}00030 \textcolor{comment}{//================================================================================================//}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00031}00031 \textcolor{comment}{//  Include}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00032}00032 \textcolor{comment}{//================================================================================================//}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00033}00033 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{interface_lcd_8h}{interfaceLcd.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00034}00034 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00035}00035 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00036}00036 \textcolor{comment}{//{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00037}00037 \textcolor{keywordtype}{void} interfaceLcd\_Draw\_Pixel(\textcolor{keywordtype}{double} x, \textcolor{keywordtype}{double} y, \textcolor{keywordtype}{bool} state)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00038}00038 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00039}00039 \textcolor{comment}{//      Creator:    |Shawn Couture}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00040}00040 \textcolor{comment}{//  Date made:  | 24/03/2022}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00041}00041 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00042}00042 \textcolor{comment}{//  Function:   | Draws a pixel on or off using a single function instead of 2.}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00043}00043 \textcolor{comment}{//          | coordinates range from x(0-\/127) and y(0-\/127). Then input on/off (1/0)}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00044}00044 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00045}00045 \textcolor{comment}{//  Entry:      | coordinates (x,y) wanted state (state)}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00046}00046 \textcolor{comment}{//{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00047}00047 \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00048}00048   \textcolor{comment}{//checks}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00049}00049   \textcolor{keywordflow}{if}((x>=0) \&\& (y>=0) \&\& (y<64) \&\& (x<128))}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00050}00050   \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00051}00051     \textcolor{keywordflow}{if}(state > 0)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00052}00052       \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00053}00053         vPutPixelGLcd((\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char})x, (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char})y);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00054}00054       \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00055}00055     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00056}00056       \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00057}00057         vClearPixelGLcd((\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char})x, (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char})y);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00058}00058       \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00059}00059   \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00060}00060 \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00061}00061 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00062}00062 \textcolor{comment}{//{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00063}00063 \textcolor{keywordtype}{void} interfaceLcd\_Draw\_Line(\textcolor{keywordtype}{double} x1, \textcolor{keywordtype}{double} y1, \textcolor{keywordtype}{double} x2, \textcolor{keywordtype}{double} y2, \textcolor{keywordtype}{bool} state)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00064}00064 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00065}00065 \textcolor{comment}{//      Creator:    |Shawn Couture}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00066}00066 \textcolor{comment}{//  Date made:  | 24/03/2022}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00067}00067 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00068}00068 \textcolor{comment}{//  Function:   | Draws a line inbetween 2 coordinates.}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00069}00069 \textcolor{comment}{//          | coordinates range from x(0-\/127) and y(0-\/127). Then input on/off (1/0) }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00070}00070 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00071}00071 \textcolor{comment}{//  Entry:      | start coordinates (x,y) end coordinates (x,y) wanted state (state)}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00072}00072 \textcolor{comment}{//{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00073}00073 \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00074}00074  \textcolor{comment}{//\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#//\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\_Local Variables\_ }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00075}00075    \textcolor{keywordtype}{double} lenght      = 0;                   \textcolor{comment}{// distance inbetween the 2 coordinates}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00076}00076    \textcolor{keywordtype}{double} ratioX      = 0.0;                 \textcolor{comment}{// difference between x1 and x2 divided by lenght.}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00077}00077    \textcolor{keywordtype}{double} ratioY      = 0.0;                 \textcolor{comment}{// difference between y1 and y2 divided by lenght.}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00078}00078  \textcolor{comment}{//\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#//\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\_Local Variables\_    }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00079}00079   }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00081}00081 \textcolor{comment}{// Distance in between the 2 pixels.   }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00082}00082    lenght = (sqrt(((x1-\/x2)*(x1-\/x2))+((y1-\/y2)*(y1-\/y2))));}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00083}00083 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00084}00084 \textcolor{comment}{// Difference in between the 2 X coordinates.   }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00085}00085    ratioX = (x2-\/x1)/lenght;\textcolor{comment}{// -\/0.71}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00086}00086    ratioY = (y2-\/y1)/lenght;\textcolor{comment}{// -\/0.71}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00087}00087  }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00089}00089 \textcolor{comment}{// loop form 0 to the distance inbetween the 2 points}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00090}00090    \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} i = 0; i<=ceil(lenght); i++)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00091}00091       \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00092}00092         interfaceLcd\_Draw\_Pixel((x1 + (i*ratioX)), (y1 + (i*ratioY)),   state);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00093}00093       \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00094}00094 \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00095}00095 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00096}00096 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00097}00097 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00098}00098 \textcolor{comment}{//{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00099}00099 \textcolor{keywordtype}{void} interfaceLcd\_Draw\_Shape\_Rect(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} x, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} y, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} width, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} height, \textcolor{keywordtype}{bool} state)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00100}00100 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00101}00101 \textcolor{comment}{//      Creator:    | Shawn Couture}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00102}00102 \textcolor{comment}{//  Date made:  | 07/04/2022}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00103}00103 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00104}00104 \textcolor{comment}{//  Function:   | Draws or clears a rectangle borders}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00105}00105 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00106}00106 \textcolor{comment}{//  Entry:      | x,y (0-\/127|0-\/63) width, height, state(0-\/1)}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00107}00107 \textcolor{comment}{//{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00108}00108 \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00109}00109  width  = width  -\/ 1;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00110}00110  height = height -\/ 1; }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00111}00111   }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00112}00112  \textcolor{comment}{//Top line}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00113}00113  interfaceLcd\_Draw\_Line(x, y, x+width, y, state); }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00114}00114   }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00115}00115  \textcolor{comment}{//Bottom line}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00116}00116  interfaceLcd\_Draw\_Line(x, y+height, x+width, y+height, state);  }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00117}00117   }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00118}00118  \textcolor{comment}{//Right line}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00119}00119  interfaceLcd\_Draw\_Line(x+width, y, x+width, y+height, state); }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00120}00120  }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00121}00121  \textcolor{comment}{//Left line}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00122}00122  interfaceLcd\_Draw\_Line(x, y, x, y+height, state);   }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00123}00123 \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00124}00124 \textcolor{comment}{//{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00125}00125 \textcolor{keywordtype}{void} interfaceLcd\_Draw\_Shape\_RectF(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} x, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} y, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} width, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} height, \textcolor{keywordtype}{bool} state)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00126}00126 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00127}00127 \textcolor{comment}{//      Creator:    | Shawn Couture}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00128}00128 \textcolor{comment}{//  Date made:  | 28/03/2022}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00129}00129 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00130}00130 \textcolor{comment}{//  Function:   | Draws a rectangle or clears a rectangle}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00131}00131 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00132}00132 \textcolor{comment}{//  Entry:      | x,y (0-\/127|0-\/63) width, height, state(0-\/1)}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00133}00133 \textcolor{comment}{//{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00134}00134 \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00135}00135   }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00136}00136   \textcolor{comment}{//Test if width and height are beyond the LCD grid}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00137}00137   \textcolor{keywordflow}{if}((width+x)-\/1 > 128) \{width = 127-\/x;\}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00138}00138   \textcolor{keywordflow}{if}((height+y)-\/1 > 63) \{height = 63-\/y;\}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00139}00139 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00140}00140   \textcolor{keywordflow}{if}(width >= 0)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00141}00141   \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00142}00142   \textcolor{comment}{//draw the full rectangle}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00143}00143   \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i=x; i<(x+width); i++)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00144}00144      \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00145}00145       \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} e=y; e<(y+height); e++)  }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00146}00146          \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00147}00147           interfaceLcd\_Draw\_Pixel(i,e,state);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00148}00148          \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00149}00149      \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00150}00150   \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00151}00151   \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00152}00152   \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00153}00153       \textcolor{comment}{//draw the full rectangle}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00154}00154   \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i=x+width; i<x; i++)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00155}00155      \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00156}00156       \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} e=y; e<(y+height); e++)  }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00157}00157          \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00158}00158           interfaceLcd\_Draw\_Pixel(i,e,state);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00159}00159          \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00160}00160      \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00161}00161   \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00162}00162 \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00163}00163 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00164}00164 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00165}00165 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00166}00166 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00167}00167 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00168}00168 \textcolor{comment}{//{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00169}00169 \textcolor{keywordtype}{void} interfaceLcd\_Draw\_CirclePixel(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} x, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} y, \textcolor{keywordtype}{double} radius, \textcolor{keywordtype}{double} radian, \textcolor{keywordtype}{bool} state)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00170}00170 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00171}00171 \textcolor{comment}{//      Creator:    |Shawn Couture}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00172}00172 \textcolor{comment}{//  Date made:  | 31/03/2022}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00173}00173 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00174}00174 \textcolor{comment}{//  Function:   | Draws a pixel at a wanted radian value}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00175}00175 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00176}00176 \textcolor{comment}{//  Entry:      | x,y (0-\/127|0-\/63) radius, angle(radian), state}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00177}00177 \textcolor{comment}{//{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00178}00178 \{  }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00179}00179    interfaceLcd\_Draw\_Pixel(ceil((sin(radian)*radius)+x),ceil((cos(radian)*radius)+y),state);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00180}00180 \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00181}00181 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00182}00182 \textcolor{comment}{//{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00183}00183 \textcolor{keywordtype}{void} interfaceLcd\_Draw\_OvalPixel(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} x, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} y, \textcolor{keywordtype}{double} radiusX, \textcolor{keywordtype}{double} radiusY, \textcolor{keywordtype}{double} radian, \textcolor{keywordtype}{bool} state)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00184}00184 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00185}00185 \textcolor{comment}{//      Creator:    |Shawn Couture}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00186}00186 \textcolor{comment}{//  Date made:  | 04/04/2022}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00187}00187 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00188}00188 \textcolor{comment}{//  Function:   | Draws a pixel at a wanted radian value deformed by a X radius and a Y radius}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00189}00189 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00190}00190 \textcolor{comment}{//  Entry:      | x,y (0-\/127|0-\/63) radiusX,radiusY, angle(radian), state}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00191}00191 \textcolor{comment}{//{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00192}00192 \{  }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00193}00193   \textcolor{comment}{// draws the pixel deformed by 2 different radius value.}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00194}00194      interfaceLcd\_Draw\_Pixel(ceil((sin(radian)*(radiusX))+x),ceil((cos(radian)*(radiusY))+y),state);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00195}00195 \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00196}00196 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00197}00197 \textcolor{comment}{//{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00198}00198 \textcolor{keywordtype}{void} interfaceLcd\_Draw\_CircleLine(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} x, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} y, \textcolor{keywordtype}{double} InsideRadius, \textcolor{keywordtype}{double} OutsideRadius, \textcolor{keywordtype}{double} radian, \textcolor{keywordtype}{bool} state)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00199}00199 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00200}00200 \textcolor{comment}{//      Creator:    |Shawn Couture}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00201}00201 \textcolor{comment}{//  Date made:  | 31/03/2022}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00202}00202 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00203}00203 \textcolor{comment}{//  Function:   | Draws a line from the given coordinate, to the edge of a "{}circle"{} given}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00204}00204 \textcolor{comment}{//                      | by the input radius.}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00205}00205 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00206}00206 \textcolor{comment}{//  Entry:      | x,y (0-\/127|0-\/63) radius, angle, state}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00207}00207 \textcolor{comment}{//{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00208}00208 \{  }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00209}00209   \textcolor{comment}{// draws the line of pixel starting from the center radius, to the outer radius}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00210}00210      interfaceLcd\_Draw\_Line(ceil((sin(radian)*InsideRadius)+x),ceil((cos(radian)*InsideRadius)+y),ceil((sin(radian)*OutsideRadius)+x),ceil((cos(radian)*OutsideRadius)+y),state);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00211}00211 \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00212}00212 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00213}00213 \textcolor{comment}{//{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00214}00214 \textcolor{keywordtype}{void} interfaceLcd\_Draw\_Shape\_Circle(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} x, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} y, \textcolor{keywordtype}{double} radius, \textcolor{keywordtype}{bool} state)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00215}00215 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00216}00216 \textcolor{comment}{//      Creator:    |Shawn Couture}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00217}00217 \textcolor{comment}{//  Date made:  | 31/03/2022}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00218}00218 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00219}00219 \textcolor{comment}{//  Function:   | Draws a circle border from a starting radian, to an ending radian}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00220}00220 \textcolor{comment}{//                      | To draw a complete circle, simply put (x,y,radius,0,6.28,1)}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00221}00221 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00222}00222 \textcolor{comment}{//  Entry:      | x,y (0-\/127|0-\/63) radius, state}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00223}00223 \textcolor{comment}{//{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00224}00224 \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00225}00225   }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00226}00226   \textcolor{comment}{//Find the increment necessary in order to avoid  holes or overlapping pixels for no reasons}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00227}00227   \textcolor{keywordtype}{double} increment = (12.56/(2*3.1*(radius*radius)));}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00228}00228   }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00229}00229   \textcolor{comment}{//For loop from starting radian to ending radian incrementing in 0.01}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00230}00230   \textcolor{keywordflow}{for}(\textcolor{keywordtype}{double} i = 0; i <= 6.28; i += increment)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00231}00231      \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00232}00232         interfaceLcd\_Draw\_Pixel(floor(sin(i)*radius)+x, floor(cos(i)*radius)+y, state);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00233}00233      \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00234}00234 \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00235}00235 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00236}00236 \textcolor{comment}{//{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00237}00237 \textcolor{keywordtype}{void} interfaceLcd\_Draw\_Shape\_CircleF(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} x, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} y, \textcolor{keywordtype}{double} radius, \textcolor{keywordtype}{bool} state)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00238}00238 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00239}00239 \textcolor{comment}{//      Creator:    | Shawn Couture}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00240}00240 \textcolor{comment}{//  Date made:  | 19/04/2022}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00241}00241 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00242}00242 \textcolor{comment}{//  Function:   | Draws a full circle without using sin or cos}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00243}00243 \textcolor{comment}{//                      | }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00244}00244 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00245}00245 \textcolor{comment}{//  Entry:      | x,y (0-\/127|0-\/63) radius, state}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00246}00246 \textcolor{comment}{//{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00247}00247 \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00248}00248   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} leftTopX = ((\textcolor{keywordtype}{unsigned} char) x) -\/ (\textcolor{keywordtype}{unsigned} char) radius;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00249}00249   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} leftTopY = ((\textcolor{keywordtype}{unsigned} char) y) -\/ (\textcolor{keywordtype}{unsigned} char) radius;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00250}00250   }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00251}00251   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} widthCoord = (leftTopX+((\textcolor{keywordtype}{unsigned} char)radius*2));}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00252}00252   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} heigthCoord = (leftTopY+((\textcolor{keywordtype}{unsigned} char)radius*2));}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00253}00253   }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00254}00254   \textcolor{comment}{//Save memory by reusing input parameters}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00255}00255   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} RadiusSquared = (radius*radius);        \textcolor{comment}{//Avoids doing exponents of radius}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00256}00256     }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00257}00257   \textcolor{comment}{//Fill in a circle inside a rectangle area of diameter width starting at the coords defined above}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00258}00258   \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} checkX = leftTopX; checkX <= widthCoord; checkX++)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00259}00259      \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00260}00260       \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} checkY = leftTopY; checkY <= heigthCoord; checkY++)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00261}00261          \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00262}00262            \textcolor{keywordflow}{if}(RadiusSquared < (((checkX -\/ x)*(checkX -\/ x)) + ((checkY -\/ y)*(checkY -\/ y))))}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00263}00263              \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00264}00264                \textcolor{comment}{//interfaceLcd\_Draw\_Pixel(checkX, checkY, !state);}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00265}00265              \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00266}00266            \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00267}00267              \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00268}00268                interfaceLcd\_Draw\_Pixel(checkX, checkY, state);             }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00269}00269              \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00270}00270          \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00271}00271      \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00272}00272 \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00273}00273 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00274}00274 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00275}00275 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00276}00276 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00277}00277 \textcolor{comment}{//{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00278}00278 \textcolor{keywordtype}{void} interfaceLcd\_Draw\_Misc\_ScalableBRS(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} x, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} y, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} scale, \textcolor{keywordtype}{bool} state)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00279}00279 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00280}00280 \textcolor{comment}{//      Creator:    |Shawn Couture}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00281}00281 \textcolor{comment}{//  Date made:  | 28/03/2022}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00282}00282 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00283}00283 \textcolor{comment}{//  Function:   | Draws scalable BRS logo of a desired size}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00284}00284 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00285}00285 \textcolor{comment}{//  Entry:      | x,y (0-\/127|0-\/63) scale, state(0-\/1)}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00286}00286 \textcolor{comment}{//{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00287}00287 \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00288}00288     interfaceLcd\_Draw\_Shape\_RectF(x,         y,             6*scale,scale,state);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00289}00289     interfaceLcd\_Draw\_Shape\_RectF(x+5*scale, y+scale,       scale,  scale,state);    }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00290}00290     interfaceLcd\_Draw\_Shape\_RectF(x+4 *scale,y+2*scale,     scale,  scale,state);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00291}00291     interfaceLcd\_Draw\_Shape\_RectF(x+5 *scale,y+3*scale,     scale,  scale,state);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00292}00292     interfaceLcd\_Draw\_Shape\_RectF(x,         y+2*scale,     2*scale, scale,state);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00293}00293     interfaceLcd\_Draw\_Shape\_RectF(x,         y+4*scale,     6*scale, scale,state); }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00294}00294     interfaceLcd\_Draw\_Shape\_RectF(x+7 *scale,y,             6*scale, scale,state);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00295}00295     interfaceLcd\_Draw\_Shape\_RectF(x+12*scale,y+scale,       scale,  scale,state);    }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00296}00296     interfaceLcd\_Draw\_Shape\_RectF(x+11*scale,y+2*scale,     scale,  scale,state);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00297}00297     interfaceLcd\_Draw\_Shape\_RectF(x+12*scale,y+3*scale,     scale,  2*scale,state);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00298}00298     interfaceLcd\_Draw\_Shape\_RectF(x+7 *scale,y+2*scale,     2*scale, scale,state);  }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00299}00299     interfaceLcd\_Draw\_Shape\_RectF(x+7 *scale,y+4*scale,     2*scale, scale,state);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00300}00300     interfaceLcd\_Draw\_Shape\_RectF(x+15*scale,y,             5*scale, scale,state);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00301}00301     interfaceLcd\_Draw\_Shape\_RectF(x+14*scale,y+scale,       scale,  scale,state);     }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00302}00302     interfaceLcd\_Draw\_Shape\_RectF(x+14*scale,y+2*scale,     6*scale, scale,state);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00303}00303     interfaceLcd\_Draw\_Shape\_RectF(x+19*scale,y+3*scale,     scale,  scale,state);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00304}00304     interfaceLcd\_Draw\_Shape\_RectF(x+14*scale,y+4*scale,     5*scale, scale,state);    }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00305}00305 \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00306}00306 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00307}00307 \textcolor{comment}{//{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00308}00308   \textcolor{keywordtype}{void} interfaceLcd\_Draw\_Misc\_LabHeader(\textcolor{keywordtype}{char} \textcolor{keyword}{const} *lab, \textcolor{keywordtype}{char} \textcolor{keyword}{const} *Table)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00309}00309 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00310}00310 \textcolor{comment}{//      Creator:    |Shawn Couture}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00311}00311 \textcolor{comment}{//  Date made:  | 23/03/2022 -\/-\/-\/ 29/03/2022}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00312}00312 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00313}00313 \textcolor{comment}{//  Function:   | Function displaying the header on the LCD}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00314}00314 \textcolor{comment}{//          | }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00315}00315 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00316}00316 \textcolor{comment}{//{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00317}00317   \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00318}00318     \textcolor{keywordtype}{char} \textcolor{keyword}{const} CurrentLine2[] = \textcolor{stringliteral}{"{}                    "{}};    }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00319}00319     \textcolor{keywordtype}{char} \textcolor{keyword}{const} CurrentLine3[] = \textcolor{stringliteral}{"{}   Cegep Limoilou   "{}};    }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00320}00320     \textcolor{keywordtype}{char} \textcolor{keyword}{const} CurrentLine4[] = \textcolor{stringliteral}{"{}        2022        "{}};}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00321}00321     \textcolor{keywordtype}{char} \textcolor{keyword}{const} CurrentLine5[] = \textcolor{stringliteral}{"{}                    "{}};}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00322}00322     }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00323}00323     vPutStringGLcd((\textcolor{keywordtype}{char} \textcolor{keyword}{const}*)lab, 1, 5);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00324}00324     vPutStringGLcd((\textcolor{keywordtype}{char} \textcolor{keyword}{const}*)CurrentLine2, 2, 5);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00325}00325     vPutStringGLcd((\textcolor{keywordtype}{char} \textcolor{keyword}{const}*)CurrentLine3, 3, 5);    }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00326}00326     vPutStringGLcd((\textcolor{keywordtype}{char} \textcolor{keyword}{const}*)CurrentLine4, 4, 5);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00327}00327     vPutStringGLcd((\textcolor{keywordtype}{char} \textcolor{keyword}{const}*)CurrentLine5, 5, 5);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00328}00328     vPutStringGLcd((\textcolor{keywordtype}{char} \textcolor{keyword}{const}*)Table, 6, 5);        }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00329}00329   \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00330}00330 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00331}00331 \textcolor{comment}{//{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00332}00332 \textcolor{keywordtype}{void} interfaceLcd\_Clear\_Swipe(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} direction)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00333}00333 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00334}00334 \textcolor{comment}{//      Creator:    |Shawn Couture}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00335}00335 \textcolor{comment}{//  Date made:  | 28/03/2022}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00336}00336 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00337}00337 \textcolor{comment}{//  Function:   | Clears the LCD in a simple swipe}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00338}00338 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00339}00339 \textcolor{comment}{//  Entry:      | 0: Left-\/>Right 1: Top-\/>Down 2: Right-\/>Left 3:Down-\/>Top}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00340}00340 \textcolor{comment}{//                      | speed: in ms}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00341}00341 \textcolor{comment}{//{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00342}00342 \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00343}00343  \textcolor{comment}{//\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#//\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\_Local Variables\_ }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00344}00344    \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} MaxCount   = 0;             \textcolor{comment}{// distance inbetween the 2 coordinates}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00345}00345  \textcolor{comment}{//\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#//\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\_Local Variables\_<}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00346}00346    }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00347}00347    \textcolor{comment}{//Choose the direction and the needed lenght to travel}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00348}00348    \textcolor{keywordflow}{switch}(direction)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00349}00349          \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00350}00350            \textcolor{keywordflow}{case}(0):           }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00351}00351            \textcolor{keywordflow}{case}(2):}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00352}00352                     MaxCount = 127;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00353}00353                     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00354}00354            \textcolor{keywordflow}{case}(1):                    }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00355}00355            \textcolor{keywordflow}{case}(3):}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00356}00356                     MaxCount = 64;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00357}00357                     \textcolor{keywordflow}{break};           }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00358}00358          \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00359}00359    }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00360}00360    \textcolor{comment}{//Draw lines}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00361}00361    \textcolor{keywordflow}{for}( \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} i=0; i<MaxCount; i+=2)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00362}00362       \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00363}00363 \textcolor{comment}{//        HAL\_Delay(speed);}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00364}00364         \textcolor{keywordflow}{switch}(direction)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00365}00365               \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00366}00366                 \textcolor{keywordflow}{case}(0):}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00367}00367                           interfaceLcd\_Draw\_Line(i,0,i,64,1);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00368}00368                           interfaceLcd\_Draw\_Line(i+1,0,i+1,64,1);                          }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00369}00369                           \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00370}00370            }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00371}00371                 \textcolor{keywordflow}{case}(1):}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00372}00372                           interfaceLcd\_Draw\_Line(0,i,128,i,1);                     }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00373}00373                           interfaceLcd\_Draw\_Line(0,i+1,128,i+1,1);                  }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00374}00374                           \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00375}00375            }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00376}00376                 \textcolor{keywordflow}{case}(2):}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00377}00377                           interfaceLcd\_Draw\_Line(127-\/i,0,127-\/i,64,1);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00378}00378                           interfaceLcd\_Draw\_Line(127-\/(i+1),0,127-\/(i+1),64,1);                            }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00379}00379                           \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00380}00380                 \textcolor{keywordflow}{case}(3):}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00381}00381                           interfaceLcd\_Draw\_Line(0,63-\/i,128,63-\/i,1);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00382}00382                           interfaceLcd\_Draw\_Line(0,63-\/(i+1),128,63-\/(i+1),1);                             }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00383}00383                           \textcolor{keywordflow}{break};           }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00384}00384                 \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00385}00385       \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00386}00386    \textcolor{comment}{//Clear lines}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00387}00387    \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} i=0; i<MaxCount; i+=2)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00388}00388       \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00389}00389 \textcolor{comment}{//        HAL\_Delay(speed);}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00390}00390         \textcolor{keywordflow}{switch}(direction)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00391}00391               \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00392}00392                 \textcolor{keywordflow}{case}(0):}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00393}00393                           interfaceLcd\_Draw\_Line(i,0,i,64,0);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00394}00394                           interfaceLcd\_Draw\_Line(i+1,0,i+1,64,0);                          }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00395}00395                           \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00396}00396            }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00397}00397                 \textcolor{keywordflow}{case}(1):}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00398}00398                           interfaceLcd\_Draw\_Line(0,i,128,i,0);                     }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00399}00399                           interfaceLcd\_Draw\_Line(0,i+1,128,i+1,0);                  }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00400}00400                           \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00401}00401            }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00402}00402                 \textcolor{keywordflow}{case}(2):}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00403}00403                           interfaceLcd\_Draw\_Line(127-\/i,0,127-\/i,64,0);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00404}00404                           interfaceLcd\_Draw\_Line(127-\/(i+1),0,127-\/(i+1),64,0);                            }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00405}00405                           \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00406}00406                 \textcolor{keywordflow}{case}(3):}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00407}00407                           interfaceLcd\_Draw\_Line(0,63-\/i,128,63-\/i,0);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00408}00408                           interfaceLcd\_Draw\_Line(0,63-\/(i+1),128,63-\/(i+1),0);                             }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00409}00409                           \textcolor{keywordflow}{break};           }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00410}00410                 \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00411}00411       \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00412}00412 \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00413}00413 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00414}00414 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00415}00415 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00416}00416 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00417}00417 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00418}00418 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00419}00419 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00420}00420 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00421}00421 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00422}00422 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00423}00423 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00424}00424 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00425}00425 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00426}00426 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00427}00427 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00428}00428 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00429}00429 \textcolor{comment}{//{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00430}00430 \textcolor{keywordtype}{void} interfaceLcd\_Draw\_Text\_Char(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} x, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} y, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} letter, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} font, \textcolor{keywordtype}{bool} state)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00431}00431 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00432}00432 \textcolor{comment}{//      Creator:    |Shawn Couture}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00433}00433 \textcolor{comment}{//  Date made:  | 29/03/2022}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00434}00434 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00435}00435 \textcolor{comment}{//  Function:   | Draws a single character to a set coordinate on the screen.}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00436}00436 \textcolor{comment}{//                      | This function currently only works with BRS font}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00437}00437 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00438}00438 \textcolor{comment}{//  Entry:      | x,y, ascii value of letter, 0,1,2}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00439}00439 \textcolor{comment}{//                      | }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00440}00440 \textcolor{comment}{//{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00441}00441 \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00442}00442   \textcolor{keywordflow}{if}(letter == 0) letter = \textcolor{charliteral}{' '};}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00443}00443   BRS\_Lcd\_Font4(x,y,letter,state);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00444}00444 \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00445}00445 \textcolor{comment}{//{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00446}00446 \textcolor{keywordtype}{void} interfaceLcd\_Draw\_Text\_String(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} x, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} y, \textcolor{keywordtype}{char} \textcolor{keyword}{const} \textcolor{keywordtype}{string}[], \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} font, \textcolor{keywordtype}{bool} state)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00447}00447 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00448}00448 \textcolor{comment}{//      Creator:    |Shawn Couture}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00449}00449 \textcolor{comment}{//  Date made:  | 29/03/2022}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00450}00450 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00451}00451 \textcolor{comment}{//  Function:   | Draws a table of characters in a single line with no returns}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00452}00452 \textcolor{comment}{//                      | This function currently only works with BRS fonts of 4*}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00453}00453 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00454}00454 \textcolor{comment}{//  Entry:      | x,y, , 0,1,2}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00455}00455 \textcolor{comment}{//                      | }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00456}00456 \textcolor{comment}{//{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00457}00457 \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00458}00458    \textcolor{keywordtype}{char} \textcolor{keyword}{const} length = strlen(\textcolor{keywordtype}{string});}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00459}00459   }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00460}00460   \textcolor{comment}{//Draw the line of character}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00461}00461   \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} i=0; i<length; i++)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00462}00462     \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00463}00463       interfaceLcd\_Draw\_Text\_Char(x + (i*5),y, \textcolor{keywordtype}{string}[i],4,state);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00464}00464     \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00465}00465 \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00466}00466 \textcolor{comment}{//{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00467}00467 \textcolor{keywordtype}{void} interfaceLcd\_Draw\_Text\_Integer(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} x, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} y, \textcolor{keywordtype}{int} Number, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} maxDigits, \textcolor{keywordtype}{bool} state)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00468}00468 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00469}00469 \textcolor{comment}{//      Creator:    |Shawn Couture}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00470}00470 \textcolor{comment}{//  Date made:  | 5/04/2022}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00471}00471 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00472}00472 \textcolor{comment}{//  Function:   | Draws an integer value, which can be negative at the specified coordinates }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00473}00473 \textcolor{comment}{//                      | The font is 4 pixel wide, and is drawn from the top left pixel }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00474}00474 \textcolor{comment}{//                      | You need to specify the maximum digits you want to display, minus included}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00475}00475 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00476}00476 \textcolor{comment}{//  Entry:      | x,y, displayed number, amount of digits including the minus, wanted state}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00477}00477 \textcolor{comment}{//                      | }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00478}00478 \textcolor{comment}{//{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00479}00479 \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00480}00480   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} displaying = 0;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00481}00481   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} divider = 1;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00482}00482   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} restDivider = 1;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00483}00483 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00484}00484   \textcolor{keywordtype}{bool} was0 = 0;  }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00486}00486 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00487}00487   }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00488}00488   \textcolor{comment}{//Positive number}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00489}00489   \textcolor{keywordflow}{if}(Number >= 0)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00490}00490   \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00491}00491     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} currentDigit = 1; currentDigit <= maxDigits; currentDigit++)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00492}00492        \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00493}00493          restDivider = 1;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00494}00494          divider = 1;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00495}00495          displaying = Number;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00496}00496          }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00497}00497           \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} i = 0; i<currentDigit; i++)   divider     = divider*10;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00498}00498           \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} i = 0; i<currentDigit-\/1; i++) restDivider = restDivider*10;    }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00499}00499          }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00500}00500           displaying = (displaying\%divider)/restDivider;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00501}00501          }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00502}00502           \textcolor{comment}{//reduce to 1 digit number}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00503}00503           \textcolor{keywordflow}{while}(displaying >= 10) displaying = displaying/10;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00504}00504           }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00505}00505           \textcolor{keywordflow}{if}(Number < 100 \&\& currentDigit == 3) \{displaying = 0xFF;\}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00506}00506           \textcolor{keywordflow}{if}(Number < 10  \&\& currentDigit == 2) \{displaying = 0xFF;\}           }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00507}00507           }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00508}00508           \textcolor{keywordflow}{if}(displaying == 0xFF)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00509}00509           \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00510}00510             interfaceLcd\_Draw\_Text\_Char(((maxDigits-\/1)*5)-\/((currentDigit-\/1)*5) + x,y, \textcolor{charliteral}{' '}, 4, state); }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00511}00511           \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00512}00512           \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00513}00513           \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00514}00514             interfaceLcd\_Draw\_Text\_Char(((maxDigits-\/1)*5)-\/((currentDigit-\/1)*5) + x,y, (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char})displaying+0x30, 4, state);            }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00515}00515           \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00516}00516         \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00517}00517    \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00518}00518   }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00519}00519   \textcolor{keywordflow}{else} \textcolor{comment}{//Negative number}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00520}00520   \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00521}00521     \textcolor{comment}{//knowing we need to show the -\/ in front of the number, they should be slided to the left 1 char}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00522}00522     interfaceLcd\_Draw\_Text\_Char(x,y,\textcolor{charliteral}{'-\/'},4,state);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00523}00523   \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00524}00524   }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00525}00525 \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00526}00526 \textcolor{comment}{//{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00527}00527 \textcolor{keywordtype}{void} interfaceLcd\_Draw\_Text\_Hexa(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} x, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} y, \textcolor{keywordtype}{int} Number, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} maxDigits, \textcolor{keywordtype}{bool} state)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00528}00528 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00529}00529 \textcolor{comment}{//      Creator:    |Shawn Couture}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00530}00530 \textcolor{comment}{//  Date made:  | 6/04/2022}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00531}00531 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00532}00532 \textcolor{comment}{//  Function:   | Draws an integer value as an hexadecimal number on the LCD screen.}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00533}00533 \textcolor{comment}{//                      | example: 0 = 0xZZ}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00534}00534 \textcolor{comment}{//                      | Max digit will define how many Z will be drawn after the 0x}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00535}00535 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00536}00536 \textcolor{comment}{//  Entry:      | x,y, displayed hexa, amount of digits including the minus, wanted state}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00537}00537 \textcolor{comment}{//                      | }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00538}00538 \textcolor{comment}{//{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00539}00539 \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00540}00540   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} Table[16] = \{\textcolor{charliteral}{'0'},\textcolor{charliteral}{'1'},\textcolor{charliteral}{'2'},\textcolor{charliteral}{'3'},\textcolor{charliteral}{'4'},\textcolor{charliteral}{'5'},\textcolor{charliteral}{'6'},\textcolor{charliteral}{'7'},\textcolor{charliteral}{'8'},\textcolor{charliteral}{'9'},\textcolor{charliteral}{'A'},\textcolor{charliteral}{'B'},\textcolor{charliteral}{'C'},\textcolor{charliteral}{'D'},\textcolor{charliteral}{'E'},\textcolor{charliteral}{'F'}\};  }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00541}00541   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int}  Value = 0;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00542}00542   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} BitShift = 0;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00543}00543   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} posX = x+10;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00544}00544   \textcolor{comment}{//Positive number}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00545}00545   \textcolor{keywordflow}{if}(Number >= 0)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00546}00546   \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00547}00547     \textcolor{comment}{//DRAW 0x}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00548}00548     interfaceLcd\_Draw\_Text\_Char(x,y,\textcolor{charliteral}{'0'},4,state);    }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00549}00549     interfaceLcd\_Draw\_Text\_Char(x+5,y,\textcolor{charliteral}{'x'},4,state);     }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00550}00550     }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00551}00551     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned} currentDigit = maxDigits; currentDigit > 0; currentDigit-\/-\/)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00552}00552        \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00553}00553           BitShift = (currentDigit-\/1)*4;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00554}00554           }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00555}00555           Value = (Number >> BitShift) \& 0x0F;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00556}00556           }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00557}00557           interfaceLcd\_Draw\_Text\_Char(posX,y,Table[Value],4,1);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00558}00558           }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00559}00559           posX = posX + 5;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00560}00560        \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00561}00561   \}  }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00562}00562 \}  }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00563}00563 \textcolor{comment}{//{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr} }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00564}00564 \textcolor{keywordtype}{void} interfaceLcd\_Draw\_Text\_Double  (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} x, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} y, \textcolor{keywordtype}{double} Number,\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} decimals, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} maxDigits, \textcolor{keywordtype}{bool} state)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00565}00565 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00566}00566 \textcolor{comment}{//      Creator:    |Shawn Couture}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00567}00567 \textcolor{comment}{//  Date made:  | 6/04/2022}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00568}00568 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00569}00569 \textcolor{comment}{//  Function:   | Draws a double number on the screen at the specified coordinates}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00570}00570 \textcolor{comment}{//                      | MaxDigit is ONLY for the numbers before the decimal point}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00571}00571 \textcolor{comment}{//                      | decimals is ONLY for the numbers AFTER the decimal point}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00572}00572 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00573}00573 \textcolor{comment}{//  Entry:      | x,y, displayed float, amount of digits including the minus, wanted state}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00574}00574 \textcolor{comment}{//                      | }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00575}00575 \textcolor{comment}{//{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00576}00576 \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00577}00577   \textcolor{keywordtype}{double} lastChar   =(int) Number;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00578}00578   }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00579}00579   \textcolor{keywordtype}{double} displaying = 0;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00580}00580   \textcolor{keywordtype}{int}    Casted=0;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00581}00581     }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00582}00582   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} posX = x;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00583}00583   }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00584}00584   }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00585}00585   \textcolor{keywordflow}{if}(Number>=0)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00586}00586   \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00587}00587     interfaceLcd\_Draw\_Text\_Char(x+((maxDigits)*5)+((decimals)*5)+5,y,\textcolor{charliteral}{' '},4,state);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00588}00588   \}  }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00589}00589   }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00590}00590   \textcolor{comment}{// CHECK IF NUMBER IS NEGATIVE}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00591}00591   \textcolor{keywordflow}{if}(Number<0)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00592}00592   \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00593}00593     interfaceLcd\_Draw\_Text\_Char(x,y,\textcolor{charliteral}{'-\/'},4,state);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00594}00594     posX = x + 5;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00595}00595     Number = -\/Number;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00596}00596     }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00597}00597     lastChar   =(int) Number;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00598}00598   \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00599}00599 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00600}00600   }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00602}00602       \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned} currentDigit = maxDigits; currentDigit > 0; currentDigit-\/-\/)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00603}00603        \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00604}00604          displaying = (lastChar/10);            \textcolor{comment}{//divide the number to get 1 decimal}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00605}00605          }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00606}00606          \textcolor{comment}{//Cast it to remove decimal}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00607}00607          Casted     = (int)    displaying;     \textcolor{comment}{//25,6 -\/>25    }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00608}00608          }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00609}00609          displaying = (double) Casted;          \textcolor{comment}{// cast it back to a double        }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00610}00610 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00611}00611          \textcolor{comment}{//Get remove the upper values           }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00612}00612          displaying = ((lastChar/10) -\/ displaying) * 10; \textcolor{comment}{//(25,6 -\/ 25)*10) = 6}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00613}00613        }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00614}00614          \textcolor{comment}{//Set last char to the remaining numbers}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00615}00615          lastChar    = (lastChar/10)    -\/ (displaying/10); \textcolor{comment}{//remaining = 25}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00616}00616      }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00617}00617          interfaceLcd\_Draw\_Text\_Char((currentDigit-\/1)*5 + posX,y,(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char})displaying+0x30,4,state);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00618}00618 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00619}00619        \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00621}00621   \textcolor{comment}{//DRAW DECIMAL POINT}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00622}00622   interfaceLcd\_Draw\_Text\_Char(posX + (maxDigits)*5 ,y,\textcolor{charliteral}{'.'},4,state);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00623}00623   }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00624}00624   \textcolor{comment}{//Transform the decimals of Number, into an integer}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00625}00625   Casted     = (int) Number;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00626}00626   displaying = (double) Casted;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00627}00627   }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00628}00628   Number = Number -\/ displaying; \textcolor{comment}{//Keeps decimals only}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00629}00629   posX   = posX   + maxDigits*5 +5;\textcolor{comment}{//Shifts pos X position}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00630}00630   }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00631}00631       lastChar = Number;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00632}00632       \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned} currentDigit = decimals; currentDigit > 0; currentDigit-\/-\/)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00633}00633        \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00634}00634          displaying = (lastChar*10);           \textcolor{comment}{//Multiply the number by 10 (0.125 = 1.25)}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00635}00635          }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00636}00636          \textcolor{comment}{//Cast it to remove decimal}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00637}00637          Casted     = (int)    displaying;     \textcolor{comment}{//1.25 -\/> 1    }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00638}00638          displaying = (double) Casted;         \textcolor{comment}{// cast it back to a double        }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00639}00639        }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00640}00640          \textcolor{comment}{//Set last char to the remaining numbers}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00641}00641          lastChar    = (lastChar*10) -\/ displaying; \textcolor{comment}{//remaining = 0.25}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00642}00642      }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00643}00643          interfaceLcd\_Draw\_Text\_Char((decimals-\/currentDigit)*5 + posX,y,(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char})displaying+0x30,4,state);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00644}00644 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00645}00645        \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00646}00646 \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00647}00647 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00648}00648 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00649}00649 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00650}00650 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00651}00651 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00652}00652 \textcolor{comment}{//{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00653}00653 \textcolor{keywordtype}{void} interfaceLcd\_Demo\_Line(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00654}00654 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00655}00655 \textcolor{comment}{//      Creator:    |Shawn Couture}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00656}00656 \textcolor{comment}{//  Date made:  | 31/03/2022}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00657}00657 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00658}00658 \textcolor{comment}{//  Function:   | Demonstrate effects that can be acheived using interfaceLcd\_Draw\_Line.}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00659}00659 \textcolor{comment}{//                      | The normal function draws a line of pixels from one coordinate to an other}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00660}00660 \textcolor{comment}{//                      | (x1,y1,x2,y2)}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00661}00661 \textcolor{comment}{//                      | The Order in which you put your coordinates affects minimaly the obtained}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00662}00662 \textcolor{comment}{//                      | results.}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00663}00663 \textcolor{comment}{//                      |}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00664}00664 \textcolor{comment}{//                      | Although beware, sometimes the function will round pixels weirdly and}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00665}00665 \textcolor{comment}{//                      | some results will not be what you expect them to be.}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00666}00666 \textcolor{comment}{//                      |}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00667}00667 \textcolor{comment}{//                      | Trial and error is thus required in order to acheive a wanted result}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00668}00668 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00669}00669 \textcolor{comment}{//{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00670}00670 \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00671}00671   Demo\_TitleSwipe(\textcolor{stringliteral}{"{}   2 Points Lines   "{}});}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00672}00672   }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00673}00673   interfaceLcd\_Draw\_Line(0,0,63,63,1); \textcolor{comment}{// diagonal from top left to bottom middle}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00674}00674   interfaceLcd\_Draw\_Line(63,0,0,63,1); \textcolor{comment}{// diagonal from middle top to bottom left}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00675}00675 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00676}00676   interfaceLcd\_Draw\_Line(63,0,127,63,1);  \textcolor{comment}{// diagonal from middle top to bottom right}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00677}00677   interfaceLcd\_Draw\_Line(63,63,127,0,1);  \textcolor{comment}{// diagonal from bottom middle to top right}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00678}00678 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00679}00679   interfaceLcd\_Draw\_Line(0,0,126,62,1);  \textcolor{comment}{// diagonal from top left to bottom right}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00680}00680   interfaceLcd\_Draw\_Line(126,0,0,62,1);  \textcolor{comment}{// diagonal from top right to bottom left}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00681}00681   }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00682}00682   \textcolor{keywordflow}{while}(1)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00683}00683   \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00684}00684     }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00685}00685   \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00686}00686 \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00687}00687 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00688}00688 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00689}00689 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00690}00690 \textcolor{comment}{//{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00691}\mbox{\hyperlink{interface_lcd_8_c_a5543117245e8c771b0a3a40b8a7b9036}{00691}} \textcolor{keywordtype}{void} \mbox{\hyperlink{interface_lcd_8_c_a5543117245e8c771b0a3a40b8a7b9036}{interfaceLcd\_Demo\_Circles}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00692}00692 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00693}00693 \textcolor{comment}{//      Creator:    |Shawn Couture}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00694}00694 \textcolor{comment}{//  Date made:  | 07/04/2022}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00695}00695 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00696}00696 \textcolor{comment}{//  Function:   | This function is a 1up of the previous demo of circle pixels.}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00697}00697 \textcolor{comment}{//                      | }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00698}00698 \textcolor{comment}{//                      | This function simple allows you to draw a line from a smaller radius}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00699}00699 \textcolor{comment}{//                      | circle's perimeter, to a larger radius circle's perimeter.}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00700}00700 \textcolor{comment}{//                      | }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00701}00701 \textcolor{comment}{//                      | This function is useful when creating radial graph to display changing}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00702}00702 \textcolor{comment}{//                      | values. For example: Speed, RPM which would ideally be represented by}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00703}00703 \textcolor{comment}{//                      | such graph}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00704}00704 \textcolor{comment}{//                      | }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00705}00705 \textcolor{comment}{//                      | This function demonstrates effects that can be acheived using CircleLine}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00706}00706 \textcolor{comment}{//                      | as well as where a line would be pointing if given a specific radian}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00707}00707 \textcolor{comment}{//                      | }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00708}00708 \textcolor{comment}{//                      | If the smaller circle has a radius of 0, it draws the line from center}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00709}00709 \textcolor{comment}{//                      | coordinates to the larger one, useful for data graph.}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00710}00710 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00711}00711 \textcolor{comment}{//{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00712}00712 \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00713}00713   \textcolor{comment}{//\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#//\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\_Local Variables\_    }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00714}00714   \textcolor{keywordtype}{double} count      = 0;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00715}00715   \textcolor{keywordtype}{double} countB     = 0;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00716}00716   \textcolor{keywordtype}{double} oldCount   = 0;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00717}00717   }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00718}00718   \textcolor{keywordtype}{double} localCount = 4.5;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00719}00719   }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00720}00720   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} NextFunction     = 0;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00721}00721   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int}  AnimationTime    = 6000;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00722}00722   \textcolor{keywordtype}{double}        AnimationCounter = AnimationTime;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00723}00723   }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00724}00724   \textcolor{keywordtype}{double}        loadingRatio     = floor(AnimationCounter/127);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00725}00725   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} loadingBarCoord  = 0;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00726}00726   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} oldCoord         = 0;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00727}00727   }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00729}00729   \textcolor{keywordtype}{double} direction1 = 0.01;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00730}00730   \textcolor{keywordtype}{double} direction2 = 1; }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00732}00732   \textcolor{keywordtype}{double} newRadius1 = 10;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00733}00733   \textcolor{keywordtype}{double} newRadius2 = 10;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00734}00734   \textcolor{keywordtype}{double} oldRadius1 = 9;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00735}00735   \textcolor{keywordtype}{double} oldRadius2 = 9;  }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00737}00737   \textcolor{keywordtype}{bool} state=0;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00738}00738   \textcolor{comment}{//\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#//\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\_Local Variables\_ }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00739}00739   Demo\_TitleSwipe(\textcolor{stringliteral}{"{}  Circle Functions  "{}});}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00740}00740   }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00741}00741   \textcolor{keywordflow}{while}(1)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00742}00742   \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00743}00743 \textcolor{comment}{//\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#// CIRCLE PIXEL    }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00744}00744     \textcolor{keywordflow}{if}(NextFunction == 0)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00745}00745     \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00746}00746       HAL\_Delay(1);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00747}00747       }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00748}00748       interfaceLcd\_Draw\_CirclePixel(63,31,oldRadius1,localCount,0); \textcolor{comment}{// Erase the pixel at the last radian      }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00749}00749       interfaceLcd\_Draw\_CirclePixel(63,31,newRadius1,count,1);      \textcolor{comment}{//Draw the pixel at the current radian}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00750}00750 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00751}00751       \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_[RADIUS COUNTER]}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00752}00752       \textcolor{keywordflow}{if}(count      >= 6.25)\{ newRadius1++; \}      }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00753}00753       \textcolor{keywordflow}{if}(localCount >= 6.25)\{ oldRadius1++; interfaceLcd\_Draw\_Text\_Integer(60,30,(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char})newRadius1,2,1);\}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00754}00754       }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00755}00755       \textcolor{keywordflow}{if}(newRadius1 > 20)\{newRadius1 = 10;\}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00756}00756       \textcolor{keywordflow}{if}(oldRadius1 > 20)\{oldRadius1 = 10;\}  }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00757}00757       }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00758}00758       \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_[LOCAL COUNTER]      }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00759}00759       localCount = localCount + 0.02;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00760}00760       \textcolor{keywordflow}{if}(localCount > 6.27)\{localCount = 0;\}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00761}00761       }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00762}00762       \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_[RADIAN DISPLAY]        }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00763}00763       interfaceLcd\_Draw\_Text\_Double(40,55,count,2,1,1);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00764}00764       }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00766}00766       \textcolor{keywordflow}{if}(state == 0)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00767}00767       \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00768}00768         state = 1;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00769}00769         interfaceLcd\_Draw\_Text\_String(0,55,\textcolor{stringliteral}{"{}Radians:"{}},4,1);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00770}00770         vPutStringGLcd(\textcolor{stringliteral}{"{}Circumference pixels"{}}, 0,5);    }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00771}00771       \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00772}00772       \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_[Radian Counter]}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00773}00773       count  += 0.02;  \textcolor{comment}{//Fast counter}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00774}00774       \textcolor{keywordflow}{if}(count > 6.27) \{count  = 0;\}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00775}00775 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00776}00776       countB += 0.002; \textcolor{comment}{//Slow counter}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00777}00777       \textcolor{keywordflow}{if}(countB > 6.27)\{countB = 0;\}  }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00778}00778       }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00780}00780       \textcolor{keywordflow}{if}(AnimationCounter == 0)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00781}00781       \{       }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00782}00782         interfaceLcd\_Clear\_Swipe(1);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00783}00783         interfaceLcd\_Draw\_Misc\_ScalableBRS(50,5,1,1);         }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00784}00784         vPutStringGLcd(\textcolor{stringliteral}{"{} Next:  Circle Line "{}}, 2,5);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00785}00785         vPutStringGLcd(\textcolor{stringliteral}{"{}   In/out  radius   "{}}, 3,5);    }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00786}00786         HAL\_Delay(2000);        }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00787}00787         interfaceLcd\_Clear\_Swipe(1);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00788}00788         }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00789}00789         localCount = 0;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00790}00790         count      = 8;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00791}00791         direction1 = 14;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00792}00792         countB     = 17;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00793}00793         direction2 = 24;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00794}00794         state      = 0;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00795}00795         oldCount   = 0;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00796}00796         }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00797}00797         NextFunction++;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00798}00798         AnimationCounter = AnimationTime;        }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00799}00799       \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00800}00800     \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00801}00801 \textcolor{comment}{//\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#// CIRCLE LINE RADIUS}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00802}00802     \textcolor{keywordflow}{if}(NextFunction == 1)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00803}00803     \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00805}00805       \textcolor{keywordflow}{if}(AnimationCounter > AnimationTime/2)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00806}00806       \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00807}00807         HAL\_Delay(5);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00808}00808        \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_[Draw radius Numbers]        }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00809}00809         interfaceLcd\_Draw\_Text\_Integer(31,48,(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char})newRadius1,2,1);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00810}00810         interfaceLcd\_Draw\_Text\_Integer(31,55,(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char})newRadius2,2,1);        }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00811}00811        \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_[Wipe Out Old Circle]}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00812}00812        \textcolor{comment}{//Wipe out the circle because one of the radius counters reseted. otherwise, there will be}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00813}00813        \textcolor{comment}{//residues of the past radius}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00814}00814         \textcolor{keywordflow}{if}(localCount == 0)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00815}00815           \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00816}00816             \textcolor{keywordflow}{if}(oldCount == 1)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00817}00817               \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00818}00818                 oldCount = 0;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00819}00819                 \textcolor{comment}{//Rectangle erasing the quarter circle}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00820}00820                 interfaceLcd\_Draw\_Shape\_RectF(62,30,27,27,0);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00821}00821               \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00822}00822             }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00823}00823             \textcolor{comment}{//Draw a line from a circle with from the first counter radius to the next counter radius}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00824}00824             \textcolor{keywordflow}{for}(\textcolor{keywordtype}{double} i = 0; i<1.58; i+=0.01)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00825}00825                \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00826}00826                 interfaceLcd\_Draw\_CircleLine(63,31,newRadius1,newRadius2,i,1);                   }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00827}00827                \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00828}00828         }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00829}00829             \textcolor{comment}{//Clear the edges to avoid phantoms}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00830}00830             \textcolor{keywordflow}{for}(\textcolor{keywordtype}{double} i = 0; i<1.59; i+=0.01)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00831}00831               \{        }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00832}00832                 interfaceLcd\_Draw\_CirclePixel(63,31,newRadius1-\/1,i,0);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00833}00833                 interfaceLcd\_Draw\_CirclePixel(63,31,newRadius2+1,i,0); }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00834}00834               \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00835}00835           \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00836}00836         \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_[Radius Counter]}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00837}00837         localCount++;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00838}00838         \textcolor{keywordflow}{if}(localCount > 40)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00839}00839           \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00840}00840             localCount = 0;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00841}00841             }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00842}00842             \textcolor{comment}{//Inner counter}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00843}00843             newRadius1++;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00844}00844             \textcolor{keywordflow}{if}(newRadius1 > 15)\{newRadius1=0;  oldCount=1;\}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00845}00845             }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00846}00846             \textcolor{comment}{//Outer counter}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00847}00847             newRadius2++;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00848}00848             \textcolor{keywordflow}{if}(newRadius2 > 22)\{newRadius2=17; oldCount=1;\}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00849}00849           \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00850}00850         \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_[Radius displays]        }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00851}00851       \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00853}00853       \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00854}00854       \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00855}00855         HAL\_Delay(5);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00856}00856         \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_[Radian Display]        }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00857}00857         interfaceLcd\_Draw\_Text\_Double(1,55,count,2,1,1);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00858}00858         \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_[Done Once]}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00859}00859         \textcolor{keywordflow}{if}(oldCount != 2)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00860}00860           \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00861}00861             oldCount = 2;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00862}00862           }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00863}00863             \textcolor{comment}{//LCD Clear}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00864}00864             interfaceLcd\_Draw\_Shape\_RectF(0,9,127,51,0);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00865}00865           }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00866}00866             \textcolor{comment}{//New text display}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00867}00867             vPutStringGLcd(\textcolor{stringliteral}{"{}       Radians      "{}}, 0,5);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00868}00868           }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00869}00869             \textcolor{comment}{//Redraw the quarter of circle}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00870}00870             \textcolor{keywordflow}{for}(\textcolor{keywordtype}{double} i = 0; i<1.58; i+=0.01) \{interfaceLcd\_Draw\_CircleLine(63,31,newRadius1,newRadius2,i,1);\}          }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00871}00871           }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00872}00872             localCount = 0;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00873}00873             count      = 4.71;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00874}00874           \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00875}00875         }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00876}00876         \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_[Spin radian counter]}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00877}00877         localCount += 0.01;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00878}00878         \textcolor{keywordflow}{if}(localCount >6.27) \{localCount = 0;\}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00879}00879         }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00880}00880         count += 0.01;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00881}00881         \textcolor{keywordflow}{if}(count >6.27) \{count = 0;\} }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00882}00882         }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00883}00883         \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_[DRAW CIRCLE]}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00884}00884         interfaceLcd\_Draw\_CircleLine(63,31,newRadius1,newRadius2,localCount,1); \textcolor{comment}{//draw a line}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00885}00885         interfaceLcd\_Draw\_CircleLine(63,31,newRadius1,newRadius2,count,0);      \textcolor{comment}{//clears behind line}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00886}00886       \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00888}00888       \textcolor{keywordflow}{if}(state == 0)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00889}00889         \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00890}00890           state = 1; }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00891}00891           vPutStringGLcd(\textcolor{stringliteral}{"{}Custom in/out radius"{}}, 0,5);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00892}00892        }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00893}00893           \textcolor{comment}{//Stage 1 text drawings}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00894}00894           interfaceLcd\_Draw\_Text\_String(1,48,\textcolor{stringliteral}{"{}Start:"{}},4,1);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00895}00895           interfaceLcd\_Draw\_Text\_String(1,55,\textcolor{stringliteral}{"{}Edges:"{}},4,1); }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00896}00896         \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00897}00897       }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00899}00899       \textcolor{keywordflow}{if}(AnimationCounter == 0)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00900}00900       \{       }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00901}00901         interfaceLcd\_Clear\_Swipe(1);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00902}00902         interfaceLcd\_Draw\_Misc\_ScalableBRS(50,5,1,1);         }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00903}00903         vPutStringGLcd(\textcolor{stringliteral}{"{}  Next: Oval Pixel  "{}}, 2,5);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00904}00904         HAL\_Delay(2000);          }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00905}00905         interfaceLcd\_Clear\_Swipe(1);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00906}00906         AnimationCounter = AnimationTime;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00907}00907         }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00909}00909         localCount = 0;   \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00910}00910         oldCount   = 0;   \textcolor{comment}{//        }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00911}00911         count      = 4.71;\textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00912}00912         countB     = 0;   \textcolor{comment}{//        }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00913}00913                           \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00914}00914         direction1 = 1;   \textcolor{comment}{// decrease}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00915}00915         direction2 = 0;   \textcolor{comment}{// increase     }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00916}00916         state      = 0;   \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00917}00917                           \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00918}00918         newRadius1 = 10;  \textcolor{comment}{// will decrease}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00919}00919         newRadius2 = 10;  \textcolor{comment}{// will increase}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00920}00920         oldRadius1 = 10;  \textcolor{comment}{// will decrease}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00921}00921         oldRadius2 = 10;  \textcolor{comment}{// will increase}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00923}00923 \textcolor{comment}{}        }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00924}00924         NextFunction++;      }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00925}00925       \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00926}00926     \} }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00927}00927 \textcolor{comment}{//\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#// OVAL PIXEL   }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00928}00928     \textcolor{keywordflow}{if}(NextFunction == 2)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00929}00929     \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00930}00930      \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_[RADIAN COUNTERS]      }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00931}00931        count += 0.02;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00932}00932        \textcolor{keywordflow}{if}(count > 6.27)\{count = 0;\}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00933}00933      \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_[RADIUS COUNTERS]}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00934}00934        HAL\_Delay(1);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00935}00935      \textcolor{keywordflow}{if}(localCount > 30)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00936}00936      \{  localCount = 0;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00937}00937      \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_[CLEAR OLD PIXELS]}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00938}00938        \textcolor{keywordflow}{for}(\textcolor{keywordtype}{double} i = 0; i<6.27; i+=0.01)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00939}00939           \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00940}00940             interfaceLcd\_Draw\_OvalPixel(63, 32, newRadius1, newRadius2, i, 0);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00941}00941           \}        }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00942}00942      }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00943}00943      \textcolor{comment}{// X Radius. The second radius is used to clear the pixel}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00944}00944        \textcolor{comment}{// New radius}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00945}00945        \textcolor{keywordflow}{if}(direction1 == 0)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00946}00946          \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00947}00947           newRadius1 -\/= 0.4;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00948}00948           \textcolor{keywordflow}{if}(newRadius1 <= 0) \{direction1 = 1;\}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00949}00949          \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00950}00950        }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00951}00951        \textcolor{keywordflow}{if}(direction1 == 1)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00952}00952          \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00953}00953           newRadius1 += 0.4;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00954}00954           \textcolor{keywordflow}{if}(newRadius1 >= 35) \{direction1 = 0;\}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00955}00955          \}       }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00956}00956        }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00957}00957      \textcolor{comment}{// Y Radius. The second radius is used to clear the pixel}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00958}00958        \textcolor{comment}{// New radius Y      }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00959}00959        \textcolor{keywordflow}{if}(direction2 == 0)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00960}00960          \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00961}00961           newRadius2 -\/= 1;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00962}00962           \textcolor{keywordflow}{if}(newRadius2 <= 0) \{direction2 = 1;\}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00963}00963          \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00964}00964        }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00965}00965        \textcolor{keywordflow}{if}(direction2 == 1)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00966}00966          \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00967}00967           newRadius2 += 1;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00968}00968           \textcolor{keywordflow}{if}(newRadius2 >= 20)\{direction2 = 0;\}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00969}00969          \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00970}00970        }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00971}00971      \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_[DRAW NEW PIXELS]}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00972}00972        \textcolor{keywordflow}{for}(\textcolor{keywordtype}{double} i = 0; i<6.27; i+=0.01)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00973}00973        \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00974}00974         interfaceLcd\_Draw\_OvalPixel(63, 32, newRadius1, newRadius2, i, 1);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00975}00975        \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00976}00976         }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00977}00977      \} }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00978}00978      localCount++;     }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00979}00979 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00980}00980      \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_[DRAW RADIUS VALUES]         }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00981}00981      interfaceLcd\_Draw\_Text\_Integer(11,48,(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char})newRadius1,2,1);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00982}00982      interfaceLcd\_Draw\_Text\_Integer(11,55,(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char})newRadius2,2,1);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00983}00983         }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00985}00985      \textcolor{keywordflow}{if}(state == 0)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00986}00986        \{ state = 1;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00987}00987         }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00988}00988         interfaceLcd\_Draw\_Text\_String(1,48,\textcolor{stringliteral}{"{}X:"{}},4,1);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00989}00989         interfaceLcd\_Draw\_Text\_String(1,55,\textcolor{stringliteral}{"{}Y:"{}},4,1);         }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00990}00990         vPutStringGLcd(\textcolor{stringliteral}{"{}  Elongate circles  "{}}, 0,5);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00991}00991         }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00992}00992         direction1 = 1;   \textcolor{comment}{// decrease}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00993}00993         direction2 = 0;   \textcolor{comment}{// increase     }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00994}00994                           \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00995}00995         newRadius1 = 10;  \textcolor{comment}{// will decrease}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00996}00996         newRadius2 = 10;  \textcolor{comment}{// will increase}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00997}00997         oldRadius1 = 9;   \textcolor{comment}{// will decrease}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00998}00998         oldRadius2 = 11;  \textcolor{comment}{// will increase        }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l00999}00999        \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01000}01000       }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01002}01002       \textcolor{keywordflow}{if}(AnimationCounter == 0)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01003}01003       \{       }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01004}01004         interfaceLcd\_Clear\_Swipe(1);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01005}01005         interfaceLcd\_Draw\_Misc\_ScalableBRS(50,5,1,1);         }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01006}01006         vPutStringGLcd(\textcolor{stringliteral}{"{}Next: Perfect Circle"{}}, 2,5);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01007}01007         HAL\_Delay(2000);          }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01008}01008         interfaceLcd\_Clear\_Swipe(1);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01009}01009         AnimationCounter = AnimationTime;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01010}01010 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01012}01012         localCount = 0;   \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01013}01013         oldCount   = 0;   \textcolor{comment}{//        }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01014}01014         count      = 0;   \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01015}01015         countB     = 0;   \textcolor{comment}{//        }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01016}01016                           \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01017}01017         direction1 = 0;   \textcolor{comment}{// decrease}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01018}01018         direction2 = 0;   \textcolor{comment}{// increase     }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01019}01019         state      = 0;   \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01020}01020                           \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01021}01021         newRadius1 = 10;  \textcolor{comment}{// will decrease}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01022}01022         newRadius2 = 10;  \textcolor{comment}{// will increase}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01023}01023         oldRadius1 = 10;  \textcolor{comment}{// will decrease}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01024}01024         oldRadius2 = 10;  \textcolor{comment}{// will increase}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01026}01026 \textcolor{comment}{}        }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01027}01027         NextFunction++;      }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01028}01028       \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01029}01029     \}     }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01030}01030 \textcolor{comment}{//\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#// PERFECT CIRCLES  }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01031}01031     \textcolor{keywordflow}{if}(NextFunction == 3)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01032}01032     \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01033}01033       HAL\_Delay(1);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01034}01034       \textcolor{keywordflow}{if}(localCount > 60)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01035}01035       \{ localCount = 0;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01036}01036       }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01037}01037         \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_[CLEAR CIRCLES]         }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01038}01038         interfaceLcd\_Draw\_Shape\_CircleF(30,30,newRadius1,0);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01039}01039         interfaceLcd\_Draw\_Shape\_Circle (100,30,newRadius1,0);      }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01041}01041         \textcolor{comment}{//Increase or decrease depending on direction}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01042}01042         \textcolor{keywordflow}{if}(direction1 == 0) \{newRadius1++;\}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01043}01043         \textcolor{keywordflow}{if}(direction1 == 1) \{newRadius1-\/-\/;\}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01044}01044         }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01045}01045         \textcolor{comment}{//Change direction when above or below a certain threshold}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01046}01046         \textcolor{keywordflow}{if}(newRadius1 > 20) \{direction1 = 1;\}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01047}01047         \textcolor{keywordflow}{if}(newRadius1 < 5)  \{direction1 = 0;\}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01048}01048         }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01049}01049         \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_[DRAW CIRCLES]  }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01050}01050         interfaceLcd\_Draw\_Shape\_CircleF(30,30,newRadius1,1);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01051}01051         interfaceLcd\_Draw\_Shape\_Circle (100,30,newRadius1,1);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01052}01052         }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01053}01053         \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_[DRAW RADIUS]          }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01054}01054         interfaceLcd\_Draw\_Text\_Integer(35,55,(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char})newRadius1,2,1);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01055}01055       \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01056}01056         localCount++;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01058}01058      \textcolor{keywordflow}{if}(state == 0)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01059}01059        \{ state = 1;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01060}01060         }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01061}01061         interfaceLcd\_Draw\_Text\_String(1,55,\textcolor{stringliteral}{"{}Radius:"{}},4,1);         }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01062}01062         vPutStringGLcd(\textcolor{stringliteral}{"{}  Perfect circles  "{}}, 0,5);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01063}01063         }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01064}01064         direction1 = 1;   \textcolor{comment}{// decrease}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01065}01065         newRadius1 = 10;  \textcolor{comment}{// will decrease }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01066}01066        \}      }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01068}01068       \textcolor{keywordflow}{if}(AnimationCounter == 0)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01069}01069       \{       }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01070}01070         interfaceLcd\_Clear\_Swipe(1);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01071}01071         interfaceLcd\_Draw\_Misc\_ScalableBRS(50,5,1,1);         }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01072}01072         vPutStringGLcd(\textcolor{stringliteral}{"{}   Next:  Radians   "{}}, 2,5);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01073}01073         HAL\_Delay(2000);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01074}01074         interfaceLcd\_Clear\_Swipe(1);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01075}01075         AnimationCounter = AnimationTime;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01076}01076 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01078}01078         localCount = 0;   \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01079}01079         oldCount   = 0;   \textcolor{comment}{//        }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01080}01080         count      = 0;   \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01081}01081         countB     = 0;   \textcolor{comment}{//        }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01082}01082                           \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01083}01083         direction1 = 0;   \textcolor{comment}{// decrease}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01084}01084         direction2 = 0;   \textcolor{comment}{// increase     }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01085}01085         state      = 0;   \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01086}01086                           \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01087}01087         newRadius1 = 0;   \textcolor{comment}{// will decrease}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01088}01088         newRadius2 = 0;   \textcolor{comment}{// will increase}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01089}01089         oldRadius1 = 0;   \textcolor{comment}{// will decrease}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01090}01090         oldRadius2 = 0;   \textcolor{comment}{// will increase}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01092}01092 \textcolor{comment}{}        }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01093}01093         NextFunction++;      }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01094}01094       \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01095}01095     \}    }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01096}01096 \textcolor{comment}{//\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#// RADIANS}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01097}01097     \textcolor{keywordflow}{if}(NextFunction == 4)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01098}01098     \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01099}01099       HAL\_Delay(10);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01100}01100       \textcolor{keywordflow}{if}(localCount > 10)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01101}01101       \{  localCount = 0;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01102}01102 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01103}01103 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01105}01105        count+=0.1;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01106}01106        \textcolor{keywordflow}{if}(count > 6.2) \{count = 0;\}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01107}01107        interfaceLcd\_Draw\_Text\_Double(55,29,count,1,1,1);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01108}01108       }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01109}01109       }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01110}01110       }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01111}01111       }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01112}01112       \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01113}01113       localCount++;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01115}01115      \textcolor{keywordflow}{if}(state == 0)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01116}01116        \{ state = 1;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01117}01117         }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01118}01118        \textcolor{comment}{// TEXT}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01119}01119         interfaceLcd\_Draw\_Text\_String(1,55,\textcolor{stringliteral}{"{}Radians:"{}},4,1);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01120}01120         vPutStringGLcd(\textcolor{stringliteral}{"{}   Radian Values   "{}}, 0,5);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01121}01121         }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01122}01122        \textcolor{comment}{// Middle Circle}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01123}01123         interfaceLcd\_Draw\_Shape\_Circle(63,31,10,1);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01124}01124         }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01125}01125         direction1 = 1;   \textcolor{comment}{// decrease}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01126}01126         newRadius1 = 10;  \textcolor{comment}{// will decrease }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01127}01127        \}        }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01128}01128       }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01130}01130       \textcolor{keywordflow}{if}(AnimationCounter == 0)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01131}01131       \{      }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01132}01132         interfaceLcd\_Clear\_Swipe(1);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01133}01133         interfaceLcd\_Draw\_Misc\_ScalableBRS(50,5,1,1);         }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01134}01134         vPutStringGLcd(\textcolor{stringliteral}{"{} Next: Circle Pixel "{}}, 2,5);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01135}01135         HAL\_Delay(2000);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01136}01136         interfaceLcd\_Clear\_Swipe(1);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01137}01137         AnimationCounter = AnimationTime;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01138}01138 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01140}01140         localCount = 4.5;   \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01141}01141         oldCount   = 0;   \textcolor{comment}{//        }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01142}01142         count      = 0;   \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01143}01143         countB     = 0;   \textcolor{comment}{//        }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01144}01144                           \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01145}01145         direction1 = 0;   \textcolor{comment}{// decrease}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01146}01146         direction2 = 0;   \textcolor{comment}{// increase     }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01147}01147         state      = 0;   \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01148}01148                           \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01149}01149         newRadius1 = 10;  \textcolor{comment}{// will decrease}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01150}01150         newRadius2 = 10;  \textcolor{comment}{// will increase}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01151}01151         oldRadius1 = 0;   \textcolor{comment}{// will decrease}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01152}01152         oldRadius2 = 0;   \textcolor{comment}{// will increase}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01154}01154 \textcolor{comment}{}        }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01155}01155         NextFunction = 0;      }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01156}01156       \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01157}01157     \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01158}01158 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01160}01160     AnimationCounter-\/-\/;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01162}01162     loadingBarCoord = floor(127-\/floor(AnimationCounter/loadingRatio));}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01163}01163     }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01164}01164     \textcolor{keywordflow}{if}(loadingBarCoord > 0 \&\& loadingBarCoord<127)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01165}01165     \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01166}01166       \textcolor{keywordflow}{if}(oldCoord != loadingBarCoord)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01167}01167       \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01168}01168         interfaceLcd\_Draw\_Shape\_RectF(loadingBarCoord, 61, 1, 3, 1);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01169}01169         oldCoord = loadingBarCoord;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01170}01170       \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01171}01171     \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01172}01172   }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01173}01173   }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01174}01174   \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01175}01175 \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01176}01176 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01177}01177 \textcolor{comment}{//{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01178}01178 \textcolor{keywordtype}{void} interfaceLcd\_Demo\_Text(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01179}01179 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01180}01180 \textcolor{comment}{//      Creator:    |Shawn Couture}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01181}01181 \textcolor{comment}{//  Date made:  | 04/04/2022}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01182}01182 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01183}01183 \textcolor{comment}{//  Function:   | }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01184}01184 \textcolor{comment}{//                      | Demonstrates the easy use and implementations of interfaceLcd\_Text functions}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01185}01185 \textcolor{comment}{//                      | }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01186}01186 \textcolor{comment}{//                      | This demonstration shows uses of the LCD\_Text functions by showing the}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01187}01187 \textcolor{comment}{//                      | custom BRS alphabet as well as how the text can easily be drawn inside}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01188}01188 \textcolor{comment}{//                      | boxes of custom dimmensions with LCD\_Draw\_Text\_Box}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01189}01189 \textcolor{comment}{//                      | }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01190}01190 \textcolor{comment}{//                      | This function also demonstrates how the Draw\_Text\_Variable can be used}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01191}01191 \textcolor{comment}{//                      | to display tests on your LCD and be used to debug some programs}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01192}01192 \textcolor{comment}{//                      | }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01193}01193 \textcolor{comment}{//                      | LCD\_Text allows you to draw letters at any coordinates on your screen }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01194}01194 \textcolor{comment}{//                      | without the restrictions of lines and columns. Which is absolutely needed}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01195}01195 \textcolor{comment}{//                      | when drawing graphs and dials on your screen}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01196}01196 \textcolor{comment}{//                      | }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01197}01197 \textcolor{comment}{//                      | DO note however, that LCD\_Text are far slower than the default GLCD}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01198}01198 \textcolor{comment}{//                      | functions used to draw texts. And they are better used only when}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01199}01199 \textcolor{comment}{//                      | the specific case necessites them.}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01200}01200 \textcolor{comment}{//\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01201}01201 \textcolor{comment}{//{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01202}01202 \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01204}01204  Demo\_TitleSwipe(\textcolor{stringliteral}{"{}   Text Functions   "{}});}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01205}01205  \textcolor{keywordtype}{int} countA = 0;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01206}01206  \textcolor{comment}{//int countB = 0; }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01208}01208 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01209}01209    interfaceLcd\_Draw\_Text\_String(0,0,\textcolor{stringliteral}{"{}0123456789!\(\backslash\)"{}\#\$\%'()*+,-\/./"{}},4,1);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01210}01210    interfaceLcd\_Draw\_Text\_String(0,7,\textcolor{stringliteral}{"{}ABCDEFGHIJKLMNOPQRSTUVWXYZ"{}},4,1);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01211}01211    interfaceLcd\_Draw\_Text\_String(0,14,\textcolor{stringliteral}{"{}\{\}[]`\_/\string^\string~|{\ucr}?\&{\ucr}{\ucr}{\ucr}"{}},4,1);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01212}01212    }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01213}01213  \textcolor{keywordflow}{while}(1)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01214}01214  \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01215}01215    countA = countA+1;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01216}01216    HAL\_Delay(200);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01217}01217     }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01218}01218    \textcolor{keywordflow}{if}(countA > 999) \{countA=0;\}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01219}01219    }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01220}01220    interfaceLcd\_Draw\_Text\_Integer(10,30,countA,3,1);  }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01221}01221  \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01222}01222 \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01223}01223 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01224}01224 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01225}01225 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01226}01226 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01227}01227 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01228}01228 \textcolor{keywordtype}{void} interfaceLcd\_Demo\_Clear(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01229}01229 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01230}01230 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01231}01231 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01232}01232 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01233}01233 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01234}01234 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01236}01236 \textcolor{comment}{//\_INTERNAL\_FUNCTIONS\_//}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01238}01238 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01239}01239 \textcolor{comment}{//{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01240}01240 \textcolor{keywordtype}{size\_t} strlen(\textcolor{keyword}{const} \textcolor{keywordtype}{char} *pString)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01241}01241 \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01242}01242     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} length = 0;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01243}01243 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01244}01244     \textcolor{keywordflow}{while}(*pString++ != 0) \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01245}01245         length++;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01246}01246     \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01247}01247     \textcolor{keywordflow}{return} length;}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01248}01248 \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01249}01249 \textcolor{comment}{//{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01250}01250 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01251}01251 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01252}01252 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01253}01253 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01254}01254 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01255}01255 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01256}01256 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01257}01257 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01258}01258 \textcolor{comment}{//{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01259}01259 \textcolor{keywordtype}{void} Demo\_TitleSwipe(\textcolor{keywordtype}{char} \textcolor{keyword}{const} *NameOfDemo)}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01260}01260 \{}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01261}01261   vClearGLcd(0xFF);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01262}01262   interfaceLcd\_Draw\_Misc\_ScalableBRS(4,18,6,0);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01263}01263 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01264}01264   HAL\_Delay(500);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01265}01265   interfaceLcd\_Clear\_Swipe(0);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01266}01266 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01267}01267   vPutStringGLcd(\textcolor{stringliteral}{"{}    BRS LCD DEMO    "{}}, 2,5);  }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01268}01268   vPutStringGLcd(NameOfDemo, 4,5);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01269}01269   vPutStringGLcd(\textcolor{stringliteral}{"{}   By Lyam / S.C.   "{}}, 6,5);  }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01270}01270   }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01271}01271   HAL\_Delay(3000);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01272}01272   }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01273}01273   interfaceLcd\_Clear\_Swipe(3);  }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01274}01274 \}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01275}01275 \textcolor{comment}{//{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}{\ucr}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01276}01276 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01277}01277 \textcolor{comment}{//void interfaceLcd\_Draw\_Text\_Line(unsigned char x, unsigned char y, unsigned char *string, unsigned char font);}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8_c_source_l01278}01278 \textcolor{comment}{//void interfaceLcd\_Draw\_Text\_Box (unsigned char x, unsigned char y, unsigned char *string, unsigned char font, unsigned char LR, unsigned char UD);}}
+
+\end{DoxyCode}

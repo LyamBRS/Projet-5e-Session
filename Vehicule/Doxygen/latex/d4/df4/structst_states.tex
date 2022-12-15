@@ -1,0 +1,285 @@
+\hypertarget{structst_states}{}\doxysection{Référence de la structure st\+States}
+\label{structst_states}\index{stStates@{stStates}}
+
+
+Struct containing all the possible states that a module can have. This is a list of states and must not be changed, but only referred to.  
+
+
+
+
+{\ttfamily \#include $<$Service\+Communication.\+h$>$}
+
+\doxysubsection*{Champs de données}
+\begin{DoxyCompactItemize}
+\item 
+unsigned char \mbox{\hyperlink{structst_states_ad7f5df746d8b4319632c7d61a62fae68}{emergency\+Stop}}
+\begin{DoxyCompactList}\small\item\em Indicates that the module is in an emergency stop proceedure. Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D18}}. \end{DoxyCompactList}\item 
+unsigned char \mbox{\hyperlink{structst_states_acd32cc631f50c25e83c903efae3ddbd7}{paused}}
+\begin{DoxyCompactList}\small\item\em Indicates that the module is paused during autonomous operations. Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D19}}. \end{DoxyCompactList}\item 
+unsigned char \mbox{\hyperlink{structst_states_a344c20e3c14ba2d172e57dab9c200d61}{testing}}
+\begin{DoxyCompactList}\small\item\em Indicates that the module is in a testing proceedure. Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D20}}. \end{DoxyCompactList}\item 
+unsigned char \mbox{\hyperlink{structst_states_a762942f38bcc7f55f7239a82fa38d754}{processing}}
+\begin{DoxyCompactList}\small\item\em Indicates that the module is processing an action. Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D21}}. \end{DoxyCompactList}\item 
+unsigned char \mbox{\hyperlink{structst_states_ae6dd5c4bbcfd51abc5d78ec63ffa1dec}{calibrating}}
+\begin{DoxyCompactList}\small\item\em Indicates that the module is currently calibating itself. Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D22}}. \end{DoxyCompactList}\item 
+unsigned char \mbox{\hyperlink{structst_states_aa703449e565a58afc6494617d0a4f455}{calibrated}}
+\begin{DoxyCompactList}\small\item\em Indicates that the module has finished the calibrating proceedure. Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D23}}. \end{DoxyCompactList}\item 
+unsigned char \mbox{\hyperlink{structst_states_a046fa2d7bdb410eb8f747093cdf170e0}{waiting}}
+\begin{DoxyCompactList}\small\item\em Indicates that the module is waiting for a command, without being in a peculiar state. Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D24}}. \end{DoxyCompactList}\item 
+unsigned char \mbox{\hyperlink{structst_states_ac8317117c2662d0c78c14070d2221a09}{safe}}
+\begin{DoxyCompactList}\small\item\em Indicates that the module is safe to handle (maintenancemode). Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D25}}. \end{DoxyCompactList}\item 
+unsigned char \mbox{\hyperlink{structst_states_a3856c95f05263adfbb280b0d4da51149}{error}}
+\begin{DoxyCompactList}\small\item\em Indicates that the module is in an error state. Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D26}}. \end{DoxyCompactList}\item 
+unsigned char \mbox{\hyperlink{structst_states_a730d409543b5dcebaece9004cdb64fbd}{at\+Sorting\+Factory}}
+\begin{DoxyCompactList}\small\item\em Indicates that the module has arrived at the sorting factory. Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D27}}. \end{DoxyCompactList}\item 
+unsigned char \mbox{\hyperlink{structst_states_a5d1b549a02268049aa4e496464c387d1}{at\+Weight\+Station}}
+\begin{DoxyCompactList}\small\item\em Indicates that the module has arrived at the weight station. Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D28}}. \end{DoxyCompactList}\item 
+unsigned char \mbox{\hyperlink{structst_states_a4154215d90d6765090f3ac749e476d6a}{finished\+Sorting\+And\+Has\+Loaded}}
+\begin{DoxyCompactList}\small\item\em Indicates that the module has finished sorting and loaded the moving module with the disc it sorted. Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D29}}. \end{DoxyCompactList}\item 
+unsigned char \mbox{\hyperlink{structst_states_a3e096cd3dc6efb3364579bd36c078749}{waiting\+To\+Sort}}
+\begin{DoxyCompactList}\small\item\em Indicates that the module is waiting to begin the sorting proceeduer. Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D30}}. \end{DoxyCompactList}\item 
+unsigned char \mbox{\hyperlink{structst_states_aa0593cf9692b117c9d8b736a09b91371}{waiting\+To\+Weight}}
+\begin{DoxyCompactList}\small\item\em Indicates that the module is waiting to start the weighting process. Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D31}}. \end{DoxyCompactList}\item 
+unsigned char \mbox{\hyperlink{structst_states_aec9b0df527403a66ab5046cab4807039}{finished\+Weighting}}
+\begin{DoxyCompactList}\small\item\em Indicates that the module finished it\textquotesingle{}s weighing process. Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D32}}. \end{DoxyCompactList}\item 
+unsigned char \mbox{\hyperlink{structst_states_adfe1fef50d80c23ca49ab35ab85f435e}{empty}}
+\begin{DoxyCompactList}\small\item\em Indicates that the module is empty. Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D33}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Struct containing all the possible states that a module can have. This is a list of states and must not be changed, but only referred to. 
+
+Définition à la ligne \mbox{\hyperlink{_service_communication_8h_source_l00462}{462}} du fichier \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+
+
+\doxysubsection{Documentation des champs}
+\mbox{\Hypertarget{structst_states_a730d409543b5dcebaece9004cdb64fbd}\label{structst_states_a730d409543b5dcebaece9004cdb64fbd}} 
+\index{stStates@{stStates}!atSortingFactory@{atSortingFactory}}
+\index{atSortingFactory@{atSortingFactory}!stStates@{stStates}}
+\doxysubsubsection{\texorpdfstring{atSortingFactory}{atSortingFactory}}
+{\footnotesize\ttfamily unsigned char st\+States\+::at\+Sorting\+Factory}
+
+
+
+Indicates that the module has arrived at the sorting factory. Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D27}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{_service_communication_8h_source_l00513}{513}} du fichier \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{structst_states_a5d1b549a02268049aa4e496464c387d1}\label{structst_states_a5d1b549a02268049aa4e496464c387d1}} 
+\index{stStates@{stStates}!atWeightStation@{atWeightStation}}
+\index{atWeightStation@{atWeightStation}!stStates@{stStates}}
+\doxysubsubsection{\texorpdfstring{atWeightStation}{atWeightStation}}
+{\footnotesize\ttfamily unsigned char st\+States\+::at\+Weight\+Station}
+
+
+
+Indicates that the module has arrived at the weight station. Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D28}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{_service_communication_8h_source_l00518}{518}} du fichier \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{structst_states_aa703449e565a58afc6494617d0a4f455}\label{structst_states_aa703449e565a58afc6494617d0a4f455}} 
+\index{stStates@{stStates}!calibrated@{calibrated}}
+\index{calibrated@{calibrated}!stStates@{stStates}}
+\doxysubsubsection{\texorpdfstring{calibrated}{calibrated}}
+{\footnotesize\ttfamily unsigned char st\+States\+::calibrated}
+
+
+
+Indicates that the module has finished the calibrating proceedure. Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D23}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{_service_communication_8h_source_l00493}{493}} du fichier \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{structst_states_ae6dd5c4bbcfd51abc5d78ec63ffa1dec}\label{structst_states_ae6dd5c4bbcfd51abc5d78ec63ffa1dec}} 
+\index{stStates@{stStates}!calibrating@{calibrating}}
+\index{calibrating@{calibrating}!stStates@{stStates}}
+\doxysubsubsection{\texorpdfstring{calibrating}{calibrating}}
+{\footnotesize\ttfamily unsigned char st\+States\+::calibrating}
+
+
+
+Indicates that the module is currently calibating itself. Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D22}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{_service_communication_8h_source_l00488}{488}} du fichier \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{structst_states_ad7f5df746d8b4319632c7d61a62fae68}\label{structst_states_ad7f5df746d8b4319632c7d61a62fae68}} 
+\index{stStates@{stStates}!emergencyStop@{emergencyStop}}
+\index{emergencyStop@{emergencyStop}!stStates@{stStates}}
+\doxysubsubsection{\texorpdfstring{emergencyStop}{emergencyStop}}
+{\footnotesize\ttfamily unsigned char st\+States\+::emergency\+Stop}
+
+
+
+Indicates that the module is in an emergency stop proceedure. Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D18}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{_service_communication_8h_source_l00468}{468}} du fichier \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{structst_states_adfe1fef50d80c23ca49ab35ab85f435e}\label{structst_states_adfe1fef50d80c23ca49ab35ab85f435e}} 
+\index{stStates@{stStates}!empty@{empty}}
+\index{empty@{empty}!stStates@{stStates}}
+\doxysubsubsection{\texorpdfstring{empty}{empty}}
+{\footnotesize\ttfamily unsigned char st\+States\+::empty}
+
+
+
+Indicates that the module is empty. Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D33}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{_service_communication_8h_source_l00543}{543}} du fichier \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{structst_states_a3856c95f05263adfbb280b0d4da51149}\label{structst_states_a3856c95f05263adfbb280b0d4da51149}} 
+\index{stStates@{stStates}!error@{error}}
+\index{error@{error}!stStates@{stStates}}
+\doxysubsubsection{\texorpdfstring{error}{error}}
+{\footnotesize\ttfamily unsigned char st\+States\+::error}
+
+
+
+Indicates that the module is in an error state. Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D26}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{_service_communication_8h_source_l00508}{508}} du fichier \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{structst_states_a4154215d90d6765090f3ac749e476d6a}\label{structst_states_a4154215d90d6765090f3ac749e476d6a}} 
+\index{stStates@{stStates}!finishedSortingAndHasLoaded@{finishedSortingAndHasLoaded}}
+\index{finishedSortingAndHasLoaded@{finishedSortingAndHasLoaded}!stStates@{stStates}}
+\doxysubsubsection{\texorpdfstring{finishedSortingAndHasLoaded}{finishedSortingAndHasLoaded}}
+{\footnotesize\ttfamily unsigned char st\+States\+::finished\+Sorting\+And\+Has\+Loaded}
+
+
+
+Indicates that the module has finished sorting and loaded the moving module with the disc it sorted. Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D29}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{_service_communication_8h_source_l00523}{523}} du fichier \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{structst_states_aec9b0df527403a66ab5046cab4807039}\label{structst_states_aec9b0df527403a66ab5046cab4807039}} 
+\index{stStates@{stStates}!finishedWeighting@{finishedWeighting}}
+\index{finishedWeighting@{finishedWeighting}!stStates@{stStates}}
+\doxysubsubsection{\texorpdfstring{finishedWeighting}{finishedWeighting}}
+{\footnotesize\ttfamily unsigned char st\+States\+::finished\+Weighting}
+
+
+
+Indicates that the module finished it\textquotesingle{}s weighing process. Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D32}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{_service_communication_8h_source_l00538}{538}} du fichier \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{structst_states_acd32cc631f50c25e83c903efae3ddbd7}\label{structst_states_acd32cc631f50c25e83c903efae3ddbd7}} 
+\index{stStates@{stStates}!paused@{paused}}
+\index{paused@{paused}!stStates@{stStates}}
+\doxysubsubsection{\texorpdfstring{paused}{paused}}
+{\footnotesize\ttfamily unsigned char st\+States\+::paused}
+
+
+
+Indicates that the module is paused during autonomous operations. Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D19}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{_service_communication_8h_source_l00473}{473}} du fichier \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{structst_states_a762942f38bcc7f55f7239a82fa38d754}\label{structst_states_a762942f38bcc7f55f7239a82fa38d754}} 
+\index{stStates@{stStates}!processing@{processing}}
+\index{processing@{processing}!stStates@{stStates}}
+\doxysubsubsection{\texorpdfstring{processing}{processing}}
+{\footnotesize\ttfamily unsigned char st\+States\+::processing}
+
+
+
+Indicates that the module is processing an action. Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D21}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{_service_communication_8h_source_l00483}{483}} du fichier \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{structst_states_ac8317117c2662d0c78c14070d2221a09}\label{structst_states_ac8317117c2662d0c78c14070d2221a09}} 
+\index{stStates@{stStates}!safe@{safe}}
+\index{safe@{safe}!stStates@{stStates}}
+\doxysubsubsection{\texorpdfstring{safe}{safe}}
+{\footnotesize\ttfamily unsigned char st\+States\+::safe}
+
+
+
+Indicates that the module is safe to handle (maintenancemode). Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D25}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{_service_communication_8h_source_l00503}{503}} du fichier \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{structst_states_a344c20e3c14ba2d172e57dab9c200d61}\label{structst_states_a344c20e3c14ba2d172e57dab9c200d61}} 
+\index{stStates@{stStates}!testing@{testing}}
+\index{testing@{testing}!stStates@{stStates}}
+\doxysubsubsection{\texorpdfstring{testing}{testing}}
+{\footnotesize\ttfamily unsigned char st\+States\+::testing}
+
+
+
+Indicates that the module is in a testing proceedure. Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D20}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{_service_communication_8h_source_l00478}{478}} du fichier \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{structst_states_a046fa2d7bdb410eb8f747093cdf170e0}\label{structst_states_a046fa2d7bdb410eb8f747093cdf170e0}} 
+\index{stStates@{stStates}!waiting@{waiting}}
+\index{waiting@{waiting}!stStates@{stStates}}
+\doxysubsubsection{\texorpdfstring{waiting}{waiting}}
+{\footnotesize\ttfamily unsigned char st\+States\+::waiting}
+
+
+
+Indicates that the module is waiting for a command, without being in a peculiar state. Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D24}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{_service_communication_8h_source_l00498}{498}} du fichier \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{structst_states_a3e096cd3dc6efb3364579bd36c078749}\label{structst_states_a3e096cd3dc6efb3364579bd36c078749}} 
+\index{stStates@{stStates}!waitingToSort@{waitingToSort}}
+\index{waitingToSort@{waitingToSort}!stStates@{stStates}}
+\doxysubsubsection{\texorpdfstring{waitingToSort}{waitingToSort}}
+{\footnotesize\ttfamily unsigned char st\+States\+::waiting\+To\+Sort}
+
+
+
+Indicates that the module is waiting to begin the sorting proceeduer. Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D30}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{_service_communication_8h_source_l00528}{528}} du fichier \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{structst_states_aa0593cf9692b117c9d8b736a09b91371}\label{structst_states_aa0593cf9692b117c9d8b736a09b91371}} 
+\index{stStates@{stStates}!waitingToWeight@{waitingToWeight}}
+\index{waitingToWeight@{waitingToWeight}!stStates@{stStates}}
+\doxysubsubsection{\texorpdfstring{waitingToWeight}{waitingToWeight}}
+{\footnotesize\ttfamily unsigned char st\+States\+::waiting\+To\+Weight}
+
+
+
+Indicates that the module is waiting to start the weighting process. Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D31}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{_service_communication_8h_source_l00533}{533}} du fichier \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+
+
+La documentation de cette structure a été générée à partir du fichier suivant \+:\begin{DoxyCompactItemize}
+\item 
+U\+:/\+Sessions/\+Session 5/\+Project/\+Projet\+\_\+\+Fin\+\_\+\+Session/\+Projet-\/5e-\/\+Session/\+Vehicule/\+Programmes/\+ESPvehicule/include/\mbox{\hyperlink{_service_communication_8h}{Service\+Communication.\+h}}\end{DoxyCompactItemize}

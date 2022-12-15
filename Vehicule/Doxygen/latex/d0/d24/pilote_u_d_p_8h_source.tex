@@ -1,0 +1,48 @@
+\hypertarget{pilote_u_d_p_8h_source}{}\doxysection{pilote\+UDP.\+h}
+\label{pilote_u_d_p_8h_source}\index{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Vehicule/Programmes/ESPvehicule/include/piloteUDP.h@{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Vehicule/Programmes/ESPvehicule/include/piloteUDP.h}}
+\mbox{\hyperlink{pilote_u_d_p_8h}{Aller à la documentation de ce fichier.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{pilote_u_d_p_8h_source_l00001}00001 }
+\DoxyCodeLine{\Hypertarget{pilote_u_d_p_8h_source_l00012}00012 \textcolor{preprocessor}{\#ifndef PILOTEUDP\_H}}
+\DoxyCodeLine{\Hypertarget{pilote_u_d_p_8h_source_l00013}00013 \textcolor{preprocessor}{\#define PILOTEUDP\_H}}
+\DoxyCodeLine{\Hypertarget{pilote_u_d_p_8h_source_l00014}00014 }
+\DoxyCodeLine{\Hypertarget{pilote_u_d_p_8h_source_l00015}00015 \textcolor{comment}{//MODULE: piloteEntree1}}
+\DoxyCodeLine{\Hypertarget{pilote_u_d_p_8h_source_l00016}00016 \textcolor{comment}{//DESCRIPTION: pour permettre la lecture d'une entree}}
+\DoxyCodeLine{\Hypertarget{pilote_u_d_p_8h_source_l00017}00017 \textcolor{comment}{//ENVIRONNEMENT ESP32 et Arduino }}
+\DoxyCodeLine{\Hypertarget{pilote_u_d_p_8h_source_l00018}00018 \textcolor{comment}{// 2021-\/04-\/04, Yves Roy, creation}}
+\DoxyCodeLine{\Hypertarget{pilote_u_d_p_8h_source_l00019}00019 }
+\DoxyCodeLine{\Hypertarget{pilote_u_d_p_8h_source_l00020}00020 \textcolor{comment}{//DEFINITIONS REQUISES PAR LE MODULE:}}
+\DoxyCodeLine{\Hypertarget{pilote_u_d_p_8h_source_l00021}00021 \textcolor{comment}{//Dependances materielles}}
+\DoxyCodeLine{\Hypertarget{pilote_u_d_p_8h_source_l00022}00022 \textcolor{comment}{//(copiez et adaptez ce qui suit dans "{}main.h"{})}}
+\DoxyCodeLine{\Hypertarget{pilote_u_d_p_8h_source_l00023}00023 }
+\DoxyCodeLine{\Hypertarget{pilote_u_d_p_8h_source_l00024}00024 \textcolor{comment}{//Dependances logicielles}}
+\DoxyCodeLine{\Hypertarget{pilote_u_d_p_8h_source_l00025}00025 \textcolor{comment}{//pas de dependances logicielles}}
+\DoxyCodeLine{\Hypertarget{pilote_u_d_p_8h_source_l00026}00026 }
+\DoxyCodeLine{\Hypertarget{pilote_u_d_p_8h_source_l00027}00027 \textcolor{comment}{//INFORMATION PUBLIQUE:}}
+\DoxyCodeLine{\Hypertarget{pilote_u_d_p_8h_source_l00028}00028 \textcolor{comment}{//Definitions publiques:}}
+\DoxyCodeLine{\Hypertarget{pilote_u_d_p_8h_source_l00029}00029 \textcolor{comment}{// pas de definitions publiques}}
+\DoxyCodeLine{\Hypertarget{pilote_u_d_p_8h_source_l00030}00030 }
+\DoxyCodeLine{\Hypertarget{pilote_u_d_p_8h_source_l00031}00031 \textcolor{comment}{//Fonctions publiques:}}
+\DoxyCodeLine{\Hypertarget{pilote_u_d_p_8h_source_l00032}00032 }
+\DoxyCodeLine{\Hypertarget{pilote_u_d_p_8h_source_l00035}\mbox{\hyperlink{pilote_u_d_p_8h_abc5218d1715ad19649d4a7fd10da0171}{00035}} \textcolor{keywordtype}{void} \mbox{\hyperlink{pilote_u_d_p_8h_abc5218d1715ad19649d4a7fd10da0171}{piloteUDP\_initialise}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{pilote_u_d_p_8h_source_l00036}00036 }
+\DoxyCodeLine{\Hypertarget{pilote_u_d_p_8h_source_l00039}\mbox{\hyperlink{pilote_u_d_p_8h_a333e2ad1513c643d08d5bbe40c5261fc}{00039}} \textcolor{keywordtype}{int} \mbox{\hyperlink{pilote_u_d_p_8h_a333e2ad1513c643d08d5bbe40c5261fc}{GetUDPSize}}();}
+\DoxyCodeLine{\Hypertarget{pilote_u_d_p_8h_source_l00040}00040 }
+\DoxyCodeLine{\Hypertarget{pilote_u_d_p_8h_source_l00043}\mbox{\hyperlink{pilote_u_d_p_8h_a5acce3e593f6ca5feaef4a83a2d71872}{00043}} \textcolor{keywordtype}{void} \mbox{\hyperlink{pilote_u_d_p_8h_a5acce3e593f6ca5feaef4a83a2d71872}{receiveUDP1}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{pilote_u_d_p_8h_source_l00044}00044 }
+\DoxyCodeLine{\Hypertarget{pilote_u_d_p_8h_source_l00047}\mbox{\hyperlink{pilote_u_d_p_8h_ae36ec923821fa82fd244ef09a34de619}{00047}} \textcolor{keywordtype}{void} \mbox{\hyperlink{pilote_u_d_p_8h_ae36ec923821fa82fd244ef09a34de619}{transUDP1}}(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} send[255]);}
+\DoxyCodeLine{\Hypertarget{pilote_u_d_p_8h_source_l00048}00048 }
+\DoxyCodeLine{\Hypertarget{pilote_u_d_p_8h_source_l00049}00049 \textcolor{comment}{//Variables publiques:}}
+\DoxyCodeLine{\Hypertarget{pilote_u_d_p_8h_source_l00050}\mbox{\hyperlink{structst_p_i_l_o_t_e_u_d_p}{00050}} \textcolor{keyword}{typedef} \textcolor{keyword}{struct}}
+\DoxyCodeLine{\Hypertarget{pilote_u_d_p_8h_source_l00051}00051 \{}
+\DoxyCodeLine{\Hypertarget{pilote_u_d_p_8h_source_l00053}\mbox{\hyperlink{structst_p_i_l_o_t_e_u_d_p_a674619cd119d2292cfc6ae9139e71893}{00053}}   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} replyBuffer[8]; }
+\DoxyCodeLine{\Hypertarget{pilote_u_d_p_8h_source_l00054}00054 }
+\DoxyCodeLine{\Hypertarget{pilote_u_d_p_8h_source_l00056}\mbox{\hyperlink{structst_p_i_l_o_t_e_u_d_p_a4509078bc91a32c537de04e4343da23c}{00056}}   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} readBuffer[8];}
+\DoxyCodeLine{\Hypertarget{pilote_u_d_p_8h_source_l00057}00057 }
+\DoxyCodeLine{\Hypertarget{pilote_u_d_p_8h_source_l00058}00058 \} \mbox{\hyperlink{structst_p_i_l_o_t_e_u_d_p}{stPILOTEUDP}};}
+\DoxyCodeLine{\Hypertarget{pilote_u_d_p_8h_source_l00059}00059 }
+\DoxyCodeLine{\Hypertarget{pilote_u_d_p_8h_source_l00061}\mbox{\hyperlink{pilote_u_d_p_8h_a5d6c3fb3dbb45cb9c26bb92f7b1d55e5}{00061}} \mbox{\hyperlink{structst_p_i_l_o_t_e_u_d_p}{stPILOTEUDP}} \mbox{\hyperlink{pilote_u_d_p_8h_a5d6c3fb3dbb45cb9c26bb92f7b1d55e5}{piloteUDP}};}
+\DoxyCodeLine{\Hypertarget{pilote_u_d_p_8h_source_l00062}00062 }
+\DoxyCodeLine{\Hypertarget{pilote_u_d_p_8h_source_l00063}00063 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

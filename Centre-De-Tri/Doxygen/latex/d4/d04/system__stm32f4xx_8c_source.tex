@@ -1,0 +1,583 @@
+\hypertarget{system__stm32f4xx_8c_source}{}\doxysection{system\+\_\+stm32f4xx.\+c}
+\label{system__stm32f4xx_8c_source}\index{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Tri/CentreDeTriS5/Src/system\_stm32f4xx.c@{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Tri/CentreDeTriS5/Src/system\_stm32f4xx.c}}
+\mbox{\hyperlink{system__stm32f4xx_8c}{Aller à la documentation de ce fichier.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00001}00001 }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00065}00065 \textcolor{preprocessor}{\#include "{}stm32f4xx.h"{}}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00066}00066 }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00067}00067 \textcolor{preprocessor}{\#if !defined  (HSE\_VALUE) }}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00068}\mbox{\hyperlink{group___s_t_m32_f4xx___system___private___includes_gaeafcff4f57440c60e64812dddd13e7cb}{00068}} \textcolor{preprocessor}{  \#define HSE\_VALUE    ((uint32\_t)25000000) }}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00069}00069 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* HSE\_VALUE */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00070}00070 }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00071}00071 \textcolor{preprocessor}{\#if !defined  (HSI\_VALUE)}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00072}\mbox{\hyperlink{group___s_t_m32_f4xx___system___private___includes_gaaa8c76e274d0f6dd2cefb5d0b17fbc37}{00072}} \textcolor{preprocessor}{  \#define HSI\_VALUE    ((uint32\_t)16000000) }}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00073}00073 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* HSI\_VALUE */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00074}00074 }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00091}00091 \textcolor{comment}{/************************* Miscellaneous Configuration ************************/}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00093}00093 \textcolor{preprocessor}{\#if defined(STM32F405xx) || defined(STM32F415xx) || defined(STM32F407xx) || defined(STM32F417xx)\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00094}00094 \textcolor{preprocessor}{ || defined(STM32F427xx) || defined(STM32F437xx) || defined(STM32F429xx) || defined(STM32F439xx)\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00095}00095 \textcolor{preprocessor}{ || defined(STM32F469xx) || defined(STM32F479xx) || defined(STM32F412Zx) || defined(STM32F412Vx)}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00096}00096 \textcolor{comment}{/* \#define DATA\_IN\_ExtSRAM */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00097}00097 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* STM32F40xxx || STM32F41xxx || STM32F42xxx || STM32F43xxx || STM32F469xx || STM32F479xx ||\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00098}00098 \textcolor{comment}{          STM32F412Zx || STM32F412Vx */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00099}00099  }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00100}00100 \textcolor{preprocessor}{\#if defined(STM32F427xx) || defined(STM32F437xx) || defined(STM32F429xx) || defined(STM32F439xx)\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00101}00101 \textcolor{preprocessor}{ || defined(STM32F446xx) || defined(STM32F469xx) || defined(STM32F479xx)}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00102}00102 \textcolor{comment}{/* \#define DATA\_IN\_ExtSDRAM */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00103}00103 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* STM32F427xx || STM32F437xx || STM32F429xx || STM32F439xx || STM32F446xx || STM32F469xx ||\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00104}00104 \textcolor{comment}{          STM32F479xx */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00105}00105 }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00108}00108 \textcolor{comment}{/* \#define VECT\_TAB\_SRAM */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00109}00109 \textcolor{preprocessor}{\#define VECT\_TAB\_OFFSET  0x00 }}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00111}00111 \textcolor{comment}{/******************************************************************************/}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00112}00112 }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00128}00128   \textcolor{comment}{/* This variable is updated in three ways:}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00129}00129 \textcolor{comment}{      1) by calling CMSIS function SystemCoreClockUpdate()}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00130}00130 \textcolor{comment}{      2) by calling HAL API function HAL\_RCC\_GetHCLKFreq()}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00131}00131 \textcolor{comment}{      3) each time HAL\_RCC\_ClockConfig() is called to configure the system clock frequency }}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00132}00132 \textcolor{comment}{         Note: If you use this function to configure the system clock; then there}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00133}00133 \textcolor{comment}{               is no need to call the 2 first functions listed above, since SystemCoreClock}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00134}00134 \textcolor{comment}{               variable is updated automatically.}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00135}00135 \textcolor{comment}{  */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00136}00136 uint32\_t SystemCoreClock = 16000000;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00137}00137 \textcolor{keyword}{const} uint8\_t AHBPrescTable[16] = \{0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9\};}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00138}00138 \textcolor{keyword}{const} uint8\_t APBPrescTable[8]  = \{0, 0, 0, 0, 1, 2, 3, 4\};}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00147}00147 \textcolor{preprocessor}{\#if defined (DATA\_IN\_ExtSRAM) || defined (DATA\_IN\_ExtSDRAM)}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00148}00148   \textcolor{keyword}{static} \textcolor{keywordtype}{void} SystemInit\_ExtMemCtl(\textcolor{keywordtype}{void}); }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00149}00149 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* DATA\_IN\_ExtSRAM || DATA\_IN\_ExtSDRAM */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00150}00150 }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00166}\mbox{\hyperlink{group___s_t_m32_f4xx___system___private___functions_ga93f514700ccf00d08dbdcff7f1224eb2}{00166}} \textcolor{keywordtype}{void} \mbox{\hyperlink{group___s_t_m32_f4xx___system___private___functions_ga93f514700ccf00d08dbdcff7f1224eb2}{SystemInit}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00167}00167 \{}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00168}00168   \textcolor{comment}{/* FPU settings -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00169}00169 \textcolor{preprocessor}{  \#if (\_\_FPU\_PRESENT == 1) \&\& (\_\_FPU\_USED == 1)}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00170}00170     SCB-\/>CPACR |= ((3UL << 10*2)|(3UL << 11*2));  \textcolor{comment}{/* set CP10 and CP11 Full Access */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00171}00171 \textcolor{preprocessor}{  \#endif}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00172}00172   \textcolor{comment}{/* Reset the RCC clock configuration to the default reset state -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00173}00173   \textcolor{comment}{/* Set HSION bit */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00174}00174   RCC-\/>CR |= (uint32\_t)0x00000001;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00175}00175 }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00176}00176   \textcolor{comment}{/* Reset CFGR register */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00177}00177   RCC-\/>CFGR = 0x00000000;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00178}00178 }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00179}00179   \textcolor{comment}{/* Reset HSEON, CSSON and PLLON bits */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00180}00180   RCC-\/>CR \&= (uint32\_t)0xFEF6FFFF;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00181}00181 }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00182}00182   \textcolor{comment}{/* Reset PLLCFGR register */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00183}00183   RCC-\/>PLLCFGR = 0x24003010;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00184}00184 }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00185}00185   \textcolor{comment}{/* Reset HSEBYP bit */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00186}00186   RCC-\/>CR \&= (uint32\_t)0xFFFBFFFF;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00187}00187 }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00188}00188   \textcolor{comment}{/* Disable all interrupts */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00189}00189   RCC-\/>CIR = 0x00000000;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00190}00190 }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00191}00191 \textcolor{preprocessor}{\#if defined (DATA\_IN\_ExtSRAM) || defined (DATA\_IN\_ExtSDRAM)}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00192}00192   SystemInit\_ExtMemCtl(); }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00193}00193 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* DATA\_IN\_ExtSRAM || DATA\_IN\_ExtSDRAM */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00194}00194 }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00195}00195   \textcolor{comment}{/* Configure the Vector Table location add offset address -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00196}00196 \textcolor{preprocessor}{\#ifdef VECT\_TAB\_SRAM}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00197}00197   SCB-\/>VTOR = SRAM\_BASE | \mbox{\hyperlink{group___s_t_m32_f4xx___system___private___defines_ga40e1495541cbb4acbe3f1819bd87a9fe}{VECT\_TAB\_OFFSET}}; \textcolor{comment}{/* Vector Table Relocation in Internal SRAM */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00198}00198 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00199}00199   SCB-\/>VTOR = FLASH\_BASE | \mbox{\hyperlink{group___s_t_m32_f4xx___system___private___defines_ga40e1495541cbb4acbe3f1819bd87a9fe}{VECT\_TAB\_OFFSET}}; \textcolor{comment}{/* Vector Table Relocation in Internal FLASH */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00200}00200 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00201}00201 \}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00202}00202 }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00239}\mbox{\hyperlink{group___s_t_m32_f4xx___system___private___functions_gae0c36a9591fe6e9c45ecb21a794f0f0f}{00239}} \textcolor{keywordtype}{void} \mbox{\hyperlink{group___s_t_m32_f4xx___system___private___functions_gae0c36a9591fe6e9c45ecb21a794f0f0f}{SystemCoreClockUpdate}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00240}00240 \{}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00241}00241   uint32\_t tmp = 0, pllvco = 0, pllp = 2, pllsource = 0, pllm = 2;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00242}00242   }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00243}00243   \textcolor{comment}{/* Get SYSCLK source -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00244}00244   tmp = RCC-\/>CFGR \& RCC\_CFGR\_SWS;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00245}00245 }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00246}00246   \textcolor{keywordflow}{switch} (tmp)}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00247}00247   \{}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00248}00248     \textcolor{keywordflow}{case} 0x00:  \textcolor{comment}{/* HSI used as system clock source */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00249}00249       SystemCoreClock = \mbox{\hyperlink{group___s_t_m32_f4xx___system___private___includes_gaaa8c76e274d0f6dd2cefb5d0b17fbc37}{HSI\_VALUE}};}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00250}00250       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00251}00251     \textcolor{keywordflow}{case} 0x04:  \textcolor{comment}{/* HSE used as system clock source */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00252}00252       SystemCoreClock = \mbox{\hyperlink{group___s_t_m32_f4xx___system___private___includes_gaeafcff4f57440c60e64812dddd13e7cb}{HSE\_VALUE}};}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00253}00253       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00254}00254     \textcolor{keywordflow}{case} 0x08:  \textcolor{comment}{/* PLL used as system clock source */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00255}00255 }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00256}00256       \textcolor{comment}{/* PLL\_VCO = (HSE\_VALUE or HSI\_VALUE / PLL\_M) * PLL\_N}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00257}00257 \textcolor{comment}{         SYSCLK = PLL\_VCO / PLL\_P}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00258}00258 \textcolor{comment}{         */}    }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00259}00259       pllsource = (RCC-\/>PLLCFGR \& RCC\_PLLCFGR\_PLLSRC) >> 22;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00260}00260       pllm = RCC-\/>PLLCFGR \& RCC\_PLLCFGR\_PLLM;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00261}00261       }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00262}00262       \textcolor{keywordflow}{if} (pllsource != 0)}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00263}00263       \{}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00264}00264         \textcolor{comment}{/* HSE used as PLL clock source */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00265}00265         pllvco = (\mbox{\hyperlink{group___s_t_m32_f4xx___system___private___includes_gaeafcff4f57440c60e64812dddd13e7cb}{HSE\_VALUE}} / pllm) * ((RCC-\/>PLLCFGR \& RCC\_PLLCFGR\_PLLN) >> 6);}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00266}00266       \}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00267}00267       \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00268}00268       \{}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00269}00269         \textcolor{comment}{/* HSI used as PLL clock source */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00270}00270         pllvco = (\mbox{\hyperlink{group___s_t_m32_f4xx___system___private___includes_gaaa8c76e274d0f6dd2cefb5d0b17fbc37}{HSI\_VALUE}} / pllm) * ((RCC-\/>PLLCFGR \& RCC\_PLLCFGR\_PLLN) >> 6);}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00271}00271       \}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00272}00272 }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00273}00273       pllp = (((RCC-\/>PLLCFGR \& RCC\_PLLCFGR\_PLLP) >>16) + 1 ) *2;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00274}00274       SystemCoreClock = pllvco/pllp;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00275}00275       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00276}00276     \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00277}00277       SystemCoreClock = \mbox{\hyperlink{group___s_t_m32_f4xx___system___private___includes_gaaa8c76e274d0f6dd2cefb5d0b17fbc37}{HSI\_VALUE}};}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00278}00278       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00279}00279   \}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00280}00280   \textcolor{comment}{/* Compute HCLK frequency -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00281}00281   \textcolor{comment}{/* Get HCLK prescaler */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00282}00282   tmp = AHBPrescTable[((RCC-\/>CFGR \& RCC\_CFGR\_HPRE) >> 4)];}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00283}00283   \textcolor{comment}{/* HCLK frequency */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00284}00284   SystemCoreClock >>= tmp;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00285}00285 \}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00286}00286 }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00287}00287 \textcolor{preprocessor}{\#if defined (DATA\_IN\_ExtSRAM) \&\& defined (DATA\_IN\_ExtSDRAM)}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00288}00288 \textcolor{preprocessor}{\#if defined(STM32F427xx) || defined(STM32F437xx) || defined(STM32F429xx) || defined(STM32F439xx)\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00289}00289 \textcolor{preprocessor}{ || defined(STM32F469xx) || defined(STM32F479xx)}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00298}00298 \textcolor{keywordtype}{void} SystemInit\_ExtMemCtl(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00299}00299 \{}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00300}00300   \_\_IO uint32\_t tmp = 0x00;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00301}00301 }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00302}00302   \textcolor{keyword}{register} uint32\_t tmpreg = 0, timeout = 0xFFFF;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00303}00303   \textcolor{keyword}{register} \_\_IO uint32\_t index;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00304}00304 }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00305}00305   \textcolor{comment}{/* Enable GPIOC, GPIOD, GPIOE, GPIOF, GPIOG, GPIOH and GPIOI interface clock */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00306}00306   RCC-\/>AHB1ENR |= 0x000001F8;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00307}00307 }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00308}00308   \textcolor{comment}{/* Delay after an RCC peripheral clock enabling */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00309}00309   tmp = READ\_BIT(RCC-\/>AHB1ENR, RCC\_AHB1ENR\_GPIOCEN);}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00310}00310   }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00311}00311   \textcolor{comment}{/* Connect PDx pins to FMC Alternate function */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00312}00312   GPIOD-\/>AFR[0]  = 0x00CCC0CC;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00313}00313   GPIOD-\/>AFR[1]  = 0xCCCCCCCC;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00314}00314   \textcolor{comment}{/* Configure PDx pins in Alternate function mode */}  }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00315}00315   GPIOD-\/>MODER   = 0xAAAA0A8A;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00316}00316   \textcolor{comment}{/* Configure PDx pins speed to 100 MHz */}  }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00317}00317   GPIOD-\/>OSPEEDR = 0xFFFF0FCF;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00318}00318   \textcolor{comment}{/* Configure PDx pins Output type to push-\/pull */}  }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00319}00319   GPIOD-\/>OTYPER  = 0x00000000;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00320}00320   \textcolor{comment}{/* No pull-\/up, pull-\/down for PDx pins */} }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00321}00321   GPIOD-\/>PUPDR   = 0x00000000;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00322}00322 }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00323}00323   \textcolor{comment}{/* Connect PEx pins to FMC Alternate function */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00324}00324   GPIOE-\/>AFR[0]  = 0xC00CC0CC;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00325}00325   GPIOE-\/>AFR[1]  = 0xCCCCCCCC;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00326}00326   \textcolor{comment}{/* Configure PEx pins in Alternate function mode */} }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00327}00327   GPIOE-\/>MODER   = 0xAAAA828A;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00328}00328   \textcolor{comment}{/* Configure PEx pins speed to 100 MHz */} }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00329}00329   GPIOE-\/>OSPEEDR = 0xFFFFC3CF;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00330}00330   \textcolor{comment}{/* Configure PEx pins Output type to push-\/pull */}  }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00331}00331   GPIOE-\/>OTYPER  = 0x00000000;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00332}00332   \textcolor{comment}{/* No pull-\/up, pull-\/down for PEx pins */} }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00333}00333   GPIOE-\/>PUPDR   = 0x00000000;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00334}00334   }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00335}00335   \textcolor{comment}{/* Connect PFx pins to FMC Alternate function */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00336}00336   GPIOF-\/>AFR[0]  = 0xCCCCCCCC;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00337}00337   GPIOF-\/>AFR[1]  = 0xCCCCCCCC;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00338}00338   \textcolor{comment}{/* Configure PFx pins in Alternate function mode */}   }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00339}00339   GPIOF-\/>MODER   = 0xAA800AAA;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00340}00340   \textcolor{comment}{/* Configure PFx pins speed to 50 MHz */} }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00341}00341   GPIOF-\/>OSPEEDR = 0xAA800AAA;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00342}00342   \textcolor{comment}{/* Configure PFx pins Output type to push-\/pull */}  }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00343}00343   GPIOF-\/>OTYPER  = 0x00000000;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00344}00344   \textcolor{comment}{/* No pull-\/up, pull-\/down for PFx pins */} }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00345}00345   GPIOF-\/>PUPDR   = 0x00000000;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00346}00346 }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00347}00347   \textcolor{comment}{/* Connect PGx pins to FMC Alternate function */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00348}00348   GPIOG-\/>AFR[0]  = 0xCCCCCCCC;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00349}00349   GPIOG-\/>AFR[1]  = 0xCCCCCCCC;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00350}00350   \textcolor{comment}{/* Configure PGx pins in Alternate function mode */} }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00351}00351   GPIOG-\/>MODER   = 0xAAAAAAAA;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00352}00352   \textcolor{comment}{/* Configure PGx pins speed to 50 MHz */} }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00353}00353   GPIOG-\/>OSPEEDR = 0xAAAAAAAA;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00354}00354   \textcolor{comment}{/* Configure PGx pins Output type to push-\/pull */}  }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00355}00355   GPIOG-\/>OTYPER  = 0x00000000;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00356}00356   \textcolor{comment}{/* No pull-\/up, pull-\/down for PGx pins */} }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00357}00357   GPIOG-\/>PUPDR   = 0x00000000;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00358}00358   }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00359}00359   \textcolor{comment}{/* Connect PHx pins to FMC Alternate function */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00360}00360   GPIOH-\/>AFR[0]  = 0x00C0CC00;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00361}00361   GPIOH-\/>AFR[1]  = 0xCCCCCCCC;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00362}00362   \textcolor{comment}{/* Configure PHx pins in Alternate function mode */} }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00363}00363   GPIOH-\/>MODER   = 0xAAAA08A0;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00364}00364   \textcolor{comment}{/* Configure PHx pins speed to 50 MHz */} }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00365}00365   GPIOH-\/>OSPEEDR = 0xAAAA08A0;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00366}00366   \textcolor{comment}{/* Configure PHx pins Output type to push-\/pull */}  }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00367}00367   GPIOH-\/>OTYPER  = 0x00000000;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00368}00368   \textcolor{comment}{/* No pull-\/up, pull-\/down for PHx pins */} }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00369}00369   GPIOH-\/>PUPDR   = 0x00000000;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00370}00370   }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00371}00371   \textcolor{comment}{/* Connect PIx pins to FMC Alternate function */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00372}00372   GPIOI-\/>AFR[0]  = 0xCCCCCCCC;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00373}00373   GPIOI-\/>AFR[1]  = 0x00000CC0;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00374}00374   \textcolor{comment}{/* Configure PIx pins in Alternate function mode */} }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00375}00375   GPIOI-\/>MODER   = 0x0028AAAA;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00376}00376   \textcolor{comment}{/* Configure PIx pins speed to 50 MHz */} }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00377}00377   GPIOI-\/>OSPEEDR = 0x0028AAAA;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00378}00378   \textcolor{comment}{/* Configure PIx pins Output type to push-\/pull */}  }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00379}00379   GPIOI-\/>OTYPER  = 0x00000000;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00380}00380   \textcolor{comment}{/* No pull-\/up, pull-\/down for PIx pins */} }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00381}00381   GPIOI-\/>PUPDR   = 0x00000000;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00382}00382   }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00383}00383 \textcolor{comment}{/*-\/-\/ FMC Configuration -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00384}00384   \textcolor{comment}{/* Enable the FMC interface clock */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00385}00385   RCC-\/>AHB3ENR |= 0x00000001;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00386}00386   \textcolor{comment}{/* Delay after an RCC peripheral clock enabling */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00387}00387   tmp = READ\_BIT(RCC-\/>AHB3ENR, RCC\_AHB3ENR\_FMCEN);}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00388}00388 }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00389}00389   FMC\_Bank5\_6-\/>SDCR[0] = 0x000019E4;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00390}00390   FMC\_Bank5\_6-\/>SDTR[0] = 0x01115351;      }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00391}00391   }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00392}00392   \textcolor{comment}{/* SDRAM initialization sequence */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00393}00393   \textcolor{comment}{/* Clock enable command */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00394}00394   FMC\_Bank5\_6-\/>SDCMR = 0x00000011; }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00395}00395   tmpreg = FMC\_Bank5\_6-\/>SDSR \& 0x00000020; }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00396}00396   \textcolor{keywordflow}{while}((tmpreg != 0) \&\& (timeout-\/-\/ > 0))}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00397}00397   \{}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00398}00398     tmpreg = FMC\_Bank5\_6-\/>SDSR \& 0x00000020; }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00399}00399   \}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00400}00400 }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00401}00401   \textcolor{comment}{/* Delay */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00402}00402   \textcolor{keywordflow}{for} (index = 0; index<1000; index++);}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00403}00403   }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00404}00404   \textcolor{comment}{/* PALL command */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00405}00405   FMC\_Bank5\_6-\/>SDCMR = 0x00000012;           }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00406}00406   timeout = 0xFFFF;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00407}00407   \textcolor{keywordflow}{while}((tmpreg != 0) \&\& (timeout-\/-\/ > 0))}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00408}00408   \{}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00409}00409     tmpreg = FMC\_Bank5\_6-\/>SDSR \& 0x00000020; }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00410}00410   \}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00411}00411   }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00412}00412   \textcolor{comment}{/* Auto refresh command */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00413}00413   FMC\_Bank5\_6-\/>SDCMR = 0x00000073;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00414}00414   timeout = 0xFFFF;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00415}00415   \textcolor{keywordflow}{while}((tmpreg != 0) \&\& (timeout-\/-\/ > 0))}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00416}00416   \{}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00417}00417     tmpreg = FMC\_Bank5\_6-\/>SDSR \& 0x00000020; }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00418}00418   \}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00419}00419  }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00420}00420   \textcolor{comment}{/* MRD register program */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00421}00421   FMC\_Bank5\_6-\/>SDCMR = 0x00046014;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00422}00422   timeout = 0xFFFF;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00423}00423   \textcolor{keywordflow}{while}((tmpreg != 0) \&\& (timeout-\/-\/ > 0))}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00424}00424   \{}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00425}00425     tmpreg = FMC\_Bank5\_6-\/>SDSR \& 0x00000020; }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00426}00426   \} }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00427}00427   }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00428}00428   \textcolor{comment}{/* Set refresh count */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00429}00429   tmpreg = FMC\_Bank5\_6-\/>SDRTR;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00430}00430   FMC\_Bank5\_6-\/>SDRTR = (tmpreg | (0x0000027C<<1));}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00431}00431   }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00432}00432   \textcolor{comment}{/* Disable write protection */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00433}00433   tmpreg = FMC\_Bank5\_6-\/>SDCR[0]; }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00434}00434   FMC\_Bank5\_6-\/>SDCR[0] = (tmpreg \& 0xFFFFFDFF);}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00435}00435 }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00436}00436 \textcolor{preprocessor}{\#if defined(STM32F427xx) || defined(STM32F437xx) || defined(STM32F429xx) || defined(STM32F439xx)}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00437}00437   \textcolor{comment}{/* Configure and enable Bank1\_SRAM2 */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00438}00438   FMC\_Bank1-\/>BTCR[2]  = 0x00001011;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00439}00439   FMC\_Bank1-\/>BTCR[3]  = 0x00000201;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00440}00440   FMC\_Bank1E-\/>BWTR[2] = 0x0fffffff;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00441}00441 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* STM32F427xx || STM32F437xx || STM32F429xx || STM32F439xx */}\textcolor{preprocessor}{ }}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00442}00442 \textcolor{preprocessor}{\#if defined(STM32F469xx) || defined(STM32F479xx)}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00443}00443   \textcolor{comment}{/* Configure and enable Bank1\_SRAM2 */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00444}00444   FMC\_Bank1-\/>BTCR[2]  = 0x00001091;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00445}00445   FMC\_Bank1-\/>BTCR[3]  = 0x00110212;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00446}00446   FMC\_Bank1E-\/>BWTR[2] = 0x0fffffff;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00447}00447 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* STM32F469xx || STM32F479xx */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00448}00448 }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00449}00449   (void)(tmp); }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00450}00450 \}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00451}00451 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* STM32F427xx || STM32F437xx || STM32F429xx || STM32F439xx || STM32F469xx || STM32F479xx */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00452}00452 \textcolor{preprocessor}{\#elif defined (DATA\_IN\_ExtSRAM) || defined (DATA\_IN\_ExtSDRAM)}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00461}00461 \textcolor{keywordtype}{void} SystemInit\_ExtMemCtl(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00462}00462 \{}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00463}00463   \_\_IO uint32\_t tmp = 0x00;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00464}00464 \textcolor{preprocessor}{\#if defined(STM32F427xx) || defined(STM32F437xx) || defined(STM32F429xx) || defined(STM32F439xx)\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00465}00465 \textcolor{preprocessor}{ || defined(STM32F446xx) || defined(STM32F469xx) || defined(STM32F479xx)}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00466}00466 \textcolor{preprocessor}{\#if defined (DATA\_IN\_ExtSDRAM)}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00467}00467   \textcolor{keyword}{register} uint32\_t tmpreg = 0, timeout = 0xFFFF;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00468}00468   \textcolor{keyword}{register} \_\_IO uint32\_t index;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00469}00469 }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00470}00470 \textcolor{preprocessor}{\#if defined(STM32F446xx)}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00471}00471   \textcolor{comment}{/* Enable GPIOA, GPIOC, GPIOD, GPIOE, GPIOF, GPIOG interface}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00472}00472 \textcolor{comment}{      clock */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00473}00473   RCC-\/>AHB1ENR |= 0x0000007D;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00474}00474 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00475}00475   \textcolor{comment}{/* Enable GPIOC, GPIOD, GPIOE, GPIOF, GPIOG, GPIOH and GPIOI interface }}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00476}00476 \textcolor{comment}{      clock */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00477}00477   RCC-\/>AHB1ENR |= 0x000001F8;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00478}00478 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* STM32F446xx */}\textcolor{preprocessor}{  }}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00479}00479   \textcolor{comment}{/* Delay after an RCC peripheral clock enabling */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00480}00480   tmp = READ\_BIT(RCC-\/>AHB1ENR, RCC\_AHB1ENR\_GPIOCEN);}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00481}00481   }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00482}00482 \textcolor{preprocessor}{\#if defined(STM32F446xx)}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00483}00483   \textcolor{comment}{/* Connect PAx pins to FMC Alternate function */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00484}00484   GPIOA-\/>AFR[0]  |= 0xC0000000;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00485}00485   GPIOA-\/>AFR[1]  |= 0x00000000;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00486}00486   \textcolor{comment}{/* Configure PDx pins in Alternate function mode */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00487}00487   GPIOA-\/>MODER   |= 0x00008000;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00488}00488   \textcolor{comment}{/* Configure PDx pins speed to 50 MHz */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00489}00489   GPIOA-\/>OSPEEDR |= 0x00008000;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00490}00490   \textcolor{comment}{/* Configure PDx pins Output type to push-\/pull */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00491}00491   GPIOA-\/>OTYPER  |= 0x00000000;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00492}00492   \textcolor{comment}{/* No pull-\/up, pull-\/down for PDx pins */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00493}00493   GPIOA-\/>PUPDR   |= 0x00000000;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00494}00494 }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00495}00495   \textcolor{comment}{/* Connect PCx pins to FMC Alternate function */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00496}00496   GPIOC-\/>AFR[0]  |= 0x00CC0000;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00497}00497   GPIOC-\/>AFR[1]  |= 0x00000000;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00498}00498   \textcolor{comment}{/* Configure PDx pins in Alternate function mode */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00499}00499   GPIOC-\/>MODER   |= 0x00000A00;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00500}00500   \textcolor{comment}{/* Configure PDx pins speed to 50 MHz */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00501}00501   GPIOC-\/>OSPEEDR |= 0x00000A00;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00502}00502   \textcolor{comment}{/* Configure PDx pins Output type to push-\/pull */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00503}00503   GPIOC-\/>OTYPER  |= 0x00000000;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00504}00504   \textcolor{comment}{/* No pull-\/up, pull-\/down for PDx pins */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00505}00505   GPIOC-\/>PUPDR   |= 0x00000000;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00506}00506 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* STM32F446xx */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00507}00507 }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00508}00508   \textcolor{comment}{/* Connect PDx pins to FMC Alternate function */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00509}00509   GPIOD-\/>AFR[0]  = 0x000000CC;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00510}00510   GPIOD-\/>AFR[1]  = 0xCC000CCC;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00511}00511   \textcolor{comment}{/* Configure PDx pins in Alternate function mode */}  }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00512}00512   GPIOD-\/>MODER   = 0xA02A000A;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00513}00513   \textcolor{comment}{/* Configure PDx pins speed to 50 MHz */}  }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00514}00514   GPIOD-\/>OSPEEDR = 0xA02A000A;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00515}00515   \textcolor{comment}{/* Configure PDx pins Output type to push-\/pull */}  }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00516}00516   GPIOD-\/>OTYPER  = 0x00000000;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00517}00517   \textcolor{comment}{/* No pull-\/up, pull-\/down for PDx pins */} }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00518}00518   GPIOD-\/>PUPDR   = 0x00000000;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00519}00519 }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00520}00520   \textcolor{comment}{/* Connect PEx pins to FMC Alternate function */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00521}00521   GPIOE-\/>AFR[0]  = 0xC00000CC;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00522}00522   GPIOE-\/>AFR[1]  = 0xCCCCCCCC;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00523}00523   \textcolor{comment}{/* Configure PEx pins in Alternate function mode */} }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00524}00524   GPIOE-\/>MODER   = 0xAAAA800A;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00525}00525   \textcolor{comment}{/* Configure PEx pins speed to 50 MHz */} }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00526}00526   GPIOE-\/>OSPEEDR = 0xAAAA800A;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00527}00527   \textcolor{comment}{/* Configure PEx pins Output type to push-\/pull */}  }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00528}00528   GPIOE-\/>OTYPER  = 0x00000000;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00529}00529   \textcolor{comment}{/* No pull-\/up, pull-\/down for PEx pins */} }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00530}00530   GPIOE-\/>PUPDR   = 0x00000000;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00531}00531 }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00532}00532   \textcolor{comment}{/* Connect PFx pins to FMC Alternate function */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00533}00533   GPIOF-\/>AFR[0]  = 0xCCCCCCCC;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00534}00534   GPIOF-\/>AFR[1]  = 0xCCCCCCCC;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00535}00535   \textcolor{comment}{/* Configure PFx pins in Alternate function mode */}   }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00536}00536   GPIOF-\/>MODER   = 0xAA800AAA;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00537}00537   \textcolor{comment}{/* Configure PFx pins speed to 50 MHz */} }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00538}00538   GPIOF-\/>OSPEEDR = 0xAA800AAA;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00539}00539   \textcolor{comment}{/* Configure PFx pins Output type to push-\/pull */}  }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00540}00540   GPIOF-\/>OTYPER  = 0x00000000;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00541}00541   \textcolor{comment}{/* No pull-\/up, pull-\/down for PFx pins */} }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00542}00542   GPIOF-\/>PUPDR   = 0x00000000;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00543}00543 }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00544}00544   \textcolor{comment}{/* Connect PGx pins to FMC Alternate function */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00545}00545   GPIOG-\/>AFR[0]  = 0xCCCCCCCC;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00546}00546   GPIOG-\/>AFR[1]  = 0xCCCCCCCC;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00547}00547   \textcolor{comment}{/* Configure PGx pins in Alternate function mode */} }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00548}00548   GPIOG-\/>MODER   = 0xAAAAAAAA;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00549}00549   \textcolor{comment}{/* Configure PGx pins speed to 50 MHz */} }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00550}00550   GPIOG-\/>OSPEEDR = 0xAAAAAAAA;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00551}00551   \textcolor{comment}{/* Configure PGx pins Output type to push-\/pull */}  }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00552}00552   GPIOG-\/>OTYPER  = 0x00000000;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00553}00553   \textcolor{comment}{/* No pull-\/up, pull-\/down for PGx pins */} }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00554}00554   GPIOG-\/>PUPDR   = 0x00000000;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00555}00555 }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00556}00556 \textcolor{preprocessor}{\#if defined(STM32F427xx) || defined(STM32F437xx) || defined(STM32F429xx) || defined(STM32F439xx)\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00557}00557 \textcolor{preprocessor}{ || defined(STM32F469xx) || defined(STM32F479xx)  }}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00558}00558   \textcolor{comment}{/* Connect PHx pins to FMC Alternate function */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00559}00559   GPIOH-\/>AFR[0]  = 0x00C0CC00;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00560}00560   GPIOH-\/>AFR[1]  = 0xCCCCCCCC;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00561}00561   \textcolor{comment}{/* Configure PHx pins in Alternate function mode */} }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00562}00562   GPIOH-\/>MODER   = 0xAAAA08A0;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00563}00563   \textcolor{comment}{/* Configure PHx pins speed to 50 MHz */} }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00564}00564   GPIOH-\/>OSPEEDR = 0xAAAA08A0;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00565}00565   \textcolor{comment}{/* Configure PHx pins Output type to push-\/pull */}  }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00566}00566   GPIOH-\/>OTYPER  = 0x00000000;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00567}00567   \textcolor{comment}{/* No pull-\/up, pull-\/down for PHx pins */} }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00568}00568   GPIOH-\/>PUPDR   = 0x00000000;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00569}00569   }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00570}00570   \textcolor{comment}{/* Connect PIx pins to FMC Alternate function */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00571}00571   GPIOI-\/>AFR[0]  = 0xCCCCCCCC;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00572}00572   GPIOI-\/>AFR[1]  = 0x00000CC0;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00573}00573   \textcolor{comment}{/* Configure PIx pins in Alternate function mode */} }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00574}00574   GPIOI-\/>MODER   = 0x0028AAAA;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00575}00575   \textcolor{comment}{/* Configure PIx pins speed to 50 MHz */} }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00576}00576   GPIOI-\/>OSPEEDR = 0x0028AAAA;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00577}00577   \textcolor{comment}{/* Configure PIx pins Output type to push-\/pull */}  }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00578}00578   GPIOI-\/>OTYPER  = 0x00000000;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00579}00579   \textcolor{comment}{/* No pull-\/up, pull-\/down for PIx pins */} }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00580}00580   GPIOI-\/>PUPDR   = 0x00000000;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00581}00581 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* STM32F427xx || STM32F437xx || STM32F429xx || STM32F439xx || STM32F469xx || STM32F479xx */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00582}00582   }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00583}00583 \textcolor{comment}{/*-\/-\/ FMC Configuration -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00584}00584   \textcolor{comment}{/* Enable the FMC interface clock */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00585}00585   RCC-\/>AHB3ENR |= 0x00000001;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00586}00586   \textcolor{comment}{/* Delay after an RCC peripheral clock enabling */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00587}00587   tmp = READ\_BIT(RCC-\/>AHB3ENR, RCC\_AHB3ENR\_FMCEN);}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00588}00588 }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00589}00589   \textcolor{comment}{/* Configure and enable SDRAM bank1 */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00590}00590 \textcolor{preprocessor}{\#if defined(STM32F446xx)}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00591}00591   FMC\_Bank5\_6-\/>SDCR[0] = 0x00001954;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00592}00592 \textcolor{preprocessor}{\#else  }}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00593}00593   FMC\_Bank5\_6-\/>SDCR[0] = 0x000019E4;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00594}00594 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* STM32F446xx */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00595}00595   FMC\_Bank5\_6-\/>SDTR[0] = 0x01115351;      }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00596}00596   }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00597}00597   \textcolor{comment}{/* SDRAM initialization sequence */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00598}00598   \textcolor{comment}{/* Clock enable command */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00599}00599   FMC\_Bank5\_6-\/>SDCMR = 0x00000011; }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00600}00600   tmpreg = FMC\_Bank5\_6-\/>SDSR \& 0x00000020; }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00601}00601   \textcolor{keywordflow}{while}((tmpreg != 0) \&\& (timeout-\/-\/ > 0))}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00602}00602   \{}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00603}00603     tmpreg = FMC\_Bank5\_6-\/>SDSR \& 0x00000020; }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00604}00604   \}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00605}00605 }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00606}00606   \textcolor{comment}{/* Delay */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00607}00607   \textcolor{keywordflow}{for} (index = 0; index<1000; index++);}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00608}00608   }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00609}00609   \textcolor{comment}{/* PALL command */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00610}00610   FMC\_Bank5\_6-\/>SDCMR = 0x00000012;           }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00611}00611   timeout = 0xFFFF;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00612}00612   \textcolor{keywordflow}{while}((tmpreg != 0) \&\& (timeout-\/-\/ > 0))}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00613}00613   \{}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00614}00614     tmpreg = FMC\_Bank5\_6-\/>SDSR \& 0x00000020; }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00615}00615   \}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00616}00616   }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00617}00617   \textcolor{comment}{/* Auto refresh command */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00618}00618 \textcolor{preprocessor}{\#if defined(STM32F446xx)}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00619}00619   FMC\_Bank5\_6-\/>SDCMR = 0x000000F3;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00620}00620 \textcolor{preprocessor}{\#else  }}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00621}00621   FMC\_Bank5\_6-\/>SDCMR = 0x00000073;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00622}00622 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* STM32F446xx */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00623}00623   timeout = 0xFFFF;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00624}00624   \textcolor{keywordflow}{while}((tmpreg != 0) \&\& (timeout-\/-\/ > 0))}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00625}00625   \{}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00626}00626     tmpreg = FMC\_Bank5\_6-\/>SDSR \& 0x00000020; }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00627}00627   \}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00628}00628  }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00629}00629   \textcolor{comment}{/* MRD register program */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00630}00630 \textcolor{preprocessor}{\#if defined(STM32F446xx)}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00631}00631   FMC\_Bank5\_6-\/>SDCMR = 0x00044014;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00632}00632 \textcolor{preprocessor}{\#else  }}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00633}00633   FMC\_Bank5\_6-\/>SDCMR = 0x00046014;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00634}00634 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* STM32F446xx */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00635}00635   timeout = 0xFFFF;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00636}00636   \textcolor{keywordflow}{while}((tmpreg != 0) \&\& (timeout-\/-\/ > 0))}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00637}00637   \{}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00638}00638     tmpreg = FMC\_Bank5\_6-\/>SDSR \& 0x00000020; }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00639}00639   \} }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00640}00640   }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00641}00641   \textcolor{comment}{/* Set refresh count */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00642}00642   tmpreg = FMC\_Bank5\_6-\/>SDRTR;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00643}00643 \textcolor{preprocessor}{\#if defined(STM32F446xx)}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00644}00644   FMC\_Bank5\_6-\/>SDRTR = (tmpreg | (0x0000050C<<1));}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00645}00645 \textcolor{preprocessor}{\#else    }}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00646}00646   FMC\_Bank5\_6-\/>SDRTR = (tmpreg | (0x0000027C<<1));}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00647}00647 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* STM32F446xx */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00648}00648   }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00649}00649   \textcolor{comment}{/* Disable write protection */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00650}00650   tmpreg = FMC\_Bank5\_6-\/>SDCR[0]; }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00651}00651   FMC\_Bank5\_6-\/>SDCR[0] = (tmpreg \& 0xFFFFFDFF);}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00652}00652 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* DATA\_IN\_ExtSDRAM */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00653}00653 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* STM32F427xx || STM32F437xx || STM32F429xx || STM32F439xx || STM32F446xx || STM32F469xx || STM32F479xx */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00654}00654 }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00655}00655 \textcolor{preprocessor}{\#if defined(STM32F405xx) || defined(STM32F415xx) || defined(STM32F407xx) || defined(STM32F417xx)\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00656}00656 \textcolor{preprocessor}{ || defined(STM32F427xx) || defined(STM32F437xx) || defined(STM32F429xx) || defined(STM32F439xx)\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00657}00657 \textcolor{preprocessor}{ || defined(STM32F469xx) || defined(STM32F479xx) || defined(STM32F412Zx) || defined(STM32F412Vx)}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00658}00658 }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00659}00659 \textcolor{preprocessor}{\#if defined(DATA\_IN\_ExtSRAM)}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00660}00660 \textcolor{comment}{/*-\/-\/ GPIOs Configuration -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00661}00661    \textcolor{comment}{/* Enable GPIOD, GPIOE, GPIOF and GPIOG interface clock */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00662}00662   RCC-\/>AHB1ENR   |= 0x00000078;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00663}00663   \textcolor{comment}{/* Delay after an RCC peripheral clock enabling */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00664}00664   tmp = READ\_BIT(RCC-\/>AHB1ENR, RCC\_AHB1ENR\_GPIODEN);}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00665}00665   }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00666}00666   \textcolor{comment}{/* Connect PDx pins to FMC Alternate function */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00667}00667   GPIOD-\/>AFR[0]  = 0x00CCC0CC;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00668}00668   GPIOD-\/>AFR[1]  = 0xCCCCCCCC;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00669}00669   \textcolor{comment}{/* Configure PDx pins in Alternate function mode */}  }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00670}00670   GPIOD-\/>MODER   = 0xAAAA0A8A;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00671}00671   \textcolor{comment}{/* Configure PDx pins speed to 100 MHz */}  }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00672}00672   GPIOD-\/>OSPEEDR = 0xFFFF0FCF;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00673}00673   \textcolor{comment}{/* Configure PDx pins Output type to push-\/pull */}  }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00674}00674   GPIOD-\/>OTYPER  = 0x00000000;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00675}00675   \textcolor{comment}{/* No pull-\/up, pull-\/down for PDx pins */} }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00676}00676   GPIOD-\/>PUPDR   = 0x00000000;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00677}00677 }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00678}00678   \textcolor{comment}{/* Connect PEx pins to FMC Alternate function */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00679}00679   GPIOE-\/>AFR[0]  = 0xC00CC0CC;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00680}00680   GPIOE-\/>AFR[1]  = 0xCCCCCCCC;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00681}00681   \textcolor{comment}{/* Configure PEx pins in Alternate function mode */} }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00682}00682   GPIOE-\/>MODER   = 0xAAAA828A;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00683}00683   \textcolor{comment}{/* Configure PEx pins speed to 100 MHz */} }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00684}00684   GPIOE-\/>OSPEEDR = 0xFFFFC3CF;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00685}00685   \textcolor{comment}{/* Configure PEx pins Output type to push-\/pull */}  }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00686}00686   GPIOE-\/>OTYPER  = 0x00000000;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00687}00687   \textcolor{comment}{/* No pull-\/up, pull-\/down for PEx pins */} }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00688}00688   GPIOE-\/>PUPDR   = 0x00000000;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00689}00689 }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00690}00690   \textcolor{comment}{/* Connect PFx pins to FMC Alternate function */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00691}00691   GPIOF-\/>AFR[0]  = 0x00CCCCCC;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00692}00692   GPIOF-\/>AFR[1]  = 0xCCCC0000;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00693}00693   \textcolor{comment}{/* Configure PFx pins in Alternate function mode */}   }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00694}00694   GPIOF-\/>MODER   = 0xAA000AAA;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00695}00695   \textcolor{comment}{/* Configure PFx pins speed to 100 MHz */} }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00696}00696   GPIOF-\/>OSPEEDR = 0xFF000FFF;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00697}00697   \textcolor{comment}{/* Configure PFx pins Output type to push-\/pull */}  }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00698}00698   GPIOF-\/>OTYPER  = 0x00000000;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00699}00699   \textcolor{comment}{/* No pull-\/up, pull-\/down for PFx pins */} }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00700}00700   GPIOF-\/>PUPDR   = 0x00000000;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00701}00701 }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00702}00702   \textcolor{comment}{/* Connect PGx pins to FMC Alternate function */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00703}00703   GPIOG-\/>AFR[0]  = 0x00CCCCCC;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00704}00704   GPIOG-\/>AFR[1]  = 0x000000C0;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00705}00705   \textcolor{comment}{/* Configure PGx pins in Alternate function mode */} }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00706}00706   GPIOG-\/>MODER   = 0x00085AAA;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00707}00707   \textcolor{comment}{/* Configure PGx pins speed to 100 MHz */} }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00708}00708   GPIOG-\/>OSPEEDR = 0x000CAFFF;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00709}00709   \textcolor{comment}{/* Configure PGx pins Output type to push-\/pull */}  }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00710}00710   GPIOG-\/>OTYPER  = 0x00000000;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00711}00711   \textcolor{comment}{/* No pull-\/up, pull-\/down for PGx pins */} }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00712}00712   GPIOG-\/>PUPDR   = 0x00000000;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00713}00713   }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00714}00714 \textcolor{comment}{/*-\/-\/ FMC/FSMC Configuration -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00715}00715   \textcolor{comment}{/* Enable the FMC/FSMC interface clock */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00716}00716   RCC-\/>AHB3ENR         |= 0x00000001;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00717}00717 }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00718}00718 \textcolor{preprocessor}{\#if defined(STM32F427xx) || defined(STM32F437xx) || defined(STM32F429xx) || defined(STM32F439xx)}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00719}00719   \textcolor{comment}{/* Delay after an RCC peripheral clock enabling */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00720}00720   tmp = READ\_BIT(RCC-\/>AHB3ENR, RCC\_AHB3ENR\_FMCEN);}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00721}00721   \textcolor{comment}{/* Configure and enable Bank1\_SRAM2 */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00722}00722   FMC\_Bank1-\/>BTCR[2]  = 0x00001011;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00723}00723   FMC\_Bank1-\/>BTCR[3]  = 0x00000201;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00724}00724   FMC\_Bank1E-\/>BWTR[2] = 0x0fffffff;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00725}00725 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* STM32F427xx || STM32F437xx || STM32F429xx || STM32F439xx */}\textcolor{preprocessor}{ }}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00726}00726 \textcolor{preprocessor}{\#if defined(STM32F469xx) || defined(STM32F479xx)}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00727}00727   \textcolor{comment}{/* Delay after an RCC peripheral clock enabling */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00728}00728   tmp = READ\_BIT(RCC-\/>AHB3ENR, RCC\_AHB3ENR\_FMCEN);}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00729}00729   \textcolor{comment}{/* Configure and enable Bank1\_SRAM2 */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00730}00730   FMC\_Bank1-\/>BTCR[2]  = 0x00001091;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00731}00731   FMC\_Bank1-\/>BTCR[3]  = 0x00110212;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00732}00732   FMC\_Bank1E-\/>BWTR[2] = 0x0fffffff;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00733}00733 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* STM32F469xx || STM32F479xx */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00734}00734 \textcolor{preprocessor}{\#if defined(STM32F405xx) || defined(STM32F415xx) || defined(STM32F407xx)|| defined(STM32F417xx)\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00735}00735 \textcolor{preprocessor}{   || defined(STM32F412Zx) || defined(STM32F412Vx)}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00736}00736   \textcolor{comment}{/* Delay after an RCC peripheral clock enabling */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00737}00737   tmp = READ\_BIT(RCC-\/>AHB3ENR, RCC\_AHB3ENR\_FSMCEN);}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00738}00738   \textcolor{comment}{/* Configure and enable Bank1\_SRAM2 */}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00739}00739   FSMC\_Bank1-\/>BTCR[2]  = 0x00001011;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00740}00740   FSMC\_Bank1-\/>BTCR[3]  = 0x00000201;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00741}00741   FSMC\_Bank1E-\/>BWTR[2] = 0x0FFFFFFF;}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00742}00742 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* STM32F405xx || STM32F415xx || STM32F407xx || STM32F417xx || STM32F412Zx || STM32F412Vx */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00743}00743 }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00744}00744 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* DATA\_IN\_ExtSRAM */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00745}00745 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* STM32F405xx || STM32F415xx || STM32F407xx || STM32F417xx || STM32F427xx || STM32F437xx ||\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00746}00746 \textcolor{comment}{          STM32F429xx || STM32F439xx || STM32F469xx || STM32F479xx || STM32F412Zx || STM32F412Vx  */}\textcolor{preprocessor}{ }}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00747}00747   (void)(tmp); }
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00748}00748 \}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00749}00749 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* DATA\_IN\_ExtSRAM \&\& DATA\_IN\_ExtSDRAM */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{system__stm32f4xx_8c_source_l00761}00761 \textcolor{comment}{/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/}}
+
+\end{DoxyCode}

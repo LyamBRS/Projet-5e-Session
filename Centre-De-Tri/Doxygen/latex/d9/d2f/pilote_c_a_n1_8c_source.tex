@@ -1,0 +1,124 @@
+\hypertarget{pilote_c_a_n1_8c_source}{}\doxysection{pilote\+CAN1.\+c}
+\label{pilote_c_a_n1_8c_source}\index{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Tri/CentreDeTriS5/Src/piloteCAN1.c@{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Tri/CentreDeTriS5/Src/piloteCAN1.c}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00001}00001 \textcolor{comment}{//piloteCAN1:}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00002}00002 \textcolor{comment}{//Historique: }}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00003}00003 \textcolor{comment}{// 2018-\/11-\/12, Yves Roy, creation}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00004}00004 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00005}00005 \textcolor{comment}{//INCLUSIONS}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00006}00006 \textcolor{preprocessor}{\#include "{}main.h"{}}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00007}00007 \textcolor{preprocessor}{\#include "{}piloteCAN1.h"{}}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00008}00008 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00009}00009 \textcolor{comment}{//Definitions privees}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00010}00010 \textcolor{comment}{//pas de definitions privees}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00011}00011 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00012}00012 \textcolor{comment}{//Declarations de fonctions privees:}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00013}00013 \textcolor{comment}{//pas de fonctions privees}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00014}00014 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00015}00015 \textcolor{comment}{//Declarations de variables privees:}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00016}00016 \textcolor{keyword}{extern} CAN\_HandleTypeDef hcan1; \textcolor{comment}{//d{\ucr}fini par le hal dans main}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00017}00017 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00018}00018 \textcolor{comment}{//Definitions de variables privees:}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00019}00019 CAN\_RxHeaderTypeDef piloteCAN1\_reception;}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00020}00020 CAN\_TxHeaderTypeDef piloteCAN1\_transmission;}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00021}00021 CAN\_FilterTypeDef piloteCAN1\_filtre;}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00022}00022 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} piloteCAN1\_CasierPostal;}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00023}00023 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00024}00024 \textcolor{comment}{//Definitions de fonctions privees:}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00025}00025 \textcolor{comment}{//pas de fonctions privees}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00026}00026 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00027}00027 \textcolor{comment}{//Definitions de variables publiques:}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00028}00028 \textcolor{comment}{// pas de variables publiques}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00029}00029 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00030}00030 \textcolor{comment}{//Definitions de fonctions publiques:}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00031}00031 \textcolor{comment}{// pas de definitions publiques}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00032}00032 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00033}00033 \textcolor{comment}{//Fonctions publiques:}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00034}00034 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} piloteCAN1\_messageDisponible(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00035}00035 \{}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00036}00036   \textcolor{keywordflow}{return} HAL\_CAN\_GetRxFifoFillLevel(\&hcan1, CAN\_FILTER\_FIFO0);  }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00037}00037 \}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00038}00038 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00039}00039 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} piloteCAN1\_messageTransmis(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00040}00040 \{}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00041}00041   \textcolor{keywordflow}{return} HAL\_CAN\_GetTxMailboxesFreeLevel(\&hcan1);}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00042}00042 \}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00048}00048 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} piloteCAN1\_litLesErreurs(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00049}00049 \{}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00050}00050   \textcolor{keywordflow}{return} hcan1.ErrorCode;}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00051}00051 \}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00058}00058 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} piloteCAN1\_messageEnTransmission(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00059}00059 \{}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00060}00060   \textcolor{keywordflow}{return} HAL\_CAN\_IsTxMessagePending(\&hcan1, piloteCAN1\_CasierPostal);}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00061}00061 \}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00062}00062 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00069}00069 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} piloteCAN1\_demarreLeCAN(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00070}00070 \{}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00071}00071   \textcolor{keywordflow}{return} HAL\_CAN\_Start(\&hcan1);}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00072}00072 \}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00078}00078 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} piloteCAN1\_litUnMessageRecu(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} *DonneesRecues)}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00079}00079 \{}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00080}00080   \textcolor{keywordflow}{if} (HAL\_CAN\_GetRxMessage(\&hcan1, CAN\_FILTER\_FIFO0,}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00081}00081                            \&piloteCAN1\_reception, DonneesRecues) != HAL\_OK)}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00082}00082   \{}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00083}00083     \textcolor{keywordflow}{return} PILOTECAN1\_PAS\_DISPONIBLE;}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00084}00084   \}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00085}00085   \textcolor{keywordflow}{return} PILOTECAN1\_DISPONIBLE;}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00086}00086 \}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00087}00087 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00088}00088 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} piloteCAN1\_transmetDesDonnes(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} Identification11Bits,}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00089}00089                                           \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} *Donnees,}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00090}00090                                           \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} Nombre)}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00091}00091 \{}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00092}00092   piloteCAN1\_transmission.StdId = Identification11Bits; \textcolor{comment}{// << 5;}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00093}00093   piloteCAN1\_transmission.DLC = Nombre;}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00094}00094   \textcolor{keywordflow}{if} (HAL\_CAN\_AddTxMessage(\&hcan1, \&piloteCAN1\_transmission,}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00095}00095                            Donnees, \&piloteCAN1\_CasierPostal) != HAL\_OK)}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00096}00096   \{}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00097}00097     \textcolor{keywordflow}{return} PILOTECAN1\_PAS\_TRANSMIS;}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00098}00098   \}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00099}00099   \textcolor{keywordflow}{return} PILOTECAN1\_TRANSMIS;}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00100}00100 \}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00101}00101 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00102}00102 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} piloteCAN1\_initialise(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00103}00103 \{}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00104}00104   piloteCAN1\_transmission.ExtId = 0;}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00105}00105   piloteCAN1\_transmission.IDE = CAN\_ID\_STD;}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00106}00106   piloteCAN1\_transmission.RTR = CAN\_RTR\_DATA;}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00107}00107   piloteCAN1\_transmission.TransmitGlobalTime = DISABLE;}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00108}00108   }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00109}00109   piloteCAN1\_filtre.FilterIdHigh = PILOTECAN1\_IDENTIFICATION\_EN\_RECEPTION ;\textcolor{comment}{// << 5;}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00110}00110   piloteCAN1\_filtre.FilterIdLow = 0x0;}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00111}00111   piloteCAN1\_filtre.FilterMaskIdHigh = PILOTECAN1\_MASQUE\_11\_BITS\_EN\_RECEPTION ;\textcolor{comment}{//<< 21;}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00112}00112   piloteCAN1\_filtre.FilterMaskIdLow = 0x0;}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00113}00113   piloteCAN1\_filtre.FilterFIFOAssignment = CAN\_FILTER\_FIFO0;}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00114}00114   piloteCAN1\_filtre.FilterBank = 13;}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00115}00115   piloteCAN1\_filtre.FilterMode = CAN\_FILTERMODE\_IDMASK;}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00116}00116   piloteCAN1\_filtre.FilterScale = CAN\_FILTERSCALE\_32BIT;}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00117}00117   piloteCAN1\_filtre.FilterActivation = ENABLE; \textcolor{comment}{// was ENABLE}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00118}00118   \textcolor{keywordflow}{if} (HAL\_CAN\_ConfigFilter(\&hcan1, \&piloteCAN1\_filtre) != HAL\_OK)}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00119}00119   \{}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00120}00120     \textcolor{keywordflow}{return} PILOTECAN1\_ERREUR;}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00121}00121   \}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00122}00122 \textcolor{comment}{//\#define TEST}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00123}00123 \textcolor{comment}{//\#ifdef TEST}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00124}00124 \textcolor{comment}{//  piloteCAN1\_filtre.FilterIdHigh = (PILOTECAN1\_IDENTIFICATION\_EN\_RECEPTION+1) << 5;}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00125}00125 \textcolor{comment}{//  piloteCAN1\_filtre.FilterMaskIdHigh = (PILOTECAN1\_MASQUE\_11\_BITS\_EN\_RECEPTION+1) << 21;  }}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00126}00126 \textcolor{comment}{//  piloteCAN1\_filtre.FilterBank = 13;}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00127}00127   }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00128}00128 \textcolor{comment}{//  if (HAL\_CAN\_ConfigFilter(\&hcan1, \& piloteCAN1\_filtre) != HAL\_OK)}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00129}00129 \textcolor{comment}{//  \{}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00130}00130 \textcolor{comment}{//    return PILOTECAN1\_ERREUR;}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00131}00131 \textcolor{comment}{//  \}}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00132}00132 \textcolor{comment}{//\#endif}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00133}00133   }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00134}00134   }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00135}00135   \textcolor{keywordflow}{if} (HAL\_CAN\_Start(\&hcan1) != HAL\_OK)}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00136}00136   \{}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00137}00137     \textcolor{keywordflow}{return} PILOTECAN1\_ERREUR;}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00138}00138   \}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00139}00139   \textcolor{keywordflow}{return} PILOTECAN1\_PAS\_D\_ERREUR;}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n1_8c_source_l00140}00140 \}}
+
+\end{DoxyCode}

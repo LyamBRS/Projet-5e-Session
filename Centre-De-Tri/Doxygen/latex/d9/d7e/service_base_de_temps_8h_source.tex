@@ -1,0 +1,40 @@
+\hypertarget{service_base_de_temps_8h_source}{}\doxysection{service\+Base\+De\+Temps.\+h}
+\label{service_base_de_temps_8h_source}\index{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Tri/CentreDeTriS5/Src/serviceBaseDeTemps.h@{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Tri/CentreDeTriS5/Src/serviceBaseDeTemps.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8h_source_l00001}00001 \textcolor{preprocessor}{\#ifndef SERVICEBASEDETEMPS\_H}}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8h_source_l00002}00002 \textcolor{preprocessor}{\#define SERVICEBASEDETEMPS\_H}}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8h_source_l00003}00003 }
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8h_source_l00004}00004 \textcolor{comment}{//MODULE: serviceBaseDeTemps}}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8h_source_l00005}00005 \textcolor{comment}{//DESCRIPTION: pour mettre en place un service d'appels periodiques de fonctions}}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8h_source_l00006}00006 \textcolor{comment}{//pointées par un tableau de pointeurs de fonctions. Le service met en place}}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8h_source_l00007}00007 \textcolor{comment}{//une base de temps qui reposent sur l'emploi d'interruptions qui sont générées}}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8h_source_l00008}00008 \textcolor{comment}{//par le compteur Timer6 du STM32F407 qui opère en mode Up}}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8h_source_l00009}00009 }
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8h_source_l00010}00010 \textcolor{comment}{//HISTORIQUE:}}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8h_source_l00011}00011 \textcolor{comment}{// 2018-\/09-\/30, Yves Roy, creation}}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8h_source_l00012}00012 }
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8h_source_l00013}00013 \textcolor{comment}{//DEFINITIONS REQUISES PAR LE MODULE:}}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8h_source_l00014}00014 \textcolor{comment}{//Dependances materielles}}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8h_source_l00015}00015 \textcolor{comment}{//(copiez et adaptez ce qui suit dans "{}main.h"{})}}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8h_source_l00016}00016 \textcolor{comment}{//pas de dependances materielles}}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8h_source_l00017}00017 }
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8h_source_l00018}00018 \textcolor{comment}{//Dependances logicielles}}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8h_source_l00019}00019 \textcolor{comment}{//(copiez et adaptez ce qui suit dans "{}main.h"{})}}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8h_source_l00020}00020 \textcolor{comment}{//\#define SERVICEBASEDETEMPS\_NOMBRE\_DE\_PHASES 3}}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8h_source_l00021}00021 \textcolor{comment}{//pas de dépendances logicielles}}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8h_source_l00022}00022 }
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8h_source_l00023}00023 \textcolor{comment}{//INFORMATION PUBLIQUE:}}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8h_source_l00024}00024 }
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8h_source_l00025}00025 \textcolor{comment}{//Definitions publiques:}}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8h_source_l00026}00026 \textcolor{comment}{//pas de definitions publiques}}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8h_source_l00027}00027 }
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8h_source_l00028}00028 \textcolor{comment}{//Fonctions publiques:}}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8h_source_l00029}00029 \textcolor{keywordtype}{void} serviceBaseDeTemps\_initialise(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8h_source_l00030}00030 }
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8h_source_l00031}00031 \textcolor{comment}{//Variables publiques:}}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8h_source_l00032}00032 \textcolor{keyword}{extern} void (*serviceBaseDeTemps\_execute[SERVICEBASEDETEMPS\_NOMBRE\_DE\_PHASES])(void);}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8h_source_l00033}00033 }
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8h_source_l00034}00034 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

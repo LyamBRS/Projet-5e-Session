@@ -1,0 +1,173 @@
+\hypertarget{structst_values}{}\doxysection{Référence de la structure st\+Values}
+\label{structst_values}\index{stValues@{stValues}}
+
+
+Struct containing all the possible values that a module can transmit. This is a list of values and must not be changed, Only refer to it when you need to set or change your module\textquotesingle{}s structure values.  
+
+
+
+
+{\ttfamily \#include $<$Service\+Communication.\+h$>$}
+
+\doxysubsection*{Champs de données}
+\begin{DoxyCompactItemize}
+\item 
+unsigned char \mbox{\hyperlink{structst_values_ae70f3c4c5a602f9a03353d8d86b04ac6}{disc\+\_\+\+Red}}
+\begin{DoxyCompactList}\small\item\em Value outputed on the bus to indicate the detection of a red disc. Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D63}}. \end{DoxyCompactList}\item 
+unsigned char \mbox{\hyperlink{structst_values_a0b83a13ae6856fa87327ee3a6f01e0a0}{disc\+\_\+\+Silver}}
+\begin{DoxyCompactList}\small\item\em Value outputed on the bus to indicate the detection of a silver disc. Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D64}}. \end{DoxyCompactList}\item 
+unsigned char \mbox{\hyperlink{structst_values_addc09e40c9f99dff184eabe529d26490}{disc\+\_\+\+Black}}
+\begin{DoxyCompactList}\small\item\em Value outputed on the bus to indicate the detection of a black disc. Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D65}}. \end{DoxyCompactList}\item 
+unsigned char \mbox{\hyperlink{structst_values_afe1ccd01d850f644a319c5ae0baf5cdb}{disc\+\_\+\+No\+Color}}
+\begin{DoxyCompactList}\small\item\em Value outputed on the bus to indicate that there is no colour data available. Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D66}}. \end{DoxyCompactList}\item 
+unsigned char \mbox{\hyperlink{structst_values_a5fe6c555bd78aa96ffa8846f426bdd42}{disc\+\_\+\+Detected}}
+\begin{DoxyCompactList}\small\item\em Value outputed on the bus to indicate the detection of a disc by the module. Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D67}}. \end{DoxyCompactList}\item 
+unsigned char \mbox{\hyperlink{structst_values_a37349c153ae7048f9e8f1403b2abec82}{disc\+\_\+\+Lost}}
+\begin{DoxyCompactList}\small\item\em Value outputed on the bus to indicate the loss of a previously detected disc. Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D68}}. \end{DoxyCompactList}\item 
+unsigned char \mbox{\hyperlink{structst_values_a6379c1e7d424b2df15d23cd6b08481b6}{disc\+\_\+\+Could\+Not\+Be\+Found}}
+\begin{DoxyCompactList}\small\item\em Value outputed on the bus to indicate the detection of a disc went wrong as no disc could be detected when needed. Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D69}}. \end{DoxyCompactList}\item 
+unsigned char \mbox{\hyperlink{structst_values_a15072fb3e93313c314fb3bf4e4520d11}{unit\+\_\+\+Metric}}
+\begin{DoxyCompactList}\small\item\em Value outputed on the bus to indicate that the module is currently using metric units for it\textquotesingle{}s values. Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D70}}. \end{DoxyCompactList}\item 
+unsigned char \mbox{\hyperlink{structst_values_a5c6a1beda6cb7e8605eb44778eaa26de}{unit\+\_\+\+Imperial}}
+\begin{DoxyCompactList}\small\item\em Value outputed on the bus to indicate that the module is currently using imperial units for it\textquotesingle{}s values. Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D71}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Struct containing all the possible values that a module can transmit. This is a list of values and must not be changed, Only refer to it when you need to set or change your module\textquotesingle{}s structure values. 
+
+Définition à la ligne \mbox{\hyperlink{_service_communication_8h_source_l00672}{672}} du fichier \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+
+
+\doxysubsection{Documentation des champs}
+\mbox{\Hypertarget{structst_values_addc09e40c9f99dff184eabe529d26490}\label{structst_values_addc09e40c9f99dff184eabe529d26490}} 
+\index{stValues@{stValues}!disc\_Black@{disc\_Black}}
+\index{disc\_Black@{disc\_Black}!stValues@{stValues}}
+\doxysubsubsection{\texorpdfstring{disc\_Black}{disc\_Black}}
+{\footnotesize\ttfamily unsigned char st\+Values\+::disc\+\_\+\+Black}
+
+
+
+Value outputed on the bus to indicate the detection of a black disc. Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D65}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{_service_communication_8h_source_l00688}{688}} du fichier \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{structst_values_a6379c1e7d424b2df15d23cd6b08481b6}\label{structst_values_a6379c1e7d424b2df15d23cd6b08481b6}} 
+\index{stValues@{stValues}!disc\_CouldNotBeFound@{disc\_CouldNotBeFound}}
+\index{disc\_CouldNotBeFound@{disc\_CouldNotBeFound}!stValues@{stValues}}
+\doxysubsubsection{\texorpdfstring{disc\_CouldNotBeFound}{disc\_CouldNotBeFound}}
+{\footnotesize\ttfamily unsigned char st\+Values\+::disc\+\_\+\+Could\+Not\+Be\+Found}
+
+
+
+Value outputed on the bus to indicate the detection of a disc went wrong as no disc could be detected when needed. Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D69}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{_service_communication_8h_source_l00708}{708}} du fichier \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{structst_values_a5fe6c555bd78aa96ffa8846f426bdd42}\label{structst_values_a5fe6c555bd78aa96ffa8846f426bdd42}} 
+\index{stValues@{stValues}!disc\_Detected@{disc\_Detected}}
+\index{disc\_Detected@{disc\_Detected}!stValues@{stValues}}
+\doxysubsubsection{\texorpdfstring{disc\_Detected}{disc\_Detected}}
+{\footnotesize\ttfamily unsigned char st\+Values\+::disc\+\_\+\+Detected}
+
+
+
+Value outputed on the bus to indicate the detection of a disc by the module. Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D67}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{_service_communication_8h_source_l00698}{698}} du fichier \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{structst_values_a37349c153ae7048f9e8f1403b2abec82}\label{structst_values_a37349c153ae7048f9e8f1403b2abec82}} 
+\index{stValues@{stValues}!disc\_Lost@{disc\_Lost}}
+\index{disc\_Lost@{disc\_Lost}!stValues@{stValues}}
+\doxysubsubsection{\texorpdfstring{disc\_Lost}{disc\_Lost}}
+{\footnotesize\ttfamily unsigned char st\+Values\+::disc\+\_\+\+Lost}
+
+
+
+Value outputed on the bus to indicate the loss of a previously detected disc. Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D68}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{_service_communication_8h_source_l00703}{703}} du fichier \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{structst_values_afe1ccd01d850f644a319c5ae0baf5cdb}\label{structst_values_afe1ccd01d850f644a319c5ae0baf5cdb}} 
+\index{stValues@{stValues}!disc\_NoColor@{disc\_NoColor}}
+\index{disc\_NoColor@{disc\_NoColor}!stValues@{stValues}}
+\doxysubsubsection{\texorpdfstring{disc\_NoColor}{disc\_NoColor}}
+{\footnotesize\ttfamily unsigned char st\+Values\+::disc\+\_\+\+No\+Color}
+
+
+
+Value outputed on the bus to indicate that there is no colour data available. Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D66}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{_service_communication_8h_source_l00693}{693}} du fichier \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{structst_values_ae70f3c4c5a602f9a03353d8d86b04ac6}\label{structst_values_ae70f3c4c5a602f9a03353d8d86b04ac6}} 
+\index{stValues@{stValues}!disc\_Red@{disc\_Red}}
+\index{disc\_Red@{disc\_Red}!stValues@{stValues}}
+\doxysubsubsection{\texorpdfstring{disc\_Red}{disc\_Red}}
+{\footnotesize\ttfamily unsigned char st\+Values\+::disc\+\_\+\+Red}
+
+
+
+Value outputed on the bus to indicate the detection of a red disc. Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D63}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{_service_communication_8h_source_l00678}{678}} du fichier \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{structst_values_a0b83a13ae6856fa87327ee3a6f01e0a0}\label{structst_values_a0b83a13ae6856fa87327ee3a6f01e0a0}} 
+\index{stValues@{stValues}!disc\_Silver@{disc\_Silver}}
+\index{disc\_Silver@{disc\_Silver}!stValues@{stValues}}
+\doxysubsubsection{\texorpdfstring{disc\_Silver}{disc\_Silver}}
+{\footnotesize\ttfamily unsigned char st\+Values\+::disc\+\_\+\+Silver}
+
+
+
+Value outputed on the bus to indicate the detection of a silver disc. Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D64}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{_service_communication_8h_source_l00683}{683}} du fichier \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{structst_values_a5c6a1beda6cb7e8605eb44778eaa26de}\label{structst_values_a5c6a1beda6cb7e8605eb44778eaa26de}} 
+\index{stValues@{stValues}!unit\_Imperial@{unit\_Imperial}}
+\index{unit\_Imperial@{unit\_Imperial}!stValues@{stValues}}
+\doxysubsubsection{\texorpdfstring{unit\_Imperial}{unit\_Imperial}}
+{\footnotesize\ttfamily unsigned char st\+Values\+::unit\+\_\+\+Imperial}
+
+
+
+Value outputed on the bus to indicate that the module is currently using imperial units for it\textquotesingle{}s values. Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D71}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{_service_communication_8h_source_l00718}{718}} du fichier \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{structst_values_a15072fb3e93313c314fb3bf4e4520d11}\label{structst_values_a15072fb3e93313c314fb3bf4e4520d11}} 
+\index{stValues@{stValues}!unit\_Metric@{unit\_Metric}}
+\index{unit\_Metric@{unit\_Metric}!stValues@{stValues}}
+\doxysubsubsection{\texorpdfstring{unit\_Metric}{unit\_Metric}}
+{\footnotesize\ttfamily unsigned char st\+Values\+::unit\+\_\+\+Metric}
+
+
+
+Value outputed on the bus to indicate that the module is currently using metric units for it\textquotesingle{}s values. Full detailed description available at \+: \mbox{\hyperlink{}{https\+://docs.\+google.\+com/spreadsheets/d/1\+Bg\+Sps-\/8e4\+IBZYXIF8\+Jcpr\+H0\+Lhlybmt\+Sg\+L7\+DJWUX4d\+DQ/edit\#gid=977381857\&range=\+D70}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{_service_communication_8h_source_l00713}{713}} du fichier \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+
+
+La documentation de cette structure a été générée à partir du fichier suivant \+:\begin{DoxyCompactItemize}
+\item 
+U\+:/\+Sessions/\+Session 5/\+Project/\+Projet\+\_\+\+Fin\+\_\+\+Session/\+Projet-\/5e-\/\+Session/\+Vehicule/\+Programmes/\+ESPvehicule/include/\mbox{\hyperlink{_service_communication_8h}{Service\+Communication.\+h}}\end{DoxyCompactItemize}

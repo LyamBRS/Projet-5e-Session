@@ -1,0 +1,113 @@
+\hypertarget{interface_lcd_8h_source}{}\doxysection{interface\+Lcd.\+h}
+\label{interface_lcd_8h_source}\index{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Tri/CentreDeTriS5/Src/interfaceLcd.h@{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Tri/CentreDeTriS5/Src/interfaceLcd.h}}
+\mbox{\hyperlink{interface_lcd_8h}{Aller à la documentation de ce fichier.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00001}00001 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00011}00011 \textcolor{comment}{/*************************************************************************************************}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00012}00012 \textcolor{comment}{**************************************************************************************************}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00013}00013 \textcolor{comment}{**************************************************************************************************}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00014}00014 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00015}00015 \textcolor{comment}{    \#\#\#\#\#\#\#\#\#\#\#\#    \#\#\#\#\#\#\#\#\#\#\#\#     \#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00016}00016 \textcolor{comment}{    \#\#\#\#\#\#\#\#\#\#\#\#    \#\#\#\#\#\#\#\#\#\#\#\#     \#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00017}00017 \textcolor{comment}{              \#\#              \#\#   \#\# }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00018}00018 \textcolor{comment}{    \#\#\#\#    \#\#      \#\#\#\#    \#\#     \#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00019}00019 \textcolor{comment}{    \#\#\#\#    \#\#      \#\#\#\#    \#\#     \#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00020}00020 \textcolor{comment}{              \#\#              \#\#             \#\#}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00021}00021 \textcolor{comment}{    \#\#\#\#\#\#\#\#\#\#\#\#    \#\#\#\#      \#\#   \#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00022}00022 \textcolor{comment}{    \#\#\#\#\#\#\#\#\#\#\#\#    \#\#\#\#      \#\#   \#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00023}00023 \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00024}00024 \textcolor{comment}{***************************************************************************************************}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00025}00025 \textcolor{comment}{** New:      BRS\_Lcd.h -\/-\/-\/ By Shawn Couture   *****************************************************}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00026}00026 \textcolor{comment}{** Original: GLcd.h    -\/-\/-\/ By Alain Champagne *****************************************************}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00027}00027 \textcolor{comment}{** Date: 24/03/2022               *****************************************************************}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00028}00028 \textcolor{comment}{***************************************************************************************************/}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00029}00029 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00030}00030 \textcolor{preprocessor}{\#ifndef interfaceLcd\_FUNCTIONS}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00031}00031 \textcolor{preprocessor}{  \#define interfaceLcd\_FUNCTIONS}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00032}00032 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00033}00033 \textcolor{comment}{//================================================================================================//}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00034}00034 \textcolor{comment}{//  Include}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00035}00035 \textcolor{comment}{//================================================================================================//}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00036}00036 \textcolor{preprocessor}{\#include "{}stm32f4xx\_hal.h"{}}                       \textcolor{comment}{//D{\ucr}finition pour le KIT ARM}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00037}00037 \textcolor{comment}{//\#include "{}IO\_BUS.h"{}       }}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00038}00038 \textcolor{comment}{//\#include "{}main.h"{}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00039}00039 \textcolor{preprocessor}{\#include "{}stdbool.h"{}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00040}00040 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00041}00041 \textcolor{preprocessor}{\#include "{}piloteLcd.h"{}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00042}00042 \textcolor{preprocessor}{\#include "{}math.h"{}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00043}00043 \textcolor{preprocessor}{\#include "{}BRS\_Lcd\_Font.h"{}}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00044}00044 \textcolor{comment}{//================================================================================================//}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00045}00045 \textcolor{comment}{//  DEMONSTRATOR // these functions will loop inside of themselves to show what the normal}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00046}00046 \textcolor{comment}{//                   // function can be used for.}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00047}00047 \textcolor{comment}{//================================================================================================//}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00048}00048 \textcolor{keywordtype}{void} interfaceLcd\_Demo\_Line(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00049}00049 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00050}00050 \textcolor{keywordtype}{void} \mbox{\hyperlink{interface_lcd_8h_a5543117245e8c771b0a3a40b8a7b9036}{interfaceLcd\_Demo\_Circles}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00051}00051 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00052}00052 \textcolor{keywordtype}{void} interfaceLcd\_Demo\_Clear(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00053}00053 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00054}00054 \textcolor{comment}{//================================================================================================//}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00055}00055 \textcolor{comment}{//  Pixel \& Lines}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00056}00056 \textcolor{comment}{//================================================================================================//}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00057}00057 \textcolor{keywordtype}{void} interfaceLcd\_Draw\_Pixel(\textcolor{keywordtype}{double} x, \textcolor{keywordtype}{double} y, \textcolor{keywordtype}{bool} state);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00058}00058 \textcolor{keywordtype}{void} interfaceLcd\_Draw\_Line (\textcolor{keywordtype}{double} x1, \textcolor{keywordtype}{double} y1, \textcolor{keywordtype}{double} x2, \textcolor{keywordtype}{double} y2, \textcolor{keywordtype}{bool} state);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00059}00059 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00060}00060 \textcolor{keywordtype}{void} interfaceLcd\_Draw\_OvalPixel  (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} x, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} y, \textcolor{keywordtype}{double} radiusX, \textcolor{keywordtype}{double} radiusY,            \textcolor{keywordtype}{double} radian, \textcolor{keywordtype}{bool} state);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00061}00061 \textcolor{keywordtype}{void} interfaceLcd\_Draw\_CirclePixel(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} x, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} y, \textcolor{keywordtype}{double} radius,                             \textcolor{keywordtype}{double} radian, \textcolor{keywordtype}{bool} state);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00062}00062 \textcolor{keywordtype}{void} interfaceLcd\_Draw\_CircleLine (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} x, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} y, \textcolor{keywordtype}{double} InsideRadius, \textcolor{keywordtype}{double} OutsideRadius, \textcolor{keywordtype}{double} radian, \textcolor{keywordtype}{bool} state);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00063}00063 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00064}00064 \textcolor{comment}{//================================================================================================//}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00065}00065 \textcolor{comment}{//  Rectangles}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00066}00066 \textcolor{comment}{//================================================================================================//}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00067}00067 \textcolor{keywordtype}{void} interfaceLcd\_Draw\_Shape\_RectF(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} x, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} y, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} width, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} height, \textcolor{keywordtype}{bool} state);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00068}00068 \textcolor{keywordtype}{void} interfaceLcd\_Draw\_Shape\_Rect (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} x, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} y, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} width, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} height, \textcolor{keywordtype}{bool} state);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00069}00069 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00070}00070 \textcolor{comment}{//================================================================================================//}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00071}00071 \textcolor{comment}{//  Circles}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00072}00072 \textcolor{comment}{//================================================================================================//}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00073}00073 \textcolor{keywordtype}{void} interfaceLcd\_Draw\_Shape\_CircleF(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} x, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} y, \textcolor{keywordtype}{double} radius, \textcolor{keywordtype}{bool} state);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00074}00074 \textcolor{keywordtype}{void} interfaceLcd\_Draw\_Shape\_Circle (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} x, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} y, \textcolor{keywordtype}{double} radius, \textcolor{keywordtype}{bool} state);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00075}00075 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00076}00076 \textcolor{comment}{//================================================================================================//}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00077}00077 \textcolor{comment}{//  Text/Strings}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00078}00078 \textcolor{comment}{//================================================================================================//}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00079}00079 \textcolor{keywordtype}{void} interfaceLcd\_Draw\_Text\_Double  (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} x, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} y, \textcolor{keywordtype}{double} Number,\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} decimals, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} maxDigits, \textcolor{keywordtype}{bool} state);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00080}00080 \textcolor{keywordtype}{void} interfaceLcd\_Draw\_Text\_Integer (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} x, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} y, \textcolor{keywordtype}{int} Number, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} maxDigits, \textcolor{keywordtype}{bool} state);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00081}00081 \textcolor{keywordtype}{void} interfaceLcd\_Draw\_Text\_Hexa    (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} x, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} y, \textcolor{keywordtype}{int} Number, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} maxDigits, \textcolor{keywordtype}{bool} state);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00082}00082 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00083}00083 \textcolor{keywordtype}{void} interfaceLcd\_Draw\_Text\_Char    (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} x, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} y, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} letter,   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} font, \textcolor{keywordtype}{bool} state);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00084}00084 \textcolor{keywordtype}{void} interfaceLcd\_Draw\_Text\_String  (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} x, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} y, \textcolor{keywordtype}{char} \textcolor{keyword}{const} \textcolor{keywordtype}{string}[], \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} font, \textcolor{keywordtype}{bool} state);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00085}00085 \textcolor{keywordtype}{void} interfaceLcd\_Draw\_Text\_Box     (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} x, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} y, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} *\textcolor{keywordtype}{string},  \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} font, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} LR, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} UD);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00086}00086 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00087}00087 \textcolor{comment}{//================================================================================================//}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00088}00088 \textcolor{comment}{//  Logo + header}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00089}00089 \textcolor{comment}{//================================================================================================//}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00090}00090 \textcolor{keywordtype}{void} interfaceLcd\_Draw\_Misc\_ScalableBRS(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} x, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} y, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} scale, \textcolor{keywordtype}{bool} state);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00091}00091 \textcolor{keywordtype}{void} interfaceLcd\_Draw\_Misc\_LabHeader(\textcolor{keywordtype}{char} \textcolor{keyword}{const} *lab, \textcolor{keywordtype}{char} \textcolor{keyword}{const} *Table);                            \textcolor{comment}{//("{}      LAB9-\/416      "{},"{}    SHAWN COUTURE    "{})}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00092}00092 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00093}00093 \textcolor{comment}{//================================================================================================//}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00094}00094 \textcolor{comment}{//  Animations // NOT DONE}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00095}00095 \textcolor{comment}{//================================================================================================//}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00096}00096 \textcolor{keywordtype}{void} interfaceLcd\_Animations\_Outline(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} x, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} y, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} width, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} height, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} lineLenght, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} delay, \textcolor{keywordtype}{bool} state);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00097}00097 \textcolor{keywordtype}{void} interfaceLcd\_Animations\_ScreenSaver(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} delay, \textcolor{keywordtype}{bool} state);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00098}00098 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00099}00099 \textcolor{comment}{//================================================================================================//}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00100}00100 \textcolor{comment}{//  LCD Clears}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00101}00101 \textcolor{comment}{//================================================================================================//}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00102}00102 \textcolor{keywordtype}{void} interfaceLcd\_Clear\_Swipe(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} direction); }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00103}00103 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00104}00104 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00105}00105 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00106}00106 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00107}00107 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00108}00108 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00109}00109 \textcolor{comment}{//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00110}00110 \textcolor{comment}{//  INTERNAL FUNCTIONS}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00111}00111 \textcolor{comment}{//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//}}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00112}00112 \textcolor{keywordtype}{void} Demo\_TitleSwipe(\textcolor{keywordtype}{char} \textcolor{keyword}{const} *NameOfDemo);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00113}00113 \textcolor{keywordtype}{size\_t} strlen(\textcolor{keyword}{const} \textcolor{keywordtype}{char} *pString);}
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00114}00114 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00115}00115 }
+\DoxyCodeLine{\Hypertarget{interface_lcd_8h_source_l00116}00116 \textcolor{preprocessor}{\#endif }}
+
+\end{DoxyCode}

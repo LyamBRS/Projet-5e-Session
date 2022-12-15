@@ -1,0 +1,257 @@
+\hypertarget{processus_detection_8c_source}{}\doxysection{processus\+Detection.\+c}
+\label{processus_detection_8c_source}\index{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Pesage/Programmes/PesageBaseDeTemps/processusDetection.c@{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Pesage/Programmes/PesageBaseDeTemps/processusDetection.c}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00001}00001 \textcolor{comment}{// ProcessusBras }}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00002}00002 \textcolor{comment}{// Fichier contenant le state Machine de la détection d'un bloc}}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00003}00003 }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00004}00004 }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00005}00005 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{main_8h}{main.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00006}00006 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{service_base_de_temps_8h}{serviceBaseDeTemps.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00007}00007 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_service_communication_8h}{ServiceCommunication.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00008}00008 \textcolor{preprocessor}{\#include "{}interfaceVL6180x.h"{}}}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00009}00009 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{interface_bras_8h}{interfaceBras.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00010}00010 \textcolor{preprocessor}{\#include "{}processusDetection.h"{}}}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00011}00011 }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00012}00012 }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00013}00013 \textcolor{comment}{// Définition des variables privées}}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00014}00014 \textcolor{comment}{//int compteur = 0;}}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00015}00015 }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00016}00016 \textcolor{keywordtype}{char} reponse[2000];}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00017}00017 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} processusDetection\_compteur;}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00018}00018 \textcolor{keywordtype}{char} commande[64];}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00019}00019 }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00020}00020 \textcolor{keywordtype}{float} distance;}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00021}00021 \textcolor{keywordtype}{float} dernieredistance = 25;}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00022}00022 }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00023}00023 }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00024}00024 \textcolor{keywordtype}{int} x = 200;}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00025}00025 \textcolor{keywordtype}{int} y = -\/80;}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00026}00026 \textcolor{keywordtype}{int} z = \mbox{\hyperlink{main_8h_a7f55cccd90fde97bc9c1b75e160127c1}{PROCESSUSDETECTION\_HAUTEUR\_DE\_SCAN}};}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00027}00027 }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00029}00029 }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00030}00030 \textcolor{keywordtype}{void} processusDetection\_attendReponseInit(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00031}00031 \textcolor{keywordtype}{void} processusDetection\_attendUneRequete(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00032}00032 \textcolor{keywordtype}{void} processusDetection\_Bouge(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00033}00033 \textcolor{keywordtype}{void} processusDetection\_attendReponseCmd(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00034}00034 \textcolor{keywordtype}{void} processusDetection\_changeCoordonne(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00035}00035 \textcolor{keywordtype}{void} processusDetection\_lit(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00036}00036 \textcolor{keywordtype}{void} processusDetection\_alignement(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00037}00037 \textcolor{keywordtype}{void} processusDetection\_descend(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00038}00038 \textcolor{keywordtype}{void} processusDetection\_ventouseCriss(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00039}00039 \textcolor{keywordtype}{void} processusDetection\_remonte(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00040}00040 \textcolor{keywordtype}{void} processusDetection\_pese(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00041}00041 }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00042}00042 }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00043}00043 \textcolor{keywordtype}{void} processusDetection\_initialise(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00044}00044 \{}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00045}00045     processusDetection.information = \mbox{\hyperlink{main_8h_a6c881f57dd1c677526a6bf6e2eda81aa}{PROCESSUSDETECTION\_INFORMATION\_CUBEUNUSED}};}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00046}00046     processusDetection.requete = \mbox{\hyperlink{main_8h_a864d40797a0fa75f807c50c12a536010}{PROCESSUSDETECTION\_REQUETE\_TRAITE}};}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00047}00047     processusDetection.etatDuModule = \mbox{\hyperlink{main_8h_a044ad1171fd977c68cbd41736807a4f0}{PROCESSUSDETECTION\_MODULE\_PAS\_EN\_FONCTION}};}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00048}00048     \mbox{\hyperlink{service_base_de_temps_8c_a103583940036ccbb95b6b4c1f73b74d6}{serviceBaseDeTemps\_execute}}[\mbox{\hyperlink{main_8h_a561647e7b1ac9d4527996d8330a20dfd}{PROCESSUSDETECTION\_PHASE}}] = processusDetection\_attendReponseInit;}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00049}00049 \}}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00050}00050 }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00051}00051 \textcolor{keywordtype}{void} processusDetection\_attendReponseInit(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00052}00052 \{}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00053}00053     }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00054}00054     processusDetection\_compteur ++;}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00055}00055     \textcolor{keywordflow}{if}(processusDetection\_compteur != \mbox{\hyperlink{main_8h_ad2e380ef4ffe3c7fda4a9ee941a68ff6}{PROCESSUSDETECTION\_COMPTEPOURREPONSE\_INIT}})}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00056}00056     \{}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00057}00057         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00058}00058     \}}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00059}00059 }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00060}00060     }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00061}00061     processusDetection\_compteur = 0;}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00062}00062     interfaceBras\_recoitUneReponse(reponse,2000);}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00063}00063     printf(\textcolor{stringliteral}{"{}\%s\(\backslash\)n"{}}, reponse);}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00064}00064     fflush(stdout);}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00065}00065     memset(reponse, 0, \textcolor{keyword}{sizeof} reponse);}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00066}00066     }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00067}00067     \mbox{\hyperlink{service_base_de_temps_8c_a103583940036ccbb95b6b4c1f73b74d6}{serviceBaseDeTemps\_execute}}[\mbox{\hyperlink{main_8h_a561647e7b1ac9d4527996d8330a20dfd}{PROCESSUSDETECTION\_PHASE}}] = processusDetection\_attendUneRequete;}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00068}00068 \}}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00069}00069 }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00070}00070 \textcolor{keywordtype}{void} processusDetection\_attendUneRequete(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00071}00071 \{}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00072}00072     \textcolor{keywordflow}{if}(processusDetection.requete != \mbox{\hyperlink{main_8h_ad96a89ddfc09cad32ce6caea5b2aa3fd}{PROCESSUSDETECTION\_REQUETE\_ACTIVE}})}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00073}00073     \{}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00074}00074         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00075}00075     \}}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00076}00076     }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00077}00077     x = 200;}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00078}00078     y = -\/80;}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00079}00079     z = \mbox{\hyperlink{main_8h_a7f55cccd90fde97bc9c1b75e160127c1}{PROCESSUSDETECTION\_HAUTEUR\_DE\_SCAN}};}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00080}00080     }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00081}00081     processusDetection.etatDuModule = \mbox{\hyperlink{main_8h_a201361e6575847a6fe2cbe12f0b1fec5}{PROCESSUSDETECTION\_MODULE\_EN\_FONCTION}};}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00082}00082     \mbox{\hyperlink{service_base_de_temps_8c_a103583940036ccbb95b6b4c1f73b74d6}{serviceBaseDeTemps\_execute}}[\mbox{\hyperlink{main_8h_a561647e7b1ac9d4527996d8330a20dfd}{PROCESSUSDETECTION\_PHASE}}] = processusDetection\_Bouge;}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00083}00083 \}}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00084}00084 }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00085}00085 }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00086}00086 }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00087}00087 }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00088}00088 \textcolor{keywordtype}{void} processusDetection\_Bouge(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00089}00089 \{}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00090}00090     \textcolor{comment}{// Fonction qui gere les valeur de coordonnés}}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00091}00091     processusDetection\_changeCoordonne();}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00092}00092 }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00093}00093     }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00094}00094     sprintf(commande, \textcolor{stringliteral}{"{}\#1 G0 X\%d Y\%d Z\%d F8000\(\backslash\)n"{}}, x, y, z);}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00095}00095     interfaceBras\_ecritUneCommande(commande, \textcolor{keyword}{sizeof} commande);}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00096}00096     memset(commande, 0, 64);}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00097}00097     }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00098}00098     \mbox{\hyperlink{service_base_de_temps_8c_a103583940036ccbb95b6b4c1f73b74d6}{serviceBaseDeTemps\_execute}}[\mbox{\hyperlink{main_8h_a561647e7b1ac9d4527996d8330a20dfd}{PROCESSUSDETECTION\_PHASE}}] = processusDetection\_attendReponseCmd;}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00099}00099 \}}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00100}00100 }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00101}00101 \textcolor{keywordtype}{void} processusDetection\_attendReponseCmd(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00102}00102 \{}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00103}00103     processusDetection\_compteur ++;}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00104}00104     \textcolor{keywordflow}{if}(processusDetection\_compteur != \mbox{\hyperlink{main_8h_a179474829886745c9dc4f956529a71a0}{PROCESSUSDETECTION\_COMPTEPOURREPONSE\_CMD}})}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00105}00105     \{}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00106}00106         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00107}00107     \}}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00108}00108     processusDetection\_compteur = 0;}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00109}00109     interfaceBras\_recoitUneReponse(reponse,64);}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00110}00110     printf(\textcolor{stringliteral}{"{}\%s"{}}, reponse);}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00111}00111     fflush(stdout);}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00112}00112     }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00113}00113     \mbox{\hyperlink{service_base_de_temps_8c_a103583940036ccbb95b6b4c1f73b74d6}{serviceBaseDeTemps\_execute}}[\mbox{\hyperlink{main_8h_a561647e7b1ac9d4527996d8330a20dfd}{PROCESSUSDETECTION\_PHASE}}] = processusDetection\_lit;}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00114}00114 \}}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00115}00115 }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00116}00116 \textcolor{keywordtype}{void} processusDetection\_lit(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00117}00117 \{}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00118}00118     \textcolor{keywordflow}{if}(\mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{ModuleData}}.\mbox{\hyperlink{structst_module_data_aad97611843f921f2d34f879b04290c44}{Mode}} == \mbox{\hyperlink{_service_communication_8c_a8d263995a90824787239b3b43fd22624}{Modes}}.\mbox{\hyperlink{structst_modes_ae19fde49e40cc8ae869cf0cf1a47847f}{operation}})}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00119}00119     \{}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00120}00120         \textcolor{keywordflow}{if} (interfaceVL6180x\_litUneDistance(\&distance) < 0)}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00121}00121            \{}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00122}00122             printf(\textcolor{stringliteral}{"{}erreur: interfaceVL6180x\_litUneDistance"{}});}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00123}00123             fflush(stdout);     }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00124}00124             \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00125}00125         \}}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00126}00126         \textcolor{keywordflow}{if}(dernieredistance <= 19)}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00127}00127         \{}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00128}00128             \textcolor{keywordflow}{if}(distance <= 19)}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00129}00129             \{}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00130}00130                 \textcolor{comment}{//On a vu deux fois la meme distance donc c'est probablement le cube}}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00131}00131                 printf(\textcolor{stringliteral}{"{}CUUUBE\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00132}00132                 fflush(stdout);}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00133}00133                 processusDetection.information = \mbox{\hyperlink{main_8h_a968ae2d9a7d4d9e03d25c187a3b0e309}{PROCESSUSDETECTION\_INFORMATION\_CUBEDETECTED}};}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00134}00134                 \mbox{\hyperlink{service_base_de_temps_8c_a103583940036ccbb95b6b4c1f73b74d6}{serviceBaseDeTemps\_execute}}[\mbox{\hyperlink{main_8h_a561647e7b1ac9d4527996d8330a20dfd}{PROCESSUSDETECTION\_PHASE}}] = processusDetection\_alignement;}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00135}00135                 \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00136}00136             \}}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00137}00137         \}}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00138}00138         }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00139}00139         dernieredistance = distance;}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00140}00140         printf(\textcolor{stringliteral}{"{}\%2.1f\(\backslash\)n"{}}, distance);}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00141}00141         fflush(stdout);}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00142}00142         \mbox{\hyperlink{service_base_de_temps_8c_a103583940036ccbb95b6b4c1f73b74d6}{serviceBaseDeTemps\_execute}}[\mbox{\hyperlink{main_8h_a561647e7b1ac9d4527996d8330a20dfd}{PROCESSUSDETECTION\_PHASE}}] = processusDetection\_Bouge;}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00143}00143     \}}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00144}00144     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00145}00145     \{}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00146}00146         \textcolor{keywordflow}{if}(\mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{ModuleData}}.\mbox{\hyperlink{structst_module_data_aad97611843f921f2d34f879b04290c44}{Mode}} == \mbox{\hyperlink{_service_communication_8c_a8d263995a90824787239b3b43fd22624}{Modes}}.\mbox{\hyperlink{structst_modes_a03ad9e5077cba8652d921ea0b1ec9483}{pause}})}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00147}00147         \{}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00148}00148             \mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{ModuleData}}.\mbox{\hyperlink{structst_module_data_a5e17acbc4701e7886ecec1c3b3a6861f}{State}} = \mbox{\hyperlink{_service_communication_8c_a438a30fee677441c56cb4010275f6811}{States}}.\mbox{\hyperlink{structst_states_acd32cc631f50c25e83c903efae3ddbd7}{paused}};}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00149}00149         \}}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00150}00150     \}}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00151}00151 \}}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00152}00152 }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00153}00153 }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00154}00154 }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00155}00155 \textcolor{keywordtype}{void} processusDetection\_alignement(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00156}00156 \{}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00157}00157     x = x + 60;}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00158}00158     y = y + 5;}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00159}00159     sprintf(commande, \textcolor{stringliteral}{"{}\#1 G0 X\%d Y\%d Z\%d F8000\(\backslash\)n"{}}, x, y, z);}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00160}00160     interfaceBras\_ecritUneCommande(commande, \textcolor{keyword}{sizeof} commande);}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00161}00161     memset(commande, 0, 64);}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00162}00162     }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00163}00163     \mbox{\hyperlink{service_base_de_temps_8c_a103583940036ccbb95b6b4c1f73b74d6}{serviceBaseDeTemps\_execute}}[\mbox{\hyperlink{main_8h_a561647e7b1ac9d4527996d8330a20dfd}{PROCESSUSDETECTION\_PHASE}}] = processusDetection\_descend;}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00164}00164 \}}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00165}00165 \textcolor{keywordtype}{void} processusDetection\_descend(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00166}00166 \{}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00167}00167     processusDetection\_compteur ++;}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00168}00168     \textcolor{keywordflow}{if}(processusDetection\_compteur <= 1000) \textcolor{comment}{// Delai pour laisser le temps de descendre}}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00169}00169     \{}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00170}00170         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00171}00171     \}}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00172}00172     printf(\textcolor{stringliteral}{"{}processusDetection\_descend: COMPTE FINI\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00173}00173     }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00174}00174     interfaceBras\_recoitUneReponse(reponse,64);}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00175}00175     printf(\textcolor{stringliteral}{"{}\%s"{}}, reponse);}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00176}00176     fflush(stdout);}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00177}00177     }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00178}00178     printf(\textcolor{stringliteral}{"{}processusDetection\_descend: COMMANDE DE DESCENTE\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00179}00179     z = \mbox{\hyperlink{main_8h_a7f55cccd90fde97bc9c1b75e160127c1}{PROCESSUSDETECTION\_HAUTEUR\_DE\_SCAN}} -\/ 125;}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00180}00180     sprintf(commande, \textcolor{stringliteral}{"{}\#1 G0 X\%d Y\%d Z\%d F8000\(\backslash\)n"{}}, x, y, z);   \textcolor{comment}{// ON descend prendre le cube dans la benne}}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00181}00181     interfaceBras\_ecritUneCommande(commande, \textcolor{keyword}{sizeof} commande); }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00182}00182     memset(commande, 0, 64);}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00183}00183     }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00184}00184     processusDetection\_compteur = 0;}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00185}00185     \mbox{\hyperlink{service_base_de_temps_8c_a103583940036ccbb95b6b4c1f73b74d6}{serviceBaseDeTemps\_execute}}[\mbox{\hyperlink{main_8h_a561647e7b1ac9d4527996d8330a20dfd}{PROCESSUSDETECTION\_PHASE}}] = processusDetection\_ventouseCriss;}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00186}00186 \}}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00187}00187 \textcolor{keywordtype}{void} processusDetection\_ventouseCriss(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00188}00188 \{}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00189}00189     processusDetection\_compteur ++;}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00190}00190     \textcolor{keywordflow}{if}(processusDetection\_compteur <= 1000) \textcolor{comment}{// Delai pour laisser le temps de descendre}}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00191}00191     \{}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00192}00192         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00193}00193     \}}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00194}00194     printf(\textcolor{stringliteral}{"{}processusDetection\_descend: ALLUMANGE DE LA VANTOUSE\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00195}00195     }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00196}00196     sprintf(commande, \textcolor{stringliteral}{"{}\#2 M2231 V1\(\backslash\)n"{}});    }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00197}00197     interfaceBras\_ecritUneCommande(commande, \textcolor{keyword}{sizeof} commande);}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00198}00198     memset(commande, 0, 64);}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00199}00199     }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00200}00200     processusDetection\_compteur = 0;}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00201}00201     \mbox{\hyperlink{service_base_de_temps_8c_a103583940036ccbb95b6b4c1f73b74d6}{serviceBaseDeTemps\_execute}}[\mbox{\hyperlink{main_8h_a561647e7b1ac9d4527996d8330a20dfd}{PROCESSUSDETECTION\_PHASE}}] = processusDetection\_remonte;}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00202}00202 \}}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00203}00203 }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00204}00204 \textcolor{keywordtype}{void} processusDetection\_remonte(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00205}00205 \{}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00206}00206     processusDetection\_compteur ++;}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00207}00207     \textcolor{keywordflow}{if}(processusDetection\_compteur != 1000)  \textcolor{comment}{// On attend beaucoup le temps d'activer la ventouse}}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00208}00208     \{}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00209}00209         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00210}00210     \}}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00211}00211     }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00212}00212     printf(\textcolor{stringliteral}{"{}processusDetection\_remonte: Compteur FINI\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00213}00213     }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00214}00214     processusDetection\_compteur = 0;}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00215}00215     interfaceBras\_recoitUneReponse(reponse,64);}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00216}00216     printf(\textcolor{stringliteral}{"{}\%s"{}}, reponse);}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00217}00217     fflush(stdout);}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00218}00218     \textcolor{comment}{// On remonte a Z = 100}}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00219}00219     z = 100;}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00220}00220     sprintf(commande, \textcolor{stringliteral}{"{}\#1 G0 X\%d Y\%d Z\%d F8000\(\backslash\)n"{}}, x, y, z);  \textcolor{comment}{// On remonte avec la rondelle}}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00221}00221     interfaceBras\_ecritUneCommande(commande, \textcolor{keyword}{sizeof} commande);}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00222}00222     memset(commande, 0, 64);}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00223}00223     printf(\textcolor{stringliteral}{"{}processusDetection\_remonte: Commande de monté envoyé.\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00224}00224             }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00225}00225     processusDetection.requete = \mbox{\hyperlink{main_8h_a864d40797a0fa75f807c50c12a536010}{PROCESSUSDETECTION\_REQUETE\_TRAITE}};}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00226}00226     \mbox{\hyperlink{service_base_de_temps_8c_a103583940036ccbb95b6b4c1f73b74d6}{serviceBaseDeTemps\_execute}}[\mbox{\hyperlink{main_8h_a561647e7b1ac9d4527996d8330a20dfd}{PROCESSUSDETECTION\_PHASE}}] = processusDetection\_attendUneRequete;}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00227}00227 \}}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00228}00228 }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00229}00229 \textcolor{keywordtype}{void} processusDetection\_pese(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00230}00230 \{}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00231}00231     }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00232}00232 \}}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00233}00233 }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00234}00234 }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00235}00235 \textcolor{comment}{// Fonction Utilitaire Pour modifier les position}}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00236}00236 \textcolor{keywordtype}{void} processusDetection\_changeCoordonne(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00237}00237 \{}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00238}00238     y = y + 10;}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00239}00239     \textcolor{keywordflow}{if}(y == 80)}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00240}00240     \{}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00241}00241         y = -\/80;}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00242}00242         x = x + 15;}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00243}00243     \}}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00244}00244     }
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00245}00245     \textcolor{comment}{// Pour recommencer la détection}}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00246}00246     \textcolor{keywordflow}{if}(x >= 320)}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00247}00247     \{}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00248}00248         \textcolor{comment}{//ModuleData.ValuesToSend = Values.disc\_CouldNotBeFound;}}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00249}00249         x = 200;}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00250}00250     \}}
+\DoxyCodeLine{\Hypertarget{processus_detection_8c_source_l00251}00251 \}}
+
+\end{DoxyCode}

@@ -1,0 +1,90 @@
+\hypertarget{xservice_i2_c1_8h}{}\doxysection{Référence du fichier U\+:/\+Sessions/\+Session 5/\+Project/\+Projet\+\_\+\+Fin\+\_\+\+Session/\+Projet-\/5e-\/\+Session/\+Vehicule/\+Programmes/\+ESPvehicule/include/xservice\+I2\+C1.h}
+\label{xservice_i2_c1_8h}\index{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Vehicule/Programmes/ESPvehicule/include/xserviceI2C1.h@{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Vehicule/Programmes/ESPvehicule/include/xserviceI2C1.h}}
+
+
+pour mettre en place un service de gestion de l\textquotesingle{}acces au port I2C L\textquotesingle{}acces au port I2\+C1 est permis lorsque service\+I2\+C1\+\_\+acces = SERVICEI2\+C1\+\_\+\+ACCES\+\_\+\+PERMIS et il ne l\textquotesingle{}est pas lorsque service\+I2\+C1\+\_\+acces = SERVICEI2\+C1\+\_\+\+ACCES\+\_\+\+INTERDIT Un module obtient l\textquotesingle{}usage exclusif du port I2C en mettant service\+I2\+C\+\_\+acces a SERVICEI2\+C1\+\_\+\+INTERDIT et il libere le port en mettant service\+I2\+C\+\_\+acces a SERVICEI2\+C1\+\_\+\+PERMIS. Le module qui a un acces exclusif au port I2\+C1 doit faire appel aux fonctions du module pilote\+I2\+C1 pour communiquer I2C et liberer le service une fois ses transactions terminees.  
+
+
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{xservice_i2_c1_8h_a3e560ae56a2616a36d937c2604a36244}{SERVICEI2\+C1\+\_\+\+ACCES\+\_\+\+PERMIS}}~1
+\begin{DoxyCompactList}\small\item\em Définition pour l\textquotesingle{}accès au port I2C. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xservice_i2_c1_8h_a6fa408a9c7f75caaca22515060477984}{SERVICEI2\+C1\+\_\+\+ACCES\+\_\+\+INTERDIT}}~0
+\begin{DoxyCompactList}\small\item\em Définition pour l\textquotesingle{}accès au port I2C. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{xservice_i2_c1_8h_a8a866443077dcc8b9dc11d805873843e}{service\+I2\+C1\+\_\+initialise}} (void)
+\begin{DoxyCompactList}\small\item\em Fonction d\textquotesingle{}initialisation du pilote I2C. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{xservice_i2_c1_8h_a0eebf345d767256ee201d406a149acb6}\label{xservice_i2_c1_8h_a0eebf345d767256ee201d406a149acb6}} 
+unsigned char {\bfseries service\+I2\+C1\+\_\+acces}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+pour mettre en place un service de gestion de l\textquotesingle{}acces au port I2C L\textquotesingle{}acces au port I2\+C1 est permis lorsque service\+I2\+C1\+\_\+acces = SERVICEI2\+C1\+\_\+\+ACCES\+\_\+\+PERMIS et il ne l\textquotesingle{}est pas lorsque service\+I2\+C1\+\_\+acces = SERVICEI2\+C1\+\_\+\+ACCES\+\_\+\+INTERDIT Un module obtient l\textquotesingle{}usage exclusif du port I2C en mettant service\+I2\+C\+\_\+acces a SERVICEI2\+C1\+\_\+\+INTERDIT et il libere le port en mettant service\+I2\+C\+\_\+acces a SERVICEI2\+C1\+\_\+\+PERMIS. Le module qui a un acces exclusif au port I2\+C1 doit faire appel aux fonctions du module pilote\+I2\+C1 pour communiquer I2C et liberer le service une fois ses transactions terminees. 
+
+\begin{DoxyAuthor}{Auteur}
+Camille Fortin (\href{mailto:camfortin2022@gmail.com}{\texttt{ camfortin2022@gmail.\+com}}) 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2022-\/12-\/11
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2022 
+\end{DoxyCopyright}
+
+
+Définition dans le fichier \mbox{\hyperlink{xservice_i2_c1_8h_source}{xservice\+I2\+C1.\+h}}.
+
+
+
+\doxysubsection{Documentation des macros}
+\mbox{\Hypertarget{xservice_i2_c1_8h_a6fa408a9c7f75caaca22515060477984}\label{xservice_i2_c1_8h_a6fa408a9c7f75caaca22515060477984}} 
+\index{xserviceI2C1.h@{xserviceI2C1.h}!SERVICEI2C1\_ACCES\_INTERDIT@{SERVICEI2C1\_ACCES\_INTERDIT}}
+\index{SERVICEI2C1\_ACCES\_INTERDIT@{SERVICEI2C1\_ACCES\_INTERDIT}!xserviceI2C1.h@{xserviceI2C1.h}}
+\doxysubsubsection{\texorpdfstring{SERVICEI2C1\_ACCES\_INTERDIT}{SERVICEI2C1\_ACCES\_INTERDIT}}
+{\footnotesize\ttfamily \#define SERVICEI2\+C1\+\_\+\+ACCES\+\_\+\+INTERDIT~0}
+
+
+
+Définition pour l\textquotesingle{}accès au port I2C. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xservice_i2_c1_8h_source_l00047}{47}} du fichier \mbox{\hyperlink{xservice_i2_c1_8h_source}{xservice\+I2\+C1.\+h}}.
+
+\mbox{\Hypertarget{xservice_i2_c1_8h_a3e560ae56a2616a36d937c2604a36244}\label{xservice_i2_c1_8h_a3e560ae56a2616a36d937c2604a36244}} 
+\index{xserviceI2C1.h@{xserviceI2C1.h}!SERVICEI2C1\_ACCES\_PERMIS@{SERVICEI2C1\_ACCES\_PERMIS}}
+\index{SERVICEI2C1\_ACCES\_PERMIS@{SERVICEI2C1\_ACCES\_PERMIS}!xserviceI2C1.h@{xserviceI2C1.h}}
+\doxysubsubsection{\texorpdfstring{SERVICEI2C1\_ACCES\_PERMIS}{SERVICEI2C1\_ACCES\_PERMIS}}
+{\footnotesize\ttfamily \#define SERVICEI2\+C1\+\_\+\+ACCES\+\_\+\+PERMIS~1}
+
+
+
+Définition pour l\textquotesingle{}accès au port I2C. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xservice_i2_c1_8h_source_l00042}{42}} du fichier \mbox{\hyperlink{xservice_i2_c1_8h_source}{xservice\+I2\+C1.\+h}}.
+
+
+
+\doxysubsection{Documentation des fonctions}
+\mbox{\Hypertarget{xservice_i2_c1_8h_a8a866443077dcc8b9dc11d805873843e}\label{xservice_i2_c1_8h_a8a866443077dcc8b9dc11d805873843e}} 
+\index{xserviceI2C1.h@{xserviceI2C1.h}!serviceI2C1\_initialise@{serviceI2C1\_initialise}}
+\index{serviceI2C1\_initialise@{serviceI2C1\_initialise}!xserviceI2C1.h@{xserviceI2C1.h}}
+\doxysubsubsection{\texorpdfstring{serviceI2C1\_initialise()}{serviceI2C1\_initialise()}}
+{\footnotesize\ttfamily void service\+I2\+C1\+\_\+initialise (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Fonction d\textquotesingle{}initialisation du pilote I2C. 
+

@@ -1,0 +1,67 @@
+\hypertarget{xservice_task_server_8h_source}{}\doxysection{xservice\+Task\+Server.\+h}
+\label{xservice_task_server_8h_source}\index{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Vehicule/Programmes/ESPvehicule/include/xserviceTaskServer.h@{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Vehicule/Programmes/ESPvehicule/include/xserviceTaskServer.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00001}00001 \textcolor{preprocessor}{\#ifndef SERVICETASKSERVER\_H}}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00002}00002 \textcolor{preprocessor}{\#define SERVICETASKSERVER\_H}}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00003}00003 }
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00004}00004 \textcolor{comment}{//MODULE: serviceTaskServer}}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00005}00005 \textcolor{comment}{//DESCRIPTION: pour permettre des appels périodiques de fonctions}}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00006}00006 \textcolor{comment}{//La fonction d'initialisation du module permet de mettre des appels periodiques en place.}}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00007}00007 \textcolor{comment}{//Il faut faire appel a la fonction serviceTaskServer\_DemarreLesTachesALaTouteFinDeSetup pour lancer les appels periodiques.}}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00008}00008 \textcolor{comment}{//Le pointeur de fonction serviceTaskServer\_execute sert a pointer la fonction qui sera appelee periodiquement apres le lancement du module}}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00009}00009 \textcolor{comment}{//L'initialisation du module fait en sorte que le pointeur de fonction serviceTaskServer\_execute pointe par defaut une fonction qui ne fait rien}}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00010}00010 \textcolor{comment}{//Il faut faire en sorte que le pointeur de fonction serviceTaskServer\_execute pointe la fonction a appelee periodiquement avant de lancer le module}}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00011}00011 \textcolor{comment}{//a l'aide de la fonction serviceTaskServer\_DemarreLesTachesALaTouteFinDeSetup (ex. serviceTaskServer\_execute = serviceBaseDeTemps\_gere)}}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00012}00012 \textcolor{comment}{//Comme l'indique son nom, la fonction serviceTaskServer\_DemarreLesTachesALaTouteFinDeSetup doit etre appelee a la toute fin de la fonction setup}}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00013}00013 \textcolor{comment}{//pour s'assurer que toutes les initialisations des pointeurs de fonctions du systeme a base de temps sont faites avant de lancer le module.}}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00014}00014 \textcolor{comment}{//Ce module remplace les modules qui utilisent des interruptions de "{}timers"{} pour mettre en place des appels periodiques de fonctions plutot que}}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00015}00015 \textcolor{comment}{//d'avoir recours aux fonctionnalites de RTOS.}}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00016}00016 }
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00017}00017 \textcolor{comment}{//HISTORIQUE:}}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00018}00018 \textcolor{comment}{// 2021-\/04-\/16, Yves Roy, creation}}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00019}00019 \textcolor{comment}{// 2022-\/04-\/11, Yves Roy, ajout a la description}}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00020}00020 }
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00021}00021 \textcolor{comment}{//DEFINITIONS REQUISES PAR LE MODULE:}}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00022}00022 \textcolor{comment}{// ==== Uncomment desired compile options =================================}}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00023}00023 \textcolor{comment}{// \#define \_TASK\_SLEEP\_ON\_IDLE\_RUN  // Enable 1 ms SLEEP\_IDLE powerdowns between tasks if no callback methods were invoked during the pass}}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00024}00024 \textcolor{comment}{// \#define \_TASK\_TIMECRITICAL       // Enable monitoring scheduling overruns}}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00025}00025 \textcolor{comment}{// \#define \_TASK\_STATUS\_REQUEST     // Compile with support for StatusRequest functionality -\/ triggering tasks on status change events in addition to time only}}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00026}00026 \textcolor{comment}{// \#define \_TASK\_WDT\_IDS            // Compile with support for wdt control points and task ids}}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00027}00027 \textcolor{comment}{// \#define \_TASK\_LTS\_POINTER        // Compile with support for local task storage pointer}}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00028}00028 \textcolor{comment}{// \#define \_TASK\_PRIORITY           // Support for layered scheduling priority}}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00029}00029 \textcolor{preprocessor}{\#define \_TASK\_MICRO\_RES          }\textcolor{comment}{// Support for microsecond resolution}}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00030}00030 \textcolor{comment}{//\#define \_TASK\_STD\_FUNCTION       // Support for std::function (ESP8266 and ESP32 ONLY)}}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00031}00031 \textcolor{comment}{// \#define \_TASK\_DEBUG              // Make all methods and variables public for debug purposes}}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00032}00032 \textcolor{comment}{// \#define \_TASK\_INLINE             // Make all methods "{}inline"{} -\/ needed to support some multi-\/tab, multi-\/file implementations}}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00033}00033 \textcolor{comment}{// \#define \_TASK\_TIMEOUT            // Support for overall task timeout}}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00034}00034 \textcolor{comment}{// \#define \_TASK\_OO\_CALLBACKS       // Support for dynamic callback method binding}}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00035}00035 \textcolor{comment}{// \#define \_TASK\_DEFINE\_MILLIS      // Force forward declaration of millis() and micros() "{}C"{} style}}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00036}00036 \textcolor{comment}{// \#define \_TASK\_EXPOSE\_CHAIN       // Methods to access tasks in the task chain}}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00037}00037 \textcolor{comment}{// \#define \_TASK\_SCHEDULING\_OPTIONS // Support for multiple scheduling options}}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00038}00038 \textcolor{preprocessor}{\#include <TaskScheduler.h>}  }
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00039}00039 }
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00040}00040 \textcolor{comment}{//Dependances materielles}}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00041}00041 \textcolor{comment}{//(copiez et adaptez ce qui suit dans "{}main.h"{})}}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00042}00042 \textcolor{comment}{//pas de dependances materielles}}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00043}00043 }
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00044}00044 \textcolor{comment}{//Dependances logicielles}}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00045}00045 \textcolor{comment}{//(copiez et adaptez ce qui suit dans "{}main.h"{})}}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00046}00046 \textcolor{comment}{//\#define SERVICETASKSERVER\_PERIODE\_EN\_US 4000}}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00047}00047 }
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00048}00048 \textcolor{comment}{//INFORMATION PUBLIQUE:}}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00049}00049 \textcolor{comment}{//Definitions publiques:}}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00050}00050 \textcolor{comment}{//pas de definitions publiques}}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00051}00051 }
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00052}00052 \textcolor{comment}{//Fonctions publiques:}}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00053}00053 \textcolor{keywordtype}{void} serviceTaskServer\_initialise(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00054}00054 \textcolor{keywordtype}{void} serviceTaskServer\_DemarreLesTachesALaTouteFinDeSetup(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00055}00055 }
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00056}00056 \textcolor{comment}{//Variables publiques:}}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00057}00057 \textcolor{keyword}{extern} Scheduler serviceTaskServer\_gestion;}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00058}00058 \textcolor{keyword}{extern} Task serviceTaskServer\_tache;\textcolor{comment}{//attention: la definition doit etre precedee de celle du Scheduler pour que ca fonctionne}}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00059}00059 \textcolor{keyword}{extern} void (*serviceTaskServer\_execute)(void);}
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00060}00060 }
+\DoxyCodeLine{\Hypertarget{xservice_task_server_8h_source_l00061}00061 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

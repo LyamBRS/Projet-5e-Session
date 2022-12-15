@@ -1,0 +1,80 @@
+\hypertarget{xprocessus_conduite_8h}{}\doxysection{Référence du fichier U\+:/\+Sessions/\+Session 5/\+Project/\+Projet\+\_\+\+Fin\+\_\+\+Session/\+Projet-\/5e-\/\+Session/\+Vehicule/\+Programmes/\+ESPvehicule/include/xprocessus\+Conduite.h}
+\label{xprocessus_conduite_8h}\index{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Vehicule/Programmes/ESPvehicule/include/xprocessusConduite.h@{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Vehicule/Programmes/ESPvehicule/include/xprocessusConduite.h}}
+
+
+Le processus Conduite est une phase du service base de temps qui est appeler à chaques périodes de la base de temps. Cela permet de démarrer une requête de conduite depuis un autre processus quand il est nécessaire. Le processus conduite a pour but de suivre la ligne noir installé au sol pour le projet de 5e session de TSO. Il utilise le xservice\+Tank.\+h ainsi que \mbox{\hyperlink{xinterface_suiveur_8h}{xinterface\+Suiveur.\+h}} pour conduire le vehicule et détecter l\textquotesingle{}arrivé a destination.  
+
+
+\doxysubsection*{Structures de données}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_p_r_o_c_e_s_s_u_s_c_o_n_d_u_i_t_e}{PROCESSUSCONDUITE}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{xprocessus_conduite_8h_ab96029748d817bdd226863ea682a762d}{processus\+Conduite\+\_\+initialise}} (void)
+\begin{DoxyCompactList}\small\item\em Fonction publique d\textquotesingle{}initialisation du Processus Conduite. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_p_r_o_c_e_s_s_u_s_c_o_n_d_u_i_t_e}{PROCESSUSCONDUITE}} \mbox{\hyperlink{xprocessus_conduite_8h_a811f71d477c514622d346dc1efabf711}{processus\+Conduite}}
+\begin{DoxyCompactList}\small\item\em Structure publique permettant de gere l\textquotesingle{}état du module ainsi que ses requêtes. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Le processus Conduite est une phase du service base de temps qui est appeler à chaques périodes de la base de temps. Cela permet de démarrer une requête de conduite depuis un autre processus quand il est nécessaire. Le processus conduite a pour but de suivre la ligne noir installé au sol pour le projet de 5e session de TSO. Il utilise le xservice\+Tank.\+h ainsi que \mbox{\hyperlink{xinterface_suiveur_8h}{xinterface\+Suiveur.\+h}} pour conduire le vehicule et détecter l\textquotesingle{}arrivé a destination. 
+
+\begin{DoxyAuthor}{Auteur}
+Cam\+Fo Camille Fortin (\href{mailto:camfortin2022@gmail.com}{\texttt{ camfortin2022@gmail.\+com}})
+\end{DoxyAuthor}
+
+
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2022-\/11-\/23
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2022 
+\end{DoxyCopyright}
+
+
+Définition dans le fichier \mbox{\hyperlink{xprocessus_conduite_8h_source}{xprocessus\+Conduite.\+h}}.
+
+
+
+\doxysubsection{Documentation des fonctions}
+\mbox{\Hypertarget{xprocessus_conduite_8h_ab96029748d817bdd226863ea682a762d}\label{xprocessus_conduite_8h_ab96029748d817bdd226863ea682a762d}} 
+\index{xprocessusConduite.h@{xprocessusConduite.h}!processusConduite\_initialise@{processusConduite\_initialise}}
+\index{processusConduite\_initialise@{processusConduite\_initialise}!xprocessusConduite.h@{xprocessusConduite.h}}
+\doxysubsubsection{\texorpdfstring{processusConduite\_initialise()}{processusConduite\_initialise()}}
+{\footnotesize\ttfamily void processus\+Conduite\+\_\+initialise (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Fonction publique d\textquotesingle{}initialisation du Processus Conduite. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em void} & \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Documentation des variables}
+\mbox{\Hypertarget{xprocessus_conduite_8h_a811f71d477c514622d346dc1efabf711}\label{xprocessus_conduite_8h_a811f71d477c514622d346dc1efabf711}} 
+\index{xprocessusConduite.h@{xprocessusConduite.h}!processusConduite@{processusConduite}}
+\index{processusConduite@{processusConduite}!xprocessusConduite.h@{xprocessusConduite.h}}
+\doxysubsubsection{\texorpdfstring{processusConduite}{processusConduite}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_p_r_o_c_e_s_s_u_s_c_o_n_d_u_i_t_e}{PROCESSUSCONDUITE}} processus\+Conduite}
+
+
+
+Structure publique permettant de gere l\textquotesingle{}état du module ainsi que ses requêtes. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xprocessus_conduite_8h_source_l00062}{62}} du fichier \mbox{\hyperlink{xprocessus_conduite_8h_source}{xprocessus\+Conduite.\+h}}.
+

@@ -1,0 +1,470 @@
+\hypertarget{interface_usine_8c}{}\doxysection{Référence du fichier U\+:/\+Sessions/\+Session 5/\+Project/\+Projet\+\_\+\+Fin\+\_\+\+Session/\+Projet-\/5e-\/\+Session/\+Centre-\/\+De-\/\+Tri/\+Centre\+De\+Tri\+S5/\+Src/interface\+Usine.c}
+\label{interface_usine_8c}\index{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Tri/CentreDeTriS5/Src/interfaceUsine.c@{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Tri/CentreDeTriS5/Src/interfaceUsine.c}}
+
+
+Fichier qui contient le code permettant de gérer toute l\textquotesingle{}usine incluant le pont.  
+
+
+{\ttfamily \#include \char`\"{}main.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}pilote\+I2\+C.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}interface\+Usine.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}service\+Base\+De\+Temps.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}interface\+T3.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}interface\+T1.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}interface\+T2.\+h\char`\"{}}\newline
+\doxysubsection*{Structures de données}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_cartes_i2_c}{Cartes\+I2C}}
+\begin{DoxyCompactList}\small\item\em Structure qui sert de variable temporaire pour la mise à jour des valeurs des cartes I2C. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structelement_usine}{element\+Usine}}
+\begin{DoxyCompactList}\small\item\em Structure qui représente un I/O de l\textquotesingle{}usine (ex\+: la lumière verte) \end{DoxyCompactList}\item 
+union \mbox{\hyperlink{union_union_cartes_i2_c_usine}{Union\+Cartes\+I2\+CUsine}}
+\begin{DoxyCompactList}\small\item\em Union permettant d\textquotesingle{}adresser de plusieurs façons les variables correspondantes aux ports des cartes I2C. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{interface_usine_8c_a90e63cb042988aa642f09bc1484ed709}{INTERFACEUSINE\+\_\+\+INTERVAL\+\_\+\+TRANSMISSION}}~20
+\begin{DoxyCompactList}\small\item\em Définit le délai entre chaque communication avec les cartes I2C en 1/2ms. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{interface_usine_8c_abd2e71b5a2928af32742c8fe51db8bc9}{DELAI\+\_\+\+MAX\+\_\+\+PONT\+\_\+\+ACK}}~200
+\begin{DoxyCompactList}\small\item\em Définit le délai maximal après lequel les fonctions du pont tombent en erreur si elles n\textquotesingle{}ont pas reçu de ack de sa part. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{interface_usine_8c_aea156ce3f753c199185866c6b6e59941}{DELAI\+\_\+\+MAX\+\_\+\+PONT\+\_\+\+MOTION\+\_\+\+COMPLETE}}~40000
+\begin{DoxyCompactList}\small\item\em Définit le délai maximal après lequel les fonctions du pont tombent en erreur si elles n\textquotesingle{}ont pas reçu de ack de sa part. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{interface_usine_8c_a329890cbe9844b6a92d5ed5582a769d0}{INTERFACEBV\+\_\+\+COMPTE\+\_\+\+MAXIMUM\+\_\+\+AVANT\+\_\+\+LECTURE}}
+\item 
+\#define \mbox{\hyperlink{interface_usine_8c_a00dc22dc4cf597201236a97283ed3dc5}{INTERFACEBV\+\_\+\+COMPTE\+\_\+\+INITIAL}}
+\item 
+\#define \mbox{\hyperlink{interface_usine_8c_ac60613d31c7cfe57fd83fc121b00d2c0}{INTERFACEBR\+\_\+\+COMPTE\+\_\+\+MAXIMUM\+\_\+\+AVANT\+\_\+\+LECTURE}}
+\item 
+\#define \mbox{\hyperlink{interface_usine_8c_a2d5e174df13e2b4cddea82dcf4ef39f1}{INTERFACEBR\+\_\+\+COMPTE\+\_\+\+INITIAL}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{interface_usine_8c_add25c0dd69849d713cdafc31253b493c}{gere\+Le\+Bouton\+Vert}} (void)
+\begin{DoxyCompactList}\small\item\em Fonction qui gere l\textquotesingle{}anti rebond et la detection de front du bouton vert du centre de tri. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{interface_usine_8c_a4552ad7e9bb701b2b141583d1e4f1d3d}{gere\+Le\+Bouton\+Rouge}} (void)
+\begin{DoxyCompactList}\small\item\em Fonction qui gere l\textquotesingle{}anti rebond et la detection de front du bouton rouge du centre de tri. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{interface_usine_8c_ad97da0e377998435b36d3d10e597256a}{gere\+Le\+Pont}} (void)
+\begin{DoxyCompactList}\small\item\em Fonction qui gere le timing du pont. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{interface_usine_8c_a09dbf105192f4ddca6ecd8cc53be8eeb}{interface\+Usine\+\_\+gere}} (void)
+\begin{DoxyCompactList}\small\item\em Fonction de gestion de lusine qui est appelée par la base de temps. Elle met a jour la valeur des variables temporaires en fonction de l\textquotesingle{}état des I/O des cartes I2C et inversement. Elle appele les fonctions de gestion de boutons de l\textquotesingle{}usine et la fonction de gestion du pont. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{interface_usine_8c_a5c9b04f1b5848f676e860125bb785d00}{interface\+Usine\+\_\+\+Requete\+Pont}} (unsigned char uc\+Positiondemandee)
+\item 
+unsigned char \mbox{\hyperlink{interface_usine_8c_a6d0b182f6112bfc6a31ca3d405e096a2}{interface\+Usine\+\_\+\+Position\+Pont}} (void)
+\item 
+unsigned char \mbox{\hyperlink{interface_usine_8c_ad544edb81fd1f424bd0114481a9635cf}{interface\+Usine\+\_\+\+Etat\+Pont}} (void)
+\item 
+bool \mbox{\hyperlink{interface_usine_8c_a0b3c50a3c69e080fda142155dbf7e28a}{interface\+Usine\+\_\+\+Lit\+Un\+Element}} (unsigned char element\+ID)
+\item 
+unsigned char \mbox{\hyperlink{interface_usine_8c_a2d5b98e122ea91970820c0c18b574b0a}{interface\+Usine\+\_\+\+Lit\+ADC}} (void)
+\item 
+void \mbox{\hyperlink{interface_usine_8c_a49c7c5e8b52f20b45ccdea13b20d2f23}{interface\+Usine\+\_\+\+Ecrit\+Un\+Element}} (unsigned char element\+ID, bool etat\+AEcrire)
+\item 
+void \mbox{\hyperlink{interface_usine_8c_a20f9cb7f5b92f632045b3cb86e7e8615}{interface\+Usine\+\_\+\+Reset}} (void)
+\item 
+void \mbox{\hyperlink{interface_usine_8c_a84cf62b9fc57e4ed2c3fb804002ba61f}{interface\+Usine\+\_\+\+Initialise}} (void)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{interface_usine_8c_acb559820d9ca11295b4500f179ef6392}{i}}
+\item 
+struct \mbox{\hyperlink{structelement_usine}{element\+Usine}} \mbox{\hyperlink{interface_usine_8c_a3e59ac7439c8ab7381ecce36389dcfbc}{elements\+Du\+Centre\+De\+Tri}} \mbox{[}34\mbox{]}
+\begin{DoxyCompactList}\small\item\em Ceci est un tableau de structure de type \mbox{\hyperlink{structelement_usine}{element\+Usine}}. Il y a une case de tableau pour chaque élément de l\textquotesingle{}usine. On pourra donc utiliser une seule valeur (l\textquotesingle{}ID de l\textquotesingle{}élément, qui est équivalent à la position dans ce tableau) pour aller chercher le \# de PCF de cet élément et le bit correspondant à l\textquotesingle{}élément sur ce pcf. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{interface_usine_8c_a96d7cd2ef5c6e61d8912f335c95ba81d}\label{interface_usine_8c_a96d7cd2ef5c6e61d8912f335c95ba81d}} 
+union \mbox{\hyperlink{union_union_cartes_i2_c_usine}{Union\+Cartes\+I2\+CUsine}} {\bfseries union\+Cartes\+I2\+CUsine}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{interface_usine_8c_a99429144916f3ddf0760255322c90af4}{valeur\+Du\+ADC}}
+\begin{DoxyCompactList}\small\item\em Variable temporaire de la valeur lue par l\textquotesingle{}ADC. \end{DoxyCompactList}\item 
+unsigned char \mbox{\hyperlink{interface_usine_8c_ae5c490363312c9d600d821558f758345}{uc\+Etat\+Pont}}
+\item 
+unsigned char \mbox{\hyperlink{interface_usine_8c_a882c749ffee35abf84e68167f6b6881d}{uc\+Postiton\+Pont}}
+\item 
+unsigned char \mbox{\hyperlink{interface_usine_8c_a103bd7ebcd128fa1c6a5a7251c1c9f27}{uc\+Requete\+Pont}}
+\item 
+unsigned char \mbox{\hyperlink{interface_usine_8c_a3e18cdcef3b322d1fc06511aef0e896b}{etat\+Traitement\+Requete\+Pont}}
+\item 
+\mbox{\hyperlink{struct_i_n_t_e_r_f_a_c_e_b_o_u_t_o_n}{INTERFACEBOUTON}} \mbox{\hyperlink{interface_usine_8c_ab0b054a9c618869a52cdcf30c103e035}{interface\+Usine\+\_\+\+BV}}
+\item 
+\mbox{\hyperlink{struct_i_n_t_e_r_f_a_c_e_b_o_u_t_o_n}{INTERFACEBOUTON}} \mbox{\hyperlink{interface_usine_8c_aa9741dd60bb905c37b181fb45a7d1b78}{interface\+Usine\+\_\+\+BR}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Fichier qui contient le code permettant de gérer toute l\textquotesingle{}usine incluant le pont. 
+
+\begin{DoxyAuthor}{Auteur}
+Renaud Gagnon 
+\end{DoxyAuthor}
+\begin{DoxyWarning}{Avertissement}
+Tout le code de ce fichier a été écrit par Renaud Gagnon. Incluant le code relatif au pont du centre de tri. 
+\end{DoxyWarning}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2022-\/12-\/14
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2022 
+\end{DoxyCopyright}
+
+
+Définition dans le fichier \mbox{\hyperlink{interface_usine_8c_source}{interface\+Usine.\+c}}.
+
+
+
+\doxysubsection{Documentation des macros}
+\mbox{\Hypertarget{interface_usine_8c_abd2e71b5a2928af32742c8fe51db8bc9}\label{interface_usine_8c_abd2e71b5a2928af32742c8fe51db8bc9}} 
+\index{interfaceUsine.c@{interfaceUsine.c}!DELAI\_MAX\_PONT\_ACK@{DELAI\_MAX\_PONT\_ACK}}
+\index{DELAI\_MAX\_PONT\_ACK@{DELAI\_MAX\_PONT\_ACK}!interfaceUsine.c@{interfaceUsine.c}}
+\doxysubsubsection{\texorpdfstring{DELAI\_MAX\_PONT\_ACK}{DELAI\_MAX\_PONT\_ACK}}
+{\footnotesize\ttfamily \#define DELAI\+\_\+\+MAX\+\_\+\+PONT\+\_\+\+ACK~200}
+
+
+
+Définit le délai maximal après lequel les fonctions du pont tombent en erreur si elles n\textquotesingle{}ont pas reçu de ack de sa part. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_usine_8c_source_l00032}{32}} du fichier \mbox{\hyperlink{interface_usine_8c_source}{interface\+Usine.\+c}}.
+
+\mbox{\Hypertarget{interface_usine_8c_aea156ce3f753c199185866c6b6e59941}\label{interface_usine_8c_aea156ce3f753c199185866c6b6e59941}} 
+\index{interfaceUsine.c@{interfaceUsine.c}!DELAI\_MAX\_PONT\_MOTION\_COMPLETE@{DELAI\_MAX\_PONT\_MOTION\_COMPLETE}}
+\index{DELAI\_MAX\_PONT\_MOTION\_COMPLETE@{DELAI\_MAX\_PONT\_MOTION\_COMPLETE}!interfaceUsine.c@{interfaceUsine.c}}
+\doxysubsubsection{\texorpdfstring{DELAI\_MAX\_PONT\_MOTION\_COMPLETE}{DELAI\_MAX\_PONT\_MOTION\_COMPLETE}}
+{\footnotesize\ttfamily \#define DELAI\+\_\+\+MAX\+\_\+\+PONT\+\_\+\+MOTION\+\_\+\+COMPLETE~40000}
+
+
+
+Définit le délai maximal après lequel les fonctions du pont tombent en erreur si elles n\textquotesingle{}ont pas reçu de ack de sa part. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_usine_8c_source_l00038}{38}} du fichier \mbox{\hyperlink{interface_usine_8c_source}{interface\+Usine.\+c}}.
+
+\mbox{\Hypertarget{interface_usine_8c_a2d5e174df13e2b4cddea82dcf4ef39f1}\label{interface_usine_8c_a2d5e174df13e2b4cddea82dcf4ef39f1}} 
+\index{interfaceUsine.c@{interfaceUsine.c}!INTERFACEBR\_COMPTE\_INITIAL@{INTERFACEBR\_COMPTE\_INITIAL}}
+\index{INTERFACEBR\_COMPTE\_INITIAL@{INTERFACEBR\_COMPTE\_INITIAL}!interfaceUsine.c@{interfaceUsine.c}}
+\doxysubsubsection{\texorpdfstring{INTERFACEBR\_COMPTE\_INITIAL}{INTERFACEBR\_COMPTE\_INITIAL}}
+{\footnotesize\ttfamily \#define INTERFACEBR\+\_\+\+COMPTE\+\_\+\+INITIAL}
+
+{\bfseries Valeur \+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    ( \(\backslash\)}
+\DoxyCodeLine{    INTERFACEB1\_NOMBRE\_MINIMUM\_DE\_LECTURES\_PAR\_DECISION / 2)}
+
+\end{DoxyCode}
+
+
+Définition à la ligne \mbox{\hyperlink{interface_usine_8c_source_l00047}{47}} du fichier \mbox{\hyperlink{interface_usine_8c_source}{interface\+Usine.\+c}}.
+
+\mbox{\Hypertarget{interface_usine_8c_ac60613d31c7cfe57fd83fc121b00d2c0}\label{interface_usine_8c_ac60613d31c7cfe57fd83fc121b00d2c0}} 
+\index{interfaceUsine.c@{interfaceUsine.c}!INTERFACEBR\_COMPTE\_MAXIMUM\_AVANT\_LECTURE@{INTERFACEBR\_COMPTE\_MAXIMUM\_AVANT\_LECTURE}}
+\index{INTERFACEBR\_COMPTE\_MAXIMUM\_AVANT\_LECTURE@{INTERFACEBR\_COMPTE\_MAXIMUM\_AVANT\_LECTURE}!interfaceUsine.c@{interfaceUsine.c}}
+\doxysubsubsection{\texorpdfstring{INTERFACEBR\_COMPTE\_MAXIMUM\_AVANT\_LECTURE}{INTERFACEBR\_COMPTE\_MAXIMUM\_AVANT\_LECTURE}}
+{\footnotesize\ttfamily \#define INTERFACEBR\+\_\+\+COMPTE\+\_\+\+MAXIMUM\+\_\+\+AVANT\+\_\+\+LECTURE}
+
+{\bfseries Valeur \+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    ( \(\backslash\)}
+\DoxyCodeLine{    FREQUENCE\_DE\_LA\_BASE\_DE\_TEMPS\_EN\_HZ / INTERFACEB1\_FREQUENCE\_DES\_LECTURES\_EN\_HZ)}
+
+\end{DoxyCode}
+
+
+Définition à la ligne \mbox{\hyperlink{interface_usine_8c_source_l00045}{45}} du fichier \mbox{\hyperlink{interface_usine_8c_source}{interface\+Usine.\+c}}.
+
+\mbox{\Hypertarget{interface_usine_8c_a00dc22dc4cf597201236a97283ed3dc5}\label{interface_usine_8c_a00dc22dc4cf597201236a97283ed3dc5}} 
+\index{interfaceUsine.c@{interfaceUsine.c}!INTERFACEBV\_COMPTE\_INITIAL@{INTERFACEBV\_COMPTE\_INITIAL}}
+\index{INTERFACEBV\_COMPTE\_INITIAL@{INTERFACEBV\_COMPTE\_INITIAL}!interfaceUsine.c@{interfaceUsine.c}}
+\doxysubsubsection{\texorpdfstring{INTERFACEBV\_COMPTE\_INITIAL}{INTERFACEBV\_COMPTE\_INITIAL}}
+{\footnotesize\ttfamily \#define INTERFACEBV\+\_\+\+COMPTE\+\_\+\+INITIAL}
+
+{\bfseries Valeur \+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    ( \(\backslash\)}
+\DoxyCodeLine{    INTERFACEB1\_NOMBRE\_MINIMUM\_DE\_LECTURES\_PAR\_DECISION / 2)}
+
+\end{DoxyCode}
+
+
+Définition à la ligne \mbox{\hyperlink{interface_usine_8c_source_l00042}{42}} du fichier \mbox{\hyperlink{interface_usine_8c_source}{interface\+Usine.\+c}}.
+
+\mbox{\Hypertarget{interface_usine_8c_a329890cbe9844b6a92d5ed5582a769d0}\label{interface_usine_8c_a329890cbe9844b6a92d5ed5582a769d0}} 
+\index{interfaceUsine.c@{interfaceUsine.c}!INTERFACEBV\_COMPTE\_MAXIMUM\_AVANT\_LECTURE@{INTERFACEBV\_COMPTE\_MAXIMUM\_AVANT\_LECTURE}}
+\index{INTERFACEBV\_COMPTE\_MAXIMUM\_AVANT\_LECTURE@{INTERFACEBV\_COMPTE\_MAXIMUM\_AVANT\_LECTURE}!interfaceUsine.c@{interfaceUsine.c}}
+\doxysubsubsection{\texorpdfstring{INTERFACEBV\_COMPTE\_MAXIMUM\_AVANT\_LECTURE}{INTERFACEBV\_COMPTE\_MAXIMUM\_AVANT\_LECTURE}}
+{\footnotesize\ttfamily \#define INTERFACEBV\+\_\+\+COMPTE\+\_\+\+MAXIMUM\+\_\+\+AVANT\+\_\+\+LECTURE}
+
+{\bfseries Valeur \+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    ( \(\backslash\)}
+\DoxyCodeLine{    FREQUENCE\_DE\_LA\_BASE\_DE\_TEMPS\_EN\_HZ / INTERFACEB1\_FREQUENCE\_DES\_LECTURES\_EN\_HZ)}
+
+\end{DoxyCode}
+
+
+Définition à la ligne \mbox{\hyperlink{interface_usine_8c_source_l00040}{40}} du fichier \mbox{\hyperlink{interface_usine_8c_source}{interface\+Usine.\+c}}.
+
+\mbox{\Hypertarget{interface_usine_8c_a90e63cb042988aa642f09bc1484ed709}\label{interface_usine_8c_a90e63cb042988aa642f09bc1484ed709}} 
+\index{interfaceUsine.c@{interfaceUsine.c}!INTERFACEUSINE\_INTERVAL\_TRANSMISSION@{INTERFACEUSINE\_INTERVAL\_TRANSMISSION}}
+\index{INTERFACEUSINE\_INTERVAL\_TRANSMISSION@{INTERFACEUSINE\_INTERVAL\_TRANSMISSION}!interfaceUsine.c@{interfaceUsine.c}}
+\doxysubsubsection{\texorpdfstring{INTERFACEUSINE\_INTERVAL\_TRANSMISSION}{INTERFACEUSINE\_INTERVAL\_TRANSMISSION}}
+{\footnotesize\ttfamily \#define INTERFACEUSINE\+\_\+\+INTERVAL\+\_\+\+TRANSMISSION~20}
+
+
+
+Définit le délai entre chaque communication avec les cartes I2C en 1/2ms. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_usine_8c_source_l00026}{26}} du fichier \mbox{\hyperlink{interface_usine_8c_source}{interface\+Usine.\+c}}.
+
+
+
+\doxysubsection{Documentation des fonctions}
+\mbox{\Hypertarget{interface_usine_8c_a4552ad7e9bb701b2b141583d1e4f1d3d}\label{interface_usine_8c_a4552ad7e9bb701b2b141583d1e4f1d3d}} 
+\index{interfaceUsine.c@{interfaceUsine.c}!gereLeBoutonRouge@{gereLeBoutonRouge}}
+\index{gereLeBoutonRouge@{gereLeBoutonRouge}!interfaceUsine.c@{interfaceUsine.c}}
+\doxysubsubsection{\texorpdfstring{gereLeBoutonRouge()}{gereLeBoutonRouge()}}
+{\footnotesize\ttfamily void gere\+Le\+Bouton\+Rouge (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Fonction qui gere l\textquotesingle{}anti rebond et la detection de front du bouton rouge du centre de tri. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_usine_8c_source_l00208}{208}} du fichier \mbox{\hyperlink{interface_usine_8c_source}{interface\+Usine.\+c}}.
+
+\mbox{\Hypertarget{interface_usine_8c_add25c0dd69849d713cdafc31253b493c}\label{interface_usine_8c_add25c0dd69849d713cdafc31253b493c}} 
+\index{interfaceUsine.c@{interfaceUsine.c}!gereLeBoutonVert@{gereLeBoutonVert}}
+\index{gereLeBoutonVert@{gereLeBoutonVert}!interfaceUsine.c@{interfaceUsine.c}}
+\doxysubsubsection{\texorpdfstring{gereLeBoutonVert()}{gereLeBoutonVert()}}
+{\footnotesize\ttfamily void gere\+Le\+Bouton\+Vert (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Fonction qui gere l\textquotesingle{}anti rebond et la detection de front du bouton vert du centre de tri. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_usine_8c_source_l00170}{170}} du fichier \mbox{\hyperlink{interface_usine_8c_source}{interface\+Usine.\+c}}.
+
+\mbox{\Hypertarget{interface_usine_8c_ad97da0e377998435b36d3d10e597256a}\label{interface_usine_8c_ad97da0e377998435b36d3d10e597256a}} 
+\index{interfaceUsine.c@{interfaceUsine.c}!gereLePont@{gereLePont}}
+\index{gereLePont@{gereLePont}!interfaceUsine.c@{interfaceUsine.c}}
+\doxysubsubsection{\texorpdfstring{gereLePont()}{gereLePont()}}
+{\footnotesize\ttfamily void gere\+Le\+Pont (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Fonction qui gere le timing du pont. 
+
+\begin{DoxyAuthor}{Auteur}
+Renaud Gagnon 
+\end{DoxyAuthor}
+\begin{DoxyWarning}{Avertissement}
+Négligence de la part de Karl 
+\end{DoxyWarning}
+
+
+Définition à la ligne \mbox{\hyperlink{interface_usine_8c_source_l00246}{246}} du fichier \mbox{\hyperlink{interface_usine_8c_source}{interface\+Usine.\+c}}.
+
+\mbox{\Hypertarget{interface_usine_8c_a49c7c5e8b52f20b45ccdea13b20d2f23}\label{interface_usine_8c_a49c7c5e8b52f20b45ccdea13b20d2f23}} 
+\index{interfaceUsine.c@{interfaceUsine.c}!interfaceUsine\_EcritUnElement@{interfaceUsine\_EcritUnElement}}
+\index{interfaceUsine\_EcritUnElement@{interfaceUsine\_EcritUnElement}!interfaceUsine.c@{interfaceUsine.c}}
+\doxysubsubsection{\texorpdfstring{interfaceUsine\_EcritUnElement()}{interfaceUsine\_EcritUnElement()}}
+{\footnotesize\ttfamily void interface\+Usine\+\_\+\+Ecrit\+Un\+Element (\begin{DoxyParamCaption}\item[{unsigned char}]{element\+ID,  }\item[{bool}]{etat\+AEcrire }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_usine_8c_source_l00350}{350}} du fichier \mbox{\hyperlink{interface_usine_8c_source}{interface\+Usine.\+c}}.
+
+\mbox{\Hypertarget{interface_usine_8c_ad544edb81fd1f424bd0114481a9635cf}\label{interface_usine_8c_ad544edb81fd1f424bd0114481a9635cf}} 
+\index{interfaceUsine.c@{interfaceUsine.c}!interfaceUsine\_EtatPont@{interfaceUsine\_EtatPont}}
+\index{interfaceUsine\_EtatPont@{interfaceUsine\_EtatPont}!interfaceUsine.c@{interfaceUsine.c}}
+\doxysubsubsection{\texorpdfstring{interfaceUsine\_EtatPont()}{interfaceUsine\_EtatPont()}}
+{\footnotesize\ttfamily unsigned char interface\+Usine\+\_\+\+Etat\+Pont (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_usine_8c_source_l00335}{335}} du fichier \mbox{\hyperlink{interface_usine_8c_source}{interface\+Usine.\+c}}.
+
+\mbox{\Hypertarget{interface_usine_8c_a09dbf105192f4ddca6ecd8cc53be8eeb}\label{interface_usine_8c_a09dbf105192f4ddca6ecd8cc53be8eeb}} 
+\index{interfaceUsine.c@{interfaceUsine.c}!interfaceUsine\_gere@{interfaceUsine\_gere}}
+\index{interfaceUsine\_gere@{interfaceUsine\_gere}!interfaceUsine.c@{interfaceUsine.c}}
+\doxysubsubsection{\texorpdfstring{interfaceUsine\_gere()}{interfaceUsine\_gere()}}
+{\footnotesize\ttfamily void interface\+Usine\+\_\+gere (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Fonction de gestion de lusine qui est appelée par la base de temps. Elle met a jour la valeur des variables temporaires en fonction de l\textquotesingle{}état des I/O des cartes I2C et inversement. Elle appele les fonctions de gestion de boutons de l\textquotesingle{}usine et la fonction de gestion du pont. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_usine_8c_source_l00144}{144}} du fichier \mbox{\hyperlink{interface_usine_8c_source}{interface\+Usine.\+c}}.
+
+\mbox{\Hypertarget{interface_usine_8c_a84cf62b9fc57e4ed2c3fb804002ba61f}\label{interface_usine_8c_a84cf62b9fc57e4ed2c3fb804002ba61f}} 
+\index{interfaceUsine.c@{interfaceUsine.c}!interfaceUsine\_Initialise@{interfaceUsine\_Initialise}}
+\index{interfaceUsine\_Initialise@{interfaceUsine\_Initialise}!interfaceUsine.c@{interfaceUsine.c}}
+\doxysubsubsection{\texorpdfstring{interfaceUsine\_Initialise()}{interfaceUsine\_Initialise()}}
+{\footnotesize\ttfamily void interface\+Usine\+\_\+\+Initialise (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_usine_8c_source_l00366}{366}} du fichier \mbox{\hyperlink{interface_usine_8c_source}{interface\+Usine.\+c}}.
+
+\mbox{\Hypertarget{interface_usine_8c_a2d5b98e122ea91970820c0c18b574b0a}\label{interface_usine_8c_a2d5b98e122ea91970820c0c18b574b0a}} 
+\index{interfaceUsine.c@{interfaceUsine.c}!interfaceUsine\_LitADC@{interfaceUsine\_LitADC}}
+\index{interfaceUsine\_LitADC@{interfaceUsine\_LitADC}!interfaceUsine.c@{interfaceUsine.c}}
+\doxysubsubsection{\texorpdfstring{interfaceUsine\_LitADC()}{interfaceUsine\_LitADC()}}
+{\footnotesize\ttfamily unsigned char interface\+Usine\+\_\+\+Lit\+ADC (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_usine_8c_source_l00345}{345}} du fichier \mbox{\hyperlink{interface_usine_8c_source}{interface\+Usine.\+c}}.
+
+\mbox{\Hypertarget{interface_usine_8c_a0b3c50a3c69e080fda142155dbf7e28a}\label{interface_usine_8c_a0b3c50a3c69e080fda142155dbf7e28a}} 
+\index{interfaceUsine.c@{interfaceUsine.c}!interfaceUsine\_LitUnElement@{interfaceUsine\_LitUnElement}}
+\index{interfaceUsine\_LitUnElement@{interfaceUsine\_LitUnElement}!interfaceUsine.c@{interfaceUsine.c}}
+\doxysubsubsection{\texorpdfstring{interfaceUsine\_LitUnElement()}{interfaceUsine\_LitUnElement()}}
+{\footnotesize\ttfamily bool interface\+Usine\+\_\+\+Lit\+Un\+Element (\begin{DoxyParamCaption}\item[{unsigned char}]{element\+ID }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_usine_8c_source_l00340}{340}} du fichier \mbox{\hyperlink{interface_usine_8c_source}{interface\+Usine.\+c}}.
+
+\mbox{\Hypertarget{interface_usine_8c_a6d0b182f6112bfc6a31ca3d405e096a2}\label{interface_usine_8c_a6d0b182f6112bfc6a31ca3d405e096a2}} 
+\index{interfaceUsine.c@{interfaceUsine.c}!interfaceUsine\_PositionPont@{interfaceUsine\_PositionPont}}
+\index{interfaceUsine\_PositionPont@{interfaceUsine\_PositionPont}!interfaceUsine.c@{interfaceUsine.c}}
+\doxysubsubsection{\texorpdfstring{interfaceUsine\_PositionPont()}{interfaceUsine\_PositionPont()}}
+{\footnotesize\ttfamily unsigned char interface\+Usine\+\_\+\+Position\+Pont (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_usine_8c_source_l00330}{330}} du fichier \mbox{\hyperlink{interface_usine_8c_source}{interface\+Usine.\+c}}.
+
+\mbox{\Hypertarget{interface_usine_8c_a5c9b04f1b5848f676e860125bb785d00}\label{interface_usine_8c_a5c9b04f1b5848f676e860125bb785d00}} 
+\index{interfaceUsine.c@{interfaceUsine.c}!interfaceUsine\_RequetePont@{interfaceUsine\_RequetePont}}
+\index{interfaceUsine\_RequetePont@{interfaceUsine\_RequetePont}!interfaceUsine.c@{interfaceUsine.c}}
+\doxysubsubsection{\texorpdfstring{interfaceUsine\_RequetePont()}{interfaceUsine\_RequetePont()}}
+{\footnotesize\ttfamily bool interface\+Usine\+\_\+\+Requete\+Pont (\begin{DoxyParamCaption}\item[{unsigned char}]{uc\+Positiondemandee }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_usine_8c_source_l00318}{318}} du fichier \mbox{\hyperlink{interface_usine_8c_source}{interface\+Usine.\+c}}.
+
+\mbox{\Hypertarget{interface_usine_8c_a20f9cb7f5b92f632045b3cb86e7e8615}\label{interface_usine_8c_a20f9cb7f5b92f632045b3cb86e7e8615}} 
+\index{interfaceUsine.c@{interfaceUsine.c}!interfaceUsine\_Reset@{interfaceUsine\_Reset}}
+\index{interfaceUsine\_Reset@{interfaceUsine\_Reset}!interfaceUsine.c@{interfaceUsine.c}}
+\doxysubsubsection{\texorpdfstring{interfaceUsine\_Reset()}{interfaceUsine\_Reset()}}
+{\footnotesize\ttfamily void interface\+Usine\+\_\+\+Reset (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_usine_8c_source_l00360}{360}} du fichier \mbox{\hyperlink{interface_usine_8c_source}{interface\+Usine.\+c}}.
+
+
+
+\doxysubsection{Documentation des variables}
+\mbox{\Hypertarget{interface_usine_8c_a3e59ac7439c8ab7381ecce36389dcfbc}\label{interface_usine_8c_a3e59ac7439c8ab7381ecce36389dcfbc}} 
+\index{interfaceUsine.c@{interfaceUsine.c}!elementsDuCentreDeTri@{elementsDuCentreDeTri}}
+\index{elementsDuCentreDeTri@{elementsDuCentreDeTri}!interfaceUsine.c@{interfaceUsine.c}}
+\doxysubsubsection{\texorpdfstring{elementsDuCentreDeTri}{elementsDuCentreDeTri}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structelement_usine}{element\+Usine}} elements\+Du\+Centre\+De\+Tri\mbox{[}34\mbox{]}}
+
+
+
+Ceci est un tableau de structure de type \mbox{\hyperlink{structelement_usine}{element\+Usine}}. Il y a une case de tableau pour chaque élément de l\textquotesingle{}usine. On pourra donc utiliser une seule valeur (l\textquotesingle{}ID de l\textquotesingle{}élément, qui est équivalent à la position dans ce tableau) pour aller chercher le \# de PCF de cet élément et le bit correspondant à l\textquotesingle{}élément sur ce pcf. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_usine_8c_source_l00105}{105}} du fichier \mbox{\hyperlink{interface_usine_8c_source}{interface\+Usine.\+c}}.
+
+\mbox{\Hypertarget{interface_usine_8c_a3e18cdcef3b322d1fc06511aef0e896b}\label{interface_usine_8c_a3e18cdcef3b322d1fc06511aef0e896b}} 
+\index{interfaceUsine.c@{interfaceUsine.c}!etatTraitementRequetePont@{etatTraitementRequetePont}}
+\index{etatTraitementRequetePont@{etatTraitementRequetePont}!interfaceUsine.c@{interfaceUsine.c}}
+\doxysubsubsection{\texorpdfstring{etatTraitementRequetePont}{etatTraitementRequetePont}}
+{\footnotesize\ttfamily unsigned char etat\+Traitement\+Requete\+Pont}
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_usine_8c_source_l00126}{126}} du fichier \mbox{\hyperlink{interface_usine_8c_source}{interface\+Usine.\+c}}.
+
+\mbox{\Hypertarget{interface_usine_8c_acb559820d9ca11295b4500f179ef6392}\label{interface_usine_8c_acb559820d9ca11295b4500f179ef6392}} 
+\index{interfaceUsine.c@{interfaceUsine.c}!i@{i}}
+\index{i@{i}!interfaceUsine.c@{interfaceUsine.c}}
+\doxysubsubsection{\texorpdfstring{i}{i}}
+{\footnotesize\ttfamily int i}
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_usine_8c_source_l00073}{73}} du fichier \mbox{\hyperlink{interface_usine_8c_source}{interface\+Usine.\+c}}.
+
+\mbox{\Hypertarget{interface_usine_8c_aa9741dd60bb905c37b181fb45a7d1b78}\label{interface_usine_8c_aa9741dd60bb905c37b181fb45a7d1b78}} 
+\index{interfaceUsine.c@{interfaceUsine.c}!interfaceUsine\_BR@{interfaceUsine\_BR}}
+\index{interfaceUsine\_BR@{interfaceUsine\_BR}!interfaceUsine.c@{interfaceUsine.c}}
+\doxysubsubsection{\texorpdfstring{interfaceUsine\_BR}{interfaceUsine\_BR}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_i_n_t_e_r_f_a_c_e_b_o_u_t_o_n}{INTERFACEBOUTON}} interface\+Usine\+\_\+\+BR}
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_usine_8c_source_l00133}{133}} du fichier \mbox{\hyperlink{interface_usine_8c_source}{interface\+Usine.\+c}}.
+
+\mbox{\Hypertarget{interface_usine_8c_ab0b054a9c618869a52cdcf30c103e035}\label{interface_usine_8c_ab0b054a9c618869a52cdcf30c103e035}} 
+\index{interfaceUsine.c@{interfaceUsine.c}!interfaceUsine\_BV@{interfaceUsine\_BV}}
+\index{interfaceUsine\_BV@{interfaceUsine\_BV}!interfaceUsine.c@{interfaceUsine.c}}
+\doxysubsubsection{\texorpdfstring{interfaceUsine\_BV}{interfaceUsine\_BV}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_i_n_t_e_r_f_a_c_e_b_o_u_t_o_n}{INTERFACEBOUTON}} interface\+Usine\+\_\+\+BV}
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_usine_8c_source_l00132}{132}} du fichier \mbox{\hyperlink{interface_usine_8c_source}{interface\+Usine.\+c}}.
+
+\mbox{\Hypertarget{interface_usine_8c_ae5c490363312c9d600d821558f758345}\label{interface_usine_8c_ae5c490363312c9d600d821558f758345}} 
+\index{interfaceUsine.c@{interfaceUsine.c}!ucEtatPont@{ucEtatPont}}
+\index{ucEtatPont@{ucEtatPont}!interfaceUsine.c@{interfaceUsine.c}}
+\doxysubsubsection{\texorpdfstring{ucEtatPont}{ucEtatPont}}
+{\footnotesize\ttfamily unsigned char uc\+Etat\+Pont}
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_usine_8c_source_l00123}{123}} du fichier \mbox{\hyperlink{interface_usine_8c_source}{interface\+Usine.\+c}}.
+
+\mbox{\Hypertarget{interface_usine_8c_a882c749ffee35abf84e68167f6b6881d}\label{interface_usine_8c_a882c749ffee35abf84e68167f6b6881d}} 
+\index{interfaceUsine.c@{interfaceUsine.c}!ucPostitonPont@{ucPostitonPont}}
+\index{ucPostitonPont@{ucPostitonPont}!interfaceUsine.c@{interfaceUsine.c}}
+\doxysubsubsection{\texorpdfstring{ucPostitonPont}{ucPostitonPont}}
+{\footnotesize\ttfamily unsigned char uc\+Postiton\+Pont}
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_usine_8c_source_l00124}{124}} du fichier \mbox{\hyperlink{interface_usine_8c_source}{interface\+Usine.\+c}}.
+
+\mbox{\Hypertarget{interface_usine_8c_a103bd7ebcd128fa1c6a5a7251c1c9f27}\label{interface_usine_8c_a103bd7ebcd128fa1c6a5a7251c1c9f27}} 
+\index{interfaceUsine.c@{interfaceUsine.c}!ucRequetePont@{ucRequetePont}}
+\index{ucRequetePont@{ucRequetePont}!interfaceUsine.c@{interfaceUsine.c}}
+\doxysubsubsection{\texorpdfstring{ucRequetePont}{ucRequetePont}}
+{\footnotesize\ttfamily unsigned char uc\+Requete\+Pont}
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_usine_8c_source_l00125}{125}} du fichier \mbox{\hyperlink{interface_usine_8c_source}{interface\+Usine.\+c}}.
+
+\mbox{\Hypertarget{interface_usine_8c_a99429144916f3ddf0760255322c90af4}\label{interface_usine_8c_a99429144916f3ddf0760255322c90af4}} 
+\index{interfaceUsine.c@{interfaceUsine.c}!valeurDuADC@{valeurDuADC}}
+\index{valeurDuADC@{valeurDuADC}!interfaceUsine.c@{interfaceUsine.c}}
+\doxysubsubsection{\texorpdfstring{valeurDuADC}{valeurDuADC}}
+{\footnotesize\ttfamily uint8\+\_\+t valeur\+Du\+ADC}
+
+
+
+Variable temporaire de la valeur lue par l\textquotesingle{}ADC. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_usine_8c_source_l00121}{121}} du fichier \mbox{\hyperlink{interface_usine_8c_source}{interface\+Usine.\+c}}.
+

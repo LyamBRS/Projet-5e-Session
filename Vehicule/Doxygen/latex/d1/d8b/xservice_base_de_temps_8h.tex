@@ -1,0 +1,58 @@
+\hypertarget{xservice_base_de_temps_8h}{}\doxysection{Référence du fichier U\+:/\+Sessions/\+Session 5/\+Project/\+Projet\+\_\+\+Fin\+\_\+\+Session/\+Projet-\/5e-\/\+Session/\+Vehicule/\+Programmes/\+ESPvehicule/include/xservice\+Base\+De\+Temps.h}
+\label{xservice_base_de_temps_8h}\index{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Vehicule/Programmes/ESPvehicule/include/xserviceBaseDeTemps.h@{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Vehicule/Programmes/ESPvehicule/include/xserviceBaseDeTemps.h}}
+
+
+pour mettre en place un service d\textquotesingle{}appels periodiques de fonctions pointees par un tableau de pointeurs de fonctions. Le service met en place une base de temps qui reposent sur l\textquotesingle{}emploi des appels que peut faire le module service\+Task\+Server  
+
+
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{xservice_base_de_temps_8h_a4f4445967898d67d678b3831cf708b9b}\label{xservice_base_de_temps_8h_a4f4445967898d67d678b3831cf708b9b}} 
+void {\bfseries service\+Base\+De\+Temps\+\_\+gere\+Dans\+Loop} (void)
+\item 
+\mbox{\Hypertarget{xservice_base_de_temps_8h_a56036e69691939851ec0b798b9c09e83}\label{xservice_base_de_temps_8h_a56036e69691939851ec0b798b9c09e83}} 
+void {\bfseries service\+Base\+De\+Temps\+\_\+initialise} (void)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+void($\ast$ \mbox{\hyperlink{xservice_base_de_temps_8h_a103583940036ccbb95b6b4c1f73b74d6}{service\+Base\+De\+Temps\+\_\+execute}} \mbox{[}\mbox{\hyperlink{xmain_8h_a9470a0f17392d89a537141466f6f0e98}{SERVICEBASEDETEMPS\+\_\+\+NOMBRE\+\_\+\+DE\+\_\+\+PHASES}}\mbox{]})(void)
+\begin{DoxyCompactList}\small\item\em Tableau de pointeur de fonction qui peuvent être assigné par leur processus respectif. Ce tableau est au centre du fonctionnement de la base de temps. Pour plus d\textquotesingle{}explication voir le fichier de définition de la base de temps \mbox{\hyperlink{xservice_base_de_temps_8h}{xservice\+Base\+De\+Temps.\+h}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{xservice_base_de_temps_8h_a555dc0775d8a8a6526a26a3a39228a21}\label{xservice_base_de_temps_8h_a555dc0775d8a8a6526a26a3a39228a21}} 
+void($\ast$ {\bfseries service\+Base\+De\+Temps\+\_\+execute\+Dans\+Loop} \mbox{[}\mbox{\hyperlink{xmain_8h_ab6e7d92e268f07cf18c427fee9ff2e88}{SERVICEBASEDETEMPS\+\_\+\+NOMBRE\+\_\+\+DE\+\_\+\+PHASES\+\_\+\+DANS\+\_\+\+LOOP}}\mbox{]})(void)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+pour mettre en place un service d\textquotesingle{}appels periodiques de fonctions pointees par un tableau de pointeurs de fonctions. Le service met en place une base de temps qui reposent sur l\textquotesingle{}emploi des appels que peut faire le module service\+Task\+Server 
+
+\begin{DoxyAuthor}{Auteur}
+Cam\+Fo Camille Fortin (\href{mailto:camfortin2022@gmail.com}{\texttt{ camfortin2022@gmail.\+com}}) 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2022-\/11-\/23
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2022 
+\end{DoxyCopyright}
+
+
+Définition dans le fichier \mbox{\hyperlink{xservice_base_de_temps_8h_source}{xservice\+Base\+De\+Temps.\+h}}.
+
+
+
+\doxysubsection{Documentation des variables}
+\mbox{\Hypertarget{xservice_base_de_temps_8h_a103583940036ccbb95b6b4c1f73b74d6}\label{xservice_base_de_temps_8h_a103583940036ccbb95b6b4c1f73b74d6}} 
+\index{xserviceBaseDeTemps.h@{xserviceBaseDeTemps.h}!serviceBaseDeTemps\_execute@{serviceBaseDeTemps\_execute}}
+\index{serviceBaseDeTemps\_execute@{serviceBaseDeTemps\_execute}!xserviceBaseDeTemps.h@{xserviceBaseDeTemps.h}}
+\doxysubsubsection{\texorpdfstring{serviceBaseDeTemps\_execute}{serviceBaseDeTemps\_execute}}
+{\footnotesize\ttfamily void($\ast$ service\+Base\+De\+Temps\+\_\+execute\mbox{[}\mbox{\hyperlink{xmain_8h_a9470a0f17392d89a537141466f6f0e98}{SERVICEBASEDETEMPS\+\_\+\+NOMBRE\+\_\+\+DE\+\_\+\+PHASES}}\mbox{]})(void) (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Tableau de pointeur de fonction qui peuvent être assigné par leur processus respectif. Ce tableau est au centre du fonctionnement de la base de temps. Pour plus d\textquotesingle{}explication voir le fichier de définition de la base de temps \mbox{\hyperlink{xservice_base_de_temps_8h}{xservice\+Base\+De\+Temps.\+h}}. 
+

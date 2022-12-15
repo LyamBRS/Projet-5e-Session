@@ -1,0 +1,37 @@
+\hypertarget{xpilote_i_o_feu_arriere_d_8h_source}{}\doxysection{xpilote\+IOFeu\+Arriere\+D.\+h}
+\label{xpilote_i_o_feu_arriere_d_8h_source}\index{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Vehicule/Programmes/ESPvehicule/include/xpiloteIOFeuArriereD.h@{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Vehicule/Programmes/ESPvehicule/include/xpiloteIOFeuArriereD.h}}
+\mbox{\hyperlink{xpilote_i_o_feu_arriere_d_8h}{Aller à la documentation de ce fichier.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{xpilote_i_o_feu_arriere_d_8h_source_l00001}00001 }
+\DoxyCodeLine{\Hypertarget{xpilote_i_o_feu_arriere_d_8h_source_l00012}00012 \textcolor{preprocessor}{\#ifndef piloteIOFeuArriereD\_H}}
+\DoxyCodeLine{\Hypertarget{xpilote_i_o_feu_arriere_d_8h_source_l00013}00013 \textcolor{preprocessor}{\#define piloteIOFeuArriereD\_H}}
+\DoxyCodeLine{\Hypertarget{xpilote_i_o_feu_arriere_d_8h_source_l00014}00014 }
+\DoxyCodeLine{\Hypertarget{xpilote_i_o_feu_arriere_d_8h_source_l00015}00015 \textcolor{comment}{//MODULE: piloteIOFeuArriereD}}
+\DoxyCodeLine{\Hypertarget{xpilote_i_o_feu_arriere_d_8h_source_l00016}00016 \textcolor{comment}{//DESCRIPTION: pour permettre la commande d'une sortie en "{}push-\/pull"{} (teste avec ESP32)}}
+\DoxyCodeLine{\Hypertarget{xpilote_i_o_feu_arriere_d_8h_source_l00017}00017 \textcolor{comment}{// 2022-\/04-\/11, Yves Roy, creation}}
+\DoxyCodeLine{\Hypertarget{xpilote_i_o_feu_arriere_d_8h_source_l00018}00018 }
+\DoxyCodeLine{\Hypertarget{xpilote_i_o_feu_arriere_d_8h_source_l00019}00019 \textcolor{comment}{//DEFINITIONS REQUISES PAR LE MODULE:}}
+\DoxyCodeLine{\Hypertarget{xpilote_i_o_feu_arriere_d_8h_source_l00020}00020 \textcolor{comment}{//Dependances materielles}}
+\DoxyCodeLine{\Hypertarget{xpilote_i_o_feu_arriere_d_8h_source_l00021}00021 \textcolor{comment}{//(copiez et adaptez ce qui suit dans "{}main.h"{})}}
+\DoxyCodeLine{\Hypertarget{xpilote_i_o_feu_arriere_d_8h_source_l00022}00022 \textcolor{comment}{//\#define piloteIOFeuArriereD\_BROCHE 13}}
+\DoxyCodeLine{\Hypertarget{xpilote_i_o_feu_arriere_d_8h_source_l00023}00023 \textcolor{comment}{//\#define piloteIOFeuArriereD\_ETAT\_INITIAL\_A\_UN}}
+\DoxyCodeLine{\Hypertarget{xpilote_i_o_feu_arriere_d_8h_source_l00024}00024 \textcolor{comment}{//\#define piloteIOFeuArriereD\_ETAT\_INITIAL\_A\_ZERO}}
+\DoxyCodeLine{\Hypertarget{xpilote_i_o_feu_arriere_d_8h_source_l00025}00025 }
+\DoxyCodeLine{\Hypertarget{xpilote_i_o_feu_arriere_d_8h_source_l00026}00026 \textcolor{comment}{//Dependances logicielles}}
+\DoxyCodeLine{\Hypertarget{xpilote_i_o_feu_arriere_d_8h_source_l00027}00027 \textcolor{comment}{//pas de dependances logicielles}}
+\DoxyCodeLine{\Hypertarget{xpilote_i_o_feu_arriere_d_8h_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{xpilote_i_o_feu_arriere_d_8h_source_l00029}00029 \textcolor{comment}{//INFORMATION PUBLIQUE:}}
+\DoxyCodeLine{\Hypertarget{xpilote_i_o_feu_arriere_d_8h_source_l00030}00030 \textcolor{comment}{//Definitions publiques:}}
+\DoxyCodeLine{\Hypertarget{xpilote_i_o_feu_arriere_d_8h_source_l00031}00031 \textcolor{comment}{// pas de definitions publiques}}
+\DoxyCodeLine{\Hypertarget{xpilote_i_o_feu_arriere_d_8h_source_l00032}00032 }
+\DoxyCodeLine{\Hypertarget{xpilote_i_o_feu_arriere_d_8h_source_l00033}00033 \textcolor{comment}{//Fonctions publiques:}}
+\DoxyCodeLine{\Hypertarget{xpilote_i_o_feu_arriere_d_8h_source_l00034}00034 \textcolor{keywordtype}{void} piloteIOFeuArriereD\_metAUn(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{xpilote_i_o_feu_arriere_d_8h_source_l00035}00035 \textcolor{keywordtype}{void} piloteIOFeuArriereD\_metAZero(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{xpilote_i_o_feu_arriere_d_8h_source_l00036}00036 \textcolor{keywordtype}{void} piloteIOFeuArriereD\_metA(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} Niveau);}
+\DoxyCodeLine{\Hypertarget{xpilote_i_o_feu_arriere_d_8h_source_l00037}00037 \textcolor{keywordtype}{void} piloteIOFeuArriereD\_initialise(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{xpilote_i_o_feu_arriere_d_8h_source_l00038}00038 }
+\DoxyCodeLine{\Hypertarget{xpilote_i_o_feu_arriere_d_8h_source_l00039}00039 \textcolor{comment}{//Variables publiques:}}
+\DoxyCodeLine{\Hypertarget{xpilote_i_o_feu_arriere_d_8h_source_l00040}00040 \textcolor{comment}{//pas de variables publiques}}
+\DoxyCodeLine{\Hypertarget{xpilote_i_o_feu_arriere_d_8h_source_l00041}00041 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,191 @@
+\hypertarget{structst_module_data}{}\doxysection{Référence de la structure st\+Module\+Data}
+\label{structst_module_data}\index{stModuleData@{stModuleData}}
+
+
+The actual structure used by the module. Used to get/set different values and commands. For example, reading the Mode that the master sent. Checking if receiving info from the CAN etc. Use DEFINES present in this file in order to set Commands or values of such.  
+
+
+
+
+{\ttfamily \#include $<$Service\+Communication.\+h$>$}
+
+\doxysubsection*{Champs de données}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structst_values}{st\+Values}} \mbox{\hyperlink{structst_module_data_a0498a36682b32522201ab053cfda30b2}{Values\+To\+Send}}
+\begin{DoxyCompactList}\small\item\em Structure which contains all the values a module can support in a transmission. To specify you want to send a value, set it to \mbox{\hyperlink{_service_communication_8h_aafc57d44738df70f43ac87ed969eed47}{QUEUE}}. Only set it to \mbox{\hyperlink{_service_communication_8h_aafc57d44738df70f43ac87ed969eed47}{QUEUE}} if you read that it is \mbox{\hyperlink{_service_communication_8h_a38f81619bc0b028efc4d5222e6cae89f}{AVAILABLE}}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structst_commands}{st\+Commands}} \mbox{\hyperlink{structst_module_data_aedc302b8b7549d9a809722feddad8e51}{Commands\+To\+Send}}
+\begin{DoxyCompactList}\small\item\em Structure of all the commands a module can send. To specify you want to send a command, set it to \mbox{\hyperlink{_service_communication_8h_aafc57d44738df70f43ac87ed969eed47}{QUEUE}}. Only set it to \mbox{\hyperlink{_service_communication_8h_aafc57d44738df70f43ac87ed969eed47}{QUEUE}} if you read that it is \mbox{\hyperlink{_service_communication_8h_a38f81619bc0b028efc4d5222e6cae89f}{AVAILABLE}}. If a command is set to \mbox{\hyperlink{_service_communication_8h_a90ca767ddb3c52ec640e7ed8a09dd5d8}{RECEIVED}}, it means a module communicated a command request to you. If you support the command, before you start to execute it, set it to \mbox{\hyperlink{_service_communication_8h_a7f6404e3e6de5aa345a9208af100d4f8}{PARSED}} to tell the system that you parsed it. If a command is equal to \mbox{\hyperlink{_service_communication_8h_a68de9030c39965958f08402f7d452ad9}{NO\+\_\+\+DATA}}, it means it has not been received. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structst_values}{st\+Values}} \mbox{\hyperlink{structst_module_data_a13a4426701f19e10f89094abbce937b5}{Values\+Received}}
+\begin{DoxyCompactList}\small\item\em Structure which contains all the values your module has received If a specific value was received, you\textquotesingle{}ll read \mbox{\hyperlink{_service_communication_8h_a90ca767ddb3c52ec640e7ed8a09dd5d8}{RECEIVED}}. If this is the case, and you needed to read this value, set it to \mbox{\hyperlink{_service_communication_8h_a7f6404e3e6de5aa345a9208af100d4f8}{PARSED}} once you executed whatever was needed. These are set to \mbox{\hyperlink{_service_communication_8h_a68de9030c39965958f08402f7d452ad9}{NO\+\_\+\+DATA}} by default. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structst_commands}{st\+Commands}} \mbox{\hyperlink{structst_module_data_af5de40349f9ca7dc2943f965b110072d}{Commands\+Received}}
+\begin{DoxyCompactList}\small\item\em Structure of all the commands a module can receive. A command set to \mbox{\hyperlink{_service_communication_8h_a90ca767ddb3c52ec640e7ed8a09dd5d8}{RECEIVED}} means a module communicated a command request to you. If you support the command, before you start to execute it, set it to \mbox{\hyperlink{_service_communication_8h_a7f6404e3e6de5aa345a9208af100d4f8}{PARSED}} to tell the system that you executed it. If the command is equal to \mbox{\hyperlink{_service_communication_8h_a68de9030c39965958f08402f7d452ad9}{NO\+\_\+\+DATA}}, it means it wasn\textquotesingle{}t received. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structst_states}{st\+States}} \mbox{\hyperlink{structst_module_data_aef6d8dd22d7ba84896770ec7e5d00faf}{States\+Received}}
+\begin{DoxyCompactList}\small\item\em Structure containing all the states that your module has received from other modules or from the MASTER. These are reset to \mbox{\hyperlink{_service_communication_8h_a68de9030c39965958f08402f7d452ad9}{NO\+\_\+\+DATA}} when the \mbox{\hyperlink{structst_modes}{st\+Modes}} received from the MASTER changes. \end{DoxyCompactList}\item 
+unsigned char \mbox{\hyperlink{structst_module_data_a5e17acbc4701e7886ecec1c3b3a6861f}{State}}
+\begin{DoxyCompactList}\small\item\em Indication of this module\textquotesingle{}s state according to the communication data sheet. This is sent each communication no matter what\textquotesingle{}s happening. \end{DoxyCompactList}\item 
+unsigned char \mbox{\hyperlink{structst_module_data_aad97611843f921f2d34f879b04290c44}{Mode}}
+\begin{DoxyCompactList}\small\item\em Contains the received Mode from the MASTER synchronisation slot. DO NOT CHANGE THIS VALUE. The code changes it by itself upon receptions. \end{DoxyCompactList}\item 
+unsigned char \mbox{\hyperlink{structst_module_data_a4c16728345f6f1ef92b12cd839947107}{Weight\+To\+Send}}
+\begin{DoxyCompactList}\small\item\em Value from 0 to 254 either in KG or in Lbs. Set to \mbox{\hyperlink{_service_communication_8h_a9ffcb7cde64857e8d5734debed161967}{UNUSED\+\_\+}} by default. If not set to \mbox{\hyperlink{_service_communication_8h_a9ffcb7cde64857e8d5734debed161967}{UNUSED\+\_\+}}, it will be sent each available CAN slots. \end{DoxyCompactList}\item 
+unsigned char \mbox{\hyperlink{structst_module_data_a77820e47ab01547e78574ecb07d2a792}{Received\+Weight}}
+\begin{DoxyCompactList}\small\item\em Value from 0 to 254 either in KG or in Lbs. Set to \mbox{\hyperlink{_service_communication_8h_a68de9030c39965958f08402f7d452ad9}{NO\+\_\+\+DATA}} by default. It will keep the last received weight in store until a new Weight was received from an other module. \end{DoxyCompactList}\item 
+unsigned char \mbox{\hyperlink{structst_module_data_aae4af0033508661a7ab4e42c109b2098}{Cant\+Connect}}
+\begin{DoxyCompactList}\small\item\em if this is set to anything else than 0x00 it means that the module could not establish a connection with the synchronisation tram. To detect a connection, you need to receive a st\+Modes.~\newline
+ When you receive an \mbox{\hyperlink{structst_modes}{st\+Modes}} interrupt counts are reset to 0. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+The actual structure used by the module. Used to get/set different values and commands. For example, reading the Mode that the master sent. Checking if receiving info from the CAN etc. Use DEFINES present in this file in order to set Commands or values of such. 
+
+Définition à la ligne \mbox{\hyperlink{_service_communication_8h_source_l00738}{738}} du fichier \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+
+
+\doxysubsection{Documentation des champs}
+\mbox{\Hypertarget{structst_module_data_aae4af0033508661a7ab4e42c109b2098}\label{structst_module_data_aae4af0033508661a7ab4e42c109b2098}} 
+\index{stModuleData@{stModuleData}!CantConnect@{CantConnect}}
+\index{CantConnect@{CantConnect}!stModuleData@{stModuleData}}
+\doxysubsubsection{\texorpdfstring{CantConnect}{CantConnect}}
+{\footnotesize\ttfamily unsigned char st\+Module\+Data\+::\+Cant\+Connect}
+
+
+
+if this is set to anything else than 0x00 it means that the module could not establish a connection with the synchronisation tram. To detect a connection, you need to receive a st\+Modes.~\newline
+ When you receive an \mbox{\hyperlink{structst_modes}{st\+Modes}} interrupt counts are reset to 0. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{_service_communication_8h_source_l00810}{810}} du fichier \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{structst_module_data_af5de40349f9ca7dc2943f965b110072d}\label{structst_module_data_af5de40349f9ca7dc2943f965b110072d}} 
+\index{stModuleData@{stModuleData}!CommandsReceived@{CommandsReceived}}
+\index{CommandsReceived@{CommandsReceived}!stModuleData@{stModuleData}}
+\doxysubsubsection{\texorpdfstring{CommandsReceived}{CommandsReceived}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structst_commands}{st\+Commands}} st\+Module\+Data\+::\+Commands\+Received}
+
+
+
+Structure of all the commands a module can receive. A command set to \mbox{\hyperlink{_service_communication_8h_a90ca767ddb3c52ec640e7ed8a09dd5d8}{RECEIVED}} means a module communicated a command request to you. If you support the command, before you start to execute it, set it to \mbox{\hyperlink{_service_communication_8h_a7f6404e3e6de5aa345a9208af100d4f8}{PARSED}} to tell the system that you executed it. If the command is equal to \mbox{\hyperlink{_service_communication_8h_a68de9030c39965958f08402f7d452ad9}{NO\+\_\+\+DATA}}, it means it wasn\textquotesingle{}t received. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{_service_communication_8h_source_l00772}{772}} du fichier \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{structst_module_data_aedc302b8b7549d9a809722feddad8e51}\label{structst_module_data_aedc302b8b7549d9a809722feddad8e51}} 
+\index{stModuleData@{stModuleData}!CommandsToSend@{CommandsToSend}}
+\index{CommandsToSend@{CommandsToSend}!stModuleData@{stModuleData}}
+\doxysubsubsection{\texorpdfstring{CommandsToSend}{CommandsToSend}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structst_commands}{st\+Commands}} st\+Module\+Data\+::\+Commands\+To\+Send}
+
+
+
+Structure of all the commands a module can send. To specify you want to send a command, set it to \mbox{\hyperlink{_service_communication_8h_aafc57d44738df70f43ac87ed969eed47}{QUEUE}}. Only set it to \mbox{\hyperlink{_service_communication_8h_aafc57d44738df70f43ac87ed969eed47}{QUEUE}} if you read that it is \mbox{\hyperlink{_service_communication_8h_a38f81619bc0b028efc4d5222e6cae89f}{AVAILABLE}}. If a command is set to \mbox{\hyperlink{_service_communication_8h_a90ca767ddb3c52ec640e7ed8a09dd5d8}{RECEIVED}}, it means a module communicated a command request to you. If you support the command, before you start to execute it, set it to \mbox{\hyperlink{_service_communication_8h_a7f6404e3e6de5aa345a9208af100d4f8}{PARSED}} to tell the system that you parsed it. If a command is equal to \mbox{\hyperlink{_service_communication_8h_a68de9030c39965958f08402f7d452ad9}{NO\+\_\+\+DATA}}, it means it has not been received. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{_service_communication_8h_source_l00755}{755}} du fichier \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{structst_module_data_aad97611843f921f2d34f879b04290c44}\label{structst_module_data_aad97611843f921f2d34f879b04290c44}} 
+\index{stModuleData@{stModuleData}!Mode@{Mode}}
+\index{Mode@{Mode}!stModuleData@{stModuleData}}
+\doxysubsubsection{\texorpdfstring{Mode}{Mode}}
+{\footnotesize\ttfamily unsigned char st\+Module\+Data\+::\+Mode}
+
+
+
+Contains the received Mode from the MASTER synchronisation slot. DO NOT CHANGE THIS VALUE. The code changes it by itself upon receptions. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{_service_communication_8h_source_l00790}{790}} du fichier \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{structst_module_data_a77820e47ab01547e78574ecb07d2a792}\label{structst_module_data_a77820e47ab01547e78574ecb07d2a792}} 
+\index{stModuleData@{stModuleData}!ReceivedWeight@{ReceivedWeight}}
+\index{ReceivedWeight@{ReceivedWeight}!stModuleData@{stModuleData}}
+\doxysubsubsection{\texorpdfstring{ReceivedWeight}{ReceivedWeight}}
+{\footnotesize\ttfamily unsigned char st\+Module\+Data\+::\+Received\+Weight}
+
+
+
+Value from 0 to 254 either in KG or in Lbs. Set to \mbox{\hyperlink{_service_communication_8h_a68de9030c39965958f08402f7d452ad9}{NO\+\_\+\+DATA}} by default. It will keep the last received weight in store until a new Weight was received from an other module. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{_service_communication_8h_source_l00802}{802}} du fichier \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{structst_module_data_a5e17acbc4701e7886ecec1c3b3a6861f}\label{structst_module_data_a5e17acbc4701e7886ecec1c3b3a6861f}} 
+\index{stModuleData@{stModuleData}!State@{State}}
+\index{State@{State}!stModuleData@{stModuleData}}
+\doxysubsubsection{\texorpdfstring{State}{State}}
+{\footnotesize\ttfamily unsigned char st\+Module\+Data\+::\+State}
+
+
+
+Indication of this module\textquotesingle{}s state according to the communication data sheet. This is sent each communication no matter what\textquotesingle{}s happening. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{_service_communication_8h_source_l00784}{784}} du fichier \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{structst_module_data_aef6d8dd22d7ba84896770ec7e5d00faf}\label{structst_module_data_aef6d8dd22d7ba84896770ec7e5d00faf}} 
+\index{stModuleData@{stModuleData}!StatesReceived@{StatesReceived}}
+\index{StatesReceived@{StatesReceived}!stModuleData@{stModuleData}}
+\doxysubsubsection{\texorpdfstring{StatesReceived}{StatesReceived}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structst_states}{st\+States}} st\+Module\+Data\+::\+States\+Received}
+
+
+
+Structure containing all the states that your module has received from other modules or from the MASTER. These are reset to \mbox{\hyperlink{_service_communication_8h_a68de9030c39965958f08402f7d452ad9}{NO\+\_\+\+DATA}} when the \mbox{\hyperlink{structst_modes}{st\+Modes}} received from the MASTER changes. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{_service_communication_8h_source_l00778}{778}} du fichier \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{structst_module_data_a13a4426701f19e10f89094abbce937b5}\label{structst_module_data_a13a4426701f19e10f89094abbce937b5}} 
+\index{stModuleData@{stModuleData}!ValuesReceived@{ValuesReceived}}
+\index{ValuesReceived@{ValuesReceived}!stModuleData@{stModuleData}}
+\doxysubsubsection{\texorpdfstring{ValuesReceived}{ValuesReceived}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structst_values}{st\+Values}} st\+Module\+Data\+::\+Values\+Received}
+
+
+
+Structure which contains all the values your module has received If a specific value was received, you\textquotesingle{}ll read \mbox{\hyperlink{_service_communication_8h_a90ca767ddb3c52ec640e7ed8a09dd5d8}{RECEIVED}}. If this is the case, and you needed to read this value, set it to \mbox{\hyperlink{_service_communication_8h_a7f6404e3e6de5aa345a9208af100d4f8}{PARSED}} once you executed whatever was needed. These are set to \mbox{\hyperlink{_service_communication_8h_a68de9030c39965958f08402f7d452ad9}{NO\+\_\+\+DATA}} by default. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{_service_communication_8h_source_l00763}{763}} du fichier \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{structst_module_data_a0498a36682b32522201ab053cfda30b2}\label{structst_module_data_a0498a36682b32522201ab053cfda30b2}} 
+\index{stModuleData@{stModuleData}!ValuesToSend@{ValuesToSend}}
+\index{ValuesToSend@{ValuesToSend}!stModuleData@{stModuleData}}
+\doxysubsubsection{\texorpdfstring{ValuesToSend}{ValuesToSend}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structst_values}{st\+Values}} st\+Module\+Data\+::\+Values\+To\+Send}
+
+
+
+Structure which contains all the values a module can support in a transmission. To specify you want to send a value, set it to \mbox{\hyperlink{_service_communication_8h_aafc57d44738df70f43ac87ed969eed47}{QUEUE}}. Only set it to \mbox{\hyperlink{_service_communication_8h_aafc57d44738df70f43ac87ed969eed47}{QUEUE}} if you read that it is \mbox{\hyperlink{_service_communication_8h_a38f81619bc0b028efc4d5222e6cae89f}{AVAILABLE}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{_service_communication_8h_source_l00745}{745}} du fichier \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{structst_module_data_a4c16728345f6f1ef92b12cd839947107}\label{structst_module_data_a4c16728345f6f1ef92b12cd839947107}} 
+\index{stModuleData@{stModuleData}!WeightToSend@{WeightToSend}}
+\index{WeightToSend@{WeightToSend}!stModuleData@{stModuleData}}
+\doxysubsubsection{\texorpdfstring{WeightToSend}{WeightToSend}}
+{\footnotesize\ttfamily unsigned char st\+Module\+Data\+::\+Weight\+To\+Send}
+
+
+
+Value from 0 to 254 either in KG or in Lbs. Set to \mbox{\hyperlink{_service_communication_8h_a9ffcb7cde64857e8d5734debed161967}{UNUSED\+\_\+}} by default. If not set to \mbox{\hyperlink{_service_communication_8h_a9ffcb7cde64857e8d5734debed161967}{UNUSED\+\_\+}}, it will be sent each available CAN slots. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{_service_communication_8h_source_l00796}{796}} du fichier \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+
+
+La documentation de cette structure a été générée à partir du fichier suivant \+:\begin{DoxyCompactItemize}
+\item 
+U\+:/\+Sessions/\+Session 5/\+Project/\+Projet\+\_\+\+Fin\+\_\+\+Session/\+Projet-\/5e-\/\+Session/\+Centre-\/\+De-\/\+Tri/\+Centre\+De\+Tri\+S5/\+Src/\mbox{\hyperlink{_service_communication_8h}{Service\+Communication.\+h}}\end{DoxyCompactItemize}

@@ -1,0 +1,63 @@
+\hypertarget{xinterface_suiveur_8h}{}\doxysection{Référence du fichier U\+:/\+Sessions/\+Session 5/\+Project/\+Projet\+\_\+\+Fin\+\_\+\+Session/\+Projet-\/5e-\/\+Session/\+Vehicule/\+Programmes/\+ESPvehicule/include/xinterface\+Suiveur.h}
+\label{xinterface_suiveur_8h}\index{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Vehicule/Programmes/ESPvehicule/include/xinterfaceSuiveur.h@{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Vehicule/Programmes/ESPvehicule/include/xinterfaceSuiveur.h}}
+
+
+L\textquotesingle{}interface Suiveur de ligne permet de communiquer en I2C avec un PCF8574 qui sert à la lecture de la ligne.  
+
+
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+unsigned char \mbox{\hyperlink{xinterface_suiveur_8h_a8e5f79d8406930de6423318e323ba4b6}{interface\+Suiveur\+\_\+lit\+Octet}} (void)
+\begin{DoxyCompactList}\small\item\em Fonction qui lit le suiveur de ligne et retourne la valeur lu en unsigned char. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{xinterface_suiveur_8h_a57f8cd4f8a9f1d111e3b07595c61728f}{interface\+Suiveur\+\_\+initialise}} (void)
+\begin{DoxyCompactList}\small\item\em Initilaise la communication I2C avec le suiveur de ligne. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+L\textquotesingle{}interface Suiveur de ligne permet de communiquer en I2C avec un PCF8574 qui sert à la lecture de la ligne. 
+
+\begin{DoxyAuthor}{Auteur}
+Cam\+Fo Camille Fortin (\href{mailto:camfortin2022@gmail.com}{\texttt{ camfortin2022@gmail.\+com}})
+\end{DoxyAuthor}
+
+
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2022-\/11-\/15
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2022 
+\end{DoxyCopyright}
+
+
+Définition dans le fichier \mbox{\hyperlink{xinterface_suiveur_8h_source}{xinterface\+Suiveur.\+h}}.
+
+
+
+\doxysubsection{Documentation des fonctions}
+\mbox{\Hypertarget{xinterface_suiveur_8h_a57f8cd4f8a9f1d111e3b07595c61728f}\label{xinterface_suiveur_8h_a57f8cd4f8a9f1d111e3b07595c61728f}} 
+\index{xinterfaceSuiveur.h@{xinterfaceSuiveur.h}!interfaceSuiveur\_initialise@{interfaceSuiveur\_initialise}}
+\index{interfaceSuiveur\_initialise@{interfaceSuiveur\_initialise}!xinterfaceSuiveur.h@{xinterfaceSuiveur.h}}
+\doxysubsubsection{\texorpdfstring{interfaceSuiveur\_initialise()}{interfaceSuiveur\_initialise()}}
+{\footnotesize\ttfamily void interface\+Suiveur\+\_\+initialise (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Initilaise la communication I2C avec le suiveur de ligne. 
+
+\mbox{\Hypertarget{xinterface_suiveur_8h_a8e5f79d8406930de6423318e323ba4b6}\label{xinterface_suiveur_8h_a8e5f79d8406930de6423318e323ba4b6}} 
+\index{xinterfaceSuiveur.h@{xinterfaceSuiveur.h}!interfaceSuiveur\_litOctet@{interfaceSuiveur\_litOctet}}
+\index{interfaceSuiveur\_litOctet@{interfaceSuiveur\_litOctet}!xinterfaceSuiveur.h@{xinterfaceSuiveur.h}}
+\doxysubsubsection{\texorpdfstring{interfaceSuiveur\_litOctet()}{interfaceSuiveur\_litOctet()}}
+{\footnotesize\ttfamily unsigned char interface\+Suiveur\+\_\+lit\+Octet (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Fonction qui lit le suiveur de ligne et retourne la valeur lu en unsigned char. 
+
+\begin{DoxyReturn}{Renvoie}
+unsigned char 
+\end{DoxyReturn}

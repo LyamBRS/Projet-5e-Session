@@ -1,0 +1,26 @@
+var structst_commands =
+[
+    [ "discharge", "d6/d05/structst_commands.html#ac874ece9ad0e6fcd52745eda70efe166", null ],
+    [ "goto_SortingStation", "d6/d05/structst_commands.html#a477d82cde78872a5a6e10a5c8ed3722f", null ],
+    [ "goto_WeightStation", "d6/d05/structst_commands.html#a410787e9474e420bc21d9d3d7861b7cc", null ],
+    [ "light_A_OFF", "d6/d05/structst_commands.html#a702431d484318ff13c974cc230c8a13a", null ],
+    [ "light_A_ON", "d6/d05/structst_commands.html#ae4cdabd0e39fb31310df51ea014d93b4", null ],
+    [ "light_B_OFF", "d6/d05/structst_commands.html#ac851a7e200f176c253439872652b3106", null ],
+    [ "light_B_ON", "d6/d05/structst_commands.html#a868dde163d164c224101d29622475e5a", null ],
+    [ "light_C_OFF", "d6/d05/structst_commands.html#a6b56696b5a7a532ac14b682892d168b9", null ],
+    [ "light_C_ON", "d6/d05/structst_commands.html#a8d2c5da0d5a0388f5ce812486f25808b", null ],
+    [ "light_D_OFF", "d6/d05/structst_commands.html#aec5af8dd1a710ecf6f098d82167301a8", null ],
+    [ "light_D_ON", "d6/d05/structst_commands.html#acc349c4a56294c3f4aa94185412fb426", null ],
+    [ "move_backward", "d6/d05/structst_commands.html#abb31a968bc3aa2442a5adf6e8c984c61", null ],
+    [ "move_down", "d6/d05/structst_commands.html#ae531ec92fd89b7209987b00e8ac50376", null ],
+    [ "move_forward", "d6/d05/structst_commands.html#a5ad766029eacd03face2616d11f28154", null ],
+    [ "move_left", "d6/d05/structst_commands.html#a09c62dbfd053fab8302785c78ddc43ef", null ],
+    [ "move_right", "d6/d05/structst_commands.html#ac61ae9d09d48548988d322709e6d7836", null ],
+    [ "move_up", "d6/d05/structst_commands.html#a97256131ec43889467d07171c45cbdf1", null ],
+    [ "start_Sorting", "d6/d05/structst_commands.html#a0e5239772e6458dbef7510257dc707fd", null ],
+    [ "start_Weighting", "d6/d05/structst_commands.html#a975387bbc996e35edf3c076679c894a1", null ],
+    [ "suction_OFF", "d6/d05/structst_commands.html#a9bc8c7fec20050ecd1c23ee845be1cc9", null ],
+    [ "suction_ON", "d6/d05/structst_commands.html#a734f8750a2fdcd29cff7309e77631e88", null ],
+    [ "units_Imperial", "d6/d05/structst_commands.html#a38b29d5c523c070c25055148666a52e4", null ],
+    [ "units_Metric", "d6/d05/structst_commands.html#a9c9d5a97f9ddaa9b9fec7c4cdc53e0a0", null ]
+];

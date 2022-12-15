@@ -1,0 +1,421 @@
+\hypertarget{_i_o___b_u_s_8c_source}{}\doxysection{IO\+\_\+\+BUS.\+c}
+\label{_i_o___b_u_s_8c_source}\index{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Tri/CentreDeTriS5/Src/IO\_BUS.c@{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Tri/CentreDeTriS5/Src/IO\_BUS.c}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00001}00001 }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00002}00002 \textcolor{comment}{//**********************************IO\_BUS**************************************}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00003}00003 \textcolor{comment}{// }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00004}00004 \textcolor{comment}{//    Nom du fichier : IO\_BUS.c}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00005}00005 \textcolor{comment}{//    Auteur : Alain Champagne                  }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00006}00006 \textcolor{comment}{//    Date de création : 21-\/12-\/2015 }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00007}00007 \textcolor{comment}{// }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00008}00008 \textcolor{comment}{//    Fonctions nécessaires au contrôle des lignes de données, d'adresses et de }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00009}00009 \textcolor{comment}{//    contrôle permettant de recréer les entrées sorties sur bus parallèle. }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00010}00010 \textcolor{comment}{//    Ces fonctions pourront être utilisées dans un programme principale comme }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00011}00011 \textcolor{comment}{//    suit: }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00012}00012 \textcolor{comment}{//    }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00013}00013 \textcolor{comment}{//    -\/vData\_IN()}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00014}00014 \textcolor{comment}{//     Permet de placer les lignes de données en entrée.}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00015}00015 \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00016}00016 \textcolor{comment}{//    -\/vData\_OUT()}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00017}00017 \textcolor{comment}{//     Permet de placer les lignes de données en sortie.}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00018}00018 \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00019}00019 \textcolor{comment}{//    -\/uint8\_t ucReadIO (uint8\_t CSx, uint8\_t Level, uint8\_t ucAdresse)}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00020}00020 \textcolor{comment}{//     Permet de faire la lecture d'un octet en IO.  On doit passer en paramètre }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00021}00021 \textcolor{comment}{//     le no du CSx (CS0 à CS4) et l'adresse sur 4 bits (0x00 à 0x0F).  }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00022}00022 \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00023}00023 \textcolor{comment}{//    -\/void vWriteIO(uint8\_t ucData, uint8\_t CSx, uint8\_t Level, uint8\_t ucAdresse)}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00024}00024 \textcolor{comment}{//     Permet d'écrire un octet en IO.  On passe les paramètres de donnée, du}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00025}00025 \textcolor{comment}{//     no du CSx (CS0 à CS4) et de l'adresse sur 4 bits (0x00 à 0x0F). }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00026}00026 \textcolor{comment}{//     (iColonneLcd) spécifiques.}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00027}00027 \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00028}00028 \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00029}00029 \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00030}00030 \textcolor{comment}{//    -\/Le bus de donnée est associé aux lignes physiques GPIOE, D0\_Pin à D7\_Pin.}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00031}00031 \textcolor{comment}{//    -\/Les CS sont associés aux lignes GPIOB, CS0\_Pin à CS3\_Pin.}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00032}00032 \textcolor{comment}{//    -\/Les lignes d'adresses sont associées aux lignes GPIOD, A0\_Pin à A3\_Pin.}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00033}00033 \textcolor{comment}{//    -\/Les lignes RD et WR sont associés à GPIOB, RD\_Pin et WR\_Pin.}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00034}00034 \textcolor{comment}{//   }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00035}00035 \textcolor{comment}{//                    }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00036}00036 \textcolor{comment}{//                   }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00037}00037 \textcolor{comment}{//******************************************************************************}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00038}00038  }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00039}00039  \textcolor{comment}{//Include}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00040}00040 \textcolor{preprocessor}{\#include "{}IO\_BUS.h"{}}  }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00041}00041 }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00042}00042 }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00043}00043 \textcolor{comment}{//********************************vData\_IN**************************************}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00044}00044 \textcolor{comment}{//    Nom de la fonction : vData\_IN}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00045}00045 \textcolor{comment}{//    Auteur : Alain Champagne      }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00046}00046 \textcolor{comment}{//    Date de création : 21-\/12-\/2015}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00047}00047 \textcolor{comment}{//    Description :     Routine pour placer les lignes de données en entrée. }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00048}00048 \textcolor{comment}{//                          }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00049}00049 \textcolor{comment}{//    Fonctions appelées : HAL\_GPIO\_Init()        }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00050}00050 \textcolor{comment}{//    Paramètres d'entrée : Aucun       }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00051}00051 \textcolor{comment}{//    Paramètres de sortie : Aucun        }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00052}00052 \textcolor{comment}{//    Variables utilisées : Aucune}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00053}00053 \textcolor{comment}{//    Equate : Aucun    }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00054}00054 \textcolor{comment}{//    \#Define : Aucun   }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00055}00055 \textcolor{comment}{//                      }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00056}00056 \textcolor{comment}{//******************************************************************************}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00057}00057 \textcolor{keywordtype}{void} vData\_IN (\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00058}00058 \{}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00059}00059   GPIO\_InitTypeDef GPIO\_InitStruct;}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00060}00060   GPIO\_InitStruct.Pin = D0\_Pin|D1\_Pin|D2\_Pin|D3\_Pin|D4\_Pin|D5\_Pin|D6\_Pin|D7\_Pin;}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00061}00061   GPIO\_InitStruct.Mode = GPIO\_MODE\_INPUT;}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00062}00062   GPIO\_InitStruct.Pull = GPIO\_NOPULL;}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00063}00063   HAL\_GPIO\_Init(GPIOE, \&GPIO\_InitStruct);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00064}00064 \}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00065}00065 \textcolor{comment}{//fin routine SDA\_IN-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00066}00066 }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00067}00067 }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00068}00068 \textcolor{comment}{//********************************vData\_OUT*************************************}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00069}00069 \textcolor{comment}{//    Nom de la fonction : vData\_OUT}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00070}00070 \textcolor{comment}{//    Auteur : Alain Champagne      }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00071}00071 \textcolor{comment}{//    Date de création : 21-\/12-\/2015}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00072}00072 \textcolor{comment}{//    Description :     Routine pour placer les lignes de données en sortie. }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00073}00073 \textcolor{comment}{//                          }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00074}00074 \textcolor{comment}{//    Fonctions appelées : HAL\_GPIO\_Init()        }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00075}00075 \textcolor{comment}{//    Paramètres d'entrée : Aucun       }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00076}00076 \textcolor{comment}{//    Paramètres de sortie : Aucun        }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00077}00077 \textcolor{comment}{//    Variables utilisées : Aucune}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00078}00078 \textcolor{comment}{//    Equate : Aucun    }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00079}00079 \textcolor{comment}{//    \#Define : Aucun   }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00080}00080 \textcolor{comment}{//                      }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00081}00081 \textcolor{comment}{//******************************************************************************}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00082}00082 \textcolor{keywordtype}{void} vData\_OUT (\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00083}00083 \{}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00084}00084   GPIO\_InitTypeDef GPIO\_InitStruct;}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00085}00085   GPIO\_InitStruct.Pin = D0\_Pin|D1\_Pin|D2\_Pin|D3\_Pin|D4\_Pin|D5\_Pin|D6\_Pin|D7\_Pin;}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00086}00086   GPIO\_InitStruct.Mode = GPIO\_MODE\_OUTPUT\_PP;}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00087}00087   GPIO\_InitStruct.Pull = GPIO\_NOPULL;}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00088}00088   GPIO\_InitStruct.Speed = GPIO\_SPEED\_LOW;}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00089}00089   HAL\_GPIO\_Init(GPIOE, \&GPIO\_InitStruct);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00090}00090 \}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00091}00091 \textcolor{comment}{//fin routine SDA\_OUT-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00092}00092 }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00093}00093 }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00094}00094 \textcolor{comment}{//*********************************ucReadIO*************************************}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00095}00095 \textcolor{comment}{//    Nom de la fonction : ucReadIO}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00096}00096 \textcolor{comment}{//    Auteur : Alain Champagne}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00097}00097 \textcolor{comment}{//    Date de création : 21-\/12-\/2015}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00098}00098 \textcolor{comment}{//    Description : Routine pour lire une donnée d'un device avec BUS parallèle.}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00099}00099 \textcolor{comment}{//                 }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00100}00100 \textcolor{comment}{//    Appel : ucData = ucRead\_IO(2, 0, 0x04);}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00101}00101 \textcolor{comment}{//            Permet de lire une donnée sur un dispositif dont le CS est le \#2,}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00102}00102 \textcolor{comment}{//            actif bas, et l'adresse est la 4 (00000100).}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00103}00103 \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00104}00104 \textcolor{comment}{//    Fonctions appelées : HAL\_GPIO\_WritePin(),  HAL\_GPIO\_ReadPin}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00105}00105 \textcolor{comment}{//    Paramètres d'entrée : CSx, Level, ucAdresse   }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00106}00106 \textcolor{comment}{//                          CSx : 0, 1, 2, 3, 4}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00107}00107 \textcolor{comment}{//                          Level : 0, 1}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00108}00108 \textcolor{comment}{//                          ucAdresse : 0x00 à 0x1F}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00109}00109 \textcolor{comment}{//    Paramètres de sortie : uint8\_t      }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00110}00110 \textcolor{comment}{//    Variables utilisées : CSx, Level, ucAdresse}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00111}00111 \textcolor{comment}{//    Equate : Aucun    }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00112}00112 \textcolor{comment}{//    \#Define : Aucun   }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00113}00113 \textcolor{comment}{//  }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00114}00114 \textcolor{comment}{//******************************************************************************}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00115}00115 uint8\_t ucReadIO (uint8\_t CSx, uint8\_t Level, uint8\_t ucAdresse)}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00116}00116 \{}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00117}00117   \textcolor{keyword}{union}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00118}00118  \{       }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00119}00119    \textcolor{keyword}{struct }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00120}00120    \{}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00121}00121      \textcolor{keywordtype}{int} D0 : 1;                                 \textcolor{comment}{//Noms des bits.}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00122}00122      \textcolor{keywordtype}{int} D1 : 1;                                 \textcolor{comment}{//On ferait l'appel ainsi :}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00123}00123      \textcolor{keywordtype}{int} D2 : 1;                                 \textcolor{comment}{//unData.DataBit.D0 = 0;}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00124}00124      \textcolor{keywordtype}{int} D3 : 1;                                 \textcolor{comment}{//ou,}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00125}00125      \textcolor{keywordtype}{int} D4 : 1;                                 \textcolor{comment}{//unData.ucData = 0x03;}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00126}00126      \textcolor{keywordtype}{int} D5 : 1; }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00127}00127      \textcolor{keywordtype}{int} D6 : 1; }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00128}00128      \textcolor{keywordtype}{int} D7 : 1; }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00129}00129    \} DataBit;                                    \textcolor{comment}{//Nom du champ de bits.}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00130}00130    uint8\_t ucData;                               \textcolor{comment}{//Variable associée à la structure.  }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00131}00131  \}unData;  }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00132}00132                                                  \textcolor{comment}{//Nom de l'union.}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00133}00133  uint8\_t ucLireDataIO;}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00134}00134   }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00135}00135  vData\_IN ();                                    \textcolor{comment}{//Le port de Data est en }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00136}00136                                                  \textcolor{comment}{//entrée. }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00137}00137  \textcolor{comment}{//Affectation des lignes d'adresse.}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00138}00138  \textcolor{keywordflow}{if} ((ucAdresse \& 0x01) != 0)}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00139}00139    HAL\_GPIO\_WritePin(GPIOD, A0\_Pin, GPIO\_PIN\_SET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00140}00140  \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00141}00141    HAL\_GPIO\_WritePin(GPIOD, A0\_Pin, GPIO\_PIN\_RESET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00142}00142  \textcolor{keywordflow}{if} ((ucAdresse \& 0x02) != 0)}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00143}00143    HAL\_GPIO\_WritePin(GPIOD, A1\_Pin, GPIO\_PIN\_SET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00144}00144  \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00145}00145    HAL\_GPIO\_WritePin(GPIOD, A1\_Pin, GPIO\_PIN\_RESET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00146}00146  \textcolor{keywordflow}{if} ((ucAdresse \& 0x04) != 0)}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00147}00147    HAL\_GPIO\_WritePin(GPIOD, A2\_Pin, GPIO\_PIN\_SET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00148}00148  \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00149}00149    HAL\_GPIO\_WritePin(GPIOD, A2\_Pin, GPIO\_PIN\_RESET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00150}00150  \textcolor{keywordflow}{if} ((ucAdresse \& 0x08) != 0)}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00151}00151    HAL\_GPIO\_WritePin(GPIOD, A3\_Pin, GPIO\_PIN\_SET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00152}00152  \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00153}00153    HAL\_GPIO\_WritePin(GPIOD, A3\_Pin, GPIO\_PIN\_RESET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00154}00154  \textcolor{keywordflow}{if} ((ucAdresse \& 0x10) != 0)}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00155}00155    HAL\_GPIO\_WritePin(GPIOB, A4\_Pin, GPIO\_PIN\_SET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00156}00156  \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00157}00157    HAL\_GPIO\_WritePin(GPIOB, A4\_Pin, GPIO\_PIN\_RESET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00158}00158 }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00159}00159 \textcolor{comment}{//Choix du CS. }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00160}00160   \textcolor{keywordflow}{switch} (CSx)                                 }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00161}00161  \{}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00162}00162  \textcolor{keywordflow}{case} 0 :}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00163}00163    \textcolor{keywordflow}{if} (Level == 0)}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00164}00164      HAL\_GPIO\_WritePin(GPIOB, CS0\_Pin, GPIO\_PIN\_RESET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00165}00165    \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00166}00166      HAL\_GPIO\_WritePin(GPIOB, CS0\_Pin, GPIO\_PIN\_SET); }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00167}00167  \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00168}00168   }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00169}00169  \textcolor{keywordflow}{case} 1 :}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00170}00170    \textcolor{keywordflow}{if} (Level == 0)}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00171}00171      HAL\_GPIO\_WritePin(GPIOB, CS1\_Pin, GPIO\_PIN\_RESET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00172}00172    \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00173}00173      HAL\_GPIO\_WritePin(GPIOB, CS1\_Pin, GPIO\_PIN\_SET); }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00174}00174  \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00175}00175  }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00176}00176  \textcolor{keywordflow}{case} 2 :}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00177}00177    \textcolor{keywordflow}{if} (Level == 0)}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00178}00178      HAL\_GPIO\_WritePin(GPIOB, CS2\_Pin, GPIO\_PIN\_RESET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00179}00179    \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00180}00180      HAL\_GPIO\_WritePin(GPIOB, CS2\_Pin, GPIO\_PIN\_SET); }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00181}00181  \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00182}00182  }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00183}00183  \textcolor{keywordflow}{case} 3 :}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00184}00184    \textcolor{keywordflow}{if} (Level == 0)}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00185}00185      HAL\_GPIO\_WritePin(GPIOB, CS3\_Pin, GPIO\_PIN\_RESET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00186}00186    \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00187}00187      HAL\_GPIO\_WritePin(GPIOB, CS3\_Pin, GPIO\_PIN\_SET); }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00188}00188  \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00189}00189  }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00190}00190  default :}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00191}00191  \textcolor{keywordflow}{break};   }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00192}00192  \}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00193}00193  }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00194}00194  HAL\_GPIO\_WritePin(GPIOB, RD\_Pin, GPIO\_PIN\_RESET);   \textcolor{comment}{//Activer le RD.}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00195}00195  unData.DataBit.D0 = HAL\_GPIO\_ReadPin(GPIOE, D0\_Pin); \textcolor{comment}{//Lire D0.}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00196}00196  unData.DataBit.D1 = HAL\_GPIO\_ReadPin(GPIOE, D1\_Pin); \textcolor{comment}{//Lire D1.}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00197}00197  unData.DataBit.D2 = HAL\_GPIO\_ReadPin(GPIOE, D2\_Pin); \textcolor{comment}{//Lire D2.}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00198}00198  unData.DataBit.D3 = HAL\_GPIO\_ReadPin(GPIOE, D3\_Pin); \textcolor{comment}{//Lire D3.}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00199}00199  unData.DataBit.D4 = HAL\_GPIO\_ReadPin(GPIOE, D4\_Pin); \textcolor{comment}{//Lire D4.}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00200}00200  unData.DataBit.D5 = HAL\_GPIO\_ReadPin(GPIOE, D5\_Pin); \textcolor{comment}{//Lire D5.}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00201}00201  unData.DataBit.D6 = HAL\_GPIO\_ReadPin(GPIOE, D6\_Pin); \textcolor{comment}{//Lire D6.}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00202}00202  unData.DataBit.D7 = HAL\_GPIO\_ReadPin(GPIOE, D7\_Pin); \textcolor{comment}{//Lire D7.}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00203}00203  HAL\_GPIO\_WritePin(GPIOB, RD\_Pin, GPIO\_PIN\_SET);     \textcolor{comment}{//Désactiver le RD.}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00204}00204  }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00205}00205  \textcolor{comment}{//Remettre le CS inactif.}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00206}00206  \textcolor{keywordflow}{switch} (CSx)}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00207}00207  \{}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00208}00208  \textcolor{keywordflow}{case} 0 :}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00209}00209    \textcolor{keywordflow}{if} (Level == 0)}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00210}00210      HAL\_GPIO\_WritePin(GPIOB, CS0\_Pin, GPIO\_PIN\_SET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00211}00211    \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00212}00212      HAL\_GPIO\_WritePin(GPIOB, CS0\_Pin, GPIO\_PIN\_RESET); }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00213}00213  \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00214}00214   }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00215}00215  \textcolor{keywordflow}{case} 1 :}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00216}00216    \textcolor{keywordflow}{if} (Level == 0)}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00217}00217      HAL\_GPIO\_WritePin(GPIOB, CS1\_Pin, GPIO\_PIN\_SET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00218}00218    \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00219}00219      HAL\_GPIO\_WritePin(GPIOB, CS1\_Pin, GPIO\_PIN\_RESET); }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00220}00220  \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00221}00221  }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00222}00222  \textcolor{keywordflow}{case} 2 :}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00223}00223    \textcolor{keywordflow}{if} (Level == 0)}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00224}00224      HAL\_GPIO\_WritePin(GPIOB, CS2\_Pin, GPIO\_PIN\_SET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00225}00225    \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00226}00226      HAL\_GPIO\_WritePin(GPIOB, CS2\_Pin, GPIO\_PIN\_RESET); }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00227}00227  \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00228}00228  }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00229}00229  \textcolor{keywordflow}{case} 3 :}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00230}00230    \textcolor{keywordflow}{if} (Level == 0)}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00231}00231      HAL\_GPIO\_WritePin(GPIOB, CS3\_Pin, GPIO\_PIN\_SET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00232}00232    \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00233}00233      HAL\_GPIO\_WritePin(GPIOB, CS3\_Pin, GPIO\_PIN\_RESET); }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00234}00234  \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00235}00235   }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00236}00236  default :}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00237}00237  \textcolor{keywordflow}{break};   }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00238}00238  \}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00239}00239  ucLireDataIO = unData.ucData;}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00240}00240  \textcolor{keywordflow}{return} (ucLireDataIO);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00241}00241 \}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00242}00242 \textcolor{comment}{//fin routine ucRead\_IO-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00243}00243 }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00244}00244 }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00245}00245 \textcolor{comment}{//*********************************vWrite\_IO************************************}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00246}00246 \textcolor{comment}{//    Nom de la fonction : vWrite\_IO}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00247}00247 \textcolor{comment}{//    Auteur : Alain Champagne      }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00248}00248 \textcolor{comment}{//    Date de création : 21-\/12-\/2015}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00249}00249 \textcolor{comment}{//    Description :     Routine pour placer les lignes de données en sortie. }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00250}00250 \textcolor{comment}{//  }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00251}00251 \textcolor{comment}{//    Appel : vWrite\_IO(2, 0, 0x04);}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00252}00252 \textcolor{comment}{//            Permet d’écrire une donnée sur un dispositif dont le CS est le \#2,}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00253}00253 \textcolor{comment}{//            actif bas, et l'adresse est la 4 (00000100).}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00254}00254 \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00255}00255 \textcolor{comment}{//    Fonctions appelées : HAL\_GPIO\_WritePin(),  HAL\_GPIO\_ReadPin}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00256}00256 \textcolor{comment}{//    Paramètres d'entrée : CSx, Level, ucAdresse   }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00257}00257 \textcolor{comment}{//                          CSx : 0, 1, 2, 3, 4}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00258}00258 \textcolor{comment}{//                          Level : 0, 1}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00259}00259 \textcolor{comment}{//                          ucAdresse : 0x00 à 0x1F}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00260}00260 \textcolor{comment}{//    Paramètres de sortie : uint8\_t      }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00261}00261 \textcolor{comment}{//    Variables utilisées : CSx, Level, ucAdresse}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00262}00262 \textcolor{comment}{//    Equate : Aucun    }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00263}00263 \textcolor{comment}{//    \#Define : Aucun   }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00264}00264 \textcolor{comment}{//                      }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00265}00265 \textcolor{comment}{//******************************************************************************}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00266}00266 \textcolor{keywordtype}{void} vWriteIO(uint8\_t ucEcrireDataIO, uint8\_t CSx, uint8\_t Level, uint8\_t ucAdresse)}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00267}00267 \{}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00268}00268   \textcolor{keyword}{union}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00269}00269  \{       }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00270}00270    \textcolor{keyword}{struct }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00271}00271    \{}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00272}00272      \textcolor{keywordtype}{int} D0 : 1;                                 \textcolor{comment}{//Noms des bits.}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00273}00273      \textcolor{keywordtype}{int} D1 : 1;                                 \textcolor{comment}{//On ferait l'appel ainsi :}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00274}00274      \textcolor{keywordtype}{int} D2 : 1;                                 \textcolor{comment}{//unData.DataBit.D0 = 0;}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00275}00275      \textcolor{keywordtype}{int} D3 : 1;                                 \textcolor{comment}{//ou,}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00276}00276      \textcolor{keywordtype}{int} D4 : 1;                                 \textcolor{comment}{//unData.ucData = 0x03;}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00277}00277      \textcolor{keywordtype}{int} D5 : 1; }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00278}00278      \textcolor{keywordtype}{int} D6 : 1; }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00279}00279      \textcolor{keywordtype}{int} D7 : 1; }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00280}00280    \} DataBit;                                    \textcolor{comment}{//Nom du champ de bits.}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00281}00281    uint8\_t ucData;                               \textcolor{comment}{//Variable associée à la structure.  }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00282}00282  \}unData;                                        \textcolor{comment}{//Nom de l'union.}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00283}00283                                                  }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00284}00284  vData\_OUT ();                                   \textcolor{comment}{//Le port de Data est en }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00285}00285                                                  \textcolor{comment}{//sortie. }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00286}00286  unData.ucData = ucEcrireDataIO;                 \textcolor{comment}{//La donnée dans l'union.}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00287}00287  }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00288}00288  \textcolor{comment}{//Écrire la donnée dur le bus de données.}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00289}00289  \textcolor{keywordflow}{if} (unData.DataBit.D0 == 0)}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00290}00290    HAL\_GPIO\_WritePin(GPIOE, D0\_Pin, GPIO\_PIN\_RESET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00291}00291  \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00292}00292    HAL\_GPIO\_WritePin(GPIOE, D0\_Pin, GPIO\_PIN\_SET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00293}00293  \textcolor{keywordflow}{if} (unData.DataBit.D1 == 0)}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00294}00294    HAL\_GPIO\_WritePin(GPIOE, D1\_Pin, GPIO\_PIN\_RESET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00295}00295  \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00296}00296    HAL\_GPIO\_WritePin(GPIOE, D1\_Pin, GPIO\_PIN\_SET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00297}00297  \textcolor{keywordflow}{if} (unData.DataBit.D2 == 0)}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00298}00298    HAL\_GPIO\_WritePin(GPIOE, D2\_Pin, GPIO\_PIN\_RESET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00299}00299  \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00300}00300    HAL\_GPIO\_WritePin(GPIOE, D2\_Pin, GPIO\_PIN\_SET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00301}00301  \textcolor{keywordflow}{if} (unData.DataBit.D3 == 0)}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00302}00302    HAL\_GPIO\_WritePin(GPIOE, D3\_Pin, GPIO\_PIN\_RESET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00303}00303  \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00304}00304    HAL\_GPIO\_WritePin(GPIOE, D3\_Pin, GPIO\_PIN\_SET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00305}00305  \textcolor{keywordflow}{if} (unData.DataBit.D4 == 0)}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00306}00306    HAL\_GPIO\_WritePin(GPIOE, D4\_Pin, GPIO\_PIN\_RESET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00307}00307  \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00308}00308    HAL\_GPIO\_WritePin(GPIOE, D4\_Pin, GPIO\_PIN\_SET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00309}00309  \textcolor{keywordflow}{if} (unData.DataBit.D5 == 0)}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00310}00310    HAL\_GPIO\_WritePin(GPIOE, D5\_Pin, GPIO\_PIN\_RESET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00311}00311  \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00312}00312    HAL\_GPIO\_WritePin(GPIOE, D5\_Pin, GPIO\_PIN\_SET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00313}00313  \textcolor{keywordflow}{if} (unData.DataBit.D6 == 0)}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00314}00314    HAL\_GPIO\_WritePin(GPIOE, D6\_Pin, GPIO\_PIN\_RESET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00315}00315  \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00316}00316    HAL\_GPIO\_WritePin(GPIOE, D6\_Pin, GPIO\_PIN\_SET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00317}00317  \textcolor{keywordflow}{if} (unData.DataBit.D7 == 0)}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00318}00318    HAL\_GPIO\_WritePin(GPIOE, D7\_Pin, GPIO\_PIN\_RESET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00319}00319  \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00320}00320    HAL\_GPIO\_WritePin(GPIOE, D7\_Pin, GPIO\_PIN\_SET); }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00321}00321  }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00322}00322 }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00323}00323  \textcolor{comment}{//Affectation des lignes d'adresse.}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00324}00324  \textcolor{keywordflow}{if} ((ucAdresse \& 0x01) != 0)}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00325}00325    HAL\_GPIO\_WritePin(GPIOD, A0\_Pin, GPIO\_PIN\_SET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00326}00326  \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00327}00327    HAL\_GPIO\_WritePin(GPIOD, A0\_Pin, GPIO\_PIN\_RESET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00328}00328  \textcolor{keywordflow}{if} ((ucAdresse \& 0x02) != 0)}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00329}00329    HAL\_GPIO\_WritePin(GPIOD, A1\_Pin, GPIO\_PIN\_SET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00330}00330  \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00331}00331    HAL\_GPIO\_WritePin(GPIOD, A1\_Pin, GPIO\_PIN\_RESET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00332}00332  \textcolor{keywordflow}{if} ((ucAdresse \& 0x04) != 0)}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00333}00333    HAL\_GPIO\_WritePin(GPIOD, A2\_Pin, GPIO\_PIN\_SET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00334}00334  \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00335}00335    HAL\_GPIO\_WritePin(GPIOD, A2\_Pin, GPIO\_PIN\_RESET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00336}00336  \textcolor{keywordflow}{if} ((ucAdresse \& 0x08) != 0)}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00337}00337    HAL\_GPIO\_WritePin(GPIOD, A3\_Pin, GPIO\_PIN\_SET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00338}00338  \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00339}00339    HAL\_GPIO\_WritePin(GPIOD, A3\_Pin, GPIO\_PIN\_RESET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00340}00340  \textcolor{keywordflow}{if} ((ucAdresse \& 0x10) != 0)}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00341}00341    HAL\_GPIO\_WritePin(GPIOB, A4\_Pin, GPIO\_PIN\_SET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00342}00342  \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00343}00343    HAL\_GPIO\_WritePin(GPIOB, A4\_Pin, GPIO\_PIN\_RESET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00344}00344  }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00345}00345 \textcolor{comment}{//Choix du CS.  }}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00346}00346  \textcolor{keywordflow}{switch} (CSx)                                   }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00347}00347  \{}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00348}00348  \textcolor{keywordflow}{case} 0 :}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00349}00349    \textcolor{keywordflow}{if} (Level == 0)}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00350}00350      HAL\_GPIO\_WritePin(GPIOB, CS0\_Pin, GPIO\_PIN\_RESET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00351}00351    \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00352}00352      HAL\_GPIO\_WritePin(GPIOB, CS0\_Pin, GPIO\_PIN\_SET); }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00353}00353  \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00354}00354   }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00355}00355  \textcolor{keywordflow}{case} 1 :}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00356}00356    \textcolor{keywordflow}{if} (Level == 0)}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00357}00357      HAL\_GPIO\_WritePin(GPIOB, CS1\_Pin, GPIO\_PIN\_RESET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00358}00358    \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00359}00359      HAL\_GPIO\_WritePin(GPIOB, CS1\_Pin, GPIO\_PIN\_SET); }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00360}00360  \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00361}00361  }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00362}00362  \textcolor{keywordflow}{case} 2 :}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00363}00363    \textcolor{keywordflow}{if} (Level == 0)}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00364}00364      HAL\_GPIO\_WritePin(GPIOB, CS2\_Pin, GPIO\_PIN\_RESET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00365}00365    \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00366}00366      HAL\_GPIO\_WritePin(GPIOB, CS2\_Pin, GPIO\_PIN\_SET); }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00367}00367  \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00368}00368  }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00369}00369  \textcolor{keywordflow}{case} 3 :}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00370}00370    \textcolor{keywordflow}{if} (Level == 0)}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00371}00371      HAL\_GPIO\_WritePin(GPIOB, CS3\_Pin, GPIO\_PIN\_RESET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00372}00372    \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00373}00373      HAL\_GPIO\_WritePin(GPIOB, CS3\_Pin, GPIO\_PIN\_SET); }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00374}00374  \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00375}00375   }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00376}00376  default :}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00377}00377  \textcolor{keywordflow}{break};   }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00378}00378  \}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00379}00379  }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00380}00380  \textcolor{comment}{//Remettre le CS inactif.}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00381}00381  \textcolor{keywordflow}{switch} (CSx)}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00382}00382  \{}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00383}00383  \textcolor{keywordflow}{case} 0 :}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00384}00384    \textcolor{keywordflow}{if} (Level == 0)}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00385}00385      HAL\_GPIO\_WritePin(GPIOB, CS0\_Pin, GPIO\_PIN\_SET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00386}00386    \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00387}00387      HAL\_GPIO\_WritePin(GPIOB, CS0\_Pin, GPIO\_PIN\_RESET); }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00388}00388  \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00389}00389   }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00390}00390  \textcolor{keywordflow}{case} 1 :}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00391}00391    \textcolor{keywordflow}{if} (Level == 0)}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00392}00392      HAL\_GPIO\_WritePin(GPIOB, CS1\_Pin, GPIO\_PIN\_SET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00393}00393    \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00394}00394      HAL\_GPIO\_WritePin(GPIOB, CS1\_Pin, GPIO\_PIN\_RESET); }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00395}00395  \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00396}00396  }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00397}00397  \textcolor{keywordflow}{case} 2 :}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00398}00398    \textcolor{keywordflow}{if} (Level == 0)}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00399}00399      HAL\_GPIO\_WritePin(GPIOB, CS2\_Pin, GPIO\_PIN\_SET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00400}00400    \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00401}00401      HAL\_GPIO\_WritePin(GPIOB, CS2\_Pin, GPIO\_PIN\_RESET); }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00402}00402  \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00403}00403  }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00404}00404  \textcolor{keywordflow}{case} 3 :}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00405}00405    \textcolor{keywordflow}{if} (Level == 0)}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00406}00406      HAL\_GPIO\_WritePin(GPIOB, CS3\_Pin, GPIO\_PIN\_SET);}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00407}00407    \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00408}00408      HAL\_GPIO\_WritePin(GPIOB, CS3\_Pin, GPIO\_PIN\_RESET); }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00409}00409  \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00410}00410   }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00411}00411  default :}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00412}00412  \textcolor{keywordflow}{break};   }
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00413}00413  \}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00414}00414 \}}
+\DoxyCodeLine{\Hypertarget{_i_o___b_u_s_8c_source_l00415}00415 \textcolor{comment}{//fin routine vWrite\_IO-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+
+\end{DoxyCode}

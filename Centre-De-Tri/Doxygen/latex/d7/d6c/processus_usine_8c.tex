@@ -1,0 +1,1191 @@
+\hypertarget{processus_usine_8c}{}\doxysection{Référence du fichier U\+:/\+Sessions/\+Session 5/\+Project/\+Projet\+\_\+\+Fin\+\_\+\+Session/\+Projet-\/5e-\/\+Session/\+Centre-\/\+De-\/\+Tri/\+Centre\+De\+Tri\+S5/\+Src/processus\+Usine.c}
+\label{processus_usine_8c}\index{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Tri/CentreDeTriS5/Src/processusUsine.c@{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Tri/CentreDeTriS5/Src/processusUsine.c}}
+
+
+Processus principal du centre de tri pour le projet de 5e session.  
+
+
+{\ttfamily \#include \char`\"{}main.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}service\+Base\+De\+Temps.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Service\+Communication.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}pilote\+CAN1.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}processus\+Usine.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}pilote\+I2\+C.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}interface\+T1.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}interface\+T2.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}interface\+T4.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}interface\+Usine.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}interface\+Colonne.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}interface\+Pont.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}interface\+B1.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}interface\+Step\+Moteur.\+h\char`\"{}}\newline
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{processus_usine_8c_a0472bb07fbfc1da26d0344aba8436316}{DELAI\+\_\+\+MAX\+\_\+\+INITIALISATION}}~50000
+\begin{DoxyCompactList}\small\item\em Delai maximal du timeout de l\textquotesingle{}initialisation. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{processus_usine_8c_a54966a5bfb7d4cb15c90b338f64abe3f}{DELAI\+\_\+\+MAX\+\_\+\+EJECTION}}~1000
+\begin{DoxyCompactList}\small\item\em Delai maximal du timeout de l\textquotesingle{}éjection. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{processus_usine_8c_a5680cb964994bc864838f602982a19a1}{DELAI\+\_\+\+MAX\+\_\+\+DETECTION}}~5000
+\begin{DoxyCompactList}\small\item\em Delai maximal du timeout de la détection d\textquotesingle{}un bloc. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{processus_usine_8c_a536a60d7d9299c83978ea50d13f826ec}{DELAI\+\_\+\+AVANT\+\_\+\+DETECTION}}~1000
+\begin{DoxyCompactList}\small\item\em Delai d\textquotesingle{}attente avant de déceter le bloc. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{processus_usine_8c_a71e635e7e4b1f7e29e954304751a941e}{DELAI\+\_\+\+MAX\+\_\+\+ELEVATEUR\+\_\+\+HAUT}}~10000
+\begin{DoxyCompactList}\small\item\em Delai maximal du timeout de l\textquotesingle{}élévateur en haut. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{processus_usine_8c_a28436137d4091540f595e0666f54c507}{DELAI\+\_\+\+MAX\+\_\+\+ATTEND\+\_\+\+CHUTE}}~10000
+\begin{DoxyCompactList}\small\item\em Delai maximal du timeout de l\textquotesingle{}attente d\textquotesingle{}un bloc à la chute. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{processus_usine_8c_af3393600d96f463ed342edada200e4e3}{DELAI\+\_\+\+VENTOUSE\+\_\+\+DESCEND}}~1000
+\begin{DoxyCompactList}\small\item\em Delai maximal du timeout de la déscente de la ventouse. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{processus_usine_8c_a749b426eda6c29b60b539e52b1de7bce}{DELAI\+\_\+\+MAX\+\_\+\+PISTON}}~3000
+\begin{DoxyCompactList}\small\item\em Delai maximal du timeout de la montée de la ventouse. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{processus_usine_8c_a2e5a2c7f82e751273e05ebd822b9c2d0}{DELAI2\+SEC}}~4000
+\begin{DoxyCompactList}\small\item\em Valeur a utiliser pour faire un délai de 2 secondes. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{processus_usine_8c_a26fe3df954b710b5ae615990e68c3bc1}{TEST\+\_\+\+VITESSELEDCLIGNOTE}}~2000
+\begin{DoxyCompactList}\small\item\em Période du clignotement de la lumière verte en mode de tests. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{processus_usine_8c_a753b46875c36f715d63e6d6e4e15ba55}{BLOC\+\_\+\+AUCUN}}~0
+\begin{DoxyCompactList}\small\item\em État de uc\+Type\+De\+Bloc lorsqu\textquotesingle{}il n\textquotesingle{}y a pas de bloc. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{processus_usine_8c_afe3b77a5f72957c7f3936857a2b40148}{BLOC\+\_\+\+ROUGE}}~1
+\begin{DoxyCompactList}\small\item\em État de uc\+Type\+De\+Bloc quand le bloc est rouge. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{processus_usine_8c_a597b51f69db62495da69b948c1a3af1f}{BLOC\+\_\+\+NOIR}}~2
+\begin{DoxyCompactList}\small\item\em État de uc\+Type\+De\+Bloc quand le bloc est noir. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{processus_usine_8c_ae9267ae7bcbbaddf12efe363ce18f559}{BLOC\+\_\+\+METAL}}~3
+\begin{DoxyCompactList}\small\item\em État de uc\+Type\+De\+Bloc quand le bloc est métallique. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{processus_usine_8c_a0f3ae0ec2fdc423cb9f3876141ec3ac8}{BLOC\+\_\+\+INCONNU}}~4
+\begin{DoxyCompactList}\small\item\em État de uc\+Type\+De\+Bloc quand il y a un bloc de type inconnu. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{processus_usine_8c_a3e75ee5a3b1288a65bcf3a5c83518bf0}{ETAT\+\_\+\+CAPTEUR\+\_\+\+CAP\+\_\+\+POUR\+\_\+\+BLOC\+\_\+\+NOIR}}~1
+\begin{DoxyCompactList}\small\item\em État du capteur capacitif lorsque le bloc est noir. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{processus_usine_8c_a5164208a040b949349cd864deb2cf041}{ETAT\+\_\+\+CAPTEUR\+\_\+\+MAG\+\_\+\+POUR\+\_\+\+BLOC\+\_\+\+NOIR}}~0
+\begin{DoxyCompactList}\small\item\em État du capteur magnétique lorsque le bloc est noir. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{processus_usine_8c_a13ce0fab4c0a0e6a765f428d419b920b}{ETAT\+\_\+\+CAPTEUR\+\_\+\+OPT\+\_\+\+POUR\+\_\+\+BLOC\+\_\+\+NOIR}}~0
+\begin{DoxyCompactList}\small\item\em État du capteur optique lorsque le bloc est noir. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{processus_usine_8c_a7e0f5094636e50695a3020f472c2d056}{ETAT\+\_\+\+CAPTEUR\+\_\+\+CAP\+\_\+\+POUR\+\_\+\+BLOC\+\_\+\+ROUGE}}~1
+\begin{DoxyCompactList}\small\item\em État du capteur capacitif lorsque le bloc est rouge. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{processus_usine_8c_a24d7217fc3e5d8988413497297779434}{ETAT\+\_\+\+CAPTEUR\+\_\+\+MAG\+\_\+\+POUR\+\_\+\+BLOC\+\_\+\+ROUGE}}~0
+\begin{DoxyCompactList}\small\item\em État du capteur magnétique lorsque le bloc est rouge. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{processus_usine_8c_af68a88fe72b70cf93ed78c3aba130cbb}{ETAT\+\_\+\+CAPTEUR\+\_\+\+OPT\+\_\+\+POUR\+\_\+\+BLOC\+\_\+\+ROUGE}}~1
+\begin{DoxyCompactList}\small\item\em État du capteur optique lorsque le bloc est rouge. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{processus_usine_8c_a65bec3ebc3c50ec86835006a207ee1a0}{ETAT\+\_\+\+CAPTEUR\+\_\+\+CAP\+\_\+\+POUR\+\_\+\+BLOC\+\_\+\+METAL}}~1
+\begin{DoxyCompactList}\small\item\em État du capteur capacitif lorsque le bloc est métallique. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{processus_usine_8c_adb34501b6cb1a22ea8360c815a098b98}{ETAT\+\_\+\+CAPTEUR\+\_\+\+MAG\+\_\+\+POUR\+\_\+\+BLOC\+\_\+\+METAL}}~1
+\begin{DoxyCompactList}\small\item\em État du capteur magnétique lorsque le bloc est métallique. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{processus_usine_8c_ab965aa1afd9c1486fa4665e0ef48ee0a}{ETAT\+\_\+\+CAPTEUR\+\_\+\+OPT\+\_\+\+POUR\+\_\+\+BLOC\+\_\+\+METAL}}~1
+\begin{DoxyCompactList}\small\item\em État du capteur optique lorsque le bloc est métallique. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{processus_usine_8c_a5779cae8a3374665766dea13eed40c54}{ETAT\+\_\+\+CAPTEUR\+\_\+\+CAP\+\_\+\+POUR\+\_\+\+BLOC\+\_\+\+AUCUN}}~0
+\begin{DoxyCompactList}\small\item\em État du capteur capacitif lorsqu\textquotesingle{}il n\textquotesingle{}y a pas de bloc. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{processus_usine_8c_a1a18e10bc0cfa6dd792390ed6c87e73b}{ETAT\+\_\+\+CAPTEUR\+\_\+\+MAG\+\_\+\+POUR\+\_\+\+BLOC\+\_\+\+AUCUN}}~0
+\begin{DoxyCompactList}\small\item\em État du capteur magnétique lorsqu\textquotesingle{}il n\textquotesingle{}y a pas de bloc. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{processus_usine_8c_aa6c5b993f46d357a4305c5420d077daf}{ETAT\+\_\+\+CAPTEUR\+\_\+\+OPT\+\_\+\+POUR\+\_\+\+BLOC\+\_\+\+AUCUN}}~0
+\begin{DoxyCompactList}\small\item\em État du capteur optique lorsqu\textquotesingle{}il n\textquotesingle{}y a pas de bloc. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{processus_usine_8c_afc6c1f8099ff507aa17642aba862e5e8}{DELAITEST\+\_\+\+RESET}}~1
+\begin{DoxyCompactList}\small\item\em Valeur a envoyer a la fonction \mbox{\hyperlink{processus_usine_8c_ad5e544d13dcd3245bd835325c703826a}{delai\+Mode\+De\+Test}} quand on veut mettre le delai à 0. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{processus_usine_8c_a04c0c44aafdba09804a753750114f5ec}{DELAITEST\+\_\+\+UTILISE}}~0
+\begin{DoxyCompactList}\small\item\em Valeur a envoyer a la fonction \mbox{\hyperlink{processus_usine_8c_ad5e544d13dcd3245bd835325c703826a}{delai\+Mode\+De\+Test}} quand on veut utiliser le delai. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{processus_usine_8c_a01e6aaad370a0dccc7843aae28e2b00f}{DELAITEST\+\_\+\+TERMINE}}~1
+\begin{DoxyCompactList}\small\item\em Valeur retournée par la fonction \mbox{\hyperlink{processus_usine_8c_ad5e544d13dcd3245bd835325c703826a}{delai\+Mode\+De\+Test}} quand le délai est terminé. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{processus_usine_8c_a999adfffb7164e3794716a3d1e92f37c}{DELAITEST\+\_\+\+EN\+\_\+\+COURS}}~0
+\begin{DoxyCompactList}\small\item\em Valeur retournée par la fonction \mbox{\hyperlink{processus_usine_8c_ad5e544d13dcd3245bd835325c703826a}{delai\+Mode\+De\+Test}} quand le délai n\textquotesingle{}est pas terminé. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{processus_usine_8c_ac09c74b0530234687512334ac1cc3d81}{VALEUR\+\_\+\+DELAI\+\_\+\+MODE\+\_\+\+DE\+\_\+\+TEST}}~4000
+\begin{DoxyCompactList}\small\item\em Valeur en 1/2ms du délai de la fonction \mbox{\hyperlink{processus_usine_8c_ad5e544d13dcd3245bd835325c703826a}{delai\+Mode\+De\+Test}}. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{processus_usine_8c_a515e1f28c9f8b319b0734ba24edbce16}{DELAI\+\_\+\+MAX\+\_\+\+TESTS}}~3900
+\begin{DoxyCompactList}\small\item\em Valeur maximale du compteur de timeout pour le mode de test. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{processus_usine_8c_abe1bc7edb9cbf7aa4f1a0e0dbaaf42ed}{DELAI\+\_\+\+MAX\+\_\+\+TESTS\+\_\+\+PONT}}~30000
+\begin{DoxyCompactList}\small\item\em Valeur maximale du compteur de timeout pour le pont en mode de test. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{processus_usine_8c_af3cbc6e19c691152caa8ca4bfd966dd6}\label{processus_usine_8c_af3cbc6e19c691152caa8ca4bfd966dd6}} 
+\#define {\bfseries ALLUME}~1
+\item 
+\mbox{\Hypertarget{processus_usine_8c_a731667f79870595283efb4cf30d3b308}\label{processus_usine_8c_a731667f79870595283efb4cf30d3b308}} 
+\#define {\bfseries ETEINT}~0
+\item 
+\mbox{\Hypertarget{processus_usine_8c_a41b4964a7b71f43a0be8dcc93fcf1506}\label{processus_usine_8c_a41b4964a7b71f43a0be8dcc93fcf1506}} 
+\#define {\bfseries CLIGNOTE}~2
+\end{DoxyCompactItemize}
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{processus_usine_8c_a380cd42a4e3361d9c2ddb8d24a7fe21b}{mode\+Operation\+\_\+lance\+Initialisation}} (void)
+\item 
+void \mbox{\hyperlink{processus_usine_8c_ad6742a23018abde925d56fd029ee27f4}{mode\+Operation\+\_\+attend\+Fin\+Initialisation}} (void)
+\item 
+void \mbox{\hyperlink{processus_usine_8c_a891bfd30fbef91d16c6bfdbc48981802}{mode\+Operation\+\_\+pousse\+Un\+Bloc}} (void)
+\item 
+void \mbox{\hyperlink{processus_usine_8c_a0d510a77065ce51bb112ad80356ee91b}{mode\+Operation\+\_\+detecte\+Le\+Bloc}} (void)
+\item 
+void \mbox{\hyperlink{processus_usine_8c_aba70daf9cd20416ad974f5e7ab9f58a8}{mode\+Operation\+\_\+monte\+Elevateur}} (void)
+\item 
+void \mbox{\hyperlink{processus_usine_8c_a0490f3a5354a4d5b3d948574d68de6f4}{mode\+Operation\+\_\+attend\+Elevateur\+En\+Haut}} (void)
+\item 
+void \mbox{\hyperlink{processus_usine_8c_a9c3e38646e7abe3194561011407d7798}{mode\+Operation\+\_\+ejecte\+Un\+Bloc}} (void)
+\item 
+void \mbox{\hyperlink{processus_usine_8c_a74947563c0ea96392dc7f35bec60285f}{mode\+Operation\+\_\+attend\+Bloc\+Chute}} (void)
+\item 
+void \mbox{\hyperlink{processus_usine_8c_a2e24c2aa667f32121fe5eecdae351f28}{mode\+Operation\+\_\+attend\+Pont\+Pos0}} (void)
+\item 
+void \mbox{\hyperlink{processus_usine_8c_a81c5bf758a65c6d522178c83bcff434b}{mode\+Operation\+\_\+attend\+Bloc\+Aspire}} (void)
+\item 
+void \mbox{\hyperlink{processus_usine_8c_a9d76331edab5b4416dacd52244924edd}{mode\+Operation\+\_\+attend\+Ventouse\+Haut}} (void)
+\item 
+void \mbox{\hyperlink{processus_usine_8c_a50720f1020d98e5243b6844110824d09}{mode\+Operation\+\_\+va\+ALa\+Fosse}} (void)
+\item 
+void \mbox{\hyperlink{processus_usine_8c_abdbe45f72deb15cc93d492adbd3376c8}{mode\+Operation\+\_\+va\+ALAscenseur}} (void)
+\item 
+void \mbox{\hyperlink{processus_usine_8c_a012f17a4805422fcdb460359b7816b71}{mode\+Operation\+\_\+attend\+Fin\+Jette\+Bloc}} (void)
+\item 
+void \mbox{\hyperlink{processus_usine_8c_aa022c6ee341027b78103ced6d74dfc7f}{mode\+Operation\+\_\+attend\+Ascenseur\+Bas}} (void)
+\item 
+void \mbox{\hyperlink{processus_usine_8c_ad6f0c52cc83a3a96a4994588060b7a9e}{mode\+De\+Tests\+\_\+teste\+La\+Colonne\+Lumineuse}} (void)
+\item 
+void \mbox{\hyperlink{processus_usine_8c_a36beecab114d4895c1efe5c63ebb500d}{mode\+De\+Tests\+\_\+teste\+Les\+Entrees}} (void)
+\item 
+void \mbox{\hyperlink{processus_usine_8c_af998c3072bbb5a1a27947671cb71df43}{mode\+De\+Tests\+\_\+active\+Le\+Verin\+Du\+Magasin}} (void)
+\item 
+void \mbox{\hyperlink{processus_usine_8c_a63c4e2337c080d5eafc2633e3e550887}{mode\+De\+Tests\+\_\+desactive\+Le\+Verin\+Du\+Magasin}} (void)
+\item 
+void \mbox{\hyperlink{processus_usine_8c_a201280c720d9340d3402270521be3b34}{mode\+De\+Tests\+\_\+monte\+Elevateur}} (void)
+\item 
+void \mbox{\hyperlink{processus_usine_8c_abb4f577862bf1af892e3a34ef2251b6b}{mode\+De\+Tests\+\_\+descend\+Elevateur}} (void)
+\item 
+void \mbox{\hyperlink{processus_usine_8c_a6245e66f7308598975a2d6236813d308}{mode\+De\+Tests\+\_\+activele\+Convoyeur}} (void)
+\item 
+void \mbox{\hyperlink{processus_usine_8c_abcbc7839413bc54d154eb072d0f6c4ec}{mode\+De\+Tests\+\_\+desactive\+Le\+Convoyeur}} (void)
+\item 
+void \mbox{\hyperlink{processus_usine_8c_a9b0f30563e05ddd84a64bdaa1669f06b}{mode\+De\+Tests\+\_\+active\+Ejecteur}} (void)
+\item 
+void \mbox{\hyperlink{processus_usine_8c_aa2a6ffa08a723b67bd72b6dea20a0de9}{mode\+De\+Tests\+\_\+desactive\+Ejecteur}} (void)
+\item 
+void \mbox{\hyperlink{processus_usine_8c_a597b8e2a443a0e8316caf59a19e406a4}{mode\+De\+Tests\+\_\+active\+La\+Ventouse}} (void)
+\item 
+void \mbox{\hyperlink{processus_usine_8c_a6c41988ae67d470e61e060a0de8b1c42}{mode\+De\+Tests\+\_\+desactive\+La\+Ventouse}} (void)
+\item 
+void \mbox{\hyperlink{processus_usine_8c_af73b81ee7bd371a2e17ef342c0c1be0b}{mode\+De\+Tests\+\_\+descend\+La\+Ventouse}} (void)
+\item 
+void \mbox{\hyperlink{processus_usine_8c_a7719dbd188a72f7065f33c042682fee5}{mode\+De\+Tests\+\_\+monte\+La\+Ventouse}} (void)
+\item 
+void \mbox{\hyperlink{processus_usine_8c_a8e1cbbabfb28c33dc095053e17c7d584}{mode\+De\+Tests\+\_\+att\+Fin\+Init\+Pont}} (void)
+\item 
+void \mbox{\hyperlink{processus_usine_8c_afa5cb619f19bfce73c609ab296b6bb73}{mode\+De\+Tests\+\_\+deplace\+La\+Ventouse}} (void)
+\item 
+void \mbox{\hyperlink{processus_usine_8c_a7aebd9c7cce0164c3efa044aa49df92c}{mode\+De\+Tests\+\_\+replace\+Laventouse}} (void)
+\item 
+bool \mbox{\hyperlink{processus_usine_8c_ad5e544d13dcd3245bd835325c703826a}{delai\+Mode\+De\+Test}} (bool reset)
+\begin{DoxyCompactList}\small\item\em Cette fonction, appelée de façon récurrente, compte jusqu\textquotesingle{}à VALEUR\+\_\+\+DELAI\+\_\+\+MODE\+\_\+\+DE\+\_\+\+TEST, puis retourne un 1 cela permet de faire un délai de 2 sec pour plusieurs des étais du mode de tests sans copier coller un gros bout de code à chaque fois. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{processus_usine_8c_a2d80783ebc4b18d3bababec851a90fd3}{mode\+Test\+\_\+clignote}} (void)
+\begin{DoxyCompactList}\small\item\em Fais clignoter la lumière verte pour signifier que l\textquotesingle{}usine est en mode de tests. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{processus_usine_8c_af458ec9acc88c8fb39d33d7705d972ef}{update\+Disc\+Color}} (void)
+\item 
+void \mbox{\hyperlink{processus_usine_8c_a8599cda56ec57ff9a6d585f39150de90}{processus\+Usine\+\_\+erreur}} (void)
+\begin{DoxyCompactList}\small\item\em État erreur de la machine à état des modes de l\textquotesingle{}usine. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{processus_usine_8c_afe81c3b21d0517d1513d01ee198f1ef4}{processus\+Usine\+\_\+attente}} (void)
+\begin{DoxyCompactList}\small\item\em État attente de la machine à état des modes de l\textquotesingle{}usine. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{processus_usine_8c_a21769ddfa68e77bc42edd208d83635b4}{processus\+Usine\+\_\+operation}} (void)
+\begin{DoxyCompactList}\small\item\em État mode opération de la machine à état des modes de l\textquotesingle{}usine. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{processus_usine_8c_a816ea11141fcb260aeeff6c73101ec1c}{processus\+Usine\+\_\+arret}} (void)
+\begin{DoxyCompactList}\small\item\em État mode arrêt de la machine à état des modes de l\textquotesingle{}usine. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{processus_usine_8c_adeaaeb00f94fdf194cf42bfc07a7de60}{processus\+Usine\+\_\+tests}} (void)
+\begin{DoxyCompactList}\small\item\em État mode tests de la machine à état des modes de l\textquotesingle{}usine. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{processus_usine_8c_a0e6486727d0d089bd579f4bc0bdc6993}{processus\+Usine\+\_\+initialise}} (void)
+\begin{DoxyCompactList}\small\item\em État initialise de la machine à état des modes de l\textquotesingle{}usine. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+void($\ast$ \mbox{\hyperlink{processus_usine_8c_a487ffcfa70ccc9f9046bfc490c72aec6}{mode\+Operation\+\_\+execute}} )(void)
+\begin{DoxyCompactList}\small\item\em Pointeur de fonction utilisé pour la sous machine à états du mode opération. \end{DoxyCompactList}\item 
+void($\ast$ \mbox{\hyperlink{processus_usine_8c_a9e4cd96f47d9d046678372d50b44a295}{mode\+Test\+\_\+execute}} )(void)
+\begin{DoxyCompactList}\small\item\em Pointeur de fonction utilisé pour la sous machine à états du mode de tests. \end{DoxyCompactList}\item 
+unsigned char \mbox{\hyperlink{processus_usine_8c_a0c99c63d221aab849e92b3f149fba737}{uc\+Type\+De\+Bloc}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Processus principal du centre de tri pour le projet de 5e session. 
+
+\begin{DoxyAuthor}{Auteur}
+Renaud Gagnon 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2022-\/11-\/18
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2022 
+\end{DoxyCopyright}
+
+
+Définition dans le fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+
+
+\doxysubsection{Documentation des macros}
+\mbox{\Hypertarget{processus_usine_8c_a753b46875c36f715d63e6d6e4e15ba55}\label{processus_usine_8c_a753b46875c36f715d63e6d6e4e15ba55}} 
+\index{processusUsine.c@{processusUsine.c}!BLOC\_AUCUN@{BLOC\_AUCUN}}
+\index{BLOC\_AUCUN@{BLOC\_AUCUN}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{BLOC\_AUCUN}{BLOC\_AUCUN}}
+{\footnotesize\ttfamily \#define BLOC\+\_\+\+AUCUN~0}
+
+
+
+État de uc\+Type\+De\+Bloc lorsqu\textquotesingle{}il n\textquotesingle{}y a pas de bloc. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00086}{86}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a0f3ae0ec2fdc423cb9f3876141ec3ac8}\label{processus_usine_8c_a0f3ae0ec2fdc423cb9f3876141ec3ac8}} 
+\index{processusUsine.c@{processusUsine.c}!BLOC\_INCONNU@{BLOC\_INCONNU}}
+\index{BLOC\_INCONNU@{BLOC\_INCONNU}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{BLOC\_INCONNU}{BLOC\_INCONNU}}
+{\footnotesize\ttfamily \#define BLOC\+\_\+\+INCONNU~4}
+
+
+
+État de uc\+Type\+De\+Bloc quand il y a un bloc de type inconnu. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00106}{106}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_ae9267ae7bcbbaddf12efe363ce18f559}\label{processus_usine_8c_ae9267ae7bcbbaddf12efe363ce18f559}} 
+\index{processusUsine.c@{processusUsine.c}!BLOC\_METAL@{BLOC\_METAL}}
+\index{BLOC\_METAL@{BLOC\_METAL}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{BLOC\_METAL}{BLOC\_METAL}}
+{\footnotesize\ttfamily \#define BLOC\+\_\+\+METAL~3}
+
+
+
+État de uc\+Type\+De\+Bloc quand le bloc est métallique. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00101}{101}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a597b51f69db62495da69b948c1a3af1f}\label{processus_usine_8c_a597b51f69db62495da69b948c1a3af1f}} 
+\index{processusUsine.c@{processusUsine.c}!BLOC\_NOIR@{BLOC\_NOIR}}
+\index{BLOC\_NOIR@{BLOC\_NOIR}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{BLOC\_NOIR}{BLOC\_NOIR}}
+{\footnotesize\ttfamily \#define BLOC\+\_\+\+NOIR~2}
+
+
+
+État de uc\+Type\+De\+Bloc quand le bloc est noir. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00096}{96}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_afe3b77a5f72957c7f3936857a2b40148}\label{processus_usine_8c_afe3b77a5f72957c7f3936857a2b40148}} 
+\index{processusUsine.c@{processusUsine.c}!BLOC\_ROUGE@{BLOC\_ROUGE}}
+\index{BLOC\_ROUGE@{BLOC\_ROUGE}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{BLOC\_ROUGE}{BLOC\_ROUGE}}
+{\footnotesize\ttfamily \#define BLOC\+\_\+\+ROUGE~1}
+
+
+
+État de uc\+Type\+De\+Bloc quand le bloc est rouge. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00091}{91}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a2e5a2c7f82e751273e05ebd822b9c2d0}\label{processus_usine_8c_a2e5a2c7f82e751273e05ebd822b9c2d0}} 
+\index{processusUsine.c@{processusUsine.c}!DELAI2SEC@{DELAI2SEC}}
+\index{DELAI2SEC@{DELAI2SEC}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{DELAI2SEC}{DELAI2SEC}}
+{\footnotesize\ttfamily \#define DELAI2\+SEC~4000}
+
+
+
+Valeur a utiliser pour faire un délai de 2 secondes. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00074}{74}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a536a60d7d9299c83978ea50d13f826ec}\label{processus_usine_8c_a536a60d7d9299c83978ea50d13f826ec}} 
+\index{processusUsine.c@{processusUsine.c}!DELAI\_AVANT\_DETECTION@{DELAI\_AVANT\_DETECTION}}
+\index{DELAI\_AVANT\_DETECTION@{DELAI\_AVANT\_DETECTION}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{DELAI\_AVANT\_DETECTION}{DELAI\_AVANT\_DETECTION}}
+{\footnotesize\ttfamily \#define DELAI\+\_\+\+AVANT\+\_\+\+DETECTION~1000}
+
+
+
+Delai d\textquotesingle{}attente avant de déceter le bloc. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00049}{49}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a28436137d4091540f595e0666f54c507}\label{processus_usine_8c_a28436137d4091540f595e0666f54c507}} 
+\index{processusUsine.c@{processusUsine.c}!DELAI\_MAX\_ATTEND\_CHUTE@{DELAI\_MAX\_ATTEND\_CHUTE}}
+\index{DELAI\_MAX\_ATTEND\_CHUTE@{DELAI\_MAX\_ATTEND\_CHUTE}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{DELAI\_MAX\_ATTEND\_CHUTE}{DELAI\_MAX\_ATTEND\_CHUTE}}
+{\footnotesize\ttfamily \#define DELAI\+\_\+\+MAX\+\_\+\+ATTEND\+\_\+\+CHUTE~10000}
+
+
+
+Delai maximal du timeout de l\textquotesingle{}attente d\textquotesingle{}un bloc à la chute. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00059}{59}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a5680cb964994bc864838f602982a19a1}\label{processus_usine_8c_a5680cb964994bc864838f602982a19a1}} 
+\index{processusUsine.c@{processusUsine.c}!DELAI\_MAX\_DETECTION@{DELAI\_MAX\_DETECTION}}
+\index{DELAI\_MAX\_DETECTION@{DELAI\_MAX\_DETECTION}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{DELAI\_MAX\_DETECTION}{DELAI\_MAX\_DETECTION}}
+{\footnotesize\ttfamily \#define DELAI\+\_\+\+MAX\+\_\+\+DETECTION~5000}
+
+
+
+Delai maximal du timeout de la détection d\textquotesingle{}un bloc. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00044}{44}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a54966a5bfb7d4cb15c90b338f64abe3f}\label{processus_usine_8c_a54966a5bfb7d4cb15c90b338f64abe3f}} 
+\index{processusUsine.c@{processusUsine.c}!DELAI\_MAX\_EJECTION@{DELAI\_MAX\_EJECTION}}
+\index{DELAI\_MAX\_EJECTION@{DELAI\_MAX\_EJECTION}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{DELAI\_MAX\_EJECTION}{DELAI\_MAX\_EJECTION}}
+{\footnotesize\ttfamily \#define DELAI\+\_\+\+MAX\+\_\+\+EJECTION~1000}
+
+
+
+Delai maximal du timeout de l\textquotesingle{}éjection. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00039}{39}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a71e635e7e4b1f7e29e954304751a941e}\label{processus_usine_8c_a71e635e7e4b1f7e29e954304751a941e}} 
+\index{processusUsine.c@{processusUsine.c}!DELAI\_MAX\_ELEVATEUR\_HAUT@{DELAI\_MAX\_ELEVATEUR\_HAUT}}
+\index{DELAI\_MAX\_ELEVATEUR\_HAUT@{DELAI\_MAX\_ELEVATEUR\_HAUT}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{DELAI\_MAX\_ELEVATEUR\_HAUT}{DELAI\_MAX\_ELEVATEUR\_HAUT}}
+{\footnotesize\ttfamily \#define DELAI\+\_\+\+MAX\+\_\+\+ELEVATEUR\+\_\+\+HAUT~10000}
+
+
+
+Delai maximal du timeout de l\textquotesingle{}élévateur en haut. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00054}{54}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a0472bb07fbfc1da26d0344aba8436316}\label{processus_usine_8c_a0472bb07fbfc1da26d0344aba8436316}} 
+\index{processusUsine.c@{processusUsine.c}!DELAI\_MAX\_INITIALISATION@{DELAI\_MAX\_INITIALISATION}}
+\index{DELAI\_MAX\_INITIALISATION@{DELAI\_MAX\_INITIALISATION}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{DELAI\_MAX\_INITIALISATION}{DELAI\_MAX\_INITIALISATION}}
+{\footnotesize\ttfamily \#define DELAI\+\_\+\+MAX\+\_\+\+INITIALISATION~50000}
+
+
+
+Delai maximal du timeout de l\textquotesingle{}initialisation. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00034}{34}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a749b426eda6c29b60b539e52b1de7bce}\label{processus_usine_8c_a749b426eda6c29b60b539e52b1de7bce}} 
+\index{processusUsine.c@{processusUsine.c}!DELAI\_MAX\_PISTON@{DELAI\_MAX\_PISTON}}
+\index{DELAI\_MAX\_PISTON@{DELAI\_MAX\_PISTON}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{DELAI\_MAX\_PISTON}{DELAI\_MAX\_PISTON}}
+{\footnotesize\ttfamily \#define DELAI\+\_\+\+MAX\+\_\+\+PISTON~3000}
+
+
+
+Delai maximal du timeout de la montée de la ventouse. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00069}{69}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a515e1f28c9f8b319b0734ba24edbce16}\label{processus_usine_8c_a515e1f28c9f8b319b0734ba24edbce16}} 
+\index{processusUsine.c@{processusUsine.c}!DELAI\_MAX\_TESTS@{DELAI\_MAX\_TESTS}}
+\index{DELAI\_MAX\_TESTS@{DELAI\_MAX\_TESTS}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{DELAI\_MAX\_TESTS}{DELAI\_MAX\_TESTS}}
+{\footnotesize\ttfamily \#define DELAI\+\_\+\+MAX\+\_\+\+TESTS~3900}
+
+
+
+Valeur maximale du compteur de timeout pour le mode de test. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00201}{201}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_abe1bc7edb9cbf7aa4f1a0e0dbaaf42ed}\label{processus_usine_8c_abe1bc7edb9cbf7aa4f1a0e0dbaaf42ed}} 
+\index{processusUsine.c@{processusUsine.c}!DELAI\_MAX\_TESTS\_PONT@{DELAI\_MAX\_TESTS\_PONT}}
+\index{DELAI\_MAX\_TESTS\_PONT@{DELAI\_MAX\_TESTS\_PONT}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{DELAI\_MAX\_TESTS\_PONT}{DELAI\_MAX\_TESTS\_PONT}}
+{\footnotesize\ttfamily \#define DELAI\+\_\+\+MAX\+\_\+\+TESTS\+\_\+\+PONT~30000}
+
+
+
+Valeur maximale du compteur de timeout pour le pont en mode de test. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00206}{206}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_af3393600d96f463ed342edada200e4e3}\label{processus_usine_8c_af3393600d96f463ed342edada200e4e3}} 
+\index{processusUsine.c@{processusUsine.c}!DELAI\_VENTOUSE\_DESCEND@{DELAI\_VENTOUSE\_DESCEND}}
+\index{DELAI\_VENTOUSE\_DESCEND@{DELAI\_VENTOUSE\_DESCEND}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{DELAI\_VENTOUSE\_DESCEND}{DELAI\_VENTOUSE\_DESCEND}}
+{\footnotesize\ttfamily \#define DELAI\+\_\+\+VENTOUSE\+\_\+\+DESCEND~1000}
+
+
+
+Delai maximal du timeout de la déscente de la ventouse. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00064}{64}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a999adfffb7164e3794716a3d1e92f37c}\label{processus_usine_8c_a999adfffb7164e3794716a3d1e92f37c}} 
+\index{processusUsine.c@{processusUsine.c}!DELAITEST\_EN\_COURS@{DELAITEST\_EN\_COURS}}
+\index{DELAITEST\_EN\_COURS@{DELAITEST\_EN\_COURS}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{DELAITEST\_EN\_COURS}{DELAITEST\_EN\_COURS}}
+{\footnotesize\ttfamily \#define DELAITEST\+\_\+\+EN\+\_\+\+COURS~0}
+
+
+
+Valeur retournée par la fonction \mbox{\hyperlink{processus_usine_8c_ad5e544d13dcd3245bd835325c703826a}{delai\+Mode\+De\+Test}} quand le délai n\textquotesingle{}est pas terminé. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00191}{191}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_afc6c1f8099ff507aa17642aba862e5e8}\label{processus_usine_8c_afc6c1f8099ff507aa17642aba862e5e8}} 
+\index{processusUsine.c@{processusUsine.c}!DELAITEST\_RESET@{DELAITEST\_RESET}}
+\index{DELAITEST\_RESET@{DELAITEST\_RESET}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{DELAITEST\_RESET}{DELAITEST\_RESET}}
+{\footnotesize\ttfamily \#define DELAITEST\+\_\+\+RESET~1}
+
+
+
+Valeur a envoyer a la fonction \mbox{\hyperlink{processus_usine_8c_ad5e544d13dcd3245bd835325c703826a}{delai\+Mode\+De\+Test}} quand on veut mettre le delai à 0. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00176}{176}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a01e6aaad370a0dccc7843aae28e2b00f}\label{processus_usine_8c_a01e6aaad370a0dccc7843aae28e2b00f}} 
+\index{processusUsine.c@{processusUsine.c}!DELAITEST\_TERMINE@{DELAITEST\_TERMINE}}
+\index{DELAITEST\_TERMINE@{DELAITEST\_TERMINE}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{DELAITEST\_TERMINE}{DELAITEST\_TERMINE}}
+{\footnotesize\ttfamily \#define DELAITEST\+\_\+\+TERMINE~1}
+
+
+
+Valeur retournée par la fonction \mbox{\hyperlink{processus_usine_8c_ad5e544d13dcd3245bd835325c703826a}{delai\+Mode\+De\+Test}} quand le délai est terminé. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00186}{186}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a04c0c44aafdba09804a753750114f5ec}\label{processus_usine_8c_a04c0c44aafdba09804a753750114f5ec}} 
+\index{processusUsine.c@{processusUsine.c}!DELAITEST\_UTILISE@{DELAITEST\_UTILISE}}
+\index{DELAITEST\_UTILISE@{DELAITEST\_UTILISE}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{DELAITEST\_UTILISE}{DELAITEST\_UTILISE}}
+{\footnotesize\ttfamily \#define DELAITEST\+\_\+\+UTILISE~0}
+
+
+
+Valeur a envoyer a la fonction \mbox{\hyperlink{processus_usine_8c_ad5e544d13dcd3245bd835325c703826a}{delai\+Mode\+De\+Test}} quand on veut utiliser le delai. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00181}{181}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a5779cae8a3374665766dea13eed40c54}\label{processus_usine_8c_a5779cae8a3374665766dea13eed40c54}} 
+\index{processusUsine.c@{processusUsine.c}!ETAT\_CAPTEUR\_CAP\_POUR\_BLOC\_AUCUN@{ETAT\_CAPTEUR\_CAP\_POUR\_BLOC\_AUCUN}}
+\index{ETAT\_CAPTEUR\_CAP\_POUR\_BLOC\_AUCUN@{ETAT\_CAPTEUR\_CAP\_POUR\_BLOC\_AUCUN}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{ETAT\_CAPTEUR\_CAP\_POUR\_BLOC\_AUCUN}{ETAT\_CAPTEUR\_CAP\_POUR\_BLOC\_AUCUN}}
+{\footnotesize\ttfamily \#define ETAT\+\_\+\+CAPTEUR\+\_\+\+CAP\+\_\+\+POUR\+\_\+\+BLOC\+\_\+\+AUCUN~0}
+
+
+
+État du capteur capacitif lorsqu\textquotesingle{}il n\textquotesingle{}y a pas de bloc. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00160}{160}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a65bec3ebc3c50ec86835006a207ee1a0}\label{processus_usine_8c_a65bec3ebc3c50ec86835006a207ee1a0}} 
+\index{processusUsine.c@{processusUsine.c}!ETAT\_CAPTEUR\_CAP\_POUR\_BLOC\_METAL@{ETAT\_CAPTEUR\_CAP\_POUR\_BLOC\_METAL}}
+\index{ETAT\_CAPTEUR\_CAP\_POUR\_BLOC\_METAL@{ETAT\_CAPTEUR\_CAP\_POUR\_BLOC\_METAL}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{ETAT\_CAPTEUR\_CAP\_POUR\_BLOC\_METAL}{ETAT\_CAPTEUR\_CAP\_POUR\_BLOC\_METAL}}
+{\footnotesize\ttfamily \#define ETAT\+\_\+\+CAPTEUR\+\_\+\+CAP\+\_\+\+POUR\+\_\+\+BLOC\+\_\+\+METAL~1}
+
+
+
+État du capteur capacitif lorsque le bloc est métallique. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00144}{144}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a3e75ee5a3b1288a65bcf3a5c83518bf0}\label{processus_usine_8c_a3e75ee5a3b1288a65bcf3a5c83518bf0}} 
+\index{processusUsine.c@{processusUsine.c}!ETAT\_CAPTEUR\_CAP\_POUR\_BLOC\_NOIR@{ETAT\_CAPTEUR\_CAP\_POUR\_BLOC\_NOIR}}
+\index{ETAT\_CAPTEUR\_CAP\_POUR\_BLOC\_NOIR@{ETAT\_CAPTEUR\_CAP\_POUR\_BLOC\_NOIR}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{ETAT\_CAPTEUR\_CAP\_POUR\_BLOC\_NOIR}{ETAT\_CAPTEUR\_CAP\_POUR\_BLOC\_NOIR}}
+{\footnotesize\ttfamily \#define ETAT\+\_\+\+CAPTEUR\+\_\+\+CAP\+\_\+\+POUR\+\_\+\+BLOC\+\_\+\+NOIR~1}
+
+
+
+État du capteur capacitif lorsque le bloc est noir. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00112}{112}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a7e0f5094636e50695a3020f472c2d056}\label{processus_usine_8c_a7e0f5094636e50695a3020f472c2d056}} 
+\index{processusUsine.c@{processusUsine.c}!ETAT\_CAPTEUR\_CAP\_POUR\_BLOC\_ROUGE@{ETAT\_CAPTEUR\_CAP\_POUR\_BLOC\_ROUGE}}
+\index{ETAT\_CAPTEUR\_CAP\_POUR\_BLOC\_ROUGE@{ETAT\_CAPTEUR\_CAP\_POUR\_BLOC\_ROUGE}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{ETAT\_CAPTEUR\_CAP\_POUR\_BLOC\_ROUGE}{ETAT\_CAPTEUR\_CAP\_POUR\_BLOC\_ROUGE}}
+{\footnotesize\ttfamily \#define ETAT\+\_\+\+CAPTEUR\+\_\+\+CAP\+\_\+\+POUR\+\_\+\+BLOC\+\_\+\+ROUGE~1}
+
+
+
+État du capteur capacitif lorsque le bloc est rouge. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00128}{128}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a1a18e10bc0cfa6dd792390ed6c87e73b}\label{processus_usine_8c_a1a18e10bc0cfa6dd792390ed6c87e73b}} 
+\index{processusUsine.c@{processusUsine.c}!ETAT\_CAPTEUR\_MAG\_POUR\_BLOC\_AUCUN@{ETAT\_CAPTEUR\_MAG\_POUR\_BLOC\_AUCUN}}
+\index{ETAT\_CAPTEUR\_MAG\_POUR\_BLOC\_AUCUN@{ETAT\_CAPTEUR\_MAG\_POUR\_BLOC\_AUCUN}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{ETAT\_CAPTEUR\_MAG\_POUR\_BLOC\_AUCUN}{ETAT\_CAPTEUR\_MAG\_POUR\_BLOC\_AUCUN}}
+{\footnotesize\ttfamily \#define ETAT\+\_\+\+CAPTEUR\+\_\+\+MAG\+\_\+\+POUR\+\_\+\+BLOC\+\_\+\+AUCUN~0}
+
+
+
+État du capteur magnétique lorsqu\textquotesingle{}il n\textquotesingle{}y a pas de bloc. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00165}{165}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_adb34501b6cb1a22ea8360c815a098b98}\label{processus_usine_8c_adb34501b6cb1a22ea8360c815a098b98}} 
+\index{processusUsine.c@{processusUsine.c}!ETAT\_CAPTEUR\_MAG\_POUR\_BLOC\_METAL@{ETAT\_CAPTEUR\_MAG\_POUR\_BLOC\_METAL}}
+\index{ETAT\_CAPTEUR\_MAG\_POUR\_BLOC\_METAL@{ETAT\_CAPTEUR\_MAG\_POUR\_BLOC\_METAL}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{ETAT\_CAPTEUR\_MAG\_POUR\_BLOC\_METAL}{ETAT\_CAPTEUR\_MAG\_POUR\_BLOC\_METAL}}
+{\footnotesize\ttfamily \#define ETAT\+\_\+\+CAPTEUR\+\_\+\+MAG\+\_\+\+POUR\+\_\+\+BLOC\+\_\+\+METAL~1}
+
+
+
+État du capteur magnétique lorsque le bloc est métallique. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00149}{149}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a5164208a040b949349cd864deb2cf041}\label{processus_usine_8c_a5164208a040b949349cd864deb2cf041}} 
+\index{processusUsine.c@{processusUsine.c}!ETAT\_CAPTEUR\_MAG\_POUR\_BLOC\_NOIR@{ETAT\_CAPTEUR\_MAG\_POUR\_BLOC\_NOIR}}
+\index{ETAT\_CAPTEUR\_MAG\_POUR\_BLOC\_NOIR@{ETAT\_CAPTEUR\_MAG\_POUR\_BLOC\_NOIR}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{ETAT\_CAPTEUR\_MAG\_POUR\_BLOC\_NOIR}{ETAT\_CAPTEUR\_MAG\_POUR\_BLOC\_NOIR}}
+{\footnotesize\ttfamily \#define ETAT\+\_\+\+CAPTEUR\+\_\+\+MAG\+\_\+\+POUR\+\_\+\+BLOC\+\_\+\+NOIR~0}
+
+
+
+État du capteur magnétique lorsque le bloc est noir. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00117}{117}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a24d7217fc3e5d8988413497297779434}\label{processus_usine_8c_a24d7217fc3e5d8988413497297779434}} 
+\index{processusUsine.c@{processusUsine.c}!ETAT\_CAPTEUR\_MAG\_POUR\_BLOC\_ROUGE@{ETAT\_CAPTEUR\_MAG\_POUR\_BLOC\_ROUGE}}
+\index{ETAT\_CAPTEUR\_MAG\_POUR\_BLOC\_ROUGE@{ETAT\_CAPTEUR\_MAG\_POUR\_BLOC\_ROUGE}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{ETAT\_CAPTEUR\_MAG\_POUR\_BLOC\_ROUGE}{ETAT\_CAPTEUR\_MAG\_POUR\_BLOC\_ROUGE}}
+{\footnotesize\ttfamily \#define ETAT\+\_\+\+CAPTEUR\+\_\+\+MAG\+\_\+\+POUR\+\_\+\+BLOC\+\_\+\+ROUGE~0}
+
+
+
+État du capteur magnétique lorsque le bloc est rouge. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00133}{133}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_aa6c5b993f46d357a4305c5420d077daf}\label{processus_usine_8c_aa6c5b993f46d357a4305c5420d077daf}} 
+\index{processusUsine.c@{processusUsine.c}!ETAT\_CAPTEUR\_OPT\_POUR\_BLOC\_AUCUN@{ETAT\_CAPTEUR\_OPT\_POUR\_BLOC\_AUCUN}}
+\index{ETAT\_CAPTEUR\_OPT\_POUR\_BLOC\_AUCUN@{ETAT\_CAPTEUR\_OPT\_POUR\_BLOC\_AUCUN}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{ETAT\_CAPTEUR\_OPT\_POUR\_BLOC\_AUCUN}{ETAT\_CAPTEUR\_OPT\_POUR\_BLOC\_AUCUN}}
+{\footnotesize\ttfamily \#define ETAT\+\_\+\+CAPTEUR\+\_\+\+OPT\+\_\+\+POUR\+\_\+\+BLOC\+\_\+\+AUCUN~0}
+
+
+
+État du capteur optique lorsqu\textquotesingle{}il n\textquotesingle{}y a pas de bloc. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00170}{170}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_ab965aa1afd9c1486fa4665e0ef48ee0a}\label{processus_usine_8c_ab965aa1afd9c1486fa4665e0ef48ee0a}} 
+\index{processusUsine.c@{processusUsine.c}!ETAT\_CAPTEUR\_OPT\_POUR\_BLOC\_METAL@{ETAT\_CAPTEUR\_OPT\_POUR\_BLOC\_METAL}}
+\index{ETAT\_CAPTEUR\_OPT\_POUR\_BLOC\_METAL@{ETAT\_CAPTEUR\_OPT\_POUR\_BLOC\_METAL}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{ETAT\_CAPTEUR\_OPT\_POUR\_BLOC\_METAL}{ETAT\_CAPTEUR\_OPT\_POUR\_BLOC\_METAL}}
+{\footnotesize\ttfamily \#define ETAT\+\_\+\+CAPTEUR\+\_\+\+OPT\+\_\+\+POUR\+\_\+\+BLOC\+\_\+\+METAL~1}
+
+
+
+État du capteur optique lorsque le bloc est métallique. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00154}{154}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a13ce0fab4c0a0e6a765f428d419b920b}\label{processus_usine_8c_a13ce0fab4c0a0e6a765f428d419b920b}} 
+\index{processusUsine.c@{processusUsine.c}!ETAT\_CAPTEUR\_OPT\_POUR\_BLOC\_NOIR@{ETAT\_CAPTEUR\_OPT\_POUR\_BLOC\_NOIR}}
+\index{ETAT\_CAPTEUR\_OPT\_POUR\_BLOC\_NOIR@{ETAT\_CAPTEUR\_OPT\_POUR\_BLOC\_NOIR}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{ETAT\_CAPTEUR\_OPT\_POUR\_BLOC\_NOIR}{ETAT\_CAPTEUR\_OPT\_POUR\_BLOC\_NOIR}}
+{\footnotesize\ttfamily \#define ETAT\+\_\+\+CAPTEUR\+\_\+\+OPT\+\_\+\+POUR\+\_\+\+BLOC\+\_\+\+NOIR~0}
+
+
+
+État du capteur optique lorsque le bloc est noir. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00122}{122}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_af68a88fe72b70cf93ed78c3aba130cbb}\label{processus_usine_8c_af68a88fe72b70cf93ed78c3aba130cbb}} 
+\index{processusUsine.c@{processusUsine.c}!ETAT\_CAPTEUR\_OPT\_POUR\_BLOC\_ROUGE@{ETAT\_CAPTEUR\_OPT\_POUR\_BLOC\_ROUGE}}
+\index{ETAT\_CAPTEUR\_OPT\_POUR\_BLOC\_ROUGE@{ETAT\_CAPTEUR\_OPT\_POUR\_BLOC\_ROUGE}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{ETAT\_CAPTEUR\_OPT\_POUR\_BLOC\_ROUGE}{ETAT\_CAPTEUR\_OPT\_POUR\_BLOC\_ROUGE}}
+{\footnotesize\ttfamily \#define ETAT\+\_\+\+CAPTEUR\+\_\+\+OPT\+\_\+\+POUR\+\_\+\+BLOC\+\_\+\+ROUGE~1}
+
+
+
+État du capteur optique lorsque le bloc est rouge. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00138}{138}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a26fe3df954b710b5ae615990e68c3bc1}\label{processus_usine_8c_a26fe3df954b710b5ae615990e68c3bc1}} 
+\index{processusUsine.c@{processusUsine.c}!TEST\_VITESSELEDCLIGNOTE@{TEST\_VITESSELEDCLIGNOTE}}
+\index{TEST\_VITESSELEDCLIGNOTE@{TEST\_VITESSELEDCLIGNOTE}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{TEST\_VITESSELEDCLIGNOTE}{TEST\_VITESSELEDCLIGNOTE}}
+{\footnotesize\ttfamily \#define TEST\+\_\+\+VITESSELEDCLIGNOTE~2000}
+
+
+
+Période du clignotement de la lumière verte en mode de tests. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00080}{80}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_ac09c74b0530234687512334ac1cc3d81}\label{processus_usine_8c_ac09c74b0530234687512334ac1cc3d81}} 
+\index{processusUsine.c@{processusUsine.c}!VALEUR\_DELAI\_MODE\_DE\_TEST@{VALEUR\_DELAI\_MODE\_DE\_TEST}}
+\index{VALEUR\_DELAI\_MODE\_DE\_TEST@{VALEUR\_DELAI\_MODE\_DE\_TEST}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{VALEUR\_DELAI\_MODE\_DE\_TEST}{VALEUR\_DELAI\_MODE\_DE\_TEST}}
+{\footnotesize\ttfamily \#define VALEUR\+\_\+\+DELAI\+\_\+\+MODE\+\_\+\+DE\+\_\+\+TEST~4000}
+
+
+
+Valeur en 1/2ms du délai de la fonction \mbox{\hyperlink{processus_usine_8c_ad5e544d13dcd3245bd835325c703826a}{delai\+Mode\+De\+Test}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00196}{196}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+
+
+\doxysubsection{Documentation des fonctions}
+\mbox{\Hypertarget{processus_usine_8c_ad5e544d13dcd3245bd835325c703826a}\label{processus_usine_8c_ad5e544d13dcd3245bd835325c703826a}} 
+\index{processusUsine.c@{processusUsine.c}!delaiModeDeTest@{delaiModeDeTest}}
+\index{delaiModeDeTest@{delaiModeDeTest}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{delaiModeDeTest()}{delaiModeDeTest()}}
+{\footnotesize\ttfamily bool delai\+Mode\+De\+Test (\begin{DoxyParamCaption}\item[{bool}]{reset }\end{DoxyParamCaption})}
+
+
+
+Cette fonction, appelée de façon récurrente, compte jusqu\textquotesingle{}à VALEUR\+\_\+\+DELAI\+\_\+\+MODE\+\_\+\+DE\+\_\+\+TEST, puis retourne un 1 cela permet de faire un délai de 2 sec pour plusieurs des étais du mode de tests sans copier coller un gros bout de code à chaque fois. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em reset} & est mis a \mbox{\hyperlink{processus_usine_8c_afc6c1f8099ff507aa17642aba862e5e8}{DELAITEST\+\_\+\+RESET}} pour mettre le délai à zéro ou est mis à \mbox{\hyperlink{processus_usine_8c_a04c0c44aafdba09804a753750114f5ec}{DELAITEST\+\_\+\+UTILISE}} pour uliliser le délai. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+true si délai écoulé 
+
+false si délai en cours 
+\end{DoxyReturn}
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l01541}{1541}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a9b0f30563e05ddd84a64bdaa1669f06b}\label{processus_usine_8c_a9b0f30563e05ddd84a64bdaa1669f06b}} 
+\index{processusUsine.c@{processusUsine.c}!modeDeTests\_activeEjecteur@{modeDeTests\_activeEjecteur}}
+\index{modeDeTests\_activeEjecteur@{modeDeTests\_activeEjecteur}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{modeDeTests\_activeEjecteur()}{modeDeTests\_activeEjecteur()}}
+{\footnotesize\ttfamily void mode\+De\+Tests\+\_\+active\+Ejecteur (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l01319}{1319}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a597b8e2a443a0e8316caf59a19e406a4}\label{processus_usine_8c_a597b8e2a443a0e8316caf59a19e406a4}} 
+\index{processusUsine.c@{processusUsine.c}!modeDeTests\_activeLaVentouse@{modeDeTests\_activeLaVentouse}}
+\index{modeDeTests\_activeLaVentouse@{modeDeTests\_activeLaVentouse}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{modeDeTests\_activeLaVentouse()}{modeDeTests\_activeLaVentouse()}}
+{\footnotesize\ttfamily void mode\+De\+Tests\+\_\+active\+La\+Ventouse (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l01377}{1377}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a6245e66f7308598975a2d6236813d308}\label{processus_usine_8c_a6245e66f7308598975a2d6236813d308}} 
+\index{processusUsine.c@{processusUsine.c}!modeDeTests\_activeleConvoyeur@{modeDeTests\_activeleConvoyeur}}
+\index{modeDeTests\_activeleConvoyeur@{modeDeTests\_activeleConvoyeur}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{modeDeTests\_activeleConvoyeur()}{modeDeTests\_activeleConvoyeur()}}
+{\footnotesize\ttfamily void mode\+De\+Tests\+\_\+activele\+Convoyeur (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l01290}{1290}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_af998c3072bbb5a1a27947671cb71df43}\label{processus_usine_8c_af998c3072bbb5a1a27947671cb71df43}} 
+\index{processusUsine.c@{processusUsine.c}!modeDeTests\_activeLeVerinDuMagasin@{modeDeTests\_activeLeVerinDuMagasin}}
+\index{modeDeTests\_activeLeVerinDuMagasin@{modeDeTests\_activeLeVerinDuMagasin}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{modeDeTests\_activeLeVerinDuMagasin()}{modeDeTests\_activeLeVerinDuMagasin()}}
+{\footnotesize\ttfamily void mode\+De\+Tests\+\_\+active\+Le\+Verin\+Du\+Magasin (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l01171}{1171}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a8e1cbbabfb28c33dc095053e17c7d584}\label{processus_usine_8c_a8e1cbbabfb28c33dc095053e17c7d584}} 
+\index{processusUsine.c@{processusUsine.c}!modeDeTests\_attFinInitPont@{modeDeTests\_attFinInitPont}}
+\index{modeDeTests\_attFinInitPont@{modeDeTests\_attFinInitPont}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{modeDeTests\_attFinInitPont()}{modeDeTests\_attFinInitPont()}}
+{\footnotesize\ttfamily void mode\+De\+Tests\+\_\+att\+Fin\+Init\+Pont (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l01470}{1470}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_afa5cb619f19bfce73c609ab296b6bb73}\label{processus_usine_8c_afa5cb619f19bfce73c609ab296b6bb73}} 
+\index{processusUsine.c@{processusUsine.c}!modeDeTests\_deplaceLaVentouse@{modeDeTests\_deplaceLaVentouse}}
+\index{modeDeTests\_deplaceLaVentouse@{modeDeTests\_deplaceLaVentouse}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{modeDeTests\_deplaceLaVentouse()}{modeDeTests\_deplaceLaVentouse()}}
+{\footnotesize\ttfamily void mode\+De\+Tests\+\_\+deplace\+La\+Ventouse (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l01491}{1491}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_aa2a6ffa08a723b67bd72b6dea20a0de9}\label{processus_usine_8c_aa2a6ffa08a723b67bd72b6dea20a0de9}} 
+\index{processusUsine.c@{processusUsine.c}!modeDeTests\_desactiveEjecteur@{modeDeTests\_desactiveEjecteur}}
+\index{modeDeTests\_desactiveEjecteur@{modeDeTests\_desactiveEjecteur}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{modeDeTests\_desactiveEjecteur()}{modeDeTests\_desactiveEjecteur()}}
+{\footnotesize\ttfamily void mode\+De\+Tests\+\_\+desactive\+Ejecteur (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l01345}{1345}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a6c41988ae67d470e61e060a0de8b1c42}\label{processus_usine_8c_a6c41988ae67d470e61e060a0de8b1c42}} 
+\index{processusUsine.c@{processusUsine.c}!modeDeTests\_desactiveLaVentouse@{modeDeTests\_desactiveLaVentouse}}
+\index{modeDeTests\_desactiveLaVentouse@{modeDeTests\_desactiveLaVentouse}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{modeDeTests\_desactiveLaVentouse()}{modeDeTests\_desactiveLaVentouse()}}
+{\footnotesize\ttfamily void mode\+De\+Tests\+\_\+desactive\+La\+Ventouse (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l01389}{1389}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_abcbc7839413bc54d154eb072d0f6c4ec}\label{processus_usine_8c_abcbc7839413bc54d154eb072d0f6c4ec}} 
+\index{processusUsine.c@{processusUsine.c}!modeDeTests\_desactiveLeConvoyeur@{modeDeTests\_desactiveLeConvoyeur}}
+\index{modeDeTests\_desactiveLeConvoyeur@{modeDeTests\_desactiveLeConvoyeur}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{modeDeTests\_desactiveLeConvoyeur()}{modeDeTests\_desactiveLeConvoyeur()}}
+{\footnotesize\ttfamily void mode\+De\+Tests\+\_\+desactive\+Le\+Convoyeur (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l01301}{1301}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a63c4e2337c080d5eafc2633e3e550887}\label{processus_usine_8c_a63c4e2337c080d5eafc2633e3e550887}} 
+\index{processusUsine.c@{processusUsine.c}!modeDeTests\_desactiveLeVerinDuMagasin@{modeDeTests\_desactiveLeVerinDuMagasin}}
+\index{modeDeTests\_desactiveLeVerinDuMagasin@{modeDeTests\_desactiveLeVerinDuMagasin}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{modeDeTests\_desactiveLeVerinDuMagasin()}{modeDeTests\_desactiveLeVerinDuMagasin()}}
+{\footnotesize\ttfamily void mode\+De\+Tests\+\_\+desactive\+Le\+Verin\+Du\+Magasin (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l01194}{1194}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_abb4f577862bf1af892e3a34ef2251b6b}\label{processus_usine_8c_abb4f577862bf1af892e3a34ef2251b6b}} 
+\index{processusUsine.c@{processusUsine.c}!modeDeTests\_descendElevateur@{modeDeTests\_descendElevateur}}
+\index{modeDeTests\_descendElevateur@{modeDeTests\_descendElevateur}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{modeDeTests\_descendElevateur()}{modeDeTests\_descendElevateur()}}
+{\footnotesize\ttfamily void mode\+De\+Tests\+\_\+descend\+Elevateur (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l01257}{1257}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_af73b81ee7bd371a2e17ef342c0c1be0b}\label{processus_usine_8c_af73b81ee7bd371a2e17ef342c0c1be0b}} 
+\index{processusUsine.c@{processusUsine.c}!modeDeTests\_descendLaVentouse@{modeDeTests\_descendLaVentouse}}
+\index{modeDeTests\_descendLaVentouse@{modeDeTests\_descendLaVentouse}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{modeDeTests\_descendLaVentouse()}{modeDeTests\_descendLaVentouse()}}
+{\footnotesize\ttfamily void mode\+De\+Tests\+\_\+descend\+La\+Ventouse (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l01407}{1407}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a201280c720d9340d3402270521be3b34}\label{processus_usine_8c_a201280c720d9340d3402270521be3b34}} 
+\index{processusUsine.c@{processusUsine.c}!modeDeTests\_monteElevateur@{modeDeTests\_monteElevateur}}
+\index{modeDeTests\_monteElevateur@{modeDeTests\_monteElevateur}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{modeDeTests\_monteElevateur()}{modeDeTests\_monteElevateur()}}
+{\footnotesize\ttfamily void mode\+De\+Tests\+\_\+monte\+Elevateur (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l01229}{1229}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a7719dbd188a72f7065f33c042682fee5}\label{processus_usine_8c_a7719dbd188a72f7065f33c042682fee5}} 
+\index{processusUsine.c@{processusUsine.c}!modeDeTests\_monteLaVentouse@{modeDeTests\_monteLaVentouse}}
+\index{modeDeTests\_monteLaVentouse@{modeDeTests\_monteLaVentouse}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{modeDeTests\_monteLaVentouse()}{modeDeTests\_monteLaVentouse()}}
+{\footnotesize\ttfamily void mode\+De\+Tests\+\_\+monte\+La\+Ventouse (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l01435}{1435}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a7aebd9c7cce0164c3efa044aa49df92c}\label{processus_usine_8c_a7aebd9c7cce0164c3efa044aa49df92c}} 
+\index{processusUsine.c@{processusUsine.c}!modeDeTests\_replaceLaventouse@{modeDeTests\_replaceLaventouse}}
+\index{modeDeTests\_replaceLaventouse@{modeDeTests\_replaceLaventouse}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{modeDeTests\_replaceLaventouse()}{modeDeTests\_replaceLaventouse()}}
+{\footnotesize\ttfamily void mode\+De\+Tests\+\_\+replace\+Laventouse (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l01512}{1512}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_ad6f0c52cc83a3a96a4994588060b7a9e}\label{processus_usine_8c_ad6f0c52cc83a3a96a4994588060b7a9e}} 
+\index{processusUsine.c@{processusUsine.c}!modeDeTests\_testeLaColonneLumineuse@{modeDeTests\_testeLaColonneLumineuse}}
+\index{modeDeTests\_testeLaColonneLumineuse@{modeDeTests\_testeLaColonneLumineuse}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{modeDeTests\_testeLaColonneLumineuse()}{modeDeTests\_testeLaColonneLumineuse()}}
+{\footnotesize\ttfamily void mode\+De\+Tests\+\_\+teste\+La\+Colonne\+Lumineuse (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l01139}{1139}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a36beecab114d4895c1efe5c63ebb500d}\label{processus_usine_8c_a36beecab114d4895c1efe5c63ebb500d}} 
+\index{processusUsine.c@{processusUsine.c}!modeDeTests\_testeLesEntrees@{modeDeTests\_testeLesEntrees}}
+\index{modeDeTests\_testeLesEntrees@{modeDeTests\_testeLesEntrees}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{modeDeTests\_testeLesEntrees()}{modeDeTests\_testeLesEntrees()}}
+{\footnotesize\ttfamily void mode\+De\+Tests\+\_\+teste\+Les\+Entrees (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l01157}{1157}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_aa022c6ee341027b78103ced6d74dfc7f}\label{processus_usine_8c_aa022c6ee341027b78103ced6d74dfc7f}} 
+\index{processusUsine.c@{processusUsine.c}!modeOperation\_attendAscenseurBas@{modeOperation\_attendAscenseurBas}}
+\index{modeOperation\_attendAscenseurBas@{modeOperation\_attendAscenseurBas}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{modeOperation\_attendAscenseurBas()}{modeOperation\_attendAscenseurBas()}}
+{\footnotesize\ttfamily void mode\+Operation\+\_\+attend\+Ascenseur\+Bas (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l01006}{1006}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a81c5bf758a65c6d522178c83bcff434b}\label{processus_usine_8c_a81c5bf758a65c6d522178c83bcff434b}} 
+\index{processusUsine.c@{processusUsine.c}!modeOperation\_attendBlocAspire@{modeOperation\_attendBlocAspire}}
+\index{modeOperation\_attendBlocAspire@{modeOperation\_attendBlocAspire}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{modeOperation\_attendBlocAspire()}{modeOperation\_attendBlocAspire()}}
+{\footnotesize\ttfamily void mode\+Operation\+\_\+attend\+Bloc\+Aspire (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00874}{874}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a74947563c0ea96392dc7f35bec60285f}\label{processus_usine_8c_a74947563c0ea96392dc7f35bec60285f}} 
+\index{processusUsine.c@{processusUsine.c}!modeOperation\_attendBlocChute@{modeOperation\_attendBlocChute}}
+\index{modeOperation\_attendBlocChute@{modeOperation\_attendBlocChute}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{modeOperation\_attendBlocChute()}{modeOperation\_attendBlocChute()}}
+{\footnotesize\ttfamily void mode\+Operation\+\_\+attend\+Bloc\+Chute (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00834}{834}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a0490f3a5354a4d5b3d948574d68de6f4}\label{processus_usine_8c_a0490f3a5354a4d5b3d948574d68de6f4}} 
+\index{processusUsine.c@{processusUsine.c}!modeOperation\_attendElevateurEnHaut@{modeOperation\_attendElevateurEnHaut}}
+\index{modeOperation\_attendElevateurEnHaut@{modeOperation\_attendElevateurEnHaut}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{modeOperation\_attendElevateurEnHaut()}{modeOperation\_attendElevateurEnHaut()}}
+{\footnotesize\ttfamily void mode\+Operation\+\_\+attend\+Elevateur\+En\+Haut (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00757}{757}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_ad6742a23018abde925d56fd029ee27f4}\label{processus_usine_8c_ad6742a23018abde925d56fd029ee27f4}} 
+\index{processusUsine.c@{processusUsine.c}!modeOperation\_attendFinInitialisation@{modeOperation\_attendFinInitialisation}}
+\index{modeOperation\_attendFinInitialisation@{modeOperation\_attendFinInitialisation}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{modeOperation\_attendFinInitialisation()}{modeOperation\_attendFinInitialisation()}}
+{\footnotesize\ttfamily void mode\+Operation\+\_\+attend\+Fin\+Initialisation (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00590}{590}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a012f17a4805422fcdb460359b7816b71}\label{processus_usine_8c_a012f17a4805422fcdb460359b7816b71}} 
+\index{processusUsine.c@{processusUsine.c}!modeOperation\_attendFinJetteBloc@{modeOperation\_attendFinJetteBloc}}
+\index{modeOperation\_attendFinJetteBloc@{modeOperation\_attendFinJetteBloc}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{modeOperation\_attendFinJetteBloc()}{modeOperation\_attendFinJetteBloc()}}
+{\footnotesize\ttfamily void mode\+Operation\+\_\+attend\+Fin\+Jette\+Bloc (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00956}{956}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a2e24c2aa667f32121fe5eecdae351f28}\label{processus_usine_8c_a2e24c2aa667f32121fe5eecdae351f28}} 
+\index{processusUsine.c@{processusUsine.c}!modeOperation\_attendPontPos0@{modeOperation\_attendPontPos0}}
+\index{modeOperation\_attendPontPos0@{modeOperation\_attendPontPos0}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{modeOperation\_attendPontPos0()}{modeOperation\_attendPontPos0()}}
+{\footnotesize\ttfamily void mode\+Operation\+\_\+attend\+Pont\+Pos0 (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00862}{862}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a9d76331edab5b4416dacd52244924edd}\label{processus_usine_8c_a9d76331edab5b4416dacd52244924edd}} 
+\index{processusUsine.c@{processusUsine.c}!modeOperation\_attendVentouseHaut@{modeOperation\_attendVentouseHaut}}
+\index{modeOperation\_attendVentouseHaut@{modeOperation\_attendVentouseHaut}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{modeOperation\_attendVentouseHaut()}{modeOperation\_attendVentouseHaut()}}
+{\footnotesize\ttfamily void mode\+Operation\+\_\+attend\+Ventouse\+Haut (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00888}{888}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a0d510a77065ce51bb112ad80356ee91b}\label{processus_usine_8c_a0d510a77065ce51bb112ad80356ee91b}} 
+\index{processusUsine.c@{processusUsine.c}!modeOperation\_detecteLeBloc@{modeOperation\_detecteLeBloc}}
+\index{modeOperation\_detecteLeBloc@{modeOperation\_detecteLeBloc}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{modeOperation\_detecteLeBloc()}{modeOperation\_detecteLeBloc()}}
+{\footnotesize\ttfamily void mode\+Operation\+\_\+detecte\+Le\+Bloc (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00649}{649}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a9c3e38646e7abe3194561011407d7798}\label{processus_usine_8c_a9c3e38646e7abe3194561011407d7798}} 
+\index{processusUsine.c@{processusUsine.c}!modeOperation\_ejecteUnBloc@{modeOperation\_ejecteUnBloc}}
+\index{modeOperation\_ejecteUnBloc@{modeOperation\_ejecteUnBloc}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{modeOperation\_ejecteUnBloc()}{modeOperation\_ejecteUnBloc()}}
+{\footnotesize\ttfamily void mode\+Operation\+\_\+ejecte\+Un\+Bloc (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00803}{803}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a380cd42a4e3361d9c2ddb8d24a7fe21b}\label{processus_usine_8c_a380cd42a4e3361d9c2ddb8d24a7fe21b}} 
+\index{processusUsine.c@{processusUsine.c}!modeOperation\_lanceInitialisation@{modeOperation\_lanceInitialisation}}
+\index{modeOperation\_lanceInitialisation@{modeOperation\_lanceInitialisation}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{modeOperation\_lanceInitialisation()}{modeOperation\_lanceInitialisation()}}
+{\footnotesize\ttfamily void mode\+Operation\+\_\+lance\+Initialisation (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00561}{561}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_aba70daf9cd20416ad974f5e7ab9f58a8}\label{processus_usine_8c_aba70daf9cd20416ad974f5e7ab9f58a8}} 
+\index{processusUsine.c@{processusUsine.c}!modeOperation\_monteElevateur@{modeOperation\_monteElevateur}}
+\index{modeOperation\_monteElevateur@{modeOperation\_monteElevateur}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{modeOperation\_monteElevateur()}{modeOperation\_monteElevateur()}}
+{\footnotesize\ttfamily void mode\+Operation\+\_\+monte\+Elevateur (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00741}{741}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a891bfd30fbef91d16c6bfdbc48981802}\label{processus_usine_8c_a891bfd30fbef91d16c6bfdbc48981802}} 
+\index{processusUsine.c@{processusUsine.c}!modeOperation\_pousseUnBloc@{modeOperation\_pousseUnBloc}}
+\index{modeOperation\_pousseUnBloc@{modeOperation\_pousseUnBloc}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{modeOperation\_pousseUnBloc()}{modeOperation\_pousseUnBloc()}}
+{\footnotesize\ttfamily void mode\+Operation\+\_\+pousse\+Un\+Bloc (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00620}{620}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a50720f1020d98e5243b6844110824d09}\label{processus_usine_8c_a50720f1020d98e5243b6844110824d09}} 
+\index{processusUsine.c@{processusUsine.c}!modeOperation\_vaALaFosse@{modeOperation\_vaALaFosse}}
+\index{modeOperation\_vaALaFosse@{modeOperation\_vaALaFosse}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{modeOperation\_vaALaFosse()}{modeOperation\_vaALaFosse()}}
+{\footnotesize\ttfamily void mode\+Operation\+\_\+va\+ALa\+Fosse (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00927}{927}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_abdbe45f72deb15cc93d492adbd3376c8}\label{processus_usine_8c_abdbe45f72deb15cc93d492adbd3376c8}} 
+\index{processusUsine.c@{processusUsine.c}!modeOperation\_vaALAscenseur@{modeOperation\_vaALAscenseur}}
+\index{modeOperation\_vaALAscenseur@{modeOperation\_vaALAscenseur}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{modeOperation\_vaALAscenseur()}{modeOperation\_vaALAscenseur()}}
+{\footnotesize\ttfamily void mode\+Operation\+\_\+va\+ALAscenseur (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00942}{942}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a2d80783ebc4b18d3bababec851a90fd3}\label{processus_usine_8c_a2d80783ebc4b18d3bababec851a90fd3}} 
+\index{processusUsine.c@{processusUsine.c}!modeTest\_clignote@{modeTest\_clignote}}
+\index{modeTest\_clignote@{modeTest\_clignote}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{modeTest\_clignote()}{modeTest\_clignote()}}
+{\footnotesize\ttfamily void mode\+Test\+\_\+clignote (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Fais clignoter la lumière verte pour signifier que l\textquotesingle{}usine est en mode de tests. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l01565}{1565}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a816ea11141fcb260aeeff6c73101ec1c}\label{processus_usine_8c_a816ea11141fcb260aeeff6c73101ec1c}} 
+\index{processusUsine.c@{processusUsine.c}!processusUsine\_arret@{processusUsine\_arret}}
+\index{processusUsine\_arret@{processusUsine\_arret}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{processusUsine\_arret()}{processusUsine\_arret()}}
+{\footnotesize\ttfamily void processus\+Usine\+\_\+arret (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+État mode arrêt de la machine à état des modes de l\textquotesingle{}usine. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l01033}{1033}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_afe81c3b21d0517d1513d01ee198f1ef4}\label{processus_usine_8c_afe81c3b21d0517d1513d01ee198f1ef4}} 
+\index{processusUsine.c@{processusUsine.c}!processusUsine\_attente@{processusUsine\_attente}}
+\index{processusUsine\_attente@{processusUsine\_attente}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{processusUsine\_attente()}{processusUsine\_attente()}}
+{\footnotesize\ttfamily void processus\+Usine\+\_\+attente (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+État attente de la machine à état des modes de l\textquotesingle{}usine. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00269}{269}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a8599cda56ec57ff9a6d585f39150de90}\label{processus_usine_8c_a8599cda56ec57ff9a6d585f39150de90}} 
+\index{processusUsine.c@{processusUsine.c}!processusUsine\_erreur@{processusUsine\_erreur}}
+\index{processusUsine\_erreur@{processusUsine\_erreur}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{processusUsine\_erreur()}{processusUsine\_erreur()}}
+{\footnotesize\ttfamily void processus\+Usine\+\_\+erreur (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+État erreur de la machine à état des modes de l\textquotesingle{}usine. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l01586}{1586}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a0e6486727d0d089bd579f4bc0bdc6993}\label{processus_usine_8c_a0e6486727d0d089bd579f4bc0bdc6993}} 
+\index{processusUsine.c@{processusUsine.c}!processusUsine\_initialise@{processusUsine\_initialise}}
+\index{processusUsine\_initialise@{processusUsine\_initialise}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{processusUsine\_initialise()}{processusUsine\_initialise()}}
+{\footnotesize\ttfamily void processus\+Usine\+\_\+initialise (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+État initialise de la machine à état des modes de l\textquotesingle{}usine. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l01664}{1664}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a21769ddfa68e77bc42edd208d83635b4}\label{processus_usine_8c_a21769ddfa68e77bc42edd208d83635b4}} 
+\index{processusUsine.c@{processusUsine.c}!processusUsine\_operation@{processusUsine\_operation}}
+\index{processusUsine\_operation@{processusUsine\_operation}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{processusUsine\_operation()}{processusUsine\_operation()}}
+{\footnotesize\ttfamily void processus\+Usine\+\_\+operation (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+État mode opération de la machine à état des modes de l\textquotesingle{}usine. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00329}{329}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_adeaaeb00f94fdf194cf42bfc07a7de60}\label{processus_usine_8c_adeaaeb00f94fdf194cf42bfc07a7de60}} 
+\index{processusUsine.c@{processusUsine.c}!processusUsine\_tests@{processusUsine\_tests}}
+\index{processusUsine\_tests@{processusUsine\_tests}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{processusUsine\_tests()}{processusUsine\_tests()}}
+{\footnotesize\ttfamily void processus\+Usine\+\_\+tests (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+État mode tests de la machine à état des modes de l\textquotesingle{}usine. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l01056}{1056}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_af458ec9acc88c8fb39d33d7705d972ef}\label{processus_usine_8c_af458ec9acc88c8fb39d33d7705d972ef}} 
+\index{processusUsine.c@{processusUsine.c}!updateDiscColor@{updateDiscColor}}
+\index{updateDiscColor@{updateDiscColor}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{updateDiscColor()}{updateDiscColor()}}
+{\footnotesize\ttfamily void update\+Disc\+Color (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l01613}{1613}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+
+
+\doxysubsection{Documentation des variables}
+\mbox{\Hypertarget{processus_usine_8c_a487ffcfa70ccc9f9046bfc490c72aec6}\label{processus_usine_8c_a487ffcfa70ccc9f9046bfc490c72aec6}} 
+\index{processusUsine.c@{processusUsine.c}!modeOperation\_execute@{modeOperation\_execute}}
+\index{modeOperation\_execute@{modeOperation\_execute}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{modeOperation\_execute}{modeOperation\_execute}}
+{\footnotesize\ttfamily void($\ast$ mode\+Operation\+\_\+execute) (void) (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Pointeur de fonction utilisé pour la sous machine à états du mode opération. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00253}{253}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a9e4cd96f47d9d046678372d50b44a295}\label{processus_usine_8c_a9e4cd96f47d9d046678372d50b44a295}} 
+\index{processusUsine.c@{processusUsine.c}!modeTest\_execute@{modeTest\_execute}}
+\index{modeTest\_execute@{modeTest\_execute}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{modeTest\_execute}{modeTest\_execute}}
+{\footnotesize\ttfamily void($\ast$ mode\+Test\+\_\+execute) (void) (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Pointeur de fonction utilisé pour la sous machine à états du mode de tests. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00258}{258}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+
+\mbox{\Hypertarget{processus_usine_8c_a0c99c63d221aab849e92b3f149fba737}\label{processus_usine_8c_a0c99c63d221aab849e92b3f149fba737}} 
+\index{processusUsine.c@{processusUsine.c}!ucTypeDeBloc@{ucTypeDeBloc}}
+\index{ucTypeDeBloc@{ucTypeDeBloc}!processusUsine.c@{processusUsine.c}}
+\doxysubsubsection{\texorpdfstring{ucTypeDeBloc}{ucTypeDeBloc}}
+{\footnotesize\ttfamily unsigned char uc\+Type\+De\+Bloc}
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_usine_8c_source_l00260}{260}} du fichier \mbox{\hyperlink{processus_usine_8c_source}{processus\+Usine.\+c}}.
+

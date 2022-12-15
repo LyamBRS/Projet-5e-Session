@@ -1,0 +1,302 @@
+\hypertarget{interface_lcd_8h}{}\doxysection{Référence du fichier U\+:/\+Sessions/\+Session 5/\+Project/\+Projet\+\_\+\+Fin\+\_\+\+Session/\+Projet-\/5e-\/\+Session/\+Centre-\/\+De-\/\+Tri/\+Centre\+De\+Tri\+S5/\+Src/interface\+Lcd.h}
+\label{interface_lcd_8h}\index{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Tri/CentreDeTriS5/Src/interfaceLcd.h@{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Tri/CentreDeTriS5/Src/interfaceLcd.h}}
+{\ttfamily \#include \char`\"{}stm32f4xx\+\_\+hal.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}stdbool.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}pilote\+Lcd.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}math.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}BRS\+\_\+\+Lcd\+\_\+\+Font.\+h\char`\"{}}\newline
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{interface_lcd_8h_a94d74873ed246949dd8a80a65ce28007}{interface\+Lcd\+\_\+\+Demo\+\_\+\+Line}} (void)
+\item 
+void \mbox{\hyperlink{interface_lcd_8h_a5543117245e8c771b0a3a40b8a7b9036}{interface\+Lcd\+\_\+\+Demo\+\_\+\+Circles}} (void)
+\item 
+\mbox{\Hypertarget{interface_lcd_8h_a7bd6ce79ffaade67b615f0abce2ea8de}\label{interface_lcd_8h_a7bd6ce79ffaade67b615f0abce2ea8de}} 
+void {\bfseries interface\+Lcd\+\_\+\+Demo\+\_\+\+Clear} (void)
+\item 
+void \mbox{\hyperlink{interface_lcd_8h_aaebf5a41cd2f0f8c7cb357a44a8458b6}{interface\+Lcd\+\_\+\+Draw\+\_\+\+Pixel}} (double x, double y, bool state)
+\item 
+void \mbox{\hyperlink{interface_lcd_8h_a64d9ea257f8fc16e3fb3f6d7d7bef6c3}{interface\+Lcd\+\_\+\+Draw\+\_\+\+Line}} (double x1, double y1, double x2, double y2, bool state)
+\item 
+void \mbox{\hyperlink{interface_lcd_8h_a3c21e392ed63923dcb7bec50fe2d4e9e}{interface\+Lcd\+\_\+\+Draw\+\_\+\+Oval\+Pixel}} (unsigned char x, unsigned char y, double radiusX, double radiusY, double radian, bool state)
+\item 
+void \mbox{\hyperlink{interface_lcd_8h_a5f91433afb0a78b4a2623a79ecbd21f3}{interface\+Lcd\+\_\+\+Draw\+\_\+\+Circle\+Pixel}} (unsigned char x, unsigned char y, double radius, double radian, bool state)
+\item 
+void \mbox{\hyperlink{interface_lcd_8h_a6ce7d95fe97ac40078136dcadc23f5c5}{interface\+Lcd\+\_\+\+Draw\+\_\+\+Circle\+Line}} (unsigned char x, unsigned char y, double Inside\+Radius, double Outside\+Radius, double radian, bool state)
+\item 
+void \mbox{\hyperlink{interface_lcd_8h_a0ddb99149ab5fb8a8695127770f85b75}{interface\+Lcd\+\_\+\+Draw\+\_\+\+Shape\+\_\+\+RectF}} (unsigned char x, unsigned char y, unsigned char width, unsigned char height, bool state)
+\item 
+void \mbox{\hyperlink{interface_lcd_8h_ab18be14ec1d4edf8834bcdb6ef36bc18}{interface\+Lcd\+\_\+\+Draw\+\_\+\+Shape\+\_\+\+Rect}} (unsigned char x, unsigned char y, unsigned char width, unsigned char height, bool state)
+\item 
+void \mbox{\hyperlink{interface_lcd_8h_a36980a519d58ca23a21a4a8cba5ae6de}{interface\+Lcd\+\_\+\+Draw\+\_\+\+Shape\+\_\+\+CircleF}} (unsigned char x, unsigned char y, double radius, bool state)
+\item 
+void \mbox{\hyperlink{interface_lcd_8h_a1dbde0bcb51b4101e747c9ba9fe54502}{interface\+Lcd\+\_\+\+Draw\+\_\+\+Shape\+\_\+\+Circle}} (unsigned char x, unsigned char y, double radius, bool state)
+\item 
+void \mbox{\hyperlink{interface_lcd_8h_a1b8300a6af57eafe90689a2c5f1a30a7}{interface\+Lcd\+\_\+\+Draw\+\_\+\+Text\+\_\+\+Double}} (unsigned char x, unsigned char y, double Number, unsigned char decimals, unsigned char max\+Digits, bool state)
+\item 
+void \mbox{\hyperlink{interface_lcd_8h_a8728c61f7d28549ba1f1765d630fc9ef}{interface\+Lcd\+\_\+\+Draw\+\_\+\+Text\+\_\+\+Integer}} (unsigned char x, unsigned char y, int Number, unsigned char max\+Digits, bool state)
+\item 
+void \mbox{\hyperlink{interface_lcd_8h_ac70a3de50fceaf47f6c029ee38465155}{interface\+Lcd\+\_\+\+Draw\+\_\+\+Text\+\_\+\+Hexa}} (unsigned char x, unsigned char y, int Number, unsigned char max\+Digits, bool state)
+\item 
+void \mbox{\hyperlink{interface_lcd_8h_a118fda1d29d68b0b4e2a78afc99f5350}{interface\+Lcd\+\_\+\+Draw\+\_\+\+Text\+\_\+\+Char}} (unsigned char x, unsigned char y, unsigned char letter, unsigned char font, bool state)
+\item 
+void \mbox{\hyperlink{interface_lcd_8h_af48e17a42d209c2971346bc732ac7a20}{interface\+Lcd\+\_\+\+Draw\+\_\+\+Text\+\_\+\+String}} (unsigned char x, unsigned char y, char const string\mbox{[}$\,$\mbox{]}, unsigned char font, bool state)
+\item 
+\mbox{\Hypertarget{interface_lcd_8h_a2453f593a8cacd444d40575872821057}\label{interface_lcd_8h_a2453f593a8cacd444d40575872821057}} 
+void {\bfseries interface\+Lcd\+\_\+\+Draw\+\_\+\+Text\+\_\+\+Box} (unsigned char x, unsigned char y, unsigned char $\ast$string, unsigned char font, unsigned char LR, unsigned char UD)
+\item 
+void \mbox{\hyperlink{interface_lcd_8h_a86f6f8c0c09e5cd498eb7484c779d195}{interface\+Lcd\+\_\+\+Draw\+\_\+\+Misc\+\_\+\+Scalable\+BRS}} (unsigned char x, unsigned char y, unsigned char scale, bool state)
+\item 
+void \mbox{\hyperlink{interface_lcd_8h_af438c94722f2d9078a1d2319e6e239e3}{interface\+Lcd\+\_\+\+Draw\+\_\+\+Misc\+\_\+\+Lab\+Header}} (char const $\ast$lab, char const $\ast$Table)
+\item 
+\mbox{\Hypertarget{interface_lcd_8h_a5810ab49110d63dd8b0d76f0c61cc699}\label{interface_lcd_8h_a5810ab49110d63dd8b0d76f0c61cc699}} 
+void {\bfseries interface\+Lcd\+\_\+\+Animations\+\_\+\+Outline} (unsigned char x, unsigned char y, unsigned char width, unsigned char height, unsigned char line\+Lenght, unsigned char delay, bool state)
+\item 
+\mbox{\Hypertarget{interface_lcd_8h_af835e9e3b6afcc2c6e0f19b921dcaa48}\label{interface_lcd_8h_af835e9e3b6afcc2c6e0f19b921dcaa48}} 
+void {\bfseries interface\+Lcd\+\_\+\+Animations\+\_\+\+Screen\+Saver} (unsigned char delay, bool state)
+\item 
+void \mbox{\hyperlink{interface_lcd_8h_a323983e8aef23bdd71423b294e0137fa}{interface\+Lcd\+\_\+\+Clear\+\_\+\+Swipe}} (unsigned char direction)
+\item 
+void \mbox{\hyperlink{interface_lcd_8h_a4d6962706efbab716dc8658e4f81255a}{Demo\+\_\+\+Title\+Swipe}} (char const $\ast$Name\+Of\+Demo)
+\item 
+size\+\_\+t \mbox{\hyperlink{interface_lcd_8h_aa478f0ae0e943e244bccf7c67674776e}{strlen}} (const char $\ast$p\+String)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+\begin{DoxyAuthor}{Auteur}
+Shawn couture 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2022-\/03-\/24
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2022 
+\end{DoxyCopyright}
+
+
+Définition dans le fichier \mbox{\hyperlink{interface_lcd_8h_source}{interface\+Lcd.\+h}}.
+
+
+
+\doxysubsection{Documentation des fonctions}
+\mbox{\Hypertarget{interface_lcd_8h_a4d6962706efbab716dc8658e4f81255a}\label{interface_lcd_8h_a4d6962706efbab716dc8658e4f81255a}} 
+\index{interfaceLcd.h@{interfaceLcd.h}!Demo\_TitleSwipe@{Demo\_TitleSwipe}}
+\index{Demo\_TitleSwipe@{Demo\_TitleSwipe}!interfaceLcd.h@{interfaceLcd.h}}
+\doxysubsubsection{\texorpdfstring{Demo\_TitleSwipe()}{Demo\_TitleSwipe()}}
+{\footnotesize\ttfamily void Demo\+\_\+\+Title\+Swipe (\begin{DoxyParamCaption}\item[{char const $\ast$}]{Name\+Of\+Demo }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_lcd_8_c_source_l01259}{1259}} du fichier \mbox{\hyperlink{interface_lcd_8_c_source}{interface\+Lcd.\+C}}.
+
+\mbox{\Hypertarget{interface_lcd_8h_a323983e8aef23bdd71423b294e0137fa}\label{interface_lcd_8h_a323983e8aef23bdd71423b294e0137fa}} 
+\index{interfaceLcd.h@{interfaceLcd.h}!interfaceLcd\_Clear\_Swipe@{interfaceLcd\_Clear\_Swipe}}
+\index{interfaceLcd\_Clear\_Swipe@{interfaceLcd\_Clear\_Swipe}!interfaceLcd.h@{interfaceLcd.h}}
+\doxysubsubsection{\texorpdfstring{interfaceLcd\_Clear\_Swipe()}{interfaceLcd\_Clear\_Swipe()}}
+{\footnotesize\ttfamily void interface\+Lcd\+\_\+\+Clear\+\_\+\+Swipe (\begin{DoxyParamCaption}\item[{unsigned char}]{direction }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_lcd_8_c_source_l00332}{332}} du fichier \mbox{\hyperlink{interface_lcd_8_c_source}{interface\+Lcd.\+C}}.
+
+\mbox{\Hypertarget{interface_lcd_8h_a5543117245e8c771b0a3a40b8a7b9036}\label{interface_lcd_8h_a5543117245e8c771b0a3a40b8a7b9036}} 
+\index{interfaceLcd.h@{interfaceLcd.h}!interfaceLcd\_Demo\_Circles@{interfaceLcd\_Demo\_Circles}}
+\index{interfaceLcd\_Demo\_Circles@{interfaceLcd\_Demo\_Circles}!interfaceLcd.h@{interfaceLcd.h}}
+\doxysubsubsection{\texorpdfstring{interfaceLcd\_Demo\_Circles()}{interfaceLcd\_Demo\_Circles()}}
+{\footnotesize\ttfamily void interface\+Lcd\+\_\+\+Demo\+\_\+\+Circles (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+VARIABLE RESET///
+
+VARIABLE RESET///
+
+VARIABLE RESET///
+
+VARIABLE RESET///
+
+Définition à la ligne \mbox{\hyperlink{interface_lcd_8_c_source_l00691}{691}} du fichier \mbox{\hyperlink{interface_lcd_8_c_source}{interface\+Lcd.\+C}}.
+
+\mbox{\Hypertarget{interface_lcd_8h_a94d74873ed246949dd8a80a65ce28007}\label{interface_lcd_8h_a94d74873ed246949dd8a80a65ce28007}} 
+\index{interfaceLcd.h@{interfaceLcd.h}!interfaceLcd\_Demo\_Line@{interfaceLcd\_Demo\_Line}}
+\index{interfaceLcd\_Demo\_Line@{interfaceLcd\_Demo\_Line}!interfaceLcd.h@{interfaceLcd.h}}
+\doxysubsubsection{\texorpdfstring{interfaceLcd\_Demo\_Line()}{interfaceLcd\_Demo\_Line()}}
+{\footnotesize\ttfamily void interface\+Lcd\+\_\+\+Demo\+\_\+\+Line (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_lcd_8_c_source_l00653}{653}} du fichier \mbox{\hyperlink{interface_lcd_8_c_source}{interface\+Lcd.\+C}}.
+
+\mbox{\Hypertarget{interface_lcd_8h_a6ce7d95fe97ac40078136dcadc23f5c5}\label{interface_lcd_8h_a6ce7d95fe97ac40078136dcadc23f5c5}} 
+\index{interfaceLcd.h@{interfaceLcd.h}!interfaceLcd\_Draw\_CircleLine@{interfaceLcd\_Draw\_CircleLine}}
+\index{interfaceLcd\_Draw\_CircleLine@{interfaceLcd\_Draw\_CircleLine}!interfaceLcd.h@{interfaceLcd.h}}
+\doxysubsubsection{\texorpdfstring{interfaceLcd\_Draw\_CircleLine()}{interfaceLcd\_Draw\_CircleLine()}}
+{\footnotesize\ttfamily void interface\+Lcd\+\_\+\+Draw\+\_\+\+Circle\+Line (\begin{DoxyParamCaption}\item[{unsigned char}]{x,  }\item[{unsigned char}]{y,  }\item[{double}]{Inside\+Radius,  }\item[{double}]{Outside\+Radius,  }\item[{double}]{radian,  }\item[{bool}]{state }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_lcd_8_c_source_l00198}{198}} du fichier \mbox{\hyperlink{interface_lcd_8_c_source}{interface\+Lcd.\+C}}.
+
+\mbox{\Hypertarget{interface_lcd_8h_a5f91433afb0a78b4a2623a79ecbd21f3}\label{interface_lcd_8h_a5f91433afb0a78b4a2623a79ecbd21f3}} 
+\index{interfaceLcd.h@{interfaceLcd.h}!interfaceLcd\_Draw\_CirclePixel@{interfaceLcd\_Draw\_CirclePixel}}
+\index{interfaceLcd\_Draw\_CirclePixel@{interfaceLcd\_Draw\_CirclePixel}!interfaceLcd.h@{interfaceLcd.h}}
+\doxysubsubsection{\texorpdfstring{interfaceLcd\_Draw\_CirclePixel()}{interfaceLcd\_Draw\_CirclePixel()}}
+{\footnotesize\ttfamily void interface\+Lcd\+\_\+\+Draw\+\_\+\+Circle\+Pixel (\begin{DoxyParamCaption}\item[{unsigned char}]{x,  }\item[{unsigned char}]{y,  }\item[{double}]{radius,  }\item[{double}]{radian,  }\item[{bool}]{state }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_lcd_8_c_source_l00169}{169}} du fichier \mbox{\hyperlink{interface_lcd_8_c_source}{interface\+Lcd.\+C}}.
+
+\mbox{\Hypertarget{interface_lcd_8h_a64d9ea257f8fc16e3fb3f6d7d7bef6c3}\label{interface_lcd_8h_a64d9ea257f8fc16e3fb3f6d7d7bef6c3}} 
+\index{interfaceLcd.h@{interfaceLcd.h}!interfaceLcd\_Draw\_Line@{interfaceLcd\_Draw\_Line}}
+\index{interfaceLcd\_Draw\_Line@{interfaceLcd\_Draw\_Line}!interfaceLcd.h@{interfaceLcd.h}}
+\doxysubsubsection{\texorpdfstring{interfaceLcd\_Draw\_Line()}{interfaceLcd\_Draw\_Line()}}
+{\footnotesize\ttfamily void interface\+Lcd\+\_\+\+Draw\+\_\+\+Line (\begin{DoxyParamCaption}\item[{double}]{x1,  }\item[{double}]{y1,  }\item[{double}]{x2,  }\item[{double}]{y2,  }\item[{bool}]{state }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_lcd_8_c_source_l00063}{63}} du fichier \mbox{\hyperlink{interface_lcd_8_c_source}{interface\+Lcd.\+C}}.
+
+\mbox{\Hypertarget{interface_lcd_8h_af438c94722f2d9078a1d2319e6e239e3}\label{interface_lcd_8h_af438c94722f2d9078a1d2319e6e239e3}} 
+\index{interfaceLcd.h@{interfaceLcd.h}!interfaceLcd\_Draw\_Misc\_LabHeader@{interfaceLcd\_Draw\_Misc\_LabHeader}}
+\index{interfaceLcd\_Draw\_Misc\_LabHeader@{interfaceLcd\_Draw\_Misc\_LabHeader}!interfaceLcd.h@{interfaceLcd.h}}
+\doxysubsubsection{\texorpdfstring{interfaceLcd\_Draw\_Misc\_LabHeader()}{interfaceLcd\_Draw\_Misc\_LabHeader()}}
+{\footnotesize\ttfamily void interface\+Lcd\+\_\+\+Draw\+\_\+\+Misc\+\_\+\+Lab\+Header (\begin{DoxyParamCaption}\item[{char const $\ast$}]{lab,  }\item[{char const $\ast$}]{Table }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_lcd_8_c_source_l00308}{308}} du fichier \mbox{\hyperlink{interface_lcd_8_c_source}{interface\+Lcd.\+C}}.
+
+\mbox{\Hypertarget{interface_lcd_8h_a86f6f8c0c09e5cd498eb7484c779d195}\label{interface_lcd_8h_a86f6f8c0c09e5cd498eb7484c779d195}} 
+\index{interfaceLcd.h@{interfaceLcd.h}!interfaceLcd\_Draw\_Misc\_ScalableBRS@{interfaceLcd\_Draw\_Misc\_ScalableBRS}}
+\index{interfaceLcd\_Draw\_Misc\_ScalableBRS@{interfaceLcd\_Draw\_Misc\_ScalableBRS}!interfaceLcd.h@{interfaceLcd.h}}
+\doxysubsubsection{\texorpdfstring{interfaceLcd\_Draw\_Misc\_ScalableBRS()}{interfaceLcd\_Draw\_Misc\_ScalableBRS()}}
+{\footnotesize\ttfamily void interface\+Lcd\+\_\+\+Draw\+\_\+\+Misc\+\_\+\+Scalable\+BRS (\begin{DoxyParamCaption}\item[{unsigned char}]{x,  }\item[{unsigned char}]{y,  }\item[{unsigned char}]{scale,  }\item[{bool}]{state }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_lcd_8_c_source_l00278}{278}} du fichier \mbox{\hyperlink{interface_lcd_8_c_source}{interface\+Lcd.\+C}}.
+
+\mbox{\Hypertarget{interface_lcd_8h_a3c21e392ed63923dcb7bec50fe2d4e9e}\label{interface_lcd_8h_a3c21e392ed63923dcb7bec50fe2d4e9e}} 
+\index{interfaceLcd.h@{interfaceLcd.h}!interfaceLcd\_Draw\_OvalPixel@{interfaceLcd\_Draw\_OvalPixel}}
+\index{interfaceLcd\_Draw\_OvalPixel@{interfaceLcd\_Draw\_OvalPixel}!interfaceLcd.h@{interfaceLcd.h}}
+\doxysubsubsection{\texorpdfstring{interfaceLcd\_Draw\_OvalPixel()}{interfaceLcd\_Draw\_OvalPixel()}}
+{\footnotesize\ttfamily void interface\+Lcd\+\_\+\+Draw\+\_\+\+Oval\+Pixel (\begin{DoxyParamCaption}\item[{unsigned char}]{x,  }\item[{unsigned char}]{y,  }\item[{double}]{radiusX,  }\item[{double}]{radiusY,  }\item[{double}]{radian,  }\item[{bool}]{state }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_lcd_8_c_source_l00183}{183}} du fichier \mbox{\hyperlink{interface_lcd_8_c_source}{interface\+Lcd.\+C}}.
+
+\mbox{\Hypertarget{interface_lcd_8h_aaebf5a41cd2f0f8c7cb357a44a8458b6}\label{interface_lcd_8h_aaebf5a41cd2f0f8c7cb357a44a8458b6}} 
+\index{interfaceLcd.h@{interfaceLcd.h}!interfaceLcd\_Draw\_Pixel@{interfaceLcd\_Draw\_Pixel}}
+\index{interfaceLcd\_Draw\_Pixel@{interfaceLcd\_Draw\_Pixel}!interfaceLcd.h@{interfaceLcd.h}}
+\doxysubsubsection{\texorpdfstring{interfaceLcd\_Draw\_Pixel()}{interfaceLcd\_Draw\_Pixel()}}
+{\footnotesize\ttfamily void interface\+Lcd\+\_\+\+Draw\+\_\+\+Pixel (\begin{DoxyParamCaption}\item[{double}]{x,  }\item[{double}]{y,  }\item[{bool}]{state }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_lcd_8_c_source_l00037}{37}} du fichier \mbox{\hyperlink{interface_lcd_8_c_source}{interface\+Lcd.\+C}}.
+
+\mbox{\Hypertarget{interface_lcd_8h_a1dbde0bcb51b4101e747c9ba9fe54502}\label{interface_lcd_8h_a1dbde0bcb51b4101e747c9ba9fe54502}} 
+\index{interfaceLcd.h@{interfaceLcd.h}!interfaceLcd\_Draw\_Shape\_Circle@{interfaceLcd\_Draw\_Shape\_Circle}}
+\index{interfaceLcd\_Draw\_Shape\_Circle@{interfaceLcd\_Draw\_Shape\_Circle}!interfaceLcd.h@{interfaceLcd.h}}
+\doxysubsubsection{\texorpdfstring{interfaceLcd\_Draw\_Shape\_Circle()}{interfaceLcd\_Draw\_Shape\_Circle()}}
+{\footnotesize\ttfamily void interface\+Lcd\+\_\+\+Draw\+\_\+\+Shape\+\_\+\+Circle (\begin{DoxyParamCaption}\item[{unsigned char}]{x,  }\item[{unsigned char}]{y,  }\item[{double}]{radius,  }\item[{bool}]{state }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_lcd_8_c_source_l00214}{214}} du fichier \mbox{\hyperlink{interface_lcd_8_c_source}{interface\+Lcd.\+C}}.
+
+\mbox{\Hypertarget{interface_lcd_8h_a36980a519d58ca23a21a4a8cba5ae6de}\label{interface_lcd_8h_a36980a519d58ca23a21a4a8cba5ae6de}} 
+\index{interfaceLcd.h@{interfaceLcd.h}!interfaceLcd\_Draw\_Shape\_CircleF@{interfaceLcd\_Draw\_Shape\_CircleF}}
+\index{interfaceLcd\_Draw\_Shape\_CircleF@{interfaceLcd\_Draw\_Shape\_CircleF}!interfaceLcd.h@{interfaceLcd.h}}
+\doxysubsubsection{\texorpdfstring{interfaceLcd\_Draw\_Shape\_CircleF()}{interfaceLcd\_Draw\_Shape\_CircleF()}}
+{\footnotesize\ttfamily void interface\+Lcd\+\_\+\+Draw\+\_\+\+Shape\+\_\+\+CircleF (\begin{DoxyParamCaption}\item[{unsigned char}]{x,  }\item[{unsigned char}]{y,  }\item[{double}]{radius,  }\item[{bool}]{state }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_lcd_8_c_source_l00237}{237}} du fichier \mbox{\hyperlink{interface_lcd_8_c_source}{interface\+Lcd.\+C}}.
+
+\mbox{\Hypertarget{interface_lcd_8h_ab18be14ec1d4edf8834bcdb6ef36bc18}\label{interface_lcd_8h_ab18be14ec1d4edf8834bcdb6ef36bc18}} 
+\index{interfaceLcd.h@{interfaceLcd.h}!interfaceLcd\_Draw\_Shape\_Rect@{interfaceLcd\_Draw\_Shape\_Rect}}
+\index{interfaceLcd\_Draw\_Shape\_Rect@{interfaceLcd\_Draw\_Shape\_Rect}!interfaceLcd.h@{interfaceLcd.h}}
+\doxysubsubsection{\texorpdfstring{interfaceLcd\_Draw\_Shape\_Rect()}{interfaceLcd\_Draw\_Shape\_Rect()}}
+{\footnotesize\ttfamily void interface\+Lcd\+\_\+\+Draw\+\_\+\+Shape\+\_\+\+Rect (\begin{DoxyParamCaption}\item[{unsigned char}]{x,  }\item[{unsigned char}]{y,  }\item[{unsigned char}]{width,  }\item[{unsigned char}]{height,  }\item[{bool}]{state }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_lcd_8_c_source_l00099}{99}} du fichier \mbox{\hyperlink{interface_lcd_8_c_source}{interface\+Lcd.\+C}}.
+
+\mbox{\Hypertarget{interface_lcd_8h_a0ddb99149ab5fb8a8695127770f85b75}\label{interface_lcd_8h_a0ddb99149ab5fb8a8695127770f85b75}} 
+\index{interfaceLcd.h@{interfaceLcd.h}!interfaceLcd\_Draw\_Shape\_RectF@{interfaceLcd\_Draw\_Shape\_RectF}}
+\index{interfaceLcd\_Draw\_Shape\_RectF@{interfaceLcd\_Draw\_Shape\_RectF}!interfaceLcd.h@{interfaceLcd.h}}
+\doxysubsubsection{\texorpdfstring{interfaceLcd\_Draw\_Shape\_RectF()}{interfaceLcd\_Draw\_Shape\_RectF()}}
+{\footnotesize\ttfamily void interface\+Lcd\+\_\+\+Draw\+\_\+\+Shape\+\_\+\+RectF (\begin{DoxyParamCaption}\item[{unsigned char}]{x,  }\item[{unsigned char}]{y,  }\item[{unsigned char}]{width,  }\item[{unsigned char}]{height,  }\item[{bool}]{state }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_lcd_8_c_source_l00125}{125}} du fichier \mbox{\hyperlink{interface_lcd_8_c_source}{interface\+Lcd.\+C}}.
+
+\mbox{\Hypertarget{interface_lcd_8h_a118fda1d29d68b0b4e2a78afc99f5350}\label{interface_lcd_8h_a118fda1d29d68b0b4e2a78afc99f5350}} 
+\index{interfaceLcd.h@{interfaceLcd.h}!interfaceLcd\_Draw\_Text\_Char@{interfaceLcd\_Draw\_Text\_Char}}
+\index{interfaceLcd\_Draw\_Text\_Char@{interfaceLcd\_Draw\_Text\_Char}!interfaceLcd.h@{interfaceLcd.h}}
+\doxysubsubsection{\texorpdfstring{interfaceLcd\_Draw\_Text\_Char()}{interfaceLcd\_Draw\_Text\_Char()}}
+{\footnotesize\ttfamily void interface\+Lcd\+\_\+\+Draw\+\_\+\+Text\+\_\+\+Char (\begin{DoxyParamCaption}\item[{unsigned char}]{x,  }\item[{unsigned char}]{y,  }\item[{unsigned char}]{letter,  }\item[{unsigned char}]{font,  }\item[{bool}]{state }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_lcd_8_c_source_l00430}{430}} du fichier \mbox{\hyperlink{interface_lcd_8_c_source}{interface\+Lcd.\+C}}.
+
+\mbox{\Hypertarget{interface_lcd_8h_a1b8300a6af57eafe90689a2c5f1a30a7}\label{interface_lcd_8h_a1b8300a6af57eafe90689a2c5f1a30a7}} 
+\index{interfaceLcd.h@{interfaceLcd.h}!interfaceLcd\_Draw\_Text\_Double@{interfaceLcd\_Draw\_Text\_Double}}
+\index{interfaceLcd\_Draw\_Text\_Double@{interfaceLcd\_Draw\_Text\_Double}!interfaceLcd.h@{interfaceLcd.h}}
+\doxysubsubsection{\texorpdfstring{interfaceLcd\_Draw\_Text\_Double()}{interfaceLcd\_Draw\_Text\_Double()}}
+{\footnotesize\ttfamily void interface\+Lcd\+\_\+\+Draw\+\_\+\+Text\+\_\+\+Double (\begin{DoxyParamCaption}\item[{unsigned char}]{x,  }\item[{unsigned char}]{y,  }\item[{double}]{Number,  }\item[{unsigned char}]{decimals,  }\item[{unsigned char}]{max\+Digits,  }\item[{bool}]{state }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_lcd_8_c_source_l00564}{564}} du fichier \mbox{\hyperlink{interface_lcd_8_c_source}{interface\+Lcd.\+C}}.
+
+\mbox{\Hypertarget{interface_lcd_8h_ac70a3de50fceaf47f6c029ee38465155}\label{interface_lcd_8h_ac70a3de50fceaf47f6c029ee38465155}} 
+\index{interfaceLcd.h@{interfaceLcd.h}!interfaceLcd\_Draw\_Text\_Hexa@{interfaceLcd\_Draw\_Text\_Hexa}}
+\index{interfaceLcd\_Draw\_Text\_Hexa@{interfaceLcd\_Draw\_Text\_Hexa}!interfaceLcd.h@{interfaceLcd.h}}
+\doxysubsubsection{\texorpdfstring{interfaceLcd\_Draw\_Text\_Hexa()}{interfaceLcd\_Draw\_Text\_Hexa()}}
+{\footnotesize\ttfamily void interface\+Lcd\+\_\+\+Draw\+\_\+\+Text\+\_\+\+Hexa (\begin{DoxyParamCaption}\item[{unsigned char}]{x,  }\item[{unsigned char}]{y,  }\item[{int}]{Number,  }\item[{unsigned char}]{max\+Digits,  }\item[{bool}]{state }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_lcd_8_c_source_l00527}{527}} du fichier \mbox{\hyperlink{interface_lcd_8_c_source}{interface\+Lcd.\+C}}.
+
+\mbox{\Hypertarget{interface_lcd_8h_a8728c61f7d28549ba1f1765d630fc9ef}\label{interface_lcd_8h_a8728c61f7d28549ba1f1765d630fc9ef}} 
+\index{interfaceLcd.h@{interfaceLcd.h}!interfaceLcd\_Draw\_Text\_Integer@{interfaceLcd\_Draw\_Text\_Integer}}
+\index{interfaceLcd\_Draw\_Text\_Integer@{interfaceLcd\_Draw\_Text\_Integer}!interfaceLcd.h@{interfaceLcd.h}}
+\doxysubsubsection{\texorpdfstring{interfaceLcd\_Draw\_Text\_Integer()}{interfaceLcd\_Draw\_Text\_Integer()}}
+{\footnotesize\ttfamily void interface\+Lcd\+\_\+\+Draw\+\_\+\+Text\+\_\+\+Integer (\begin{DoxyParamCaption}\item[{unsigned char}]{x,  }\item[{unsigned char}]{y,  }\item[{int}]{Number,  }\item[{unsigned char}]{max\+Digits,  }\item[{bool}]{state }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_lcd_8_c_source_l00467}{467}} du fichier \mbox{\hyperlink{interface_lcd_8_c_source}{interface\+Lcd.\+C}}.
+
+\mbox{\Hypertarget{interface_lcd_8h_af48e17a42d209c2971346bc732ac7a20}\label{interface_lcd_8h_af48e17a42d209c2971346bc732ac7a20}} 
+\index{interfaceLcd.h@{interfaceLcd.h}!interfaceLcd\_Draw\_Text\_String@{interfaceLcd\_Draw\_Text\_String}}
+\index{interfaceLcd\_Draw\_Text\_String@{interfaceLcd\_Draw\_Text\_String}!interfaceLcd.h@{interfaceLcd.h}}
+\doxysubsubsection{\texorpdfstring{interfaceLcd\_Draw\_Text\_String()}{interfaceLcd\_Draw\_Text\_String()}}
+{\footnotesize\ttfamily void interface\+Lcd\+\_\+\+Draw\+\_\+\+Text\+\_\+\+String (\begin{DoxyParamCaption}\item[{unsigned char}]{x,  }\item[{unsigned char}]{y,  }\item[{char const}]{string\mbox{[}$\,$\mbox{]},  }\item[{unsigned char}]{font,  }\item[{bool}]{state }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_lcd_8_c_source_l00446}{446}} du fichier \mbox{\hyperlink{interface_lcd_8_c_source}{interface\+Lcd.\+C}}.
+
+\mbox{\Hypertarget{interface_lcd_8h_aa478f0ae0e943e244bccf7c67674776e}\label{interface_lcd_8h_aa478f0ae0e943e244bccf7c67674776e}} 
+\index{interfaceLcd.h@{interfaceLcd.h}!strlen@{strlen}}
+\index{strlen@{strlen}!interfaceLcd.h@{interfaceLcd.h}}
+\doxysubsubsection{\texorpdfstring{strlen()}{strlen()}}
+{\footnotesize\ttfamily size\+\_\+t strlen (\begin{DoxyParamCaption}\item[{const char $\ast$}]{p\+String }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_lcd_8_c_source_l01240}{1240}} du fichier \mbox{\hyperlink{interface_lcd_8_c_source}{interface\+Lcd.\+C}}.
+

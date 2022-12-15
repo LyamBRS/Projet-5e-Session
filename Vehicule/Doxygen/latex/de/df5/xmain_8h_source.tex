@@ -1,0 +1,118 @@
+\hypertarget{xmain_8h_source}{}\doxysection{xmain.\+h}
+\label{xmain_8h_source}\index{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Vehicule/Programmes/ESPvehicule/include/xmain.h@{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Vehicule/Programmes/ESPvehicule/include/xmain.h}}
+\mbox{\hyperlink{xmain_8h}{Aller à la documentation de ce fichier.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00001}00001 }
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00022}00022 \textcolor{preprocessor}{\#ifndef MAIN\_H}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00023}00023 \textcolor{preprocessor}{\#define MAIN\_H}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00024}00024 }
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00025}00025 \textcolor{comment}{//PROGRAMME: ESP véhicule Projet 5e Session}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00026}00026 \textcolor{comment}{//DESCRIPTION: programme qui sert de base pour l'introduction au HTML, Javascript, etc}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00027}00027 }
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00028}00028 \textcolor{comment}{//HISTORIQUE:}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00029}00029 \textcolor{comment}{/* Historique du programme gèrer par git et publier sur github au lien suivant}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00030}00030 \textcolor{comment}{*}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00031}00031 \textcolor{comment}{*       https://github.com/LyamBRS/Projet-\/5e-\/Session.git }}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00032}00032 \textcolor{comment}{*/}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00033}00033   }
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00034}00034 \textcolor{comment}{//  *** INFORMATION PUBLIQUE ***}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00035}00035 }
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00036}00036 }
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00037}00037 \textcolor{comment}{//DEFINITIONS REQUISES PAR LE MODULE:}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00038}00038 \textcolor{comment}{//Dependances materielles:}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00039}00039 }
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00044}\mbox{\hyperlink{xmain_8h_aacf3efa1339183d888f1f2a8a70ffdaf}{00044}} \textcolor{preprocessor}{\#define PILOTEENTREE1\_MODE\_FLOTTANT\_AVEC\_PULL\_UP}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00049}\mbox{\hyperlink{xmain_8h_a3cf44d5fed651c02279eee23bd31955c}{00049}} \textcolor{preprocessor}{\#define PILOTEENTREE1\_BROCHE 34}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00054}\mbox{\hyperlink{xmain_8h_ac70b43268471e5f03a62a5fb33100e07}{00054}} \textcolor{preprocessor}{\#define PILOTEIOT1\_BROCHE 13}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00059}\mbox{\hyperlink{xmain_8h_a9d2b466ae3973b1f479d915975338454}{00059}} \textcolor{preprocessor}{\#define PILOTEIOT1\_ETAT\_INITIAL\_A\_ZERO}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00060}00060 }
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00061}00061 \textcolor{comment}{//*** Define pour pilote Feu de Position ***//}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00062}00062 }
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00063}00063 \textcolor{preprocessor}{\#define PILOTEIOFEUAVANTD\_BROCHE 27  }\textcolor{comment}{// A définir}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00064}00064 \textcolor{preprocessor}{\#define PILOTEIOFEUAVANTD\_ETAT\_INITIAL\_A\_ZERO}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00065}00065 \textcolor{preprocessor}{\#define PILOTEIOFEUAVANTG\_BROCHE 15  }\textcolor{comment}{// A définir }}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00066}00066 \textcolor{preprocessor}{\#define PILOTEIOFEUAVANTG\_ETAT\_INITIAL\_A\_ZERO}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00067}00067 \textcolor{preprocessor}{\#define PILOTEIOFEUARRIERED\_BROCHE 12  }\textcolor{comment}{// A définir}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00068}00068 \textcolor{preprocessor}{\#define PILOTEIOFEUARRIERED\_ETAT\_INITIAL\_A\_ZERO}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00069}00069 \textcolor{preprocessor}{\#define PILOTEIOFEUARRIEREG\_BROCHE 33  }\textcolor{comment}{// A définir}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00070}00070 \textcolor{preprocessor}{\#define PILOTEIOFEUARRIEREG\_ETAT\_INITIAL\_A\_ZERO}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00071}00071 }
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00072}00072 \textcolor{comment}{//*** Define pour pilote Benne ***//}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00079}\mbox{\hyperlink{xmain_8h_a1f9ef0374c6b1e4e561d80a4f5cce625}{00079}} \textcolor{comment}{}\textcolor{preprocessor}{\#define PILOTEMOTEURBENNEHAUT\_BROCHE 4}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00086}\mbox{\hyperlink{xmain_8h_ac5f786e673562c1ce052a6a9753a868a}{00086}} \textcolor{preprocessor}{\#define PILOTEMOTEURBENNEBAS\_BROCHE 21}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00093}\mbox{\hyperlink{xmain_8h_a9079496de1df371e4ca21fdb3cb9d041}{00093}} \textcolor{preprocessor}{\#define PILOTEMOTEURBENNE\_ETAT\_INITIAL\_A\_ZERO}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00094}00094 }
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00095}00095 \textcolor{comment}{//*** Define pour pilotes PWM ***//}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00100}\mbox{\hyperlink{xmain_8h_acef0b425c836eb63d74c801c4d11c2b1}{00100}} \textcolor{comment}{}\textcolor{preprocessor}{\#define PILOTEPWM\_RESOLUTION 8  }}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00105}\mbox{\hyperlink{xmain_8h_afe4c40d73c92afab12f1ac6021dacb3d}{00105}} \textcolor{preprocessor}{\#define PILOTEPWM\_FREQUENCE 5000}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00110}\mbox{\hyperlink{xmain_8h_a59d35689d2c2c7a84165bcca14853490}{00110}} \textcolor{preprocessor}{\#define  PILOTEPWMDROITHAUT\_CHANNEL 0}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00114}\mbox{\hyperlink{xmain_8h_a9fe82e011a6483f5ee70cb0dd6ea1a4b}{00114}} \textcolor{preprocessor}{\#define  PILOTEPWMDROITHAUT\_PIN 14}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00119}\mbox{\hyperlink{xmain_8h_a7590dc976354d20555712865babc34cb}{00119}} \textcolor{preprocessor}{\#define  PILOTEPWMDROITBAS\_CHANNEL 1}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00123}\mbox{\hyperlink{xmain_8h_a76c688ee404e3310446984cc236bc3b5}{00123}} \textcolor{preprocessor}{\#define  PILOTEPWMDROITBAS\_PIN 32}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00128}\mbox{\hyperlink{xmain_8h_afbd192e42650e4d1b5af15112670256c}{00128}} \textcolor{preprocessor}{\#define  PILOTEPWMGAUCHEHAUT\_CHANNEL 2}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00132}\mbox{\hyperlink{xmain_8h_a8fe1a40b5932337c8cba1aedcf2fb3d2}{00132}} \textcolor{preprocessor}{\#define  PILOTEPWMGAUCHEHAUT\_PIN 26}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00137}\mbox{\hyperlink{xmain_8h_a34334dffe659958ae46525ca022b358f}{00137}} \textcolor{preprocessor}{\#define  PILOTEPWMGAUCHEBAS\_CHANNEL 3}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00141}\mbox{\hyperlink{xmain_8h_a7bc01f178b03437f49942b47e4812a72}{00141}} \textcolor{preprocessor}{\#define  PILOTEPWMGAUCHEBAS\_PIN 25}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00142}00142 }
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00143}00143 \textcolor{comment}{/*** DEFINITION DU PILOTE I2C ***/}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00147}\mbox{\hyperlink{xmain_8h_ac4e7552b51975d4b247e1182c0eb675e}{00147}} \textcolor{preprocessor}{\#define PILOTEI2C1\_SCL    22}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00151}\mbox{\hyperlink{xmain_8h_a9ca935e6de28c0588cf826eb9970db12}{00151}} \textcolor{preprocessor}{\#define PILOTEI2C1\_SDA    23}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00156}\mbox{\hyperlink{xmain_8h_aac0cc201b183c313e2b8015785304b3e}{00156}} \textcolor{preprocessor}{\#define PILOTEI2C1\_FREQUENCE\_D\_HORLOGE\_EN\_HZ 400000}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00157}00157 }
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00158}00158 \textcolor{comment}{//*** Define pour les interfaces ***//}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00159}00159 }
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00163}\mbox{\hyperlink{xmain_8h_a0416f993a20261d674500195fe235783}{00163}} \textcolor{preprocessor}{\#define INTERFACEENTREE1\_VALEUR\_LUE\_SI\_ACTIVE  0   }}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00167}\mbox{\hyperlink{xmain_8h_a57faa3809d341b9a30bea80da710b5dd}{00167}} \textcolor{preprocessor}{\#define INTERFACEENTREE1\_VALEUR\_LUE\_SI\_INACTIVE 1}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00172}\mbox{\hyperlink{xmain_8h_a0251077e4a0ad77fc2c9f4f0056931cb}{00172}} \textcolor{preprocessor}{\#define INTERFACEENTREE1\_FREQUENCE\_DES\_LECTURES\_EN\_HZ  125}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00177}\mbox{\hyperlink{xmain_8h_a468e19540cff200bd3fdd199f101e339}{00177}} \textcolor{preprocessor}{\#define INTERFACEENTREE1\_NOMBRE\_MINIMUM\_DE\_LECTURES\_PAR\_DECISION 10}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00178}00178 }
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00183}\mbox{\hyperlink{xmain_8h_a904840946f3294acdcf4ee556a776594}{00183}} \textcolor{preprocessor}{\#define INTERFACET1\_VALEUR\_POUR\_ALLUMER  1}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00187}\mbox{\hyperlink{xmain_8h_a48cc114f9ff82188050fe3420afdcd7e}{00187}} \textcolor{preprocessor}{\#define INTERFACET1\_VALEUR\_POUR\_ETEINDRE 0}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00188}00188 }
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00189}00189 }
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00194}\mbox{\hyperlink{xmain_8h_a8eeaca9a2a43b749bf42510ae8b58670}{00194}} \textcolor{preprocessor}{\#define INTERFACESUIVEUR\_ADRESSE 0x3A}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00195}00195 }
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00200}\mbox{\hyperlink{xmain_8h_a940a847baefb8f04c5b15a70bd19ec23}{00200}} \textcolor{preprocessor}{\#define INTERFACEMOTEURBENNE\_VALEUR\_POUR\_ALLUMER 1}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00204}\mbox{\hyperlink{xmain_8h_a95ea958a4d13fe73506dc1715cdaa7e5}{00204}} \textcolor{preprocessor}{\#define INTERFACEMOTEURBENNE\_VALEUR\_POUR\_ETEINDRE 0}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00205}00205 }
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00206}00206 }
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00207}00207 \textcolor{comment}{/***  DÉFINITION NÉCESSAIRE À LA BASE DE TEMPS  ***/}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00213}\mbox{\hyperlink{xmain_8h_a9feadd4b5c905a261e3bebf0141c590e}{00213}} \textcolor{preprocessor}{\#define SERVICETASKSERVER\_PERIODE\_EN\_US (1000L)}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00218}\mbox{\hyperlink{xmain_8h_a6276b0f7c474c476289248b4eecd63ee}{00218}} \textcolor{preprocessor}{\#define SERVICEBASEDETEMPS\_FREQUENCE\_EN\_HZ 1000}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00222}\mbox{\hyperlink{xmain_8h_ab6e7d92e268f07cf18c427fee9ff2e88}{00222}} \textcolor{preprocessor}{\#define SERVICEBASEDETEMPS\_NOMBRE\_DE\_PHASES\_DANS\_LOOP 1}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00227}\mbox{\hyperlink{xmain_8h_a9470a0f17392d89a537141466f6f0e98}{00227}} \textcolor{preprocessor}{\#define SERVICEBASEDETEMPS\_NOMBRE\_DE\_PHASES 7}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00228}00228 }
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00229}00229 \textcolor{comment}{// Phase 0 et 1 sont utilisé et défini par ServiceCommunication.h}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00230}00230 }
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00234}\mbox{\hyperlink{xmain_8h_a8971877a7a918f19dd3e1998eb2977aa}{00234}} \textcolor{preprocessor}{\#define INTERFACEENTREE1\_PHASE 4}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00238}\mbox{\hyperlink{xmain_8h_a3081ddd41aee5b1cca97d113917d5bcd}{00238}} \textcolor{preprocessor}{\#define PROCESSUSBENNE\_PHASE 5}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00242}\mbox{\hyperlink{xmain_8h_a37e84332778d7d3a27f94f84259d5e2d}{00242}} \textcolor{preprocessor}{\#define PROCESSUSCLIGNOTANT\_PHASE 2}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00246}\mbox{\hyperlink{xmain_8h_ad0cce52011eb014a517ec2c1e0d407ac}{00246}} \textcolor{preprocessor}{\#define PROCESSUSCONDUITE\_PHASE 3}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00250}\mbox{\hyperlink{xmain_8h_a8e9cd7848a1ab7d4628071a376585700}{00250}} \textcolor{preprocessor}{\#define PROCESSUSVEHICULE\_PHASE 6}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00251}00251 }
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00252}00252 \textcolor{preprocessor}{\#define PROCESSUSCLIGNOTANT\_TEMPS\_ALLUME\_EN\_MS 500}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00253}00253 \textcolor{preprocessor}{\#define PROCESSUSCLIGNOTANT\_TEMPS\_ETEINT\_EN\_MS 500}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00254}00254 }
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00255}00255 \textcolor{comment}{/***  Définition du processus Conduite  ***/}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00256}00256 }
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00261}\mbox{\hyperlink{xmain_8h_a59efbaf81875696a5e0c725352b9a637}{00261}} \textcolor{preprocessor}{\#define PROCESSUSCONDUITE\_VITESSESTANDARD 200}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00266}\mbox{\hyperlink{xmain_8h_aa9fdf67f53a1e4b1c048ce81a13973c9}{00266}} \textcolor{preprocessor}{\#define PROCESSUSCONDUITE\_REQUETE\_ACTIVE 1}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00272}\mbox{\hyperlink{xmain_8h_aeb117702b667462b019f2c18f9f9c83e}{00272}} \textcolor{preprocessor}{\#define PROCESSUSCONDUITE\_REQUETE\_TRAITE 0}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00277}\mbox{\hyperlink{xmain_8h_aa89162071a3ab0b6694e336917f8d030}{00277}} \textcolor{preprocessor}{\#define PROCESSUSCONDUITE\_MODULE\_PAS\_EN\_FONCTION 0}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00282}\mbox{\hyperlink{xmain_8h_a1586e62b9a8554587e0459dc81e76fda}{00282}} \textcolor{preprocessor}{\#define PROCESSUSCONDUITE\_MODULE\_EN\_DEPLACEMENT 1}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00287}\mbox{\hyperlink{xmain_8h_aaacad22af23dfba61d101eb7a193f1f8}{00287}} \textcolor{preprocessor}{\#define PROCESSUSCONDUITE\_MODULE\_ARRIVE\_TRI 2}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00292}\mbox{\hyperlink{xmain_8h_af1e2d4c7323733fbd35485516faacdd4}{00292}} \textcolor{preprocessor}{\#define PROCESSUSCONDUITE\_MODULE\_ARRIVE\_PESAGE 3}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00297}\mbox{\hyperlink{xmain_8h_a352cd9ecd1d3eeeef1ed7b45774d3336}{00297}} \textcolor{preprocessor}{\#define PROCESSUSCONDUITE\_DERNIERETAT\_PESAGE 8}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00302}\mbox{\hyperlink{xmain_8h_a6edb22dffa3f5963a4f25a0bc367256d}{00302}} \textcolor{preprocessor}{\#define PROCESSUSCONDUITE\_DERNIERETAT\_TRI 9}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00303}00303 }
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00304}00304 }
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00305}00305 }
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00306}00306 \textcolor{comment}{/***  Définition pour le Processus gestion de la Benne  ***/}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00311}\mbox{\hyperlink{xmain_8h_acf458f35645bb501ff2eea7cb2349dca}{00311}} \textcolor{preprocessor}{\#define PROCESSUSBENNE\_REQUETE\_ACTIVE 1}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00316}\mbox{\hyperlink{xmain_8h_a3deea86174149d0008e4ff2fa4b3466e}{00316}} \textcolor{preprocessor}{\#define PROCESSUSBENNE\_REQUETE\_TRAITE 0}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00320}\mbox{\hyperlink{xmain_8h_a49661e9dc644a21f196155fe36b3b500}{00320}} \textcolor{preprocessor}{\#define PROCESSUSBENNE\_MODULE\_EN\_FONCTION 1}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00324}\mbox{\hyperlink{xmain_8h_aa6c86cd90388513205bde41ef14a7f8a}{00324}} \textcolor{preprocessor}{\#define PROCESSUSBENNE\_MODULE\_PAS\_EN\_FONCTION 0}}
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00325}00325 }
+\DoxyCodeLine{\Hypertarget{xmain_8h_source_l00326}00326 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

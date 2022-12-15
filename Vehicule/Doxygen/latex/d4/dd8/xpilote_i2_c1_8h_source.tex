@@ -1,0 +1,51 @@
+\hypertarget{xpilote_i2_c1_8h_source}{}\doxysection{xpilote\+I2\+C1.\+h}
+\label{xpilote_i2_c1_8h_source}\index{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Vehicule/Programmes/ESPvehicule/include/xpiloteI2C1.h@{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Vehicule/Programmes/ESPvehicule/include/xpiloteI2C1.h}}
+\mbox{\hyperlink{xpilote_i2_c1_8h}{Aller à la documentation de ce fichier.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{xpilote_i2_c1_8h_source_l00001}00001 }
+\DoxyCodeLine{\Hypertarget{xpilote_i2_c1_8h_source_l00015}00015 \textcolor{preprocessor}{\#ifndef PILOTEI2C1\_H}}
+\DoxyCodeLine{\Hypertarget{xpilote_i2_c1_8h_source_l00016}00016 \textcolor{preprocessor}{\#define PILOTEI2C1\_H}}
+\DoxyCodeLine{\Hypertarget{xpilote_i2_c1_8h_source_l00017}00017 }
+\DoxyCodeLine{\Hypertarget{xpilote_i2_c1_8h_source_l00018}00018 \textcolor{comment}{//MODULE: piloteI2C1}}
+\DoxyCodeLine{\Hypertarget{xpilote_i2_c1_8h_source_l00019}00019 \textcolor{comment}{//DESCRIPTION: pour permettre l'emploi d'un port I2C}}
+\DoxyCodeLine{\Hypertarget{xpilote_i2_c1_8h_source_l00020}00020 }
+\DoxyCodeLine{\Hypertarget{xpilote_i2_c1_8h_source_l00021}00021 \textcolor{comment}{// 2021-\/07-\/08, Yves Roy, creation}}
+\DoxyCodeLine{\Hypertarget{xpilote_i2_c1_8h_source_l00022}00022 }
+\DoxyCodeLine{\Hypertarget{xpilote_i2_c1_8h_source_l00023}00023 \textcolor{comment}{//DEFINITIONS REQUISES PAR LE MODULE:}}
+\DoxyCodeLine{\Hypertarget{xpilote_i2_c1_8h_source_l00024}00024 \textcolor{comment}{//Dependances materielles}}
+\DoxyCodeLine{\Hypertarget{xpilote_i2_c1_8h_source_l00025}00025 \textcolor{comment}{//(copiez et adaptez ce qui suit dans "{}main.h"{})}}
+\DoxyCodeLine{\Hypertarget{xpilote_i2_c1_8h_source_l00026}00026 \textcolor{comment}{//\#define PILOTEI2C1\_SCL    19  //22 pour adafruit}}
+\DoxyCodeLine{\Hypertarget{xpilote_i2_c1_8h_source_l00027}00027 \textcolor{comment}{//\#define PILOTEI2C1\_SDA    18  //21 pour adafruit}}
+\DoxyCodeLine{\Hypertarget{xpilote_i2_c1_8h_source_l00028}00028 \textcolor{comment}{//\#define PILOTEI2C1\_FREQUENCE\_D\_HORLOGE\_EN\_HZ 400000}}
+\DoxyCodeLine{\Hypertarget{xpilote_i2_c1_8h_source_l00029}00029 }
+\DoxyCodeLine{\Hypertarget{xpilote_i2_c1_8h_source_l00030}00030 \textcolor{comment}{//Dependances logicielles}}
+\DoxyCodeLine{\Hypertarget{xpilote_i2_c1_8h_source_l00031}00031 \textcolor{comment}{//pas de dependances logicielles}}
+\DoxyCodeLine{\Hypertarget{xpilote_i2_c1_8h_source_l00032}00032 }
+\DoxyCodeLine{\Hypertarget{xpilote_i2_c1_8h_source_l00033}00033 \textcolor{comment}{//INFORMATION PUBLIQUE:}}
+\DoxyCodeLine{\Hypertarget{xpilote_i2_c1_8h_source_l00034}00034 \textcolor{comment}{//Definitions publiques:}}
+\DoxyCodeLine{\Hypertarget{xpilote_i2_c1_8h_source_l00035}00035 \textcolor{comment}{//pas de definitions publiques}}
+\DoxyCodeLine{\Hypertarget{xpilote_i2_c1_8h_source_l00036}00036 }
+\DoxyCodeLine{\Hypertarget{xpilote_i2_c1_8h_source_l00037}00037 \textcolor{comment}{//Fonctions publiques:}}
+\DoxyCodeLine{\Hypertarget{xpilote_i2_c1_8h_source_l00038}00038 }
+\DoxyCodeLine{\Hypertarget{xpilote_i2_c1_8h_source_l00042}\mbox{\hyperlink{xpilote_i2_c1_8h_aa18b15253a56a78e185011412239eb89}{00042}} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} \mbox{\hyperlink{xpilote_i2_c1_8h_aa18b15253a56a78e185011412239eb89}{piloteI2C1\_lisUnOctet}}(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} Adresse);}
+\DoxyCodeLine{\Hypertarget{xpilote_i2_c1_8h_source_l00043}00043 }
+\DoxyCodeLine{\Hypertarget{xpilote_i2_c1_8h_source_l00047}\mbox{\hyperlink{xpilote_i2_c1_8h_a9f974a10adc842d6f713d4b06e748454}{00047}} \textcolor{keywordtype}{void} \mbox{\hyperlink{xpilote_i2_c1_8h_a9f974a10adc842d6f713d4b06e748454}{piloteI2C1\_ecritUnOctet}}(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} Adresse, \textcolor{keywordtype}{char} Octet);}
+\DoxyCodeLine{\Hypertarget{xpilote_i2_c1_8h_source_l00048}00048 }
+\DoxyCodeLine{\Hypertarget{xpilote_i2_c1_8h_source_l00052}\mbox{\hyperlink{xpilote_i2_c1_8h_addf098ce9cd2df8ccb306b8429f4957f}{00052}} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{xpilote_i2_c1_8h_addf098ce9cd2df8ccb306b8429f4957f}{piloteI2C1\_lisUnEntier}}(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} Adresse);}
+\DoxyCodeLine{\Hypertarget{xpilote_i2_c1_8h_source_l00053}00053 }
+\DoxyCodeLine{\Hypertarget{xpilote_i2_c1_8h_source_l00057}\mbox{\hyperlink{xpilote_i2_c1_8h_a2d60a281a593a8313f5470c511aa2cb8}{00057}} \textcolor{keywordtype}{void} \mbox{\hyperlink{xpilote_i2_c1_8h_a2d60a281a593a8313f5470c511aa2cb8}{piloteI2C1\_ecritUnEntier}}(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} Adresse, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} Entier);}
+\DoxyCodeLine{\Hypertarget{xpilote_i2_c1_8h_source_l00058}00058 }
+\DoxyCodeLine{\Hypertarget{xpilote_i2_c1_8h_source_l00063}\mbox{\hyperlink{xpilote_i2_c1_8h_a6e36faf1fc3341e01fff3c79c2708e85}{00063}} \textcolor{keywordtype}{void} \mbox{\hyperlink{xpilote_i2_c1_8h_a6e36faf1fc3341e01fff3c79c2708e85}{piloteI2C1\_litUnRegistre}}(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} Adresse, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} Registre, \textcolor{keywordtype}{char} *ValeurLue);}
+\DoxyCodeLine{\Hypertarget{xpilote_i2_c1_8h_source_l00064}00064 }
+\DoxyCodeLine{\Hypertarget{xpilote_i2_c1_8h_source_l00069}\mbox{\hyperlink{xpilote_i2_c1_8h_a3ff78d59d954c2070cb82a81275d6bbc}{00069}} \textcolor{keywordtype}{void} \mbox{\hyperlink{xpilote_i2_c1_8h_a3ff78d59d954c2070cb82a81275d6bbc}{piloteI2C1\_ecritUnOctetDansUnRegistre}}(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} Adresse, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} Registre, \textcolor{keywordtype}{char} Octet);}
+\DoxyCodeLine{\Hypertarget{xpilote_i2_c1_8h_source_l00070}00070 }
+\DoxyCodeLine{\Hypertarget{xpilote_i2_c1_8h_source_l00076}\mbox{\hyperlink{xpilote_i2_c1_8h_a8699a8fb1fb83aad86d799680c49e796}{00076}} \textcolor{keywordtype}{void} \mbox{\hyperlink{xpilote_i2_c1_8h_a8699a8fb1fb83aad86d799680c49e796}{piloteI2C1\_litAutomatiquementDesRegistres}}(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} Adresse, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} Registre, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} Nombre, \textcolor{keywordtype}{char} *ValeursLues);}
+\DoxyCodeLine{\Hypertarget{xpilote_i2_c1_8h_source_l00077}00077 }
+\DoxyCodeLine{\Hypertarget{xpilote_i2_c1_8h_source_l00080}\mbox{\hyperlink{xpilote_i2_c1_8h_a2996bff0498c565e1651f0bb2ebef8b8}{00080}} \textcolor{keywordtype}{void} \mbox{\hyperlink{xpilote_i2_c1_8h_a2996bff0498c565e1651f0bb2ebef8b8}{piloteI2C1\_initialise}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{xpilote_i2_c1_8h_source_l00081}00081 }
+\DoxyCodeLine{\Hypertarget{xpilote_i2_c1_8h_source_l00082}00082 \textcolor{comment}{//Variables publiques:}}
+\DoxyCodeLine{\Hypertarget{xpilote_i2_c1_8h_source_l00083}00083 \textcolor{comment}{//pas de variables publiques}}
+\DoxyCodeLine{\Hypertarget{xpilote_i2_c1_8h_source_l00084}00084 }
+\DoxyCodeLine{\Hypertarget{xpilote_i2_c1_8h_source_l00085}00085 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

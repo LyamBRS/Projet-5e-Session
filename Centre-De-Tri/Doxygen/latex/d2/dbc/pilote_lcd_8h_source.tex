@@ -1,0 +1,65 @@
+\hypertarget{pilote_lcd_8h_source}{}\doxysection{pilote\+Lcd.\+h}
+\label{pilote_lcd_8h_source}\index{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Tri/CentreDeTriS5/Src/piloteLcd.h@{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Tri/CentreDeTriS5/Src/piloteLcd.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00001}00001 \textcolor{comment}{//******************************************************************************}}
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00002}00002 \textcolor{comment}{//   Nom du fichier : GLcd.h}}
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00003}00003 \textcolor{comment}{//   Auteur : Alain Champagne                  }}
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00004}00004 \textcolor{comment}{//      Date de création : 16-\/03-\/2006 }}
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00005}00005 \textcolor{comment}{//      Date de modification pour le STM32F4 : 23-\/12-\/2015}}
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00006}00006 \textcolor{comment}{//        Fichier de déclaration et de définission pour les fonctions de }}
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00007}00007 \textcolor{comment}{//        contrôle d'un écran graphique de type KS0108.}}
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00008}00008 \textcolor{comment}{// }}
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00009}00009 \textcolor{comment}{//******************************************************************************}}
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00010}00010 }
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00011}00011 }
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00012}00012 \textcolor{comment}{//******************************************************************************}}
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00013}00013 \textcolor{comment}{//                            DECLARATION ET DEFINITION                         }}
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00014}00014 \textcolor{comment}{//******************************************************************************}}
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00015}00015 }
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00016}00016 }
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00017}00017 \textcolor{preprocessor}{\#ifndef XGLCD\_H}}
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00018}00018 \textcolor{preprocessor}{  \#define XGLCD\_H}}
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00019}00019 }
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00020}00020 \textcolor{comment}{//Include}}
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00021}00021 \textcolor{preprocessor}{\#include "{}stm32f4xx\_hal.h"{}}                       \textcolor{comment}{//Définition pour le KIT ARM}}
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00022}00022 \textcolor{preprocessor}{\#include "{}IO\_BUS.h"{}}       }
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00023}00023 \textcolor{preprocessor}{\#include "{}main.h"{}}}
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00024}00024 }
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00025}00025 \textcolor{comment}{//Define}}
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00026}00026 \textcolor{preprocessor}{\#define ADRINSTRLEFTR 0x06}}
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00027}00027 \textcolor{preprocessor}{\#define ADRINSTRRIGHTR 0x05                          }}
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00028}00028 \textcolor{preprocessor}{\#define ADRINSTRLEFTW 0x02}}
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00029}00029 \textcolor{preprocessor}{\#define ADRINSTRRIGHTW 0x01}}
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00030}00030 \textcolor{preprocessor}{\#define ADRDATALEFTR 0x0E}}
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00031}00031 \textcolor{preprocessor}{\#define ADRDATARIGHTR 0x0D                          }}
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00032}00032 \textcolor{preprocessor}{\#define ADRDATALEFTW 0x0A}}
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00033}00033 \textcolor{preprocessor}{\#define ADRDATARIGHTW 0x09}}
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00034}00034 \textcolor{preprocessor}{\#define ADRBUSYFLAG 0x04}}
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00035}00035 }
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00036}00036 \textcolor{comment}{//Predeclaration externe                     }}
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00037}00037 uint8\_t ucInputGLcd(uint8\_t ucAdresse);}
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00038}00038 \textcolor{keywordtype}{void} vOutputGLcd(uint8\_t ucAdresse, uint8\_t ucDonnee);}
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00039}00039 \textcolor{keywordtype}{void} vDelaiGLcd(uint16\_t uiTemps);  }
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00040}00040 \textcolor{keywordtype}{void} vInitGLcd(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00041}00041 \textcolor{keywordtype}{void} vClearGLcd                                 (uint8\_t ucData); }
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00042}00042 \textcolor{keywordtype}{void} vPutPixelGLcd                              (uint8\_t ucX, uint8\_t ucY);}
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00043}00043 \textcolor{keywordtype}{void} vClearPixelGLcd                            (uint8\_t ucX, uint8\_t ucY);                                             }
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00044}00044 \textcolor{keywordtype}{void} vDrawLineGLcd                              (uint8\_t ucX, uint8\_t ucY, uint8\_t ucLong, uint8\_t ucDir); }
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00045}00045 \textcolor{keywordtype}{void} vDrawRectangleGLcd                         (uint8\_t ucX1, uint8\_t ucY1, uint8\_t ucX2, uint8\_t ucY2); }
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00046}00046 \textcolor{keywordtype}{void} vDrawCircleGLcd                            (uint8\_t ucX, uint8\_t ucY, uint8\_t ucRayon); }
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00047}00047 }
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00048}00048 \textcolor{keywordtype}{void} vPutCharGLcd                               (uint8\_t ucChar, uint8\_t ucLigne, uint8\_t ucColonne, uint8\_t ucFont);}
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00049}00049 \textcolor{keywordtype}{void} vPutCharGLcdINV                            (uint8\_t ucChar, uint8\_t ucLigne, uint8\_t ucColonne, uint8\_t ucFont);}
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00050}00050 }
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00051}00051 \textcolor{keywordtype}{void} vPutStringGLcd                             (\textcolor{keywordtype}{char} \textcolor{keyword}{const} ucTab[], int8\_t iLigneLcd, uint8\_t ucFont);}
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00052}00052 \textcolor{keywordtype}{void} vPutStringGLcdINV                          (\textcolor{keywordtype}{char} \textcolor{keyword}{const} ucTab[], int8\_t iLigneLcd, uint8\_t ucFont);}
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00053}00053 }
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00054}00054 \textcolor{keywordtype}{void} vPutBMPGLcd                                (uint8\_t ucTab[]);}
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00055}00055 \textcolor{keywordtype}{void} vPutBMPGLcdINV                             (uint8\_t ucTab[]);}
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00056}00056 }
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00057}00057 }
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00058}00058 }
+\DoxyCodeLine{\Hypertarget{pilote_lcd_8h_source_l00059}00059 \textcolor{preprocessor}{\#endif }}
+
+\end{DoxyCode}

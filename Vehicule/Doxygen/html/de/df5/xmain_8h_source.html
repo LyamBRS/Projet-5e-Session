@@ -1,0 +1,219 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.5"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Recycling Center:  Fichier source de U:/Sessions/Session 5/Project/Projet_Fin_Session/Projet-5e-Session/Vehicule/Programmes/ESPvehicule/include/xmain.h</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../resize.js"></script>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="../../BRS (S) Icon.ico"/></td>
+  <td id="projectalign">
+   <div id="projectname">Recycling Center<span id="projectnumber">&#160;1</span>
+   </div>
+   <div id="projectbrief">Véhicule</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.5 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('../../',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('de/df5/xmain_8h_source.html','../../'); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Chargement...</div>
+<div class="SRStatus" id="Searching">Recherche...</div>
+<div class="SRStatus" id="NoMatches">Aucune correspondance</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">xmain.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="../../de/df5/xmain_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#ifndef MAIN_H</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#define MAIN_H</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="comment">//PROGRAMME: ESP véhicule Projet 5e Session</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="comment">//DESCRIPTION: programme qui sert de base pour l&#39;introduction au HTML, Javascript, etc</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment">//HISTORIQUE:</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment">/* Historique du programme gèrer par git et publier sur github au lien suivant</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment">*</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment">*       https://github.com/LyamBRS/Projet-5e-Session.git </span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment">*/</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>  </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment">//  *** INFORMATION PUBLIQUE ***</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment">//DEFINITIONS REQUISES PAR LE MODULE:</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment">//Dependances materielles:</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#aacf3efa1339183d888f1f2a8a70ffdaf">   44</a></span><span class="preprocessor">#define PILOTEENTREE1_MODE_FLOTTANT_AVEC_PULL_UP</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#a3cf44d5fed651c02279eee23bd31955c">   49</a></span><span class="preprocessor">#define PILOTEENTREE1_BROCHE 34</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#ac70b43268471e5f03a62a5fb33100e07">   54</a></span><span class="preprocessor">#define PILOTEIOT1_BROCHE 13</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#a9d2b466ae3973b1f479d915975338454">   59</a></span><span class="preprocessor">#define PILOTEIOT1_ETAT_INITIAL_A_ZERO</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="comment">//*** Define pour pilote Feu de Position ***//</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="preprocessor">#define PILOTEIOFEUAVANTD_BROCHE 27  </span><span class="comment">// A définir</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="preprocessor">#define PILOTEIOFEUAVANTD_ETAT_INITIAL_A_ZERO</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="preprocessor">#define PILOTEIOFEUAVANTG_BROCHE 15  </span><span class="comment">// A définir </span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="preprocessor">#define PILOTEIOFEUAVANTG_ETAT_INITIAL_A_ZERO</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="preprocessor">#define PILOTEIOFEUARRIERED_BROCHE 12  </span><span class="comment">// A définir</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="preprocessor">#define PILOTEIOFEUARRIERED_ETAT_INITIAL_A_ZERO</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="preprocessor">#define PILOTEIOFEUARRIEREG_BROCHE 33  </span><span class="comment">// A définir</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="preprocessor">#define PILOTEIOFEUARRIEREG_ETAT_INITIAL_A_ZERO</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="comment">//*** Define pour pilote Benne ***//</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#a1f9ef0374c6b1e4e561d80a4f5cce625">   79</a></span><span class="comment"></span><span class="preprocessor">#define PILOTEMOTEURBENNEHAUT_BROCHE 4</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#ac5f786e673562c1ce052a6a9753a868a">   86</a></span><span class="preprocessor">#define PILOTEMOTEURBENNEBAS_BROCHE 21</span></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#a9079496de1df371e4ca21fdb3cb9d041">   93</a></span><span class="preprocessor">#define PILOTEMOTEURBENNE_ETAT_INITIAL_A_ZERO</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="comment">//*** Define pour pilotes PWM ***//</span></div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#acef0b425c836eb63d74c801c4d11c2b1">  100</a></span><span class="comment"></span><span class="preprocessor">#define PILOTEPWM_RESOLUTION 8  </span></div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#afe4c40d73c92afab12f1ac6021dacb3d">  105</a></span><span class="preprocessor">#define PILOTEPWM_FREQUENCE 5000</span></div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#a59d35689d2c2c7a84165bcca14853490">  110</a></span><span class="preprocessor">#define  PILOTEPWMDROITHAUT_CHANNEL 0</span></div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#a9fe82e011a6483f5ee70cb0dd6ea1a4b">  114</a></span><span class="preprocessor">#define  PILOTEPWMDROITHAUT_PIN 14</span></div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#a7590dc976354d20555712865babc34cb">  119</a></span><span class="preprocessor">#define  PILOTEPWMDROITBAS_CHANNEL 1</span></div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#a76c688ee404e3310446984cc236bc3b5">  123</a></span><span class="preprocessor">#define  PILOTEPWMDROITBAS_PIN 32</span></div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#afbd192e42650e4d1b5af15112670256c">  128</a></span><span class="preprocessor">#define  PILOTEPWMGAUCHEHAUT_CHANNEL 2</span></div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#a8fe1a40b5932337c8cba1aedcf2fb3d2">  132</a></span><span class="preprocessor">#define  PILOTEPWMGAUCHEHAUT_PIN 26</span></div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#a34334dffe659958ae46525ca022b358f">  137</a></span><span class="preprocessor">#define  PILOTEPWMGAUCHEBAS_CHANNEL 3</span></div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#a7bc01f178b03437f49942b47e4812a72">  141</a></span><span class="preprocessor">#define  PILOTEPWMGAUCHEBAS_PIN 25</span></div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span><span class="comment">/*** DEFINITION DU PILOTE I2C ***/</span></div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#ac4e7552b51975d4b247e1182c0eb675e">  147</a></span><span class="preprocessor">#define PILOTEI2C1_SCL    22</span></div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#a9ca935e6de28c0588cf826eb9970db12">  151</a></span><span class="preprocessor">#define PILOTEI2C1_SDA    23</span></div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#aac0cc201b183c313e2b8015785304b3e">  156</a></span><span class="preprocessor">#define PILOTEI2C1_FREQUENCE_D_HORLOGE_EN_HZ 400000</span></div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span> </div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span><span class="comment">//*** Define pour les interfaces ***//</span></div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span> </div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#a0416f993a20261d674500195fe235783">  163</a></span><span class="preprocessor">#define INTERFACEENTREE1_VALEUR_LUE_SI_ACTIVE  0   </span></div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#a57faa3809d341b9a30bea80da710b5dd">  167</a></span><span class="preprocessor">#define INTERFACEENTREE1_VALEUR_LUE_SI_INACTIVE 1</span></div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#a0251077e4a0ad77fc2c9f4f0056931cb">  172</a></span><span class="preprocessor">#define INTERFACEENTREE1_FREQUENCE_DES_LECTURES_EN_HZ  125</span></div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#a468e19540cff200bd3fdd199f101e339">  177</a></span><span class="preprocessor">#define INTERFACEENTREE1_NOMBRE_MINIMUM_DE_LECTURES_PAR_DECISION 10</span></div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span> </div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#a904840946f3294acdcf4ee556a776594">  183</a></span><span class="preprocessor">#define INTERFACET1_VALEUR_POUR_ALLUMER  1</span></div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#a48cc114f9ff82188050fe3420afdcd7e">  187</a></span><span class="preprocessor">#define INTERFACET1_VALEUR_POUR_ETEINDRE 0</span></div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span> </div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span> </div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#a8eeaca9a2a43b749bf42510ae8b58670">  194</a></span><span class="preprocessor">#define INTERFACESUIVEUR_ADRESSE 0x3A</span></div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span> </div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#a940a847baefb8f04c5b15a70bd19ec23">  200</a></span><span class="preprocessor">#define INTERFACEMOTEURBENNE_VALEUR_POUR_ALLUMER 1</span></div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#a95ea958a4d13fe73506dc1715cdaa7e5">  204</a></span><span class="preprocessor">#define INTERFACEMOTEURBENNE_VALEUR_POUR_ETEINDRE 0</span></div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span> </div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span> </div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span><span class="comment">/***  DÉFINITION NÉCESSAIRE À LA BASE DE TEMPS  ***/</span></div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#a9feadd4b5c905a261e3bebf0141c590e">  213</a></span><span class="preprocessor">#define SERVICETASKSERVER_PERIODE_EN_US (1000L)</span></div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#a6276b0f7c474c476289248b4eecd63ee">  218</a></span><span class="preprocessor">#define SERVICEBASEDETEMPS_FREQUENCE_EN_HZ 1000</span></div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#ab6e7d92e268f07cf18c427fee9ff2e88">  222</a></span><span class="preprocessor">#define SERVICEBASEDETEMPS_NOMBRE_DE_PHASES_DANS_LOOP 1</span></div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#a9470a0f17392d89a537141466f6f0e98">  227</a></span><span class="preprocessor">#define SERVICEBASEDETEMPS_NOMBRE_DE_PHASES 7</span></div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span> </div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span><span class="comment">// Phase 0 et 1 sont utilisé et défini par ServiceCommunication.h</span></div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span> </div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#a8971877a7a918f19dd3e1998eb2977aa">  234</a></span><span class="preprocessor">#define INTERFACEENTREE1_PHASE 4</span></div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#a3081ddd41aee5b1cca97d113917d5bcd">  238</a></span><span class="preprocessor">#define PROCESSUSBENNE_PHASE 5</span></div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#a37e84332778d7d3a27f94f84259d5e2d">  242</a></span><span class="preprocessor">#define PROCESSUSCLIGNOTANT_PHASE 2</span></div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#ad0cce52011eb014a517ec2c1e0d407ac">  246</a></span><span class="preprocessor">#define PROCESSUSCONDUITE_PHASE 3</span></div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#a8e9cd7848a1ab7d4628071a376585700">  250</a></span><span class="preprocessor">#define PROCESSUSVEHICULE_PHASE 6</span></div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span> </div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span><span class="preprocessor">#define PROCESSUSCLIGNOTANT_TEMPS_ALLUME_EN_MS 500</span></div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span><span class="preprocessor">#define PROCESSUSCLIGNOTANT_TEMPS_ETEINT_EN_MS 500</span></div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span> </div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span><span class="comment">/***  Définition du processus Conduite  ***/</span></div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span> </div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#a59efbaf81875696a5e0c725352b9a637">  261</a></span><span class="preprocessor">#define PROCESSUSCONDUITE_VITESSESTANDARD 200</span></div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#aa9fdf67f53a1e4b1c048ce81a13973c9">  266</a></span><span class="preprocessor">#define PROCESSUSCONDUITE_REQUETE_ACTIVE 1</span></div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#aeb117702b667462b019f2c18f9f9c83e">  272</a></span><span class="preprocessor">#define PROCESSUSCONDUITE_REQUETE_TRAITE 0</span></div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#aa89162071a3ab0b6694e336917f8d030">  277</a></span><span class="preprocessor">#define PROCESSUSCONDUITE_MODULE_PAS_EN_FONCTION 0</span></div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#a1586e62b9a8554587e0459dc81e76fda">  282</a></span><span class="preprocessor">#define PROCESSUSCONDUITE_MODULE_EN_DEPLACEMENT 1</span></div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#aaacad22af23dfba61d101eb7a193f1f8">  287</a></span><span class="preprocessor">#define PROCESSUSCONDUITE_MODULE_ARRIVE_TRI 2</span></div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#af1e2d4c7323733fbd35485516faacdd4">  292</a></span><span class="preprocessor">#define PROCESSUSCONDUITE_MODULE_ARRIVE_PESAGE 3</span></div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#a352cd9ecd1d3eeeef1ed7b45774d3336">  297</a></span><span class="preprocessor">#define PROCESSUSCONDUITE_DERNIERETAT_PESAGE 8</span></div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#a6edb22dffa3f5963a4f25a0bc367256d">  302</a></span><span class="preprocessor">#define PROCESSUSCONDUITE_DERNIERETAT_TRI 9</span></div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span> </div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span> </div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span> </div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span><span class="comment">/***  Définition pour le Processus gestion de la Benne  ***/</span></div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#acf458f35645bb501ff2eea7cb2349dca">  311</a></span><span class="preprocessor">#define PROCESSUSBENNE_REQUETE_ACTIVE 1</span></div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#a3deea86174149d0008e4ff2fa4b3466e">  316</a></span><span class="preprocessor">#define PROCESSUSBENNE_REQUETE_TRAITE 0</span></div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#a49661e9dc644a21f196155fe36b3b500">  320</a></span><span class="preprocessor">#define PROCESSUSBENNE_MODULE_EN_FONCTION 1</span></div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno"><a class="line" href="../../de/df5/xmain_8h.html#aa6c86cd90388513205bde41ef14a7f8a">  324</a></span><span class="preprocessor">#define PROCESSUSBENNE_MODULE_PAS_EN_FONCTION 0</span></div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span> </div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span><span class="preprocessor">#endif</span></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="../../dir_1960eb5326e5d9e33055aa33e524e3d7.html">Projet-5e-Session</a></li><li class="navelem"><a class="el" href="../../dir_c66793c105aecc1a790734daf2676185.html">Vehicule</a></li><li class="navelem"><a class="el" href="../../dir_6a9b13c080b4ac7137c929796212df25.html">Programmes</a></li><li class="navelem"><a class="el" href="../../dir_67091ed8f46ec7ef63a73aafeff1588b.html">ESPvehicule</a></li><li class="navelem"><a class="el" href="../../dir_8fe6a367d8338cff6903dba32c9d2179.html">include</a></li><li class="navelem"><a class="el" href="../../de/df5/xmain_8h.html">xmain.h</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5 </li>
+  </ul>
+</div>
+</body>
+</html>

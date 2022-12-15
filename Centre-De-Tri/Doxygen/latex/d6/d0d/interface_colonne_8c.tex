@@ -1,0 +1,243 @@
+\hypertarget{interface_colonne_8c}{}\doxysection{Référence du fichier U\+:/\+Sessions/\+Session 5/\+Project/\+Projet\+\_\+\+Fin\+\_\+\+Session/\+Projet-\/5e-\/\+Session/\+Centre-\/\+De-\/\+Tri/\+Centre\+De\+Tri\+S5/\+Src/interface\+Colonne.c}
+\label{interface_colonne_8c}\index{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Tri/CentreDeTriS5/Src/interfaceColonne.c@{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Tri/CentreDeTriS5/Src/interfaceColonne.c}}
+
+
+Ce fichier contient le code permettant de gérer la colonne lumineuse, c\textquotesingle{}est à dire, des fonctions permettant de changer l\textquotesingle{}état de chacune des lumières à ALLUME ETEINT ou CLIGNOTE.  
+
+
+{\ttfamily \#include \char`\"{}main.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}service\+Base\+De\+Temps.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}interface\+Colonne.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}pilote\+Colonne.\+h\char`\"{}}\newline
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{interface_colonne_8c_a4e62d8657ab9a1052ff8752757182b74}{VITESSECLIGNOTANT}}~2000
+\item 
+\#define \mbox{\hyperlink{interface_colonne_8c_a731667f79870595283efb4cf30d3b308}{ETEINT}}~0
+\item 
+\#define \mbox{\hyperlink{interface_colonne_8c_af3cbc6e19c691152caa8ca4bfd966dd6}{ALLUME}}~1
+\item 
+\#define \mbox{\hyperlink{interface_colonne_8c_a41b4964a7b71f43a0be8dcc93fcf1506}{CLIGNOTE}}~2
+\end{DoxyCompactItemize}
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{interface_colonne_8c_a39537dca72d96818f29dce072ee00111}{interface\+Colonne\+\_\+gere}} (void)
+\begin{DoxyCompactList}\small\item\em Cette fonction est appelée par la base de temps pour gérer le clignotement de façon à ce que toutes les lumières qui clignotent soient syncronisées. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{interface_colonne_8c_afc2b67c1060c4e2dddba4c5fec05f396}{interface\+Colonne\+\_\+allume}} (unsigned char couleur)
+\begin{DoxyCompactList}\small\item\em Permet de changer l\textquotesingle{}état de la lumière voulue à ALLUME. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{interface_colonne_8c_a7d54e20fda3d105b180a2308a59fbd08}{interface\+Colonne\+\_\+eteint}} (unsigned char couleur)
+\begin{DoxyCompactList}\small\item\em Permet de changer l\textquotesingle{}état de la lumière voulue à ETEINT. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{interface_colonne_8c_a42eb96bc9e44debde90d83cd5052c022}{interface\+Colonne\+\_\+clignote}} (unsigned char couleur)
+\begin{DoxyCompactList}\small\item\em Permet de changer l\textquotesingle{}état de la lumière voulue à CLIGNOTE. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{interface_colonne_8c_a3bd99a0eb1e2924849db73e0d88b8828}{interface\+Colonne\+\_\+initialise}} (void)
+\begin{DoxyCompactList}\small\item\em Initialise le module interface\+Colonne. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+unsigned char \mbox{\hyperlink{interface_colonne_8c_a658cea9257866851b308ff23a664d886}{etat\+Rouge}} = ETEINT
+\begin{DoxyCompactList}\small\item\em État actuel de la lumière rouge. \end{DoxyCompactList}\item 
+unsigned char \mbox{\hyperlink{interface_colonne_8c_a1660dc52ee72b26da94a2f55b984c371}{etat\+Vert}} = ETEINT
+\begin{DoxyCompactList}\small\item\em État actuel de la lumière verte. \end{DoxyCompactList}\item 
+unsigned char \mbox{\hyperlink{interface_colonne_8c_a840d7efec6743615d8b6ea9ce5250ced}{etat\+Jaune}} = ETEINT
+\begin{DoxyCompactList}\small\item\em État actuel de la lumière Jaune. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Ce fichier contient le code permettant de gérer la colonne lumineuse, c\textquotesingle{}est à dire, des fonctions permettant de changer l\textquotesingle{}état de chacune des lumières à ALLUME ETEINT ou CLIGNOTE. 
+
+\begin{DoxyAuthor}{Auteur}
+Renaud Gagnon 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2022-\/12-\/14
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2022 
+\end{DoxyCopyright}
+
+
+Définition dans le fichier \mbox{\hyperlink{interface_colonne_8c_source}{interface\+Colonne.\+c}}.
+
+
+
+\doxysubsection{Documentation des macros}
+\mbox{\Hypertarget{interface_colonne_8c_af3cbc6e19c691152caa8ca4bfd966dd6}\label{interface_colonne_8c_af3cbc6e19c691152caa8ca4bfd966dd6}} 
+\index{interfaceColonne.c@{interfaceColonne.c}!ALLUME@{ALLUME}}
+\index{ALLUME@{ALLUME}!interfaceColonne.c@{interfaceColonne.c}}
+\doxysubsubsection{\texorpdfstring{ALLUME}{ALLUME}}
+{\footnotesize\ttfamily \#define ALLUME~1}
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_colonne_8c_source_l00022}{22}} du fichier \mbox{\hyperlink{interface_colonne_8c_source}{interface\+Colonne.\+c}}.
+
+\mbox{\Hypertarget{interface_colonne_8c_a41b4964a7b71f43a0be8dcc93fcf1506}\label{interface_colonne_8c_a41b4964a7b71f43a0be8dcc93fcf1506}} 
+\index{interfaceColonne.c@{interfaceColonne.c}!CLIGNOTE@{CLIGNOTE}}
+\index{CLIGNOTE@{CLIGNOTE}!interfaceColonne.c@{interfaceColonne.c}}
+\doxysubsubsection{\texorpdfstring{CLIGNOTE}{CLIGNOTE}}
+{\footnotesize\ttfamily \#define CLIGNOTE~2}
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_colonne_8c_source_l00023}{23}} du fichier \mbox{\hyperlink{interface_colonne_8c_source}{interface\+Colonne.\+c}}.
+
+\mbox{\Hypertarget{interface_colonne_8c_a731667f79870595283efb4cf30d3b308}\label{interface_colonne_8c_a731667f79870595283efb4cf30d3b308}} 
+\index{interfaceColonne.c@{interfaceColonne.c}!ETEINT@{ETEINT}}
+\index{ETEINT@{ETEINT}!interfaceColonne.c@{interfaceColonne.c}}
+\doxysubsubsection{\texorpdfstring{ETEINT}{ETEINT}}
+{\footnotesize\ttfamily \#define ETEINT~0}
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_colonne_8c_source_l00021}{21}} du fichier \mbox{\hyperlink{interface_colonne_8c_source}{interface\+Colonne.\+c}}.
+
+\mbox{\Hypertarget{interface_colonne_8c_a4e62d8657ab9a1052ff8752757182b74}\label{interface_colonne_8c_a4e62d8657ab9a1052ff8752757182b74}} 
+\index{interfaceColonne.c@{interfaceColonne.c}!VITESSECLIGNOTANT@{VITESSECLIGNOTANT}}
+\index{VITESSECLIGNOTANT@{VITESSECLIGNOTANT}!interfaceColonne.c@{interfaceColonne.c}}
+\doxysubsubsection{\texorpdfstring{VITESSECLIGNOTANT}{VITESSECLIGNOTANT}}
+{\footnotesize\ttfamily \#define VITESSECLIGNOTANT~2000}
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_colonne_8c_source_l00020}{20}} du fichier \mbox{\hyperlink{interface_colonne_8c_source}{interface\+Colonne.\+c}}.
+
+
+
+\doxysubsection{Documentation des fonctions}
+\mbox{\Hypertarget{interface_colonne_8c_afc2b67c1060c4e2dddba4c5fec05f396}\label{interface_colonne_8c_afc2b67c1060c4e2dddba4c5fec05f396}} 
+\index{interfaceColonne.c@{interfaceColonne.c}!interfaceColonne\_allume@{interfaceColonne\_allume}}
+\index{interfaceColonne\_allume@{interfaceColonne\_allume}!interfaceColonne.c@{interfaceColonne.c}}
+\doxysubsubsection{\texorpdfstring{interfaceColonne\_allume()}{interfaceColonne\_allume()}}
+{\footnotesize\ttfamily void interface\+Colonne\+\_\+allume (\begin{DoxyParamCaption}\item[{unsigned char}]{couleur }\end{DoxyParamCaption})}
+
+
+
+Permet de changer l\textquotesingle{}état de la lumière voulue à ALLUME. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em couleur} & correspondra a la lumière que l\textquotesingle{}on veut allumer\+: \mbox{\hyperlink{interface_colonne_8h_a6b80a7af4e9370adaab8a72386297f5d}{INTERFACECOLONNE\+\_\+\+ROUGE}} , \mbox{\hyperlink{interface_colonne_8h_acadae6ae883d1881757a76e94104d18f}{INTERFACECOLONNE\+\_\+\+VERT}} ou \mbox{\hyperlink{interface_colonne_8h_a49a937863ae3d1b01187acae8d216874}{INTERFACECOLONNE\+\_\+\+JAUNE}}. \\
+\hline
+\end{DoxyParams}
+
+
+Définition à la ligne \mbox{\hyperlink{interface_colonne_8c_source_l00083}{83}} du fichier \mbox{\hyperlink{interface_colonne_8c_source}{interface\+Colonne.\+c}}.
+
+\mbox{\Hypertarget{interface_colonne_8c_a42eb96bc9e44debde90d83cd5052c022}\label{interface_colonne_8c_a42eb96bc9e44debde90d83cd5052c022}} 
+\index{interfaceColonne.c@{interfaceColonne.c}!interfaceColonne\_clignote@{interfaceColonne\_clignote}}
+\index{interfaceColonne\_clignote@{interfaceColonne\_clignote}!interfaceColonne.c@{interfaceColonne.c}}
+\doxysubsubsection{\texorpdfstring{interfaceColonne\_clignote()}{interfaceColonne\_clignote()}}
+{\footnotesize\ttfamily void interface\+Colonne\+\_\+clignote (\begin{DoxyParamCaption}\item[{unsigned char}]{couleur }\end{DoxyParamCaption})}
+
+
+
+Permet de changer l\textquotesingle{}état de la lumière voulue à CLIGNOTE. 
+
+Permet de changer l\textquotesingle{}état de la lumière voulue à CLIGNOTER.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em couleur} & correspondra a la lumière que l\textquotesingle{}on veut faire clignoter\+: \mbox{\hyperlink{interface_colonne_8h_a6b80a7af4e9370adaab8a72386297f5d}{INTERFACECOLONNE\+\_\+\+ROUGE}} , \mbox{\hyperlink{interface_colonne_8h_acadae6ae883d1881757a76e94104d18f}{INTERFACECOLONNE\+\_\+\+VERT}} ou \mbox{\hyperlink{interface_colonne_8h_a49a937863ae3d1b01187acae8d216874}{INTERFACECOLONNE\+\_\+\+JAUNE}}. \\
+\hline
+\end{DoxyParams}
+
+
+Définition à la ligne \mbox{\hyperlink{interface_colonne_8c_source_l00131}{131}} du fichier \mbox{\hyperlink{interface_colonne_8c_source}{interface\+Colonne.\+c}}.
+
+\mbox{\Hypertarget{interface_colonne_8c_a7d54e20fda3d105b180a2308a59fbd08}\label{interface_colonne_8c_a7d54e20fda3d105b180a2308a59fbd08}} 
+\index{interfaceColonne.c@{interfaceColonne.c}!interfaceColonne\_eteint@{interfaceColonne\_eteint}}
+\index{interfaceColonne\_eteint@{interfaceColonne\_eteint}!interfaceColonne.c@{interfaceColonne.c}}
+\doxysubsubsection{\texorpdfstring{interfaceColonne\_eteint()}{interfaceColonne\_eteint()}}
+{\footnotesize\ttfamily void interface\+Colonne\+\_\+eteint (\begin{DoxyParamCaption}\item[{unsigned char}]{couleur }\end{DoxyParamCaption})}
+
+
+
+Permet de changer l\textquotesingle{}état de la lumière voulue à ETEINT. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em couleur} & correspondra a la lumière que l\textquotesingle{}on veut éteindre\+: \mbox{\hyperlink{interface_colonne_8h_a6b80a7af4e9370adaab8a72386297f5d}{INTERFACECOLONNE\+\_\+\+ROUGE}} , \mbox{\hyperlink{interface_colonne_8h_acadae6ae883d1881757a76e94104d18f}{INTERFACECOLONNE\+\_\+\+VERT}} ou \mbox{\hyperlink{interface_colonne_8h_a49a937863ae3d1b01187acae8d216874}{INTERFACECOLONNE\+\_\+\+JAUNE}}. \\
+\hline
+\end{DoxyParams}
+
+
+Définition à la ligne \mbox{\hyperlink{interface_colonne_8c_source_l00107}{107}} du fichier \mbox{\hyperlink{interface_colonne_8c_source}{interface\+Colonne.\+c}}.
+
+\mbox{\Hypertarget{interface_colonne_8c_a39537dca72d96818f29dce072ee00111}\label{interface_colonne_8c_a39537dca72d96818f29dce072ee00111}} 
+\index{interfaceColonne.c@{interfaceColonne.c}!interfaceColonne\_gere@{interfaceColonne\_gere}}
+\index{interfaceColonne\_gere@{interfaceColonne\_gere}!interfaceColonne.c@{interfaceColonne.c}}
+\doxysubsubsection{\texorpdfstring{interfaceColonne\_gere()}{interfaceColonne\_gere()}}
+{\footnotesize\ttfamily void interface\+Colonne\+\_\+gere (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Cette fonction est appelée par la base de temps pour gérer le clignotement de façon à ce que toutes les lumières qui clignotent soient syncronisées. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_colonne_8c_source_l00057}{57}} du fichier \mbox{\hyperlink{interface_colonne_8c_source}{interface\+Colonne.\+c}}.
+
+\mbox{\Hypertarget{interface_colonne_8c_a3bd99a0eb1e2924849db73e0d88b8828}\label{interface_colonne_8c_a3bd99a0eb1e2924849db73e0d88b8828}} 
+\index{interfaceColonne.c@{interfaceColonne.c}!interfaceColonne\_initialise@{interfaceColonne\_initialise}}
+\index{interfaceColonne\_initialise@{interfaceColonne\_initialise}!interfaceColonne.c@{interfaceColonne.c}}
+\doxysubsubsection{\texorpdfstring{interfaceColonne\_initialise()}{interfaceColonne\_initialise()}}
+{\footnotesize\ttfamily void interface\+Colonne\+\_\+initialise (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Initialise le module interface\+Colonne. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_colonne_8c_source_l00155}{155}} du fichier \mbox{\hyperlink{interface_colonne_8c_source}{interface\+Colonne.\+c}}.
+
+
+
+\doxysubsection{Documentation des variables}
+\mbox{\Hypertarget{interface_colonne_8c_a840d7efec6743615d8b6ea9ce5250ced}\label{interface_colonne_8c_a840d7efec6743615d8b6ea9ce5250ced}} 
+\index{interfaceColonne.c@{interfaceColonne.c}!etatJaune@{etatJaune}}
+\index{etatJaune@{etatJaune}!interfaceColonne.c@{interfaceColonne.c}}
+\doxysubsubsection{\texorpdfstring{etatJaune}{etatJaune}}
+{\footnotesize\ttfamily unsigned char etat\+Jaune = ETEINT}
+
+
+
+État actuel de la lumière Jaune. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_colonne_8c_source_l00046}{46}} du fichier \mbox{\hyperlink{interface_colonne_8c_source}{interface\+Colonne.\+c}}.
+
+\mbox{\Hypertarget{interface_colonne_8c_a658cea9257866851b308ff23a664d886}\label{interface_colonne_8c_a658cea9257866851b308ff23a664d886}} 
+\index{interfaceColonne.c@{interfaceColonne.c}!etatRouge@{etatRouge}}
+\index{etatRouge@{etatRouge}!interfaceColonne.c@{interfaceColonne.c}}
+\doxysubsubsection{\texorpdfstring{etatRouge}{etatRouge}}
+{\footnotesize\ttfamily unsigned char etat\+Rouge = ETEINT}
+
+
+
+État actuel de la lumière rouge. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_colonne_8c_source_l00034}{34}} du fichier \mbox{\hyperlink{interface_colonne_8c_source}{interface\+Colonne.\+c}}.
+
+\mbox{\Hypertarget{interface_colonne_8c_a1660dc52ee72b26da94a2f55b984c371}\label{interface_colonne_8c_a1660dc52ee72b26da94a2f55b984c371}} 
+\index{interfaceColonne.c@{interfaceColonne.c}!etatVert@{etatVert}}
+\index{etatVert@{etatVert}!interfaceColonne.c@{interfaceColonne.c}}
+\doxysubsubsection{\texorpdfstring{etatVert}{etatVert}}
+{\footnotesize\ttfamily unsigned char etat\+Vert = ETEINT}
+
+
+
+État actuel de la lumière verte. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_colonne_8c_source_l00040}{40}} du fichier \mbox{\hyperlink{interface_colonne_8c_source}{interface\+Colonne.\+c}}.
+

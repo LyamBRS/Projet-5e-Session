@@ -1,0 +1,125 @@
+\hypertarget{interface_colonne_8c_source}{}\doxysection{interface\+Colonne.\+c}
+\label{interface_colonne_8c_source}\index{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Tri/CentreDeTriS5/Src/interfaceColonne.c@{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Tri/CentreDeTriS5/Src/interfaceColonne.c}}
+\mbox{\hyperlink{interface_colonne_8c}{Aller à la documentation de ce fichier.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00001}00001 }
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00013}00013 \textcolor{comment}{//INCLUSIONS}}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00014}00014 \textcolor{preprocessor}{\#include "{}main.h"{}}}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00015}00015 \textcolor{preprocessor}{\#include "{}serviceBaseDeTemps.h"{}}}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00016}00016 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{interface_colonne_8h}{interfaceColonne.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00017}00017 \textcolor{preprocessor}{\#include "{}piloteColonne.h"{}}}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00018}00018 \textcolor{comment}{//Definitions privees}}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00019}00019 }
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00020}00020 \textcolor{preprocessor}{\#define VITESSECLIGNOTANT 2000 }\textcolor{comment}{//période en 1/2ms}}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00021}00021 \textcolor{preprocessor}{\#define ETEINT 0}}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00022}00022 \textcolor{preprocessor}{\#define ALLUME 1}}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00023}00023 \textcolor{preprocessor}{\#define CLIGNOTE 2}}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00024}00024 }
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00025}00025 }
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00026}00026     }
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00027}00027 \textcolor{comment}{//Declarations de fonctions privees:}}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00028}00028 \textcolor{comment}{//pas de fonctions privées}}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00029}00029 }
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00034}\mbox{\hyperlink{interface_colonne_8c_a658cea9257866851b308ff23a664d886}{00034}} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} \mbox{\hyperlink{interface_colonne_8c_a658cea9257866851b308ff23a664d886}{etatRouge}} = ETEINT;}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00035}00035 }
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00040}\mbox{\hyperlink{interface_colonne_8c_a1660dc52ee72b26da94a2f55b984c371}{00040}} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} \mbox{\hyperlink{interface_colonne_8c_a1660dc52ee72b26da94a2f55b984c371}{etatVert}} = ETEINT;}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00041}00041 }
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00046}\mbox{\hyperlink{interface_colonne_8c_a840d7efec6743615d8b6ea9ce5250ced}{00046}} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} \mbox{\hyperlink{interface_colonne_8c_a840d7efec6743615d8b6ea9ce5250ced}{etatJaune}} = ETEINT;}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00047}00047 }
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00048}00048 \textcolor{comment}{//Definitions de variables privees:}}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00049}00049 }
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00050}00050 }
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00051}00051 \textcolor{comment}{//Definitions de fonctions privees:}}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00052}00052 }
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00057}\mbox{\hyperlink{interface_colonne_8c_a39537dca72d96818f29dce072ee00111}{00057}} \textcolor{keywordtype}{void} \mbox{\hyperlink{interface_colonne_8c_a39537dca72d96818f29dce072ee00111}{interfaceColonne\_gere}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00058}00058 \{}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00059}00059   \textcolor{keyword}{static} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} interfaceColonne\_compteur = 0;}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00060}00060   interfaceColonne\_compteur++;}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00061}00061   \textcolor{keywordflow}{if} (interfaceColonne\_compteur == VITESSECLIGNOTANT/2)}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00062}00062   \{}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00063}00063     \textcolor{keywordflow}{if} (\mbox{\hyperlink{interface_colonne_8c_a658cea9257866851b308ff23a664d886}{etatRouge}} == CLIGNOTE)piloteColonne\_allume(PILOTECOLONNE\_ROUGE);}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00064}00064     \textcolor{keywordflow}{if} (\mbox{\hyperlink{interface_colonne_8c_a1660dc52ee72b26da94a2f55b984c371}{etatVert}} == CLIGNOTE)piloteColonne\_allume(PILOTECOLONNE\_VERT);}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00065}00065     \textcolor{keywordflow}{if} (\mbox{\hyperlink{interface_colonne_8c_a840d7efec6743615d8b6ea9ce5250ced}{etatJaune}} == CLIGNOTE)piloteColonne\_allume(PILOTECOLONNE\_JAUNE);}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00066}00066   \}}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00067}00067     \textcolor{keywordflow}{if} (interfaceColonne\_compteur >= VITESSECLIGNOTANT)}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00068}00068   \{}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00069}00069     \textcolor{keywordflow}{if} (\mbox{\hyperlink{interface_colonne_8c_a658cea9257866851b308ff23a664d886}{etatRouge}} == CLIGNOTE)piloteColonne\_eteint(PILOTECOLONNE\_ROUGE);}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00070}00070     \textcolor{keywordflow}{if} (\mbox{\hyperlink{interface_colonne_8c_a1660dc52ee72b26da94a2f55b984c371}{etatVert}} == CLIGNOTE)piloteColonne\_eteint(PILOTECOLONNE\_VERT);}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00071}00071     \textcolor{keywordflow}{if} (\mbox{\hyperlink{interface_colonne_8c_a840d7efec6743615d8b6ea9ce5250ced}{etatJaune}} == CLIGNOTE)piloteColonne\_eteint(PILOTECOLONNE\_JAUNE);}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00072}00072     interfaceColonne\_compteur = 0;}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00073}00073   \}}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00074}00074   }
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00075}00075   }
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00076}00076 \}}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00077}00077 }
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00083}\mbox{\hyperlink{interface_colonne_8c_afc2b67c1060c4e2dddba4c5fec05f396}{00083}} \textcolor{keywordtype}{void} \mbox{\hyperlink{interface_colonne_8c_afc2b67c1060c4e2dddba4c5fec05f396}{interfaceColonne\_allume}}(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} couleur)}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00084}00084 \{}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00085}00085   \textcolor{keywordflow}{switch} (couleur)}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00086}00086   \{}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00087}00087     \textcolor{keywordflow}{case} (\mbox{\hyperlink{interface_colonne_8h_a6b80a7af4e9370adaab8a72386297f5d}{INTERFACECOLONNE\_ROUGE}}):}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00088}00088     \mbox{\hyperlink{interface_colonne_8c_a658cea9257866851b308ff23a664d886}{etatRouge}} = ALLUME;}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00089}00089     piloteColonne\_allume(PILOTECOLONNE\_ROUGE);}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00090}00090     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00091}00091     \textcolor{keywordflow}{case} (\mbox{\hyperlink{interface_colonne_8h_acadae6ae883d1881757a76e94104d18f}{INTERFACECOLONNE\_VERT}}):}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00092}00092     \mbox{\hyperlink{interface_colonne_8c_a1660dc52ee72b26da94a2f55b984c371}{etatVert}} = ALLUME;}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00093}00093     piloteColonne\_allume(PILOTECOLONNE\_VERT);}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00094}00094     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00095}00095     \textcolor{keywordflow}{case} (\mbox{\hyperlink{interface_colonne_8h_a49a937863ae3d1b01187acae8d216874}{INTERFACECOLONNE\_JAUNE}}):}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00096}00096     \mbox{\hyperlink{interface_colonne_8c_a840d7efec6743615d8b6ea9ce5250ced}{etatJaune}} = ALLUME;}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00097}00097     piloteColonne\_allume(PILOTECOLONNE\_JAUNE);}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00098}00098     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00099}00099   \}}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00100}00100 \}}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00101}00101 }
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00107}\mbox{\hyperlink{interface_colonne_8c_a7d54e20fda3d105b180a2308a59fbd08}{00107}} \textcolor{keywordtype}{void} \mbox{\hyperlink{interface_colonne_8c_a7d54e20fda3d105b180a2308a59fbd08}{interfaceColonne\_eteint}}(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} couleur)}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00108}00108 \{}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00109}00109   \textcolor{keywordflow}{switch} (couleur)}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00110}00110   \{}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00111}00111     \textcolor{keywordflow}{case} (\mbox{\hyperlink{interface_colonne_8h_a6b80a7af4e9370adaab8a72386297f5d}{INTERFACECOLONNE\_ROUGE}}):}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00112}00112     \mbox{\hyperlink{interface_colonne_8c_a658cea9257866851b308ff23a664d886}{etatRouge}} = ALLUME;}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00113}00113     piloteColonne\_eteint(PILOTECOLONNE\_ROUGE);}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00114}00114     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00115}00115     \textcolor{keywordflow}{case} (\mbox{\hyperlink{interface_colonne_8h_acadae6ae883d1881757a76e94104d18f}{INTERFACECOLONNE\_VERT}}):}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00116}00116     \mbox{\hyperlink{interface_colonne_8c_a1660dc52ee72b26da94a2f55b984c371}{etatVert}} = ALLUME;}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00117}00117     piloteColonne\_eteint(PILOTECOLONNE\_VERT);}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00118}00118     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00119}00119     \textcolor{keywordflow}{case} (\mbox{\hyperlink{interface_colonne_8h_a49a937863ae3d1b01187acae8d216874}{INTERFACECOLONNE\_JAUNE}}):}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00120}00120     \mbox{\hyperlink{interface_colonne_8c_a840d7efec6743615d8b6ea9ce5250ced}{etatJaune}} = ALLUME;}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00121}00121     piloteColonne\_eteint(PILOTECOLONNE\_JAUNE);}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00122}00122     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00123}00123   \}}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00124}00124 \}}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00125}00125 }
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00131}\mbox{\hyperlink{interface_colonne_8c_a42eb96bc9e44debde90d83cd5052c022}{00131}} \textcolor{keywordtype}{void} \mbox{\hyperlink{interface_colonne_8c_a42eb96bc9e44debde90d83cd5052c022}{interfaceColonne\_clignote}}(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} couleur)}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00132}00132 \{}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00133}00133   \textcolor{keywordflow}{switch} (couleur)}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00134}00134   \{}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00135}00135     \textcolor{keywordflow}{case} (\mbox{\hyperlink{interface_colonne_8h_a6b80a7af4e9370adaab8a72386297f5d}{INTERFACECOLONNE\_ROUGE}}):}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00136}00136     \mbox{\hyperlink{interface_colonne_8c_a658cea9257866851b308ff23a664d886}{etatRouge}} = CLIGNOTE;}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00137}00137     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00138}00138     \textcolor{keywordflow}{case} (\mbox{\hyperlink{interface_colonne_8h_acadae6ae883d1881757a76e94104d18f}{INTERFACECOLONNE\_VERT}}):}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00139}00139     \mbox{\hyperlink{interface_colonne_8c_a1660dc52ee72b26da94a2f55b984c371}{etatVert}} = CLIGNOTE;}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00140}00140     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00141}00141     \textcolor{keywordflow}{case} (\mbox{\hyperlink{interface_colonne_8h_a49a937863ae3d1b01187acae8d216874}{INTERFACECOLONNE\_JAUNE}}):}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00142}00142     \mbox{\hyperlink{interface_colonne_8c_a840d7efec6743615d8b6ea9ce5250ced}{etatJaune}} = CLIGNOTE;}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00143}00143     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00144}00144   \}}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00145}00145 \}}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00146}00146 \textcolor{comment}{//Definitions de variables publiques:}}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00147}00147 \textcolor{comment}{//pas de variables publiques}}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00148}00148 }
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00149}00149 \textcolor{comment}{//Definitions de fonctions publiques:}}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00150}00150 }
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00155}\mbox{\hyperlink{interface_colonne_8c_a3bd99a0eb1e2924849db73e0d88b8828}{00155}} \textcolor{keywordtype}{void} \mbox{\hyperlink{interface_colonne_8c_a3bd99a0eb1e2924849db73e0d88b8828}{interfaceColonne\_initialise}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00156}00156 \{}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00157}00157   piloteColonne\_eteint(PILOTECOLONNE\_ROUGE);}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00158}00158   piloteColonne\_eteint(PILOTECOLONNE\_VERT);}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00159}00159   piloteColonne\_eteint(PILOTECOLONNE\_JAUNE);}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00160}00160   \mbox{\hyperlink{interface_colonne_8c_a658cea9257866851b308ff23a664d886}{etatRouge}} = ETEINT;}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00161}00161   \mbox{\hyperlink{interface_colonne_8c_a1660dc52ee72b26da94a2f55b984c371}{etatVert}} = ETEINT;}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00162}00162   \mbox{\hyperlink{interface_colonne_8c_a840d7efec6743615d8b6ea9ce5250ced}{etatJaune}} = ETEINT;}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00163}00163   serviceBaseDeTemps\_execute[INTERFACECOLONNE\_PHASE] =}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00164}00164       \mbox{\hyperlink{interface_colonne_8c_a39537dca72d96818f29dce072ee00111}{interfaceColonne\_gere}};}
+\DoxyCodeLine{\Hypertarget{interface_colonne_8c_source_l00165}00165 \}}
+
+\end{DoxyCode}

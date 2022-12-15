@@ -1,0 +1,1877 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.5"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Recycling Center: Référence du fichier U:/Sessions/Session 5/Project/Projet_Fin_Session/Projet-5e-Session/Centre-De-Tri/CentreDeTriS5/Src/processusUsine.c</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../resize.js"></script>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="../../BRS (S) Icon.ico"/></td>
+  <td id="projectalign">
+   <div id="projectname">Recycling Center<span id="projectnumber">&#160;1</span>
+   </div>
+   <div id="projectbrief">Centre de tri</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.5 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('../../',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('d7/d6c/processus_usine_8c.html','../../'); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Chargement...</div>
+<div class="SRStatus" id="Searching">Recherche...</div>
+<div class="SRStatus" id="NoMatches">Aucune correspondance</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Fonctions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle"><div class="title">Référence du fichier processusUsine.c</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Processus principal du centre de tri pour le projet de 5e session.  
+<a href="#details">Plus de détails...</a></p>
+<div class="textblock"><code>#include &quot;main.h&quot;</code><br />
+<code>#include &quot;serviceBaseDeTemps.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d2/dad/_service_communication_8h_source.html">ServiceCommunication.h</a>&quot;</code><br />
+<code>#include &quot;piloteCAN1.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d0/d14/processus_usine_8h_source.html">processusUsine.h</a>&quot;</code><br />
+<code>#include &quot;piloteI2C.h&quot;</code><br />
+<code>#include &quot;interfaceT1.h&quot;</code><br />
+<code>#include &quot;interfaceT2.h&quot;</code><br />
+<code>#include &quot;interfaceT4.h&quot;</code><br />
+<code>#include &quot;interfaceUsine.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d7/d5d/interface_colonne_8h_source.html">interfaceColonne.h</a>&quot;</code><br />
+<code>#include &quot;interfacePont.h&quot;</code><br />
+<code>#include &quot;interfaceB1.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d4/deb/interface_step_moteur_8h_source.html">interfaceStepMoteur.h</a>&quot;</code><br />
+</div>
+<p><a href="../../d7/d6c/processus_usine_8c_source.html">Aller au code source de ce fichier.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a0472bb07fbfc1da26d0344aba8436316"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a0472bb07fbfc1da26d0344aba8436316">DELAI_MAX_INITIALISATION</a>&#160;&#160;&#160;50000</td></tr>
+<tr class="memdesc:a0472bb07fbfc1da26d0344aba8436316"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delai maximal du timeout de l'initialisation.  <a href="../../d7/d6c/processus_usine_8c.html#a0472bb07fbfc1da26d0344aba8436316">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a0472bb07fbfc1da26d0344aba8436316"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54966a5bfb7d4cb15c90b338f64abe3f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a54966a5bfb7d4cb15c90b338f64abe3f">DELAI_MAX_EJECTION</a>&#160;&#160;&#160;1000</td></tr>
+<tr class="memdesc:a54966a5bfb7d4cb15c90b338f64abe3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delai maximal du timeout de l'éjection.  <a href="../../d7/d6c/processus_usine_8c.html#a54966a5bfb7d4cb15c90b338f64abe3f">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a54966a5bfb7d4cb15c90b338f64abe3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5680cb964994bc864838f602982a19a1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a5680cb964994bc864838f602982a19a1">DELAI_MAX_DETECTION</a>&#160;&#160;&#160;5000</td></tr>
+<tr class="memdesc:a5680cb964994bc864838f602982a19a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delai maximal du timeout de la détection d'un bloc.  <a href="../../d7/d6c/processus_usine_8c.html#a5680cb964994bc864838f602982a19a1">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a5680cb964994bc864838f602982a19a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a536a60d7d9299c83978ea50d13f826ec"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a536a60d7d9299c83978ea50d13f826ec">DELAI_AVANT_DETECTION</a>&#160;&#160;&#160;1000</td></tr>
+<tr class="memdesc:a536a60d7d9299c83978ea50d13f826ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delai d'attente avant de déceter le bloc.  <a href="../../d7/d6c/processus_usine_8c.html#a536a60d7d9299c83978ea50d13f826ec">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a536a60d7d9299c83978ea50d13f826ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71e635e7e4b1f7e29e954304751a941e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a71e635e7e4b1f7e29e954304751a941e">DELAI_MAX_ELEVATEUR_HAUT</a>&#160;&#160;&#160;10000</td></tr>
+<tr class="memdesc:a71e635e7e4b1f7e29e954304751a941e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delai maximal du timeout de l'élévateur en haut.  <a href="../../d7/d6c/processus_usine_8c.html#a71e635e7e4b1f7e29e954304751a941e">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a71e635e7e4b1f7e29e954304751a941e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28436137d4091540f595e0666f54c507"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a28436137d4091540f595e0666f54c507">DELAI_MAX_ATTEND_CHUTE</a>&#160;&#160;&#160;10000</td></tr>
+<tr class="memdesc:a28436137d4091540f595e0666f54c507"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delai maximal du timeout de l'attente d'un bloc à la chute.  <a href="../../d7/d6c/processus_usine_8c.html#a28436137d4091540f595e0666f54c507">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a28436137d4091540f595e0666f54c507"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3393600d96f463ed342edada200e4e3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#af3393600d96f463ed342edada200e4e3">DELAI_VENTOUSE_DESCEND</a>&#160;&#160;&#160;1000</td></tr>
+<tr class="memdesc:af3393600d96f463ed342edada200e4e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delai maximal du timeout de la déscente de la ventouse.  <a href="../../d7/d6c/processus_usine_8c.html#af3393600d96f463ed342edada200e4e3">Plus de détails...</a><br /></td></tr>
+<tr class="separator:af3393600d96f463ed342edada200e4e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a749b426eda6c29b60b539e52b1de7bce"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a749b426eda6c29b60b539e52b1de7bce">DELAI_MAX_PISTON</a>&#160;&#160;&#160;3000</td></tr>
+<tr class="memdesc:a749b426eda6c29b60b539e52b1de7bce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delai maximal du timeout de la montée de la ventouse.  <a href="../../d7/d6c/processus_usine_8c.html#a749b426eda6c29b60b539e52b1de7bce">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a749b426eda6c29b60b539e52b1de7bce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e5a2c7f82e751273e05ebd822b9c2d0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a2e5a2c7f82e751273e05ebd822b9c2d0">DELAI2SEC</a>&#160;&#160;&#160;4000</td></tr>
+<tr class="memdesc:a2e5a2c7f82e751273e05ebd822b9c2d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Valeur a utiliser pour faire un délai de 2 secondes.  <a href="../../d7/d6c/processus_usine_8c.html#a2e5a2c7f82e751273e05ebd822b9c2d0">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a2e5a2c7f82e751273e05ebd822b9c2d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26fe3df954b710b5ae615990e68c3bc1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a26fe3df954b710b5ae615990e68c3bc1">TEST_VITESSELEDCLIGNOTE</a>&#160;&#160;&#160;2000</td></tr>
+<tr class="memdesc:a26fe3df954b710b5ae615990e68c3bc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Période du clignotement de la lumière verte en mode de tests.  <a href="../../d7/d6c/processus_usine_8c.html#a26fe3df954b710b5ae615990e68c3bc1">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a26fe3df954b710b5ae615990e68c3bc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a753b46875c36f715d63e6d6e4e15ba55"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a753b46875c36f715d63e6d6e4e15ba55">BLOC_AUCUN</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:a753b46875c36f715d63e6d6e4e15ba55"><td class="mdescLeft">&#160;</td><td class="mdescRight">État de ucTypeDeBloc lorsqu'il n'y a pas de bloc.  <a href="../../d7/d6c/processus_usine_8c.html#a753b46875c36f715d63e6d6e4e15ba55">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a753b46875c36f715d63e6d6e4e15ba55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe3b77a5f72957c7f3936857a2b40148"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#afe3b77a5f72957c7f3936857a2b40148">BLOC_ROUGE</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:afe3b77a5f72957c7f3936857a2b40148"><td class="mdescLeft">&#160;</td><td class="mdescRight">État de ucTypeDeBloc quand le bloc est rouge.  <a href="../../d7/d6c/processus_usine_8c.html#afe3b77a5f72957c7f3936857a2b40148">Plus de détails...</a><br /></td></tr>
+<tr class="separator:afe3b77a5f72957c7f3936857a2b40148"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a597b51f69db62495da69b948c1a3af1f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a597b51f69db62495da69b948c1a3af1f">BLOC_NOIR</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:a597b51f69db62495da69b948c1a3af1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">État de ucTypeDeBloc quand le bloc est noir.  <a href="../../d7/d6c/processus_usine_8c.html#a597b51f69db62495da69b948c1a3af1f">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a597b51f69db62495da69b948c1a3af1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9267ae7bcbbaddf12efe363ce18f559"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#ae9267ae7bcbbaddf12efe363ce18f559">BLOC_METAL</a>&#160;&#160;&#160;3</td></tr>
+<tr class="memdesc:ae9267ae7bcbbaddf12efe363ce18f559"><td class="mdescLeft">&#160;</td><td class="mdescRight">État de ucTypeDeBloc quand le bloc est métallique.  <a href="../../d7/d6c/processus_usine_8c.html#ae9267ae7bcbbaddf12efe363ce18f559">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ae9267ae7bcbbaddf12efe363ce18f559"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f3ae0ec2fdc423cb9f3876141ec3ac8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a0f3ae0ec2fdc423cb9f3876141ec3ac8">BLOC_INCONNU</a>&#160;&#160;&#160;4</td></tr>
+<tr class="memdesc:a0f3ae0ec2fdc423cb9f3876141ec3ac8"><td class="mdescLeft">&#160;</td><td class="mdescRight">État de ucTypeDeBloc quand il y a un bloc de type inconnu.  <a href="../../d7/d6c/processus_usine_8c.html#a0f3ae0ec2fdc423cb9f3876141ec3ac8">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a0f3ae0ec2fdc423cb9f3876141ec3ac8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e75ee5a3b1288a65bcf3a5c83518bf0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a3e75ee5a3b1288a65bcf3a5c83518bf0">ETAT_CAPTEUR_CAP_POUR_BLOC_NOIR</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:a3e75ee5a3b1288a65bcf3a5c83518bf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">État du capteur capacitif lorsque le bloc est noir.  <a href="../../d7/d6c/processus_usine_8c.html#a3e75ee5a3b1288a65bcf3a5c83518bf0">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a3e75ee5a3b1288a65bcf3a5c83518bf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5164208a040b949349cd864deb2cf041"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a5164208a040b949349cd864deb2cf041">ETAT_CAPTEUR_MAG_POUR_BLOC_NOIR</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:a5164208a040b949349cd864deb2cf041"><td class="mdescLeft">&#160;</td><td class="mdescRight">État du capteur magnétique lorsque le bloc est noir.  <a href="../../d7/d6c/processus_usine_8c.html#a5164208a040b949349cd864deb2cf041">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a5164208a040b949349cd864deb2cf041"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13ce0fab4c0a0e6a765f428d419b920b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a13ce0fab4c0a0e6a765f428d419b920b">ETAT_CAPTEUR_OPT_POUR_BLOC_NOIR</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:a13ce0fab4c0a0e6a765f428d419b920b"><td class="mdescLeft">&#160;</td><td class="mdescRight">État du capteur optique lorsque le bloc est noir.  <a href="../../d7/d6c/processus_usine_8c.html#a13ce0fab4c0a0e6a765f428d419b920b">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a13ce0fab4c0a0e6a765f428d419b920b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e0f5094636e50695a3020f472c2d056"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a7e0f5094636e50695a3020f472c2d056">ETAT_CAPTEUR_CAP_POUR_BLOC_ROUGE</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:a7e0f5094636e50695a3020f472c2d056"><td class="mdescLeft">&#160;</td><td class="mdescRight">État du capteur capacitif lorsque le bloc est rouge.  <a href="../../d7/d6c/processus_usine_8c.html#a7e0f5094636e50695a3020f472c2d056">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a7e0f5094636e50695a3020f472c2d056"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24d7217fc3e5d8988413497297779434"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a24d7217fc3e5d8988413497297779434">ETAT_CAPTEUR_MAG_POUR_BLOC_ROUGE</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:a24d7217fc3e5d8988413497297779434"><td class="mdescLeft">&#160;</td><td class="mdescRight">État du capteur magnétique lorsque le bloc est rouge.  <a href="../../d7/d6c/processus_usine_8c.html#a24d7217fc3e5d8988413497297779434">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a24d7217fc3e5d8988413497297779434"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af68a88fe72b70cf93ed78c3aba130cbb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#af68a88fe72b70cf93ed78c3aba130cbb">ETAT_CAPTEUR_OPT_POUR_BLOC_ROUGE</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:af68a88fe72b70cf93ed78c3aba130cbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">État du capteur optique lorsque le bloc est rouge.  <a href="../../d7/d6c/processus_usine_8c.html#af68a88fe72b70cf93ed78c3aba130cbb">Plus de détails...</a><br /></td></tr>
+<tr class="separator:af68a88fe72b70cf93ed78c3aba130cbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65bec3ebc3c50ec86835006a207ee1a0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a65bec3ebc3c50ec86835006a207ee1a0">ETAT_CAPTEUR_CAP_POUR_BLOC_METAL</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:a65bec3ebc3c50ec86835006a207ee1a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">État du capteur capacitif lorsque le bloc est métallique.  <a href="../../d7/d6c/processus_usine_8c.html#a65bec3ebc3c50ec86835006a207ee1a0">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a65bec3ebc3c50ec86835006a207ee1a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb34501b6cb1a22ea8360c815a098b98"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#adb34501b6cb1a22ea8360c815a098b98">ETAT_CAPTEUR_MAG_POUR_BLOC_METAL</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:adb34501b6cb1a22ea8360c815a098b98"><td class="mdescLeft">&#160;</td><td class="mdescRight">État du capteur magnétique lorsque le bloc est métallique.  <a href="../../d7/d6c/processus_usine_8c.html#adb34501b6cb1a22ea8360c815a098b98">Plus de détails...</a><br /></td></tr>
+<tr class="separator:adb34501b6cb1a22ea8360c815a098b98"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab965aa1afd9c1486fa4665e0ef48ee0a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#ab965aa1afd9c1486fa4665e0ef48ee0a">ETAT_CAPTEUR_OPT_POUR_BLOC_METAL</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:ab965aa1afd9c1486fa4665e0ef48ee0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">État du capteur optique lorsque le bloc est métallique.  <a href="../../d7/d6c/processus_usine_8c.html#ab965aa1afd9c1486fa4665e0ef48ee0a">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ab965aa1afd9c1486fa4665e0ef48ee0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5779cae8a3374665766dea13eed40c54"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a5779cae8a3374665766dea13eed40c54">ETAT_CAPTEUR_CAP_POUR_BLOC_AUCUN</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:a5779cae8a3374665766dea13eed40c54"><td class="mdescLeft">&#160;</td><td class="mdescRight">État du capteur capacitif lorsqu'il n'y a pas de bloc.  <a href="../../d7/d6c/processus_usine_8c.html#a5779cae8a3374665766dea13eed40c54">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a5779cae8a3374665766dea13eed40c54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a18e10bc0cfa6dd792390ed6c87e73b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a1a18e10bc0cfa6dd792390ed6c87e73b">ETAT_CAPTEUR_MAG_POUR_BLOC_AUCUN</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:a1a18e10bc0cfa6dd792390ed6c87e73b"><td class="mdescLeft">&#160;</td><td class="mdescRight">État du capteur magnétique lorsqu'il n'y a pas de bloc.  <a href="../../d7/d6c/processus_usine_8c.html#a1a18e10bc0cfa6dd792390ed6c87e73b">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a1a18e10bc0cfa6dd792390ed6c87e73b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa6c5b993f46d357a4305c5420d077daf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#aa6c5b993f46d357a4305c5420d077daf">ETAT_CAPTEUR_OPT_POUR_BLOC_AUCUN</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:aa6c5b993f46d357a4305c5420d077daf"><td class="mdescLeft">&#160;</td><td class="mdescRight">État du capteur optique lorsqu'il n'y a pas de bloc.  <a href="../../d7/d6c/processus_usine_8c.html#aa6c5b993f46d357a4305c5420d077daf">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aa6c5b993f46d357a4305c5420d077daf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc6c1f8099ff507aa17642aba862e5e8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#afc6c1f8099ff507aa17642aba862e5e8">DELAITEST_RESET</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:afc6c1f8099ff507aa17642aba862e5e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Valeur a envoyer a la fonction <a class="el" href="../../d7/d6c/processus_usine_8c.html#ad5e544d13dcd3245bd835325c703826a">delaiModeDeTest</a> quand on veut mettre le delai à 0.  <a href="../../d7/d6c/processus_usine_8c.html#afc6c1f8099ff507aa17642aba862e5e8">Plus de détails...</a><br /></td></tr>
+<tr class="separator:afc6c1f8099ff507aa17642aba862e5e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04c0c44aafdba09804a753750114f5ec"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a04c0c44aafdba09804a753750114f5ec">DELAITEST_UTILISE</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:a04c0c44aafdba09804a753750114f5ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Valeur a envoyer a la fonction <a class="el" href="../../d7/d6c/processus_usine_8c.html#ad5e544d13dcd3245bd835325c703826a">delaiModeDeTest</a> quand on veut utiliser le delai.  <a href="../../d7/d6c/processus_usine_8c.html#a04c0c44aafdba09804a753750114f5ec">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a04c0c44aafdba09804a753750114f5ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01e6aaad370a0dccc7843aae28e2b00f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a01e6aaad370a0dccc7843aae28e2b00f">DELAITEST_TERMINE</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:a01e6aaad370a0dccc7843aae28e2b00f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Valeur retournée par la fonction <a class="el" href="../../d7/d6c/processus_usine_8c.html#ad5e544d13dcd3245bd835325c703826a">delaiModeDeTest</a> quand le délai est terminé.  <a href="../../d7/d6c/processus_usine_8c.html#a01e6aaad370a0dccc7843aae28e2b00f">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a01e6aaad370a0dccc7843aae28e2b00f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a999adfffb7164e3794716a3d1e92f37c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a999adfffb7164e3794716a3d1e92f37c">DELAITEST_EN_COURS</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:a999adfffb7164e3794716a3d1e92f37c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Valeur retournée par la fonction <a class="el" href="../../d7/d6c/processus_usine_8c.html#ad5e544d13dcd3245bd835325c703826a">delaiModeDeTest</a> quand le délai n'est pas terminé.  <a href="../../d7/d6c/processus_usine_8c.html#a999adfffb7164e3794716a3d1e92f37c">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a999adfffb7164e3794716a3d1e92f37c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac09c74b0530234687512334ac1cc3d81"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#ac09c74b0530234687512334ac1cc3d81">VALEUR_DELAI_MODE_DE_TEST</a>&#160;&#160;&#160;4000</td></tr>
+<tr class="memdesc:ac09c74b0530234687512334ac1cc3d81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Valeur en 1/2ms du délai de la fonction <a class="el" href="../../d7/d6c/processus_usine_8c.html#ad5e544d13dcd3245bd835325c703826a">delaiModeDeTest</a>.  <a href="../../d7/d6c/processus_usine_8c.html#ac09c74b0530234687512334ac1cc3d81">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ac09c74b0530234687512334ac1cc3d81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a515e1f28c9f8b319b0734ba24edbce16"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a515e1f28c9f8b319b0734ba24edbce16">DELAI_MAX_TESTS</a>&#160;&#160;&#160;3900</td></tr>
+<tr class="memdesc:a515e1f28c9f8b319b0734ba24edbce16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Valeur maximale du compteur de timeout pour le mode de test.  <a href="../../d7/d6c/processus_usine_8c.html#a515e1f28c9f8b319b0734ba24edbce16">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a515e1f28c9f8b319b0734ba24edbce16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe1bc7edb9cbf7aa4f1a0e0dbaaf42ed"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#abe1bc7edb9cbf7aa4f1a0e0dbaaf42ed">DELAI_MAX_TESTS_PONT</a>&#160;&#160;&#160;30000</td></tr>
+<tr class="memdesc:abe1bc7edb9cbf7aa4f1a0e0dbaaf42ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Valeur maximale du compteur de timeout pour le pont en mode de test.  <a href="../../d7/d6c/processus_usine_8c.html#abe1bc7edb9cbf7aa4f1a0e0dbaaf42ed">Plus de détails...</a><br /></td></tr>
+<tr class="separator:abe1bc7edb9cbf7aa4f1a0e0dbaaf42ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3cbc6e19c691152caa8ca4bfd966dd6"><td class="memItemLeft" align="right" valign="top"><a id="af3cbc6e19c691152caa8ca4bfd966dd6" name="af3cbc6e19c691152caa8ca4bfd966dd6"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ALLUME</b>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:af3cbc6e19c691152caa8ca4bfd966dd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a731667f79870595283efb4cf30d3b308"><td class="memItemLeft" align="right" valign="top"><a id="a731667f79870595283efb4cf30d3b308" name="a731667f79870595283efb4cf30d3b308"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ETEINT</b>&#160;&#160;&#160;0</td></tr>
+<tr class="separator:a731667f79870595283efb4cf30d3b308"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41b4964a7b71f43a0be8dcc93fcf1506"><td class="memItemLeft" align="right" valign="top"><a id="a41b4964a7b71f43a0be8dcc93fcf1506" name="a41b4964a7b71f43a0be8dcc93fcf1506"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CLIGNOTE</b>&#160;&#160;&#160;2</td></tr>
+<tr class="separator:a41b4964a7b71f43a0be8dcc93fcf1506"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:a380cd42a4e3361d9c2ddb8d24a7fe21b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a380cd42a4e3361d9c2ddb8d24a7fe21b">modeOperation_lanceInitialisation</a> (void)</td></tr>
+<tr class="separator:a380cd42a4e3361d9c2ddb8d24a7fe21b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6742a23018abde925d56fd029ee27f4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#ad6742a23018abde925d56fd029ee27f4">modeOperation_attendFinInitialisation</a> (void)</td></tr>
+<tr class="separator:ad6742a23018abde925d56fd029ee27f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a891bfd30fbef91d16c6bfdbc48981802"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a891bfd30fbef91d16c6bfdbc48981802">modeOperation_pousseUnBloc</a> (void)</td></tr>
+<tr class="separator:a891bfd30fbef91d16c6bfdbc48981802"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d510a77065ce51bb112ad80356ee91b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a0d510a77065ce51bb112ad80356ee91b">modeOperation_detecteLeBloc</a> (void)</td></tr>
+<tr class="separator:a0d510a77065ce51bb112ad80356ee91b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba70daf9cd20416ad974f5e7ab9f58a8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#aba70daf9cd20416ad974f5e7ab9f58a8">modeOperation_monteElevateur</a> (void)</td></tr>
+<tr class="separator:aba70daf9cd20416ad974f5e7ab9f58a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0490f3a5354a4d5b3d948574d68de6f4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a0490f3a5354a4d5b3d948574d68de6f4">modeOperation_attendElevateurEnHaut</a> (void)</td></tr>
+<tr class="separator:a0490f3a5354a4d5b3d948574d68de6f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c3e38646e7abe3194561011407d7798"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a9c3e38646e7abe3194561011407d7798">modeOperation_ejecteUnBloc</a> (void)</td></tr>
+<tr class="separator:a9c3e38646e7abe3194561011407d7798"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74947563c0ea96392dc7f35bec60285f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a74947563c0ea96392dc7f35bec60285f">modeOperation_attendBlocChute</a> (void)</td></tr>
+<tr class="separator:a74947563c0ea96392dc7f35bec60285f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e24c2aa667f32121fe5eecdae351f28"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a2e24c2aa667f32121fe5eecdae351f28">modeOperation_attendPontPos0</a> (void)</td></tr>
+<tr class="separator:a2e24c2aa667f32121fe5eecdae351f28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81c5bf758a65c6d522178c83bcff434b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a81c5bf758a65c6d522178c83bcff434b">modeOperation_attendBlocAspire</a> (void)</td></tr>
+<tr class="separator:a81c5bf758a65c6d522178c83bcff434b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d76331edab5b4416dacd52244924edd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a9d76331edab5b4416dacd52244924edd">modeOperation_attendVentouseHaut</a> (void)</td></tr>
+<tr class="separator:a9d76331edab5b4416dacd52244924edd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50720f1020d98e5243b6844110824d09"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a50720f1020d98e5243b6844110824d09">modeOperation_vaALaFosse</a> (void)</td></tr>
+<tr class="separator:a50720f1020d98e5243b6844110824d09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abdbe45f72deb15cc93d492adbd3376c8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#abdbe45f72deb15cc93d492adbd3376c8">modeOperation_vaALAscenseur</a> (void)</td></tr>
+<tr class="separator:abdbe45f72deb15cc93d492adbd3376c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a012f17a4805422fcdb460359b7816b71"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a012f17a4805422fcdb460359b7816b71">modeOperation_attendFinJetteBloc</a> (void)</td></tr>
+<tr class="separator:a012f17a4805422fcdb460359b7816b71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa022c6ee341027b78103ced6d74dfc7f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#aa022c6ee341027b78103ced6d74dfc7f">modeOperation_attendAscenseurBas</a> (void)</td></tr>
+<tr class="separator:aa022c6ee341027b78103ced6d74dfc7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6f0c52cc83a3a96a4994588060b7a9e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#ad6f0c52cc83a3a96a4994588060b7a9e">modeDeTests_testeLaColonneLumineuse</a> (void)</td></tr>
+<tr class="separator:ad6f0c52cc83a3a96a4994588060b7a9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36beecab114d4895c1efe5c63ebb500d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a36beecab114d4895c1efe5c63ebb500d">modeDeTests_testeLesEntrees</a> (void)</td></tr>
+<tr class="separator:a36beecab114d4895c1efe5c63ebb500d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af998c3072bbb5a1a27947671cb71df43"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#af998c3072bbb5a1a27947671cb71df43">modeDeTests_activeLeVerinDuMagasin</a> (void)</td></tr>
+<tr class="separator:af998c3072bbb5a1a27947671cb71df43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63c4e2337c080d5eafc2633e3e550887"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a63c4e2337c080d5eafc2633e3e550887">modeDeTests_desactiveLeVerinDuMagasin</a> (void)</td></tr>
+<tr class="separator:a63c4e2337c080d5eafc2633e3e550887"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a201280c720d9340d3402270521be3b34"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a201280c720d9340d3402270521be3b34">modeDeTests_monteElevateur</a> (void)</td></tr>
+<tr class="separator:a201280c720d9340d3402270521be3b34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb4f577862bf1af892e3a34ef2251b6b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#abb4f577862bf1af892e3a34ef2251b6b">modeDeTests_descendElevateur</a> (void)</td></tr>
+<tr class="separator:abb4f577862bf1af892e3a34ef2251b6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6245e66f7308598975a2d6236813d308"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a6245e66f7308598975a2d6236813d308">modeDeTests_activeleConvoyeur</a> (void)</td></tr>
+<tr class="separator:a6245e66f7308598975a2d6236813d308"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abcbc7839413bc54d154eb072d0f6c4ec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#abcbc7839413bc54d154eb072d0f6c4ec">modeDeTests_desactiveLeConvoyeur</a> (void)</td></tr>
+<tr class="separator:abcbc7839413bc54d154eb072d0f6c4ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b0f30563e05ddd84a64bdaa1669f06b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a9b0f30563e05ddd84a64bdaa1669f06b">modeDeTests_activeEjecteur</a> (void)</td></tr>
+<tr class="separator:a9b0f30563e05ddd84a64bdaa1669f06b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2a6ffa08a723b67bd72b6dea20a0de9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#aa2a6ffa08a723b67bd72b6dea20a0de9">modeDeTests_desactiveEjecteur</a> (void)</td></tr>
+<tr class="separator:aa2a6ffa08a723b67bd72b6dea20a0de9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a597b8e2a443a0e8316caf59a19e406a4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a597b8e2a443a0e8316caf59a19e406a4">modeDeTests_activeLaVentouse</a> (void)</td></tr>
+<tr class="separator:a597b8e2a443a0e8316caf59a19e406a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c41988ae67d470e61e060a0de8b1c42"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a6c41988ae67d470e61e060a0de8b1c42">modeDeTests_desactiveLaVentouse</a> (void)</td></tr>
+<tr class="separator:a6c41988ae67d470e61e060a0de8b1c42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af73b81ee7bd371a2e17ef342c0c1be0b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#af73b81ee7bd371a2e17ef342c0c1be0b">modeDeTests_descendLaVentouse</a> (void)</td></tr>
+<tr class="separator:af73b81ee7bd371a2e17ef342c0c1be0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7719dbd188a72f7065f33c042682fee5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a7719dbd188a72f7065f33c042682fee5">modeDeTests_monteLaVentouse</a> (void)</td></tr>
+<tr class="separator:a7719dbd188a72f7065f33c042682fee5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e1cbbabfb28c33dc095053e17c7d584"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a8e1cbbabfb28c33dc095053e17c7d584">modeDeTests_attFinInitPont</a> (void)</td></tr>
+<tr class="separator:a8e1cbbabfb28c33dc095053e17c7d584"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa5cb619f19bfce73c609ab296b6bb73"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#afa5cb619f19bfce73c609ab296b6bb73">modeDeTests_deplaceLaVentouse</a> (void)</td></tr>
+<tr class="separator:afa5cb619f19bfce73c609ab296b6bb73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7aebd9c7cce0164c3efa044aa49df92c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a7aebd9c7cce0164c3efa044aa49df92c">modeDeTests_replaceLaventouse</a> (void)</td></tr>
+<tr class="separator:a7aebd9c7cce0164c3efa044aa49df92c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5e544d13dcd3245bd835325c703826a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#ad5e544d13dcd3245bd835325c703826a">delaiModeDeTest</a> (bool reset)</td></tr>
+<tr class="memdesc:ad5e544d13dcd3245bd835325c703826a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cette fonction, appelée de façon récurrente, compte jusqu'à VALEUR_DELAI_MODE_DE_TEST, puis retourne un 1 cela permet de faire un délai de 2 sec pour plusieurs des étais du mode de tests sans copier coller un gros bout de code à chaque fois.  <a href="../../d7/d6c/processus_usine_8c.html#ad5e544d13dcd3245bd835325c703826a">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ad5e544d13dcd3245bd835325c703826a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d80783ebc4b18d3bababec851a90fd3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a2d80783ebc4b18d3bababec851a90fd3">modeTest_clignote</a> (void)</td></tr>
+<tr class="memdesc:a2d80783ebc4b18d3bababec851a90fd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fais clignoter la lumière verte pour signifier que l'usine est en mode de tests.  <a href="../../d7/d6c/processus_usine_8c.html#a2d80783ebc4b18d3bababec851a90fd3">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a2d80783ebc4b18d3bababec851a90fd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af458ec9acc88c8fb39d33d7705d972ef"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#af458ec9acc88c8fb39d33d7705d972ef">updateDiscColor</a> (void)</td></tr>
+<tr class="separator:af458ec9acc88c8fb39d33d7705d972ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8599cda56ec57ff9a6d585f39150de90"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a8599cda56ec57ff9a6d585f39150de90">processusUsine_erreur</a> (void)</td></tr>
+<tr class="memdesc:a8599cda56ec57ff9a6d585f39150de90"><td class="mdescLeft">&#160;</td><td class="mdescRight">État erreur de la machine à état des modes de l'usine.  <a href="../../d7/d6c/processus_usine_8c.html#a8599cda56ec57ff9a6d585f39150de90">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a8599cda56ec57ff9a6d585f39150de90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe81c3b21d0517d1513d01ee198f1ef4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#afe81c3b21d0517d1513d01ee198f1ef4">processusUsine_attente</a> (void)</td></tr>
+<tr class="memdesc:afe81c3b21d0517d1513d01ee198f1ef4"><td class="mdescLeft">&#160;</td><td class="mdescRight">État attente de la machine à état des modes de l'usine.  <a href="../../d7/d6c/processus_usine_8c.html#afe81c3b21d0517d1513d01ee198f1ef4">Plus de détails...</a><br /></td></tr>
+<tr class="separator:afe81c3b21d0517d1513d01ee198f1ef4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21769ddfa68e77bc42edd208d83635b4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a21769ddfa68e77bc42edd208d83635b4">processusUsine_operation</a> (void)</td></tr>
+<tr class="memdesc:a21769ddfa68e77bc42edd208d83635b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">État mode opération de la machine à état des modes de l'usine.  <a href="../../d7/d6c/processus_usine_8c.html#a21769ddfa68e77bc42edd208d83635b4">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a21769ddfa68e77bc42edd208d83635b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a816ea11141fcb260aeeff6c73101ec1c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a816ea11141fcb260aeeff6c73101ec1c">processusUsine_arret</a> (void)</td></tr>
+<tr class="memdesc:a816ea11141fcb260aeeff6c73101ec1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">État mode arrêt de la machine à état des modes de l'usine.  <a href="../../d7/d6c/processus_usine_8c.html#a816ea11141fcb260aeeff6c73101ec1c">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a816ea11141fcb260aeeff6c73101ec1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adeaaeb00f94fdf194cf42bfc07a7de60"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#adeaaeb00f94fdf194cf42bfc07a7de60">processusUsine_tests</a> (void)</td></tr>
+<tr class="memdesc:adeaaeb00f94fdf194cf42bfc07a7de60"><td class="mdescLeft">&#160;</td><td class="mdescRight">État mode tests de la machine à état des modes de l'usine.  <a href="../../d7/d6c/processus_usine_8c.html#adeaaeb00f94fdf194cf42bfc07a7de60">Plus de détails...</a><br /></td></tr>
+<tr class="separator:adeaaeb00f94fdf194cf42bfc07a7de60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e6486727d0d089bd579f4bc0bdc6993"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a0e6486727d0d089bd579f4bc0bdc6993">processusUsine_initialise</a> (void)</td></tr>
+<tr class="memdesc:a0e6486727d0d089bd579f4bc0bdc6993"><td class="mdescLeft">&#160;</td><td class="mdescRight">État initialise de la machine à état des modes de l'usine.  <a href="../../d7/d6c/processus_usine_8c.html#a0e6486727d0d089bd579f4bc0bdc6993">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a0e6486727d0d089bd579f4bc0bdc6993"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a487ffcfa70ccc9f9046bfc490c72aec6"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a487ffcfa70ccc9f9046bfc490c72aec6">modeOperation_execute</a> )(void)</td></tr>
+<tr class="memdesc:a487ffcfa70ccc9f9046bfc490c72aec6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointeur de fonction utilisé pour la sous machine à états du mode opération.  <a href="../../d7/d6c/processus_usine_8c.html#a487ffcfa70ccc9f9046bfc490c72aec6">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a487ffcfa70ccc9f9046bfc490c72aec6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e4cd96f47d9d046678372d50b44a295"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a9e4cd96f47d9d046678372d50b44a295">modeTest_execute</a> )(void)</td></tr>
+<tr class="memdesc:a9e4cd96f47d9d046678372d50b44a295"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointeur de fonction utilisé pour la sous machine à états du mode de tests.  <a href="../../d7/d6c/processus_usine_8c.html#a9e4cd96f47d9d046678372d50b44a295">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a9e4cd96f47d9d046678372d50b44a295"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c99c63d221aab849e92b3f149fba737"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d6c/processus_usine_8c.html#a0c99c63d221aab849e92b3f149fba737">ucTypeDeBloc</a></td></tr>
+<tr class="separator:a0c99c63d221aab849e92b3f149fba737"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p >Processus principal du centre de tri pour le projet de 5e session. </p>
+<dl class="section author"><dt>Auteur</dt><dd>Renaud Gagnon </dd></dl>
+<dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2022-11-18</dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2022 </dd></dl>
+
+<p class="definition">Définition dans le fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+</div><h2 class="groupheader">Documentation des macros</h2>
+<a id="a753b46875c36f715d63e6d6e4e15ba55" name="a753b46875c36f715d63e6d6e4e15ba55"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a753b46875c36f715d63e6d6e4e15ba55">&#9670;&#160;</a></span>BLOC_AUCUN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BLOC_AUCUN&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>État de ucTypeDeBloc lorsqu'il n'y a pas de bloc. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00086">86</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a0f3ae0ec2fdc423cb9f3876141ec3ac8" name="a0f3ae0ec2fdc423cb9f3876141ec3ac8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f3ae0ec2fdc423cb9f3876141ec3ac8">&#9670;&#160;</a></span>BLOC_INCONNU</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BLOC_INCONNU&#160;&#160;&#160;4</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>État de ucTypeDeBloc quand il y a un bloc de type inconnu. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00106">106</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="ae9267ae7bcbbaddf12efe363ce18f559" name="ae9267ae7bcbbaddf12efe363ce18f559"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9267ae7bcbbaddf12efe363ce18f559">&#9670;&#160;</a></span>BLOC_METAL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BLOC_METAL&#160;&#160;&#160;3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>État de ucTypeDeBloc quand le bloc est métallique. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00101">101</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a597b51f69db62495da69b948c1a3af1f" name="a597b51f69db62495da69b948c1a3af1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a597b51f69db62495da69b948c1a3af1f">&#9670;&#160;</a></span>BLOC_NOIR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BLOC_NOIR&#160;&#160;&#160;2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>État de ucTypeDeBloc quand le bloc est noir. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00096">96</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="afe3b77a5f72957c7f3936857a2b40148" name="afe3b77a5f72957c7f3936857a2b40148"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe3b77a5f72957c7f3936857a2b40148">&#9670;&#160;</a></span>BLOC_ROUGE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BLOC_ROUGE&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>État de ucTypeDeBloc quand le bloc est rouge. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00091">91</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a2e5a2c7f82e751273e05ebd822b9c2d0" name="a2e5a2c7f82e751273e05ebd822b9c2d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e5a2c7f82e751273e05ebd822b9c2d0">&#9670;&#160;</a></span>DELAI2SEC</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DELAI2SEC&#160;&#160;&#160;4000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Valeur a utiliser pour faire un délai de 2 secondes. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00074">74</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a536a60d7d9299c83978ea50d13f826ec" name="a536a60d7d9299c83978ea50d13f826ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a536a60d7d9299c83978ea50d13f826ec">&#9670;&#160;</a></span>DELAI_AVANT_DETECTION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DELAI_AVANT_DETECTION&#160;&#160;&#160;1000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Delai d'attente avant de déceter le bloc. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00049">49</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a28436137d4091540f595e0666f54c507" name="a28436137d4091540f595e0666f54c507"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28436137d4091540f595e0666f54c507">&#9670;&#160;</a></span>DELAI_MAX_ATTEND_CHUTE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DELAI_MAX_ATTEND_CHUTE&#160;&#160;&#160;10000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Delai maximal du timeout de l'attente d'un bloc à la chute. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00059">59</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a5680cb964994bc864838f602982a19a1" name="a5680cb964994bc864838f602982a19a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5680cb964994bc864838f602982a19a1">&#9670;&#160;</a></span>DELAI_MAX_DETECTION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DELAI_MAX_DETECTION&#160;&#160;&#160;5000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Delai maximal du timeout de la détection d'un bloc. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00044">44</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a54966a5bfb7d4cb15c90b338f64abe3f" name="a54966a5bfb7d4cb15c90b338f64abe3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54966a5bfb7d4cb15c90b338f64abe3f">&#9670;&#160;</a></span>DELAI_MAX_EJECTION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DELAI_MAX_EJECTION&#160;&#160;&#160;1000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Delai maximal du timeout de l'éjection. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00039">39</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a71e635e7e4b1f7e29e954304751a941e" name="a71e635e7e4b1f7e29e954304751a941e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71e635e7e4b1f7e29e954304751a941e">&#9670;&#160;</a></span>DELAI_MAX_ELEVATEUR_HAUT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DELAI_MAX_ELEVATEUR_HAUT&#160;&#160;&#160;10000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Delai maximal du timeout de l'élévateur en haut. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00054">54</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a0472bb07fbfc1da26d0344aba8436316" name="a0472bb07fbfc1da26d0344aba8436316"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0472bb07fbfc1da26d0344aba8436316">&#9670;&#160;</a></span>DELAI_MAX_INITIALISATION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DELAI_MAX_INITIALISATION&#160;&#160;&#160;50000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Delai maximal du timeout de l'initialisation. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00034">34</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a749b426eda6c29b60b539e52b1de7bce" name="a749b426eda6c29b60b539e52b1de7bce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a749b426eda6c29b60b539e52b1de7bce">&#9670;&#160;</a></span>DELAI_MAX_PISTON</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DELAI_MAX_PISTON&#160;&#160;&#160;3000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Delai maximal du timeout de la montée de la ventouse. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00069">69</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a515e1f28c9f8b319b0734ba24edbce16" name="a515e1f28c9f8b319b0734ba24edbce16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a515e1f28c9f8b319b0734ba24edbce16">&#9670;&#160;</a></span>DELAI_MAX_TESTS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DELAI_MAX_TESTS&#160;&#160;&#160;3900</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Valeur maximale du compteur de timeout pour le mode de test. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00201">201</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="abe1bc7edb9cbf7aa4f1a0e0dbaaf42ed" name="abe1bc7edb9cbf7aa4f1a0e0dbaaf42ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe1bc7edb9cbf7aa4f1a0e0dbaaf42ed">&#9670;&#160;</a></span>DELAI_MAX_TESTS_PONT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DELAI_MAX_TESTS_PONT&#160;&#160;&#160;30000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Valeur maximale du compteur de timeout pour le pont en mode de test. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00206">206</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="af3393600d96f463ed342edada200e4e3" name="af3393600d96f463ed342edada200e4e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3393600d96f463ed342edada200e4e3">&#9670;&#160;</a></span>DELAI_VENTOUSE_DESCEND</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DELAI_VENTOUSE_DESCEND&#160;&#160;&#160;1000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Delai maximal du timeout de la déscente de la ventouse. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00064">64</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a999adfffb7164e3794716a3d1e92f37c" name="a999adfffb7164e3794716a3d1e92f37c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a999adfffb7164e3794716a3d1e92f37c">&#9670;&#160;</a></span>DELAITEST_EN_COURS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DELAITEST_EN_COURS&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Valeur retournée par la fonction <a class="el" href="../../d7/d6c/processus_usine_8c.html#ad5e544d13dcd3245bd835325c703826a">delaiModeDeTest</a> quand le délai n'est pas terminé. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00191">191</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="afc6c1f8099ff507aa17642aba862e5e8" name="afc6c1f8099ff507aa17642aba862e5e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc6c1f8099ff507aa17642aba862e5e8">&#9670;&#160;</a></span>DELAITEST_RESET</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DELAITEST_RESET&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Valeur a envoyer a la fonction <a class="el" href="../../d7/d6c/processus_usine_8c.html#ad5e544d13dcd3245bd835325c703826a">delaiModeDeTest</a> quand on veut mettre le delai à 0. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00176">176</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a01e6aaad370a0dccc7843aae28e2b00f" name="a01e6aaad370a0dccc7843aae28e2b00f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01e6aaad370a0dccc7843aae28e2b00f">&#9670;&#160;</a></span>DELAITEST_TERMINE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DELAITEST_TERMINE&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Valeur retournée par la fonction <a class="el" href="../../d7/d6c/processus_usine_8c.html#ad5e544d13dcd3245bd835325c703826a">delaiModeDeTest</a> quand le délai est terminé. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00186">186</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a04c0c44aafdba09804a753750114f5ec" name="a04c0c44aafdba09804a753750114f5ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04c0c44aafdba09804a753750114f5ec">&#9670;&#160;</a></span>DELAITEST_UTILISE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DELAITEST_UTILISE&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Valeur a envoyer a la fonction <a class="el" href="../../d7/d6c/processus_usine_8c.html#ad5e544d13dcd3245bd835325c703826a">delaiModeDeTest</a> quand on veut utiliser le delai. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00181">181</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a5779cae8a3374665766dea13eed40c54" name="a5779cae8a3374665766dea13eed40c54"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5779cae8a3374665766dea13eed40c54">&#9670;&#160;</a></span>ETAT_CAPTEUR_CAP_POUR_BLOC_AUCUN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ETAT_CAPTEUR_CAP_POUR_BLOC_AUCUN&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>État du capteur capacitif lorsqu'il n'y a pas de bloc. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00160">160</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a65bec3ebc3c50ec86835006a207ee1a0" name="a65bec3ebc3c50ec86835006a207ee1a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65bec3ebc3c50ec86835006a207ee1a0">&#9670;&#160;</a></span>ETAT_CAPTEUR_CAP_POUR_BLOC_METAL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ETAT_CAPTEUR_CAP_POUR_BLOC_METAL&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>État du capteur capacitif lorsque le bloc est métallique. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00144">144</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a3e75ee5a3b1288a65bcf3a5c83518bf0" name="a3e75ee5a3b1288a65bcf3a5c83518bf0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e75ee5a3b1288a65bcf3a5c83518bf0">&#9670;&#160;</a></span>ETAT_CAPTEUR_CAP_POUR_BLOC_NOIR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ETAT_CAPTEUR_CAP_POUR_BLOC_NOIR&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>État du capteur capacitif lorsque le bloc est noir. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00112">112</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a7e0f5094636e50695a3020f472c2d056" name="a7e0f5094636e50695a3020f472c2d056"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e0f5094636e50695a3020f472c2d056">&#9670;&#160;</a></span>ETAT_CAPTEUR_CAP_POUR_BLOC_ROUGE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ETAT_CAPTEUR_CAP_POUR_BLOC_ROUGE&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>État du capteur capacitif lorsque le bloc est rouge. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00128">128</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a1a18e10bc0cfa6dd792390ed6c87e73b" name="a1a18e10bc0cfa6dd792390ed6c87e73b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a18e10bc0cfa6dd792390ed6c87e73b">&#9670;&#160;</a></span>ETAT_CAPTEUR_MAG_POUR_BLOC_AUCUN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ETAT_CAPTEUR_MAG_POUR_BLOC_AUCUN&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>État du capteur magnétique lorsqu'il n'y a pas de bloc. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00165">165</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="adb34501b6cb1a22ea8360c815a098b98" name="adb34501b6cb1a22ea8360c815a098b98"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb34501b6cb1a22ea8360c815a098b98">&#9670;&#160;</a></span>ETAT_CAPTEUR_MAG_POUR_BLOC_METAL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ETAT_CAPTEUR_MAG_POUR_BLOC_METAL&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>État du capteur magnétique lorsque le bloc est métallique. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00149">149</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a5164208a040b949349cd864deb2cf041" name="a5164208a040b949349cd864deb2cf041"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5164208a040b949349cd864deb2cf041">&#9670;&#160;</a></span>ETAT_CAPTEUR_MAG_POUR_BLOC_NOIR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ETAT_CAPTEUR_MAG_POUR_BLOC_NOIR&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>État du capteur magnétique lorsque le bloc est noir. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00117">117</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a24d7217fc3e5d8988413497297779434" name="a24d7217fc3e5d8988413497297779434"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24d7217fc3e5d8988413497297779434">&#9670;&#160;</a></span>ETAT_CAPTEUR_MAG_POUR_BLOC_ROUGE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ETAT_CAPTEUR_MAG_POUR_BLOC_ROUGE&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>État du capteur magnétique lorsque le bloc est rouge. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00133">133</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="aa6c5b993f46d357a4305c5420d077daf" name="aa6c5b993f46d357a4305c5420d077daf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6c5b993f46d357a4305c5420d077daf">&#9670;&#160;</a></span>ETAT_CAPTEUR_OPT_POUR_BLOC_AUCUN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ETAT_CAPTEUR_OPT_POUR_BLOC_AUCUN&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>État du capteur optique lorsqu'il n'y a pas de bloc. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00170">170</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="ab965aa1afd9c1486fa4665e0ef48ee0a" name="ab965aa1afd9c1486fa4665e0ef48ee0a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab965aa1afd9c1486fa4665e0ef48ee0a">&#9670;&#160;</a></span>ETAT_CAPTEUR_OPT_POUR_BLOC_METAL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ETAT_CAPTEUR_OPT_POUR_BLOC_METAL&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>État du capteur optique lorsque le bloc est métallique. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00154">154</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a13ce0fab4c0a0e6a765f428d419b920b" name="a13ce0fab4c0a0e6a765f428d419b920b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13ce0fab4c0a0e6a765f428d419b920b">&#9670;&#160;</a></span>ETAT_CAPTEUR_OPT_POUR_BLOC_NOIR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ETAT_CAPTEUR_OPT_POUR_BLOC_NOIR&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>État du capteur optique lorsque le bloc est noir. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00122">122</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="af68a88fe72b70cf93ed78c3aba130cbb" name="af68a88fe72b70cf93ed78c3aba130cbb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af68a88fe72b70cf93ed78c3aba130cbb">&#9670;&#160;</a></span>ETAT_CAPTEUR_OPT_POUR_BLOC_ROUGE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ETAT_CAPTEUR_OPT_POUR_BLOC_ROUGE&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>État du capteur optique lorsque le bloc est rouge. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00138">138</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a26fe3df954b710b5ae615990e68c3bc1" name="a26fe3df954b710b5ae615990e68c3bc1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26fe3df954b710b5ae615990e68c3bc1">&#9670;&#160;</a></span>TEST_VITESSELEDCLIGNOTE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TEST_VITESSELEDCLIGNOTE&#160;&#160;&#160;2000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Période du clignotement de la lumière verte en mode de tests. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00080">80</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="ac09c74b0530234687512334ac1cc3d81" name="ac09c74b0530234687512334ac1cc3d81"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac09c74b0530234687512334ac1cc3d81">&#9670;&#160;</a></span>VALEUR_DELAI_MODE_DE_TEST</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define VALEUR_DELAI_MODE_DE_TEST&#160;&#160;&#160;4000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Valeur en 1/2ms du délai de la fonction <a class="el" href="../../d7/d6c/processus_usine_8c.html#ad5e544d13dcd3245bd835325c703826a">delaiModeDeTest</a>. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00196">196</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentation des fonctions</h2>
+<a id="ad5e544d13dcd3245bd835325c703826a" name="ad5e544d13dcd3245bd835325c703826a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5e544d13dcd3245bd835325c703826a">&#9670;&#160;</a></span>delaiModeDeTest()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool delaiModeDeTest </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>reset</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Cette fonction, appelée de façon récurrente, compte jusqu'à VALEUR_DELAI_MODE_DE_TEST, puis retourne un 1 cela permet de faire un délai de 2 sec pour plusieurs des étais du mode de tests sans copier coller un gros bout de code à chaque fois. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">reset</td><td>est mis a <a class="el" href="../../d7/d6c/processus_usine_8c.html#afc6c1f8099ff507aa17642aba862e5e8">DELAITEST_RESET</a> pour mettre le délai à zéro ou est mis à <a class="el" href="../../d7/d6c/processus_usine_8c.html#a04c0c44aafdba09804a753750114f5ec">DELAITEST_UTILISE</a> pour uliliser le délai. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>true si délai écoulé </dd>
+<dd>
+false si délai en cours </dd></dl>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l01541">1541</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a9b0f30563e05ddd84a64bdaa1669f06b" name="a9b0f30563e05ddd84a64bdaa1669f06b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b0f30563e05ddd84a64bdaa1669f06b">&#9670;&#160;</a></span>modeDeTests_activeEjecteur()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void modeDeTests_activeEjecteur </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l01319">1319</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a597b8e2a443a0e8316caf59a19e406a4" name="a597b8e2a443a0e8316caf59a19e406a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a597b8e2a443a0e8316caf59a19e406a4">&#9670;&#160;</a></span>modeDeTests_activeLaVentouse()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void modeDeTests_activeLaVentouse </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l01377">1377</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a6245e66f7308598975a2d6236813d308" name="a6245e66f7308598975a2d6236813d308"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6245e66f7308598975a2d6236813d308">&#9670;&#160;</a></span>modeDeTests_activeleConvoyeur()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void modeDeTests_activeleConvoyeur </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l01290">1290</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="af998c3072bbb5a1a27947671cb71df43" name="af998c3072bbb5a1a27947671cb71df43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af998c3072bbb5a1a27947671cb71df43">&#9670;&#160;</a></span>modeDeTests_activeLeVerinDuMagasin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void modeDeTests_activeLeVerinDuMagasin </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l01171">1171</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a8e1cbbabfb28c33dc095053e17c7d584" name="a8e1cbbabfb28c33dc095053e17c7d584"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e1cbbabfb28c33dc095053e17c7d584">&#9670;&#160;</a></span>modeDeTests_attFinInitPont()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void modeDeTests_attFinInitPont </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l01470">1470</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="afa5cb619f19bfce73c609ab296b6bb73" name="afa5cb619f19bfce73c609ab296b6bb73"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa5cb619f19bfce73c609ab296b6bb73">&#9670;&#160;</a></span>modeDeTests_deplaceLaVentouse()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void modeDeTests_deplaceLaVentouse </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l01491">1491</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="aa2a6ffa08a723b67bd72b6dea20a0de9" name="aa2a6ffa08a723b67bd72b6dea20a0de9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2a6ffa08a723b67bd72b6dea20a0de9">&#9670;&#160;</a></span>modeDeTests_desactiveEjecteur()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void modeDeTests_desactiveEjecteur </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l01345">1345</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a6c41988ae67d470e61e060a0de8b1c42" name="a6c41988ae67d470e61e060a0de8b1c42"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c41988ae67d470e61e060a0de8b1c42">&#9670;&#160;</a></span>modeDeTests_desactiveLaVentouse()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void modeDeTests_desactiveLaVentouse </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l01389">1389</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="abcbc7839413bc54d154eb072d0f6c4ec" name="abcbc7839413bc54d154eb072d0f6c4ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abcbc7839413bc54d154eb072d0f6c4ec">&#9670;&#160;</a></span>modeDeTests_desactiveLeConvoyeur()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void modeDeTests_desactiveLeConvoyeur </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l01301">1301</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a63c4e2337c080d5eafc2633e3e550887" name="a63c4e2337c080d5eafc2633e3e550887"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63c4e2337c080d5eafc2633e3e550887">&#9670;&#160;</a></span>modeDeTests_desactiveLeVerinDuMagasin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void modeDeTests_desactiveLeVerinDuMagasin </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l01194">1194</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="abb4f577862bf1af892e3a34ef2251b6b" name="abb4f577862bf1af892e3a34ef2251b6b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb4f577862bf1af892e3a34ef2251b6b">&#9670;&#160;</a></span>modeDeTests_descendElevateur()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void modeDeTests_descendElevateur </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l01257">1257</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="af73b81ee7bd371a2e17ef342c0c1be0b" name="af73b81ee7bd371a2e17ef342c0c1be0b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af73b81ee7bd371a2e17ef342c0c1be0b">&#9670;&#160;</a></span>modeDeTests_descendLaVentouse()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void modeDeTests_descendLaVentouse </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l01407">1407</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a201280c720d9340d3402270521be3b34" name="a201280c720d9340d3402270521be3b34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a201280c720d9340d3402270521be3b34">&#9670;&#160;</a></span>modeDeTests_monteElevateur()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void modeDeTests_monteElevateur </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l01229">1229</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a7719dbd188a72f7065f33c042682fee5" name="a7719dbd188a72f7065f33c042682fee5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7719dbd188a72f7065f33c042682fee5">&#9670;&#160;</a></span>modeDeTests_monteLaVentouse()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void modeDeTests_monteLaVentouse </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l01435">1435</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a7aebd9c7cce0164c3efa044aa49df92c" name="a7aebd9c7cce0164c3efa044aa49df92c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7aebd9c7cce0164c3efa044aa49df92c">&#9670;&#160;</a></span>modeDeTests_replaceLaventouse()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void modeDeTests_replaceLaventouse </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l01512">1512</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="ad6f0c52cc83a3a96a4994588060b7a9e" name="ad6f0c52cc83a3a96a4994588060b7a9e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6f0c52cc83a3a96a4994588060b7a9e">&#9670;&#160;</a></span>modeDeTests_testeLaColonneLumineuse()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void modeDeTests_testeLaColonneLumineuse </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l01139">1139</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a36beecab114d4895c1efe5c63ebb500d" name="a36beecab114d4895c1efe5c63ebb500d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36beecab114d4895c1efe5c63ebb500d">&#9670;&#160;</a></span>modeDeTests_testeLesEntrees()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void modeDeTests_testeLesEntrees </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l01157">1157</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="aa022c6ee341027b78103ced6d74dfc7f" name="aa022c6ee341027b78103ced6d74dfc7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa022c6ee341027b78103ced6d74dfc7f">&#9670;&#160;</a></span>modeOperation_attendAscenseurBas()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void modeOperation_attendAscenseurBas </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l01006">1006</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a81c5bf758a65c6d522178c83bcff434b" name="a81c5bf758a65c6d522178c83bcff434b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81c5bf758a65c6d522178c83bcff434b">&#9670;&#160;</a></span>modeOperation_attendBlocAspire()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void modeOperation_attendBlocAspire </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00874">874</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a74947563c0ea96392dc7f35bec60285f" name="a74947563c0ea96392dc7f35bec60285f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74947563c0ea96392dc7f35bec60285f">&#9670;&#160;</a></span>modeOperation_attendBlocChute()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void modeOperation_attendBlocChute </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00834">834</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a0490f3a5354a4d5b3d948574d68de6f4" name="a0490f3a5354a4d5b3d948574d68de6f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0490f3a5354a4d5b3d948574d68de6f4">&#9670;&#160;</a></span>modeOperation_attendElevateurEnHaut()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void modeOperation_attendElevateurEnHaut </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00757">757</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="ad6742a23018abde925d56fd029ee27f4" name="ad6742a23018abde925d56fd029ee27f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6742a23018abde925d56fd029ee27f4">&#9670;&#160;</a></span>modeOperation_attendFinInitialisation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void modeOperation_attendFinInitialisation </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00590">590</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a012f17a4805422fcdb460359b7816b71" name="a012f17a4805422fcdb460359b7816b71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a012f17a4805422fcdb460359b7816b71">&#9670;&#160;</a></span>modeOperation_attendFinJetteBloc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void modeOperation_attendFinJetteBloc </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00956">956</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a2e24c2aa667f32121fe5eecdae351f28" name="a2e24c2aa667f32121fe5eecdae351f28"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e24c2aa667f32121fe5eecdae351f28">&#9670;&#160;</a></span>modeOperation_attendPontPos0()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void modeOperation_attendPontPos0 </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00862">862</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a9d76331edab5b4416dacd52244924edd" name="a9d76331edab5b4416dacd52244924edd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d76331edab5b4416dacd52244924edd">&#9670;&#160;</a></span>modeOperation_attendVentouseHaut()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void modeOperation_attendVentouseHaut </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00888">888</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a0d510a77065ce51bb112ad80356ee91b" name="a0d510a77065ce51bb112ad80356ee91b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d510a77065ce51bb112ad80356ee91b">&#9670;&#160;</a></span>modeOperation_detecteLeBloc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void modeOperation_detecteLeBloc </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00649">649</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a9c3e38646e7abe3194561011407d7798" name="a9c3e38646e7abe3194561011407d7798"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c3e38646e7abe3194561011407d7798">&#9670;&#160;</a></span>modeOperation_ejecteUnBloc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void modeOperation_ejecteUnBloc </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00803">803</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a380cd42a4e3361d9c2ddb8d24a7fe21b" name="a380cd42a4e3361d9c2ddb8d24a7fe21b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a380cd42a4e3361d9c2ddb8d24a7fe21b">&#9670;&#160;</a></span>modeOperation_lanceInitialisation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void modeOperation_lanceInitialisation </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00561">561</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="aba70daf9cd20416ad974f5e7ab9f58a8" name="aba70daf9cd20416ad974f5e7ab9f58a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba70daf9cd20416ad974f5e7ab9f58a8">&#9670;&#160;</a></span>modeOperation_monteElevateur()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void modeOperation_monteElevateur </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00741">741</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a891bfd30fbef91d16c6bfdbc48981802" name="a891bfd30fbef91d16c6bfdbc48981802"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a891bfd30fbef91d16c6bfdbc48981802">&#9670;&#160;</a></span>modeOperation_pousseUnBloc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void modeOperation_pousseUnBloc </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00620">620</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a50720f1020d98e5243b6844110824d09" name="a50720f1020d98e5243b6844110824d09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50720f1020d98e5243b6844110824d09">&#9670;&#160;</a></span>modeOperation_vaALaFosse()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void modeOperation_vaALaFosse </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00927">927</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="abdbe45f72deb15cc93d492adbd3376c8" name="abdbe45f72deb15cc93d492adbd3376c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abdbe45f72deb15cc93d492adbd3376c8">&#9670;&#160;</a></span>modeOperation_vaALAscenseur()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void modeOperation_vaALAscenseur </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00942">942</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a2d80783ebc4b18d3bababec851a90fd3" name="a2d80783ebc4b18d3bababec851a90fd3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d80783ebc4b18d3bababec851a90fd3">&#9670;&#160;</a></span>modeTest_clignote()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void modeTest_clignote </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fais clignoter la lumière verte pour signifier que l'usine est en mode de tests. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l01565">1565</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a816ea11141fcb260aeeff6c73101ec1c" name="a816ea11141fcb260aeeff6c73101ec1c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a816ea11141fcb260aeeff6c73101ec1c">&#9670;&#160;</a></span>processusUsine_arret()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void processusUsine_arret </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>État mode arrêt de la machine à état des modes de l'usine. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l01033">1033</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="afe81c3b21d0517d1513d01ee198f1ef4" name="afe81c3b21d0517d1513d01ee198f1ef4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe81c3b21d0517d1513d01ee198f1ef4">&#9670;&#160;</a></span>processusUsine_attente()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void processusUsine_attente </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>État attente de la machine à état des modes de l'usine. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00269">269</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a8599cda56ec57ff9a6d585f39150de90" name="a8599cda56ec57ff9a6d585f39150de90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8599cda56ec57ff9a6d585f39150de90">&#9670;&#160;</a></span>processusUsine_erreur()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void processusUsine_erreur </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>État erreur de la machine à état des modes de l'usine. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l01586">1586</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a0e6486727d0d089bd579f4bc0bdc6993" name="a0e6486727d0d089bd579f4bc0bdc6993"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e6486727d0d089bd579f4bc0bdc6993">&#9670;&#160;</a></span>processusUsine_initialise()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void processusUsine_initialise </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>État initialise de la machine à état des modes de l'usine. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l01664">1664</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a21769ddfa68e77bc42edd208d83635b4" name="a21769ddfa68e77bc42edd208d83635b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a21769ddfa68e77bc42edd208d83635b4">&#9670;&#160;</a></span>processusUsine_operation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void processusUsine_operation </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>État mode opération de la machine à état des modes de l'usine. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00329">329</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="adeaaeb00f94fdf194cf42bfc07a7de60" name="adeaaeb00f94fdf194cf42bfc07a7de60"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adeaaeb00f94fdf194cf42bfc07a7de60">&#9670;&#160;</a></span>processusUsine_tests()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void processusUsine_tests </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>État mode tests de la machine à état des modes de l'usine. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l01056">1056</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="af458ec9acc88c8fb39d33d7705d972ef" name="af458ec9acc88c8fb39d33d7705d972ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af458ec9acc88c8fb39d33d7705d972ef">&#9670;&#160;</a></span>updateDiscColor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void updateDiscColor </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l01613">1613</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentation des variables</h2>
+<a id="a487ffcfa70ccc9f9046bfc490c72aec6" name="a487ffcfa70ccc9f9046bfc490c72aec6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a487ffcfa70ccc9f9046bfc490c72aec6">&#9670;&#160;</a></span>modeOperation_execute</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void(* modeOperation_execute) (void) </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pointeur de fonction utilisé pour la sous machine à états du mode opération. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00253">253</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a9e4cd96f47d9d046678372d50b44a295" name="a9e4cd96f47d9d046678372d50b44a295"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e4cd96f47d9d046678372d50b44a295">&#9670;&#160;</a></span>modeTest_execute</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void(* modeTest_execute) (void) </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pointeur de fonction utilisé pour la sous machine à états du mode de tests. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00258">258</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+<a id="a0c99c63d221aab849e92b3f149fba737" name="a0c99c63d221aab849e92b3f149fba737"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c99c63d221aab849e92b3f149fba737">&#9670;&#160;</a></span>ucTypeDeBloc</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char ucTypeDeBloc</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d7/d6c/processus_usine_8c_source.html#l00260">260</a> du fichier <a class="el" href="../../d7/d6c/processus_usine_8c_source.html">processusUsine.c</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="../../dir_1960eb5326e5d9e33055aa33e524e3d7.html">Projet-5e-Session</a></li><li class="navelem"><a class="el" href="../../dir_cabb922a6f0086bfb6fe28e07bda4828.html">Centre-De-Tri</a></li><li class="navelem"><a class="el" href="../../dir_e264173ee9885e47de6a48711356bc55.html">CentreDeTriS5</a></li><li class="navelem"><a class="el" href="../../dir_4cab58644c3b44e68232096e0cdbe804.html">Src</a></li><li class="navelem"><a class="el" href="../../d7/d6c/processus_usine_8c.html">processusUsine.c</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5 </li>
+  </ul>
+</div>
+</body>
+</html>

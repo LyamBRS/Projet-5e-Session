@@ -1,0 +1,982 @@
+\hypertarget{xmain_8h}{}\doxysection{Référence du fichier U\+:/\+Sessions/\+Session 5/\+Project/\+Projet\+\_\+\+Fin\+\_\+\+Session/\+Projet-\/5e-\/\+Session/\+Vehicule/\+Programmes/\+ESPvehicule/include/xmain.h}
+\label{xmain_8h}\index{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Vehicule/Programmes/ESPvehicule/include/xmain.h@{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Vehicule/Programmes/ESPvehicule/include/xmain.h}}
+
+
+Le fichier \mbox{\hyperlink{xmain_8h}{xmain.\+h}} est nécessaire pour les includions global qui contien les defines essentiel au fonctionnement du véhicule fesant partie du projet de 5e session de TSO. Le processeur utilisé pour la gestion du véhicule est un ESP32. Voir le document de projet pour plus d\textquotesingle{}information sur le fonctionnement du véhicule.  
+
+
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{xmain_8h_aacf3efa1339183d888f1f2a8a70ffdaf}{PILOTEENTREE1\+\_\+\+MODE\+\_\+\+FLOTTANT\+\_\+\+AVEC\+\_\+\+PULL\+\_\+\+UP}}
+\begin{DoxyCompactList}\small\item\em Définition pour choisir le mode de lecture de PIN. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_a3cf44d5fed651c02279eee23bd31955c}{PILOTEENTREE1\+\_\+\+BROCHE}}~34
+\begin{DoxyCompactList}\small\item\em Définition qui undique le numéro de broche du ESP32 utilisé par l\textquotesingle{}entrée1. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_ac70b43268471e5f03a62a5fb33100e07}{PILOTEIOT1\+\_\+\+BROCHE}}~13
+\begin{DoxyCompactList}\small\item\em Définition qui assigne le bon numéro de broche du ESP32 au témoin 1. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_a9d2b466ae3973b1f479d915975338454}{PILOTEIOT1\+\_\+\+ETAT\+\_\+\+INITIAL\+\_\+\+A\+\_\+\+ZERO}}
+\begin{DoxyCompactList}\small\item\em Définition qui permet de modifier un état initiale au témoin 1. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_a663676e09983462d4b7ed0ac489164f4}{PILOTEIOFEUAVANTD\+\_\+\+BROCHE}}~27
+\item 
+\#define \mbox{\hyperlink{xmain_8h_a09bc104804d1b72e9ad6a563fd6ae4c6}{PILOTEIOFEUAVANTD\+\_\+\+ETAT\+\_\+\+INITIAL\+\_\+\+A\+\_\+\+ZERO}}
+\item 
+\#define \mbox{\hyperlink{xmain_8h_a698bc64aa8315fff472f0467a33cd4c7}{PILOTEIOFEUAVANTG\+\_\+\+BROCHE}}~15
+\item 
+\#define \mbox{\hyperlink{xmain_8h_ac3d11e3a287fca9d1d5eb851fa0cd08f}{PILOTEIOFEUAVANTG\+\_\+\+ETAT\+\_\+\+INITIAL\+\_\+\+A\+\_\+\+ZERO}}
+\item 
+\#define \mbox{\hyperlink{xmain_8h_a681ed6834078f9abdd37618faf598718}{PILOTEIOFEUARRIERED\+\_\+\+BROCHE}}~12
+\item 
+\#define \mbox{\hyperlink{xmain_8h_a8b8b82b95902216525b49fe485622367}{PILOTEIOFEUARRIERED\+\_\+\+ETAT\+\_\+\+INITIAL\+\_\+\+A\+\_\+\+ZERO}}
+\item 
+\#define \mbox{\hyperlink{xmain_8h_a2e2cbeffdc5ab90dacfde3f61e07b210}{PILOTEIOFEUARRIEREG\+\_\+\+BROCHE}}~33
+\item 
+\#define \mbox{\hyperlink{xmain_8h_a1fee35e07651d0c83bc67776749a9c64}{PILOTEIOFEUARRIEREG\+\_\+\+ETAT\+\_\+\+INITIAL\+\_\+\+A\+\_\+\+ZERO}}
+\item 
+\#define \mbox{\hyperlink{xmain_8h_a1f9ef0374c6b1e4e561d80a4f5cce625}{PILOTEMOTEURBENNEHAUT\+\_\+\+BROCHE}}~4
+\begin{DoxyCompactList}\small\item\em Définition qui assigne le bon numéro de broche du ESP32 au HAUT du pont en H du moteur de la benne. Le moteur peut être alimenté dans les deux sens pour tourner dans le sens horaire ou antihoraire. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_ac5f786e673562c1ce052a6a9753a868a}{PILOTEMOTEURBENNEBAS\+\_\+\+BROCHE}}~21
+\begin{DoxyCompactList}\small\item\em Définition qui assigne le bon numéro de broche du ESP32 au BAS du pont en H du moteur de la benne. Le moteur peut être alimenté dans les deux sens pour tourner dans le sens horaire ou antihoraire. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_a9079496de1df371e4ca21fdb3cb9d041}{PILOTEMOTEURBENNE\+\_\+\+ETAT\+\_\+\+INITIAL\+\_\+\+A\+\_\+\+ZERO}}
+\begin{DoxyCompactList}\small\item\em Définition qui permet de modifier un état initiale au moteur de la benne \mbox{\hyperlink{xmain_8h_a9079496de1df371e4ca21fdb3cb9d041}{PILOTEMOTEURBENNE\+\_\+\+ETAT\+\_\+\+INITIAL\+\_\+\+A\+\_\+\+ZERO}} éteint le moteur ~\newline
+ PILOTEMOTEURBENNE\+\_\+\+ETAT\+\_\+\+INITIAL\+\_\+\+A\+\_\+\+UN allume le moteur ~\newline
+ \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_acef0b425c836eb63d74c801c4d11c2b1}{PILOTEPWM\+\_\+\+RESOLUTION}}~8
+\begin{DoxyCompactList}\small\item\em Défini le nombre de bits utilisé pour la résolution du PWM. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_afe4c40d73c92afab12f1ac6021dacb3d}{PILOTEPWM\+\_\+\+FREQUENCE}}~5000
+\begin{DoxyCompactList}\small\item\em Défini la fréquence du PWM en Hz. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_a59d35689d2c2c7a84165bcca14853490}{PILOTEPWMDROITHAUT\+\_\+\+CHANNEL}}~0
+\begin{DoxyCompactList}\small\item\em Définition qui assigne un channel PWM a son pilote respectif. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_a9fe82e011a6483f5ee70cb0dd6ea1a4b}{PILOTEPWMDROITHAUT\+\_\+\+PIN}}~14
+\begin{DoxyCompactList}\small\item\em Défini le numéro de broche du ESP32 a au \mbox{\hyperlink{xpilote_p_w_m_droit_haut_8h}{xpilote\+PWMDroit\+Haut.\+h}}. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_a7590dc976354d20555712865babc34cb}{PILOTEPWMDROITBAS\+\_\+\+CHANNEL}}~1
+\begin{DoxyCompactList}\small\item\em Définition qui assigne un channel PWM a son pilote respectif. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_a76c688ee404e3310446984cc236bc3b5}{PILOTEPWMDROITBAS\+\_\+\+PIN}}~32
+\begin{DoxyCompactList}\small\item\em Défini le numéro de broche du ESP32 a au \mbox{\hyperlink{xpilote_p_w_m_droit_bas_8h}{xpilote\+PWMDroit\+Bas.\+h}}. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_afbd192e42650e4d1b5af15112670256c}{PILOTEPWMGAUCHEHAUT\+\_\+\+CHANNEL}}~2
+\begin{DoxyCompactList}\small\item\em Définition qui assigne un channel PWM a son pilote respectif. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_a8fe1a40b5932337c8cba1aedcf2fb3d2}{PILOTEPWMGAUCHEHAUT\+\_\+\+PIN}}~26
+\begin{DoxyCompactList}\small\item\em Défini le numéro de broche du ESP32 a au \mbox{\hyperlink{xpilote_p_w_m_gauche_haut_8h}{xpilote\+PWMGauche\+Haut.\+h}}. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_a34334dffe659958ae46525ca022b358f}{PILOTEPWMGAUCHEBAS\+\_\+\+CHANNEL}}~3
+\begin{DoxyCompactList}\small\item\em Définition qui assigne un channel PWM a son pilote respectif. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_a7bc01f178b03437f49942b47e4812a72}{PILOTEPWMGAUCHEBAS\+\_\+\+PIN}}~25
+\begin{DoxyCompactList}\small\item\em Défini le numéro de broche du ESP32 a au \mbox{\hyperlink{xpilote_p_w_m_gauche_bas_8h}{xpilote\+PWMGauche\+Bas.\+h}}. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_ac4e7552b51975d4b247e1182c0eb675e}{PILOTEI2\+C1\+\_\+\+SCL}}~22
+\begin{DoxyCompactList}\small\item\em Définition qui assigne le bon numéro de broche à la ligne SCL du \mbox{\hyperlink{xpilote_i2_c1_8h}{xpilote\+I2\+C1.\+h}}. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_a9ca935e6de28c0588cf826eb9970db12}{PILOTEI2\+C1\+\_\+\+SDA}}~23
+\begin{DoxyCompactList}\small\item\em Définition qui assigne le bon numéro de broche à la ligne SDA du \mbox{\hyperlink{xpilote_i2_c1_8h}{xpilote\+I2\+C1.\+h}}. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_aac0cc201b183c313e2b8015785304b3e}{PILOTEI2\+C1\+\_\+\+FREQUENCE\+\_\+\+D\+\_\+\+HORLOGE\+\_\+\+EN\+\_\+\+HZ}}~400000
+\begin{DoxyCompactList}\small\item\em Défini la fréquence en Hz de l\textquotesingle{}horloge I2C. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_a0416f993a20261d674500195fe235783}{INTERFACEENTREE1\+\_\+\+VALEUR\+\_\+\+LUE\+\_\+\+SI\+\_\+\+ACTIVE}}~0
+\begin{DoxyCompactList}\small\item\em Défini la valeur lu quand l\textquotesingle{}entré 1 est active (quand la switch est pesé) \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_a57faa3809d341b9a30bea80da710b5dd}{INTERFACEENTREE1\+\_\+\+VALEUR\+\_\+\+LUE\+\_\+\+SI\+\_\+\+INACTIVE}}~1
+\begin{DoxyCompactList}\small\item\em Défini la valeur lu quand l\textquotesingle{}entré 1 est inactive (quand la switch est relaché) \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_a0251077e4a0ad77fc2c9f4f0056931cb}{INTERFACEENTREE1\+\_\+\+FREQUENCE\+\_\+\+DES\+\_\+\+LECTURES\+\_\+\+EN\+\_\+\+HZ}}~125
+\begin{DoxyCompactList}\small\item\em Défini la fréquence en Hz des lectures de l\textquotesingle{}entré 1. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_a468e19540cff200bd3fdd199f101e339}{INTERFACEENTREE1\+\_\+\+NOMBRE\+\_\+\+MINIMUM\+\_\+\+DE\+\_\+\+LECTURES\+\_\+\+PAR\+\_\+\+DECISION}}~10
+\begin{DoxyCompactList}\small\item\em Défini le nombre de lectures de l\textquotesingle{}entré avant d\textquotesingle{}avoir une valeur fiable. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_a904840946f3294acdcf4ee556a776594}{INTERFACET1\+\_\+\+VALEUR\+\_\+\+POUR\+\_\+\+ALLUMER}}~1
+\begin{DoxyCompactList}\small\item\em Valeur pour allumer le témoin 1. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_a48cc114f9ff82188050fe3420afdcd7e}{INTERFACET1\+\_\+\+VALEUR\+\_\+\+POUR\+\_\+\+ETEINDRE}}~0
+\begin{DoxyCompactList}\small\item\em Valeur pour éteindre le témoin 1. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_a8eeaca9a2a43b749bf42510ae8b58670}{INTERFACESUIVEUR\+\_\+\+ADRESSE}}~0x3A
+\begin{DoxyCompactList}\small\item\em Adresse I2C du PCF8574 utilisé par le suiveur de ligne installé sur le camion. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_a940a847baefb8f04c5b15a70bd19ec23}{INTERFACEMOTEURBENNE\+\_\+\+VALEUR\+\_\+\+POUR\+\_\+\+ALLUMER}}~1
+\begin{DoxyCompactList}\small\item\em Valeur pour allumer le moteur de la benne. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_a95ea958a4d13fe73506dc1715cdaa7e5}{INTERFACEMOTEURBENNE\+\_\+\+VALEUR\+\_\+\+POUR\+\_\+\+ETEINDRE}}~0
+\begin{DoxyCompactList}\small\item\em Valeur pour éteindre le moteur de la benne. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_a9feadd4b5c905a261e3bebf0141c590e}{SERVICETASKSERVER\+\_\+\+PERIODE\+\_\+\+EN\+\_\+\+US}}~(1000L)
+\begin{DoxyCompactList}\small\item\em Période en microsecondes à laquelle le Task\+Server exécute sa fonction qui fait apelle au service Base de temps pour gêrer plusieur tache a la fois. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_a6276b0f7c474c476289248b4eecd63ee}{SERVICEBASEDETEMPS\+\_\+\+FREQUENCE\+\_\+\+EN\+\_\+\+HZ}}~1000
+\begin{DoxyCompactList}\small\item\em Fréquence en Hz de la base de temps. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_ab6e7d92e268f07cf18c427fee9ff2e88}{SERVICEBASEDETEMPS\+\_\+\+NOMBRE\+\_\+\+DE\+\_\+\+PHASES\+\_\+\+DANS\+\_\+\+LOOP}}~1
+\begin{DoxyCompactList}\small\item\em Nombre de phase dans une période de la base de temps (1 si pas utilisé) \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_a9470a0f17392d89a537141466f6f0e98}{SERVICEBASEDETEMPS\+\_\+\+NOMBRE\+\_\+\+DE\+\_\+\+PHASES}}~7
+\begin{DoxyCompactList}\small\item\em Nombre de phase de la base de temps \mbox{\hyperlink{xservice_base_de_temps_8h}{xservice\+Base\+De\+Temps.\+h}}. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_a8971877a7a918f19dd3e1998eb2977aa}{INTERFACEENTREE1\+\_\+\+PHASE}}~4
+\begin{DoxyCompactList}\small\item\em Numéro de phase la lecture de l\textquotesingle{}Entrée 1. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_a3081ddd41aee5b1cca97d113917d5bcd}{PROCESSUSBENNE\+\_\+\+PHASE}}~5
+\begin{DoxyCompactList}\small\item\em Numéro de phase du processus de gestion de la benne. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_a37e84332778d7d3a27f94f84259d5e2d}{PROCESSUSCLIGNOTANT\+\_\+\+PHASE}}~2
+\begin{DoxyCompactList}\small\item\em Numéro de phase du processus clignotant. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_ad0cce52011eb014a517ec2c1e0d407ac}{PROCESSUSCONDUITE\+\_\+\+PHASE}}~3
+\begin{DoxyCompactList}\small\item\em Numéro de phase du processus Conduite. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_a8e9cd7848a1ab7d4628071a376585700}{PROCESSUSVEHICULE\+\_\+\+PHASE}}~6
+\begin{DoxyCompactList}\small\item\em Numéro de phase du processus principale de gestion du véhicule. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_a7349a2e251151d2c8c49f457781aa69b}{PROCESSUSCLIGNOTANT\+\_\+\+TEMPS\+\_\+\+ALLUME\+\_\+\+EN\+\_\+\+MS}}~500
+\item 
+\#define \mbox{\hyperlink{xmain_8h_a8fc0b0549689f187848c1a876d1e757a}{PROCESSUSCLIGNOTANT\+\_\+\+TEMPS\+\_\+\+ETEINT\+\_\+\+EN\+\_\+\+MS}}~500
+\item 
+\#define \mbox{\hyperlink{xmain_8h_a59efbaf81875696a5e0c725352b9a637}{PROCESSUSCONDUITE\+\_\+\+VITESSESTANDARD}}~200
+\begin{DoxyCompactList}\small\item\em Vitesse standard des moteur du véhicule correspond a un PWM sur le nombre de bits défini par \mbox{\hyperlink{xmain_8h_acef0b425c836eb63d74c801c4d11c2b1}{PILOTEPWM\+\_\+\+RESOLUTION}}. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_aa9fdf67f53a1e4b1c048ce81a13973c9}{PROCESSUSCONDUITE\+\_\+\+REQUETE\+\_\+\+ACTIVE}}~1
+\begin{DoxyCompactList}\small\item\em Définition pour contrôler les requetes du \mbox{\hyperlink{xprocessus_conduite_8h}{xprocessus\+Conduite.\+h}} ~\newline
+ Utilisé par la structure \mbox{\hyperlink{xprocessus_conduite_8h_a811f71d477c514622d346dc1efabf711}{processus\+Conduite}}. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_aeb117702b667462b019f2c18f9f9c83e}{PROCESSUSCONDUITE\+\_\+\+REQUETE\+\_\+\+TRAITE}}~0
+\begin{DoxyCompactList}\small\item\em Définition pour contrôler les requetes du \mbox{\hyperlink{xprocessus_conduite_8h}{xprocessus\+Conduite.\+h}} ~\newline
+ Utilisé par la structure \mbox{\hyperlink{xprocessus_conduite_8h_a811f71d477c514622d346dc1efabf711}{processus\+Conduite}}. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_aa89162071a3ab0b6694e336917f8d030}{PROCESSUSCONDUITE\+\_\+\+MODULE\+\_\+\+PAS\+\_\+\+EN\+\_\+\+FONCTION}}~0
+\begin{DoxyCompactList}\small\item\em Définition utilisé pour savoir l\textquotesingle{}état du module. Utilisé par la structure \mbox{\hyperlink{xprocessus_conduite_8h_a811f71d477c514622d346dc1efabf711}{processus\+Conduite}}. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_a1586e62b9a8554587e0459dc81e76fda}{PROCESSUSCONDUITE\+\_\+\+MODULE\+\_\+\+EN\+\_\+\+DEPLACEMENT}}~1
+\begin{DoxyCompactList}\small\item\em Définition utilisé pour savoir l\textquotesingle{}état du module. Utilisé par la structure \mbox{\hyperlink{xprocessus_conduite_8h_a811f71d477c514622d346dc1efabf711}{processus\+Conduite}}. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_aaacad22af23dfba61d101eb7a193f1f8}{PROCESSUSCONDUITE\+\_\+\+MODULE\+\_\+\+ARRIVE\+\_\+\+TRI}}~2
+\begin{DoxyCompactList}\small\item\em Définition utilisé pour savoir l\textquotesingle{}état du module. Utilisé par la structure \mbox{\hyperlink{xprocessus_conduite_8h_a811f71d477c514622d346dc1efabf711}{processus\+Conduite}}. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_af1e2d4c7323733fbd35485516faacdd4}{PROCESSUSCONDUITE\+\_\+\+MODULE\+\_\+\+ARRIVE\+\_\+\+PESAGE}}~3
+\begin{DoxyCompactList}\small\item\em Définition utilisé pour savoir l\textquotesingle{}état du module. Utilisé par la structure \mbox{\hyperlink{xprocessus_conduite_8h_a811f71d477c514622d346dc1efabf711}{processus\+Conduite}}. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_a352cd9ecd1d3eeeef1ed7b45774d3336}{PROCESSUSCONDUITE\+\_\+\+DERNIERETAT\+\_\+\+PESAGE}}~8
+\begin{DoxyCompactList}\small\item\em Définition utilisé pour savoir le dernier état du module Utilisé par la structure \mbox{\hyperlink{xprocessus_conduite_8h_a811f71d477c514622d346dc1efabf711}{processus\+Conduite}}. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_a6edb22dffa3f5963a4f25a0bc367256d}{PROCESSUSCONDUITE\+\_\+\+DERNIERETAT\+\_\+\+TRI}}~9
+\begin{DoxyCompactList}\small\item\em Définition utilisé pour savoir le dernier état du module Utilisé par la structure \mbox{\hyperlink{xprocessus_conduite_8h_a811f71d477c514622d346dc1efabf711}{processus\+Conduite}}. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_acf458f35645bb501ff2eea7cb2349dca}{PROCESSUSBENNE\+\_\+\+REQUETE\+\_\+\+ACTIVE}}~1
+\begin{DoxyCompactList}\small\item\em Définition pour contrôler les requetes du \mbox{\hyperlink{xprocessus_benne_8h}{xprocessus\+Benne.\+h}}. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_a3deea86174149d0008e4ff2fa4b3466e}{PROCESSUSBENNE\+\_\+\+REQUETE\+\_\+\+TRAITE}}~0
+\begin{DoxyCompactList}\small\item\em Définition pour contrôler les requetes du \mbox{\hyperlink{xprocessus_benne_8h}{xprocessus\+Benne.\+h}}. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_a49661e9dc644a21f196155fe36b3b500}{PROCESSUSBENNE\+\_\+\+MODULE\+\_\+\+EN\+\_\+\+FONCTION}}~1
+\begin{DoxyCompactList}\small\item\em Définition utilisé pour savoir l\textquotesingle{}état du module. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{xmain_8h_aa6c86cd90388513205bde41ef14a7f8a}{PROCESSUSBENNE\+\_\+\+MODULE\+\_\+\+PAS\+\_\+\+EN\+\_\+\+FONCTION}}~0
+\begin{DoxyCompactList}\small\item\em Définition utilisé pour savoir l\textquotesingle{}état du module. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Le fichier \mbox{\hyperlink{xmain_8h}{xmain.\+h}} est nécessaire pour les includions global qui contien les defines essentiel au fonctionnement du véhicule fesant partie du projet de 5e session de TSO. Le processeur utilisé pour la gestion du véhicule est un ESP32. Voir le document de projet pour plus d\textquotesingle{}information sur le fonctionnement du véhicule. 
+
+\begin{DoxyAuthor}{Auteur}
+Cam\+Fo Camille Fortin (\href{mailto:camfortin2022@gmail.com}{\texttt{ camfortin2022@gmail.\+com}})
+\end{DoxyAuthor}
+
+
+Le programme suivant fonctionne avec une base de temps et des machine d\textquotesingle{}état. Le processus principale du programme est le xprocessus\+Vehicule.\+h
+
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2022-\/11-\/15
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2022 
+\end{DoxyCopyright}
+
+
+Définition dans le fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+
+
+\doxysubsection{Documentation des macros}
+\mbox{\Hypertarget{xmain_8h_a0251077e4a0ad77fc2c9f4f0056931cb}\label{xmain_8h_a0251077e4a0ad77fc2c9f4f0056931cb}} 
+\index{xmain.h@{xmain.h}!INTERFACEENTREE1\_FREQUENCE\_DES\_LECTURES\_EN\_HZ@{INTERFACEENTREE1\_FREQUENCE\_DES\_LECTURES\_EN\_HZ}}
+\index{INTERFACEENTREE1\_FREQUENCE\_DES\_LECTURES\_EN\_HZ@{INTERFACEENTREE1\_FREQUENCE\_DES\_LECTURES\_EN\_HZ}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{INTERFACEENTREE1\_FREQUENCE\_DES\_LECTURES\_EN\_HZ}{INTERFACEENTREE1\_FREQUENCE\_DES\_LECTURES\_EN\_HZ}}
+{\footnotesize\ttfamily \#define INTERFACEENTREE1\+\_\+\+FREQUENCE\+\_\+\+DES\+\_\+\+LECTURES\+\_\+\+EN\+\_\+\+HZ~125}
+
+
+
+Défini la fréquence en Hz des lectures de l\textquotesingle{}entré 1. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00172}{172}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_a468e19540cff200bd3fdd199f101e339}\label{xmain_8h_a468e19540cff200bd3fdd199f101e339}} 
+\index{xmain.h@{xmain.h}!INTERFACEENTREE1\_NOMBRE\_MINIMUM\_DE\_LECTURES\_PAR\_DECISION@{INTERFACEENTREE1\_NOMBRE\_MINIMUM\_DE\_LECTURES\_PAR\_DECISION}}
+\index{INTERFACEENTREE1\_NOMBRE\_MINIMUM\_DE\_LECTURES\_PAR\_DECISION@{INTERFACEENTREE1\_NOMBRE\_MINIMUM\_DE\_LECTURES\_PAR\_DECISION}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{INTERFACEENTREE1\_NOMBRE\_MINIMUM\_DE\_LECTURES\_PAR\_DECISION}{INTERFACEENTREE1\_NOMBRE\_MINIMUM\_DE\_LECTURES\_PAR\_DECISION}}
+{\footnotesize\ttfamily \#define INTERFACEENTREE1\+\_\+\+NOMBRE\+\_\+\+MINIMUM\+\_\+\+DE\+\_\+\+LECTURES\+\_\+\+PAR\+\_\+\+DECISION~10}
+
+
+
+Défini le nombre de lectures de l\textquotesingle{}entré avant d\textquotesingle{}avoir une valeur fiable. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00177}{177}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_a8971877a7a918f19dd3e1998eb2977aa}\label{xmain_8h_a8971877a7a918f19dd3e1998eb2977aa}} 
+\index{xmain.h@{xmain.h}!INTERFACEENTREE1\_PHASE@{INTERFACEENTREE1\_PHASE}}
+\index{INTERFACEENTREE1\_PHASE@{INTERFACEENTREE1\_PHASE}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{INTERFACEENTREE1\_PHASE}{INTERFACEENTREE1\_PHASE}}
+{\footnotesize\ttfamily \#define INTERFACEENTREE1\+\_\+\+PHASE~4}
+
+
+
+Numéro de phase la lecture de l\textquotesingle{}Entrée 1. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00234}{234}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_a0416f993a20261d674500195fe235783}\label{xmain_8h_a0416f993a20261d674500195fe235783}} 
+\index{xmain.h@{xmain.h}!INTERFACEENTREE1\_VALEUR\_LUE\_SI\_ACTIVE@{INTERFACEENTREE1\_VALEUR\_LUE\_SI\_ACTIVE}}
+\index{INTERFACEENTREE1\_VALEUR\_LUE\_SI\_ACTIVE@{INTERFACEENTREE1\_VALEUR\_LUE\_SI\_ACTIVE}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{INTERFACEENTREE1\_VALEUR\_LUE\_SI\_ACTIVE}{INTERFACEENTREE1\_VALEUR\_LUE\_SI\_ACTIVE}}
+{\footnotesize\ttfamily \#define INTERFACEENTREE1\+\_\+\+VALEUR\+\_\+\+LUE\+\_\+\+SI\+\_\+\+ACTIVE~0}
+
+
+
+Défini la valeur lu quand l\textquotesingle{}entré 1 est active (quand la switch est pesé) 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00163}{163}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_a57faa3809d341b9a30bea80da710b5dd}\label{xmain_8h_a57faa3809d341b9a30bea80da710b5dd}} 
+\index{xmain.h@{xmain.h}!INTERFACEENTREE1\_VALEUR\_LUE\_SI\_INACTIVE@{INTERFACEENTREE1\_VALEUR\_LUE\_SI\_INACTIVE}}
+\index{INTERFACEENTREE1\_VALEUR\_LUE\_SI\_INACTIVE@{INTERFACEENTREE1\_VALEUR\_LUE\_SI\_INACTIVE}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{INTERFACEENTREE1\_VALEUR\_LUE\_SI\_INACTIVE}{INTERFACEENTREE1\_VALEUR\_LUE\_SI\_INACTIVE}}
+{\footnotesize\ttfamily \#define INTERFACEENTREE1\+\_\+\+VALEUR\+\_\+\+LUE\+\_\+\+SI\+\_\+\+INACTIVE~1}
+
+
+
+Défini la valeur lu quand l\textquotesingle{}entré 1 est inactive (quand la switch est relaché) 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00167}{167}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_a940a847baefb8f04c5b15a70bd19ec23}\label{xmain_8h_a940a847baefb8f04c5b15a70bd19ec23}} 
+\index{xmain.h@{xmain.h}!INTERFACEMOTEURBENNE\_VALEUR\_POUR\_ALLUMER@{INTERFACEMOTEURBENNE\_VALEUR\_POUR\_ALLUMER}}
+\index{INTERFACEMOTEURBENNE\_VALEUR\_POUR\_ALLUMER@{INTERFACEMOTEURBENNE\_VALEUR\_POUR\_ALLUMER}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{INTERFACEMOTEURBENNE\_VALEUR\_POUR\_ALLUMER}{INTERFACEMOTEURBENNE\_VALEUR\_POUR\_ALLUMER}}
+{\footnotesize\ttfamily \#define INTERFACEMOTEURBENNE\+\_\+\+VALEUR\+\_\+\+POUR\+\_\+\+ALLUMER~1}
+
+
+
+Valeur pour allumer le moteur de la benne. 
+
+Définition pour le moteur de la Benne 
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00200}{200}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_a95ea958a4d13fe73506dc1715cdaa7e5}\label{xmain_8h_a95ea958a4d13fe73506dc1715cdaa7e5}} 
+\index{xmain.h@{xmain.h}!INTERFACEMOTEURBENNE\_VALEUR\_POUR\_ETEINDRE@{INTERFACEMOTEURBENNE\_VALEUR\_POUR\_ETEINDRE}}
+\index{INTERFACEMOTEURBENNE\_VALEUR\_POUR\_ETEINDRE@{INTERFACEMOTEURBENNE\_VALEUR\_POUR\_ETEINDRE}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{INTERFACEMOTEURBENNE\_VALEUR\_POUR\_ETEINDRE}{INTERFACEMOTEURBENNE\_VALEUR\_POUR\_ETEINDRE}}
+{\footnotesize\ttfamily \#define INTERFACEMOTEURBENNE\+\_\+\+VALEUR\+\_\+\+POUR\+\_\+\+ETEINDRE~0}
+
+
+
+Valeur pour éteindre le moteur de la benne. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00204}{204}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_a8eeaca9a2a43b749bf42510ae8b58670}\label{xmain_8h_a8eeaca9a2a43b749bf42510ae8b58670}} 
+\index{xmain.h@{xmain.h}!INTERFACESUIVEUR\_ADRESSE@{INTERFACESUIVEUR\_ADRESSE}}
+\index{INTERFACESUIVEUR\_ADRESSE@{INTERFACESUIVEUR\_ADRESSE}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{INTERFACESUIVEUR\_ADRESSE}{INTERFACESUIVEUR\_ADRESSE}}
+{\footnotesize\ttfamily \#define INTERFACESUIVEUR\+\_\+\+ADRESSE~0x3A}
+
+
+
+Adresse I2C du PCF8574 utilisé par le suiveur de ligne installé sur le camion. 
+
+Définition pour le suiveur de ligne 
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00194}{194}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_a904840946f3294acdcf4ee556a776594}\label{xmain_8h_a904840946f3294acdcf4ee556a776594}} 
+\index{xmain.h@{xmain.h}!INTERFACET1\_VALEUR\_POUR\_ALLUMER@{INTERFACET1\_VALEUR\_POUR\_ALLUMER}}
+\index{INTERFACET1\_VALEUR\_POUR\_ALLUMER@{INTERFACET1\_VALEUR\_POUR\_ALLUMER}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{INTERFACET1\_VALEUR\_POUR\_ALLUMER}{INTERFACET1\_VALEUR\_POUR\_ALLUMER}}
+{\footnotesize\ttfamily \#define INTERFACET1\+\_\+\+VALEUR\+\_\+\+POUR\+\_\+\+ALLUMER~1}
+
+
+
+Valeur pour allumer le témoin 1. 
+
+Définition pour le témoin 1 
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00183}{183}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_a48cc114f9ff82188050fe3420afdcd7e}\label{xmain_8h_a48cc114f9ff82188050fe3420afdcd7e}} 
+\index{xmain.h@{xmain.h}!INTERFACET1\_VALEUR\_POUR\_ETEINDRE@{INTERFACET1\_VALEUR\_POUR\_ETEINDRE}}
+\index{INTERFACET1\_VALEUR\_POUR\_ETEINDRE@{INTERFACET1\_VALEUR\_POUR\_ETEINDRE}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{INTERFACET1\_VALEUR\_POUR\_ETEINDRE}{INTERFACET1\_VALEUR\_POUR\_ETEINDRE}}
+{\footnotesize\ttfamily \#define INTERFACET1\+\_\+\+VALEUR\+\_\+\+POUR\+\_\+\+ETEINDRE~0}
+
+
+
+Valeur pour éteindre le témoin 1. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00187}{187}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_a3cf44d5fed651c02279eee23bd31955c}\label{xmain_8h_a3cf44d5fed651c02279eee23bd31955c}} 
+\index{xmain.h@{xmain.h}!PILOTEENTREE1\_BROCHE@{PILOTEENTREE1\_BROCHE}}
+\index{PILOTEENTREE1\_BROCHE@{PILOTEENTREE1\_BROCHE}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{PILOTEENTREE1\_BROCHE}{PILOTEENTREE1\_BROCHE}}
+{\footnotesize\ttfamily \#define PILOTEENTREE1\+\_\+\+BROCHE~34}
+
+
+
+Définition qui undique le numéro de broche du ESP32 utilisé par l\textquotesingle{}entrée1. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00049}{49}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_aacf3efa1339183d888f1f2a8a70ffdaf}\label{xmain_8h_aacf3efa1339183d888f1f2a8a70ffdaf}} 
+\index{xmain.h@{xmain.h}!PILOTEENTREE1\_MODE\_FLOTTANT\_AVEC\_PULL\_UP@{PILOTEENTREE1\_MODE\_FLOTTANT\_AVEC\_PULL\_UP}}
+\index{PILOTEENTREE1\_MODE\_FLOTTANT\_AVEC\_PULL\_UP@{PILOTEENTREE1\_MODE\_FLOTTANT\_AVEC\_PULL\_UP}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{PILOTEENTREE1\_MODE\_FLOTTANT\_AVEC\_PULL\_UP}{PILOTEENTREE1\_MODE\_FLOTTANT\_AVEC\_PULL\_UP}}
+{\footnotesize\ttfamily \#define PILOTEENTREE1\+\_\+\+MODE\+\_\+\+FLOTTANT\+\_\+\+AVEC\+\_\+\+PULL\+\_\+\+UP}
+
+
+
+Définition pour choisir le mode de lecture de PIN. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00044}{44}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_aac0cc201b183c313e2b8015785304b3e}\label{xmain_8h_aac0cc201b183c313e2b8015785304b3e}} 
+\index{xmain.h@{xmain.h}!PILOTEI2C1\_FREQUENCE\_D\_HORLOGE\_EN\_HZ@{PILOTEI2C1\_FREQUENCE\_D\_HORLOGE\_EN\_HZ}}
+\index{PILOTEI2C1\_FREQUENCE\_D\_HORLOGE\_EN\_HZ@{PILOTEI2C1\_FREQUENCE\_D\_HORLOGE\_EN\_HZ}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{PILOTEI2C1\_FREQUENCE\_D\_HORLOGE\_EN\_HZ}{PILOTEI2C1\_FREQUENCE\_D\_HORLOGE\_EN\_HZ}}
+{\footnotesize\ttfamily \#define PILOTEI2\+C1\+\_\+\+FREQUENCE\+\_\+\+D\+\_\+\+HORLOGE\+\_\+\+EN\+\_\+\+HZ~400000}
+
+
+
+Défini la fréquence en Hz de l\textquotesingle{}horloge I2C. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00156}{156}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_ac4e7552b51975d4b247e1182c0eb675e}\label{xmain_8h_ac4e7552b51975d4b247e1182c0eb675e}} 
+\index{xmain.h@{xmain.h}!PILOTEI2C1\_SCL@{PILOTEI2C1\_SCL}}
+\index{PILOTEI2C1\_SCL@{PILOTEI2C1\_SCL}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{PILOTEI2C1\_SCL}{PILOTEI2C1\_SCL}}
+{\footnotesize\ttfamily \#define PILOTEI2\+C1\+\_\+\+SCL~22}
+
+
+
+Définition qui assigne le bon numéro de broche à la ligne SCL du \mbox{\hyperlink{xpilote_i2_c1_8h}{xpilote\+I2\+C1.\+h}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00147}{147}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_a9ca935e6de28c0588cf826eb9970db12}\label{xmain_8h_a9ca935e6de28c0588cf826eb9970db12}} 
+\index{xmain.h@{xmain.h}!PILOTEI2C1\_SDA@{PILOTEI2C1\_SDA}}
+\index{PILOTEI2C1\_SDA@{PILOTEI2C1\_SDA}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{PILOTEI2C1\_SDA}{PILOTEI2C1\_SDA}}
+{\footnotesize\ttfamily \#define PILOTEI2\+C1\+\_\+\+SDA~23}
+
+
+
+Définition qui assigne le bon numéro de broche à la ligne SDA du \mbox{\hyperlink{xpilote_i2_c1_8h}{xpilote\+I2\+C1.\+h}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00151}{151}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_a681ed6834078f9abdd37618faf598718}\label{xmain_8h_a681ed6834078f9abdd37618faf598718}} 
+\index{xmain.h@{xmain.h}!PILOTEIOFEUARRIERED\_BROCHE@{PILOTEIOFEUARRIERED\_BROCHE}}
+\index{PILOTEIOFEUARRIERED\_BROCHE@{PILOTEIOFEUARRIERED\_BROCHE}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{PILOTEIOFEUARRIERED\_BROCHE}{PILOTEIOFEUARRIERED\_BROCHE}}
+{\footnotesize\ttfamily \#define PILOTEIOFEUARRIERED\+\_\+\+BROCHE~12}
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00067}{67}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_a8b8b82b95902216525b49fe485622367}\label{xmain_8h_a8b8b82b95902216525b49fe485622367}} 
+\index{xmain.h@{xmain.h}!PILOTEIOFEUARRIERED\_ETAT\_INITIAL\_A\_ZERO@{PILOTEIOFEUARRIERED\_ETAT\_INITIAL\_A\_ZERO}}
+\index{PILOTEIOFEUARRIERED\_ETAT\_INITIAL\_A\_ZERO@{PILOTEIOFEUARRIERED\_ETAT\_INITIAL\_A\_ZERO}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{PILOTEIOFEUARRIERED\_ETAT\_INITIAL\_A\_ZERO}{PILOTEIOFEUARRIERED\_ETAT\_INITIAL\_A\_ZERO}}
+{\footnotesize\ttfamily \#define PILOTEIOFEUARRIERED\+\_\+\+ETAT\+\_\+\+INITIAL\+\_\+\+A\+\_\+\+ZERO}
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00068}{68}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_a2e2cbeffdc5ab90dacfde3f61e07b210}\label{xmain_8h_a2e2cbeffdc5ab90dacfde3f61e07b210}} 
+\index{xmain.h@{xmain.h}!PILOTEIOFEUARRIEREG\_BROCHE@{PILOTEIOFEUARRIEREG\_BROCHE}}
+\index{PILOTEIOFEUARRIEREG\_BROCHE@{PILOTEIOFEUARRIEREG\_BROCHE}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{PILOTEIOFEUARRIEREG\_BROCHE}{PILOTEIOFEUARRIEREG\_BROCHE}}
+{\footnotesize\ttfamily \#define PILOTEIOFEUARRIEREG\+\_\+\+BROCHE~33}
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00069}{69}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_a1fee35e07651d0c83bc67776749a9c64}\label{xmain_8h_a1fee35e07651d0c83bc67776749a9c64}} 
+\index{xmain.h@{xmain.h}!PILOTEIOFEUARRIEREG\_ETAT\_INITIAL\_A\_ZERO@{PILOTEIOFEUARRIEREG\_ETAT\_INITIAL\_A\_ZERO}}
+\index{PILOTEIOFEUARRIEREG\_ETAT\_INITIAL\_A\_ZERO@{PILOTEIOFEUARRIEREG\_ETAT\_INITIAL\_A\_ZERO}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{PILOTEIOFEUARRIEREG\_ETAT\_INITIAL\_A\_ZERO}{PILOTEIOFEUARRIEREG\_ETAT\_INITIAL\_A\_ZERO}}
+{\footnotesize\ttfamily \#define PILOTEIOFEUARRIEREG\+\_\+\+ETAT\+\_\+\+INITIAL\+\_\+\+A\+\_\+\+ZERO}
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00070}{70}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_a663676e09983462d4b7ed0ac489164f4}\label{xmain_8h_a663676e09983462d4b7ed0ac489164f4}} 
+\index{xmain.h@{xmain.h}!PILOTEIOFEUAVANTD\_BROCHE@{PILOTEIOFEUAVANTD\_BROCHE}}
+\index{PILOTEIOFEUAVANTD\_BROCHE@{PILOTEIOFEUAVANTD\_BROCHE}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{PILOTEIOFEUAVANTD\_BROCHE}{PILOTEIOFEUAVANTD\_BROCHE}}
+{\footnotesize\ttfamily \#define PILOTEIOFEUAVANTD\+\_\+\+BROCHE~27}
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00063}{63}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_a09bc104804d1b72e9ad6a563fd6ae4c6}\label{xmain_8h_a09bc104804d1b72e9ad6a563fd6ae4c6}} 
+\index{xmain.h@{xmain.h}!PILOTEIOFEUAVANTD\_ETAT\_INITIAL\_A\_ZERO@{PILOTEIOFEUAVANTD\_ETAT\_INITIAL\_A\_ZERO}}
+\index{PILOTEIOFEUAVANTD\_ETAT\_INITIAL\_A\_ZERO@{PILOTEIOFEUAVANTD\_ETAT\_INITIAL\_A\_ZERO}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{PILOTEIOFEUAVANTD\_ETAT\_INITIAL\_A\_ZERO}{PILOTEIOFEUAVANTD\_ETAT\_INITIAL\_A\_ZERO}}
+{\footnotesize\ttfamily \#define PILOTEIOFEUAVANTD\+\_\+\+ETAT\+\_\+\+INITIAL\+\_\+\+A\+\_\+\+ZERO}
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00064}{64}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_a698bc64aa8315fff472f0467a33cd4c7}\label{xmain_8h_a698bc64aa8315fff472f0467a33cd4c7}} 
+\index{xmain.h@{xmain.h}!PILOTEIOFEUAVANTG\_BROCHE@{PILOTEIOFEUAVANTG\_BROCHE}}
+\index{PILOTEIOFEUAVANTG\_BROCHE@{PILOTEIOFEUAVANTG\_BROCHE}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{PILOTEIOFEUAVANTG\_BROCHE}{PILOTEIOFEUAVANTG\_BROCHE}}
+{\footnotesize\ttfamily \#define PILOTEIOFEUAVANTG\+\_\+\+BROCHE~15}
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00065}{65}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_ac3d11e3a287fca9d1d5eb851fa0cd08f}\label{xmain_8h_ac3d11e3a287fca9d1d5eb851fa0cd08f}} 
+\index{xmain.h@{xmain.h}!PILOTEIOFEUAVANTG\_ETAT\_INITIAL\_A\_ZERO@{PILOTEIOFEUAVANTG\_ETAT\_INITIAL\_A\_ZERO}}
+\index{PILOTEIOFEUAVANTG\_ETAT\_INITIAL\_A\_ZERO@{PILOTEIOFEUAVANTG\_ETAT\_INITIAL\_A\_ZERO}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{PILOTEIOFEUAVANTG\_ETAT\_INITIAL\_A\_ZERO}{PILOTEIOFEUAVANTG\_ETAT\_INITIAL\_A\_ZERO}}
+{\footnotesize\ttfamily \#define PILOTEIOFEUAVANTG\+\_\+\+ETAT\+\_\+\+INITIAL\+\_\+\+A\+\_\+\+ZERO}
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00066}{66}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_ac70b43268471e5f03a62a5fb33100e07}\label{xmain_8h_ac70b43268471e5f03a62a5fb33100e07}} 
+\index{xmain.h@{xmain.h}!PILOTEIOT1\_BROCHE@{PILOTEIOT1\_BROCHE}}
+\index{PILOTEIOT1\_BROCHE@{PILOTEIOT1\_BROCHE}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{PILOTEIOT1\_BROCHE}{PILOTEIOT1\_BROCHE}}
+{\footnotesize\ttfamily \#define PILOTEIOT1\+\_\+\+BROCHE~13}
+
+
+
+Définition qui assigne le bon numéro de broche du ESP32 au témoin 1. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00054}{54}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_a9d2b466ae3973b1f479d915975338454}\label{xmain_8h_a9d2b466ae3973b1f479d915975338454}} 
+\index{xmain.h@{xmain.h}!PILOTEIOT1\_ETAT\_INITIAL\_A\_ZERO@{PILOTEIOT1\_ETAT\_INITIAL\_A\_ZERO}}
+\index{PILOTEIOT1\_ETAT\_INITIAL\_A\_ZERO@{PILOTEIOT1\_ETAT\_INITIAL\_A\_ZERO}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{PILOTEIOT1\_ETAT\_INITIAL\_A\_ZERO}{PILOTEIOT1\_ETAT\_INITIAL\_A\_ZERO}}
+{\footnotesize\ttfamily \#define PILOTEIOT1\+\_\+\+ETAT\+\_\+\+INITIAL\+\_\+\+A\+\_\+\+ZERO}
+
+
+
+Définition qui permet de modifier un état initiale au témoin 1. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00059}{59}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_a9079496de1df371e4ca21fdb3cb9d041}\label{xmain_8h_a9079496de1df371e4ca21fdb3cb9d041}} 
+\index{xmain.h@{xmain.h}!PILOTEMOTEURBENNE\_ETAT\_INITIAL\_A\_ZERO@{PILOTEMOTEURBENNE\_ETAT\_INITIAL\_A\_ZERO}}
+\index{PILOTEMOTEURBENNE\_ETAT\_INITIAL\_A\_ZERO@{PILOTEMOTEURBENNE\_ETAT\_INITIAL\_A\_ZERO}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{PILOTEMOTEURBENNE\_ETAT\_INITIAL\_A\_ZERO}{PILOTEMOTEURBENNE\_ETAT\_INITIAL\_A\_ZERO}}
+{\footnotesize\ttfamily \#define PILOTEMOTEURBENNE\+\_\+\+ETAT\+\_\+\+INITIAL\+\_\+\+A\+\_\+\+ZERO}
+
+
+
+Définition qui permet de modifier un état initiale au moteur de la benne \mbox{\hyperlink{xmain_8h_a9079496de1df371e4ca21fdb3cb9d041}{PILOTEMOTEURBENNE\+\_\+\+ETAT\+\_\+\+INITIAL\+\_\+\+A\+\_\+\+ZERO}} éteint le moteur ~\newline
+ PILOTEMOTEURBENNE\+\_\+\+ETAT\+\_\+\+INITIAL\+\_\+\+A\+\_\+\+UN allume le moteur ~\newline
+ 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00093}{93}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_ac5f786e673562c1ce052a6a9753a868a}\label{xmain_8h_ac5f786e673562c1ce052a6a9753a868a}} 
+\index{xmain.h@{xmain.h}!PILOTEMOTEURBENNEBAS\_BROCHE@{PILOTEMOTEURBENNEBAS\_BROCHE}}
+\index{PILOTEMOTEURBENNEBAS\_BROCHE@{PILOTEMOTEURBENNEBAS\_BROCHE}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{PILOTEMOTEURBENNEBAS\_BROCHE}{PILOTEMOTEURBENNEBAS\_BROCHE}}
+{\footnotesize\ttfamily \#define PILOTEMOTEURBENNEBAS\+\_\+\+BROCHE~21}
+
+
+
+Définition qui assigne le bon numéro de broche du ESP32 au BAS du pont en H du moteur de la benne. Le moteur peut être alimenté dans les deux sens pour tourner dans le sens horaire ou antihoraire. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00086}{86}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_a1f9ef0374c6b1e4e561d80a4f5cce625}\label{xmain_8h_a1f9ef0374c6b1e4e561d80a4f5cce625}} 
+\index{xmain.h@{xmain.h}!PILOTEMOTEURBENNEHAUT\_BROCHE@{PILOTEMOTEURBENNEHAUT\_BROCHE}}
+\index{PILOTEMOTEURBENNEHAUT\_BROCHE@{PILOTEMOTEURBENNEHAUT\_BROCHE}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{PILOTEMOTEURBENNEHAUT\_BROCHE}{PILOTEMOTEURBENNEHAUT\_BROCHE}}
+{\footnotesize\ttfamily \#define PILOTEMOTEURBENNEHAUT\+\_\+\+BROCHE~4}
+
+
+
+Définition qui assigne le bon numéro de broche du ESP32 au HAUT du pont en H du moteur de la benne. Le moteur peut être alimenté dans les deux sens pour tourner dans le sens horaire ou antihoraire. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00079}{79}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_afe4c40d73c92afab12f1ac6021dacb3d}\label{xmain_8h_afe4c40d73c92afab12f1ac6021dacb3d}} 
+\index{xmain.h@{xmain.h}!PILOTEPWM\_FREQUENCE@{PILOTEPWM\_FREQUENCE}}
+\index{PILOTEPWM\_FREQUENCE@{PILOTEPWM\_FREQUENCE}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{PILOTEPWM\_FREQUENCE}{PILOTEPWM\_FREQUENCE}}
+{\footnotesize\ttfamily \#define PILOTEPWM\+\_\+\+FREQUENCE~5000}
+
+
+
+Défini la fréquence du PWM en Hz. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00105}{105}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_acef0b425c836eb63d74c801c4d11c2b1}\label{xmain_8h_acef0b425c836eb63d74c801c4d11c2b1}} 
+\index{xmain.h@{xmain.h}!PILOTEPWM\_RESOLUTION@{PILOTEPWM\_RESOLUTION}}
+\index{PILOTEPWM\_RESOLUTION@{PILOTEPWM\_RESOLUTION}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{PILOTEPWM\_RESOLUTION}{PILOTEPWM\_RESOLUTION}}
+{\footnotesize\ttfamily \#define PILOTEPWM\+\_\+\+RESOLUTION~8}
+
+
+
+Défini le nombre de bits utilisé pour la résolution du PWM. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00100}{100}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_a7590dc976354d20555712865babc34cb}\label{xmain_8h_a7590dc976354d20555712865babc34cb}} 
+\index{xmain.h@{xmain.h}!PILOTEPWMDROITBAS\_CHANNEL@{PILOTEPWMDROITBAS\_CHANNEL}}
+\index{PILOTEPWMDROITBAS\_CHANNEL@{PILOTEPWMDROITBAS\_CHANNEL}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{PILOTEPWMDROITBAS\_CHANNEL}{PILOTEPWMDROITBAS\_CHANNEL}}
+{\footnotesize\ttfamily \#define PILOTEPWMDROITBAS\+\_\+\+CHANNEL~1}
+
+
+
+Définition qui assigne un channel PWM a son pilote respectif. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00119}{119}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_a76c688ee404e3310446984cc236bc3b5}\label{xmain_8h_a76c688ee404e3310446984cc236bc3b5}} 
+\index{xmain.h@{xmain.h}!PILOTEPWMDROITBAS\_PIN@{PILOTEPWMDROITBAS\_PIN}}
+\index{PILOTEPWMDROITBAS\_PIN@{PILOTEPWMDROITBAS\_PIN}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{PILOTEPWMDROITBAS\_PIN}{PILOTEPWMDROITBAS\_PIN}}
+{\footnotesize\ttfamily \#define PILOTEPWMDROITBAS\+\_\+\+PIN~32}
+
+
+
+Défini le numéro de broche du ESP32 a au \mbox{\hyperlink{xpilote_p_w_m_droit_bas_8h}{xpilote\+PWMDroit\+Bas.\+h}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00123}{123}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_a59d35689d2c2c7a84165bcca14853490}\label{xmain_8h_a59d35689d2c2c7a84165bcca14853490}} 
+\index{xmain.h@{xmain.h}!PILOTEPWMDROITHAUT\_CHANNEL@{PILOTEPWMDROITHAUT\_CHANNEL}}
+\index{PILOTEPWMDROITHAUT\_CHANNEL@{PILOTEPWMDROITHAUT\_CHANNEL}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{PILOTEPWMDROITHAUT\_CHANNEL}{PILOTEPWMDROITHAUT\_CHANNEL}}
+{\footnotesize\ttfamily \#define PILOTEPWMDROITHAUT\+\_\+\+CHANNEL~0}
+
+
+
+Définition qui assigne un channel PWM a son pilote respectif. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00110}{110}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_a9fe82e011a6483f5ee70cb0dd6ea1a4b}\label{xmain_8h_a9fe82e011a6483f5ee70cb0dd6ea1a4b}} 
+\index{xmain.h@{xmain.h}!PILOTEPWMDROITHAUT\_PIN@{PILOTEPWMDROITHAUT\_PIN}}
+\index{PILOTEPWMDROITHAUT\_PIN@{PILOTEPWMDROITHAUT\_PIN}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{PILOTEPWMDROITHAUT\_PIN}{PILOTEPWMDROITHAUT\_PIN}}
+{\footnotesize\ttfamily \#define PILOTEPWMDROITHAUT\+\_\+\+PIN~14}
+
+
+
+Défini le numéro de broche du ESP32 a au \mbox{\hyperlink{xpilote_p_w_m_droit_haut_8h}{xpilote\+PWMDroit\+Haut.\+h}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00114}{114}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_a34334dffe659958ae46525ca022b358f}\label{xmain_8h_a34334dffe659958ae46525ca022b358f}} 
+\index{xmain.h@{xmain.h}!PILOTEPWMGAUCHEBAS\_CHANNEL@{PILOTEPWMGAUCHEBAS\_CHANNEL}}
+\index{PILOTEPWMGAUCHEBAS\_CHANNEL@{PILOTEPWMGAUCHEBAS\_CHANNEL}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{PILOTEPWMGAUCHEBAS\_CHANNEL}{PILOTEPWMGAUCHEBAS\_CHANNEL}}
+{\footnotesize\ttfamily \#define PILOTEPWMGAUCHEBAS\+\_\+\+CHANNEL~3}
+
+
+
+Définition qui assigne un channel PWM a son pilote respectif. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00137}{137}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_a7bc01f178b03437f49942b47e4812a72}\label{xmain_8h_a7bc01f178b03437f49942b47e4812a72}} 
+\index{xmain.h@{xmain.h}!PILOTEPWMGAUCHEBAS\_PIN@{PILOTEPWMGAUCHEBAS\_PIN}}
+\index{PILOTEPWMGAUCHEBAS\_PIN@{PILOTEPWMGAUCHEBAS\_PIN}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{PILOTEPWMGAUCHEBAS\_PIN}{PILOTEPWMGAUCHEBAS\_PIN}}
+{\footnotesize\ttfamily \#define PILOTEPWMGAUCHEBAS\+\_\+\+PIN~25}
+
+
+
+Défini le numéro de broche du ESP32 a au \mbox{\hyperlink{xpilote_p_w_m_gauche_bas_8h}{xpilote\+PWMGauche\+Bas.\+h}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00141}{141}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_afbd192e42650e4d1b5af15112670256c}\label{xmain_8h_afbd192e42650e4d1b5af15112670256c}} 
+\index{xmain.h@{xmain.h}!PILOTEPWMGAUCHEHAUT\_CHANNEL@{PILOTEPWMGAUCHEHAUT\_CHANNEL}}
+\index{PILOTEPWMGAUCHEHAUT\_CHANNEL@{PILOTEPWMGAUCHEHAUT\_CHANNEL}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{PILOTEPWMGAUCHEHAUT\_CHANNEL}{PILOTEPWMGAUCHEHAUT\_CHANNEL}}
+{\footnotesize\ttfamily \#define PILOTEPWMGAUCHEHAUT\+\_\+\+CHANNEL~2}
+
+
+
+Définition qui assigne un channel PWM a son pilote respectif. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00128}{128}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_a8fe1a40b5932337c8cba1aedcf2fb3d2}\label{xmain_8h_a8fe1a40b5932337c8cba1aedcf2fb3d2}} 
+\index{xmain.h@{xmain.h}!PILOTEPWMGAUCHEHAUT\_PIN@{PILOTEPWMGAUCHEHAUT\_PIN}}
+\index{PILOTEPWMGAUCHEHAUT\_PIN@{PILOTEPWMGAUCHEHAUT\_PIN}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{PILOTEPWMGAUCHEHAUT\_PIN}{PILOTEPWMGAUCHEHAUT\_PIN}}
+{\footnotesize\ttfamily \#define PILOTEPWMGAUCHEHAUT\+\_\+\+PIN~26}
+
+
+
+Défini le numéro de broche du ESP32 a au \mbox{\hyperlink{xpilote_p_w_m_gauche_haut_8h}{xpilote\+PWMGauche\+Haut.\+h}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00132}{132}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_a49661e9dc644a21f196155fe36b3b500}\label{xmain_8h_a49661e9dc644a21f196155fe36b3b500}} 
+\index{xmain.h@{xmain.h}!PROCESSUSBENNE\_MODULE\_EN\_FONCTION@{PROCESSUSBENNE\_MODULE\_EN\_FONCTION}}
+\index{PROCESSUSBENNE\_MODULE\_EN\_FONCTION@{PROCESSUSBENNE\_MODULE\_EN\_FONCTION}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{PROCESSUSBENNE\_MODULE\_EN\_FONCTION}{PROCESSUSBENNE\_MODULE\_EN\_FONCTION}}
+{\footnotesize\ttfamily \#define PROCESSUSBENNE\+\_\+\+MODULE\+\_\+\+EN\+\_\+\+FONCTION~1}
+
+
+
+Définition utilisé pour savoir l\textquotesingle{}état du module. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00320}{320}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_aa6c86cd90388513205bde41ef14a7f8a}\label{xmain_8h_aa6c86cd90388513205bde41ef14a7f8a}} 
+\index{xmain.h@{xmain.h}!PROCESSUSBENNE\_MODULE\_PAS\_EN\_FONCTION@{PROCESSUSBENNE\_MODULE\_PAS\_EN\_FONCTION}}
+\index{PROCESSUSBENNE\_MODULE\_PAS\_EN\_FONCTION@{PROCESSUSBENNE\_MODULE\_PAS\_EN\_FONCTION}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{PROCESSUSBENNE\_MODULE\_PAS\_EN\_FONCTION}{PROCESSUSBENNE\_MODULE\_PAS\_EN\_FONCTION}}
+{\footnotesize\ttfamily \#define PROCESSUSBENNE\+\_\+\+MODULE\+\_\+\+PAS\+\_\+\+EN\+\_\+\+FONCTION~0}
+
+
+
+Définition utilisé pour savoir l\textquotesingle{}état du module. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00324}{324}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_a3081ddd41aee5b1cca97d113917d5bcd}\label{xmain_8h_a3081ddd41aee5b1cca97d113917d5bcd}} 
+\index{xmain.h@{xmain.h}!PROCESSUSBENNE\_PHASE@{PROCESSUSBENNE\_PHASE}}
+\index{PROCESSUSBENNE\_PHASE@{PROCESSUSBENNE\_PHASE}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{PROCESSUSBENNE\_PHASE}{PROCESSUSBENNE\_PHASE}}
+{\footnotesize\ttfamily \#define PROCESSUSBENNE\+\_\+\+PHASE~5}
+
+
+
+Numéro de phase du processus de gestion de la benne. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00238}{238}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_acf458f35645bb501ff2eea7cb2349dca}\label{xmain_8h_acf458f35645bb501ff2eea7cb2349dca}} 
+\index{xmain.h@{xmain.h}!PROCESSUSBENNE\_REQUETE\_ACTIVE@{PROCESSUSBENNE\_REQUETE\_ACTIVE}}
+\index{PROCESSUSBENNE\_REQUETE\_ACTIVE@{PROCESSUSBENNE\_REQUETE\_ACTIVE}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{PROCESSUSBENNE\_REQUETE\_ACTIVE}{PROCESSUSBENNE\_REQUETE\_ACTIVE}}
+{\footnotesize\ttfamily \#define PROCESSUSBENNE\+\_\+\+REQUETE\+\_\+\+ACTIVE~1}
+
+
+
+Définition pour contrôler les requetes du \mbox{\hyperlink{xprocessus_benne_8h}{xprocessus\+Benne.\+h}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00311}{311}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_a3deea86174149d0008e4ff2fa4b3466e}\label{xmain_8h_a3deea86174149d0008e4ff2fa4b3466e}} 
+\index{xmain.h@{xmain.h}!PROCESSUSBENNE\_REQUETE\_TRAITE@{PROCESSUSBENNE\_REQUETE\_TRAITE}}
+\index{PROCESSUSBENNE\_REQUETE\_TRAITE@{PROCESSUSBENNE\_REQUETE\_TRAITE}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{PROCESSUSBENNE\_REQUETE\_TRAITE}{PROCESSUSBENNE\_REQUETE\_TRAITE}}
+{\footnotesize\ttfamily \#define PROCESSUSBENNE\+\_\+\+REQUETE\+\_\+\+TRAITE~0}
+
+
+
+Définition pour contrôler les requetes du \mbox{\hyperlink{xprocessus_benne_8h}{xprocessus\+Benne.\+h}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00316}{316}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_a37e84332778d7d3a27f94f84259d5e2d}\label{xmain_8h_a37e84332778d7d3a27f94f84259d5e2d}} 
+\index{xmain.h@{xmain.h}!PROCESSUSCLIGNOTANT\_PHASE@{PROCESSUSCLIGNOTANT\_PHASE}}
+\index{PROCESSUSCLIGNOTANT\_PHASE@{PROCESSUSCLIGNOTANT\_PHASE}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{PROCESSUSCLIGNOTANT\_PHASE}{PROCESSUSCLIGNOTANT\_PHASE}}
+{\footnotesize\ttfamily \#define PROCESSUSCLIGNOTANT\+\_\+\+PHASE~2}
+
+
+
+Numéro de phase du processus clignotant. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00242}{242}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_a7349a2e251151d2c8c49f457781aa69b}\label{xmain_8h_a7349a2e251151d2c8c49f457781aa69b}} 
+\index{xmain.h@{xmain.h}!PROCESSUSCLIGNOTANT\_TEMPS\_ALLUME\_EN\_MS@{PROCESSUSCLIGNOTANT\_TEMPS\_ALLUME\_EN\_MS}}
+\index{PROCESSUSCLIGNOTANT\_TEMPS\_ALLUME\_EN\_MS@{PROCESSUSCLIGNOTANT\_TEMPS\_ALLUME\_EN\_MS}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{PROCESSUSCLIGNOTANT\_TEMPS\_ALLUME\_EN\_MS}{PROCESSUSCLIGNOTANT\_TEMPS\_ALLUME\_EN\_MS}}
+{\footnotesize\ttfamily \#define PROCESSUSCLIGNOTANT\+\_\+\+TEMPS\+\_\+\+ALLUME\+\_\+\+EN\+\_\+\+MS~500}
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00252}{252}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_a8fc0b0549689f187848c1a876d1e757a}\label{xmain_8h_a8fc0b0549689f187848c1a876d1e757a}} 
+\index{xmain.h@{xmain.h}!PROCESSUSCLIGNOTANT\_TEMPS\_ETEINT\_EN\_MS@{PROCESSUSCLIGNOTANT\_TEMPS\_ETEINT\_EN\_MS}}
+\index{PROCESSUSCLIGNOTANT\_TEMPS\_ETEINT\_EN\_MS@{PROCESSUSCLIGNOTANT\_TEMPS\_ETEINT\_EN\_MS}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{PROCESSUSCLIGNOTANT\_TEMPS\_ETEINT\_EN\_MS}{PROCESSUSCLIGNOTANT\_TEMPS\_ETEINT\_EN\_MS}}
+{\footnotesize\ttfamily \#define PROCESSUSCLIGNOTANT\+\_\+\+TEMPS\+\_\+\+ETEINT\+\_\+\+EN\+\_\+\+MS~500}
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00253}{253}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_a352cd9ecd1d3eeeef1ed7b45774d3336}\label{xmain_8h_a352cd9ecd1d3eeeef1ed7b45774d3336}} 
+\index{xmain.h@{xmain.h}!PROCESSUSCONDUITE\_DERNIERETAT\_PESAGE@{PROCESSUSCONDUITE\_DERNIERETAT\_PESAGE}}
+\index{PROCESSUSCONDUITE\_DERNIERETAT\_PESAGE@{PROCESSUSCONDUITE\_DERNIERETAT\_PESAGE}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{PROCESSUSCONDUITE\_DERNIERETAT\_PESAGE}{PROCESSUSCONDUITE\_DERNIERETAT\_PESAGE}}
+{\footnotesize\ttfamily \#define PROCESSUSCONDUITE\+\_\+\+DERNIERETAT\+\_\+\+PESAGE~8}
+
+
+
+Définition utilisé pour savoir le dernier état du module Utilisé par la structure \mbox{\hyperlink{xprocessus_conduite_8h_a811f71d477c514622d346dc1efabf711}{processus\+Conduite}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00297}{297}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_a6edb22dffa3f5963a4f25a0bc367256d}\label{xmain_8h_a6edb22dffa3f5963a4f25a0bc367256d}} 
+\index{xmain.h@{xmain.h}!PROCESSUSCONDUITE\_DERNIERETAT\_TRI@{PROCESSUSCONDUITE\_DERNIERETAT\_TRI}}
+\index{PROCESSUSCONDUITE\_DERNIERETAT\_TRI@{PROCESSUSCONDUITE\_DERNIERETAT\_TRI}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{PROCESSUSCONDUITE\_DERNIERETAT\_TRI}{PROCESSUSCONDUITE\_DERNIERETAT\_TRI}}
+{\footnotesize\ttfamily \#define PROCESSUSCONDUITE\+\_\+\+DERNIERETAT\+\_\+\+TRI~9}
+
+
+
+Définition utilisé pour savoir le dernier état du module Utilisé par la structure \mbox{\hyperlink{xprocessus_conduite_8h_a811f71d477c514622d346dc1efabf711}{processus\+Conduite}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00302}{302}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_af1e2d4c7323733fbd35485516faacdd4}\label{xmain_8h_af1e2d4c7323733fbd35485516faacdd4}} 
+\index{xmain.h@{xmain.h}!PROCESSUSCONDUITE\_MODULE\_ARRIVE\_PESAGE@{PROCESSUSCONDUITE\_MODULE\_ARRIVE\_PESAGE}}
+\index{PROCESSUSCONDUITE\_MODULE\_ARRIVE\_PESAGE@{PROCESSUSCONDUITE\_MODULE\_ARRIVE\_PESAGE}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{PROCESSUSCONDUITE\_MODULE\_ARRIVE\_PESAGE}{PROCESSUSCONDUITE\_MODULE\_ARRIVE\_PESAGE}}
+{\footnotesize\ttfamily \#define PROCESSUSCONDUITE\+\_\+\+MODULE\+\_\+\+ARRIVE\+\_\+\+PESAGE~3}
+
+
+
+Définition utilisé pour savoir l\textquotesingle{}état du module. Utilisé par la structure \mbox{\hyperlink{xprocessus_conduite_8h_a811f71d477c514622d346dc1efabf711}{processus\+Conduite}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00292}{292}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_aaacad22af23dfba61d101eb7a193f1f8}\label{xmain_8h_aaacad22af23dfba61d101eb7a193f1f8}} 
+\index{xmain.h@{xmain.h}!PROCESSUSCONDUITE\_MODULE\_ARRIVE\_TRI@{PROCESSUSCONDUITE\_MODULE\_ARRIVE\_TRI}}
+\index{PROCESSUSCONDUITE\_MODULE\_ARRIVE\_TRI@{PROCESSUSCONDUITE\_MODULE\_ARRIVE\_TRI}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{PROCESSUSCONDUITE\_MODULE\_ARRIVE\_TRI}{PROCESSUSCONDUITE\_MODULE\_ARRIVE\_TRI}}
+{\footnotesize\ttfamily \#define PROCESSUSCONDUITE\+\_\+\+MODULE\+\_\+\+ARRIVE\+\_\+\+TRI~2}
+
+
+
+Définition utilisé pour savoir l\textquotesingle{}état du module. Utilisé par la structure \mbox{\hyperlink{xprocessus_conduite_8h_a811f71d477c514622d346dc1efabf711}{processus\+Conduite}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00287}{287}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_a1586e62b9a8554587e0459dc81e76fda}\label{xmain_8h_a1586e62b9a8554587e0459dc81e76fda}} 
+\index{xmain.h@{xmain.h}!PROCESSUSCONDUITE\_MODULE\_EN\_DEPLACEMENT@{PROCESSUSCONDUITE\_MODULE\_EN\_DEPLACEMENT}}
+\index{PROCESSUSCONDUITE\_MODULE\_EN\_DEPLACEMENT@{PROCESSUSCONDUITE\_MODULE\_EN\_DEPLACEMENT}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{PROCESSUSCONDUITE\_MODULE\_EN\_DEPLACEMENT}{PROCESSUSCONDUITE\_MODULE\_EN\_DEPLACEMENT}}
+{\footnotesize\ttfamily \#define PROCESSUSCONDUITE\+\_\+\+MODULE\+\_\+\+EN\+\_\+\+DEPLACEMENT~1}
+
+
+
+Définition utilisé pour savoir l\textquotesingle{}état du module. Utilisé par la structure \mbox{\hyperlink{xprocessus_conduite_8h_a811f71d477c514622d346dc1efabf711}{processus\+Conduite}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00282}{282}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_aa89162071a3ab0b6694e336917f8d030}\label{xmain_8h_aa89162071a3ab0b6694e336917f8d030}} 
+\index{xmain.h@{xmain.h}!PROCESSUSCONDUITE\_MODULE\_PAS\_EN\_FONCTION@{PROCESSUSCONDUITE\_MODULE\_PAS\_EN\_FONCTION}}
+\index{PROCESSUSCONDUITE\_MODULE\_PAS\_EN\_FONCTION@{PROCESSUSCONDUITE\_MODULE\_PAS\_EN\_FONCTION}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{PROCESSUSCONDUITE\_MODULE\_PAS\_EN\_FONCTION}{PROCESSUSCONDUITE\_MODULE\_PAS\_EN\_FONCTION}}
+{\footnotesize\ttfamily \#define PROCESSUSCONDUITE\+\_\+\+MODULE\+\_\+\+PAS\+\_\+\+EN\+\_\+\+FONCTION~0}
+
+
+
+Définition utilisé pour savoir l\textquotesingle{}état du module. Utilisé par la structure \mbox{\hyperlink{xprocessus_conduite_8h_a811f71d477c514622d346dc1efabf711}{processus\+Conduite}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00277}{277}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_ad0cce52011eb014a517ec2c1e0d407ac}\label{xmain_8h_ad0cce52011eb014a517ec2c1e0d407ac}} 
+\index{xmain.h@{xmain.h}!PROCESSUSCONDUITE\_PHASE@{PROCESSUSCONDUITE\_PHASE}}
+\index{PROCESSUSCONDUITE\_PHASE@{PROCESSUSCONDUITE\_PHASE}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{PROCESSUSCONDUITE\_PHASE}{PROCESSUSCONDUITE\_PHASE}}
+{\footnotesize\ttfamily \#define PROCESSUSCONDUITE\+\_\+\+PHASE~3}
+
+
+
+Numéro de phase du processus Conduite. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00246}{246}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_aa9fdf67f53a1e4b1c048ce81a13973c9}\label{xmain_8h_aa9fdf67f53a1e4b1c048ce81a13973c9}} 
+\index{xmain.h@{xmain.h}!PROCESSUSCONDUITE\_REQUETE\_ACTIVE@{PROCESSUSCONDUITE\_REQUETE\_ACTIVE}}
+\index{PROCESSUSCONDUITE\_REQUETE\_ACTIVE@{PROCESSUSCONDUITE\_REQUETE\_ACTIVE}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{PROCESSUSCONDUITE\_REQUETE\_ACTIVE}{PROCESSUSCONDUITE\_REQUETE\_ACTIVE}}
+{\footnotesize\ttfamily \#define PROCESSUSCONDUITE\+\_\+\+REQUETE\+\_\+\+ACTIVE~1}
+
+
+
+Définition pour contrôler les requetes du \mbox{\hyperlink{xprocessus_conduite_8h}{xprocessus\+Conduite.\+h}} ~\newline
+ Utilisé par la structure \mbox{\hyperlink{xprocessus_conduite_8h_a811f71d477c514622d346dc1efabf711}{processus\+Conduite}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00266}{266}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_aeb117702b667462b019f2c18f9f9c83e}\label{xmain_8h_aeb117702b667462b019f2c18f9f9c83e}} 
+\index{xmain.h@{xmain.h}!PROCESSUSCONDUITE\_REQUETE\_TRAITE@{PROCESSUSCONDUITE\_REQUETE\_TRAITE}}
+\index{PROCESSUSCONDUITE\_REQUETE\_TRAITE@{PROCESSUSCONDUITE\_REQUETE\_TRAITE}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{PROCESSUSCONDUITE\_REQUETE\_TRAITE}{PROCESSUSCONDUITE\_REQUETE\_TRAITE}}
+{\footnotesize\ttfamily \#define PROCESSUSCONDUITE\+\_\+\+REQUETE\+\_\+\+TRAITE~0}
+
+
+
+Définition pour contrôler les requetes du \mbox{\hyperlink{xprocessus_conduite_8h}{xprocessus\+Conduite.\+h}} ~\newline
+ Utilisé par la structure \mbox{\hyperlink{xprocessus_conduite_8h_a811f71d477c514622d346dc1efabf711}{processus\+Conduite}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00272}{272}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_a59efbaf81875696a5e0c725352b9a637}\label{xmain_8h_a59efbaf81875696a5e0c725352b9a637}} 
+\index{xmain.h@{xmain.h}!PROCESSUSCONDUITE\_VITESSESTANDARD@{PROCESSUSCONDUITE\_VITESSESTANDARD}}
+\index{PROCESSUSCONDUITE\_VITESSESTANDARD@{PROCESSUSCONDUITE\_VITESSESTANDARD}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{PROCESSUSCONDUITE\_VITESSESTANDARD}{PROCESSUSCONDUITE\_VITESSESTANDARD}}
+{\footnotesize\ttfamily \#define PROCESSUSCONDUITE\+\_\+\+VITESSESTANDARD~200}
+
+
+
+Vitesse standard des moteur du véhicule correspond a un PWM sur le nombre de bits défini par \mbox{\hyperlink{xmain_8h_acef0b425c836eb63d74c801c4d11c2b1}{PILOTEPWM\+\_\+\+RESOLUTION}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00261}{261}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_a8e9cd7848a1ab7d4628071a376585700}\label{xmain_8h_a8e9cd7848a1ab7d4628071a376585700}} 
+\index{xmain.h@{xmain.h}!PROCESSUSVEHICULE\_PHASE@{PROCESSUSVEHICULE\_PHASE}}
+\index{PROCESSUSVEHICULE\_PHASE@{PROCESSUSVEHICULE\_PHASE}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{PROCESSUSVEHICULE\_PHASE}{PROCESSUSVEHICULE\_PHASE}}
+{\footnotesize\ttfamily \#define PROCESSUSVEHICULE\+\_\+\+PHASE~6}
+
+
+
+Numéro de phase du processus principale de gestion du véhicule. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00250}{250}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_a6276b0f7c474c476289248b4eecd63ee}\label{xmain_8h_a6276b0f7c474c476289248b4eecd63ee}} 
+\index{xmain.h@{xmain.h}!SERVICEBASEDETEMPS\_FREQUENCE\_EN\_HZ@{SERVICEBASEDETEMPS\_FREQUENCE\_EN\_HZ}}
+\index{SERVICEBASEDETEMPS\_FREQUENCE\_EN\_HZ@{SERVICEBASEDETEMPS\_FREQUENCE\_EN\_HZ}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{SERVICEBASEDETEMPS\_FREQUENCE\_EN\_HZ}{SERVICEBASEDETEMPS\_FREQUENCE\_EN\_HZ}}
+{\footnotesize\ttfamily \#define SERVICEBASEDETEMPS\+\_\+\+FREQUENCE\+\_\+\+EN\+\_\+\+HZ~1000}
+
+
+
+Fréquence en Hz de la base de temps. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00218}{218}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_a9470a0f17392d89a537141466f6f0e98}\label{xmain_8h_a9470a0f17392d89a537141466f6f0e98}} 
+\index{xmain.h@{xmain.h}!SERVICEBASEDETEMPS\_NOMBRE\_DE\_PHASES@{SERVICEBASEDETEMPS\_NOMBRE\_DE\_PHASES}}
+\index{SERVICEBASEDETEMPS\_NOMBRE\_DE\_PHASES@{SERVICEBASEDETEMPS\_NOMBRE\_DE\_PHASES}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{SERVICEBASEDETEMPS\_NOMBRE\_DE\_PHASES}{SERVICEBASEDETEMPS\_NOMBRE\_DE\_PHASES}}
+{\footnotesize\ttfamily \#define SERVICEBASEDETEMPS\+\_\+\+NOMBRE\+\_\+\+DE\+\_\+\+PHASES~7}
+
+
+
+Nombre de phase de la base de temps \mbox{\hyperlink{xservice_base_de_temps_8h}{xservice\+Base\+De\+Temps.\+h}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00227}{227}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_ab6e7d92e268f07cf18c427fee9ff2e88}\label{xmain_8h_ab6e7d92e268f07cf18c427fee9ff2e88}} 
+\index{xmain.h@{xmain.h}!SERVICEBASEDETEMPS\_NOMBRE\_DE\_PHASES\_DANS\_LOOP@{SERVICEBASEDETEMPS\_NOMBRE\_DE\_PHASES\_DANS\_LOOP}}
+\index{SERVICEBASEDETEMPS\_NOMBRE\_DE\_PHASES\_DANS\_LOOP@{SERVICEBASEDETEMPS\_NOMBRE\_DE\_PHASES\_DANS\_LOOP}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{SERVICEBASEDETEMPS\_NOMBRE\_DE\_PHASES\_DANS\_LOOP}{SERVICEBASEDETEMPS\_NOMBRE\_DE\_PHASES\_DANS\_LOOP}}
+{\footnotesize\ttfamily \#define SERVICEBASEDETEMPS\+\_\+\+NOMBRE\+\_\+\+DE\+\_\+\+PHASES\+\_\+\+DANS\+\_\+\+LOOP~1}
+
+
+
+Nombre de phase dans une période de la base de temps (1 si pas utilisé) 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00222}{222}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+
+\mbox{\Hypertarget{xmain_8h_a9feadd4b5c905a261e3bebf0141c590e}\label{xmain_8h_a9feadd4b5c905a261e3bebf0141c590e}} 
+\index{xmain.h@{xmain.h}!SERVICETASKSERVER\_PERIODE\_EN\_US@{SERVICETASKSERVER\_PERIODE\_EN\_US}}
+\index{SERVICETASKSERVER\_PERIODE\_EN\_US@{SERVICETASKSERVER\_PERIODE\_EN\_US}!xmain.h@{xmain.h}}
+\doxysubsubsection{\texorpdfstring{SERVICETASKSERVER\_PERIODE\_EN\_US}{SERVICETASKSERVER\_PERIODE\_EN\_US}}
+{\footnotesize\ttfamily \#define SERVICETASKSERVER\+\_\+\+PERIODE\+\_\+\+EN\+\_\+\+US~(1000L)}
+
+
+
+Période en microsecondes à laquelle le Task\+Server exécute sa fonction qui fait apelle au service Base de temps pour gêrer plusieur tache a la fois. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{xmain_8h_source_l00213}{213}} du fichier \mbox{\hyperlink{xmain_8h_source}{xmain.\+h}}.
+

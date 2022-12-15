@@ -1,0 +1,124 @@
+\hypertarget{interface_step_moteur_8h}{}\doxysection{Référence du fichier U\+:/\+Sessions/\+Session 5/\+Project/\+Projet\+\_\+\+Fin\+\_\+\+Session/\+Projet-\/5e-\/\+Session/\+Centre-\/\+De-\/\+Tri/\+Centre\+De\+Tri\+S5/\+Src/interface\+Step\+Moteur.h}
+\label{interface_step_moteur_8h}\index{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Tri/CentreDeTriS5/Src/interfaceStepMoteur.h@{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Tri/CentreDeTriS5/Src/interfaceStepMoteur.h}}
+
+
+Fichier contenant le code qui permet d\textquotesingle{}utiliser l\textquotesingle{}ascenceur du centre de tri. Ce fichier a été créer pour remplacer les fichier d\textquotesingle{}interface de l\textquotesingle{}ascenseur de Karl parce-\/que ceux-\/ci ne fonctionnent pas.  
+
+
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{interface_step_moteur_8h_afa170a99bfae83840ecdd61d436748c1}{INTERFACESTEPMOTEUR\+\_\+\+POSITION\+\_\+\+BASSE}}~1
+\item 
+\#define \mbox{\hyperlink{interface_step_moteur_8h_a87dfa73c53afc5172176d9d67abd7392}{INTERFACESTEPMOTEUR\+\_\+\+POSITION\+\_\+\+HAUTE}}~2
+\end{DoxyCompactItemize}
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{interface_step_moteur_8h_a70b9c0c661fe8336d870eaa0ff3fce9a}{interface\+Step\+Moteur\+\_\+gere}} (void)
+\item 
+void \mbox{\hyperlink{interface_step_moteur_8h_aa1423eb43f57fc673a0a91a842572f1a}{interface\+Step\+Moteur\+\_\+requete}} (unsigned char requete)
+\item 
+void \mbox{\hyperlink{interface_step_moteur_8h_a5b7b5c9101f50f009c1f950ca2f7183f}{interface\+Step\+Moteur\+\_\+initialise}} (void)
+\item 
+void \mbox{\hyperlink{interface_step_moteur_8h_afc75768ab681517628d91e2d4f905a96}{interface\+Step\+Moteur\+\_\+home}} (void)
+\item 
+unsigned char \mbox{\hyperlink{interface_step_moteur_8h_a9fb40ee275e349337ab6322d87b637a0}{interface\+Step\+Moteur\+\_\+get\+Pos}} (void)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Fichier contenant le code qui permet d\textquotesingle{}utiliser l\textquotesingle{}ascenceur du centre de tri. Ce fichier a été créer pour remplacer les fichier d\textquotesingle{}interface de l\textquotesingle{}ascenseur de Karl parce-\/que ceux-\/ci ne fonctionnent pas. 
+
+\begin{DoxyAuthor}{Auteur}
+Renaud Gagnon 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2022-\/12-\/14
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2022 
+\end{DoxyCopyright}
+
+
+Définition dans le fichier \mbox{\hyperlink{interface_step_moteur_8h_source}{interface\+Step\+Moteur.\+h}}.
+
+
+
+\doxysubsection{Documentation des macros}
+\mbox{\Hypertarget{interface_step_moteur_8h_afa170a99bfae83840ecdd61d436748c1}\label{interface_step_moteur_8h_afa170a99bfae83840ecdd61d436748c1}} 
+\index{interfaceStepMoteur.h@{interfaceStepMoteur.h}!INTERFACESTEPMOTEUR\_POSITION\_BASSE@{INTERFACESTEPMOTEUR\_POSITION\_BASSE}}
+\index{INTERFACESTEPMOTEUR\_POSITION\_BASSE@{INTERFACESTEPMOTEUR\_POSITION\_BASSE}!interfaceStepMoteur.h@{interfaceStepMoteur.h}}
+\doxysubsubsection{\texorpdfstring{INTERFACESTEPMOTEUR\_POSITION\_BASSE}{INTERFACESTEPMOTEUR\_POSITION\_BASSE}}
+{\footnotesize\ttfamily \#define INTERFACESTEPMOTEUR\+\_\+\+POSITION\+\_\+\+BASSE~1}
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_step_moteur_8h_source_l00035}{35}} du fichier \mbox{\hyperlink{interface_step_moteur_8h_source}{interface\+Step\+Moteur.\+h}}.
+
+\mbox{\Hypertarget{interface_step_moteur_8h_a87dfa73c53afc5172176d9d67abd7392}\label{interface_step_moteur_8h_a87dfa73c53afc5172176d9d67abd7392}} 
+\index{interfaceStepMoteur.h@{interfaceStepMoteur.h}!INTERFACESTEPMOTEUR\_POSITION\_HAUTE@{INTERFACESTEPMOTEUR\_POSITION\_HAUTE}}
+\index{INTERFACESTEPMOTEUR\_POSITION\_HAUTE@{INTERFACESTEPMOTEUR\_POSITION\_HAUTE}!interfaceStepMoteur.h@{interfaceStepMoteur.h}}
+\doxysubsubsection{\texorpdfstring{INTERFACESTEPMOTEUR\_POSITION\_HAUTE}{INTERFACESTEPMOTEUR\_POSITION\_HAUTE}}
+{\footnotesize\ttfamily \#define INTERFACESTEPMOTEUR\+\_\+\+POSITION\+\_\+\+HAUTE~2}
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_step_moteur_8h_source_l00036}{36}} du fichier \mbox{\hyperlink{interface_step_moteur_8h_source}{interface\+Step\+Moteur.\+h}}.
+
+
+
+\doxysubsection{Documentation des fonctions}
+\mbox{\Hypertarget{interface_step_moteur_8h_a70b9c0c661fe8336d870eaa0ff3fce9a}\label{interface_step_moteur_8h_a70b9c0c661fe8336d870eaa0ff3fce9a}} 
+\index{interfaceStepMoteur.h@{interfaceStepMoteur.h}!interfaceStepMoteur\_gere@{interfaceStepMoteur\_gere}}
+\index{interfaceStepMoteur\_gere@{interfaceStepMoteur\_gere}!interfaceStepMoteur.h@{interfaceStepMoteur.h}}
+\doxysubsubsection{\texorpdfstring{interfaceStepMoteur\_gere()}{interfaceStepMoteur\_gere()}}
+{\footnotesize\ttfamily void interface\+Step\+Moteur\+\_\+gere (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_step_moteur_8c_source_l00049}{49}} du fichier \mbox{\hyperlink{interface_step_moteur_8c_source}{interface\+Step\+Moteur.\+c}}.
+
+\mbox{\Hypertarget{interface_step_moteur_8h_a9fb40ee275e349337ab6322d87b637a0}\label{interface_step_moteur_8h_a9fb40ee275e349337ab6322d87b637a0}} 
+\index{interfaceStepMoteur.h@{interfaceStepMoteur.h}!interfaceStepMoteur\_getPos@{interfaceStepMoteur\_getPos}}
+\index{interfaceStepMoteur\_getPos@{interfaceStepMoteur\_getPos}!interfaceStepMoteur.h@{interfaceStepMoteur.h}}
+\doxysubsubsection{\texorpdfstring{interfaceStepMoteur\_getPos()}{interfaceStepMoteur\_getPos()}}
+{\footnotesize\ttfamily unsigned char interface\+Step\+Moteur\+\_\+get\+Pos (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_step_moteur_8c_source_l00138}{138}} du fichier \mbox{\hyperlink{interface_step_moteur_8c_source}{interface\+Step\+Moteur.\+c}}.
+
+\mbox{\Hypertarget{interface_step_moteur_8h_afc75768ab681517628d91e2d4f905a96}\label{interface_step_moteur_8h_afc75768ab681517628d91e2d4f905a96}} 
+\index{interfaceStepMoteur.h@{interfaceStepMoteur.h}!interfaceStepMoteur\_home@{interfaceStepMoteur\_home}}
+\index{interfaceStepMoteur\_home@{interfaceStepMoteur\_home}!interfaceStepMoteur.h@{interfaceStepMoteur.h}}
+\doxysubsubsection{\texorpdfstring{interfaceStepMoteur\_home()}{interfaceStepMoteur\_home()}}
+{\footnotesize\ttfamily void interface\+Step\+Moteur\+\_\+home (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_step_moteur_8c_source_l00094}{94}} du fichier \mbox{\hyperlink{interface_step_moteur_8c_source}{interface\+Step\+Moteur.\+c}}.
+
+\mbox{\Hypertarget{interface_step_moteur_8h_a5b7b5c9101f50f009c1f950ca2f7183f}\label{interface_step_moteur_8h_a5b7b5c9101f50f009c1f950ca2f7183f}} 
+\index{interfaceStepMoteur.h@{interfaceStepMoteur.h}!interfaceStepMoteur\_initialise@{interfaceStepMoteur\_initialise}}
+\index{interfaceStepMoteur\_initialise@{interfaceStepMoteur\_initialise}!interfaceStepMoteur.h@{interfaceStepMoteur.h}}
+\doxysubsubsection{\texorpdfstring{interfaceStepMoteur\_initialise()}{interfaceStepMoteur\_initialise()}}
+{\footnotesize\ttfamily void interface\+Step\+Moteur\+\_\+initialise (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_step_moteur_8c_source_l00143}{143}} du fichier \mbox{\hyperlink{interface_step_moteur_8c_source}{interface\+Step\+Moteur.\+c}}.
+
+\mbox{\Hypertarget{interface_step_moteur_8h_aa1423eb43f57fc673a0a91a842572f1a}\label{interface_step_moteur_8h_aa1423eb43f57fc673a0a91a842572f1a}} 
+\index{interfaceStepMoteur.h@{interfaceStepMoteur.h}!interfaceStepMoteur\_requete@{interfaceStepMoteur\_requete}}
+\index{interfaceStepMoteur\_requete@{interfaceStepMoteur\_requete}!interfaceStepMoteur.h@{interfaceStepMoteur.h}}
+\doxysubsubsection{\texorpdfstring{interfaceStepMoteur\_requete()}{interfaceStepMoteur\_requete()}}
+{\footnotesize\ttfamily void interface\+Step\+Moteur\+\_\+requete (\begin{DoxyParamCaption}\item[{unsigned char}]{requete }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{interface_step_moteur_8c_source_l00124}{124}} du fichier \mbox{\hyperlink{interface_step_moteur_8c_source}{interface\+Step\+Moteur.\+c}}.
+

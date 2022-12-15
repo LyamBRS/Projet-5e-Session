@@ -1,0 +1,182 @@
+\hypertarget{service_tank_8h}{}\doxysection{Référence du fichier U\+:/\+Sessions/\+Session 5/\+Project/\+Projet\+\_\+\+Fin\+\_\+\+Session/\+Projet-\/5e-\/\+Session/\+Vehicule/\+Programmes/\+ESPvehicule/include/service\+Tank.h}
+\label{service_tank_8h}\index{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Vehicule/Programmes/ESPvehicule/include/serviceTank.h@{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Vehicule/Programmes/ESPvehicule/include/serviceTank.h}}
+
+
+Le service tank sert a controler un véhicule avec seulement deux moteur. Ce service permet au moteur d\textquotesingle{}avoir 6 (peut etre 8) état qui lui permet de se déplacer dans tout les direction possible.  
+
+
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{service_tank_8h_a554d1e0b8487a1415aac631644aa7c53}{service\+Tank\+\_\+initialise}} (void)
+\begin{DoxyCompactList}\small\item\em Fonction d\textquotesingle{}initialisation d\textquotesingle{}initialisation du service tank qui permet au deux moteur d\textquotesingle{}être en arrêt et pret à partir ~\newline
+ \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{service_tank_8h_a687e5866883b619f8cd2b3d8cc2a0569}{service\+Tank\+\_\+\+Arret}} (void)
+\begin{DoxyCompactList}\small\item\em Fonction qui arrête les deux moteurs. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{service_tank_8h_a6c5e4c3ecafb7a59fa47ca0fa1cea99a}{service\+Tank\+\_\+\+Avance}} (unsigned char vitesse)
+\begin{DoxyCompactList}\small\item\em Fonction qui fait avancer les deux moteur selon la vitesse fourni. La vitesse est une valeur de 0 à 255 qui correspond au duty cycle d\textquotesingle{}un PWM. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{service_tank_8h_a1af28bf39030a7e7837490690629a4ca}{service\+Tank\+\_\+tourne\+Droit}} (unsigned char vitesse)
+\begin{DoxyCompactList}\small\item\em Fonction qui fait tourner a droite le véhicule selon la vitesse fourni. ~\newline
+ Un moteur est actif et l\textquotesingle{}autre en arrêt ~\newline
+ La vitesse est une valeur de 0 à 255 qui correspond au duty cycle d\textquotesingle{}un PWM. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{service_tank_8h_a27a4e1130d100a4fdb6a41ea4490adfc}{service\+Tank\+\_\+tourne\+Gauche}} (unsigned char vitesse)
+\begin{DoxyCompactList}\small\item\em Fonction qui fait tourner a Gauche le véhicule selon la vitesse fourni. ~\newline
+ Un moteur est actif et l\textquotesingle{}autre en arrêt ~\newline
+ La vitesse est une valeur de 0 à 255 qui correspond au duty cycle d\textquotesingle{}un PWM. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{service_tank_8h_aad3abd2a323902afeb93030a29a93cb4}{service\+Tank\+\_\+uturn\+Droit}} (unsigned char vitesse)
+\begin{DoxyCompactList}\small\item\em Fonction qui fait tournerle véhicule sur lui même vers la droite selon la vitesse fourni. ~\newline
+ Un moteur est actif dans un sens et l\textquotesingle{}autre moteur dans le sens contraire. ~\newline
+ La vitesse est une valeur de 0 à 255 qui correspond au duty cycle d\textquotesingle{}un PWM. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{service_tank_8h_a0d3978afaef4abbefe3861aa3cf79a31}{service\+Tank\+\_\+uturn\+Gauche}} (unsigned char vitesse)
+\begin{DoxyCompactList}\small\item\em Fonction qui fait tournerle véhicule sur lui même vers la gauche selon la vitesse fourni. ~\newline
+ Un moteur est actif dans un sens et l\textquotesingle{}autre moteur dans le sens contraire. ~\newline
+ La vitesse est une valeur de 0 à 255 qui correspond au duty cycle d\textquotesingle{}un PWM. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Le service tank sert a controler un véhicule avec seulement deux moteur. Ce service permet au moteur d\textquotesingle{}avoir 6 (peut etre 8) état qui lui permet de se déplacer dans tout les direction possible. 
+
+\begin{DoxyAuthor}{Auteur}
+Camille Fortin Cam\+Fo (\href{mailto:camfortin2022@gmail.com}{\texttt{ camfortin2022@gmail.\+com}}) 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2022-\/11-\/19
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2022 
+\end{DoxyCopyright}
+
+
+Définition dans le fichier \mbox{\hyperlink{service_tank_8h_source}{service\+Tank.\+h}}.
+
+
+
+\doxysubsection{Documentation des fonctions}
+\mbox{\Hypertarget{service_tank_8h_a687e5866883b619f8cd2b3d8cc2a0569}\label{service_tank_8h_a687e5866883b619f8cd2b3d8cc2a0569}} 
+\index{serviceTank.h@{serviceTank.h}!serviceTank\_Arret@{serviceTank\_Arret}}
+\index{serviceTank\_Arret@{serviceTank\_Arret}!serviceTank.h@{serviceTank.h}}
+\doxysubsubsection{\texorpdfstring{serviceTank\_Arret()}{serviceTank\_Arret()}}
+{\footnotesize\ttfamily void service\+Tank\+\_\+\+Arret (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Fonction qui arrête les deux moteurs. 
+
+\begin{DoxyReturn}{Renvoie}
+$\ast$ void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{service_tank_8h_a6c5e4c3ecafb7a59fa47ca0fa1cea99a}\label{service_tank_8h_a6c5e4c3ecafb7a59fa47ca0fa1cea99a}} 
+\index{serviceTank.h@{serviceTank.h}!serviceTank\_Avance@{serviceTank\_Avance}}
+\index{serviceTank\_Avance@{serviceTank\_Avance}!serviceTank.h@{serviceTank.h}}
+\doxysubsubsection{\texorpdfstring{serviceTank\_Avance()}{serviceTank\_Avance()}}
+{\footnotesize\ttfamily void service\+Tank\+\_\+\+Avance (\begin{DoxyParamCaption}\item[{unsigned char}]{vitesse }\end{DoxyParamCaption})}
+
+
+
+Fonction qui fait avancer les deux moteur selon la vitesse fourni. La vitesse est une valeur de 0 à 255 qui correspond au duty cycle d\textquotesingle{}un PWM. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em vitesse} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+$\ast$ void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{service_tank_8h_a554d1e0b8487a1415aac631644aa7c53}\label{service_tank_8h_a554d1e0b8487a1415aac631644aa7c53}} 
+\index{serviceTank.h@{serviceTank.h}!serviceTank\_initialise@{serviceTank\_initialise}}
+\index{serviceTank\_initialise@{serviceTank\_initialise}!serviceTank.h@{serviceTank.h}}
+\doxysubsubsection{\texorpdfstring{serviceTank\_initialise()}{serviceTank\_initialise()}}
+{\footnotesize\ttfamily void service\+Tank\+\_\+initialise (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Fonction d\textquotesingle{}initialisation d\textquotesingle{}initialisation du service tank qui permet au deux moteur d\textquotesingle{}être en arrêt et pret à partir ~\newline
+ 
+
+\begin{DoxyReturn}{Renvoie}
+$\ast$ void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{service_tank_8h_a1af28bf39030a7e7837490690629a4ca}\label{service_tank_8h_a1af28bf39030a7e7837490690629a4ca}} 
+\index{serviceTank.h@{serviceTank.h}!serviceTank\_tourneDroit@{serviceTank\_tourneDroit}}
+\index{serviceTank\_tourneDroit@{serviceTank\_tourneDroit}!serviceTank.h@{serviceTank.h}}
+\doxysubsubsection{\texorpdfstring{serviceTank\_tourneDroit()}{serviceTank\_tourneDroit()}}
+{\footnotesize\ttfamily void service\+Tank\+\_\+tourne\+Droit (\begin{DoxyParamCaption}\item[{unsigned char}]{vitesse }\end{DoxyParamCaption})}
+
+
+
+Fonction qui fait tourner a droite le véhicule selon la vitesse fourni. ~\newline
+ Un moteur est actif et l\textquotesingle{}autre en arrêt ~\newline
+ La vitesse est une valeur de 0 à 255 qui correspond au duty cycle d\textquotesingle{}un PWM. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em vitesse} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+$\ast$ void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{service_tank_8h_a27a4e1130d100a4fdb6a41ea4490adfc}\label{service_tank_8h_a27a4e1130d100a4fdb6a41ea4490adfc}} 
+\index{serviceTank.h@{serviceTank.h}!serviceTank\_tourneGauche@{serviceTank\_tourneGauche}}
+\index{serviceTank\_tourneGauche@{serviceTank\_tourneGauche}!serviceTank.h@{serviceTank.h}}
+\doxysubsubsection{\texorpdfstring{serviceTank\_tourneGauche()}{serviceTank\_tourneGauche()}}
+{\footnotesize\ttfamily void service\+Tank\+\_\+tourne\+Gauche (\begin{DoxyParamCaption}\item[{unsigned char}]{vitesse }\end{DoxyParamCaption})}
+
+
+
+Fonction qui fait tourner a Gauche le véhicule selon la vitesse fourni. ~\newline
+ Un moteur est actif et l\textquotesingle{}autre en arrêt ~\newline
+ La vitesse est une valeur de 0 à 255 qui correspond au duty cycle d\textquotesingle{}un PWM. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em vitesse} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+$\ast$ void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{service_tank_8h_aad3abd2a323902afeb93030a29a93cb4}\label{service_tank_8h_aad3abd2a323902afeb93030a29a93cb4}} 
+\index{serviceTank.h@{serviceTank.h}!serviceTank\_uturnDroit@{serviceTank\_uturnDroit}}
+\index{serviceTank\_uturnDroit@{serviceTank\_uturnDroit}!serviceTank.h@{serviceTank.h}}
+\doxysubsubsection{\texorpdfstring{serviceTank\_uturnDroit()}{serviceTank\_uturnDroit()}}
+{\footnotesize\ttfamily void service\+Tank\+\_\+uturn\+Droit (\begin{DoxyParamCaption}\item[{unsigned char}]{vitesse }\end{DoxyParamCaption})}
+
+
+
+Fonction qui fait tournerle véhicule sur lui même vers la droite selon la vitesse fourni. ~\newline
+ Un moteur est actif dans un sens et l\textquotesingle{}autre moteur dans le sens contraire. ~\newline
+ La vitesse est une valeur de 0 à 255 qui correspond au duty cycle d\textquotesingle{}un PWM. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em vitesse} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+$\ast$ void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{service_tank_8h_a0d3978afaef4abbefe3861aa3cf79a31}\label{service_tank_8h_a0d3978afaef4abbefe3861aa3cf79a31}} 
+\index{serviceTank.h@{serviceTank.h}!serviceTank\_uturnGauche@{serviceTank\_uturnGauche}}
+\index{serviceTank\_uturnGauche@{serviceTank\_uturnGauche}!serviceTank.h@{serviceTank.h}}
+\doxysubsubsection{\texorpdfstring{serviceTank\_uturnGauche()}{serviceTank\_uturnGauche()}}
+{\footnotesize\ttfamily void service\+Tank\+\_\+uturn\+Gauche (\begin{DoxyParamCaption}\item[{unsigned char}]{vitesse }\end{DoxyParamCaption})}
+
+
+
+Fonction qui fait tournerle véhicule sur lui même vers la gauche selon la vitesse fourni. ~\newline
+ Un moteur est actif dans un sens et l\textquotesingle{}autre moteur dans le sens contraire. ~\newline
+ La vitesse est une valeur de 0 à 255 qui correspond au duty cycle d\textquotesingle{}un PWM. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em vitesse} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+$\ast$ void 
+\end{DoxyReturn}

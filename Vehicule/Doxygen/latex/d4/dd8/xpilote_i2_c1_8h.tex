@@ -1,0 +1,197 @@
+\hypertarget{xpilote_i2_c1_8h}{}\doxysection{Référence du fichier U\+:/\+Sessions/\+Session 5/\+Project/\+Projet\+\_\+\+Fin\+\_\+\+Session/\+Projet-\/5e-\/\+Session/\+Vehicule/\+Programmes/\+ESPvehicule/include/xpilote\+I2\+C1.h}
+\label{xpilote_i2_c1_8h}\index{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Vehicule/Programmes/ESPvehicule/include/xpiloteI2C1.h@{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Vehicule/Programmes/ESPvehicule/include/xpiloteI2C1.h}}
+
+
+Fichier conteneant le code du pilote I2C fonctionnant avec un ESP32. Le pilote utilise la librairie Wire.\+h fourni avec l\textquotesingle{}environnement arduino.  
+
+
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+unsigned char \mbox{\hyperlink{xpilote_i2_c1_8h_aa18b15253a56a78e185011412239eb89}{pilote\+I2\+C1\+\_\+lis\+Un\+Octet}} (unsigned char Adresse)
+\begin{DoxyCompactList}\small\item\em Fonction qui lit un octect précédament envoyé sur le port I2C. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{xpilote_i2_c1_8h_a9f974a10adc842d6f713d4b06e748454}{pilote\+I2\+C1\+\_\+ecrit\+Un\+Octet}} (unsigned char Adresse, char Octet)
+\begin{DoxyCompactList}\small\item\em Fonction qui ecris un Octet sur le port I2C. \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{xpilote_i2_c1_8h_addf098ce9cd2df8ccb306b8429f4957f}{pilote\+I2\+C1\+\_\+lis\+Un\+Entier}} (unsigned char Adresse)
+\begin{DoxyCompactList}\small\item\em Fonction qui lit un entier (unsigned int) recu sur le port I2C. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{xpilote_i2_c1_8h_a2d60a281a593a8313f5470c511aa2cb8}{pilote\+I2\+C1\+\_\+ecrit\+Un\+Entier}} (unsigned char Adresse, unsigned int Entier)
+\begin{DoxyCompactList}\small\item\em Fonction qui écrit un entier (unsigned int) sur le port I2C. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{xpilote_i2_c1_8h_a6e36faf1fc3341e01fff3c79c2708e85}{pilote\+I2\+C1\+\_\+lit\+Un\+Registre}} (unsigned char Adresse, unsigned char Registre, char $\ast$Valeur\+Lue)
+\begin{DoxyCompactList}\small\item\em Fonction qui lit un registre d\textquotesingle{}un microcontrôleur avec le port I2C. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{xpilote_i2_c1_8h_a3ff78d59d954c2070cb82a81275d6bbc}{pilote\+I2\+C1\+\_\+ecrit\+Un\+Octet\+Dans\+Un\+Registre}} (unsigned char Adresse, unsigned char Registre, char Octet)
+\begin{DoxyCompactList}\small\item\em Fonction qui écrit dans un registre d\textquotesingle{}un microcontrôleur avec le port I2C. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{xpilote_i2_c1_8h_a8699a8fb1fb83aad86d799680c49e796}{pilote\+I2\+C1\+\_\+lit\+Automatiquement\+Des\+Registres}} (unsigned char Adresse, unsigned char Registre, unsigned char Nombre, char $\ast$Valeurs\+Lues)
+\begin{DoxyCompactList}\small\item\em Fonction qui permet de lire automatiquement plusieurs registre d\textquotesingle{}un microcontrôleur. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{xpilote_i2_c1_8h_a2996bff0498c565e1651f0bb2ebef8b8}{pilote\+I2\+C1\+\_\+initialise}} (void)
+\begin{DoxyCompactList}\small\item\em Fonction qui initialise le port I2C. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Fichier conteneant le code du pilote I2C fonctionnant avec un ESP32. Le pilote utilise la librairie Wire.\+h fourni avec l\textquotesingle{}environnement arduino. 
+
+\begin{DoxyAuthor}{Auteur}
+Camille Fortin (\href{mailto:camfortin2022@gmail.com}{\texttt{ camfortin2022@gmail.\+com}}) 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2022-\/12-\/12
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2022 
+\end{DoxyCopyright}
+
+
+Définition dans le fichier \mbox{\hyperlink{xpilote_i2_c1_8h_source}{xpilote\+I2\+C1.\+h}}.
+
+
+
+\doxysubsection{Documentation des fonctions}
+\mbox{\Hypertarget{xpilote_i2_c1_8h_a2d60a281a593a8313f5470c511aa2cb8}\label{xpilote_i2_c1_8h_a2d60a281a593a8313f5470c511aa2cb8}} 
+\index{xpiloteI2C1.h@{xpiloteI2C1.h}!piloteI2C1\_ecritUnEntier@{piloteI2C1\_ecritUnEntier}}
+\index{piloteI2C1\_ecritUnEntier@{piloteI2C1\_ecritUnEntier}!xpiloteI2C1.h@{xpiloteI2C1.h}}
+\doxysubsubsection{\texorpdfstring{piloteI2C1\_ecritUnEntier()}{piloteI2C1\_ecritUnEntier()}}
+{\footnotesize\ttfamily void pilote\+I2\+C1\+\_\+ecrit\+Un\+Entier (\begin{DoxyParamCaption}\item[{unsigned char}]{Adresse,  }\item[{unsigned int}]{Entier }\end{DoxyParamCaption})}
+
+
+
+Fonction qui écrit un entier (unsigned int) sur le port I2C. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em Adresse} & \\
+\hline
+{\em Entier} & ~\newline
+ \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{xpilote_i2_c1_8h_a9f974a10adc842d6f713d4b06e748454}\label{xpilote_i2_c1_8h_a9f974a10adc842d6f713d4b06e748454}} 
+\index{xpiloteI2C1.h@{xpiloteI2C1.h}!piloteI2C1\_ecritUnOctet@{piloteI2C1\_ecritUnOctet}}
+\index{piloteI2C1\_ecritUnOctet@{piloteI2C1\_ecritUnOctet}!xpiloteI2C1.h@{xpiloteI2C1.h}}
+\doxysubsubsection{\texorpdfstring{piloteI2C1\_ecritUnOctet()}{piloteI2C1\_ecritUnOctet()}}
+{\footnotesize\ttfamily void pilote\+I2\+C1\+\_\+ecrit\+Un\+Octet (\begin{DoxyParamCaption}\item[{unsigned char}]{Adresse,  }\item[{char}]{Octet }\end{DoxyParamCaption})}
+
+
+
+Fonction qui ecris un Octet sur le port I2C. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em Adresse} & \\
+\hline
+{\em Octet} & ~\newline
+ \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{xpilote_i2_c1_8h_a3ff78d59d954c2070cb82a81275d6bbc}\label{xpilote_i2_c1_8h_a3ff78d59d954c2070cb82a81275d6bbc}} 
+\index{xpiloteI2C1.h@{xpiloteI2C1.h}!piloteI2C1\_ecritUnOctetDansUnRegistre@{piloteI2C1\_ecritUnOctetDansUnRegistre}}
+\index{piloteI2C1\_ecritUnOctetDansUnRegistre@{piloteI2C1\_ecritUnOctetDansUnRegistre}!xpiloteI2C1.h@{xpiloteI2C1.h}}
+\doxysubsubsection{\texorpdfstring{piloteI2C1\_ecritUnOctetDansUnRegistre()}{piloteI2C1\_ecritUnOctetDansUnRegistre()}}
+{\footnotesize\ttfamily void pilote\+I2\+C1\+\_\+ecrit\+Un\+Octet\+Dans\+Un\+Registre (\begin{DoxyParamCaption}\item[{unsigned char}]{Adresse,  }\item[{unsigned char}]{Registre,  }\item[{char}]{Octet }\end{DoxyParamCaption})}
+
+
+
+Fonction qui écrit dans un registre d\textquotesingle{}un microcontrôleur avec le port I2C. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em Adresse} & Adresse I2C \\
+\hline
+{\em Registre} & Adresse du registre à lire \\
+\hline
+{\em Octet} & Valeur qu\textquotesingle{}on veut envoyé dans le registre ~\newline
+ \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{xpilote_i2_c1_8h_a2996bff0498c565e1651f0bb2ebef8b8}\label{xpilote_i2_c1_8h_a2996bff0498c565e1651f0bb2ebef8b8}} 
+\index{xpiloteI2C1.h@{xpiloteI2C1.h}!piloteI2C1\_initialise@{piloteI2C1\_initialise}}
+\index{piloteI2C1\_initialise@{piloteI2C1\_initialise}!xpiloteI2C1.h@{xpiloteI2C1.h}}
+\doxysubsubsection{\texorpdfstring{piloteI2C1\_initialise()}{piloteI2C1\_initialise()}}
+{\footnotesize\ttfamily void pilote\+I2\+C1\+\_\+initialise (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Fonction qui initialise le port I2C. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em Aucun} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{xpilote_i2_c1_8h_addf098ce9cd2df8ccb306b8429f4957f}\label{xpilote_i2_c1_8h_addf098ce9cd2df8ccb306b8429f4957f}} 
+\index{xpiloteI2C1.h@{xpiloteI2C1.h}!piloteI2C1\_lisUnEntier@{piloteI2C1\_lisUnEntier}}
+\index{piloteI2C1\_lisUnEntier@{piloteI2C1\_lisUnEntier}!xpiloteI2C1.h@{xpiloteI2C1.h}}
+\doxysubsubsection{\texorpdfstring{piloteI2C1\_lisUnEntier()}{piloteI2C1\_lisUnEntier()}}
+{\footnotesize\ttfamily unsigned int pilote\+I2\+C1\+\_\+lis\+Un\+Entier (\begin{DoxyParamCaption}\item[{unsigned char}]{Adresse }\end{DoxyParamCaption})}
+
+
+
+Fonction qui lit un entier (unsigned int) recu sur le port I2C. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em Adresse} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Un entier recu sur le port I2C (unsigned int) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{xpilote_i2_c1_8h_aa18b15253a56a78e185011412239eb89}\label{xpilote_i2_c1_8h_aa18b15253a56a78e185011412239eb89}} 
+\index{xpiloteI2C1.h@{xpiloteI2C1.h}!piloteI2C1\_lisUnOctet@{piloteI2C1\_lisUnOctet}}
+\index{piloteI2C1\_lisUnOctet@{piloteI2C1\_lisUnOctet}!xpiloteI2C1.h@{xpiloteI2C1.h}}
+\doxysubsubsection{\texorpdfstring{piloteI2C1\_lisUnOctet()}{piloteI2C1\_lisUnOctet()}}
+{\footnotesize\ttfamily unsigned char pilote\+I2\+C1\+\_\+lis\+Un\+Octet (\begin{DoxyParamCaption}\item[{unsigned char}]{Adresse }\end{DoxyParamCaption})}
+
+
+
+Fonction qui lit un octect précédament envoyé sur le port I2C. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em Adresse} & Adresse I2C \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+La valeur lu sur le port I2C 
+\end{DoxyReturn}
+\mbox{\Hypertarget{xpilote_i2_c1_8h_a8699a8fb1fb83aad86d799680c49e796}\label{xpilote_i2_c1_8h_a8699a8fb1fb83aad86d799680c49e796}} 
+\index{xpiloteI2C1.h@{xpiloteI2C1.h}!piloteI2C1\_litAutomatiquementDesRegistres@{piloteI2C1\_litAutomatiquementDesRegistres}}
+\index{piloteI2C1\_litAutomatiquementDesRegistres@{piloteI2C1\_litAutomatiquementDesRegistres}!xpiloteI2C1.h@{xpiloteI2C1.h}}
+\doxysubsubsection{\texorpdfstring{piloteI2C1\_litAutomatiquementDesRegistres()}{piloteI2C1\_litAutomatiquementDesRegistres()}}
+{\footnotesize\ttfamily void pilote\+I2\+C1\+\_\+lit\+Automatiquement\+Des\+Registres (\begin{DoxyParamCaption}\item[{unsigned char}]{Adresse,  }\item[{unsigned char}]{Registre,  }\item[{unsigned char}]{Nombre,  }\item[{char $\ast$}]{Valeurs\+Lues }\end{DoxyParamCaption})}
+
+
+
+Fonction qui permet de lire automatiquement plusieurs registre d\textquotesingle{}un microcontrôleur. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em Adresse} & Adresse I2C \\
+\hline
+{\em Registre} & Première adresse des registre à lire \\
+\hline
+{\em Nombre} & Nombre de registre qui doivent être lu \\
+\hline
+{\em Valeurs\+Lues} & L\textquotesingle{}adresse du tableau ou mettre les valeurs des registres lu \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{xpilote_i2_c1_8h_a6e36faf1fc3341e01fff3c79c2708e85}\label{xpilote_i2_c1_8h_a6e36faf1fc3341e01fff3c79c2708e85}} 
+\index{xpiloteI2C1.h@{xpiloteI2C1.h}!piloteI2C1\_litUnRegistre@{piloteI2C1\_litUnRegistre}}
+\index{piloteI2C1\_litUnRegistre@{piloteI2C1\_litUnRegistre}!xpiloteI2C1.h@{xpiloteI2C1.h}}
+\doxysubsubsection{\texorpdfstring{piloteI2C1\_litUnRegistre()}{piloteI2C1\_litUnRegistre()}}
+{\footnotesize\ttfamily void pilote\+I2\+C1\+\_\+lit\+Un\+Registre (\begin{DoxyParamCaption}\item[{unsigned char}]{Adresse,  }\item[{unsigned char}]{Registre,  }\item[{char $\ast$}]{Valeur\+Lue }\end{DoxyParamCaption})}
+
+
+
+Fonction qui lit un registre d\textquotesingle{}un microcontrôleur avec le port I2C. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em Adresse} & Adresse I2C \\
+\hline
+{\em Registre} & Adresse du registre à lire \\
+\hline
+{\em Valeur\+Lue} & L\textquotesingle{}adresse de la variable ou mettre la valeur du registre lu \\
+\hline
+\end{DoxyParams}
