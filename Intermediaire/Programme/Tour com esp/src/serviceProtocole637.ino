@@ -153,6 +153,11 @@ void serviceProtocole637_transmetUneDonnee(void)
    ucChecksum += readBuffer[7];
    donnee = 0;
  }
+
+ for(int i=0; i<8; ++i)
+ {
+  readBuffer[i] = 0;
+ }
  serviceBaseDeTemps_execute[SERVICEPROTOCOLE637_PHASE_TRANSMISSION] = serviceProtocole637_transmetUnChecksum;
 }
 

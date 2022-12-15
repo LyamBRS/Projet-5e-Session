@@ -1400,6 +1400,12 @@
             <group>
                 <name>INTERFACES</name>
                 <file>
+                    <name>$PROJ_DIR$\..\Src\interfaceAscenseur.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\Src\interfaceAscenseur.h</name>
+                </file>
+                <file>
                     <name>$PROJ_DIR$\..\Src\interfaceB1.c</name>
                 </file>
                 <file>
@@ -1430,12 +1436,15 @@
                     <name>$PROJ_DIR$\..\Src\interfacePont.h</name>
                 </file>
                 <file>
+<<<<<<< HEAD
                     <name>$PROJ_DIR$\..\Src\interfaceStepMoteur.c</name>
                 </file>
                 <file>
                     <name>$PROJ_DIR$\..\Src\interfaceStepMoteur.h</name>
                 </file>
                 <file>
+=======
+>>>>>>> 4da58d318c6ea7a702745249341195bc18bc6aac
                     <name>$PROJ_DIR$\..\Src\interfaceT1.c</name>
                 </file>
                 <file>

@@ -21,6 +21,7 @@
 #include "interfaceT4.h"
 #include "interfaceUsine.h"
 #include "interfaceColonne.h"
+#include "interfacePont.h"
 #include "interfaceB1.h"
 #include "interfacePont.h"
 #include "interfaceStepMoteur.h"

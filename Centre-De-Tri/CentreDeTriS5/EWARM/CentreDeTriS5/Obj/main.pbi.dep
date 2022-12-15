@@ -58,6 +58,7 @@ main.pbi: \
   C:\Projet\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/interfaceT4.h \
   C:\Projet\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/processusUsine.h \
   C:\Projet\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/interfaceUsine.h \
+  C:\Projet\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/interfaceAscenseur.h \
   C:\Projet\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/piloteLcd.h \
   C:\Projet\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/IO_BUS.h \
   C:\Projet\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/interfaceLcd.h \

@@ -12,7 +12,7 @@
         <ByteLimit>50</ByteLimit>
     </Stack>
     <StLinkDriver>
-        <stlinkserialNo>USB0</stlinkserialNo>
+        <stlinkserialNo>066CFF495353887167123259</stlinkserialNo>
         <stlinkfoundProbes />
         <stlinkResetStyle>0</stlinkResetStyle>
         <stlinkResetStrategy>2</stlinkResetStrategy>
@@ -42,7 +42,11 @@
         <ITMlogFile>$PROJ_DIR$\ITM.log</ITMlogFile>
     </SWOTraceHWSettings>
     <DebugChecksum>
+<<<<<<< HEAD
         <Checksum>2233396142</Checksum>
+=======
+        <Checksum>2789989283</Checksum>
+>>>>>>> 4da58d318c6ea7a702745249341195bc18bc6aac
     </DebugChecksum>
     <Disassembly>
         <InstrCount>0</InstrCount>
@@ -127,8 +131,12 @@
         <mode>0</mode>
     </DisassembleMode>
     <Breakpoints2>
+<<<<<<< HEAD
         <Bp0>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\Src\processusUsine.c}.115.1" 0 0 1 "" 0 "" 0</Bp0>
         <Count>1</Count>
+=======
+        <Count>0</Count>
+>>>>>>> 4da58d318c6ea7a702745249341195bc18bc6aac
     </Breakpoints2>
     <Aliases>
         <Count>0</Count>

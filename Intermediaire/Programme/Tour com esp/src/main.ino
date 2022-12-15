@@ -15,7 +15,7 @@
 #include "xinterfaceEntree1.h"
 #include "xinterfaceT1.h"
 #include "interfacePass.h"
-#include "xprocessusClignotant.h"
+#include "xprocessusCom.h"
 #include <WiFi.h>
 #include <WiFiUdp.h>
 
@@ -39,7 +39,7 @@ void main_initialise(void);
 //Definitions de fonctions privees:
 void main_initialise(void)
 {
-  //piloteUDPStation_initialise();
+  piloteUDPStation_initialise();
   piloteUART2_initialise();
   piloteEntree1_initialise();
   piloteAnalogue0_initialise();
@@ -49,7 +49,7 @@ void main_initialise(void)
   serviceProtocole637_initialise();
   interfaceEntree1_initialise();
   interfaceT1_initialise();
-  processusClignotant_initialise();
+  processusCom_initialise();
 }
 
 void setup(void) 
@@ -64,15 +64,6 @@ void setup(void)
 
 void loop(void) 
 {
-  //Serial2.write('P');
-  unsigned char ucRead = 0x00;
-  
-  if (Serial2.available()) 
-{
-  interfacePassUartToUDP();
-}
-  
-  
     // Read valeur sur buffeur
   serviceTaskServer_gestion.execute();
   serviceBaseDeTemps_gereDansLoop();   

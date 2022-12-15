@@ -29,21 +29,38 @@ IPAddress IPCom6(192,168,4,88);
 //************************************************************************************
 void piloteUDPStation_initialise(void)
 {
+  static unsigned char Attempts = 0;
   Serial.begin(115200);
-// Connnection sur le réseau WIFI
-Serial.print("Connecting to ");
-Serial.println(ssid);
-WiFi.begin(ssid, password);
-while (WiFi.status() != WL_CONNECTED)
-{
-  delay(500);
-  Serial.print(".");
-}
-// Envoie sur le port série, l'adresse IP
-Serial.println("");
-Serial.println("WiFi connected.");
-Serial.println("IP address: ");
-Serial.println(WiFi.localIP());
+  // Connnection sur le réseau WIFI
+  Serial.print("Connecting to ");
+  Serial.println(ssid);
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED)
+  {
+    delay(500);
+    Serial.print(".");
+    Attempts++;
+
+    if(Attempts > 5)
+    {
+      Attempts = 0;
+      printf("\nRETRYING\n");
+      WiFi.reconnect();
+
+      /*
+      Serial.begin(115200);
+      // Connnection sur le réseau WIFI
+      Serial.print("Connecting to ");
+      Serial.println(ssid);
+      WiFi.begin(ssid, password);
+      */
+    }
+  }
+  // Envoie sur le port série, l'adresse IP
+  Serial.println("");
+  Serial.println("WiFi connected.");
+  Serial.println("IP address: ");
+  Serial.println(WiFi.localIP());
 //Connexion en mode station
 WiFi.mode(WIFI_MODE_STA);
  // démarre UDP
@@ -63,28 +80,29 @@ void receiveUDP(void)
     if (len >= 1)
     {
         ERUDP.read(readBuffer, 8);
-        Serial.println("Recus:");
+        printf("[TRUCK -> ESP]:");
          for(int i=0; i<8; ++i)
          {
-           ERUDP.write(readBuffer[i]);
-           printf("[%i]: %i",i,readBuffer[i]);
+           //ERUDP.write(readBuffer[i]);
+           printf("%i,",readBuffer[i]);
          }
-         Serial.println("\n");
+         printf("\n");
     }
 
 }
 //************************************************************************************
 void transUDP(unsigned char* transmitBuffer, char sizeOfBuffer)
 {
-  ERUDP.parsePacket();
+ // ERUDP.parsePacket();
+
   ERUDP.beginPacket(IPCom6, 11800);
-  Serial.println("[TX]");
-  for(int i=0; i<sizeOfBuffer; ++i)
+  printf("[ESP -> TRUCK]:");
+  for(int i=0; i<8; ++i)
   {
     ERUDP.write(transmitBuffer[i]);
-    //printf("[%i]: %i",i,transmitBuffer[i]);
+    printf("%i,",transmitBuffer[i]);
   }
-  //Serial.println("\n");
+  printf("\n");
   ERUDP.endPacket();
 
 }

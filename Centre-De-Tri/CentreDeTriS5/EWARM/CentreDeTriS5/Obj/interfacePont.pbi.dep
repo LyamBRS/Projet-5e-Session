@@ -54,7 +54,9 @@ interfacePont.pbi: \
   C:\Projet\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\EWARM/../Drivers/STM32F4xx_HAL_Driver/Inc\stm32f4xx_hal_uart.h \
   C:\IAR\ARM\8.50\arm\inc\c\string.h \
   C:\IAR\ARM\8.50\arm\inc\c\DLib_Product_string.h \
+  C:\Projet\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/serviceBaseDeTemps.h \
   C:\Projet\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/interfacePont.h \
+<<<<<<< HEAD
   C:\Projet\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/interfaceUsine.h
 =======
   C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\EWARM/../Drivers/CMSIS/Include/cmsis_version.h \
@@ -90,3 +92,7 @@ interfacePont.pbi: \
   C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/interfaceUsine.h \
   C:\Repos\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/interfaceT4.h
 >>>>>>> dee272e1a505a6efe1ca3ec339be59f1279cf86b
+=======
+  C:\Projet\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/interfaceUsine.h \
+  C:\Projet\Projet-5e-Session\Centre-De-Tri\CentreDeTriS5\Src/interfaceT4.h
+>>>>>>> 4da58d318c6ea7a702745249341195bc18bc6aac

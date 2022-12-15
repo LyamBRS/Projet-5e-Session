@@ -71,6 +71,7 @@ Mcu.Pin51=PD0
 Mcu.Pin52=PD1
 Mcu.Pin53=PD4
 Mcu.Pin54=PD5
+<<<<<<< HEAD
 Mcu.Pin55=PD6
 Mcu.Pin56=PD7
 Mcu.Pin57=PB3
@@ -87,6 +88,23 @@ Mcu.Pin7=PC0
 Mcu.Pin8=PC3
 Mcu.Pin9=PA0-WKUP
 Mcu.PinsNb=66
+=======
+Mcu.Pin55=PD7
+Mcu.Pin56=PB3
+Mcu.Pin57=PB4
+Mcu.Pin58=PB5
+Mcu.Pin59=PB6
+Mcu.Pin6=PH1-OSC_OUT
+Mcu.Pin60=PB9
+Mcu.Pin61=PE0
+Mcu.Pin62=PE1
+Mcu.Pin63=VP_SYS_VS_Systick
+Mcu.Pin64=VP_TIM6_VS_ClockSourceINT
+Mcu.Pin7=PC0
+Mcu.Pin8=PC3
+Mcu.Pin9=PA0-WKUP
+Mcu.PinsNb=65
+>>>>>>> 4da58d318c6ea7a702745249341195bc18bc6aac
 Mcu.ThirdPartyNb=0
 Mcu.UserConstants=
 Mcu.UserName=STM32F407VGTx
@@ -249,8 +267,11 @@ PC10.GPIO_PuPd=GPIO_NOPULL
 PC10.GPIO_Speed=GPIO_SPEED_FREQ_LOW
 PC10.Locked=true
 PC10.Signal=I2S3_CK
+<<<<<<< HEAD
 PC11.GPIOParameters=GPIO_Label
 PC11.GPIO_Label=SW_ASC
+=======
+>>>>>>> 4da58d318c6ea7a702745249341195bc18bc6aac
 PC11.Locked=true
 PC11.Signal=GPIO_Input
 PC12.GPIOParameters=GPIO_Speed,GPIO_PuPd,GPIO_Label,GPIO_Mode

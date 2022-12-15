@@ -54,6 +54,7 @@
 //#include "processusBoutonConnecte.h"
 #include "processusUsine.h"
 #include "interfaceUsine.h"
+#include "interfaceAscenseur.h"
 #include "piloteLcd.h"
 #include "interfaceLcd.h"
 #include "interfaceCAN1.h"
@@ -68,7 +69,10 @@
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
-/* USER CODE BEGIN PTD */
+#define JAUNE  STEP0_Pin
+#define BLANC  STEP1_Pin
+#define ORANGE STEP2_Pin
+#define ROUGE  STEP3_Pin
 
 /* USER CODE END PTD */
 
@@ -115,6 +119,7 @@ void main_initialiseApresLeHAL(void);
 void main_initialiseAvantLeHAL(void)
 {
   piloteTimer6Up_initialise();
+<<<<<<< HEAD
   serviceBaseDeTemps_initialise();
   // piloteCAN1_initialise(); //irait ici en temps normal... mais il y a un bug dans le cube
   // piloteUSART2_initialise();
@@ -133,6 +138,26 @@ void main_initialiseAvantLeHAL(void)
   interfaceColonne_initialise();  
   interfaceUsine_Initialise();  
   interfaceStepMoteur_initialise();
+=======
+//  serviceBaseDeTemps_initialise();
+//  // piloteCAN1_initialise(); //irait ici en temps normal... mais il y a un bug dans le cube
+//  // piloteUSART2_initialise();
+//  piloteIOB1_initialise();
+//  piloteIOT1_initialise();
+//  piloteIOT2_initialise();
+//  piloteIOT3_initialise();
+//  piloteIOT4_initialise();
+//  
+//  interfaceT1_initialise();
+//  interfaceT2_initialise();
+//  interfaceT3_initialise();
+//  interfaceT4_initialise();
+//  interfaceAscenseur_initialise();
+//  
+//  interfaceB1_initialise();
+//  interfaceColonne_initialise();  
+//  interfaceUsine_Initialise();  
+>>>>>>> 4da58d318c6ea7a702745249341195bc18bc6aac
 }
 
 void main_initialiseApresLeHAL(void)
@@ -200,6 +225,7 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+<<<<<<< HEAD
   interfaceColonne_allume(INTERFACECOLONNE_ROUGE);
   interfaceColonne_allume(INTERFACECOLONNE_VERT);
   interfaceColonne_allume(INTERFACECOLONNE_JAUNE);
@@ -216,6 +242,74 @@ int main(void)
   {
     piloteTimer6Up_permetLesInterruptions();
     
+=======
+//  interfaceColonne_allume(INTERFACECOLONNE_ROUGE);
+//  interfaceColonne_allume(INTERFACECOLONNE_VERT);
+//  interfaceColonne_allume(INTERFACECOLONNE_JAUNE);
+//
+//  
+//  interfaceLcd_Draw_Shape_RectF(0,0,127,10,1);
+//  interfaceLcd_Draw_Shape_RectF(0,43,128,2,1);
+//  interfaceLcd_Draw_Shape_RectF(0,27,128,2,1);
+//  vPutStringGLcd("Mode:               ", 4, 5);
+//  vPutStringGLcd("Etat:Attend Bouton  ", 2, 5);
+  unsigned char oldBruh = 0;
+  
+  while (1)
+  {
+    if(oldBruh == 1)
+    {
+    HAL_GPIO_WritePin(STEP0_GPIO_Port, STEP0_Pin, (GPIO_PinState)0);  //1
+    HAL_GPIO_WritePin(STEP1_GPIO_Port, STEP1_Pin, (GPIO_PinState)0); 
+    HAL_GPIO_WritePin(STEP2_GPIO_Port, STEP2_Pin, (GPIO_PinState)0); 
+    HAL_GPIO_WritePin(STEP3_GPIO_Port, STEP3_Pin, (GPIO_PinState)1); 
+    HAL_Delay(100);//descend
+    HAL_GPIO_WritePin(STEP0_GPIO_Port, STEP0_Pin, (GPIO_PinState)0);  //2
+    HAL_GPIO_WritePin(STEP1_GPIO_Port, STEP1_Pin, (GPIO_PinState)0); 
+    HAL_GPIO_WritePin(STEP2_GPIO_Port, STEP2_Pin, (GPIO_PinState)1); 
+    HAL_GPIO_WritePin(STEP3_GPIO_Port, STEP3_Pin, (GPIO_PinState)0); 
+    HAL_Delay(100);
+    HAL_GPIO_WritePin(STEP0_GPIO_Port, STEP0_Pin, (GPIO_PinState)0);  //3
+    HAL_GPIO_WritePin(STEP1_GPIO_Port, STEP1_Pin, (GPIO_PinState)1); 
+    HAL_GPIO_WritePin(STEP2_GPIO_Port, STEP2_Pin, (GPIO_PinState)0); 
+    HAL_GPIO_WritePin(STEP3_GPIO_Port, STEP3_Pin, (GPIO_PinState)0); 
+    HAL_Delay(100);
+    HAL_GPIO_WritePin(STEP0_GPIO_Port, STEP0_Pin, (GPIO_PinState)1);  //4
+    HAL_GPIO_WritePin(STEP1_GPIO_Port, STEP1_Pin, (GPIO_PinState)0); 
+    HAL_GPIO_WritePin(STEP2_GPIO_Port, STEP2_Pin, (GPIO_PinState)0); 
+    HAL_GPIO_WritePin(STEP3_GPIO_Port, STEP3_Pin, (GPIO_PinState)0); 
+    HAL_Delay(100);
+    }
+    else
+    {
+    HAL_GPIO_WritePin(STEP0_GPIO_Port, STEP0_Pin, (GPIO_PinState)1);  //1
+    HAL_GPIO_WritePin(STEP1_GPIO_Port, STEP1_Pin, (GPIO_PinState)0); 
+    HAL_GPIO_WritePin(STEP2_GPIO_Port, STEP2_Pin, (GPIO_PinState)0); 
+    HAL_GPIO_WritePin(STEP3_GPIO_Port, STEP3_Pin, (GPIO_PinState)0); 
+    HAL_Delay(100);
+    HAL_GPIO_WritePin(STEP0_GPIO_Port, STEP0_Pin, (GPIO_PinState)0);  //1
+    HAL_GPIO_WritePin(STEP1_GPIO_Port, STEP1_Pin, (GPIO_PinState)1); 
+    HAL_GPIO_WritePin(STEP2_GPIO_Port, STEP2_Pin, (GPIO_PinState)0); 
+    HAL_GPIO_WritePin(STEP3_GPIO_Port, STEP3_Pin, (GPIO_PinState)0); 
+    HAL_Delay(100);
+    HAL_GPIO_WritePin(STEP0_GPIO_Port, STEP0_Pin, (GPIO_PinState)0);  //1
+    HAL_GPIO_WritePin(STEP1_GPIO_Port, STEP1_Pin, (GPIO_PinState)0); 
+    HAL_GPIO_WritePin(STEP2_GPIO_Port, STEP2_Pin, (GPIO_PinState)1); 
+    HAL_GPIO_WritePin(STEP3_GPIO_Port, STEP3_Pin, (GPIO_PinState)0); 
+    HAL_Delay(100);
+    HAL_GPIO_WritePin(STEP0_GPIO_Port, STEP0_Pin, (GPIO_PinState)0);  //1
+    HAL_GPIO_WritePin(STEP1_GPIO_Port, STEP1_Pin, (GPIO_PinState)0); 
+    HAL_GPIO_WritePin(STEP2_GPIO_Port, STEP2_Pin, (GPIO_PinState)0); 
+    HAL_GPIO_WritePin(STEP3_GPIO_Port, STEP3_Pin, (GPIO_PinState)1); 
+    HAL_Delay(100);//descend
+    }    
+  }
+
+
+     
+     
+    /*
+>>>>>>> 4da58d318c6ea7a702745249341195bc18bc6aac
     //Test du step moteur
     /*
     piloteStepMoteur_EcritSortie(PILOTESTEPMOTEUR_STEP0, PILOTESTEPMOTEUR_ACTIVE);
@@ -223,6 +317,7 @@ int main(void)
     piloteStepMoteur_EcritSortie(PILOTESTEPMOTEUR_STEP2, PILOTESTEPMOTEUR_ACTIVE);
     piloteStepMoteur_EcritSortie(PILOTESTEPMOTEUR_STEP3, PILOTESTEPMOTEUR_ACTIVE);
     */
+<<<<<<< HEAD
     if (bFlagUpdateMessageEcran)
     {
       flagTexteFini = 0;
@@ -284,6 +379,92 @@ int main(void)
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
+=======
+//    if (bFlagUpdateMessageEcran)
+//    {
+//      flagTexteFini = 0;
+//      for (int i = 0; i <= 39; i++)
+//      {
+//        if (i <= 19)
+//        {
+//          if (!flagTexteFini)vPutCharGLcd(messageEcran[i], 6, i, 5);
+//          else vPutCharGLcd(' ', 6, i, 5);
+//        }
+//        else if (i <= (39))
+//        {
+//          if (!flagTexteFini)vPutCharGLcd(messageEcran[i], 7, i - 20, 5);
+//          else vPutCharGLcd(' ', 7, i - 20, 5);
+//        }
+//        if (messageEcran[i + 1] == '\0')flagTexteFini = 1;
+//      }
+//      bFlagUpdateMessageEcran = 0;
+//    }
+//
+//    if (bFlagUpdateEtatEcran)
+//    {
+//      flagTexteFini = 0;
+//      for (int i = 0; i+5 <= 19; i++)
+//      {       
+//        if (!flagTexteFini)vPutCharGLcd(etatEcran[i], 2, i+5, 5);
+//        else vPutCharGLcd(' ', 2, i+5, 5);
+//        if (etatEcran[i + 1] == '\0') flagTexteFini = 1;
+//      }
+//      bFlagUpdateEtatEcran = 0;
+//    }
+//    
+//    if (bFlagUpdateModeEcran)
+//    {
+//      flagTexteFini = 0;
+//      for (int i = 0; i+5 <= 19; i++)
+//      {       
+//        if (!flagTexteFini)vPutCharGLcd(modeEcran[i], 4, i+5, 5);
+//        else vPutCharGLcd(' ', 4, i+5, 5);
+//        if (modeEcran[i + 1] == '\0') flagTexteFini = 1;
+//      }
+//      bFlagUpdateModeEcran = 0;
+//    }
+//
+//    //Affichage de l'état du CAN
+//    if (!ModuleData.CantConnect) // Pas connecté
+//    {
+//      vPutStringGLcdINV("CAN Connected       ", 0, 5);
+//    }
+//    else
+//    {
+//      vPutStringGLcdINV("CAN Disconnected    ", 0, 5);
+//    }
+//    
+//     if (piloteCAN1_messageDisponible()) // Pas connecté
+//    {
+//      //vPutStringGLcdINV("Message disponible  ", 2, 5);
+//    }
+//    else
+//    {
+//      //vPutStringGLcdINV("No Message?         ", 2, 5);
+//    }
+//
+//    if(true)
+//    {
+//      unsigned int bruh = piloteCAN1_litLesErreurs();
+//      static unsigned char index = 0;
+//
+//      if(bruh != oldBruh)
+//      {
+//        interfaceLcd_Draw_Text_Integer(32,16+(6*index),bruh,3,1);
+//        index++;
+//        oldBruh = bruh;
+//      }  
+//    }
+//
+//    //interfaceLcd_Draw_Text_Integer(0,32,ModuleData.Mode,2,1);
+//
+//    /* USER CODE END WHILE */
+//
+//    /* USER CODE BEGIN 3 */
+//  }
+//  /* USER CODE END 3 */
+  
+>>>>>>> 4da58d318c6ea7a702745249341195bc18bc6aac
 }
 
 /**
@@ -512,8 +693,13 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 
+<<<<<<< HEAD
   /*Configure GPIO pins : TRIAC_IN_Pin SW_ASC_Pin */
   GPIO_InitStruct.Pin = TRIAC_IN_Pin|SW_ASC_Pin;
+=======
+  /*Configure GPIO pins : TRIAC_IN_Pin PC11 */
+  GPIO_InitStruct.Pin = TRIAC_IN_Pin|GPIO_PIN_11;
+>>>>>>> 4da58d318c6ea7a702745249341195bc18bc6aac
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);

@@ -20,6 +20,7 @@ rule browsedata
 
 
 #Build steps
+build interfaceAscenseur.pbi : index interfaceAscenseur.xcl
 build interfaceB1.pbi : index interfaceB1.xcl
 build interfaceCAN1.pbi : index interfaceCAN1.xcl
 build interfaceColonne.pbi : index interfaceColonne.xcl
@@ -74,6 +75,7 @@ build stm32f4xx_hal_tim.pbi : index stm32f4xx_hal_tim.xcl
 build stm32f4xx_hal_tim_ex.pbi : index stm32f4xx_hal_tim_ex.xcl
 build stm32f4xx_hal_uart.pbi : index stm32f4xx_hal_uart.xcl
 <<<<<<< HEAD
+<<<<<<< HEAD
 build CentreDeTriS5_part0.pbi : link interfaceB1.pbi interfaceCAN1.pbi interfaceColonne.pbi interfaceLcd.pbi interfacePont.pbi interfaceT1.pbi interfaceT2.pbi
 build CentreDeTriS5_part1.pbi : link interfaceT3.pbi interfaceT4.pbi interfaceUsine.pbi piloteCAN1.pbi piloteColonne.pbi piloteI2C.pbi piloteIOB1.pbi
 build CentreDeTriS5_part2.pbi : link piloteIOT1.pbi piloteIOT2.pbi piloteIOT3.pbi piloteIOT4.pbi piloteLcd.pbi piloteTimer6Up.pbi processusUsine.pbi
@@ -81,6 +83,15 @@ build CentreDeTriS5_part3.pbi : link serviceBaseDeTemps.pbi ServiceCommunication
 build CentreDeTriS5_part4.pbi : link system_stm32f4xx.pbi stm32f4xx_hal.pbi stm32f4xx_hal_can.pbi stm32f4xx_hal_cortex.pbi stm32f4xx_hal_dma.pbi stm32f4xx_hal_dma_ex.pbi stm32f4xx_hal_exti.pbi
 build CentreDeTriS5_part5.pbi : link stm32f4xx_hal_flash.pbi stm32f4xx_hal_flash_ex.pbi stm32f4xx_hal_flash_ramfunc.pbi stm32f4xx_hal_gpio.pbi stm32f4xx_hal_i2c.pbi stm32f4xx_hal_i2c_ex.pbi stm32f4xx_hal_pwr.pbi
 build CentreDeTriS5_part6.pbi : link stm32f4xx_hal_pwr_ex.pbi stm32f4xx_hal_rcc.pbi stm32f4xx_hal_rcc_ex.pbi stm32f4xx_hal_tim.pbi stm32f4xx_hal_tim_ex.pbi stm32f4xx_hal_uart.pbi
+=======
+build CentreDeTriS5_part0.pbi : link interfaceAscenseur.pbi interfaceB1.pbi interfaceCAN1.pbi interfaceColonne.pbi interfaceLcd.pbi interfacePont.pbi interfaceT1.pbi
+build CentreDeTriS5_part1.pbi : link interfaceT2.pbi interfaceT3.pbi interfaceT4.pbi interfaceUsine.pbi piloteCAN1.pbi piloteColonne.pbi piloteI2C.pbi
+build CentreDeTriS5_part2.pbi : link piloteIOB1.pbi piloteIOT1.pbi piloteIOT2.pbi piloteIOT3.pbi piloteIOT4.pbi piloteLcd.pbi piloteTimer6Up.pbi
+build CentreDeTriS5_part3.pbi : link processusUsine.pbi serviceBaseDeTemps.pbi ServiceCommunication.pbi BRS_Lcd_Font.pbi IO_BUS.pbi main.pbi stm32f4xx_hal_msp.pbi
+build CentreDeTriS5_part4.pbi : link stm32f4xx_it.pbi system_stm32f4xx.pbi stm32f4xx_hal.pbi stm32f4xx_hal_can.pbi stm32f4xx_hal_cortex.pbi stm32f4xx_hal_dma.pbi stm32f4xx_hal_dma_ex.pbi
+build CentreDeTriS5_part5.pbi : link stm32f4xx_hal_exti.pbi stm32f4xx_hal_flash.pbi stm32f4xx_hal_flash_ex.pbi stm32f4xx_hal_flash_ramfunc.pbi stm32f4xx_hal_gpio.pbi stm32f4xx_hal_i2c.pbi stm32f4xx_hal_i2c_ex.pbi
+build CentreDeTriS5_part6.pbi : link stm32f4xx_hal_pwr.pbi stm32f4xx_hal_pwr_ex.pbi stm32f4xx_hal_rcc.pbi stm32f4xx_hal_rcc_ex.pbi stm32f4xx_hal_tim.pbi stm32f4xx_hal_tim_ex.pbi stm32f4xx_hal_uart.pbi
+>>>>>>> 4da58d318c6ea7a702745249341195bc18bc6aac
 build CentreDeTriS5.pbd : link CentreDeTriS5_part0.pbi CentreDeTriS5_part1.pbi CentreDeTriS5_part2.pbi CentreDeTriS5_part3.pbi CentreDeTriS5_part4.pbi CentreDeTriS5_part5.pbi CentreDeTriS5_part6.pbi
 =======
 build CentreDeTriS5_part0.pbi : link interfaceB1.pbi interfaceCAN1.pbi interfaceColonne.pbi interfaceLcd.pbi interfacePont.pbi interfaceStepMoteur.pbi interfaceT1.pbi
