@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.5"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Recycling Center:  Fichier source de U:/Sessions/Session 5/Project/Projet_Fin_Session/Projet-5e-Session/Centre-De-Pesage/Programmes/PesageBaseDeTemps/main.h</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../resize.js"></script>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="../../BRS (S) Icon.ico"/></td>
+  <td id="projectalign">
+   <div id="projectname">Recycling Center<span id="projectnumber">&#160;1</span>
+   </div>
+   <div id="projectbrief">Centre de pesage</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.5 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('../../',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('d4/dbf/main_8h_source.html','../../'); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Chargement...</div>
+<div class="SRStatus" id="Searching">Recherche...</div>
+<div class="SRStatus" id="NoMatches">Aucune correspondance</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">main.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="../../d4/dbf/main_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#ifndef MAIN_H</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#define MAIN_H</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="comment">//HISTORIQUE:</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="comment">/* Historique du programme gèrer par git et publier sur github au lien suivant</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment">*</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment">*       https://github.com/LyamBRS/Projet-5e-Session.git </span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment">*/</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &lt;unistd.h&gt;</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#include &lt;fcntl.h&gt;</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">#include &lt;errno.h&gt;</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#include &lt;sys/ioctl.h&gt;</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">#include &lt;sys/wait.h&gt;</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">#include &lt;sys/types.h&gt;</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor">#include &lt;string.h&gt;</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment">//DEFINITIONS REQUISES PAR LE PROGRAMME:</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment">//Dependances materielles:</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment">//pas de dependances materielles</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">//Dependances logicielles:</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="../../d4/dbf/main_8h.html#a2934047fa0ef36d13344bc9d388ef628">   46</a></span><span class="preprocessor">#define PILOTESERIEUSB_BAUDRATE_AVEC_B_AU_DEBUT   B115200</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="../../d4/dbf/main_8h.html#a635570abe91526274a63f4ece8d6aa3d">   51</a></span><span class="preprocessor">#define PILOTEUSBBAL_BAUDRATE_AVEC_B_AU_DEBUT   B9600</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="comment">//*********** Definition pour le piloteCAN ***************//</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="comment">//pour utiliser vcan0 pour des tests locaux</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="comment">//#define PILOTECAN_INTERFACE_VIRTUELLE </span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="comment">//pour utiliser can0 connecté à un réseau CAN</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="preprocessor">#define PILOTECAN_INTERFACE_REELLE</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="comment">//pour utiliser can0 pour recevoir ce qu&#39;on transmet</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="comment">//#define PILOTECAN_INTERFACE_REELLE_AVEC_LOOPBACK</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="../../d4/dbf/main_8h.html#aef1985ba15edf2099bbdf7e606a00428">   68</a></span><span class="preprocessor">#define PILOTECAN_ADRESSE_EN_RECEPTION 0x00</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="../../d4/dbf/main_8h.html#a247085a3fedca62b7b4910d4823a1edc">   73</a></span><span class="preprocessor">#define PILOTECAN_MASQUE_EN_RECEPTION 0x00000U</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="../../d4/dbf/main_8h.html#acf8630e8417acfd849f302e05baed1b1">   79</a></span><span class="preprocessor">#define PILOIECAN_ADRESSE_EN_TRANSMITION 0x401</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="comment">//*********** Définition pour le processus detection ***************//</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno"><a class="line" href="../../d4/dbf/main_8h.html#ad2e380ef4ffe3c7fda4a9ee941a68ff6">   89</a></span><span class="preprocessor">#define PROCESSUSDETECTION_COMPTEPOURREPONSE_INIT 2000</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="../../d4/dbf/main_8h.html#a179474829886745c9dc4f956529a71a0">   95</a></span><span class="preprocessor">#define PROCESSUSDETECTION_COMPTEPOURREPONSE_CMD 300</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno"><a class="line" href="../../d4/dbf/main_8h.html#a7f55cccd90fde97bc9c1b75e160127c1">  102</a></span><span class="preprocessor">#define PROCESSUSDETECTION_HAUTEUR_DE_SCAN 90</span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno"><a class="line" href="../../d4/dbf/main_8h.html#ad96a89ddfc09cad32ce6caea5b2aa3fd">  108</a></span><span class="preprocessor">#define PROCESSUSDETECTION_REQUETE_ACTIVE 1</span></div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno"><a class="line" href="../../d4/dbf/main_8h.html#a864d40797a0fa75f807c50c12a536010">  113</a></span><span class="preprocessor">#define PROCESSUSDETECTION_REQUETE_TRAITE 0</span></div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno"><a class="line" href="../../d4/dbf/main_8h.html#a201361e6575847a6fe2cbe12f0b1fec5">  118</a></span><span class="preprocessor">#define PROCESSUSDETECTION_MODULE_EN_FONCTION 1</span></div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno"><a class="line" href="../../d4/dbf/main_8h.html#a044ad1171fd977c68cbd41736807a4f0">  123</a></span><span class="preprocessor">#define PROCESSUSDETECTION_MODULE_PAS_EN_FONCTION 0</span></div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno"><a class="line" href="../../d4/dbf/main_8h.html#a968ae2d9a7d4d9e03d25c187a3b0e309">  129</a></span><span class="preprocessor">#define PROCESSUSDETECTION_INFORMATION_CUBEDETECTED 1</span></div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno"><a class="line" href="../../d4/dbf/main_8h.html#afe50d7bcf3ddfca76f1c839f16862bc5">  135</a></span><span class="preprocessor">#define PROCESSUSDETECTION_INFORMATION_CUBENOTDETECTED 0</span></div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno"><a class="line" href="../../d4/dbf/main_8h.html#a6c881f57dd1c677526a6bf6e2eda81aa">  141</a></span><span class="preprocessor">#define PROCESSUSDETECTION_INFORMATION_CUBEUNUSED 2</span></div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span> </div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span><span class="comment">//*********** Définition pour le processus Pesage ***************//</span></div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span> </div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno"><a class="line" href="../../d4/dbf/main_8h.html#a812b4115f288d6c4873148a9e850acb9">  149</a></span><span class="preprocessor">#define PROCESSUSPESAGE_UNITE_OZ &#39;o&#39;</span></div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno"><a class="line" href="../../d4/dbf/main_8h.html#a71d0604fb65e32056a56a21363efe0fc">  153</a></span><span class="preprocessor">#define PROCESSUSPESAGE_UNITE_G &#39;g&#39;</span></div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span> </div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno"><a class="line" href="../../d4/dbf/main_8h.html#a3966eab1d2f73d128f8de00a35f818fd">  159</a></span><span class="preprocessor">#define PROCESSUSPESAGE_REQUETE_ACTIVE 1</span></div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno"><a class="line" href="../../d4/dbf/main_8h.html#ade35ac0d91236f258481b4877d76a704">  164</a></span><span class="preprocessor">#define PROCESSUSPESAGE_REQUETE_TRAITE 0</span></div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span> </div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno"><a class="line" href="../../d4/dbf/main_8h.html#a96a2f4bb2206193bc10d237cc597e72a">  170</a></span><span class="preprocessor">#define PROCESSUSPESAGE_MODULE_EN_FONCTION 1</span></div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno"><a class="line" href="../../d4/dbf/main_8h.html#a97da0021207a7d5900ae20f841febd5c">  175</a></span><span class="preprocessor">#define PROCESSUSPESAGE_MODULE_PAS_EN_FONCTION 0</span></div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span> </div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span> </div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span> </div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span><span class="comment">//*********** Définition pour la Base De Temps ***************//</span></div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span> </div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno"><a class="line" href="../../d4/dbf/main_8h.html#a8ee5db313fccaab14e5997045020f6d6">  186</a></span><span class="preprocessor">#define PILOTETIMER_PERIODE_EN_MS 5</span></div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno"><a class="line" href="../../d4/dbf/main_8h.html#af4e0eb7a8c917b269dbb0756b0884cd3">  190</a></span><span class="preprocessor">#define SERVICEBASEDETEMPS_PERIODE_EN_MS PILOTETIMER_PERIODE_EN_MS</span></div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno"><a class="line" href="../../d4/dbf/main_8h.html#a6276b0f7c474c476289248b4eecd63ee">  195</a></span><span class="preprocessor">#define SERVICEBASEDETEMPS_FREQUENCE_EN_HZ 200</span></div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span> </div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno"><a class="line" href="../../d4/dbf/main_8h.html#a9470a0f17392d89a537141466f6f0e98">  201</a></span><span class="preprocessor">#define SERVICEBASEDETEMPS_NOMBRE_DE_PHASES 5</span></div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno"><a class="line" href="../../d4/dbf/main_8h.html#a561647e7b1ac9d4527996d8330a20dfd">  206</a></span><span class="preprocessor">#define PROCESSUSDETECTION_PHASE 0</span></div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno"><a class="line" href="../../d4/dbf/main_8h.html#af51920a460d59f788cd07915830d929c">  211</a></span><span class="preprocessor">#define PROCESSUSPESAGE_PHASE 1</span></div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span> </div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span><span class="comment">// Service communication phase 2 et 3</span></div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span> </div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno"><a class="line" href="../../d4/dbf/main_8h.html#a400c4661c03ea3126260ccb4e61d977b">  219</a></span><span class="preprocessor">#define PROCESSUSGESTIONCOM_PHASE 4</span></div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno"><a class="line" href="../../d4/dbf/main_8h.html#ab6e7d92e268f07cf18c427fee9ff2e88">  223</a></span><span class="preprocessor">#define SERVICEBASEDETEMPS_NOMBRE_DE_PHASES_DANS_LOOP 1</span></div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span> </div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span> </div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span><span class="comment">//INFORMATION PUBLIQUE:</span></div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span><span class="comment">//Definitions publiques:</span></div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span><span class="comment">//pas de definitions publiques</span></div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span> </div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span><span class="comment">//Fonctions publiques:</span></div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span> </div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span><span class="keywordtype">int</span> <a class="code hl_function" href="../../d4/dbf/main_8h.html#a840291bc02cba5474a4cb46a9b9566fe">main</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span> </div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span><span class="comment">//Variables publiques:</span></div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span><span class="comment">//pas de variables publiques</span></div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span> </div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="amain_8h_html_a840291bc02cba5474a4cb46a9b9566fe"><div class="ttname"><a href="../../d4/dbf/main_8h.html#a840291bc02cba5474a4cb46a9b9566fe">main</a></div><div class="ttdeci">int main(void)</div><div class="ttdoc">Point d'entré du programme.</div><div class="ttdef"><b>Definition:</b> <a href="../../d0/d29/main_8c_source.html#l00084">main.c:84</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="../../dir_1960eb5326e5d9e33055aa33e524e3d7.html">Projet-5e-Session</a></li><li class="navelem"><a class="el" href="../../dir_b1633367299bd443e49a3c980b4293f8.html">Centre-De-Pesage</a></li><li class="navelem"><a class="el" href="../../dir_f5061e8fe82dd5444d729c5c23ca051e.html">Programmes</a></li><li class="navelem"><a class="el" href="../../dir_dfd97e55dfc615ca768635a03791caa2.html">PesageBaseDeTemps</a></li><li class="navelem"><a class="el" href="../../d4/dbf/main_8h.html">main.h</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5 </li>
+  </ul>
+</div>
+</body>
+</html>

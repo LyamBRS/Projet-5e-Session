@@ -1,0 +1,136 @@
+\hypertarget{interface_bras_8h}{}\doxysection{Référence du fichier U\+:/\+Sessions/\+Session 5/\+Project/\+Projet\+\_\+\+Fin\+\_\+\+Session/\+Projet-\/5e-\/\+Session/\+Centre-\/\+De-\/\+Pesage/\+Programmes/\+Pesage\+Base\+De\+Temps/interface\+Bras.h}
+\label{interface_bras_8h}\index{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Pesage/Programmes/PesageBaseDeTemps/interfaceBras.h@{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Pesage/Programmes/PesageBaseDeTemps/interfaceBras.h}}
+
+
+Interface qui utilise le \mbox{\hyperlink{pilote_serie_u_s_b_8h_source}{pilote\+Serie\+USB.\+h}} pour parler en Gcode avec le bras robot du projet de 5eme Session de TSO.  
+
+
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{interface_bras_8h_a3092c0781c016fb858f5d7afe042f1e2}{interface\+Bras\+\_\+ecrit\+Une\+Commande}} (char $\ast$Commande, unsigned char Longueur)
+\begin{DoxyCompactList}\small\item\em Fonciton de l\textquotesingle{}interface Bras qui permet de lui envoyé une commande avec le \mbox{\hyperlink{pilote_serie_u_s_b_8h_source}{pilote\+Serie\+USB.\+h}}. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{interface_bras_8h_a5902721c32f3f5bea70af4a6abf623fe}{interface\+Bras\+\_\+recoit\+Une\+Reponse}} (char $\ast$Reponse, unsigned int Longueur\+Maximale)
+\begin{DoxyCompactList}\small\item\em Fonciton de l\textquotesingle{}interface Bras qui permet lire une commande envoyé par le bras avec le \mbox{\hyperlink{pilote_serie_u_s_b_8h_source}{pilote\+Serie\+USB.\+h}}. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{interface_bras_8h_a2d5642ec4df5018562ea8bbd33cdb2e3}{interface\+Bras\+\_\+initialise}} (void)
+\begin{DoxyCompactList}\small\item\em Fonction qui initilise le pilote USB pour la communication avec le bras. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Interface qui utilise le \mbox{\hyperlink{pilote_serie_u_s_b_8h_source}{pilote\+Serie\+USB.\+h}} pour parler en Gcode avec le bras robot du projet de 5eme Session de TSO. 
+
+\begin{DoxyAuthor}{Auteur}
+Camille Fortin (\href{mailto:camfortin2022@gmail.com}{\texttt{ camfortin2022@gmail.\+com}})
+\end{DoxyAuthor}
+
+
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2022-\/12-\/15
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2022 
+\end{DoxyCopyright}
+
+
+Définition dans le fichier \mbox{\hyperlink{interface_bras_8h_source}{interface\+Bras.\+h}}.
+
+
+
+\doxysubsection{Documentation des fonctions}
+\mbox{\Hypertarget{interface_bras_8h_a3092c0781c016fb858f5d7afe042f1e2}\label{interface_bras_8h_a3092c0781c016fb858f5d7afe042f1e2}} 
+\index{interfaceBras.h@{interfaceBras.h}!interfaceBras\_ecritUneCommande@{interfaceBras\_ecritUneCommande}}
+\index{interfaceBras\_ecritUneCommande@{interfaceBras\_ecritUneCommande}!interfaceBras.h@{interfaceBras.h}}
+\doxysubsubsection{\texorpdfstring{interfaceBras\_ecritUneCommande()}{interfaceBras\_ecritUneCommande()}}
+{\footnotesize\ttfamily int interface\+Bras\+\_\+ecrit\+Une\+Commande (\begin{DoxyParamCaption}\item[{char $\ast$}]{Commande,  }\item[{unsigned char}]{Longueur }\end{DoxyParamCaption})}
+
+
+
+Fonciton de l\textquotesingle{}interface Bras qui permet de lui envoyé une commande avec le \mbox{\hyperlink{pilote_serie_u_s_b_8h_source}{pilote\+Serie\+USB.\+h}}. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em Commande} & Le tableau de charactère qui contient la commande a envoyé \\
+\hline
+{\em Longueur} & La longueur du tableau de charactère qui est passé en paramètre \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+int\+: pour savoir si il y a eu un erreur dans la transmition
+\end{DoxyReturn}
+
+
+
+\begin{DoxyParams}{Paramètres}
+{\em Commande} & Le tableau de charactère qui contient la commande a envoyé \\
+\hline
+{\em Longueur} & La longueur du tableau de charactère qui est passé en paramètre \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+int\+: pour savoir si il y a eu un erreur dans la transmition 
+\end{DoxyReturn}
+
+
+Définition à la ligne \mbox{\hyperlink{interface_bras_8c_source_l00033}{33}} du fichier \mbox{\hyperlink{interface_bras_8c_source}{interface\+Bras.\+c}}.
+
+\mbox{\Hypertarget{interface_bras_8h_a2d5642ec4df5018562ea8bbd33cdb2e3}\label{interface_bras_8h_a2d5642ec4df5018562ea8bbd33cdb2e3}} 
+\index{interfaceBras.h@{interfaceBras.h}!interfaceBras\_initialise@{interfaceBras\_initialise}}
+\index{interfaceBras\_initialise@{interfaceBras\_initialise}!interfaceBras.h@{interfaceBras.h}}
+\doxysubsubsection{\texorpdfstring{interfaceBras\_initialise()}{interfaceBras\_initialise()}}
+{\footnotesize\ttfamily int interface\+Bras\+\_\+initialise (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Fonction qui initilise le pilote USB pour la communication avec le bras. 
+
+\begin{DoxyReturn}{Renvoie}
+int
+\end{DoxyReturn}
+
+
+\begin{DoxyReturn}{Renvoie}
+int 
+\end{DoxyReturn}
+
+
+Définition à la ligne \mbox{\hyperlink{interface_bras_8c_source_l00062}{62}} du fichier \mbox{\hyperlink{interface_bras_8c_source}{interface\+Bras.\+c}}.
+
+\mbox{\Hypertarget{interface_bras_8h_a5902721c32f3f5bea70af4a6abf623fe}\label{interface_bras_8h_a5902721c32f3f5bea70af4a6abf623fe}} 
+\index{interfaceBras.h@{interfaceBras.h}!interfaceBras\_recoitUneReponse@{interfaceBras\_recoitUneReponse}}
+\index{interfaceBras\_recoitUneReponse@{interfaceBras\_recoitUneReponse}!interfaceBras.h@{interfaceBras.h}}
+\doxysubsubsection{\texorpdfstring{interfaceBras\_recoitUneReponse()}{interfaceBras\_recoitUneReponse()}}
+{\footnotesize\ttfamily int interface\+Bras\+\_\+recoit\+Une\+Reponse (\begin{DoxyParamCaption}\item[{char $\ast$}]{Reponse,  }\item[{unsigned int}]{Longueur\+Maximale }\end{DoxyParamCaption})}
+
+
+
+Fonciton de l\textquotesingle{}interface Bras qui permet lire une commande envoyé par le bras avec le \mbox{\hyperlink{pilote_serie_u_s_b_8h_source}{pilote\+Serie\+USB.\+h}}. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em Reponse} & Un pointeur sur le tableau de charactère ou va etre stocker la réponse \\
+\hline
+{\em Longueur\+Maximale} & Longeur maximal en characère de la réponse \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+int\+: pour savoir si il y a eu un erreur dans la réception
+\end{DoxyReturn}
+
+
+
+\begin{DoxyParams}{Paramètres}
+{\em Reponse} & Un pointeur sur le tableau de charactère ou va etre stocker la réponse \\
+\hline
+{\em Longueur\+Maximale} & Longeur maximal en characère de la réponse \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+int\+: pour savoir si il y a eu un erreur dans la réception 
+\end{DoxyReturn}
+
+
+Définition à la ligne \mbox{\hyperlink{interface_bras_8c_source_l00052}{52}} du fichier \mbox{\hyperlink{interface_bras_8c_source}{interface\+Bras.\+c}}.
+

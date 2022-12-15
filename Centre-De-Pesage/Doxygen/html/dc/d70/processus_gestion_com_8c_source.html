@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.5"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Recycling Center:  Fichier source de U:/Sessions/Session 5/Project/Projet_Fin_Session/Projet-5e-Session/Centre-De-Pesage/Programmes/PesageBaseDeTemps/processusGestionCom.c</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../resize.js"></script>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="../../BRS (S) Icon.ico"/></td>
+  <td id="projectalign">
+   <div id="projectname">Recycling Center<span id="projectnumber">&#160;1</span>
+   </div>
+   <div id="projectbrief">Centre de pesage</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.5 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('../../',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('dc/d70/processus_gestion_com_8c_source.html','../../'); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Chargement...</div>
+<div class="SRStatus" id="Searching">Recherche...</div>
+<div class="SRStatus" id="NoMatches">Aucune correspondance</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">processusGestionCom.c</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// Processus Gestion de Communication</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="../../d4/dbf/main_8h.html">main.h</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;interfaceBalance.h&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="../../d9/d7e/service_base_de_temps_8h.html">serviceBaseDeTemps.h</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;processusGestionCom.h&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="../../d6/d7b/processus_pesage_8h.html">processusPesage.h</a>&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;processusDetection.h&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="../../d2/dad/_service_communication_8h.html">ServiceCommunication.h</a>&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment">// Variable privé</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keywordtype">int</span> compteurCom;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keywordtype">void</span> processusGestionCom_Gere(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keywordtype">void</span> processusGestionCom_initialise(<span class="keywordtype">void</span>)</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>{</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    compteurCom = 0;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <a class="code hl_variable" href="../../d6/d7b/processus_pesage_8h.html#af6d31d94e022c5f2837934ca9e6919d1">processusPesage</a>.<a class="code hl_variable" href="../../d2/d07/struct_p_r_o_c_e_s_s_u_s_p_e_s_a_g_e.html#a2403ed7b8985bc0fc4c86e2b3f90ac8f">unite</a> = <a class="code hl_define" href="../../d4/dbf/main_8h.html#a71d0604fb65e32056a56a21363efe0fc">PROCESSUSPESAGE_UNITE_G</a>;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <a class="code hl_function" href="../../d4/dd2/_service_communication_8c.html#a05bc85fe1889a6e743299fdaeec706be">ModuleData_SetUnits</a>(<a class="code hl_variable" href="../../d4/dd2/_service_communication_8c.html#a3088ff4e4e4ea73770c72f41563fa4e3">Values</a>.<a class="code hl_variable" href="../../d3/dca/structst_values.html#a15072fb3e93313c314fb3bf4e4520d11">unit_Metric</a>);</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <a class="code hl_variable" href="../../d5/d66/service_base_de_temps_8c.html#a103583940036ccbb95b6b4c1f73b74d6">serviceBaseDeTemps_execute</a>[<a class="code hl_define" href="../../d4/dbf/main_8h.html#a400c4661c03ea3126260ccb4e61d977b">PROCESSUSGESTIONCOM_PHASE</a>] = processusGestionCom_Gere;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>}</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keywordtype">void</span> processusGestionCom_Gere(<span class="keywordtype">void</span>)</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>{</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keyword">static</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> old_CantConnect = 0xFF;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    compteurCom++;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordflow">if</span>(compteurCom &lt;= 800)  <span class="comment">// Petit délasi pour s&#39;assurer que la balamnce est en fonction</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    {</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    }</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordflow">if</span>(processusDetection.information == <a class="code hl_define" href="../../d4/dbf/main_8h.html#a968ae2d9a7d4d9e03d25c187a3b0e309">PROCESSUSDETECTION_INFORMATION_CUBEDETECTED</a>)</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    {</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <a class="code hl_function" href="../../d4/dd2/_service_communication_8c.html#a7d1be4aeb7f952accc194a89ba2708c4">ModuleData_SetDiscDetection</a>(<a class="code hl_variable" href="../../d4/dd2/_service_communication_8c.html#a3088ff4e4e4ea73770c72f41563fa4e3">Values</a>.<a class="code hl_variable" href="../../d3/dca/structst_values.html#a5fe6c555bd78aa96ffa8846f426bdd42">disc_Detected</a>);</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    }</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordflow">if</span>(processusDetection.information == <a class="code hl_define" href="../../d4/dbf/main_8h.html#a6c881f57dd1c677526a6bf6e2eda81aa">PROCESSUSDETECTION_INFORMATION_CUBEUNUSED</a>)</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    {</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <a class="code hl_function" href="../../d4/dd2/_service_communication_8c.html#a7d1be4aeb7f952accc194a89ba2708c4">ModuleData_SetDiscDetection</a>(<a class="code hl_variable" href="../../d4/dd2/_service_communication_8c.html#a3088ff4e4e4ea73770c72f41563fa4e3">Values</a>.<a class="code hl_variable" href="../../d3/dca/structst_values.html#a37349c153ae7048f9e8f1403b2abec82">disc_Lost</a>);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    }</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keywordflow">if</span>(<a class="code hl_variable" href="../../d4/dd2/_service_communication_8c.html#a1720969ebc798c3beb2569c6dd2fca70">ModuleData</a>.<a class="code hl_variable" href="../../df/d5f/structst_module_data.html#af5de40349f9ca7dc2943f965b110072d">CommandsReceived</a>.<a class="code hl_variable" href="../../d6/d05/structst_commands.html#a9c9d5a97f9ddaa9b9fec7c4cdc53e0a0">units_Metric</a> == <a class="code hl_define" href="../../d2/dad/_service_communication_8h.html#a90ca767ddb3c52ec640e7ed8a09dd5d8">RECEIVED</a>) <span class="comment">// Si on a recu un demande d&#39;unité métrique on met notre unité a métrique </span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    {</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <span class="comment">//printf(&quot;------------------------- METRIC\n&quot;);</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <span class="comment">//ModuleData_SetUnits(Values.unit_Metric); </span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <a class="code hl_variable" href="../../d4/dd2/_service_communication_8c.html#a1720969ebc798c3beb2569c6dd2fca70">ModuleData</a>.<a class="code hl_variable" href="../../df/d5f/structst_module_data.html#af5de40349f9ca7dc2943f965b110072d">CommandsReceived</a>.<a class="code hl_variable" href="../../d6/d05/structst_commands.html#a9c9d5a97f9ddaa9b9fec7c4cdc53e0a0">units_Metric</a> = <a class="code hl_define" href="../../d2/dad/_service_communication_8h.html#a7f6404e3e6de5aa345a9208af100d4f8">PARSED</a>;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="comment">//printf(&quot;On c&#39;est fait dire d&#39;être en Métric (g)\n&quot;);</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <span class="keywordflow">if</span>(<a class="code hl_variable" href="../../d6/d7b/processus_pesage_8h.html#af6d31d94e022c5f2837934ca9e6919d1">processusPesage</a>.<a class="code hl_variable" href="../../d2/d07/struct_p_r_o_c_e_s_s_u_s_p_e_s_a_g_e.html#a2403ed7b8985bc0fc4c86e2b3f90ac8f">unite</a> == <a class="code hl_define" href="../../d4/dbf/main_8h.html#a812b4115f288d6c4873148a9e850acb9">PROCESSUSPESAGE_UNITE_OZ</a>) <span class="comment">// Si on est en imérial on change les unite de la balance</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        {</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>            printf(<span class="stringliteral">&quot;On était en Métric donc on change pour Métric\n&quot;</span>);</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>            <a class="code hl_variable" href="../../d6/d7b/processus_pesage_8h.html#af6d31d94e022c5f2837934ca9e6919d1">processusPesage</a>.<a class="code hl_variable" href="../../d2/d07/struct_p_r_o_c_e_s_s_u_s_p_e_s_a_g_e.html#a2403ed7b8985bc0fc4c86e2b3f90ac8f">unite</a> = <a class="code hl_define" href="../../d4/dbf/main_8h.html#a71d0604fb65e32056a56a21363efe0fc">PROCESSUSPESAGE_UNITE_G</a>;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>            interfaceBalance_changeUnite();</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        }</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <a class="code hl_variable" href="../../d6/d7b/processus_pesage_8h.html#af6d31d94e022c5f2837934ca9e6919d1">processusPesage</a>.<a class="code hl_variable" href="../../d2/d07/struct_p_r_o_c_e_s_s_u_s_p_e_s_a_g_e.html#a2403ed7b8985bc0fc4c86e2b3f90ac8f">unite</a> = <a class="code hl_define" href="../../d4/dbf/main_8h.html#a71d0604fb65e32056a56a21363efe0fc">PROCESSUSPESAGE_UNITE_G</a>;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    }</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keywordflow">if</span>(<a class="code hl_variable" href="../../d4/dd2/_service_communication_8c.html#a1720969ebc798c3beb2569c6dd2fca70">ModuleData</a>.<a class="code hl_variable" href="../../df/d5f/structst_module_data.html#af5de40349f9ca7dc2943f965b110072d">CommandsReceived</a>.<a class="code hl_variable" href="../../d6/d05/structst_commands.html#a38b29d5c523c070c25055148666a52e4">units_Imperial</a> == <a class="code hl_define" href="../../d2/dad/_service_communication_8h.html#a90ca767ddb3c52ec640e7ed8a09dd5d8">RECEIVED</a>) <span class="comment">// Si on a recu une demande d&#39;unité Impérial on met notre unite a impérial</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    {</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <span class="comment">//printf(&quot;------------------------- IMPERIAL\n&quot;);</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <span class="comment">//ModuleData_SetUnits(Values.unit_Imperial);</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <a class="code hl_variable" href="../../d4/dd2/_service_communication_8c.html#a1720969ebc798c3beb2569c6dd2fca70">ModuleData</a>.<a class="code hl_variable" href="../../df/d5f/structst_module_data.html#af5de40349f9ca7dc2943f965b110072d">CommandsReceived</a>.<a class="code hl_variable" href="../../d6/d05/structst_commands.html#a38b29d5c523c070c25055148666a52e4">units_Imperial</a> = <a class="code hl_define" href="../../d2/dad/_service_communication_8h.html#a7f6404e3e6de5aa345a9208af100d4f8">PARSED</a>;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="comment">//printf(&quot;On c&#39;est fait dire d&#39;être en Impérial (Oz)\n&quot;);</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        <span class="keywordflow">if</span>(<a class="code hl_variable" href="../../d6/d7b/processus_pesage_8h.html#af6d31d94e022c5f2837934ca9e6919d1">processusPesage</a>.<a class="code hl_variable" href="../../d2/d07/struct_p_r_o_c_e_s_s_u_s_p_e_s_a_g_e.html#a2403ed7b8985bc0fc4c86e2b3f90ac8f">unite</a> == <a class="code hl_define" href="../../d4/dbf/main_8h.html#a71d0604fb65e32056a56a21363efe0fc">PROCESSUSPESAGE_UNITE_G</a>)  <span class="comment">// Si on est en métrique on change l&#39;unite de la balance</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        {</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>            printf(<span class="stringliteral">&quot;On était en Métric donc on change pour Impérial\n&quot;</span>);</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>            <a class="code hl_variable" href="../../d6/d7b/processus_pesage_8h.html#af6d31d94e022c5f2837934ca9e6919d1">processusPesage</a>.<a class="code hl_variable" href="../../d2/d07/struct_p_r_o_c_e_s_s_u_s_p_e_s_a_g_e.html#a2403ed7b8985bc0fc4c86e2b3f90ac8f">unite</a> = <a class="code hl_define" href="../../d4/dbf/main_8h.html#a812b4115f288d6c4873148a9e850acb9">PROCESSUSPESAGE_UNITE_OZ</a>;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>            interfaceBalance_changeUnite();</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        }</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        <a class="code hl_variable" href="../../d6/d7b/processus_pesage_8h.html#af6d31d94e022c5f2837934ca9e6919d1">processusPesage</a>.<a class="code hl_variable" href="../../d2/d07/struct_p_r_o_c_e_s_s_u_s_p_e_s_a_g_e.html#a2403ed7b8985bc0fc4c86e2b3f90ac8f">unite</a> = <a class="code hl_define" href="../../d4/dbf/main_8h.html#a812b4115f288d6c4873148a9e850acb9">PROCESSUSPESAGE_UNITE_OZ</a>;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    }</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="keywordflow">if</span>(<a class="code hl_variable" href="../../d6/d7b/processus_pesage_8h.html#af6d31d94e022c5f2837934ca9e6919d1">processusPesage</a>.<a class="code hl_variable" href="../../d2/d07/struct_p_r_o_c_e_s_s_u_s_p_e_s_a_g_e.html#a2403ed7b8985bc0fc4c86e2b3f90ac8f">unite</a> == <a class="code hl_define" href="../../d4/dbf/main_8h.html#a71d0604fb65e32056a56a21363efe0fc">PROCESSUSPESAGE_UNITE_G</a>)</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    {</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        <a class="code hl_function" href="../../d4/dd2/_service_communication_8c.html#a05bc85fe1889a6e743299fdaeec706be">ModuleData_SetUnits</a>(<a class="code hl_variable" href="../../d4/dd2/_service_communication_8c.html#a3088ff4e4e4ea73770c72f41563fa4e3">Values</a>.<a class="code hl_variable" href="../../d3/dca/structst_values.html#a15072fb3e93313c314fb3bf4e4520d11">unit_Metric</a>);</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    }</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    {</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <a class="code hl_function" href="../../d4/dd2/_service_communication_8c.html#a05bc85fe1889a6e743299fdaeec706be">ModuleData_SetUnits</a>(<a class="code hl_variable" href="../../d4/dd2/_service_communication_8c.html#a3088ff4e4e4ea73770c72f41563fa4e3">Values</a>.<a class="code hl_variable" href="../../d3/dca/structst_values.html#a5c6a1beda6cb7e8605eb44778eaa26de">unit_Imperial</a>);</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    }</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keywordflow">if</span>(<a class="code hl_variable" href="../../d4/dd2/_service_communication_8c.html#a1720969ebc798c3beb2569c6dd2fca70">ModuleData</a>.<a class="code hl_variable" href="../../df/d5f/structst_module_data.html#aae4af0033508661a7ab4e42c109b2098">CantConnect</a> != old_CantConnect)</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    {</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        <span class="comment">//Print connection successful</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        <span class="keywordflow">if</span>(<a class="code hl_variable" href="../../d4/dd2/_service_communication_8c.html#a1720969ebc798c3beb2569c6dd2fca70">ModuleData</a>.<a class="code hl_variable" href="../../df/d5f/structst_module_data.html#aae4af0033508661a7ab4e42c109b2098">CantConnect</a> == 0x00)</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        {</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>            printf(<span class="stringliteral">&quot;[CAN]: Connection CAN établie\n&quot;</span>);</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        }</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        {</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>            printf(<span class="stringliteral">&quot;[CAN]: Connection perdue\n&quot;</span>);            </div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        }</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        old_CantConnect = <a class="code hl_variable" href="../../d4/dd2/_service_communication_8c.html#a1720969ebc798c3beb2569c6dd2fca70">ModuleData</a>.<a class="code hl_variable" href="../../df/d5f/structst_module_data.html#aae4af0033508661a7ab4e42c109b2098">CantConnect</a>;</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    }</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>}</div>
+<div class="ttc" id="a_service_communication_8c_html_a05bc85fe1889a6e743299fdaeec706be"><div class="ttname"><a href="../../d4/dd2/_service_communication_8c.html#a05bc85fe1889a6e743299fdaeec706be">ModuleData_SetUnits</a></div><div class="ttdeci">void ModuleData_SetUnits(unsigned char UnitsToPutInValues)</div><div class="ttdoc">handles the units value sending for you to avoid sending 2 at the time and to automatically remove fr...</div><div class="ttdef"><b>Definition:</b> <a href="../../d4/dd2/_service_communication_8c_source.html#l00686">ServiceCommunication.c:686</a></div></div>
+<div class="ttc" id="a_service_communication_8c_html_a1720969ebc798c3beb2569c6dd2fca70"><div class="ttname"><a href="../../d4/dd2/_service_communication_8c.html#a1720969ebc798c3beb2569c6dd2fca70">ModuleData</a></div><div class="ttdeci">stModuleData ModuleData</div><div class="ttdoc">The actual structure used by the module. Used to get/set different values and commands....</div><div class="ttdef"><b>Definition:</b> <a href="../../d4/dd2/_service_communication_8c_source.html#l00054">ServiceCommunication.c:54</a></div></div>
+<div class="ttc" id="a_service_communication_8c_html_a3088ff4e4e4ea73770c72f41563fa4e3"><div class="ttname"><a href="../../d4/dd2/_service_communication_8c.html#a3088ff4e4e4ea73770c72f41563fa4e3">Values</a></div><div class="ttdeci">stValues Values</div><div class="ttdoc">Struct containing all the possible values that a module can transmit. This is a list of values and mu...</div><div class="ttdef"><b>Definition:</b> <a href="../../d4/dd2/_service_communication_8c_source.html#l00047">ServiceCommunication.c:47</a></div></div>
+<div class="ttc" id="a_service_communication_8c_html_a7d1be4aeb7f952accc194a89ba2708c4"><div class="ttname"><a href="../../d4/dd2/_service_communication_8c.html#a7d1be4aeb7f952accc194a89ba2708c4">ModuleData_SetDiscDetection</a></div><div class="ttdeci">void ModuleData_SetDiscDetection(unsigned char DetectionToPutInValues)</div><div class="ttdoc">handles the disc detection value sending for you to avoid sending 2 at the time and to automatically ...</div><div class="ttdef"><b>Definition:</b> <a href="../../d4/dd2/_service_communication_8c_source.html#l00866">ServiceCommunication.c:866</a></div></div>
+<div class="ttc" id="a_service_communication_8h_html"><div class="ttname"><a href="../../d2/dad/_service_communication_8h.html">ServiceCommunication.h</a></div><div class="ttdoc">This service is a c library which goal is to parse data sent or data received for a school project....</div></div>
+<div class="ttc" id="a_service_communication_8h_html_a7f6404e3e6de5aa345a9208af100d4f8"><div class="ttname"><a href="../../d2/dad/_service_communication_8h.html#a7f6404e3e6de5aa345a9208af100d4f8">PARSED</a></div><div class="ttdeci">#define PARSED</div><div class="ttdoc">Tells the program that you parsed the RECEIVED command in stModuleData.</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/dad/_service_communication_8h_source.html#l00121">ServiceCommunication.h:121</a></div></div>
+<div class="ttc" id="a_service_communication_8h_html_a90ca767ddb3c52ec640e7ed8a09dd5d8"><div class="ttname"><a href="../../d2/dad/_service_communication_8h.html#a90ca767ddb3c52ec640e7ed8a09dd5d8">RECEIVED</a></div><div class="ttdeci">#define RECEIVED</div><div class="ttdoc">Tells you that you received a request to execute this specific stCommands.</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/dad/_service_communication_8h_source.html#l00116">ServiceCommunication.h:116</a></div></div>
+<div class="ttc" id="amain_8h_html"><div class="ttname"><a href="../../d4/dbf/main_8h.html">main.h</a></div><div class="ttdoc">Le programme a pour but de contôler un bras robot et une balance avec un beaglebone Blue tout en comm...</div></div>
+<div class="ttc" id="amain_8h_html_a400c4661c03ea3126260ccb4e61d977b"><div class="ttname"><a href="../../d4/dbf/main_8h.html#a400c4661c03ea3126260ccb4e61d977b">PROCESSUSGESTIONCOM_PHASE</a></div><div class="ttdeci">#define PROCESSUSGESTIONCOM_PHASE</div><div class="ttdoc">Numéro de la phase du processus de Gestion de COM.</div><div class="ttdef"><b>Definition:</b> <a href="../../d4/dbf/main_8h_source.html#l00219">main.h:219</a></div></div>
+<div class="ttc" id="amain_8h_html_a6c881f57dd1c677526a6bf6e2eda81aa"><div class="ttname"><a href="../../d4/dbf/main_8h.html#a6c881f57dd1c677526a6bf6e2eda81aa">PROCESSUSDETECTION_INFORMATION_CUBEUNUSED</a></div><div class="ttdeci">#define PROCESSUSDETECTION_INFORMATION_CUBEUNUSED</div><div class="ttdoc">Définition utilisé pour avoir de l'information du processusDetection.h Utilisé par la structure proce...</div><div class="ttdef"><b>Definition:</b> <a href="../../d4/dbf/main_8h_source.html#l00141">main.h:141</a></div></div>
+<div class="ttc" id="amain_8h_html_a71d0604fb65e32056a56a21363efe0fc"><div class="ttname"><a href="../../d4/dbf/main_8h.html#a71d0604fb65e32056a56a21363efe0fc">PROCESSUSPESAGE_UNITE_G</a></div><div class="ttdeci">#define PROCESSUSPESAGE_UNITE_G</div><div class="ttdoc">Définition pour savoir si on est en gramme ou en Oz.</div><div class="ttdef"><b>Definition:</b> <a href="../../d4/dbf/main_8h_source.html#l00153">main.h:153</a></div></div>
+<div class="ttc" id="amain_8h_html_a812b4115f288d6c4873148a9e850acb9"><div class="ttname"><a href="../../d4/dbf/main_8h.html#a812b4115f288d6c4873148a9e850acb9">PROCESSUSPESAGE_UNITE_OZ</a></div><div class="ttdeci">#define PROCESSUSPESAGE_UNITE_OZ</div><div class="ttdoc">Définition pour savoir si on est en gramme ou en Oz.</div><div class="ttdef"><b>Definition:</b> <a href="../../d4/dbf/main_8h_source.html#l00149">main.h:149</a></div></div>
+<div class="ttc" id="amain_8h_html_a968ae2d9a7d4d9e03d25c187a3b0e309"><div class="ttname"><a href="../../d4/dbf/main_8h.html#a968ae2d9a7d4d9e03d25c187a3b0e309">PROCESSUSDETECTION_INFORMATION_CUBEDETECTED</a></div><div class="ttdeci">#define PROCESSUSDETECTION_INFORMATION_CUBEDETECTED</div><div class="ttdoc">Définition utilisé pour avoir de l'information du processusDetection.h Utilisé par la structure proce...</div><div class="ttdef"><b>Definition:</b> <a href="../../d4/dbf/main_8h_source.html#l00129">main.h:129</a></div></div>
+<div class="ttc" id="aprocessus_pesage_8h_html"><div class="ttname"><a href="../../d6/d7b/processus_pesage_8h.html">processusPesage.h</a></div><div class="ttdoc">Le processus Pesage gêre l'entièreté des tâche a effectué avec le centre de pesage....</div></div>
+<div class="ttc" id="aprocessus_pesage_8h_html_af6d31d94e022c5f2837934ca9e6919d1"><div class="ttname"><a href="../../d6/d7b/processus_pesage_8h.html#af6d31d94e022c5f2837934ca9e6919d1">processusPesage</a></div><div class="ttdeci">PROCESSUSPESAGE processusPesage</div><div class="ttdoc">Structure publique permettant de gere l'état du module ainsi que ses requêtes.</div><div class="ttdef"><b>Definition:</b> <a href="../../d6/d7b/processus_pesage_8h_source.html#l00048">processusPesage.h:48</a></div></div>
+<div class="ttc" id="aservice_base_de_temps_8c_html_a103583940036ccbb95b6b4c1f73b74d6"><div class="ttname"><a href="../../d5/d66/service_base_de_temps_8c.html#a103583940036ccbb95b6b4c1f73b74d6">serviceBaseDeTemps_execute</a></div><div class="ttdeci">void(* serviceBaseDeTemps_execute[SERVICEBASEDETEMPS_NOMBRE_DE_PHASES])(void)</div><div class="ttdoc">Tableau de pointeur de fonction qui peuvent être assigné par leur processus respectif....</div><div class="ttdef"><b>Definition:</b> <a href="../../d5/d66/service_base_de_temps_8c_source.html#l00054">serviceBaseDeTemps.c:54</a></div></div>
+<div class="ttc" id="aservice_base_de_temps_8h_html"><div class="ttname"><a href="../../d9/d7e/service_base_de_temps_8h.html">serviceBaseDeTemps.h</a></div><div class="ttdoc">pour mettre en place un service d'appels periodiques de fonctions pointees par un tableau de pointeur...</div></div>
+<div class="ttc" id="astruct_p_r_o_c_e_s_s_u_s_p_e_s_a_g_e_html_a2403ed7b8985bc0fc4c86e2b3f90ac8f"><div class="ttname"><a href="../../d2/d07/struct_p_r_o_c_e_s_s_u_s_p_e_s_a_g_e.html#a2403ed7b8985bc0fc4c86e2b3f90ac8f">PROCESSUSPESAGE::unite</a></div><div class="ttdeci">unsigned char unite</div><div class="ttdoc">Permet de savoir si on est en Métric ou en Impérial.</div><div class="ttdef"><b>Definition:</b> <a href="../../d6/d7b/processus_pesage_8h_source.html#l00041">processusPesage.h:41</a></div></div>
+<div class="ttc" id="astructst_commands_html_a38b29d5c523c070c25055148666a52e4"><div class="ttname"><a href="../../d6/d05/structst_commands.html#a38b29d5c523c070c25055148666a52e4">stCommands::units_Imperial</a></div><div class="ttdeci">unsigned char units_Imperial</div><div class="ttdoc">Commands which makes a supportive module switch to outputting values in imperial. Full detailed descr...</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/dad/_service_communication_8h_source.html#l00666">ServiceCommunication.h:666</a></div></div>
+<div class="ttc" id="astructst_commands_html_a9c9d5a97f9ddaa9b9fec7c4cdc53e0a0"><div class="ttname"><a href="../../d6/d05/structst_commands.html#a9c9d5a97f9ddaa9b9fec7c4cdc53e0a0">stCommands::units_Metric</a></div><div class="ttdeci">unsigned char units_Metric</div><div class="ttdoc">Commands which makes a supportive module switch to outputting values in metric. Full detailed descrip...</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/dad/_service_communication_8h_source.html#l00661">ServiceCommunication.h:661</a></div></div>
+<div class="ttc" id="astructst_module_data_html_aae4af0033508661a7ab4e42c109b2098"><div class="ttname"><a href="../../df/d5f/structst_module_data.html#aae4af0033508661a7ab4e42c109b2098">stModuleData::CantConnect</a></div><div class="ttdeci">unsigned char CantConnect</div><div class="ttdoc">if this is set to anything else than 0x00 it means that the module could not establish a connection w...</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/dad/_service_communication_8h_source.html#l00812">ServiceCommunication.h:812</a></div></div>
+<div class="ttc" id="astructst_module_data_html_af5de40349f9ca7dc2943f965b110072d"><div class="ttname"><a href="../../df/d5f/structst_module_data.html#af5de40349f9ca7dc2943f965b110072d">stModuleData::CommandsReceived</a></div><div class="ttdeci">stCommands CommandsReceived</div><div class="ttdoc">Structure of all the commands a module can receive. A command set to RECEIVED means a module communic...</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/dad/_service_communication_8h_source.html#l00774">ServiceCommunication.h:774</a></div></div>
+<div class="ttc" id="astructst_values_html_a15072fb3e93313c314fb3bf4e4520d11"><div class="ttname"><a href="../../d3/dca/structst_values.html#a15072fb3e93313c314fb3bf4e4520d11">stValues::unit_Metric</a></div><div class="ttdeci">unsigned char unit_Metric</div><div class="ttdoc">Value outputed on the bus to indicate that the module is currently using metric units for it's values...</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/dad/_service_communication_8h_source.html#l00714">ServiceCommunication.h:714</a></div></div>
+<div class="ttc" id="astructst_values_html_a37349c153ae7048f9e8f1403b2abec82"><div class="ttname"><a href="../../d3/dca/structst_values.html#a37349c153ae7048f9e8f1403b2abec82">stValues::disc_Lost</a></div><div class="ttdeci">unsigned char disc_Lost</div><div class="ttdoc">Value outputed on the bus to indicate the loss of a previously detected disc. Full detailed descripti...</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/dad/_service_communication_8h_source.html#l00704">ServiceCommunication.h:704</a></div></div>
+<div class="ttc" id="astructst_values_html_a5c6a1beda6cb7e8605eb44778eaa26de"><div class="ttname"><a href="../../d3/dca/structst_values.html#a5c6a1beda6cb7e8605eb44778eaa26de">stValues::unit_Imperial</a></div><div class="ttdeci">unsigned char unit_Imperial</div><div class="ttdoc">Value outputed on the bus to indicate that the module is currently using imperial units for it's valu...</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/dad/_service_communication_8h_source.html#l00719">ServiceCommunication.h:719</a></div></div>
+<div class="ttc" id="astructst_values_html_a5fe6c555bd78aa96ffa8846f426bdd42"><div class="ttname"><a href="../../d3/dca/structst_values.html#a5fe6c555bd78aa96ffa8846f426bdd42">stValues::disc_Detected</a></div><div class="ttdeci">unsigned char disc_Detected</div><div class="ttdoc">Value outputed on the bus to indicate the detection of a disc by the module. Full detailed descriptio...</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/dad/_service_communication_8h_source.html#l00699">ServiceCommunication.h:699</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="../../dir_1960eb5326e5d9e33055aa33e524e3d7.html">Projet-5e-Session</a></li><li class="navelem"><a class="el" href="../../dir_b1633367299bd443e49a3c980b4293f8.html">Centre-De-Pesage</a></li><li class="navelem"><a class="el" href="../../dir_f5061e8fe82dd5444d729c5c23ca051e.html">Programmes</a></li><li class="navelem"><a class="el" href="../../dir_dfd97e55dfc615ca768635a03791caa2.html">PesageBaseDeTemps</a></li><li class="navelem"><b>processusGestionCom.c</b></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,307 @@
+\hypertarget{processus_pesage_8c}{}\doxysection{Référence du fichier U\+:/\+Sessions/\+Session 5/\+Project/\+Projet\+\_\+\+Fin\+\_\+\+Session/\+Projet-\/5e-\/\+Session/\+Centre-\/\+De-\/\+Pesage/\+Programmes/\+Pesage\+Base\+De\+Temps/processus\+Pesage.c}
+\label{processus_pesage_8c}\index{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Pesage/Programmes/PesageBaseDeTemps/processusPesage.c@{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Pesage/Programmes/PesageBaseDeTemps/processusPesage.c}}
+
+
+Le processus Pesage gêre l\textquotesingle{}entièreté des tâche a effectué avec le centre de pesage. Il est une phase du service base de temps qui est appeler à chaques périodes de la base de temps. Il correspond au diagramme d\textquotesingle{}état.  
+
+
+{\ttfamily \#include \char`\"{}main.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}interface\+Bras.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}interface\+Balance.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}service\+Base\+De\+Temps.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Service\+Communication.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}processus\+Pesage.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}processus\+Detection.\+h\char`\"{}}\newline
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{processus_pesage_8c_ab5e8d684093c630bd88df0961be9e93b}{processus\+Pesage\+\_\+attend\+Une\+Requete}} (void)
+\begin{DoxyCompactList}\small\item\em État du processus qui attend une requête de pesé. Il attend d\textquotesingle{}avoir recu les bons états du service. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{processus_pesage_8c_a454fb586575c0b3c54a6040f5d3588af}{processus\+Pesage\+\_\+depose}} (void)
+\begin{DoxyCompactList}\small\item\em État du processus qui démarre la détection et qui repose la rondelle sur la balance. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{processus_pesage_8c_afe02140b7ab309c80f0ccb391ec8047b}{processus\+Pesage\+\_\+attend\+Fin\+Depot}} (void)
+\begin{DoxyCompactList}\small\item\em État du processus qui attend que le bras soit à la balance avant de de relaché la rondelle. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{processus_pesage_8c_ac36fae041e74d2e0f22e4dda60c8fdc7}{processus\+Pesage\+\_\+prepare\+Mesure\+Balance}} (void)
+\begin{DoxyCompactList}\small\item\em État du processus qui attend que le bras aille relaché la rondelle avant de préparer la balance pour une lecture. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{processus_pesage_8c_a481818a56ab5c6c58298706c920f2cc8}{processus\+Pesage\+\_\+attend\+Lecture}} (void)
+\begin{DoxyCompactList}\small\item\em État du processus qui attend la fin de la lecture de la balance. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{processus_pesage_8c_a6a437f083fb6d5962439fc332d8c5628}{processus\+Pesage\+\_\+reprise\+Rondelle}} (void)
+\begin{DoxyCompactList}\small\item\em État du processus qui attend que le bras redescendre prendre la rondelle ~\newline
+ \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{processus_pesage_8c_a0ae67e1c73c087d9e115c70450f8cc02}{processus\+Pesage\+\_\+reprise\+Rondelle\+Part2}} (void)
+\begin{DoxyCompactList}\small\item\em État du processus qui attend que le bras aille repris la rondelle avec la ventouse. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{processus_pesage_8c_a959e149b704f987547b96ede3fdaa3bd}{processus\+Pesage\+\_\+dispose\+Rondelle}} (void)
+\begin{DoxyCompactList}\small\item\em État du processus qui attend que le bras soit a la position de dépot des rondelles. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{processus_pesage_8c_ab84d7f374391edbc7fb83f0b8fbf9451}{processus\+Pesage\+\_\+gere}} (void)
+\begin{DoxyCompactList}\small\item\em État du processus qui attend que le bras soit en position avant d\textquotesingle{}envoyé la commande de laché la rondelle. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{processus_pesage_8c_aa2ef06a4ed87977f7daade97fd9795f7}{processus\+Pesage\+\_\+retour\+Etat\+Init}} (void)
+\begin{DoxyCompactList}\small\item\em État qui attend que la rondelle soit au sol avant de dire au bras de retourner a son état d\textquotesingle{}initialisation et d\textquotesingle{}attendre une requête. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{processus_pesage_8c_ad06ebf41783d7ab6f4f022e76593997e}{processus\+Pesage\+\_\+initialise}} (void)
+\begin{DoxyCompactList}\small\item\em Fonction publique d\textquotesingle{}initialisation du Processus Pesage. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{processus_pesage_8c_ade857a99d48bcb8cfaa57c4cd8d7d2e8}{compteur}} = 0
+\begin{DoxyCompactList}\small\item\em Compteur pour les délais dans le state Machine. \end{DoxyCompactList}\item 
+char \mbox{\hyperlink{processus_pesage_8c_ac7e472330027293d561a16a78ce725a4}{reponse}} \mbox{[}64\mbox{]}
+\begin{DoxyCompactList}\small\item\em Tableau de caracère pour mettre la réponse recu par le bras en USB. \end{DoxyCompactList}\item 
+char \mbox{\hyperlink{processus_pesage_8c_a36cb4363be16f5a772eaa5c19a9fa7ad}{commande}} \mbox{[}64\mbox{]}
+\begin{DoxyCompactList}\small\item\em Tableau de caracère pour mettre la commende a envoyé au bras en USB. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{processus_pesage_8c_ad660c90589efbb535c7d55dc032c1b09}{x2}}
+\begin{DoxyCompactList}\small\item\em Variable pour la coordonné de la position du bras. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{processus_pesage_8c_ab01055e87d61c94f71e59f1116867f60}{y2}}
+\begin{DoxyCompactList}\small\item\em Variable pour la coordonné de la position du bras. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Le processus Pesage gêre l\textquotesingle{}entièreté des tâche a effectué avec le centre de pesage. Il est une phase du service base de temps qui est appeler à chaques périodes de la base de temps. Il correspond au diagramme d\textquotesingle{}état. 
+
+\begin{DoxyAuthor}{Auteur}
+Cam\+Fo Camille Fortin (\href{mailto:camfortin2022@gmail.com}{\texttt{ camfortin2022@gmail.\+com}})
+\end{DoxyAuthor}
+
+
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2022-\/12-\/15
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2022 
+\end{DoxyCopyright}
+
+
+Définition dans le fichier \mbox{\hyperlink{processus_pesage_8c_source}{processus\+Pesage.\+c}}.
+
+
+
+\doxysubsection{Documentation des fonctions}
+\mbox{\Hypertarget{processus_pesage_8c_afe02140b7ab309c80f0ccb391ec8047b}\label{processus_pesage_8c_afe02140b7ab309c80f0ccb391ec8047b}} 
+\index{processusPesage.c@{processusPesage.c}!processusPesage\_attendFinDepot@{processusPesage\_attendFinDepot}}
+\index{processusPesage\_attendFinDepot@{processusPesage\_attendFinDepot}!processusPesage.c@{processusPesage.c}}
+\doxysubsubsection{\texorpdfstring{processusPesage\_attendFinDepot()}{processusPesage\_attendFinDepot()}}
+{\footnotesize\ttfamily void processus\+Pesage\+\_\+attend\+Fin\+Depot (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+État du processus qui attend que le bras soit à la balance avant de de relaché la rondelle. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_pesage_8c_source_l00236}{236}} du fichier \mbox{\hyperlink{processus_pesage_8c_source}{processus\+Pesage.\+c}}.
+
+\mbox{\Hypertarget{processus_pesage_8c_a481818a56ab5c6c58298706c920f2cc8}\label{processus_pesage_8c_a481818a56ab5c6c58298706c920f2cc8}} 
+\index{processusPesage.c@{processusPesage.c}!processusPesage\_attendLecture@{processusPesage\_attendLecture}}
+\index{processusPesage\_attendLecture@{processusPesage\_attendLecture}!processusPesage.c@{processusPesage.c}}
+\doxysubsubsection{\texorpdfstring{processusPesage\_attendLecture()}{processusPesage\_attendLecture()}}
+{\footnotesize\ttfamily void processus\+Pesage\+\_\+attend\+Lecture (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+État du processus qui attend la fin de la lecture de la balance. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_pesage_8c_source_l00306}{306}} du fichier \mbox{\hyperlink{processus_pesage_8c_source}{processus\+Pesage.\+c}}.
+
+\mbox{\Hypertarget{processus_pesage_8c_ab5e8d684093c630bd88df0961be9e93b}\label{processus_pesage_8c_ab5e8d684093c630bd88df0961be9e93b}} 
+\index{processusPesage.c@{processusPesage.c}!processusPesage\_attendUneRequete@{processusPesage\_attendUneRequete}}
+\index{processusPesage\_attendUneRequete@{processusPesage\_attendUneRequete}!processusPesage.c@{processusPesage.c}}
+\doxysubsubsection{\texorpdfstring{processusPesage\_attendUneRequete()}{processusPesage\_attendUneRequete()}}
+{\footnotesize\ttfamily void processus\+Pesage\+\_\+attend\+Une\+Requete (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+État du processus qui attend une requête de pesé. Il attend d\textquotesingle{}avoir recu les bons états du service. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_pesage_8c_source_l00111}{111}} du fichier \mbox{\hyperlink{processus_pesage_8c_source}{processus\+Pesage.\+c}}.
+
+\mbox{\Hypertarget{processus_pesage_8c_a454fb586575c0b3c54a6040f5d3588af}\label{processus_pesage_8c_a454fb586575c0b3c54a6040f5d3588af}} 
+\index{processusPesage.c@{processusPesage.c}!processusPesage\_depose@{processusPesage\_depose}}
+\index{processusPesage\_depose@{processusPesage\_depose}!processusPesage.c@{processusPesage.c}}
+\doxysubsubsection{\texorpdfstring{processusPesage\_depose()}{processusPesage\_depose()}}
+{\footnotesize\ttfamily void processus\+Pesage\+\_\+depose (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+État du processus qui démarre la détection et qui repose la rondelle sur la balance. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_pesage_8c_source_l00191}{191}} du fichier \mbox{\hyperlink{processus_pesage_8c_source}{processus\+Pesage.\+c}}.
+
+\mbox{\Hypertarget{processus_pesage_8c_a959e149b704f987547b96ede3fdaa3bd}\label{processus_pesage_8c_a959e149b704f987547b96ede3fdaa3bd}} 
+\index{processusPesage.c@{processusPesage.c}!processusPesage\_disposeRondelle@{processusPesage\_disposeRondelle}}
+\index{processusPesage\_disposeRondelle@{processusPesage\_disposeRondelle}!processusPesage.c@{processusPesage.c}}
+\doxysubsubsection{\texorpdfstring{processusPesage\_disposeRondelle()}{processusPesage\_disposeRondelle()}}
+{\footnotesize\ttfamily void processus\+Pesage\+\_\+dispose\+Rondelle (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+État du processus qui attend que le bras soit a la position de dépot des rondelles. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_pesage_8c_source_l00454}{454}} du fichier \mbox{\hyperlink{processus_pesage_8c_source}{processus\+Pesage.\+c}}.
+
+\mbox{\Hypertarget{processus_pesage_8c_ab84d7f374391edbc7fb83f0b8fbf9451}\label{processus_pesage_8c_ab84d7f374391edbc7fb83f0b8fbf9451}} 
+\index{processusPesage.c@{processusPesage.c}!processusPesage\_gere@{processusPesage\_gere}}
+\index{processusPesage\_gere@{processusPesage\_gere}!processusPesage.c@{processusPesage.c}}
+\doxysubsubsection{\texorpdfstring{processusPesage\_gere()}{processusPesage\_gere()}}
+{\footnotesize\ttfamily void processus\+Pesage\+\_\+gere (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+État du processus qui attend que le bras soit en position avant d\textquotesingle{}envoyé la commande de laché la rondelle. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_pesage_8c_source_l00484}{484}} du fichier \mbox{\hyperlink{processus_pesage_8c_source}{processus\+Pesage.\+c}}.
+
+\mbox{\Hypertarget{processus_pesage_8c_ad06ebf41783d7ab6f4f022e76593997e}\label{processus_pesage_8c_ad06ebf41783d7ab6f4f022e76593997e}} 
+\index{processusPesage.c@{processusPesage.c}!processusPesage\_initialise@{processusPesage\_initialise}}
+\index{processusPesage\_initialise@{processusPesage\_initialise}!processusPesage.c@{processusPesage.c}}
+\doxysubsubsection{\texorpdfstring{processusPesage\_initialise()}{processusPesage\_initialise()}}
+{\footnotesize\ttfamily void processus\+Pesage\+\_\+initialise (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Fonction publique d\textquotesingle{}initialisation du Processus Pesage. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_pesage_8c_source_l00100}{100}} du fichier \mbox{\hyperlink{processus_pesage_8c_source}{processus\+Pesage.\+c}}.
+
+\mbox{\Hypertarget{processus_pesage_8c_ac36fae041e74d2e0f22e4dda60c8fdc7}\label{processus_pesage_8c_ac36fae041e74d2e0f22e4dda60c8fdc7}} 
+\index{processusPesage.c@{processusPesage.c}!processusPesage\_prepareMesureBalance@{processusPesage\_prepareMesureBalance}}
+\index{processusPesage\_prepareMesureBalance@{processusPesage\_prepareMesureBalance}!processusPesage.c@{processusPesage.c}}
+\doxysubsubsection{\texorpdfstring{processusPesage\_prepareMesureBalance()}{processusPesage\_prepareMesureBalance()}}
+{\footnotesize\ttfamily void processus\+Pesage\+\_\+prepare\+Mesure\+Balance (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+État du processus qui attend que le bras aille relaché la rondelle avant de préparer la balance pour une lecture. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_pesage_8c_source_l00275}{275}} du fichier \mbox{\hyperlink{processus_pesage_8c_source}{processus\+Pesage.\+c}}.
+
+\mbox{\Hypertarget{processus_pesage_8c_a6a437f083fb6d5962439fc332d8c5628}\label{processus_pesage_8c_a6a437f083fb6d5962439fc332d8c5628}} 
+\index{processusPesage.c@{processusPesage.c}!processusPesage\_repriseRondelle@{processusPesage\_repriseRondelle}}
+\index{processusPesage\_repriseRondelle@{processusPesage\_repriseRondelle}!processusPesage.c@{processusPesage.c}}
+\doxysubsubsection{\texorpdfstring{processusPesage\_repriseRondelle()}{processusPesage\_repriseRondelle()}}
+{\footnotesize\ttfamily void processus\+Pesage\+\_\+reprise\+Rondelle (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+État du processus qui attend que le bras redescendre prendre la rondelle ~\newline
+ 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_pesage_8c_source_l00380}{380}} du fichier \mbox{\hyperlink{processus_pesage_8c_source}{processus\+Pesage.\+c}}.
+
+\mbox{\Hypertarget{processus_pesage_8c_a0ae67e1c73c087d9e115c70450f8cc02}\label{processus_pesage_8c_a0ae67e1c73c087d9e115c70450f8cc02}} 
+\index{processusPesage.c@{processusPesage.c}!processusPesage\_repriseRondellePart2@{processusPesage\_repriseRondellePart2}}
+\index{processusPesage\_repriseRondellePart2@{processusPesage\_repriseRondellePart2}!processusPesage.c@{processusPesage.c}}
+\doxysubsubsection{\texorpdfstring{processusPesage\_repriseRondellePart2()}{processusPesage\_repriseRondellePart2()}}
+{\footnotesize\ttfamily void processus\+Pesage\+\_\+reprise\+Rondelle\+Part2 (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+État du processus qui attend que le bras aille repris la rondelle avec la ventouse. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_pesage_8c_source_l00421}{421}} du fichier \mbox{\hyperlink{processus_pesage_8c_source}{processus\+Pesage.\+c}}.
+
+\mbox{\Hypertarget{processus_pesage_8c_aa2ef06a4ed87977f7daade97fd9795f7}\label{processus_pesage_8c_aa2ef06a4ed87977f7daade97fd9795f7}} 
+\index{processusPesage.c@{processusPesage.c}!processusPesage\_retourEtatInit@{processusPesage\_retourEtatInit}}
+\index{processusPesage\_retourEtatInit@{processusPesage\_retourEtatInit}!processusPesage.c@{processusPesage.c}}
+\doxysubsubsection{\texorpdfstring{processusPesage\_retourEtatInit()}{processusPesage\_retourEtatInit()}}
+{\footnotesize\ttfamily void processus\+Pesage\+\_\+retour\+Etat\+Init (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+État qui attend que la rondelle soit au sol avant de dire au bras de retourner a son état d\textquotesingle{}initialisation et d\textquotesingle{}attendre une requête. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_pesage_8c_source_l00506}{506}} du fichier \mbox{\hyperlink{processus_pesage_8c_source}{processus\+Pesage.\+c}}.
+
+
+
+\doxysubsection{Documentation des variables}
+\mbox{\Hypertarget{processus_pesage_8c_a36cb4363be16f5a772eaa5c19a9fa7ad}\label{processus_pesage_8c_a36cb4363be16f5a772eaa5c19a9fa7ad}} 
+\index{processusPesage.c@{processusPesage.c}!commande@{commande}}
+\index{commande@{commande}!processusPesage.c@{processusPesage.c}}
+\doxysubsubsection{\texorpdfstring{commande}{commande}}
+{\footnotesize\ttfamily char commande\mbox{[}64\mbox{]}}
+
+
+
+Tableau de caracère pour mettre la commende a envoyé au bras en USB. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_pesage_8c_source_l00031}{31}} du fichier \mbox{\hyperlink{processus_pesage_8c_source}{processus\+Pesage.\+c}}.
+
+\mbox{\Hypertarget{processus_pesage_8c_ade857a99d48bcb8cfaa57c4cd8d7d2e8}\label{processus_pesage_8c_ade857a99d48bcb8cfaa57c4cd8d7d2e8}} 
+\index{processusPesage.c@{processusPesage.c}!compteur@{compteur}}
+\index{compteur@{compteur}!processusPesage.c@{processusPesage.c}}
+\doxysubsubsection{\texorpdfstring{compteur}{compteur}}
+{\footnotesize\ttfamily int compteur = 0}
+
+
+
+Compteur pour les délais dans le state Machine. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_pesage_8c_source_l00027}{27}} du fichier \mbox{\hyperlink{processus_pesage_8c_source}{processus\+Pesage.\+c}}.
+
+\mbox{\Hypertarget{processus_pesage_8c_ac7e472330027293d561a16a78ce725a4}\label{processus_pesage_8c_ac7e472330027293d561a16a78ce725a4}} 
+\index{processusPesage.c@{processusPesage.c}!reponse@{reponse}}
+\index{reponse@{reponse}!processusPesage.c@{processusPesage.c}}
+\doxysubsubsection{\texorpdfstring{reponse}{reponse}}
+{\footnotesize\ttfamily char reponse\mbox{[}64\mbox{]}}
+
+
+
+Tableau de caracère pour mettre la réponse recu par le bras en USB. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_pesage_8c_source_l00029}{29}} du fichier \mbox{\hyperlink{processus_pesage_8c_source}{processus\+Pesage.\+c}}.
+
+\mbox{\Hypertarget{processus_pesage_8c_ad660c90589efbb535c7d55dc032c1b09}\label{processus_pesage_8c_ad660c90589efbb535c7d55dc032c1b09}} 
+\index{processusPesage.c@{processusPesage.c}!x2@{x2}}
+\index{x2@{x2}!processusPesage.c@{processusPesage.c}}
+\doxysubsubsection{\texorpdfstring{x2}{x2}}
+{\footnotesize\ttfamily int x2}
+
+
+
+Variable pour la coordonné de la position du bras. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_pesage_8c_source_l00033}{33}} du fichier \mbox{\hyperlink{processus_pesage_8c_source}{processus\+Pesage.\+c}}.
+
+\mbox{\Hypertarget{processus_pesage_8c_ab01055e87d61c94f71e59f1116867f60}\label{processus_pesage_8c_ab01055e87d61c94f71e59f1116867f60}} 
+\index{processusPesage.c@{processusPesage.c}!y2@{y2}}
+\index{y2@{y2}!processusPesage.c@{processusPesage.c}}
+\doxysubsubsection{\texorpdfstring{y2}{y2}}
+{\footnotesize\ttfamily int y2}
+
+
+
+Variable pour la coordonné de la position du bras. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{processus_pesage_8c_source_l00035}{35}} du fichier \mbox{\hyperlink{processus_pesage_8c_source}{processus\+Pesage.\+c}}.
+

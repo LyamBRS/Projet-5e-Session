@@ -1,0 +1,119 @@
+\hypertarget{service_base_de_temps_8c}{}\doxysection{Référence du fichier U\+:/\+Sessions/\+Session 5/\+Project/\+Projet\+\_\+\+Fin\+\_\+\+Session/\+Projet-\/5e-\/\+Session/\+Centre-\/\+De-\/\+Pesage/\+Programmes/\+Pesage\+Base\+De\+Temps/service\+Base\+De\+Temps.c}
+\label{service_base_de_temps_8c}\index{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Pesage/Programmes/PesageBaseDeTemps/serviceBaseDeTemps.c@{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Pesage/Programmes/PesageBaseDeTemps/serviceBaseDeTemps.c}}
+
+
+pour mettre en place un service d\textquotesingle{}appels periodiques de fonctions pointees par un tableau de pointeurs de fonctions. Le service met en place une base de temps qui reposent sur l\textquotesingle{}emploi du \mbox{\hyperlink{pilote_timer_8h_source}{pilote\+Timer.\+h}}  
+
+
+{\ttfamily \#include \char`\"{}main.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}pilote\+Timer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}service\+Base\+De\+Temps.\+h\char`\"{}}\newline
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{service_base_de_temps_8c_a69d4e23eebe2174db0c76c6cdbb5fbcc}{service\+Base\+De\+Temps\+\_\+ne\+Fait\+Rien}} (void)
+\item 
+void \mbox{\hyperlink{service_base_de_temps_8c_a07c676abf7a7de8c887fb15db6eff9be}{service\+Base\+De\+Temps\+\_\+gere}} (void)
+\item 
+void \mbox{\hyperlink{service_base_de_temps_8c_a4f4445967898d67d678b3831cf708b9b}{service\+Base\+De\+Temps\+\_\+gere\+Dans\+Loop}} (void)
+\item 
+void \mbox{\hyperlink{service_base_de_temps_8c_a56036e69691939851ec0b798b9c09e83}{service\+Base\+De\+Temps\+\_\+initialise}} (void)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+void($\ast$ \mbox{\hyperlink{service_base_de_temps_8c_a103583940036ccbb95b6b4c1f73b74d6}{service\+Base\+De\+Temps\+\_\+execute}} \mbox{[}\mbox{\hyperlink{main_8h_a9470a0f17392d89a537141466f6f0e98}{SERVICEBASEDETEMPS\+\_\+\+NOMBRE\+\_\+\+DE\+\_\+\+PHASES}}\mbox{]})(void)
+\begin{DoxyCompactList}\small\item\em Tableau de pointeur de fonction qui peuvent être assigné par leur processus respectif. Ce tableau est au centre du fonctionnement de la base de temps. Pour plus d\textquotesingle{}explication voir le fichier de définition de la base de temps xservice\+Base\+De\+Temps.\+h. \end{DoxyCompactList}\item 
+void($\ast$ \mbox{\hyperlink{service_base_de_temps_8c_a555dc0775d8a8a6526a26a3a39228a21}{service\+Base\+De\+Temps\+\_\+execute\+Dans\+Loop}} \mbox{[}\mbox{\hyperlink{main_8h_ab6e7d92e268f07cf18c427fee9ff2e88}{SERVICEBASEDETEMPS\+\_\+\+NOMBRE\+\_\+\+DE\+\_\+\+PHASES\+\_\+\+DANS\+\_\+\+LOOP}}\mbox{]})(void)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+pour mettre en place un service d\textquotesingle{}appels periodiques de fonctions pointees par un tableau de pointeurs de fonctions. Le service met en place une base de temps qui reposent sur l\textquotesingle{}emploi du \mbox{\hyperlink{pilote_timer_8h_source}{pilote\+Timer.\+h}} 
+
+\begin{DoxyAuthor}{Auteur}
+Cam\+Fo Camille Fortin (\href{mailto:camfortin2022@gmail.com}{\texttt{ camfortin2022@gmail.\+com}}) 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2022-\/11-\/23
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2022 
+\end{DoxyCopyright}
+
+
+Définition dans le fichier \mbox{\hyperlink{service_base_de_temps_8c_source}{service\+Base\+De\+Temps.\+c}}.
+
+
+
+\doxysubsection{Documentation des fonctions}
+\mbox{\Hypertarget{service_base_de_temps_8c_a07c676abf7a7de8c887fb15db6eff9be}\label{service_base_de_temps_8c_a07c676abf7a7de8c887fb15db6eff9be}} 
+\index{serviceBaseDeTemps.c@{serviceBaseDeTemps.c}!serviceBaseDeTemps\_gere@{serviceBaseDeTemps\_gere}}
+\index{serviceBaseDeTemps\_gere@{serviceBaseDeTemps\_gere}!serviceBaseDeTemps.c@{serviceBaseDeTemps.c}}
+\doxysubsubsection{\texorpdfstring{serviceBaseDeTemps\_gere()}{serviceBaseDeTemps\_gere()}}
+{\footnotesize\ttfamily void service\+Base\+De\+Temps\+\_\+gere (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{service_base_de_temps_8c_source_l00037}{37}} du fichier \mbox{\hyperlink{service_base_de_temps_8c_source}{service\+Base\+De\+Temps.\+c}}.
+
+\mbox{\Hypertarget{service_base_de_temps_8c_a4f4445967898d67d678b3831cf708b9b}\label{service_base_de_temps_8c_a4f4445967898d67d678b3831cf708b9b}} 
+\index{serviceBaseDeTemps.c@{serviceBaseDeTemps.c}!serviceBaseDeTemps\_gereDansLoop@{serviceBaseDeTemps\_gereDansLoop}}
+\index{serviceBaseDeTemps\_gereDansLoop@{serviceBaseDeTemps\_gereDansLoop}!serviceBaseDeTemps.c@{serviceBaseDeTemps.c}}
+\doxysubsubsection{\texorpdfstring{serviceBaseDeTemps\_gereDansLoop()}{serviceBaseDeTemps\_gereDansLoop()}}
+{\footnotesize\ttfamily void service\+Base\+De\+Temps\+\_\+gere\+Dans\+Loop (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{service_base_de_temps_8c_source_l00059}{59}} du fichier \mbox{\hyperlink{service_base_de_temps_8c_source}{service\+Base\+De\+Temps.\+c}}.
+
+\mbox{\Hypertarget{service_base_de_temps_8c_a56036e69691939851ec0b798b9c09e83}\label{service_base_de_temps_8c_a56036e69691939851ec0b798b9c09e83}} 
+\index{serviceBaseDeTemps.c@{serviceBaseDeTemps.c}!serviceBaseDeTemps\_initialise@{serviceBaseDeTemps\_initialise}}
+\index{serviceBaseDeTemps\_initialise@{serviceBaseDeTemps\_initialise}!serviceBaseDeTemps.c@{serviceBaseDeTemps.c}}
+\doxysubsubsection{\texorpdfstring{serviceBaseDeTemps\_initialise()}{serviceBaseDeTemps\_initialise()}}
+{\footnotesize\ttfamily void service\+Base\+De\+Temps\+\_\+initialise (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{service_base_de_temps_8c_source_l00067}{67}} du fichier \mbox{\hyperlink{service_base_de_temps_8c_source}{service\+Base\+De\+Temps.\+c}}.
+
+\mbox{\Hypertarget{service_base_de_temps_8c_a69d4e23eebe2174db0c76c6cdbb5fbcc}\label{service_base_de_temps_8c_a69d4e23eebe2174db0c76c6cdbb5fbcc}} 
+\index{serviceBaseDeTemps.c@{serviceBaseDeTemps.c}!serviceBaseDeTemps\_neFaitRien@{serviceBaseDeTemps\_neFaitRien}}
+\index{serviceBaseDeTemps\_neFaitRien@{serviceBaseDeTemps\_neFaitRien}!serviceBaseDeTemps.c@{serviceBaseDeTemps.c}}
+\doxysubsubsection{\texorpdfstring{serviceBaseDeTemps\_neFaitRien()}{serviceBaseDeTemps\_neFaitRien()}}
+{\footnotesize\ttfamily void service\+Base\+De\+Temps\+\_\+ne\+Fait\+Rien (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{service_base_de_temps_8c_source_l00032}{32}} du fichier \mbox{\hyperlink{service_base_de_temps_8c_source}{service\+Base\+De\+Temps.\+c}}.
+
+
+
+\doxysubsection{Documentation des variables}
+\mbox{\Hypertarget{service_base_de_temps_8c_a103583940036ccbb95b6b4c1f73b74d6}\label{service_base_de_temps_8c_a103583940036ccbb95b6b4c1f73b74d6}} 
+\index{serviceBaseDeTemps.c@{serviceBaseDeTemps.c}!serviceBaseDeTemps\_execute@{serviceBaseDeTemps\_execute}}
+\index{serviceBaseDeTemps\_execute@{serviceBaseDeTemps\_execute}!serviceBaseDeTemps.c@{serviceBaseDeTemps.c}}
+\doxysubsubsection{\texorpdfstring{serviceBaseDeTemps\_execute}{serviceBaseDeTemps\_execute}}
+{\footnotesize\ttfamily void($\ast$ service\+Base\+De\+Temps\+\_\+execute\mbox{[}\mbox{\hyperlink{main_8h_a9470a0f17392d89a537141466f6f0e98}{SERVICEBASEDETEMPS\+\_\+\+NOMBRE\+\_\+\+DE\+\_\+\+PHASES}}\mbox{]})(void) (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Tableau de pointeur de fonction qui peuvent être assigné par leur processus respectif. Ce tableau est au centre du fonctionnement de la base de temps. Pour plus d\textquotesingle{}explication voir le fichier de définition de la base de temps xservice\+Base\+De\+Temps.\+h. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{service_base_de_temps_8c_source_l00054}{54}} du fichier \mbox{\hyperlink{service_base_de_temps_8c_source}{service\+Base\+De\+Temps.\+c}}.
+
+\mbox{\Hypertarget{service_base_de_temps_8c_a555dc0775d8a8a6526a26a3a39228a21}\label{service_base_de_temps_8c_a555dc0775d8a8a6526a26a3a39228a21}} 
+\index{serviceBaseDeTemps.c@{serviceBaseDeTemps.c}!serviceBaseDeTemps\_executeDansLoop@{serviceBaseDeTemps\_executeDansLoop}}
+\index{serviceBaseDeTemps\_executeDansLoop@{serviceBaseDeTemps\_executeDansLoop}!serviceBaseDeTemps.c@{serviceBaseDeTemps.c}}
+\doxysubsubsection{\texorpdfstring{serviceBaseDeTemps\_executeDansLoop}{serviceBaseDeTemps\_executeDansLoop}}
+{\footnotesize\ttfamily void($\ast$ service\+Base\+De\+Temps\+\_\+execute\+Dans\+Loop\mbox{[}\mbox{\hyperlink{main_8h_ab6e7d92e268f07cf18c427fee9ff2e88}{SERVICEBASEDETEMPS\+\_\+\+NOMBRE\+\_\+\+DE\+\_\+\+PHASES\+\_\+\+DANS\+\_\+\+LOOP}}\mbox{]})(void) (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Définition à la ligne \mbox{\hyperlink{service_base_de_temps_8c_source_l00056}{56}} du fichier \mbox{\hyperlink{service_base_de_temps_8c_source}{service\+Base\+De\+Temps.\+c}}.
+

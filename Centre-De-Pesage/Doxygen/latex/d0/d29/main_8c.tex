@@ -1,0 +1,105 @@
+\hypertarget{main_8c}{}\doxysection{Référence du fichier U\+:/\+Sessions/\+Session 5/\+Project/\+Projet\+\_\+\+Fin\+\_\+\+Session/\+Projet-\/5e-\/\+Session/\+Centre-\/\+De-\/\+Pesage/\+Programmes/\+Pesage\+Base\+De\+Temps/main.c}
+\label{main_8c}\index{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Pesage/Programmes/PesageBaseDeTemps/main.c@{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Pesage/Programmes/PesageBaseDeTemps/main.c}}
+
+
+Program file containing the code defined in \mbox{\hyperlink{main_8h}{main.\+h}} Please refer to this other file for information necessary in order to make this work.  
+
+
+{\ttfamily \#include \char`\"{}main.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}pilote\+Timer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}pilote\+I2\+C1.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}pilote\+CAN.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}interface\+Bras.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}interface\+Balance.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}interface\+VL6180x.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}service\+Base\+De\+Temps.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Service\+Communication.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}processus\+Detection.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}processus\+Pesage.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}processus\+Gestion\+Com.\+h\char`\"{}}\newline
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{main_8c_aa927783c03eddd97e45da275ca7ff0ba}{clear\+Com\+CAN}} (void)
+\begin{DoxyCompactList}\small\item\em Réinitialise la communication CAN pour s\textquotesingle{}assurer de l\textquotesingle{}ouvrir correctement. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{main_8c_a530df9e700125af27905160bbc623c81}{main\+\_\+initialise}} (void)
+\begin{DoxyCompactList}\small\item\em Fonction qui initialise tous les pilotes, interfaces et processsus ainsi que les service nécessaire au fonctionnement du programme. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{main_8c_a840291bc02cba5474a4cb46a9b9566fe}{main}} (void)
+\begin{DoxyCompactList}\small\item\em Point d\textquotesingle{}entré du programme. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Program file containing the code defined in \mbox{\hyperlink{main_8h}{main.\+h}} Please refer to this other file for information necessary in order to make this work. 
+
+\begin{DoxyAuthor}{Auteur}
+Cam\+Fo Camille Fortin (\href{mailto:camfortin2022@gmail.com}{\texttt{ camfortin2022@gmail.\+com}}) 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2022-\/12-\/15
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2022 
+\end{DoxyCopyright}
+
+
+Définition dans le fichier \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+
+
+\doxysubsection{Documentation des fonctions}
+\mbox{\Hypertarget{main_8c_aa927783c03eddd97e45da275ca7ff0ba}\label{main_8c_aa927783c03eddd97e45da275ca7ff0ba}} 
+\index{main.c@{main.c}!clearComCAN@{clearComCAN}}
+\index{clearComCAN@{clearComCAN}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{clearComCAN()}{clearComCAN()}}
+{\footnotesize\ttfamily void clear\+Com\+CAN (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Réinitialise la communication CAN pour s\textquotesingle{}assurer de l\textquotesingle{}ouvrir correctement. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em void} & \\
+\hline
+\end{DoxyParams}
+
+
+Définition à la ligne \mbox{\hyperlink{main_8c_source_l00102}{102}} du fichier \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\mbox{\Hypertarget{main_8c_a840291bc02cba5474a4cb46a9b9566fe}\label{main_8c_a840291bc02cba5474a4cb46a9b9566fe}} 
+\index{main.c@{main.c}!main@{main}}
+\index{main@{main}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Point d\textquotesingle{}entré du programme. 
+
+\begin{DoxyReturn}{Renvoie}
+int 
+\end{DoxyReturn}
+
+
+Définition à la ligne \mbox{\hyperlink{main_8c_source_l00084}{84}} du fichier \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\mbox{\Hypertarget{main_8c_a530df9e700125af27905160bbc623c81}\label{main_8c_a530df9e700125af27905160bbc623c81}} 
+\index{main.c@{main.c}!main\_initialise@{main\_initialise}}
+\index{main\_initialise@{main\_initialise}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{main\_initialise()}{main\_initialise()}}
+{\footnotesize\ttfamily int main\+\_\+initialise (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Fonction qui initialise tous les pilotes, interfaces et processsus ainsi que les service nécessaire au fonctionnement du programme. 
+
+\begin{DoxyReturn}{Renvoie}
+int 
+\end{DoxyReturn}
+
+
+Définition à la ligne \mbox{\hyperlink{main_8c_source_l00056}{56}} du fichier \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+

@@ -1,0 +1,459 @@
+\hypertarget{processus_pesage_8c_source}{}\doxysection{processus\+Pesage.\+c}
+\label{processus_pesage_8c_source}\index{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Pesage/Programmes/PesageBaseDeTemps/processusPesage.c@{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Pesage/Programmes/PesageBaseDeTemps/processusPesage.c}}
+\mbox{\hyperlink{processus_pesage_8c}{Aller à la documentation de ce fichier.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00001}00001 }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00016}00016 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{main_8h}{main.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00017}00017 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{interface_bras_8h}{interfaceBras.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00018}00018 \textcolor{preprocessor}{\#include "{}interfaceBalance.h"{}}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00019}00019 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{service_base_de_temps_8h}{serviceBaseDeTemps.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00020}00020 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_service_communication_8h}{ServiceCommunication.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00021}00021 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{processus_pesage_8h}{processusPesage.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00022}00022 \textcolor{preprocessor}{\#include "{}processusDetection.h"{}}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00023}00023 }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00024}00024 \textcolor{comment}{// Définition des variables privées}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00025}00025 }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00027}\mbox{\hyperlink{processus_pesage_8c_ade857a99d48bcb8cfaa57c4cd8d7d2e8}{00027}} \textcolor{keywordtype}{int} \mbox{\hyperlink{processus_pesage_8c_ade857a99d48bcb8cfaa57c4cd8d7d2e8}{compteur}} = 0;}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00029}\mbox{\hyperlink{processus_pesage_8c_ac7e472330027293d561a16a78ce725a4}{00029}} \textcolor{keywordtype}{char} \mbox{\hyperlink{processus_pesage_8c_ac7e472330027293d561a16a78ce725a4}{reponse}}[64];}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00031}\mbox{\hyperlink{processus_pesage_8c_a36cb4363be16f5a772eaa5c19a9fa7ad}{00031}} \textcolor{keywordtype}{char} \mbox{\hyperlink{processus_pesage_8c_a36cb4363be16f5a772eaa5c19a9fa7ad}{commande}}[64];}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00033}\mbox{\hyperlink{processus_pesage_8c_ad660c90589efbb535c7d55dc032c1b09}{00033}} \textcolor{keywordtype}{int} \mbox{\hyperlink{processus_pesage_8c_ad660c90589efbb535c7d55dc032c1b09}{x2}};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00035}\mbox{\hyperlink{processus_pesage_8c_ab01055e87d61c94f71e59f1116867f60}{00035}} \textcolor{keywordtype}{int} \mbox{\hyperlink{processus_pesage_8c_ab01055e87d61c94f71e59f1116867f60}{y2}};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00036}00036 }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00042}00042 \textcolor{keywordtype}{void} \mbox{\hyperlink{processus_pesage_8c_ab5e8d684093c630bd88df0961be9e93b}{processusPesage\_attendUneRequete}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00048}00048 \textcolor{keywordtype}{void} \mbox{\hyperlink{processus_pesage_8c_a454fb586575c0b3c54a6040f5d3588af}{processusPesage\_depose}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00054}00054 \textcolor{keywordtype}{void} \mbox{\hyperlink{processus_pesage_8c_afe02140b7ab309c80f0ccb391ec8047b}{processusPesage\_attendFinDepot}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00060}00060 \textcolor{keywordtype}{void} \mbox{\hyperlink{processus_pesage_8c_ac36fae041e74d2e0f22e4dda60c8fdc7}{processusPesage\_prepareMesureBalance}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00065}00065 \textcolor{keywordtype}{void} \mbox{\hyperlink{processus_pesage_8c_a481818a56ab5c6c58298706c920f2cc8}{processusPesage\_attendLecture}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00071}00071 \textcolor{keywordtype}{void} \mbox{\hyperlink{processus_pesage_8c_a6a437f083fb6d5962439fc332d8c5628}{processusPesage\_repriseRondelle}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00077}00077 \textcolor{keywordtype}{void} \mbox{\hyperlink{processus_pesage_8c_a0ae67e1c73c087d9e115c70450f8cc02}{processusPesage\_repriseRondellePart2}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00083}00083 \textcolor{keywordtype}{void} \mbox{\hyperlink{processus_pesage_8c_a959e149b704f987547b96ede3fdaa3bd}{processusPesage\_disposeRondelle}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00089}00089 \textcolor{keywordtype}{void} \mbox{\hyperlink{processus_pesage_8c_ab84d7f374391edbc7fb83f0b8fbf9451}{processusPesage\_gere}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00095}00095 \textcolor{keywordtype}{void} \mbox{\hyperlink{processus_pesage_8c_aa2ef06a4ed87977f7daade97fd9795f7}{processusPesage\_retourEtatInit}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00096}00096 }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00097}00097 }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00098}00098 }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00099}00099 }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00100}\mbox{\hyperlink{processus_pesage_8c_ad06ebf41783d7ab6f4f022e76593997e}{00100}} \textcolor{keywordtype}{void} \mbox{\hyperlink{processus_pesage_8c_ad06ebf41783d7ab6f4f022e76593997e}{processusPesage\_initialise}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00101}00101 \{}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00102}00102     \mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{ModuleData}}.\mbox{\hyperlink{structst_module_data_a4c16728345f6f1ef92b12cd839947107}{WeightToSend}} = \mbox{\hyperlink{_service_communication_8h_addf5ec070e9499d36b7f2009ce736076}{UNUSED}};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00103}00103     }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00104}00104     \mbox{\hyperlink{processus_pesage_8h_af6d31d94e022c5f2837934ca9e6919d1}{processusPesage}}.\mbox{\hyperlink{struct_p_r_o_c_e_s_s_u_s_p_e_s_a_g_e_a2403ed7b8985bc0fc4c86e2b3f90ac8f}{unite}} = \mbox{\hyperlink{main_8h_a71d0604fb65e32056a56a21363efe0fc}{PROCESSUSPESAGE\_UNITE\_G}};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00105}00105     \mbox{\hyperlink{processus_pesage_8h_af6d31d94e022c5f2837934ca9e6919d1}{processusPesage}}.\mbox{\hyperlink{struct_p_r_o_c_e_s_s_u_s_p_e_s_a_g_e_afa9722e69cb5b73c4868880e6e66e14c}{requete}} = \mbox{\hyperlink{main_8h_ade35ac0d91236f258481b4877d76a704}{PROCESSUSPESAGE\_REQUETE\_TRAITE}};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00106}00106     \mbox{\hyperlink{processus_pesage_8h_af6d31d94e022c5f2837934ca9e6919d1}{processusPesage}}.\mbox{\hyperlink{struct_p_r_o_c_e_s_s_u_s_p_e_s_a_g_e_a84f575ba6782edf68ced199c789cba7f}{etatDuModule}} = \mbox{\hyperlink{main_8h_a97da0021207a7d5900ae20f841febd5c}{PROCESSUSPESAGE\_MODULE\_PAS\_EN\_FONCTION}};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00107}00107     \mbox{\hyperlink{service_base_de_temps_8c_a103583940036ccbb95b6b4c1f73b74d6}{serviceBaseDeTemps\_execute}}[\mbox{\hyperlink{main_8h_af51920a460d59f788cd07915830d929c}{PROCESSUSPESAGE\_PHASE}}] = \mbox{\hyperlink{processus_pesage_8c_ab5e8d684093c630bd88df0961be9e93b}{processusPesage\_attendUneRequete}};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00108}00108 \}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00109}00109 }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00110}00110 }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00111}\mbox{\hyperlink{processus_pesage_8c_ab5e8d684093c630bd88df0961be9e93b}{00111}} \textcolor{keywordtype}{void} \mbox{\hyperlink{processus_pesage_8c_ab5e8d684093c630bd88df0961be9e93b}{processusPesage\_attendUneRequete}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00112}00112 \{}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00113}00113 }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00114}00114     }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00115}00115     \textcolor{keywordflow}{if}(\mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{ModuleData}}.\mbox{\hyperlink{structst_module_data_aad97611843f921f2d34f879b04290c44}{Mode}} == \mbox{\hyperlink{_service_communication_8c_a8d263995a90824787239b3b43fd22624}{Modes}}.\mbox{\hyperlink{structst_modes_a03ad9e5077cba8652d921ea0b1ec9483}{pause}})}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00116}00116     \{}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00117}00117         \mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{ModuleData}}.\mbox{\hyperlink{structst_module_data_a5e17acbc4701e7886ecec1c3b3a6861f}{State}} = \mbox{\hyperlink{_service_communication_8c_a438a30fee677441c56cb4010275f6811}{States}}.\mbox{\hyperlink{structst_states_acd32cc631f50c25e83c903efae3ddbd7}{paused}};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00118}00118     \}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00119}00119     \textcolor{keywordflow}{if}(\mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{ModuleData}}.\mbox{\hyperlink{structst_module_data_aad97611843f921f2d34f879b04290c44}{Mode}} == \mbox{\hyperlink{_service_communication_8c_a8d263995a90824787239b3b43fd22624}{Modes}}.\mbox{\hyperlink{structst_modes_a658541e0624d47e6d3570e3173ad0814}{reinitialisation}})}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00120}00120     \{}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00121}00121         \mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{ModuleData}}.\mbox{\hyperlink{structst_module_data_a5e17acbc4701e7886ecec1c3b3a6861f}{State}} = \mbox{\hyperlink{_service_communication_8c_a438a30fee677441c56cb4010275f6811}{States}}.\mbox{\hyperlink{structst_states_a046fa2d7bdb410eb8f747093cdf170e0}{waiting}};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00122}00122     \}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00123}00123 }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00124}00124     \textcolor{keywordflow}{if}(\mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{ModuleData}}.\mbox{\hyperlink{structst_module_data_a13a4426701f19e10f89094abbce937b5}{ValuesReceived}}.\mbox{\hyperlink{structst_values_ae70f3c4c5a602f9a03353d8d86b04ac6}{disc\_Red}} == \mbox{\hyperlink{_service_communication_8h_a90ca767ddb3c52ec640e7ed8a09dd5d8}{RECEIVED}})}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00125}00125     \{}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00126}00126         \textcolor{comment}{//printf("{}RESET -\/-\/ VALUES\(\backslash\)n"{});}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00127}00127         fflush(stdout);}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00128}00128         \mbox{\hyperlink{_service_communication_8c_aeffc3a637225c738529acf463e90160d}{ModuleData\_SetAll\_ValuesReceived}}(\mbox{\hyperlink{_service_communication_8h_a7f6404e3e6de5aa345a9208af100d4f8}{PARSED}});}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00129}00129         \mbox{\hyperlink{_service_communication_8c_af91ebf03d5c59428b1019aa2619c9402}{ModuleData\_SetAll\_StatesReceived}}(\mbox{\hyperlink{_service_communication_8h_a7f6404e3e6de5aa345a9208af100d4f8}{PARSED}});}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00130}00130         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00131}00131     \}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00132}00132     \textcolor{keywordflow}{if}(\mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{ModuleData}}.\mbox{\hyperlink{structst_module_data_a13a4426701f19e10f89094abbce937b5}{ValuesReceived}}.\mbox{\hyperlink{structst_values_addc09e40c9f99dff184eabe529d26490}{disc\_Black}} == \mbox{\hyperlink{_service_communication_8h_a90ca767ddb3c52ec640e7ed8a09dd5d8}{RECEIVED}})}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00133}00133     \{}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00134}00134         \textcolor{comment}{//printf("{}RESET -\/-\/ VALUES\(\backslash\)n"{});}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00135}00135         fflush(stdout);}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00136}00136         \mbox{\hyperlink{_service_communication_8c_aeffc3a637225c738529acf463e90160d}{ModuleData\_SetAll\_ValuesReceived}}(\mbox{\hyperlink{_service_communication_8h_a7f6404e3e6de5aa345a9208af100d4f8}{PARSED}});}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00137}00137         \mbox{\hyperlink{_service_communication_8c_af91ebf03d5c59428b1019aa2619c9402}{ModuleData\_SetAll\_StatesReceived}}(\mbox{\hyperlink{_service_communication_8h_a7f6404e3e6de5aa345a9208af100d4f8}{PARSED}});}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00138}00138         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00139}00139     \}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00140}00140     }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00141}00141     \textcolor{comment}{// Si on recois le mode Opération on commence a detecté}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00142}00142     \textcolor{keywordflow}{if}(\mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{ModuleData}}.\mbox{\hyperlink{structst_module_data_aad97611843f921f2d34f879b04290c44}{Mode}} != \mbox{\hyperlink{_service_communication_8c_a8d263995a90824787239b3b43fd22624}{Modes}}.\mbox{\hyperlink{structst_modes_ae19fde49e40cc8ae869cf0cf1a47847f}{operation}})}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00143}00143     \{}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00144}00144         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00145}00145     \}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00146}00146     }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00147}00147     \textcolor{comment}{//printf("{}ON a recu OPÉRATION\(\backslash\)n"{});}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00148}00148     \mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{ModuleData}}.\mbox{\hyperlink{structst_module_data_a4c16728345f6f1ef92b12cd839947107}{WeightToSend}} = 0x00;}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00149}00149     \mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{ModuleData}}.\mbox{\hyperlink{structst_module_data_a5e17acbc4701e7886ecec1c3b3a6861f}{State}} = \mbox{\hyperlink{_service_communication_8c_a438a30fee677441c56cb4010275f6811}{States}}.\mbox{\hyperlink{structst_states_aa0593cf9692b117c9d8b736a09b91371}{waitingToWeight}};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00150}00150     \textcolor{comment}{// Si le véhicule est a la station de pesage}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00151}00151     \textcolor{keywordflow}{if}(\mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{ModuleData}}.\mbox{\hyperlink{structst_module_data_aef6d8dd22d7ba84896770ec7e5d00faf}{StatesReceived}}.\mbox{\hyperlink{structst_states_a5d1b549a02268049aa4e496464c387d1}{atWeightStation}} != \mbox{\hyperlink{_service_communication_8h_a90ca767ddb3c52ec640e7ed8a09dd5d8}{RECEIVED}})}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00152}00152     \{}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00153}00153         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00154}00154     \}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00155}00155     printf(\textcolor{stringliteral}{"{}ON est en Waiting to Weight\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00156}00156     \textcolor{comment}{// Si le véhicule a bien le bloc dans sa benne}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00157}00157     \textcolor{keywordflow}{if}(\mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{ModuleData}}.\mbox{\hyperlink{structst_module_data_aef6d8dd22d7ba84896770ec7e5d00faf}{StatesReceived}}.\mbox{\hyperlink{structst_states_a4154215d90d6765090f3ac749e476d6a}{finishedSortingAndHasLoaded}} != \mbox{\hyperlink{_service_communication_8h_a90ca767ddb3c52ec640e7ed8a09dd5d8}{RECEIVED}})}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00158}00158     \{}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00159}00159         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00160}00160     \}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00161}00161 }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00162}00162     \textcolor{keywordflow}{if}(\mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{ModuleData}}.\mbox{\hyperlink{structst_module_data_a13a4426701f19e10f89094abbce937b5}{ValuesReceived}}.\mbox{\hyperlink{structst_values_a0b83a13ae6856fa87327ee3a6f01e0a0}{disc\_Silver}} != \mbox{\hyperlink{_service_communication_8h_a90ca767ddb3c52ec640e7ed8a09dd5d8}{RECEIVED}})}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00163}00163     \{}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00164}00164         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00165}00165     \}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00166}00166     }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00167}00167     \textcolor{keywordflow}{if}(\mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{ModuleData}}.\mbox{\hyperlink{structst_module_data_aad97611843f921f2d34f879b04290c44}{Mode}} == \mbox{\hyperlink{_service_communication_8c_a8d263995a90824787239b3b43fd22624}{Modes}}.\mbox{\hyperlink{structst_modes_a03ad9e5077cba8652d921ea0b1ec9483}{pause}}) \textcolor{comment}{// Si on est en mode pause on retourne sans aller au prochaine état}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00168}00168     \{}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00169}00169         \mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{ModuleData}}.\mbox{\hyperlink{structst_module_data_a5e17acbc4701e7886ecec1c3b3a6861f}{State}} = \mbox{\hyperlink{_service_communication_8c_a438a30fee677441c56cb4010275f6811}{States}}.\mbox{\hyperlink{structst_states_acd32cc631f50c25e83c903efae3ddbd7}{paused}};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00170}00170         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00171}00171     \}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00172}00172     }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00173}00173     }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00174}00174     printf(\textcolor{stringliteral}{"{}Démarrage de la détection\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00175}00175     \mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{ModuleData}}.\mbox{\hyperlink{structst_module_data_aef6d8dd22d7ba84896770ec7e5d00faf}{StatesReceived}}.\mbox{\hyperlink{structst_states_a5d1b549a02268049aa4e496464c387d1}{atWeightStation}} = \mbox{\hyperlink{_service_communication_8h_a7f6404e3e6de5aa345a9208af100d4f8}{PARSED}};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00176}00176     \mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{ModuleData}}.\mbox{\hyperlink{structst_module_data_aef6d8dd22d7ba84896770ec7e5d00faf}{StatesReceived}}.\mbox{\hyperlink{structst_states_a4154215d90d6765090f3ac749e476d6a}{finishedSortingAndHasLoaded}} = \mbox{\hyperlink{_service_communication_8h_a7f6404e3e6de5aa345a9208af100d4f8}{PARSED}};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00177}00177     \mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{ModuleData}}.\mbox{\hyperlink{structst_module_data_a13a4426701f19e10f89094abbce937b5}{ValuesReceived}}.\mbox{\hyperlink{structst_values_a0b83a13ae6856fa87327ee3a6f01e0a0}{disc\_Silver}} = \mbox{\hyperlink{_service_communication_8h_a7f6404e3e6de5aa345a9208af100d4f8}{PARSED}};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00178}00178     \mbox{\hyperlink{_service_communication_8c_aeffc3a637225c738529acf463e90160d}{ModuleData\_SetAll\_ValuesReceived}}(\mbox{\hyperlink{_service_communication_8h_a7f6404e3e6de5aa345a9208af100d4f8}{PARSED}});}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00179}00179     \mbox{\hyperlink{_service_communication_8c_af91ebf03d5c59428b1019aa2619c9402}{ModuleData\_SetAll\_StatesReceived}}(\mbox{\hyperlink{_service_communication_8h_a7f6404e3e6de5aa345a9208af100d4f8}{PARSED}});}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00180}00180 }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00181}00181     \mbox{\hyperlink{processus_pesage_8h_af6d31d94e022c5f2837934ca9e6919d1}{processusPesage}}.\mbox{\hyperlink{struct_p_r_o_c_e_s_s_u_s_p_e_s_a_g_e_afa9722e69cb5b73c4868880e6e66e14c}{requete}} = \mbox{\hyperlink{main_8h_ade35ac0d91236f258481b4877d76a704}{PROCESSUSPESAGE\_REQUETE\_TRAITE}};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00182}00182     \mbox{\hyperlink{processus_pesage_8h_af6d31d94e022c5f2837934ca9e6919d1}{processusPesage}}.\mbox{\hyperlink{struct_p_r_o_c_e_s_s_u_s_p_e_s_a_g_e_a84f575ba6782edf68ced199c789cba7f}{etatDuModule}} = \mbox{\hyperlink{main_8h_a96a2f4bb2206193bc10d237cc597e72a}{PROCESSUSPESAGE\_MODULE\_EN\_FONCTION}};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00183}00183 }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00184}00184     }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00185}00185     \textcolor{comment}{// On lance une détection}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00186}00186     processusDetection.requete = \mbox{\hyperlink{main_8h_ad96a89ddfc09cad32ce6caea5b2aa3fd}{PROCESSUSDETECTION\_REQUETE\_ACTIVE}};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00187}00187     \mbox{\hyperlink{processus_pesage_8c_ade857a99d48bcb8cfaa57c4cd8d7d2e8}{compteur}} = 0;}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00188}00188     \mbox{\hyperlink{service_base_de_temps_8c_a103583940036ccbb95b6b4c1f73b74d6}{serviceBaseDeTemps\_execute}}[\mbox{\hyperlink{main_8h_af51920a460d59f788cd07915830d929c}{PROCESSUSPESAGE\_PHASE}}] = \mbox{\hyperlink{processus_pesage_8c_a454fb586575c0b3c54a6040f5d3588af}{processusPesage\_depose}};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00189}00189 }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00190}00190 \}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00191}\mbox{\hyperlink{processus_pesage_8c_a454fb586575c0b3c54a6040f5d3588af}{00191}} \textcolor{keywordtype}{void} \mbox{\hyperlink{processus_pesage_8c_a454fb586575c0b3c54a6040f5d3588af}{processusPesage\_depose}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00192}00192 \{}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00193}00193     \textcolor{keywordflow}{if}(\mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{ModuleData}}.\mbox{\hyperlink{structst_module_data_aad97611843f921f2d34f879b04290c44}{Mode}} == \mbox{\hyperlink{_service_communication_8c_a8d263995a90824787239b3b43fd22624}{Modes}}.\mbox{\hyperlink{structst_modes_ae19fde49e40cc8ae869cf0cf1a47847f}{operation}}) \textcolor{comment}{// Si on est en mode opération on continue  }}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00194}00194     \{}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00195}00195         \mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{ModuleData}}.\mbox{\hyperlink{structst_module_data_a5e17acbc4701e7886ecec1c3b3a6861f}{State}} = \mbox{\hyperlink{_service_communication_8c_a438a30fee677441c56cb4010275f6811}{States}}.\mbox{\hyperlink{structst_states_a762942f38bcc7f55f7239a82fa38d754}{processing}};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00196}00196         \textcolor{keywordflow}{if}(processusDetection.requete != \mbox{\hyperlink{main_8h_a864d40797a0fa75f807c50c12a536010}{PROCESSUSDETECTION\_REQUETE\_TRAITE}})}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00197}00197         \{}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00198}00198             \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00199}00199         \}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00200}00200         \textcolor{comment}{//printf("{}processusPesage\_depose: Fin du procesSUS de détection\(\backslash\)n"{});}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00201}00201         }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00202}00202         \mbox{\hyperlink{processus_pesage_8c_ade857a99d48bcb8cfaa57c4cd8d7d2e8}{compteur}}++;}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00203}00203         \textcolor{keywordflow}{if}(\mbox{\hyperlink{processus_pesage_8c_ade857a99d48bcb8cfaa57c4cd8d7d2e8}{compteur}} <= 1000)}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00204}00204         \{}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00205}00205             \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00206}00206         \}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00207}00207         interfaceBras\_recoitUneReponse(\mbox{\hyperlink{processus_pesage_8c_ac7e472330027293d561a16a78ce725a4}{reponse}},64);}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00208}00208         printf(\textcolor{stringliteral}{"{}\%s"{}}, \mbox{\hyperlink{processus_pesage_8c_ac7e472330027293d561a16a78ce725a4}{reponse}});}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00209}00209         fflush(stdout);}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00210}00210         printf(\textcolor{stringliteral}{"{}processusPesage\_depose: Fin de la remonté!\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00211}00211         }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00212}00212         \mbox{\hyperlink{processus_pesage_8c_ab01055e87d61c94f71e59f1116867f60}{y2}} = -\/278;}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00213}00213         \mbox{\hyperlink{processus_pesage_8c_ad660c90589efbb535c7d55dc032c1b09}{x2}} = 81;}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00214}00214         }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00215}00215         printf(\textcolor{stringliteral}{"{}On va a la Balance\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00216}00216         \textcolor{comment}{// Va mettre le poid sur la balance}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00217}00217         sprintf(\mbox{\hyperlink{processus_pesage_8c_a36cb4363be16f5a772eaa5c19a9fa7ad}{commande}}, \textcolor{stringliteral}{"{}\#1 G0 X\%d Y\%d Z-\/43 F8000\(\backslash\)n"{}}, \mbox{\hyperlink{processus_pesage_8c_ad660c90589efbb535c7d55dc032c1b09}{x2}}, \mbox{\hyperlink{processus_pesage_8c_ab01055e87d61c94f71e59f1116867f60}{y2}});  \textcolor{comment}{// On va au coordonne de la balance}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00218}00218         interfaceBras\_ecritUneCommande(\mbox{\hyperlink{processus_pesage_8c_a36cb4363be16f5a772eaa5c19a9fa7ad}{commande}}, \textcolor{keyword}{sizeof} \mbox{\hyperlink{processus_pesage_8c_a36cb4363be16f5a772eaa5c19a9fa7ad}{commande}});}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00219}00219         memset(\mbox{\hyperlink{processus_pesage_8c_a36cb4363be16f5a772eaa5c19a9fa7ad}{commande}}, 0, 64);}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00220}00220         }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00221}00221         \mbox{\hyperlink{processus_pesage_8c_ade857a99d48bcb8cfaa57c4cd8d7d2e8}{compteur}} = 0;}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00222}00222         \mbox{\hyperlink{service_base_de_temps_8c_a103583940036ccbb95b6b4c1f73b74d6}{serviceBaseDeTemps\_execute}}[\mbox{\hyperlink{main_8h_af51920a460d59f788cd07915830d929c}{PROCESSUSPESAGE\_PHASE}}] = \mbox{\hyperlink{processus_pesage_8c_afe02140b7ab309c80f0ccb391ec8047b}{processusPesage\_attendFinDepot}};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00223}00223         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00224}00224     \}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00225}00225     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00226}00226     \{}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00227}00227         printf(\textcolor{stringliteral}{"{}Psa en operation\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00228}00228         fflush(stdout);}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00229}00229         \textcolor{keywordflow}{if}(\mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{ModuleData}}.\mbox{\hyperlink{structst_module_data_aad97611843f921f2d34f879b04290c44}{Mode}} == \mbox{\hyperlink{_service_communication_8c_a8d263995a90824787239b3b43fd22624}{Modes}}.\mbox{\hyperlink{structst_modes_a03ad9e5077cba8652d921ea0b1ec9483}{pause}})}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00230}00230         \{}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00231}00231             \mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{ModuleData}}.\mbox{\hyperlink{structst_module_data_a5e17acbc4701e7886ecec1c3b3a6861f}{State}} = \mbox{\hyperlink{_service_communication_8c_a438a30fee677441c56cb4010275f6811}{States}}.\mbox{\hyperlink{structst_states_acd32cc631f50c25e83c903efae3ddbd7}{paused}};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00232}00232         \}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00233}00233     \}   }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00234}00234 \}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00235}00235 }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00236}\mbox{\hyperlink{processus_pesage_8c_afe02140b7ab309c80f0ccb391ec8047b}{00236}} \textcolor{keywordtype}{void} \mbox{\hyperlink{processus_pesage_8c_afe02140b7ab309c80f0ccb391ec8047b}{processusPesage\_attendFinDepot}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00237}00237 \{}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00238}00238     \textcolor{keywordflow}{if}(\mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{ModuleData}}.\mbox{\hyperlink{structst_module_data_aad97611843f921f2d34f879b04290c44}{Mode}} == \mbox{\hyperlink{_service_communication_8c_a8d263995a90824787239b3b43fd22624}{Modes}}.\mbox{\hyperlink{structst_modes_ae19fde49e40cc8ae869cf0cf1a47847f}{operation}})}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00239}00239     \{}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00240}00240         \mbox{\hyperlink{processus_pesage_8c_ade857a99d48bcb8cfaa57c4cd8d7d2e8}{compteur}}++;}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00241}00241         \textcolor{keywordflow}{if}(\mbox{\hyperlink{processus_pesage_8c_ade857a99d48bcb8cfaa57c4cd8d7d2e8}{compteur}} <= 2000)  \textcolor{comment}{// Gros délais pour s'assurer que le bras est rendu a la balance}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00242}00242         \{}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00243}00243             \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00244}00244         \}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00245}00245         interfaceBras\_recoitUneReponse(\mbox{\hyperlink{processus_pesage_8c_ac7e472330027293d561a16a78ce725a4}{reponse}},64);}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00246}00246         printf(\textcolor{stringliteral}{"{}\%s"{}}, \mbox{\hyperlink{processus_pesage_8c_ac7e472330027293d561a16a78ce725a4}{reponse}});}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00247}00247         fflush(stdout);}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00248}00248         }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00249}00249         \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00250}00250 \textcolor{comment}{        if(reponse[0] != '\$')}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00251}00251 \textcolor{comment}{        \{}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00252}00252 \textcolor{comment}{            return;}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00253}00253 \textcolor{comment}{        \}}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00254}00254 \textcolor{comment}{        */}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00255}00255         printf(\textcolor{stringliteral}{"{}On Relache le Cube\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00256}00256         \textcolor{comment}{// ON envoie au bras d'arreter la ventouse}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00257}00257         sprintf(\mbox{\hyperlink{processus_pesage_8c_a36cb4363be16f5a772eaa5c19a9fa7ad}{commande}}, \textcolor{stringliteral}{"{}\#6 M2231 V0\(\backslash\)n"{}});    }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00258}00258         interfaceBras\_ecritUneCommande(\mbox{\hyperlink{processus_pesage_8c_a36cb4363be16f5a772eaa5c19a9fa7ad}{commande}}, \textcolor{keyword}{sizeof} \mbox{\hyperlink{processus_pesage_8c_a36cb4363be16f5a772eaa5c19a9fa7ad}{commande}});}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00259}00259         memset(\mbox{\hyperlink{processus_pesage_8c_a36cb4363be16f5a772eaa5c19a9fa7ad}{commande}}, 0, 64);}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00260}00260         \mbox{\hyperlink{processus_pesage_8c_ade857a99d48bcb8cfaa57c4cd8d7d2e8}{compteur}} = 0;}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00261}00261         }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00262}00262         \mbox{\hyperlink{service_base_de_temps_8c_a103583940036ccbb95b6b4c1f73b74d6}{serviceBaseDeTemps\_execute}}[\mbox{\hyperlink{main_8h_af51920a460d59f788cd07915830d929c}{PROCESSUSPESAGE\_PHASE}}] = \mbox{\hyperlink{processus_pesage_8c_ac36fae041e74d2e0f22e4dda60c8fdc7}{processusPesage\_prepareMesureBalance}};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00263}00263     \}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00264}00264     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00265}00265     \{}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00266}00266         printf(\textcolor{stringliteral}{"{}Psa en operation\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00267}00267         fflush(stdout);}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00268}00268         \textcolor{keywordflow}{if}(\mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{ModuleData}}.\mbox{\hyperlink{structst_module_data_aad97611843f921f2d34f879b04290c44}{Mode}} == \mbox{\hyperlink{_service_communication_8c_a8d263995a90824787239b3b43fd22624}{Modes}}.\mbox{\hyperlink{structst_modes_a03ad9e5077cba8652d921ea0b1ec9483}{pause}})}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00269}00269         \{}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00270}00270             \mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{ModuleData}}.\mbox{\hyperlink{structst_module_data_a5e17acbc4701e7886ecec1c3b3a6861f}{State}} = \mbox{\hyperlink{_service_communication_8c_a438a30fee677441c56cb4010275f6811}{States}}.\mbox{\hyperlink{structst_states_acd32cc631f50c25e83c903efae3ddbd7}{paused}};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00271}00271         \}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00272}00272     \} }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00273}00273 \}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00274}00274 }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00275}\mbox{\hyperlink{processus_pesage_8c_ac36fae041e74d2e0f22e4dda60c8fdc7}{00275}} \textcolor{keywordtype}{void} \mbox{\hyperlink{processus_pesage_8c_ac36fae041e74d2e0f22e4dda60c8fdc7}{processusPesage\_prepareMesureBalance}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00276}00276 \{}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00277}00277     \mbox{\hyperlink{processus_pesage_8c_ade857a99d48bcb8cfaa57c4cd8d7d2e8}{compteur}} ++;}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00278}00278     \textcolor{keywordflow}{if}(\mbox{\hyperlink{processus_pesage_8c_ade857a99d48bcb8cfaa57c4cd8d7d2e8}{compteur}} <= 500) \textcolor{comment}{// Délais qui permet au bras de laché la rondelle}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00279}00279     \{}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00280}00280         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00281}00281     \}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00282}00282     interfaceBras\_recoitUneReponse(\mbox{\hyperlink{processus_pesage_8c_ac7e472330027293d561a16a78ce725a4}{reponse}},64); \textcolor{comment}{// On attend la réponse du bras qui nous }}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00283}00283     printf(\textcolor{stringliteral}{"{}\%s"{}}, \mbox{\hyperlink{processus_pesage_8c_ac7e472330027293d561a16a78ce725a4}{reponse}});                      \textcolor{comment}{// indique que la ventouse est a OFF}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00284}00284     fflush(stdout);}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00285}00285     }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00286}00286     \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00287}00287 \textcolor{comment}{    if(reponse[0] != '\$')}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00288}00288 \textcolor{comment}{    \{}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00289}00289 \textcolor{comment}{        return;}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00290}00290 \textcolor{comment}{    \}}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00291}00291 \textcolor{comment}{    */}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00292}00292     }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00293}00293     \textcolor{comment}{// Si le decompte pour un delais est fini}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00294}00294     \mbox{\hyperlink{processus_pesage_8c_ade857a99d48bcb8cfaa57c4cd8d7d2e8}{compteur}} = 0;}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00295}00295     }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00296}00296     interfaceBalance\_prepareLecture();}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00297}00297     printf(\textcolor{stringliteral}{"{}Préparation de la lecture\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00298}00298     fflush(stdout);}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00299}00299     }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00300}00300     sprintf(\mbox{\hyperlink{processus_pesage_8c_a36cb4363be16f5a772eaa5c19a9fa7ad}{commande}}, \textcolor{stringliteral}{"{}\#1 G0 X\%d Y\%d Z0 F8000\(\backslash\)n"{}}, \mbox{\hyperlink{processus_pesage_8c_ad660c90589efbb535c7d55dc032c1b09}{x2}}, \mbox{\hyperlink{processus_pesage_8c_ab01055e87d61c94f71e59f1116867f60}{y2}});  \textcolor{comment}{// On dit au bras de remonter a 0 pendant le pesage}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00301}00301     interfaceBras\_ecritUneCommande(\mbox{\hyperlink{processus_pesage_8c_a36cb4363be16f5a772eaa5c19a9fa7ad}{commande}}, \textcolor{keyword}{sizeof} \mbox{\hyperlink{processus_pesage_8c_a36cb4363be16f5a772eaa5c19a9fa7ad}{commande}});}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00302}00302     memset(\mbox{\hyperlink{processus_pesage_8c_a36cb4363be16f5a772eaa5c19a9fa7ad}{commande}}, 0, 64);}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00303}00303 }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00304}00304     \mbox{\hyperlink{service_base_de_temps_8c_a103583940036ccbb95b6b4c1f73b74d6}{serviceBaseDeTemps\_execute}}[\mbox{\hyperlink{main_8h_af51920a460d59f788cd07915830d929c}{PROCESSUSPESAGE\_PHASE}}] = \mbox{\hyperlink{processus_pesage_8c_a481818a56ab5c6c58298706c920f2cc8}{processusPesage\_attendLecture}};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00305}00305 \}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00306}\mbox{\hyperlink{processus_pesage_8c_a481818a56ab5c6c58298706c920f2cc8}{00306}} \textcolor{keywordtype}{void} \mbox{\hyperlink{processus_pesage_8c_a481818a56ab5c6c58298706c920f2cc8}{processusPesage\_attendLecture}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00307}00307 \{}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00308}00308     \textcolor{keywordtype}{char} str[64];}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00309}00309     \mbox{\hyperlink{processus_pesage_8c_ade857a99d48bcb8cfaa57c4cd8d7d2e8}{compteur}}++;}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00310}00310     \textcolor{keywordflow}{if}(\mbox{\hyperlink{processus_pesage_8c_ade857a99d48bcb8cfaa57c4cd8d7d2e8}{compteur}} <= 1000) \textcolor{comment}{// Délais pour attendre avant de lire la réponse de la balance}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00311}00311     \{}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00312}00312         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00313}00313     \}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00314}00314     }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00315}00315     }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00316}00316     interfaceBras\_recoitUneReponse(\mbox{\hyperlink{processus_pesage_8c_ac7e472330027293d561a16a78ce725a4}{reponse}},64);}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00317}00317     printf(\textcolor{stringliteral}{"{}\%s"{}}, \mbox{\hyperlink{processus_pesage_8c_ac7e472330027293d561a16a78ce725a4}{reponse}});}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00318}00318     fflush(stdout);}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00319}00319     \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00320}00320 \textcolor{comment}{    if(reponse[0] != '\$')  // On attend d'avoir recu la réponse du bras qui confirme qu'il est monté}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00321}00321 \textcolor{comment}{    \{}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00322}00322 \textcolor{comment}{        return;}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00323}00323 \textcolor{comment}{    \}}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00324}00324 \textcolor{comment}{    */}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00325}00325     }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00326}00326     \textcolor{comment}{// Quand le délais est terminé on assume qu'on est pret }}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00327}00327     \mbox{\hyperlink{processus_pesage_8c_ade857a99d48bcb8cfaa57c4cd8d7d2e8}{compteur}} = 0;}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00328}00328     interfaceBalance\_lit(\mbox{\hyperlink{processus_pesage_8c_ac7e472330027293d561a16a78ce725a4}{reponse}});  \textcolor{comment}{// On lit la balance }}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00329}00329 }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00330}00330     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i=0; i<64;i++)}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00331}00331     \{}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00332}00332         str[i] = \mbox{\hyperlink{processus_pesage_8c_ac7e472330027293d561a16a78ce725a4}{reponse}}[i];}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00333}00333     \}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00334}00334     \textcolor{keyword}{const} \textcolor{keywordtype}{char} s[2] = \textcolor{stringliteral}{"{} "{}};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00335}00335     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} index = 0;}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00336}00336     \textcolor{keywordtype}{char} *token;}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00337}00337 }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00338}00338     \textcolor{comment}{// get the first token}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00339}00339     token = strtok(str, s);}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00340}00340 }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00341}00341     \textcolor{comment}{// walk through other tokens}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00342}00342     \textcolor{keywordflow}{while}( token != NULL )}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00343}00343     \{}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00344}00344       \textcolor{keywordflow}{if}(index == 1)}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00345}00345       \{}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00346}00346           printf( \textcolor{stringliteral}{"{}Poid: \%s\(\backslash\)n"{}}, token );}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00347}00347           \mbox{\hyperlink{processus_pesage_8h_af6d31d94e022c5f2837934ca9e6919d1}{processusPesage}}.weight = atoi(token);}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00348}00348           printf(\textcolor{stringliteral}{"{}\%d\(\backslash\)n"{}}, \mbox{\hyperlink{processus_pesage_8h_af6d31d94e022c5f2837934ca9e6919d1}{processusPesage}}.weight);}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00349}00349       \}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00350}00350       \textcolor{keywordflow}{if}(index == 2)}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00351}00351       \{}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00352}00352           printf( \textcolor{stringliteral}{"{}Unite: \%s\(\backslash\)n"{}}, token );}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00353}00353           \textcolor{keywordflow}{if}(token[0] == \textcolor{charliteral}{'g'})}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00354}00354           \{}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00355}00355               \textcolor{comment}{//processusPesage.unite = PROCESSUSPESAGE\_UNITE\_G;}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00356}00356           \}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00357}00357           \textcolor{keywordflow}{if}(token[0] == \textcolor{charliteral}{'o'})}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00358}00358           \{}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00359}00359               \textcolor{comment}{//processusPesage.unite = PROCESSUSPESAGE\_UNITE\_OZ;}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00360}00360           \}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00361}00361       \}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00362}00362       token = strtok(NULL, s);}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00363}00363       index++;}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00364}00364     \}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00366}00366     }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00367}00367     \textcolor{comment}{// ENVOIE DU POID AU MASTER }}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00368}00368     \mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{ModuleData}}.\mbox{\hyperlink{structst_module_data_a4c16728345f6f1ef92b12cd839947107}{WeightToSend}} = \mbox{\hyperlink{processus_pesage_8h_af6d31d94e022c5f2837934ca9e6919d1}{processusPesage}}.weight;}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00369}00369     }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00371}00371     }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00372}00372     \textcolor{comment}{// on dit au bras de redescendre prendre la rondelle }}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00373}00373     sprintf(\mbox{\hyperlink{processus_pesage_8c_a36cb4363be16f5a772eaa5c19a9fa7ad}{commande}}, \textcolor{stringliteral}{"{}\#1 G0 X\%d Y\%d Z-\/43 F8000\(\backslash\)n"{}}, \mbox{\hyperlink{processus_pesage_8c_ad660c90589efbb535c7d55dc032c1b09}{x2}}, \mbox{\hyperlink{processus_pesage_8c_ab01055e87d61c94f71e59f1116867f60}{y2}}); }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00374}00374     interfaceBras\_ecritUneCommande(\mbox{\hyperlink{processus_pesage_8c_a36cb4363be16f5a772eaa5c19a9fa7ad}{commande}}, \textcolor{keyword}{sizeof} \mbox{\hyperlink{processus_pesage_8c_a36cb4363be16f5a772eaa5c19a9fa7ad}{commande}});}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00375}00375     memset(\mbox{\hyperlink{processus_pesage_8c_a36cb4363be16f5a772eaa5c19a9fa7ad}{commande}}, 0, 64);}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00376}00376     }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00377}00377     \mbox{\hyperlink{service_base_de_temps_8c_a103583940036ccbb95b6b4c1f73b74d6}{serviceBaseDeTemps\_execute}}[\mbox{\hyperlink{main_8h_af51920a460d59f788cd07915830d929c}{PROCESSUSPESAGE\_PHASE}}] = \mbox{\hyperlink{processus_pesage_8c_a6a437f083fb6d5962439fc332d8c5628}{processusPesage\_repriseRondelle}};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00378}00378 \}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00379}00379 }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00380}\mbox{\hyperlink{processus_pesage_8c_a6a437f083fb6d5962439fc332d8c5628}{00380}} \textcolor{keywordtype}{void} \mbox{\hyperlink{processus_pesage_8c_a6a437f083fb6d5962439fc332d8c5628}{processusPesage\_repriseRondelle}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00381}00381 \{}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00382}00382     \textcolor{keywordflow}{if}(\mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{ModuleData}}.\mbox{\hyperlink{structst_module_data_aad97611843f921f2d34f879b04290c44}{Mode}} == \mbox{\hyperlink{_service_communication_8c_a8d263995a90824787239b3b43fd22624}{Modes}}.\mbox{\hyperlink{structst_modes_ae19fde49e40cc8ae869cf0cf1a47847f}{operation}})}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00383}00383     \{}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00384}00384         memset(\mbox{\hyperlink{processus_pesage_8c_ac7e472330027293d561a16a78ce725a4}{reponse}}, 0, 64); \textcolor{comment}{// On vide le buffer de réponse }}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00385}00385         }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00386}00386         interfaceBras\_recoitUneReponse(\mbox{\hyperlink{processus_pesage_8c_ac7e472330027293d561a16a78ce725a4}{reponse}},64);}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00387}00387         printf(\textcolor{stringliteral}{"{}\%s"{}}, \mbox{\hyperlink{processus_pesage_8c_ac7e472330027293d561a16a78ce725a4}{reponse}});}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00388}00388         fflush(stdout);}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00389}00389         }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00390}00390         \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00391}00391 \textcolor{comment}{        if(reponse[0] != '\$')  // On attend d'avoir recu la réponse du bras qui confirme qu'il est REDESCENDU}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00392}00392 \textcolor{comment}{        \{}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00393}00393 \textcolor{comment}{            return;}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00394}00394 \textcolor{comment}{        \}}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00395}00395 \textcolor{comment}{        }}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00396}00396 \textcolor{comment}{        */}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00397}00397         }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00398}00398         \textcolor{keywordflow}{if}(\mbox{\hyperlink{processus_pesage_8c_ade857a99d48bcb8cfaa57c4cd8d7d2e8}{compteur}} <= 1000) \textcolor{comment}{// Délais pour attendre avant d'envoyer une autre commande au bras}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00399}00399         \{}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00400}00400             \mbox{\hyperlink{processus_pesage_8c_ade857a99d48bcb8cfaa57c4cd8d7d2e8}{compteur}}++;}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00401}00401             \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00402}00402         \}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00403}00403         }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00404}00404         sprintf(\mbox{\hyperlink{processus_pesage_8c_a36cb4363be16f5a772eaa5c19a9fa7ad}{commande}}, \textcolor{stringliteral}{"{}\#1 M2231 V1\(\backslash\)n"{}});   \textcolor{comment}{// ON allume la ventouse}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00405}00405         interfaceBras\_ecritUneCommande(\mbox{\hyperlink{processus_pesage_8c_a36cb4363be16f5a772eaa5c19a9fa7ad}{commande}}, \textcolor{keyword}{sizeof} \mbox{\hyperlink{processus_pesage_8c_a36cb4363be16f5a772eaa5c19a9fa7ad}{commande}});}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00406}00406         memset(\mbox{\hyperlink{processus_pesage_8c_a36cb4363be16f5a772eaa5c19a9fa7ad}{commande}}, 0, 64);}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00407}00407         }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00408}00408         \mbox{\hyperlink{processus_pesage_8c_ade857a99d48bcb8cfaa57c4cd8d7d2e8}{compteur}} = 0;}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00409}00409         \mbox{\hyperlink{service_base_de_temps_8c_a103583940036ccbb95b6b4c1f73b74d6}{serviceBaseDeTemps\_execute}}[\mbox{\hyperlink{main_8h_af51920a460d59f788cd07915830d929c}{PROCESSUSPESAGE\_PHASE}}] = \mbox{\hyperlink{processus_pesage_8c_a0ae67e1c73c087d9e115c70450f8cc02}{processusPesage\_repriseRondellePart2}};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00410}00410     \}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00411}00411     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00412}00412     \{}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00413}00413         \textcolor{keywordflow}{if}(\mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{ModuleData}}.\mbox{\hyperlink{structst_module_data_aad97611843f921f2d34f879b04290c44}{Mode}} == \mbox{\hyperlink{_service_communication_8c_a8d263995a90824787239b3b43fd22624}{Modes}}.\mbox{\hyperlink{structst_modes_a03ad9e5077cba8652d921ea0b1ec9483}{pause}})}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00414}00414         \{}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00415}00415             \mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{ModuleData}}.\mbox{\hyperlink{structst_module_data_a5e17acbc4701e7886ecec1c3b3a6861f}{State}} = \mbox{\hyperlink{_service_communication_8c_a438a30fee677441c56cb4010275f6811}{States}}.\mbox{\hyperlink{structst_states_acd32cc631f50c25e83c903efae3ddbd7}{paused}};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00416}00416         \}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00417}00417     \} }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00418}00418 \}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00419}00419 }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00420}00420 }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00421}\mbox{\hyperlink{processus_pesage_8c_a0ae67e1c73c087d9e115c70450f8cc02}{00421}} \textcolor{keywordtype}{void} \mbox{\hyperlink{processus_pesage_8c_a0ae67e1c73c087d9e115c70450f8cc02}{processusPesage\_repriseRondellePart2}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00422}00422 \{}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00423}00423     \textcolor{keywordflow}{if}(\mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{ModuleData}}.\mbox{\hyperlink{structst_module_data_aad97611843f921f2d34f879b04290c44}{Mode}} == \mbox{\hyperlink{_service_communication_8c_a8d263995a90824787239b3b43fd22624}{Modes}}.\mbox{\hyperlink{structst_modes_ae19fde49e40cc8ae869cf0cf1a47847f}{operation}})}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00424}00424     \{}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00425}00425         \textcolor{keywordflow}{if}(\mbox{\hyperlink{processus_pesage_8c_ade857a99d48bcb8cfaa57c4cd8d7d2e8}{compteur}} <= 1000) \textcolor{comment}{// Délais pour attendre avant d'envoyer une autre commande au bras}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00426}00426         \{}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00427}00427             \mbox{\hyperlink{processus_pesage_8c_ade857a99d48bcb8cfaa57c4cd8d7d2e8}{compteur}}++;}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00428}00428             \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00429}00429         \}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00430}00430         }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00431}00431         \textcolor{comment}{// quand le delais est fini on envoie un autre commande}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00432}00432         interfaceBras\_recoitUneReponse(\mbox{\hyperlink{processus_pesage_8c_ac7e472330027293d561a16a78ce725a4}{reponse}},64);  \textcolor{comment}{// On lit la reponse meme si on l'utilise pas }}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00433}00433         printf(\textcolor{stringliteral}{"{}\%s"{}}, \mbox{\hyperlink{processus_pesage_8c_ac7e472330027293d561a16a78ce725a4}{reponse}});}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00434}00434         fflush(stdout);}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00435}00435         }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00436}00436         sprintf(\mbox{\hyperlink{processus_pesage_8c_a36cb4363be16f5a772eaa5c19a9fa7ad}{commande}}, \textcolor{stringliteral}{"{}\#1 G0 X\%d Y\%d Z100 F8000\(\backslash\)n"{}}, \mbox{\hyperlink{processus_pesage_8c_ad660c90589efbb535c7d55dc032c1b09}{x2}}, \mbox{\hyperlink{processus_pesage_8c_ab01055e87d61c94f71e59f1116867f60}{y2}});   \textcolor{comment}{// on envoie une commande pour qu'il remonte avec la rondelle}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00437}00437         interfaceBras\_ecritUneCommande(\mbox{\hyperlink{processus_pesage_8c_a36cb4363be16f5a772eaa5c19a9fa7ad}{commande}}, \textcolor{keyword}{sizeof} \mbox{\hyperlink{processus_pesage_8c_a36cb4363be16f5a772eaa5c19a9fa7ad}{commande}});}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00438}00438         memset(\mbox{\hyperlink{processus_pesage_8c_a36cb4363be16f5a772eaa5c19a9fa7ad}{commande}}, 0, 64);}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00439}00439         }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00440}00440         \mbox{\hyperlink{processus_pesage_8c_ade857a99d48bcb8cfaa57c4cd8d7d2e8}{compteur}} = 0;}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00441}00441         \mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{ModuleData}}.\mbox{\hyperlink{structst_module_data_a5e17acbc4701e7886ecec1c3b3a6861f}{State}} = \mbox{\hyperlink{_service_communication_8c_a438a30fee677441c56cb4010275f6811}{States}}.\mbox{\hyperlink{structst_states_aec9b0df527403a66ab5046cab4807039}{finishedWeighting}}; }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00442}00442         \mbox{\hyperlink{service_base_de_temps_8c_a103583940036ccbb95b6b4c1f73b74d6}{serviceBaseDeTemps\_execute}}[\mbox{\hyperlink{main_8h_af51920a460d59f788cd07915830d929c}{PROCESSUSPESAGE\_PHASE}}] = \mbox{\hyperlink{processus_pesage_8c_a959e149b704f987547b96ede3fdaa3bd}{processusPesage\_disposeRondelle}};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00443}00443     \}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00444}00444     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00445}00445     \{}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00446}00446         \textcolor{keywordflow}{if}(\mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{ModuleData}}.\mbox{\hyperlink{structst_module_data_aad97611843f921f2d34f879b04290c44}{Mode}} == \mbox{\hyperlink{_service_communication_8c_a8d263995a90824787239b3b43fd22624}{Modes}}.\mbox{\hyperlink{structst_modes_a03ad9e5077cba8652d921ea0b1ec9483}{pause}})}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00447}00447         \{}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00448}00448             \mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{ModuleData}}.\mbox{\hyperlink{structst_module_data_a5e17acbc4701e7886ecec1c3b3a6861f}{State}} = \mbox{\hyperlink{_service_communication_8c_a438a30fee677441c56cb4010275f6811}{States}}.\mbox{\hyperlink{structst_states_acd32cc631f50c25e83c903efae3ddbd7}{paused}};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00449}00449         \}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00450}00450     \} }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00451}00451 \}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00452}00452 }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00453}00453 }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00454}\mbox{\hyperlink{processus_pesage_8c_a959e149b704f987547b96ede3fdaa3bd}{00454}} \textcolor{keywordtype}{void} \mbox{\hyperlink{processus_pesage_8c_a959e149b704f987547b96ede3fdaa3bd}{processusPesage\_disposeRondelle}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00455}00455 \{}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00456}00456     }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00457}00457     \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00458}00458 \textcolor{comment}{    if(reponse[0] != '\$')  // On attend d'avoir recu la réponse du bras qui confirme qu'il a monté avec la rondelle}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00459}00459 \textcolor{comment}{    \{}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00460}00460 \textcolor{comment}{        return;}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00461}00461 \textcolor{comment}{    \}}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00462}00462 \textcolor{comment}{    */}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00463}00463     \textcolor{keywordflow}{if}(\mbox{\hyperlink{processus_pesage_8c_ade857a99d48bcb8cfaa57c4cd8d7d2e8}{compteur}} <= 1000) \textcolor{comment}{// Délais pour attendre avant d'envoyer une autre commande au bras}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00464}00464     \{}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00465}00465         \mbox{\hyperlink{processus_pesage_8c_ade857a99d48bcb8cfaa57c4cd8d7d2e8}{compteur}}++;}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00466}00466         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00467}00467     \}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00468}00468     }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00469}00469     memset(\mbox{\hyperlink{processus_pesage_8c_ac7e472330027293d561a16a78ce725a4}{reponse}}, 0, 64);}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00470}00470     interfaceBras\_recoitUneReponse(\mbox{\hyperlink{processus_pesage_8c_ac7e472330027293d561a16a78ce725a4}{reponse}},64);}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00471}00471     printf(\textcolor{stringliteral}{"{}\%s"{}}, \mbox{\hyperlink{processus_pesage_8c_ac7e472330027293d561a16a78ce725a4}{reponse}});}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00472}00472     fflush(stdout);}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00473}00473     }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00474}00474     \mbox{\hyperlink{processus_pesage_8c_ad660c90589efbb535c7d55dc032c1b09}{x2}} = 200;  \textcolor{comment}{// Coordonné de lespace de stockage des rondelles}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00475}00475     \mbox{\hyperlink{processus_pesage_8c_ab01055e87d61c94f71e59f1116867f60}{y2}} = 250;}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00476}00476     sprintf(\mbox{\hyperlink{processus_pesage_8c_a36cb4363be16f5a772eaa5c19a9fa7ad}{commande}}, \textcolor{stringliteral}{"{}\#1 G0 X\%d Y\%d Z0 F8000\(\backslash\)n"{}}, \mbox{\hyperlink{processus_pesage_8c_ad660c90589efbb535c7d55dc032c1b09}{x2}}, \mbox{\hyperlink{processus_pesage_8c_ab01055e87d61c94f71e59f1116867f60}{y2}});  \textcolor{comment}{// Coordonné pour aller stocker la rondelle}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00477}00477     interfaceBras\_ecritUneCommande(\mbox{\hyperlink{processus_pesage_8c_a36cb4363be16f5a772eaa5c19a9fa7ad}{commande}}, \textcolor{keyword}{sizeof} \mbox{\hyperlink{processus_pesage_8c_a36cb4363be16f5a772eaa5c19a9fa7ad}{commande}});}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00478}00478     memset(\mbox{\hyperlink{processus_pesage_8c_a36cb4363be16f5a772eaa5c19a9fa7ad}{commande}}, 0, 64);}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00479}00479     }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00480}00480     \mbox{\hyperlink{processus_pesage_8c_ade857a99d48bcb8cfaa57c4cd8d7d2e8}{compteur}} = 0;}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00481}00481     \mbox{\hyperlink{service_base_de_temps_8c_a103583940036ccbb95b6b4c1f73b74d6}{serviceBaseDeTemps\_execute}}[\mbox{\hyperlink{main_8h_af51920a460d59f788cd07915830d929c}{PROCESSUSPESAGE\_PHASE}}] = \mbox{\hyperlink{processus_pesage_8c_ab84d7f374391edbc7fb83f0b8fbf9451}{processusPesage\_gere}};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00482}00482 \}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00483}00483 }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00484}\mbox{\hyperlink{processus_pesage_8c_ab84d7f374391edbc7fb83f0b8fbf9451}{00484}} \textcolor{keywordtype}{void} \mbox{\hyperlink{processus_pesage_8c_ab84d7f374391edbc7fb83f0b8fbf9451}{processusPesage\_gere}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00485}00485 \{}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00486}00486     memset(\mbox{\hyperlink{processus_pesage_8c_ac7e472330027293d561a16a78ce725a4}{reponse}}, 0, 64);}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00487}00487     interfaceBras\_recoitUneReponse(\mbox{\hyperlink{processus_pesage_8c_ac7e472330027293d561a16a78ce725a4}{reponse}},64);}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00488}00488     printf(\textcolor{stringliteral}{"{}\%s"{}}, \mbox{\hyperlink{processus_pesage_8c_ac7e472330027293d561a16a78ce725a4}{reponse}});}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00489}00489     fflush(stdout);}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00490}00490     }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00491}00491     \textcolor{keywordflow}{if}(\mbox{\hyperlink{processus_pesage_8c_ade857a99d48bcb8cfaa57c4cd8d7d2e8}{compteur}} <= 3000) \textcolor{comment}{// Délais pour attendre que le bras soit en position}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00492}00492     \{}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00493}00493         \mbox{\hyperlink{processus_pesage_8c_ade857a99d48bcb8cfaa57c4cd8d7d2e8}{compteur}}++;}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00494}00494         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00495}00495     \}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00496}00496     }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00497}00497     }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00498}00498     sprintf(\mbox{\hyperlink{processus_pesage_8c_a36cb4363be16f5a772eaa5c19a9fa7ad}{commande}}, \textcolor{stringliteral}{"{}\#2 M2231 V0\(\backslash\)n"{}});    \textcolor{comment}{// Commande pour relacher la rondelle }}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00499}00499     interfaceBras\_ecritUneCommande(\mbox{\hyperlink{processus_pesage_8c_a36cb4363be16f5a772eaa5c19a9fa7ad}{commande}}, \textcolor{keyword}{sizeof} \mbox{\hyperlink{processus_pesage_8c_a36cb4363be16f5a772eaa5c19a9fa7ad}{commande}});}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00500}00500     memset(\mbox{\hyperlink{processus_pesage_8c_a36cb4363be16f5a772eaa5c19a9fa7ad}{commande}}, 0, 64);}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00501}00501     }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00502}00502     \mbox{\hyperlink{processus_pesage_8c_ade857a99d48bcb8cfaa57c4cd8d7d2e8}{compteur}} = 0;}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00503}00503     \mbox{\hyperlink{service_base_de_temps_8c_a103583940036ccbb95b6b4c1f73b74d6}{serviceBaseDeTemps\_execute}}[\mbox{\hyperlink{main_8h_af51920a460d59f788cd07915830d929c}{PROCESSUSPESAGE\_PHASE}}] = \mbox{\hyperlink{processus_pesage_8c_aa2ef06a4ed87977f7daade97fd9795f7}{processusPesage\_retourEtatInit}};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00504}00504 \}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00505}00505 }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00506}\mbox{\hyperlink{processus_pesage_8c_aa2ef06a4ed87977f7daade97fd9795f7}{00506}} \textcolor{keywordtype}{void} \mbox{\hyperlink{processus_pesage_8c_aa2ef06a4ed87977f7daade97fd9795f7}{processusPesage\_retourEtatInit}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00507}00507 \{}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00508}00508     \textcolor{keywordflow}{if}(\mbox{\hyperlink{processus_pesage_8c_ade857a99d48bcb8cfaa57c4cd8d7d2e8}{compteur}} <= 1000) \textcolor{comment}{// Délais pour attendre avant d'envoyer une autre commande au bras}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00509}00509     \{}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00510}00510         \mbox{\hyperlink{processus_pesage_8c_ade857a99d48bcb8cfaa57c4cd8d7d2e8}{compteur}}++;}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00511}00511         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00512}00512     \}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00513}00513     }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00514}00514     sprintf(\mbox{\hyperlink{processus_pesage_8c_a36cb4363be16f5a772eaa5c19a9fa7ad}{commande}}, \textcolor{stringliteral}{"{}\#1 G0 X200 Y0 Z100 F8000\(\backslash\)n"{}});    \textcolor{comment}{// Commande pour retourner en position d'init}}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00515}00515     interfaceBras\_ecritUneCommande(\mbox{\hyperlink{processus_pesage_8c_a36cb4363be16f5a772eaa5c19a9fa7ad}{commande}}, \textcolor{keyword}{sizeof} \mbox{\hyperlink{processus_pesage_8c_a36cb4363be16f5a772eaa5c19a9fa7ad}{commande}});}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00516}00516     memset(\mbox{\hyperlink{processus_pesage_8c_a36cb4363be16f5a772eaa5c19a9fa7ad}{commande}}, 0, 64);}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00517}00517     \mbox{\hyperlink{processus_pesage_8c_ade857a99d48bcb8cfaa57c4cd8d7d2e8}{compteur}} = 0;}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00518}00518     }
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00519}00519     \mbox{\hyperlink{_service_communication_8c_aeffc3a637225c738529acf463e90160d}{ModuleData\_SetAll\_ValuesReceived}}(\mbox{\hyperlink{_service_communication_8h_a7f6404e3e6de5aa345a9208af100d4f8}{PARSED}});}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00520}00520     \mbox{\hyperlink{_service_communication_8c_af91ebf03d5c59428b1019aa2619c9402}{ModuleData\_SetAll\_StatesReceived}}(\mbox{\hyperlink{_service_communication_8h_a7f6404e3e6de5aa345a9208af100d4f8}{PARSED}});}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00521}00521     \mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{ModuleData}}.\mbox{\hyperlink{structst_module_data_a5e17acbc4701e7886ecec1c3b3a6861f}{State}} = \mbox{\hyperlink{_service_communication_8c_a438a30fee677441c56cb4010275f6811}{States}}.\mbox{\hyperlink{structst_states_aec9b0df527403a66ab5046cab4807039}{finishedWeighting}};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00522}00522     \mbox{\hyperlink{service_base_de_temps_8c_a103583940036ccbb95b6b4c1f73b74d6}{serviceBaseDeTemps\_execute}}[\mbox{\hyperlink{main_8h_af51920a460d59f788cd07915830d929c}{PROCESSUSPESAGE\_PHASE}}] = \mbox{\hyperlink{processus_pesage_8c_ab5e8d684093c630bd88df0961be9e93b}{processusPesage\_attendUneRequete}};}
+\DoxyCodeLine{\Hypertarget{processus_pesage_8c_source_l00523}00523 \}}
+
+\end{DoxyCode}

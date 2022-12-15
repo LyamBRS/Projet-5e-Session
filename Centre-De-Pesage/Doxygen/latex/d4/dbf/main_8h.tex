@@ -1,0 +1,557 @@
+\hypertarget{main_8h}{}\doxysection{Référence du fichier U\+:/\+Sessions/\+Session 5/\+Project/\+Projet\+\_\+\+Fin\+\_\+\+Session/\+Projet-\/5e-\/\+Session/\+Centre-\/\+De-\/\+Pesage/\+Programmes/\+Pesage\+Base\+De\+Temps/main.h}
+\label{main_8h}\index{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Pesage/Programmes/PesageBaseDeTemps/main.h@{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Pesage/Programmes/PesageBaseDeTemps/main.h}}
+
+
+Le programme a pour but de contôler un bras robot et une balance avec un beaglebone Blue tout en communiquant les information de ses tâches au autre module du projet de 5eme session de TSO. La communication se fait a l\textquotesingle{}aide d\textquotesingle{}un réseau CAN et est gêrer par le \mbox{\hyperlink{_service_communication_8h}{Service\+Communication.\+h}}.  
+
+
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$fcntl.\+h$>$}\newline
+{\ttfamily \#include $<$errno.\+h$>$}\newline
+{\ttfamily \#include $<$sys/ioctl.\+h$>$}\newline
+{\ttfamily \#include $<$sys/wait.\+h$>$}\newline
+{\ttfamily \#include $<$sys/types.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{main_8h_a2934047fa0ef36d13344bc9d388ef628}{PILOTESERIEUSB\+\_\+\+BAUDRATE\+\_\+\+AVEC\+\_\+\+B\+\_\+\+AU\+\_\+\+DEBUT}}~B115200
+\begin{DoxyCompactList}\small\item\em Définition du baudrate utilisé par \mbox{\hyperlink{pilote_serie_u_s_b_8h_source}{pilote\+Serie\+USB.\+h}} nécessite un b au début pour le fonctionnement avec linux ~\newline
+ \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{main_8h_a635570abe91526274a63f4ece8d6aa3d}{PILOTEUSBBAL\+\_\+\+BAUDRATE\+\_\+\+AVEC\+\_\+\+B\+\_\+\+AU\+\_\+\+DEBUT}}~B9600
+\begin{DoxyCompactList}\small\item\em Définition du baudrate utilisé par \mbox{\hyperlink{pilote_u_s_bbal_8h_source}{pilote\+USBbal.\+h}} nécessite un b au début pour le fonctionnement avec linux. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{main_8h_a5cac4892b7501c9087aa00c9195183dd}{PILOTECAN\+\_\+\+INTERFACE\+\_\+\+REELLE}}
+\item 
+\#define \mbox{\hyperlink{main_8h_aef1985ba15edf2099bbdf7e606a00428}{PILOTECAN\+\_\+\+ADRESSE\+\_\+\+EN\+\_\+\+RECEPTION}}~0x00
+\begin{DoxyCompactList}\small\item\em Définition de l\textquotesingle{}adresse de réception sur le réseau CAN un 0 fais en sorte que le module recoit tous les trame envoyé sur le CAN. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{main_8h_a247085a3fedca62b7b4910d4823a1edc}{PILOTECAN\+\_\+\+MASQUE\+\_\+\+EN\+\_\+\+RECEPTION}}~0x00000U
+\begin{DoxyCompactList}\small\item\em Définition du masque de l\textquotesingle{}adresse de réception CAN. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{main_8h_acf8630e8417acfd849f302e05baed1b1}{PILOIECAN\+\_\+\+ADRESSE\+\_\+\+EN\+\_\+\+TRANSMITION}}~0x401
+\begin{DoxyCompactList}\small\item\em Définition de l\textquotesingle{}adresse de transmition sur le réseau CAN qui est utilisé par le centre de pesage (décidé par le protocole de com) \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{main_8h_ad2e380ef4ffe3c7fda4a9ee941a68ff6}{PROCESSUSDETECTION\+\_\+\+COMPTEPOURREPONSE\+\_\+\+INIT}}~2000
+\begin{DoxyCompactList}\small\item\em Valeur du compteur pour les attentes dans le processus détection pour attendre la réponse de l\textquotesingle{}initialisation du bras. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{main_8h_a179474829886745c9dc4f956529a71a0}{PROCESSUSDETECTION\+\_\+\+COMPTEPOURREPONSE\+\_\+\+CMD}}~300
+\begin{DoxyCompactList}\small\item\em Valeur du compteur pour les attentes dans le processus détection pour attendre la réponse de l\textquotesingle{}initialisation du bras. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{main_8h_a7f55cccd90fde97bc9c1b75e160127c1}{PROCESSUSDETECTION\+\_\+\+HAUTEUR\+\_\+\+DE\+\_\+\+SCAN}}~90
+\begin{DoxyCompactList}\small\item\em Hauteur qui correspond à la coordonné z du bras robot lors de la détection d\textquotesingle{}une rondelle. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{main_8h_ad96a89ddfc09cad32ce6caea5b2aa3fd}{PROCESSUSDETECTION\+\_\+\+REQUETE\+\_\+\+ACTIVE}}~1
+\begin{DoxyCompactList}\small\item\em Définition pour contrôler les requetes du \mbox{\hyperlink{processus_detection_8h_source}{processus\+Detection.\+h}} ~\newline
+ Utilisé par la structure processus\+Detection. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{main_8h_a864d40797a0fa75f807c50c12a536010}{PROCESSUSDETECTION\+\_\+\+REQUETE\+\_\+\+TRAITE}}~0
+\begin{DoxyCompactList}\small\item\em Définition pour contrôler les requetes du \mbox{\hyperlink{processus_detection_8h_source}{processus\+Detection.\+h}} ~\newline
+ Utilisé par la structure processus\+Detection. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{main_8h_a201361e6575847a6fe2cbe12f0b1fec5}{PROCESSUSDETECTION\+\_\+\+MODULE\+\_\+\+EN\+\_\+\+FONCTION}}~1
+\begin{DoxyCompactList}\small\item\em Définition utilisé pour savoir l\textquotesingle{}état du module. Utilisé par la structure processus\+Detection. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{main_8h_a044ad1171fd977c68cbd41736807a4f0}{PROCESSUSDETECTION\+\_\+\+MODULE\+\_\+\+PAS\+\_\+\+EN\+\_\+\+FONCTION}}~0
+\begin{DoxyCompactList}\small\item\em Définition utilisé pour savoir l\textquotesingle{}état du module. Utilisé par la structure processus\+Detection. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{main_8h_a968ae2d9a7d4d9e03d25c187a3b0e309}{PROCESSUSDETECTION\+\_\+\+INFORMATION\+\_\+\+CUBEDETECTED}}~1
+\begin{DoxyCompactList}\small\item\em Définition utilisé pour avoir de l\textquotesingle{}information du \mbox{\hyperlink{processus_detection_8h_source}{processus\+Detection.\+h}} Utilisé par la structure processus\+Detection Pour savoir si il y a un cube au pas. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{main_8h_afe50d7bcf3ddfca76f1c839f16862bc5}{PROCESSUSDETECTION\+\_\+\+INFORMATION\+\_\+\+CUBENOTDETECTED}}~0
+\begin{DoxyCompactList}\small\item\em Définition utilisé pour avoir de l\textquotesingle{}information du \mbox{\hyperlink{processus_detection_8h_source}{processus\+Detection.\+h}} Utilisé par la structure processus\+Detection Pour savoir si il y a un cube au pas. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{main_8h_a6c881f57dd1c677526a6bf6e2eda81aa}{PROCESSUSDETECTION\+\_\+\+INFORMATION\+\_\+\+CUBEUNUSED}}~2
+\begin{DoxyCompactList}\small\item\em Définition utilisé pour avoir de l\textquotesingle{}information du \mbox{\hyperlink{processus_detection_8h_source}{processus\+Detection.\+h}} Utilisé par la structure processus\+Detection Pour savoir si il y a un cube au pas. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{main_8h_a812b4115f288d6c4873148a9e850acb9}{PROCESSUSPESAGE\+\_\+\+UNITE\+\_\+\+OZ}}~\textquotesingle{}o\textquotesingle{}
+\begin{DoxyCompactList}\small\item\em Définition pour savoir si on est en gramme ou en Oz. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{main_8h_a71d0604fb65e32056a56a21363efe0fc}{PROCESSUSPESAGE\+\_\+\+UNITE\+\_\+G}}~\textquotesingle{}g\textquotesingle{}
+\begin{DoxyCompactList}\small\item\em Définition pour savoir si on est en gramme ou en Oz. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{main_8h_a3966eab1d2f73d128f8de00a35f818fd}{PROCESSUSPESAGE\+\_\+\+REQUETE\+\_\+\+ACTIVE}}~1
+\begin{DoxyCompactList}\small\item\em Définition pour contrôler les requetes du \mbox{\hyperlink{processus_pesage_8h}{processus\+Pesage.\+h}} ~\newline
+ Utilisé par la structure \mbox{\hyperlink{processus_pesage_8h_af6d31d94e022c5f2837934ca9e6919d1}{processus\+Pesage}}. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{main_8h_ade35ac0d91236f258481b4877d76a704}{PROCESSUSPESAGE\+\_\+\+REQUETE\+\_\+\+TRAITE}}~0
+\begin{DoxyCompactList}\small\item\em Définition pour contrôler les requetes du \mbox{\hyperlink{processus_pesage_8h}{processus\+Pesage.\+h}} ~\newline
+ Utilisé par la structure \mbox{\hyperlink{processus_pesage_8h_af6d31d94e022c5f2837934ca9e6919d1}{processus\+Pesage}}. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{main_8h_a96a2f4bb2206193bc10d237cc597e72a}{PROCESSUSPESAGE\+\_\+\+MODULE\+\_\+\+EN\+\_\+\+FONCTION}}~1
+\begin{DoxyCompactList}\small\item\em Définition utilisé pour savoir l\textquotesingle{}état du module. Utilisé par la structure \mbox{\hyperlink{processus_pesage_8h_af6d31d94e022c5f2837934ca9e6919d1}{processus\+Pesage}}. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{main_8h_a97da0021207a7d5900ae20f841febd5c}{PROCESSUSPESAGE\+\_\+\+MODULE\+\_\+\+PAS\+\_\+\+EN\+\_\+\+FONCTION}}~0
+\begin{DoxyCompactList}\small\item\em Définition utilisé pour savoir l\textquotesingle{}état du module. Utilisé par la structure \mbox{\hyperlink{processus_pesage_8h_af6d31d94e022c5f2837934ca9e6919d1}{processus\+Pesage}}. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{main_8h_a8ee5db313fccaab14e5997045020f6d6}{PILOTETIMER\+\_\+\+PERIODE\+\_\+\+EN\+\_\+\+MS}}~5
+\begin{DoxyCompactList}\small\item\em Définition pour la période du pilote Timer. C\textquotesingle{}est le temps entre chaque apelle de sa fonction handler qui elle meme appelle le \mbox{\hyperlink{service_base_de_temps_8h}{service\+Base\+De\+Temps.\+h}}. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{main_8h_af4e0eb7a8c917b269dbb0756b0884cd3}{SERVICEBASEDETEMPS\+\_\+\+PERIODE\+\_\+\+EN\+\_\+\+MS}}~\mbox{\hyperlink{main_8h_a8ee5db313fccaab14e5997045020f6d6}{PILOTETIMER\+\_\+\+PERIODE\+\_\+\+EN\+\_\+\+MS}}
+\begin{DoxyCompactList}\small\item\em Période de la base de temps en Milisecondes. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{main_8h_a6276b0f7c474c476289248b4eecd63ee}{SERVICEBASEDETEMPS\+\_\+\+FREQUENCE\+\_\+\+EN\+\_\+\+HZ}}~200
+\begin{DoxyCompactList}\small\item\em Fréquence de la base de temps en Hz. Doit être recalculé si la période du pilote timer \mbox{\hyperlink{main_8h_a8ee5db313fccaab14e5997045020f6d6}{PILOTETIMER\+\_\+\+PERIODE\+\_\+\+EN\+\_\+\+MS}} est changé. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{main_8h_a9470a0f17392d89a537141466f6f0e98}{SERVICEBASEDETEMPS\+\_\+\+NOMBRE\+\_\+\+DE\+\_\+\+PHASES}}~5
+\begin{DoxyCompactList}\small\item\em Nombre de phase de la base de temps \mbox{\hyperlink{service_base_de_temps_8h}{service\+Base\+De\+Temps.\+h}}. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{main_8h_a561647e7b1ac9d4527996d8330a20dfd}{PROCESSUSDETECTION\+\_\+\+PHASE}}~0
+\begin{DoxyCompactList}\small\item\em Numéro de la phase du processus Détection ~\newline
+ \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{main_8h_af51920a460d59f788cd07915830d929c}{PROCESSUSPESAGE\+\_\+\+PHASE}}~1
+\begin{DoxyCompactList}\small\item\em Numéro de la phase du processus Pesage. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{main_8h_a400c4661c03ea3126260ccb4e61d977b}{PROCESSUSGESTIONCOM\+\_\+\+PHASE}}~4
+\begin{DoxyCompactList}\small\item\em Numéro de la phase du processus de Gestion de COM. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{main_8h_ab6e7d92e268f07cf18c427fee9ff2e88}{SERVICEBASEDETEMPS\+\_\+\+NOMBRE\+\_\+\+DE\+\_\+\+PHASES\+\_\+\+DANS\+\_\+\+LOOP}}~1
+\begin{DoxyCompactList}\small\item\em Nombre de phase dans une période de la base de temps (1 si pas utilisé) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{main_8h_a840291bc02cba5474a4cb46a9b9566fe}{main}} (void)
+\begin{DoxyCompactList}\small\item\em Point d\textquotesingle{}entré du programme. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Le programme a pour but de contôler un bras robot et une balance avec un beaglebone Blue tout en communiquant les information de ses tâches au autre module du projet de 5eme session de TSO. La communication se fait a l\textquotesingle{}aide d\textquotesingle{}un réseau CAN et est gêrer par le \mbox{\hyperlink{_service_communication_8h}{Service\+Communication.\+h}}. 
+
+\begin{DoxyAuthor}{Auteur}
+Cam\+Fo Camille Fortin (\href{mailto:camfortin2022@gmail.com}{\texttt{ camfortin2022@gmail.\+com}}) 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2022-\/12-\/15
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2022 
+\end{DoxyCopyright}
+
+
+Définition dans le fichier \mbox{\hyperlink{main_8h_source}{main.\+h}}.
+
+
+
+\doxysubsection{Documentation des macros}
+\mbox{\Hypertarget{main_8h_acf8630e8417acfd849f302e05baed1b1}\label{main_8h_acf8630e8417acfd849f302e05baed1b1}} 
+\index{main.h@{main.h}!PILOIECAN\_ADRESSE\_EN\_TRANSMITION@{PILOIECAN\_ADRESSE\_EN\_TRANSMITION}}
+\index{PILOIECAN\_ADRESSE\_EN\_TRANSMITION@{PILOIECAN\_ADRESSE\_EN\_TRANSMITION}!main.h@{main.h}}
+\doxysubsubsection{\texorpdfstring{PILOIECAN\_ADRESSE\_EN\_TRANSMITION}{PILOIECAN\_ADRESSE\_EN\_TRANSMITION}}
+{\footnotesize\ttfamily \#define PILOIECAN\+\_\+\+ADRESSE\+\_\+\+EN\+\_\+\+TRANSMITION~0x401}
+
+
+
+Définition de l\textquotesingle{}adresse de transmition sur le réseau CAN qui est utilisé par le centre de pesage (décidé par le protocole de com) 
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8h_source_l00079}{79}} du fichier \mbox{\hyperlink{main_8h_source}{main.\+h}}.
+
+\mbox{\Hypertarget{main_8h_aef1985ba15edf2099bbdf7e606a00428}\label{main_8h_aef1985ba15edf2099bbdf7e606a00428}} 
+\index{main.h@{main.h}!PILOTECAN\_ADRESSE\_EN\_RECEPTION@{PILOTECAN\_ADRESSE\_EN\_RECEPTION}}
+\index{PILOTECAN\_ADRESSE\_EN\_RECEPTION@{PILOTECAN\_ADRESSE\_EN\_RECEPTION}!main.h@{main.h}}
+\doxysubsubsection{\texorpdfstring{PILOTECAN\_ADRESSE\_EN\_RECEPTION}{PILOTECAN\_ADRESSE\_EN\_RECEPTION}}
+{\footnotesize\ttfamily \#define PILOTECAN\+\_\+\+ADRESSE\+\_\+\+EN\+\_\+\+RECEPTION~0x00}
+
+
+
+Définition de l\textquotesingle{}adresse de réception sur le réseau CAN un 0 fais en sorte que le module recoit tous les trame envoyé sur le CAN. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8h_source_l00068}{68}} du fichier \mbox{\hyperlink{main_8h_source}{main.\+h}}.
+
+\mbox{\Hypertarget{main_8h_a5cac4892b7501c9087aa00c9195183dd}\label{main_8h_a5cac4892b7501c9087aa00c9195183dd}} 
+\index{main.h@{main.h}!PILOTECAN\_INTERFACE\_REELLE@{PILOTECAN\_INTERFACE\_REELLE}}
+\index{PILOTECAN\_INTERFACE\_REELLE@{PILOTECAN\_INTERFACE\_REELLE}!main.h@{main.h}}
+\doxysubsubsection{\texorpdfstring{PILOTECAN\_INTERFACE\_REELLE}{PILOTECAN\_INTERFACE\_REELLE}}
+{\footnotesize\ttfamily \#define PILOTECAN\+\_\+\+INTERFACE\+\_\+\+REELLE}
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8h_source_l00059}{59}} du fichier \mbox{\hyperlink{main_8h_source}{main.\+h}}.
+
+\mbox{\Hypertarget{main_8h_a247085a3fedca62b7b4910d4823a1edc}\label{main_8h_a247085a3fedca62b7b4910d4823a1edc}} 
+\index{main.h@{main.h}!PILOTECAN\_MASQUE\_EN\_RECEPTION@{PILOTECAN\_MASQUE\_EN\_RECEPTION}}
+\index{PILOTECAN\_MASQUE\_EN\_RECEPTION@{PILOTECAN\_MASQUE\_EN\_RECEPTION}!main.h@{main.h}}
+\doxysubsubsection{\texorpdfstring{PILOTECAN\_MASQUE\_EN\_RECEPTION}{PILOTECAN\_MASQUE\_EN\_RECEPTION}}
+{\footnotesize\ttfamily \#define PILOTECAN\+\_\+\+MASQUE\+\_\+\+EN\+\_\+\+RECEPTION~0x00000U}
+
+
+
+Définition du masque de l\textquotesingle{}adresse de réception CAN. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8h_source_l00073}{73}} du fichier \mbox{\hyperlink{main_8h_source}{main.\+h}}.
+
+\mbox{\Hypertarget{main_8h_a2934047fa0ef36d13344bc9d388ef628}\label{main_8h_a2934047fa0ef36d13344bc9d388ef628}} 
+\index{main.h@{main.h}!PILOTESERIEUSB\_BAUDRATE\_AVEC\_B\_AU\_DEBUT@{PILOTESERIEUSB\_BAUDRATE\_AVEC\_B\_AU\_DEBUT}}
+\index{PILOTESERIEUSB\_BAUDRATE\_AVEC\_B\_AU\_DEBUT@{PILOTESERIEUSB\_BAUDRATE\_AVEC\_B\_AU\_DEBUT}!main.h@{main.h}}
+\doxysubsubsection{\texorpdfstring{PILOTESERIEUSB\_BAUDRATE\_AVEC\_B\_AU\_DEBUT}{PILOTESERIEUSB\_BAUDRATE\_AVEC\_B\_AU\_DEBUT}}
+{\footnotesize\ttfamily \#define PILOTESERIEUSB\+\_\+\+BAUDRATE\+\_\+\+AVEC\+\_\+\+B\+\_\+\+AU\+\_\+\+DEBUT~B115200}
+
+
+
+Définition du baudrate utilisé par \mbox{\hyperlink{pilote_serie_u_s_b_8h_source}{pilote\+Serie\+USB.\+h}} nécessite un b au début pour le fonctionnement avec linux ~\newline
+ 
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8h_source_l00046}{46}} du fichier \mbox{\hyperlink{main_8h_source}{main.\+h}}.
+
+\mbox{\Hypertarget{main_8h_a8ee5db313fccaab14e5997045020f6d6}\label{main_8h_a8ee5db313fccaab14e5997045020f6d6}} 
+\index{main.h@{main.h}!PILOTETIMER\_PERIODE\_EN\_MS@{PILOTETIMER\_PERIODE\_EN\_MS}}
+\index{PILOTETIMER\_PERIODE\_EN\_MS@{PILOTETIMER\_PERIODE\_EN\_MS}!main.h@{main.h}}
+\doxysubsubsection{\texorpdfstring{PILOTETIMER\_PERIODE\_EN\_MS}{PILOTETIMER\_PERIODE\_EN\_MS}}
+{\footnotesize\ttfamily \#define PILOTETIMER\+\_\+\+PERIODE\+\_\+\+EN\+\_\+\+MS~5}
+
+
+
+Définition pour la période du pilote Timer. C\textquotesingle{}est le temps entre chaque apelle de sa fonction handler qui elle meme appelle le \mbox{\hyperlink{service_base_de_temps_8h}{service\+Base\+De\+Temps.\+h}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8h_source_l00186}{186}} du fichier \mbox{\hyperlink{main_8h_source}{main.\+h}}.
+
+\mbox{\Hypertarget{main_8h_a635570abe91526274a63f4ece8d6aa3d}\label{main_8h_a635570abe91526274a63f4ece8d6aa3d}} 
+\index{main.h@{main.h}!PILOTEUSBBAL\_BAUDRATE\_AVEC\_B\_AU\_DEBUT@{PILOTEUSBBAL\_BAUDRATE\_AVEC\_B\_AU\_DEBUT}}
+\index{PILOTEUSBBAL\_BAUDRATE\_AVEC\_B\_AU\_DEBUT@{PILOTEUSBBAL\_BAUDRATE\_AVEC\_B\_AU\_DEBUT}!main.h@{main.h}}
+\doxysubsubsection{\texorpdfstring{PILOTEUSBBAL\_BAUDRATE\_AVEC\_B\_AU\_DEBUT}{PILOTEUSBBAL\_BAUDRATE\_AVEC\_B\_AU\_DEBUT}}
+{\footnotesize\ttfamily \#define PILOTEUSBBAL\+\_\+\+BAUDRATE\+\_\+\+AVEC\+\_\+\+B\+\_\+\+AU\+\_\+\+DEBUT~B9600}
+
+
+
+Définition du baudrate utilisé par \mbox{\hyperlink{pilote_u_s_bbal_8h_source}{pilote\+USBbal.\+h}} nécessite un b au début pour le fonctionnement avec linux. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8h_source_l00051}{51}} du fichier \mbox{\hyperlink{main_8h_source}{main.\+h}}.
+
+\mbox{\Hypertarget{main_8h_a179474829886745c9dc4f956529a71a0}\label{main_8h_a179474829886745c9dc4f956529a71a0}} 
+\index{main.h@{main.h}!PROCESSUSDETECTION\_COMPTEPOURREPONSE\_CMD@{PROCESSUSDETECTION\_COMPTEPOURREPONSE\_CMD}}
+\index{PROCESSUSDETECTION\_COMPTEPOURREPONSE\_CMD@{PROCESSUSDETECTION\_COMPTEPOURREPONSE\_CMD}!main.h@{main.h}}
+\doxysubsubsection{\texorpdfstring{PROCESSUSDETECTION\_COMPTEPOURREPONSE\_CMD}{PROCESSUSDETECTION\_COMPTEPOURREPONSE\_CMD}}
+{\footnotesize\ttfamily \#define PROCESSUSDETECTION\+\_\+\+COMPTEPOURREPONSE\+\_\+\+CMD~300}
+
+
+
+Valeur du compteur pour les attentes dans le processus détection pour attendre la réponse de l\textquotesingle{}initialisation du bras. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8h_source_l00095}{95}} du fichier \mbox{\hyperlink{main_8h_source}{main.\+h}}.
+
+\mbox{\Hypertarget{main_8h_ad2e380ef4ffe3c7fda4a9ee941a68ff6}\label{main_8h_ad2e380ef4ffe3c7fda4a9ee941a68ff6}} 
+\index{main.h@{main.h}!PROCESSUSDETECTION\_COMPTEPOURREPONSE\_INIT@{PROCESSUSDETECTION\_COMPTEPOURREPONSE\_INIT}}
+\index{PROCESSUSDETECTION\_COMPTEPOURREPONSE\_INIT@{PROCESSUSDETECTION\_COMPTEPOURREPONSE\_INIT}!main.h@{main.h}}
+\doxysubsubsection{\texorpdfstring{PROCESSUSDETECTION\_COMPTEPOURREPONSE\_INIT}{PROCESSUSDETECTION\_COMPTEPOURREPONSE\_INIT}}
+{\footnotesize\ttfamily \#define PROCESSUSDETECTION\+\_\+\+COMPTEPOURREPONSE\+\_\+\+INIT~2000}
+
+
+
+Valeur du compteur pour les attentes dans le processus détection pour attendre la réponse de l\textquotesingle{}initialisation du bras. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8h_source_l00089}{89}} du fichier \mbox{\hyperlink{main_8h_source}{main.\+h}}.
+
+\mbox{\Hypertarget{main_8h_a7f55cccd90fde97bc9c1b75e160127c1}\label{main_8h_a7f55cccd90fde97bc9c1b75e160127c1}} 
+\index{main.h@{main.h}!PROCESSUSDETECTION\_HAUTEUR\_DE\_SCAN@{PROCESSUSDETECTION\_HAUTEUR\_DE\_SCAN}}
+\index{PROCESSUSDETECTION\_HAUTEUR\_DE\_SCAN@{PROCESSUSDETECTION\_HAUTEUR\_DE\_SCAN}!main.h@{main.h}}
+\doxysubsubsection{\texorpdfstring{PROCESSUSDETECTION\_HAUTEUR\_DE\_SCAN}{PROCESSUSDETECTION\_HAUTEUR\_DE\_SCAN}}
+{\footnotesize\ttfamily \#define PROCESSUSDETECTION\+\_\+\+HAUTEUR\+\_\+\+DE\+\_\+\+SCAN~90}
+
+
+
+Hauteur qui correspond à la coordonné z du bras robot lors de la détection d\textquotesingle{}une rondelle. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8h_source_l00102}{102}} du fichier \mbox{\hyperlink{main_8h_source}{main.\+h}}.
+
+\mbox{\Hypertarget{main_8h_a968ae2d9a7d4d9e03d25c187a3b0e309}\label{main_8h_a968ae2d9a7d4d9e03d25c187a3b0e309}} 
+\index{main.h@{main.h}!PROCESSUSDETECTION\_INFORMATION\_CUBEDETECTED@{PROCESSUSDETECTION\_INFORMATION\_CUBEDETECTED}}
+\index{PROCESSUSDETECTION\_INFORMATION\_CUBEDETECTED@{PROCESSUSDETECTION\_INFORMATION\_CUBEDETECTED}!main.h@{main.h}}
+\doxysubsubsection{\texorpdfstring{PROCESSUSDETECTION\_INFORMATION\_CUBEDETECTED}{PROCESSUSDETECTION\_INFORMATION\_CUBEDETECTED}}
+{\footnotesize\ttfamily \#define PROCESSUSDETECTION\+\_\+\+INFORMATION\+\_\+\+CUBEDETECTED~1}
+
+
+
+Définition utilisé pour avoir de l\textquotesingle{}information du \mbox{\hyperlink{processus_detection_8h_source}{processus\+Detection.\+h}} Utilisé par la structure processus\+Detection Pour savoir si il y a un cube au pas. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8h_source_l00129}{129}} du fichier \mbox{\hyperlink{main_8h_source}{main.\+h}}.
+
+\mbox{\Hypertarget{main_8h_afe50d7bcf3ddfca76f1c839f16862bc5}\label{main_8h_afe50d7bcf3ddfca76f1c839f16862bc5}} 
+\index{main.h@{main.h}!PROCESSUSDETECTION\_INFORMATION\_CUBENOTDETECTED@{PROCESSUSDETECTION\_INFORMATION\_CUBENOTDETECTED}}
+\index{PROCESSUSDETECTION\_INFORMATION\_CUBENOTDETECTED@{PROCESSUSDETECTION\_INFORMATION\_CUBENOTDETECTED}!main.h@{main.h}}
+\doxysubsubsection{\texorpdfstring{PROCESSUSDETECTION\_INFORMATION\_CUBENOTDETECTED}{PROCESSUSDETECTION\_INFORMATION\_CUBENOTDETECTED}}
+{\footnotesize\ttfamily \#define PROCESSUSDETECTION\+\_\+\+INFORMATION\+\_\+\+CUBENOTDETECTED~0}
+
+
+
+Définition utilisé pour avoir de l\textquotesingle{}information du \mbox{\hyperlink{processus_detection_8h_source}{processus\+Detection.\+h}} Utilisé par la structure processus\+Detection Pour savoir si il y a un cube au pas. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8h_source_l00135}{135}} du fichier \mbox{\hyperlink{main_8h_source}{main.\+h}}.
+
+\mbox{\Hypertarget{main_8h_a6c881f57dd1c677526a6bf6e2eda81aa}\label{main_8h_a6c881f57dd1c677526a6bf6e2eda81aa}} 
+\index{main.h@{main.h}!PROCESSUSDETECTION\_INFORMATION\_CUBEUNUSED@{PROCESSUSDETECTION\_INFORMATION\_CUBEUNUSED}}
+\index{PROCESSUSDETECTION\_INFORMATION\_CUBEUNUSED@{PROCESSUSDETECTION\_INFORMATION\_CUBEUNUSED}!main.h@{main.h}}
+\doxysubsubsection{\texorpdfstring{PROCESSUSDETECTION\_INFORMATION\_CUBEUNUSED}{PROCESSUSDETECTION\_INFORMATION\_CUBEUNUSED}}
+{\footnotesize\ttfamily \#define PROCESSUSDETECTION\+\_\+\+INFORMATION\+\_\+\+CUBEUNUSED~2}
+
+
+
+Définition utilisé pour avoir de l\textquotesingle{}information du \mbox{\hyperlink{processus_detection_8h_source}{processus\+Detection.\+h}} Utilisé par la structure processus\+Detection Pour savoir si il y a un cube au pas. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8h_source_l00141}{141}} du fichier \mbox{\hyperlink{main_8h_source}{main.\+h}}.
+
+\mbox{\Hypertarget{main_8h_a201361e6575847a6fe2cbe12f0b1fec5}\label{main_8h_a201361e6575847a6fe2cbe12f0b1fec5}} 
+\index{main.h@{main.h}!PROCESSUSDETECTION\_MODULE\_EN\_FONCTION@{PROCESSUSDETECTION\_MODULE\_EN\_FONCTION}}
+\index{PROCESSUSDETECTION\_MODULE\_EN\_FONCTION@{PROCESSUSDETECTION\_MODULE\_EN\_FONCTION}!main.h@{main.h}}
+\doxysubsubsection{\texorpdfstring{PROCESSUSDETECTION\_MODULE\_EN\_FONCTION}{PROCESSUSDETECTION\_MODULE\_EN\_FONCTION}}
+{\footnotesize\ttfamily \#define PROCESSUSDETECTION\+\_\+\+MODULE\+\_\+\+EN\+\_\+\+FONCTION~1}
+
+
+
+Définition utilisé pour savoir l\textquotesingle{}état du module. Utilisé par la structure processus\+Detection. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8h_source_l00118}{118}} du fichier \mbox{\hyperlink{main_8h_source}{main.\+h}}.
+
+\mbox{\Hypertarget{main_8h_a044ad1171fd977c68cbd41736807a4f0}\label{main_8h_a044ad1171fd977c68cbd41736807a4f0}} 
+\index{main.h@{main.h}!PROCESSUSDETECTION\_MODULE\_PAS\_EN\_FONCTION@{PROCESSUSDETECTION\_MODULE\_PAS\_EN\_FONCTION}}
+\index{PROCESSUSDETECTION\_MODULE\_PAS\_EN\_FONCTION@{PROCESSUSDETECTION\_MODULE\_PAS\_EN\_FONCTION}!main.h@{main.h}}
+\doxysubsubsection{\texorpdfstring{PROCESSUSDETECTION\_MODULE\_PAS\_EN\_FONCTION}{PROCESSUSDETECTION\_MODULE\_PAS\_EN\_FONCTION}}
+{\footnotesize\ttfamily \#define PROCESSUSDETECTION\+\_\+\+MODULE\+\_\+\+PAS\+\_\+\+EN\+\_\+\+FONCTION~0}
+
+
+
+Définition utilisé pour savoir l\textquotesingle{}état du module. Utilisé par la structure processus\+Detection. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8h_source_l00123}{123}} du fichier \mbox{\hyperlink{main_8h_source}{main.\+h}}.
+
+\mbox{\Hypertarget{main_8h_a561647e7b1ac9d4527996d8330a20dfd}\label{main_8h_a561647e7b1ac9d4527996d8330a20dfd}} 
+\index{main.h@{main.h}!PROCESSUSDETECTION\_PHASE@{PROCESSUSDETECTION\_PHASE}}
+\index{PROCESSUSDETECTION\_PHASE@{PROCESSUSDETECTION\_PHASE}!main.h@{main.h}}
+\doxysubsubsection{\texorpdfstring{PROCESSUSDETECTION\_PHASE}{PROCESSUSDETECTION\_PHASE}}
+{\footnotesize\ttfamily \#define PROCESSUSDETECTION\+\_\+\+PHASE~0}
+
+
+
+Numéro de la phase du processus Détection ~\newline
+ 
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8h_source_l00206}{206}} du fichier \mbox{\hyperlink{main_8h_source}{main.\+h}}.
+
+\mbox{\Hypertarget{main_8h_ad96a89ddfc09cad32ce6caea5b2aa3fd}\label{main_8h_ad96a89ddfc09cad32ce6caea5b2aa3fd}} 
+\index{main.h@{main.h}!PROCESSUSDETECTION\_REQUETE\_ACTIVE@{PROCESSUSDETECTION\_REQUETE\_ACTIVE}}
+\index{PROCESSUSDETECTION\_REQUETE\_ACTIVE@{PROCESSUSDETECTION\_REQUETE\_ACTIVE}!main.h@{main.h}}
+\doxysubsubsection{\texorpdfstring{PROCESSUSDETECTION\_REQUETE\_ACTIVE}{PROCESSUSDETECTION\_REQUETE\_ACTIVE}}
+{\footnotesize\ttfamily \#define PROCESSUSDETECTION\+\_\+\+REQUETE\+\_\+\+ACTIVE~1}
+
+
+
+Définition pour contrôler les requetes du \mbox{\hyperlink{processus_detection_8h_source}{processus\+Detection.\+h}} ~\newline
+ Utilisé par la structure processus\+Detection. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8h_source_l00108}{108}} du fichier \mbox{\hyperlink{main_8h_source}{main.\+h}}.
+
+\mbox{\Hypertarget{main_8h_a864d40797a0fa75f807c50c12a536010}\label{main_8h_a864d40797a0fa75f807c50c12a536010}} 
+\index{main.h@{main.h}!PROCESSUSDETECTION\_REQUETE\_TRAITE@{PROCESSUSDETECTION\_REQUETE\_TRAITE}}
+\index{PROCESSUSDETECTION\_REQUETE\_TRAITE@{PROCESSUSDETECTION\_REQUETE\_TRAITE}!main.h@{main.h}}
+\doxysubsubsection{\texorpdfstring{PROCESSUSDETECTION\_REQUETE\_TRAITE}{PROCESSUSDETECTION\_REQUETE\_TRAITE}}
+{\footnotesize\ttfamily \#define PROCESSUSDETECTION\+\_\+\+REQUETE\+\_\+\+TRAITE~0}
+
+
+
+Définition pour contrôler les requetes du \mbox{\hyperlink{processus_detection_8h_source}{processus\+Detection.\+h}} ~\newline
+ Utilisé par la structure processus\+Detection. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8h_source_l00113}{113}} du fichier \mbox{\hyperlink{main_8h_source}{main.\+h}}.
+
+\mbox{\Hypertarget{main_8h_a400c4661c03ea3126260ccb4e61d977b}\label{main_8h_a400c4661c03ea3126260ccb4e61d977b}} 
+\index{main.h@{main.h}!PROCESSUSGESTIONCOM\_PHASE@{PROCESSUSGESTIONCOM\_PHASE}}
+\index{PROCESSUSGESTIONCOM\_PHASE@{PROCESSUSGESTIONCOM\_PHASE}!main.h@{main.h}}
+\doxysubsubsection{\texorpdfstring{PROCESSUSGESTIONCOM\_PHASE}{PROCESSUSGESTIONCOM\_PHASE}}
+{\footnotesize\ttfamily \#define PROCESSUSGESTIONCOM\+\_\+\+PHASE~4}
+
+
+
+Numéro de la phase du processus de Gestion de COM. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8h_source_l00219}{219}} du fichier \mbox{\hyperlink{main_8h_source}{main.\+h}}.
+
+\mbox{\Hypertarget{main_8h_a96a2f4bb2206193bc10d237cc597e72a}\label{main_8h_a96a2f4bb2206193bc10d237cc597e72a}} 
+\index{main.h@{main.h}!PROCESSUSPESAGE\_MODULE\_EN\_FONCTION@{PROCESSUSPESAGE\_MODULE\_EN\_FONCTION}}
+\index{PROCESSUSPESAGE\_MODULE\_EN\_FONCTION@{PROCESSUSPESAGE\_MODULE\_EN\_FONCTION}!main.h@{main.h}}
+\doxysubsubsection{\texorpdfstring{PROCESSUSPESAGE\_MODULE\_EN\_FONCTION}{PROCESSUSPESAGE\_MODULE\_EN\_FONCTION}}
+{\footnotesize\ttfamily \#define PROCESSUSPESAGE\+\_\+\+MODULE\+\_\+\+EN\+\_\+\+FONCTION~1}
+
+
+
+Définition utilisé pour savoir l\textquotesingle{}état du module. Utilisé par la structure \mbox{\hyperlink{processus_pesage_8h_af6d31d94e022c5f2837934ca9e6919d1}{processus\+Pesage}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8h_source_l00170}{170}} du fichier \mbox{\hyperlink{main_8h_source}{main.\+h}}.
+
+\mbox{\Hypertarget{main_8h_a97da0021207a7d5900ae20f841febd5c}\label{main_8h_a97da0021207a7d5900ae20f841febd5c}} 
+\index{main.h@{main.h}!PROCESSUSPESAGE\_MODULE\_PAS\_EN\_FONCTION@{PROCESSUSPESAGE\_MODULE\_PAS\_EN\_FONCTION}}
+\index{PROCESSUSPESAGE\_MODULE\_PAS\_EN\_FONCTION@{PROCESSUSPESAGE\_MODULE\_PAS\_EN\_FONCTION}!main.h@{main.h}}
+\doxysubsubsection{\texorpdfstring{PROCESSUSPESAGE\_MODULE\_PAS\_EN\_FONCTION}{PROCESSUSPESAGE\_MODULE\_PAS\_EN\_FONCTION}}
+{\footnotesize\ttfamily \#define PROCESSUSPESAGE\+\_\+\+MODULE\+\_\+\+PAS\+\_\+\+EN\+\_\+\+FONCTION~0}
+
+
+
+Définition utilisé pour savoir l\textquotesingle{}état du module. Utilisé par la structure \mbox{\hyperlink{processus_pesage_8h_af6d31d94e022c5f2837934ca9e6919d1}{processus\+Pesage}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8h_source_l00175}{175}} du fichier \mbox{\hyperlink{main_8h_source}{main.\+h}}.
+
+\mbox{\Hypertarget{main_8h_af51920a460d59f788cd07915830d929c}\label{main_8h_af51920a460d59f788cd07915830d929c}} 
+\index{main.h@{main.h}!PROCESSUSPESAGE\_PHASE@{PROCESSUSPESAGE\_PHASE}}
+\index{PROCESSUSPESAGE\_PHASE@{PROCESSUSPESAGE\_PHASE}!main.h@{main.h}}
+\doxysubsubsection{\texorpdfstring{PROCESSUSPESAGE\_PHASE}{PROCESSUSPESAGE\_PHASE}}
+{\footnotesize\ttfamily \#define PROCESSUSPESAGE\+\_\+\+PHASE~1}
+
+
+
+Numéro de la phase du processus Pesage. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8h_source_l00211}{211}} du fichier \mbox{\hyperlink{main_8h_source}{main.\+h}}.
+
+\mbox{\Hypertarget{main_8h_a3966eab1d2f73d128f8de00a35f818fd}\label{main_8h_a3966eab1d2f73d128f8de00a35f818fd}} 
+\index{main.h@{main.h}!PROCESSUSPESAGE\_REQUETE\_ACTIVE@{PROCESSUSPESAGE\_REQUETE\_ACTIVE}}
+\index{PROCESSUSPESAGE\_REQUETE\_ACTIVE@{PROCESSUSPESAGE\_REQUETE\_ACTIVE}!main.h@{main.h}}
+\doxysubsubsection{\texorpdfstring{PROCESSUSPESAGE\_REQUETE\_ACTIVE}{PROCESSUSPESAGE\_REQUETE\_ACTIVE}}
+{\footnotesize\ttfamily \#define PROCESSUSPESAGE\+\_\+\+REQUETE\+\_\+\+ACTIVE~1}
+
+
+
+Définition pour contrôler les requetes du \mbox{\hyperlink{processus_pesage_8h}{processus\+Pesage.\+h}} ~\newline
+ Utilisé par la structure \mbox{\hyperlink{processus_pesage_8h_af6d31d94e022c5f2837934ca9e6919d1}{processus\+Pesage}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8h_source_l00159}{159}} du fichier \mbox{\hyperlink{main_8h_source}{main.\+h}}.
+
+\mbox{\Hypertarget{main_8h_ade35ac0d91236f258481b4877d76a704}\label{main_8h_ade35ac0d91236f258481b4877d76a704}} 
+\index{main.h@{main.h}!PROCESSUSPESAGE\_REQUETE\_TRAITE@{PROCESSUSPESAGE\_REQUETE\_TRAITE}}
+\index{PROCESSUSPESAGE\_REQUETE\_TRAITE@{PROCESSUSPESAGE\_REQUETE\_TRAITE}!main.h@{main.h}}
+\doxysubsubsection{\texorpdfstring{PROCESSUSPESAGE\_REQUETE\_TRAITE}{PROCESSUSPESAGE\_REQUETE\_TRAITE}}
+{\footnotesize\ttfamily \#define PROCESSUSPESAGE\+\_\+\+REQUETE\+\_\+\+TRAITE~0}
+
+
+
+Définition pour contrôler les requetes du \mbox{\hyperlink{processus_pesage_8h}{processus\+Pesage.\+h}} ~\newline
+ Utilisé par la structure \mbox{\hyperlink{processus_pesage_8h_af6d31d94e022c5f2837934ca9e6919d1}{processus\+Pesage}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8h_source_l00164}{164}} du fichier \mbox{\hyperlink{main_8h_source}{main.\+h}}.
+
+\mbox{\Hypertarget{main_8h_a71d0604fb65e32056a56a21363efe0fc}\label{main_8h_a71d0604fb65e32056a56a21363efe0fc}} 
+\index{main.h@{main.h}!PROCESSUSPESAGE\_UNITE\_G@{PROCESSUSPESAGE\_UNITE\_G}}
+\index{PROCESSUSPESAGE\_UNITE\_G@{PROCESSUSPESAGE\_UNITE\_G}!main.h@{main.h}}
+\doxysubsubsection{\texorpdfstring{PROCESSUSPESAGE\_UNITE\_G}{PROCESSUSPESAGE\_UNITE\_G}}
+{\footnotesize\ttfamily \#define PROCESSUSPESAGE\+\_\+\+UNITE\+\_\+G~\textquotesingle{}g\textquotesingle{}}
+
+
+
+Définition pour savoir si on est en gramme ou en Oz. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8h_source_l00153}{153}} du fichier \mbox{\hyperlink{main_8h_source}{main.\+h}}.
+
+\mbox{\Hypertarget{main_8h_a812b4115f288d6c4873148a9e850acb9}\label{main_8h_a812b4115f288d6c4873148a9e850acb9}} 
+\index{main.h@{main.h}!PROCESSUSPESAGE\_UNITE\_OZ@{PROCESSUSPESAGE\_UNITE\_OZ}}
+\index{PROCESSUSPESAGE\_UNITE\_OZ@{PROCESSUSPESAGE\_UNITE\_OZ}!main.h@{main.h}}
+\doxysubsubsection{\texorpdfstring{PROCESSUSPESAGE\_UNITE\_OZ}{PROCESSUSPESAGE\_UNITE\_OZ}}
+{\footnotesize\ttfamily \#define PROCESSUSPESAGE\+\_\+\+UNITE\+\_\+\+OZ~\textquotesingle{}o\textquotesingle{}}
+
+
+
+Définition pour savoir si on est en gramme ou en Oz. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8h_source_l00149}{149}} du fichier \mbox{\hyperlink{main_8h_source}{main.\+h}}.
+
+\mbox{\Hypertarget{main_8h_a6276b0f7c474c476289248b4eecd63ee}\label{main_8h_a6276b0f7c474c476289248b4eecd63ee}} 
+\index{main.h@{main.h}!SERVICEBASEDETEMPS\_FREQUENCE\_EN\_HZ@{SERVICEBASEDETEMPS\_FREQUENCE\_EN\_HZ}}
+\index{SERVICEBASEDETEMPS\_FREQUENCE\_EN\_HZ@{SERVICEBASEDETEMPS\_FREQUENCE\_EN\_HZ}!main.h@{main.h}}
+\doxysubsubsection{\texorpdfstring{SERVICEBASEDETEMPS\_FREQUENCE\_EN\_HZ}{SERVICEBASEDETEMPS\_FREQUENCE\_EN\_HZ}}
+{\footnotesize\ttfamily \#define SERVICEBASEDETEMPS\+\_\+\+FREQUENCE\+\_\+\+EN\+\_\+\+HZ~200}
+
+
+
+Fréquence de la base de temps en Hz. Doit être recalculé si la période du pilote timer \mbox{\hyperlink{main_8h_a8ee5db313fccaab14e5997045020f6d6}{PILOTETIMER\+\_\+\+PERIODE\+\_\+\+EN\+\_\+\+MS}} est changé. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8h_source_l00195}{195}} du fichier \mbox{\hyperlink{main_8h_source}{main.\+h}}.
+
+\mbox{\Hypertarget{main_8h_a9470a0f17392d89a537141466f6f0e98}\label{main_8h_a9470a0f17392d89a537141466f6f0e98}} 
+\index{main.h@{main.h}!SERVICEBASEDETEMPS\_NOMBRE\_DE\_PHASES@{SERVICEBASEDETEMPS\_NOMBRE\_DE\_PHASES}}
+\index{SERVICEBASEDETEMPS\_NOMBRE\_DE\_PHASES@{SERVICEBASEDETEMPS\_NOMBRE\_DE\_PHASES}!main.h@{main.h}}
+\doxysubsubsection{\texorpdfstring{SERVICEBASEDETEMPS\_NOMBRE\_DE\_PHASES}{SERVICEBASEDETEMPS\_NOMBRE\_DE\_PHASES}}
+{\footnotesize\ttfamily \#define SERVICEBASEDETEMPS\+\_\+\+NOMBRE\+\_\+\+DE\+\_\+\+PHASES~5}
+
+
+
+Nombre de phase de la base de temps \mbox{\hyperlink{service_base_de_temps_8h}{service\+Base\+De\+Temps.\+h}}. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8h_source_l00201}{201}} du fichier \mbox{\hyperlink{main_8h_source}{main.\+h}}.
+
+\mbox{\Hypertarget{main_8h_ab6e7d92e268f07cf18c427fee9ff2e88}\label{main_8h_ab6e7d92e268f07cf18c427fee9ff2e88}} 
+\index{main.h@{main.h}!SERVICEBASEDETEMPS\_NOMBRE\_DE\_PHASES\_DANS\_LOOP@{SERVICEBASEDETEMPS\_NOMBRE\_DE\_PHASES\_DANS\_LOOP}}
+\index{SERVICEBASEDETEMPS\_NOMBRE\_DE\_PHASES\_DANS\_LOOP@{SERVICEBASEDETEMPS\_NOMBRE\_DE\_PHASES\_DANS\_LOOP}!main.h@{main.h}}
+\doxysubsubsection{\texorpdfstring{SERVICEBASEDETEMPS\_NOMBRE\_DE\_PHASES\_DANS\_LOOP}{SERVICEBASEDETEMPS\_NOMBRE\_DE\_PHASES\_DANS\_LOOP}}
+{\footnotesize\ttfamily \#define SERVICEBASEDETEMPS\+\_\+\+NOMBRE\+\_\+\+DE\+\_\+\+PHASES\+\_\+\+DANS\+\_\+\+LOOP~1}
+
+
+
+Nombre de phase dans une période de la base de temps (1 si pas utilisé) 
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8h_source_l00223}{223}} du fichier \mbox{\hyperlink{main_8h_source}{main.\+h}}.
+
+\mbox{\Hypertarget{main_8h_af4e0eb7a8c917b269dbb0756b0884cd3}\label{main_8h_af4e0eb7a8c917b269dbb0756b0884cd3}} 
+\index{main.h@{main.h}!SERVICEBASEDETEMPS\_PERIODE\_EN\_MS@{SERVICEBASEDETEMPS\_PERIODE\_EN\_MS}}
+\index{SERVICEBASEDETEMPS\_PERIODE\_EN\_MS@{SERVICEBASEDETEMPS\_PERIODE\_EN\_MS}!main.h@{main.h}}
+\doxysubsubsection{\texorpdfstring{SERVICEBASEDETEMPS\_PERIODE\_EN\_MS}{SERVICEBASEDETEMPS\_PERIODE\_EN\_MS}}
+{\footnotesize\ttfamily \#define SERVICEBASEDETEMPS\+\_\+\+PERIODE\+\_\+\+EN\+\_\+\+MS~\mbox{\hyperlink{main_8h_a8ee5db313fccaab14e5997045020f6d6}{PILOTETIMER\+\_\+\+PERIODE\+\_\+\+EN\+\_\+\+MS}}}
+
+
+
+Période de la base de temps en Milisecondes. 
+
+
+
+Définition à la ligne \mbox{\hyperlink{main_8h_source_l00190}{190}} du fichier \mbox{\hyperlink{main_8h_source}{main.\+h}}.
+
+
+
+\doxysubsection{Documentation des fonctions}
+\mbox{\Hypertarget{main_8h_a840291bc02cba5474a4cb46a9b9566fe}\label{main_8h_a840291bc02cba5474a4cb46a9b9566fe}} 
+\index{main.h@{main.h}!main@{main}}
+\index{main@{main}!main.h@{main.h}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Point d\textquotesingle{}entré du programme. 
+
+\begin{DoxyReturn}{Renvoie}
+int 
+\end{DoxyReturn}
+
+
+Définition à la ligne \mbox{\hyperlink{main_8c_source_l00084}{84}} du fichier \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+

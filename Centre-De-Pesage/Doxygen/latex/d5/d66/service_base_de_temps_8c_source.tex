@@ -1,0 +1,67 @@
+\hypertarget{service_base_de_temps_8c_source}{}\doxysection{service\+Base\+De\+Temps.\+c}
+\label{service_base_de_temps_8c_source}\index{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Pesage/Programmes/PesageBaseDeTemps/serviceBaseDeTemps.c@{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Pesage/Programmes/PesageBaseDeTemps/serviceBaseDeTemps.c}}
+\mbox{\hyperlink{service_base_de_temps_8c}{Aller à la documentation de ce fichier.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00001}00001 }
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00015}00015 \textcolor{comment}{//INCLUSIONS}}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00016}00016 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{main_8h}{main.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00017}00017 \textcolor{preprocessor}{\#include "{}piloteTimer.h"{}}}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00018}00018 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{service_base_de_temps_8h}{serviceBaseDeTemps.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00019}00019 }
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00020}00020 \textcolor{comment}{//Definitions privees}}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00021}00021 \textcolor{comment}{//pas de definitions privees}}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00022}00022 }
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00023}00023 \textcolor{comment}{//Declarations de fonctions privees:}}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00024}00024 \textcolor{keywordtype}{void} serviceBaseDeTemps\_neFaitRien(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00025}00025 \textcolor{keywordtype}{void} serviceBaseDeTemps\_gere(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00026}00026 }
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00027}00027 \textcolor{comment}{//Definitions de variables privees:}}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00028}00028 \textcolor{comment}{//pas de variables privees}}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00029}00029 }
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00030}00030 \textcolor{comment}{//Definitions de fonctions privees:}}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00031}00031 }
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00032}00032 \textcolor{keywordtype}{void} serviceBaseDeTemps\_neFaitRien(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00033}00033 \{}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00034}00034   }
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00035}00035 \}}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00036}00036 }
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00037}00037 \textcolor{keywordtype}{void} serviceBaseDeTemps\_gere(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00038}00038 \{}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00039}00039 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} i;}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00040}00040   \textcolor{keywordflow}{for} (i = 0; i < \mbox{\hyperlink{main_8h_a9470a0f17392d89a537141466f6f0e98}{SERVICEBASEDETEMPS\_NOMBRE\_DE\_PHASES}}; i++)}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00041}00041   \{}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00042}00042     \mbox{\hyperlink{service_base_de_temps_8c_a103583940036ccbb95b6b4c1f73b74d6}{serviceBaseDeTemps\_execute}}[i]();}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00043}00043   \}}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00044}00044 \}}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00045}00045     }
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00046}00046 \textcolor{comment}{//Definitions de variables publiques:}}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00047}00047 }
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00054}\mbox{\hyperlink{service_base_de_temps_8c_a103583940036ccbb95b6b4c1f73b74d6}{00054}} void (*\mbox{\hyperlink{service_base_de_temps_8c_a103583940036ccbb95b6b4c1f73b74d6}{serviceBaseDeTemps\_execute}}[\mbox{\hyperlink{main_8h_a9470a0f17392d89a537141466f6f0e98}{SERVICEBASEDETEMPS\_NOMBRE\_DE\_PHASES}}])(void);}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00055}00055 }
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00056}00056 void (*serviceBaseDeTemps\_executeDansLoop[\mbox{\hyperlink{main_8h_ab6e7d92e268f07cf18c427fee9ff2e88}{SERVICEBASEDETEMPS\_NOMBRE\_DE\_PHASES\_DANS\_LOOP}}])(void);}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00057}00057 }
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00058}00058 \textcolor{comment}{//Definitions de fonctions publiques:}}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00059}00059 \textcolor{keywordtype}{void} serviceBaseDeTemps\_gereDansLoop(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00060}00060 \{}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00061}00061 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} i;}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00062}00062   \textcolor{keywordflow}{for} (i = 0; i < \mbox{\hyperlink{main_8h_ab6e7d92e268f07cf18c427fee9ff2e88}{SERVICEBASEDETEMPS\_NOMBRE\_DE\_PHASES\_DANS\_LOOP}}; i++)}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00063}00063   \{}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00064}00064     serviceBaseDeTemps\_executeDansLoop[i]();}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00065}00065   \}}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00066}00066 \}}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00067}00067 \textcolor{keywordtype}{void} serviceBaseDeTemps\_initialise(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00068}00068 \{}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00069}00069 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} i;}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00070}00070   \textcolor{keywordflow}{for} (i = 0; i < \mbox{\hyperlink{main_8h_a9470a0f17392d89a537141466f6f0e98}{SERVICEBASEDETEMPS\_NOMBRE\_DE\_PHASES}}; i++)}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00071}00071   \{}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00072}00072     \mbox{\hyperlink{service_base_de_temps_8c_a103583940036ccbb95b6b4c1f73b74d6}{serviceBaseDeTemps\_execute}}[i] = serviceBaseDeTemps\_neFaitRien;}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00073}00073   \}}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00074}00074   piloteTimer\_execute = serviceBaseDeTemps\_gere;}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00075}00075 }
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00076}00076   \textcolor{keywordflow}{for} (i = 0; i < \mbox{\hyperlink{main_8h_ab6e7d92e268f07cf18c427fee9ff2e88}{SERVICEBASEDETEMPS\_NOMBRE\_DE\_PHASES\_DANS\_LOOP}}; i++)}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00077}00077   \{}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00078}00078     serviceBaseDeTemps\_executeDansLoop[i] = serviceBaseDeTemps\_neFaitRien;}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00079}00079   \}}
+\DoxyCodeLine{\Hypertarget{service_base_de_temps_8c_source_l00080}00080 \}}
+
+\end{DoxyCode}

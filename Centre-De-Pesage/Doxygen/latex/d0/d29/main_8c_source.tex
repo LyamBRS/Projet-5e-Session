@@ -1,0 +1,89 @@
+\hypertarget{main_8c_source}{}\doxysection{main.\+c}
+\label{main_8c_source}\index{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Pesage/Programmes/PesageBaseDeTemps/main.c@{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Pesage/Programmes/PesageBaseDeTemps/main.c}}
+\mbox{\hyperlink{main_8c}{Aller à la documentation de ce fichier.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00001}00001 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00015}00015 \textcolor{comment}{// Main }}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00016}00016 \textcolor{comment}{// }}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00017}00017 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00018}00018 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{main_8h}{main.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00019}00019 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00020}00020 \textcolor{preprocessor}{\#include "{}piloteTimer.h"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00021}00021 \textcolor{preprocessor}{\#include "{}piloteI2C1.h"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00022}00022 \textcolor{preprocessor}{\#include "{}piloteCAN.h"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00023}00023 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00024}00024 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{interface_bras_8h}{interfaceBras.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00025}00025 \textcolor{preprocessor}{\#include "{}interfaceBalance.h"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00026}00026 \textcolor{preprocessor}{\#include "{}interfaceVL6180x.h"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00027}00027 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00028}00028 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{service_base_de_temps_8h}{serviceBaseDeTemps.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00029}00029 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_service_communication_8h}{ServiceCommunication.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00030}00030 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00031}00031 \textcolor{preprocessor}{\#include "{}processusDetection.h"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00032}00032 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{processus_pesage_8h}{processusPesage.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00033}00033 \textcolor{preprocessor}{\#include "{}processusGestionCom.h"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00034}00034 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00035}00035 \textcolor{comment}{// Variable Privé}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00036}00036 \textcolor{comment}{// Aucune }}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00037}00037 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00038}00038 \textcolor{comment}{// Définition privé}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00039}00039 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00046}00046 \textcolor{keywordtype}{void} \mbox{\hyperlink{main_8c_aa927783c03eddd97e45da275ca7ff0ba}{clearComCAN}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00053}00053 \textcolor{keywordtype}{int} \mbox{\hyperlink{main_8c_a530df9e700125af27905160bbc623c81}{main\_initialise}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00054}00054 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00055}00055 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00056}\mbox{\hyperlink{main_8c_a530df9e700125af27905160bbc623c81}{00056}} \textcolor{keywordtype}{int} \mbox{\hyperlink{main_8c_a530df9e700125af27905160bbc623c81}{main\_initialise}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00057}00057 \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00058}00058     \mbox{\hyperlink{main_8c_aa927783c03eddd97e45da275ca7ff0ba}{clearComCAN}}();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00059}00059     piloteTimer\_initialise();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00060}00060     \textcolor{keywordflow}{if}(piloteCAN\_initialise() < 0)  \{printf(\textcolor{stringliteral}{"{}erreur: main\_initialise CANNNN\(\backslash\)n"{}});\textcolor{keywordflow}{return} -\/1;\}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00061}00061     \textcolor{keywordflow}{if} (piloteI2C1\_initialise() < 0)        \{printf(\textcolor{stringliteral}{"{}erreur: main\_initialise piloteI2C1\(\backslash\)n"{}});\textcolor{keywordflow}{return} -\/1;\}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00062}00062     }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00063}00063     }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00064}00064     \textcolor{keywordflow}{if} (interfaceVL6810x\_initialise() < 0)  \{printf(\textcolor{stringliteral}{"{}erreur: main\_initialise interfaceVL6180x\(\backslash\)n"{}});\textcolor{keywordflow}{return} -\/1;\}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00065}00065     \textcolor{keywordflow}{if} (interfaceBras\_initialise() < 0)  \{printf(\textcolor{stringliteral}{"{}erreur: main\_initialise Bras Robot\(\backslash\)n"{}});\textcolor{keywordflow}{return} -\/1;\}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00066}00066     interfaceBalance\_initialise();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00067}00067     }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00068}00068     serviceBaseDeTemps\_initialise();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00069}00069     \mbox{\hyperlink{_service_communication_8c_a873572755106e16f635f8712fde8b8d1}{ServiceCommunication\_initialise}}();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00070}00070     }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00071}00071     processusDetection\_initialise();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00072}00072     \mbox{\hyperlink{processus_pesage_8c_ad06ebf41783d7ab6f4f022e76593997e}{processusPesage\_initialise}}();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00073}00073     processusGestionCom\_initialise();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00074}00074     piloteCAN\_ouvreUneInterface();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00075}00075     }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00076}00076     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00077}00077 \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00078}00078 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00084}\mbox{\hyperlink{main_8c_a840291bc02cba5474a4cb46a9b9566fe}{00084}} \textcolor{keywordtype}{int} \mbox{\hyperlink{main_8c_a840291bc02cba5474a4cb46a9b9566fe}{main}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00085}00085 \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00086}00086     \textcolor{keywordflow}{if}(\mbox{\hyperlink{main_8c_a530df9e700125af27905160bbc623c81}{main\_initialise}}() < 0)}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00087}00087     \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00088}00088         printf(\textcolor{stringliteral}{"{}erreur: Lancement impossible\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00089}00089         \textcolor{keywordflow}{return} -\/1;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00090}00090     \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00091}00091     piloteTimer\_DemarreAvantWhile();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00092}00092     }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00093}00093     \textcolor{keywordflow}{while}(1)}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00094}00094     \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00095}00095         }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00096}00096     \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00097}00097     piloteTimer\_termine();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00098}00098     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00099}00099 \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00100}00100 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00101}00101 }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00102}\mbox{\hyperlink{main_8c_aa927783c03eddd97e45da275ca7ff0ba}{00102}} \textcolor{keywordtype}{void} \mbox{\hyperlink{main_8c_aa927783c03eddd97e45da275ca7ff0ba}{clearComCAN}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00103}00103 \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00104}00104     system(\textcolor{stringliteral}{"{}sudo modprobe vcan"{}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00105}00105     system(\textcolor{stringliteral}{"{}sudo ip link set vcan0 down"{}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00106}00106     system(\textcolor{stringliteral}{"{}sudo ip link del dev vcan0"{}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00107}00107     system(\textcolor{stringliteral}{"{}sudo modprobe can"{}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00108}00108     system(\textcolor{stringliteral}{"{}sudo ip link set can0 down"{}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00109}00109     system(\textcolor{stringliteral}{"{}sudo ip link del dev can0"{}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00110}00110     system(\textcolor{stringliteral}{"{}sudo modprobe can"{}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00111}00111     system(\textcolor{stringliteral}{"{}sudo ip link set can0 down"{}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00112}00112     system(\textcolor{stringliteral}{"{}sudo ip link del dev can0"{}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00113}00113 \}}
+
+\end{DoxyCode}

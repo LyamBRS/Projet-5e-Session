@@ -1,0 +1,103 @@
+\hypertarget{processus_gestion_com_8c_source}{}\doxysection{processus\+Gestion\+Com.\+c}
+\label{processus_gestion_com_8c_source}\index{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Pesage/Programmes/PesageBaseDeTemps/processusGestionCom.c@{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Pesage/Programmes/PesageBaseDeTemps/processusGestionCom.c}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00001}00001 \textcolor{comment}{// Processus Gestion de Communication}}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00003}00003 }
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00004}00004 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{main_8h}{main.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00005}00005 \textcolor{preprocessor}{\#include "{}interfaceBalance.h"{}}}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00006}00006 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{service_base_de_temps_8h}{serviceBaseDeTemps.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00007}00007 \textcolor{preprocessor}{\#include "{}processusGestionCom.h"{}}}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00008}00008 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{processus_pesage_8h}{processusPesage.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00009}00009 \textcolor{preprocessor}{\#include "{}processusDetection.h"{}}}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00010}00010 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_service_communication_8h}{ServiceCommunication.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00011}00011 }
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00012}00012 }
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00013}00013 \textcolor{comment}{// Variable privé}}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00014}00014 \textcolor{keywordtype}{int} compteurCom;}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00015}00015 }
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00016}00016 }
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00017}00017 \textcolor{keywordtype}{void} processusGestionCom\_Gere(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00018}00018 }
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00019}00019 }
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00020}00020 \textcolor{keywordtype}{void} processusGestionCom\_initialise(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00021}00021 \{}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00022}00022     compteurCom = 0;}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00023}00023     \mbox{\hyperlink{processus_pesage_8h_af6d31d94e022c5f2837934ca9e6919d1}{processusPesage}}.\mbox{\hyperlink{struct_p_r_o_c_e_s_s_u_s_p_e_s_a_g_e_a2403ed7b8985bc0fc4c86e2b3f90ac8f}{unite}} = \mbox{\hyperlink{main_8h_a71d0604fb65e32056a56a21363efe0fc}{PROCESSUSPESAGE\_UNITE\_G}};}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00024}00024     \mbox{\hyperlink{_service_communication_8c_a05bc85fe1889a6e743299fdaeec706be}{ModuleData\_SetUnits}}(\mbox{\hyperlink{_service_communication_8c_a3088ff4e4e4ea73770c72f41563fa4e3}{Values}}.\mbox{\hyperlink{structst_values_a15072fb3e93313c314fb3bf4e4520d11}{unit\_Metric}});}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00025}00025     \mbox{\hyperlink{service_base_de_temps_8c_a103583940036ccbb95b6b4c1f73b74d6}{serviceBaseDeTemps\_execute}}[\mbox{\hyperlink{main_8h_a400c4661c03ea3126260ccb4e61d977b}{PROCESSUSGESTIONCOM\_PHASE}}] = processusGestionCom\_Gere;}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00026}00026 \}}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00027}00027 }
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00029}00029 }
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00030}00030 \textcolor{keywordtype}{void} processusGestionCom\_Gere(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00031}00031 \{}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00033}00033     \textcolor{keyword}{static} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} old\_CantConnect = 0xFF;}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00035}00035     compteurCom++;}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00036}00036     \textcolor{keywordflow}{if}(compteurCom <= 800)  \textcolor{comment}{// Petit délasi pour s'assurer que la balamnce est en fonction}}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00037}00037     \{}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00038}00038         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00039}00039     \}}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00040}00040     \textcolor{keywordflow}{if}(processusDetection.information == \mbox{\hyperlink{main_8h_a968ae2d9a7d4d9e03d25c187a3b0e309}{PROCESSUSDETECTION\_INFORMATION\_CUBEDETECTED}})}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00041}00041     \{}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00042}00042         \mbox{\hyperlink{_service_communication_8c_a7d1be4aeb7f952accc194a89ba2708c4}{ModuleData\_SetDiscDetection}}(\mbox{\hyperlink{_service_communication_8c_a3088ff4e4e4ea73770c72f41563fa4e3}{Values}}.\mbox{\hyperlink{structst_values_a5fe6c555bd78aa96ffa8846f426bdd42}{disc\_Detected}});}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00043}00043     \}}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00044}00044     \textcolor{keywordflow}{if}(processusDetection.information == \mbox{\hyperlink{main_8h_a6c881f57dd1c677526a6bf6e2eda81aa}{PROCESSUSDETECTION\_INFORMATION\_CUBEUNUSED}})}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00045}00045     \{}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00046}00046         \mbox{\hyperlink{_service_communication_8c_a7d1be4aeb7f952accc194a89ba2708c4}{ModuleData\_SetDiscDetection}}(\mbox{\hyperlink{_service_communication_8c_a3088ff4e4e4ea73770c72f41563fa4e3}{Values}}.\mbox{\hyperlink{structst_values_a37349c153ae7048f9e8f1403b2abec82}{disc\_Lost}});}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00047}00047     \}}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00048}00048     }
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00050}00050     \textcolor{keywordflow}{if}(\mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{ModuleData}}.\mbox{\hyperlink{structst_module_data_af5de40349f9ca7dc2943f965b110072d}{CommandsReceived}}.\mbox{\hyperlink{structst_commands_a9c9d5a97f9ddaa9b9fec7c4cdc53e0a0}{units\_Metric}} == \mbox{\hyperlink{_service_communication_8h_a90ca767ddb3c52ec640e7ed8a09dd5d8}{RECEIVED}}) \textcolor{comment}{// Si on a recu un demande d'unité métrique on met notre unité a métrique }}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00051}00051     \{}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00052}00052         \textcolor{comment}{//printf("{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ METRIC\(\backslash\)n"{});}}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00053}00053         \textcolor{comment}{//ModuleData\_SetUnits(Values.unit\_Metric); }}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00054}00054         \mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{ModuleData}}.\mbox{\hyperlink{structst_module_data_af5de40349f9ca7dc2943f965b110072d}{CommandsReceived}}.\mbox{\hyperlink{structst_commands_a9c9d5a97f9ddaa9b9fec7c4cdc53e0a0}{units\_Metric}} = \mbox{\hyperlink{_service_communication_8h_a7f6404e3e6de5aa345a9208af100d4f8}{PARSED}};}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00055}00055         \textcolor{comment}{//printf("{}On c'est fait dire d'être en Métric (g)\(\backslash\)n"{});}}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00056}00056         \textcolor{keywordflow}{if}(\mbox{\hyperlink{processus_pesage_8h_af6d31d94e022c5f2837934ca9e6919d1}{processusPesage}}.\mbox{\hyperlink{struct_p_r_o_c_e_s_s_u_s_p_e_s_a_g_e_a2403ed7b8985bc0fc4c86e2b3f90ac8f}{unite}} == \mbox{\hyperlink{main_8h_a812b4115f288d6c4873148a9e850acb9}{PROCESSUSPESAGE\_UNITE\_OZ}}) \textcolor{comment}{// Si on est en imérial on change les unite de la balance}}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00057}00057         \{}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00058}00058             printf(\textcolor{stringliteral}{"{}On était en Métric donc on change pour Métric\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00059}00059             \mbox{\hyperlink{processus_pesage_8h_af6d31d94e022c5f2837934ca9e6919d1}{processusPesage}}.\mbox{\hyperlink{struct_p_r_o_c_e_s_s_u_s_p_e_s_a_g_e_a2403ed7b8985bc0fc4c86e2b3f90ac8f}{unite}} = \mbox{\hyperlink{main_8h_a71d0604fb65e32056a56a21363efe0fc}{PROCESSUSPESAGE\_UNITE\_G}};}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00060}00060             interfaceBalance\_changeUnite();}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00061}00061         \}}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00062}00062         \mbox{\hyperlink{processus_pesage_8h_af6d31d94e022c5f2837934ca9e6919d1}{processusPesage}}.\mbox{\hyperlink{struct_p_r_o_c_e_s_s_u_s_p_e_s_a_g_e_a2403ed7b8985bc0fc4c86e2b3f90ac8f}{unite}} = \mbox{\hyperlink{main_8h_a71d0604fb65e32056a56a21363efe0fc}{PROCESSUSPESAGE\_UNITE\_G}};}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00063}00063     \}}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00064}00064     \textcolor{keywordflow}{if}(\mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{ModuleData}}.\mbox{\hyperlink{structst_module_data_af5de40349f9ca7dc2943f965b110072d}{CommandsReceived}}.\mbox{\hyperlink{structst_commands_a38b29d5c523c070c25055148666a52e4}{units\_Imperial}} == \mbox{\hyperlink{_service_communication_8h_a90ca767ddb3c52ec640e7ed8a09dd5d8}{RECEIVED}}) \textcolor{comment}{// Si on a recu une demande d'unité Impérial on met notre unite a impérial}}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00065}00065     \{}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00066}00066         \textcolor{comment}{//printf("{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ IMPERIAL\(\backslash\)n"{});}}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00067}00067         \textcolor{comment}{//ModuleData\_SetUnits(Values.unit\_Imperial);}}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00068}00068         \mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{ModuleData}}.\mbox{\hyperlink{structst_module_data_af5de40349f9ca7dc2943f965b110072d}{CommandsReceived}}.\mbox{\hyperlink{structst_commands_a38b29d5c523c070c25055148666a52e4}{units\_Imperial}} = \mbox{\hyperlink{_service_communication_8h_a7f6404e3e6de5aa345a9208af100d4f8}{PARSED}};}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00069}00069         \textcolor{comment}{//printf("{}On c'est fait dire d'être en Impérial (Oz)\(\backslash\)n"{});}}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00070}00070         \textcolor{keywordflow}{if}(\mbox{\hyperlink{processus_pesage_8h_af6d31d94e022c5f2837934ca9e6919d1}{processusPesage}}.\mbox{\hyperlink{struct_p_r_o_c_e_s_s_u_s_p_e_s_a_g_e_a2403ed7b8985bc0fc4c86e2b3f90ac8f}{unite}} == \mbox{\hyperlink{main_8h_a71d0604fb65e32056a56a21363efe0fc}{PROCESSUSPESAGE\_UNITE\_G}})  \textcolor{comment}{// Si on est en métrique on change l'unite de la balance}}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00071}00071         \{}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00072}00072             printf(\textcolor{stringliteral}{"{}On était en Métric donc on change pour Impérial\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00073}00073             \mbox{\hyperlink{processus_pesage_8h_af6d31d94e022c5f2837934ca9e6919d1}{processusPesage}}.\mbox{\hyperlink{struct_p_r_o_c_e_s_s_u_s_p_e_s_a_g_e_a2403ed7b8985bc0fc4c86e2b3f90ac8f}{unite}} = \mbox{\hyperlink{main_8h_a812b4115f288d6c4873148a9e850acb9}{PROCESSUSPESAGE\_UNITE\_OZ}};}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00074}00074             interfaceBalance\_changeUnite();}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00075}00075         \}}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00076}00076         \mbox{\hyperlink{processus_pesage_8h_af6d31d94e022c5f2837934ca9e6919d1}{processusPesage}}.\mbox{\hyperlink{struct_p_r_o_c_e_s_s_u_s_p_e_s_a_g_e_a2403ed7b8985bc0fc4c86e2b3f90ac8f}{unite}} = \mbox{\hyperlink{main_8h_a812b4115f288d6c4873148a9e850acb9}{PROCESSUSPESAGE\_UNITE\_OZ}};}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00077}00077     \}}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00079}00079     \textcolor{keywordflow}{if}(\mbox{\hyperlink{processus_pesage_8h_af6d31d94e022c5f2837934ca9e6919d1}{processusPesage}}.\mbox{\hyperlink{struct_p_r_o_c_e_s_s_u_s_p_e_s_a_g_e_a2403ed7b8985bc0fc4c86e2b3f90ac8f}{unite}} == \mbox{\hyperlink{main_8h_a71d0604fb65e32056a56a21363efe0fc}{PROCESSUSPESAGE\_UNITE\_G}})}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00080}00080     \{}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00081}00081         \mbox{\hyperlink{_service_communication_8c_a05bc85fe1889a6e743299fdaeec706be}{ModuleData\_SetUnits}}(\mbox{\hyperlink{_service_communication_8c_a3088ff4e4e4ea73770c72f41563fa4e3}{Values}}.\mbox{\hyperlink{structst_values_a15072fb3e93313c314fb3bf4e4520d11}{unit\_Metric}});}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00082}00082     \}}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00083}00083     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00084}00084     \{}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00085}00085         \mbox{\hyperlink{_service_communication_8c_a05bc85fe1889a6e743299fdaeec706be}{ModuleData\_SetUnits}}(\mbox{\hyperlink{_service_communication_8c_a3088ff4e4e4ea73770c72f41563fa4e3}{Values}}.\mbox{\hyperlink{structst_values_a5c6a1beda6cb7e8605eb44778eaa26de}{unit\_Imperial}});}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00086}00086     \}}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00088}00088     \textcolor{keywordflow}{if}(\mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{ModuleData}}.\mbox{\hyperlink{structst_module_data_aae4af0033508661a7ab4e42c109b2098}{CantConnect}} != old\_CantConnect)}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00089}00089     \{}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00090}00090         \textcolor{comment}{//Print connection successful}}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00091}00091         \textcolor{keywordflow}{if}(\mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{ModuleData}}.\mbox{\hyperlink{structst_module_data_aae4af0033508661a7ab4e42c109b2098}{CantConnect}} == 0x00)}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00092}00092         \{}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00093}00093             printf(\textcolor{stringliteral}{"{}[CAN]: Connection CAN établie\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00094}00094         \}}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00095}00095         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00096}00096         \{}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00097}00097             printf(\textcolor{stringliteral}{"{}[CAN]: Connection perdue\(\backslash\)n"{}});            }
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00098}00098         \}}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00099}00099         }
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00100}00100         old\_CantConnect = \mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{ModuleData}}.\mbox{\hyperlink{structst_module_data_aae4af0033508661a7ab4e42c109b2098}{CantConnect}};}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00101}00101     \}}
+\DoxyCodeLine{\Hypertarget{processus_gestion_com_8c_source_l00102}00102 \}}
+
+\end{DoxyCode}

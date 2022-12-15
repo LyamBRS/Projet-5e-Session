@@ -1,0 +1,521 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.5"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Recycling Center: Référence du fichier U:/Sessions/Session 5/Project/Projet_Fin_Session/Projet-5e-Session/Centre-De-Pesage/Programmes/PesageBaseDeTemps/processusPesage.c</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../resize.js"></script>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="../../BRS (S) Icon.ico"/></td>
+  <td id="projectalign">
+   <div id="projectname">Recycling Center<span id="projectnumber">&#160;1</span>
+   </div>
+   <div id="projectbrief">Centre de pesage</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.5 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('../../',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('da/d14/processus_pesage_8c.html','../../'); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Chargement...</div>
+<div class="SRStatus" id="Searching">Recherche...</div>
+<div class="SRStatus" id="NoMatches">Aucune correspondance</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Fonctions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle"><div class="title">Référence du fichier processusPesage.c</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Le processus Pesage gêre l'entièreté des tâche a effectué avec le centre de pesage. Il est une phase du service base de temps qui est appeler à chaques périodes de la base de temps. Il correspond au diagramme d'état.  
+<a href="#details">Plus de détails...</a></p>
+<div class="textblock"><code>#include &quot;<a class="el" href="../../d4/dbf/main_8h_source.html">main.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d6/d97/interface_bras_8h_source.html">interfaceBras.h</a>&quot;</code><br />
+<code>#include &quot;interfaceBalance.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d9/d7e/service_base_de_temps_8h_source.html">serviceBaseDeTemps.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d2/dad/_service_communication_8h_source.html">ServiceCommunication.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d6/d7b/processus_pesage_8h_source.html">processusPesage.h</a>&quot;</code><br />
+<code>#include &quot;processusDetection.h&quot;</code><br />
+</div>
+<p><a href="../../da/d14/processus_pesage_8c_source.html">Aller au code source de ce fichier.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:ab5e8d684093c630bd88df0961be9e93b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d14/processus_pesage_8c.html#ab5e8d684093c630bd88df0961be9e93b">processusPesage_attendUneRequete</a> (void)</td></tr>
+<tr class="memdesc:ab5e8d684093c630bd88df0961be9e93b"><td class="mdescLeft">&#160;</td><td class="mdescRight">État du processus qui attend une requête de pesé. Il attend d'avoir recu les bons états du service.  <a href="../../da/d14/processus_pesage_8c.html#ab5e8d684093c630bd88df0961be9e93b">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ab5e8d684093c630bd88df0961be9e93b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a454fb586575c0b3c54a6040f5d3588af"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d14/processus_pesage_8c.html#a454fb586575c0b3c54a6040f5d3588af">processusPesage_depose</a> (void)</td></tr>
+<tr class="memdesc:a454fb586575c0b3c54a6040f5d3588af"><td class="mdescLeft">&#160;</td><td class="mdescRight">État du processus qui démarre la détection et qui repose la rondelle sur la balance.  <a href="../../da/d14/processus_pesage_8c.html#a454fb586575c0b3c54a6040f5d3588af">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a454fb586575c0b3c54a6040f5d3588af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe02140b7ab309c80f0ccb391ec8047b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d14/processus_pesage_8c.html#afe02140b7ab309c80f0ccb391ec8047b">processusPesage_attendFinDepot</a> (void)</td></tr>
+<tr class="memdesc:afe02140b7ab309c80f0ccb391ec8047b"><td class="mdescLeft">&#160;</td><td class="mdescRight">État du processus qui attend que le bras soit à la balance avant de de relaché la rondelle.  <a href="../../da/d14/processus_pesage_8c.html#afe02140b7ab309c80f0ccb391ec8047b">Plus de détails...</a><br /></td></tr>
+<tr class="separator:afe02140b7ab309c80f0ccb391ec8047b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac36fae041e74d2e0f22e4dda60c8fdc7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d14/processus_pesage_8c.html#ac36fae041e74d2e0f22e4dda60c8fdc7">processusPesage_prepareMesureBalance</a> (void)</td></tr>
+<tr class="memdesc:ac36fae041e74d2e0f22e4dda60c8fdc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">État du processus qui attend que le bras aille relaché la rondelle avant de préparer la balance pour une lecture.  <a href="../../da/d14/processus_pesage_8c.html#ac36fae041e74d2e0f22e4dda60c8fdc7">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ac36fae041e74d2e0f22e4dda60c8fdc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a481818a56ab5c6c58298706c920f2cc8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d14/processus_pesage_8c.html#a481818a56ab5c6c58298706c920f2cc8">processusPesage_attendLecture</a> (void)</td></tr>
+<tr class="memdesc:a481818a56ab5c6c58298706c920f2cc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">État du processus qui attend la fin de la lecture de la balance.  <a href="../../da/d14/processus_pesage_8c.html#a481818a56ab5c6c58298706c920f2cc8">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a481818a56ab5c6c58298706c920f2cc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a437f083fb6d5962439fc332d8c5628"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d14/processus_pesage_8c.html#a6a437f083fb6d5962439fc332d8c5628">processusPesage_repriseRondelle</a> (void)</td></tr>
+<tr class="memdesc:a6a437f083fb6d5962439fc332d8c5628"><td class="mdescLeft">&#160;</td><td class="mdescRight">État du processus qui attend que le bras redescendre prendre la rondelle <br  />
+  <a href="../../da/d14/processus_pesage_8c.html#a6a437f083fb6d5962439fc332d8c5628">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a6a437f083fb6d5962439fc332d8c5628"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ae67e1c73c087d9e115c70450f8cc02"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d14/processus_pesage_8c.html#a0ae67e1c73c087d9e115c70450f8cc02">processusPesage_repriseRondellePart2</a> (void)</td></tr>
+<tr class="memdesc:a0ae67e1c73c087d9e115c70450f8cc02"><td class="mdescLeft">&#160;</td><td class="mdescRight">État du processus qui attend que le bras aille repris la rondelle avec la ventouse.  <a href="../../da/d14/processus_pesage_8c.html#a0ae67e1c73c087d9e115c70450f8cc02">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a0ae67e1c73c087d9e115c70450f8cc02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a959e149b704f987547b96ede3fdaa3bd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d14/processus_pesage_8c.html#a959e149b704f987547b96ede3fdaa3bd">processusPesage_disposeRondelle</a> (void)</td></tr>
+<tr class="memdesc:a959e149b704f987547b96ede3fdaa3bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">État du processus qui attend que le bras soit a la position de dépot des rondelles.  <a href="../../da/d14/processus_pesage_8c.html#a959e149b704f987547b96ede3fdaa3bd">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a959e149b704f987547b96ede3fdaa3bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab84d7f374391edbc7fb83f0b8fbf9451"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d14/processus_pesage_8c.html#ab84d7f374391edbc7fb83f0b8fbf9451">processusPesage_gere</a> (void)</td></tr>
+<tr class="memdesc:ab84d7f374391edbc7fb83f0b8fbf9451"><td class="mdescLeft">&#160;</td><td class="mdescRight">État du processus qui attend que le bras soit en position avant d'envoyé la commande de laché la rondelle.  <a href="../../da/d14/processus_pesage_8c.html#ab84d7f374391edbc7fb83f0b8fbf9451">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ab84d7f374391edbc7fb83f0b8fbf9451"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2ef06a4ed87977f7daade97fd9795f7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d14/processus_pesage_8c.html#aa2ef06a4ed87977f7daade97fd9795f7">processusPesage_retourEtatInit</a> (void)</td></tr>
+<tr class="memdesc:aa2ef06a4ed87977f7daade97fd9795f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">État qui attend que la rondelle soit au sol avant de dire au bras de retourner a son état d'initialisation et d'attendre une requête.  <a href="../../da/d14/processus_pesage_8c.html#aa2ef06a4ed87977f7daade97fd9795f7">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aa2ef06a4ed87977f7daade97fd9795f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad06ebf41783d7ab6f4f022e76593997e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d14/processus_pesage_8c.html#ad06ebf41783d7ab6f4f022e76593997e">processusPesage_initialise</a> (void)</td></tr>
+<tr class="memdesc:ad06ebf41783d7ab6f4f022e76593997e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction publique d'initialisation du Processus Pesage.  <a href="../../da/d14/processus_pesage_8c.html#ad06ebf41783d7ab6f4f022e76593997e">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ad06ebf41783d7ab6f4f022e76593997e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ade857a99d48bcb8cfaa57c4cd8d7d2e8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d14/processus_pesage_8c.html#ade857a99d48bcb8cfaa57c4cd8d7d2e8">compteur</a> = 0</td></tr>
+<tr class="memdesc:ade857a99d48bcb8cfaa57c4cd8d7d2e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compteur pour les délais dans le state Machine.  <a href="../../da/d14/processus_pesage_8c.html#ade857a99d48bcb8cfaa57c4cd8d7d2e8">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ade857a99d48bcb8cfaa57c4cd8d7d2e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7e472330027293d561a16a78ce725a4"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d14/processus_pesage_8c.html#ac7e472330027293d561a16a78ce725a4">reponse</a> [64]</td></tr>
+<tr class="memdesc:ac7e472330027293d561a16a78ce725a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tableau de caracère pour mettre la réponse recu par le bras en USB.  <a href="../../da/d14/processus_pesage_8c.html#ac7e472330027293d561a16a78ce725a4">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ac7e472330027293d561a16a78ce725a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36cb4363be16f5a772eaa5c19a9fa7ad"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d14/processus_pesage_8c.html#a36cb4363be16f5a772eaa5c19a9fa7ad">commande</a> [64]</td></tr>
+<tr class="memdesc:a36cb4363be16f5a772eaa5c19a9fa7ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tableau de caracère pour mettre la commende a envoyé au bras en USB.  <a href="../../da/d14/processus_pesage_8c.html#a36cb4363be16f5a772eaa5c19a9fa7ad">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a36cb4363be16f5a772eaa5c19a9fa7ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad660c90589efbb535c7d55dc032c1b09"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d14/processus_pesage_8c.html#ad660c90589efbb535c7d55dc032c1b09">x2</a></td></tr>
+<tr class="memdesc:ad660c90589efbb535c7d55dc032c1b09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Variable pour la coordonné de la position du bras.  <a href="../../da/d14/processus_pesage_8c.html#ad660c90589efbb535c7d55dc032c1b09">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ad660c90589efbb535c7d55dc032c1b09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab01055e87d61c94f71e59f1116867f60"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d14/processus_pesage_8c.html#ab01055e87d61c94f71e59f1116867f60">y2</a></td></tr>
+<tr class="memdesc:ab01055e87d61c94f71e59f1116867f60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Variable pour la coordonné de la position du bras.  <a href="../../da/d14/processus_pesage_8c.html#ab01055e87d61c94f71e59f1116867f60">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ab01055e87d61c94f71e59f1116867f60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p >Le processus Pesage gêre l'entièreté des tâche a effectué avec le centre de pesage. Il est une phase du service base de temps qui est appeler à chaques périodes de la base de temps. Il correspond au diagramme d'état. </p>
+<dl class="section author"><dt>Auteur</dt><dd>CamFo Camille Fortin (<a href="#" onclick="location.href='mai'+'lto:'+'cam'+'fo'+'rti'+'n2'+'022'+'@g'+'mai'+'l.'+'com'; return false;">camfo<span class="obfuscator">.nosp@m.</span>rtin<span class="obfuscator">.nosp@m.</span>2022@<span class="obfuscator">.nosp@m.</span>gmai<span class="obfuscator">.nosp@m.</span>l.com</a>)</dd></dl>
+<dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2022-12-15</dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2022 </dd></dl>
+
+<p class="definition">Définition dans le fichier <a class="el" href="../../da/d14/processus_pesage_8c_source.html">processusPesage.c</a>.</p>
+</div><h2 class="groupheader">Documentation des fonctions</h2>
+<a id="afe02140b7ab309c80f0ccb391ec8047b" name="afe02140b7ab309c80f0ccb391ec8047b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe02140b7ab309c80f0ccb391ec8047b">&#9670;&#160;</a></span>processusPesage_attendFinDepot()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void processusPesage_attendFinDepot </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>État du processus qui attend que le bras soit à la balance avant de de relaché la rondelle. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../da/d14/processus_pesage_8c_source.html#l00236">236</a> du fichier <a class="el" href="../../da/d14/processus_pesage_8c_source.html">processusPesage.c</a>.</p>
+
+</div>
+</div>
+<a id="a481818a56ab5c6c58298706c920f2cc8" name="a481818a56ab5c6c58298706c920f2cc8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a481818a56ab5c6c58298706c920f2cc8">&#9670;&#160;</a></span>processusPesage_attendLecture()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void processusPesage_attendLecture </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>État du processus qui attend la fin de la lecture de la balance. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../da/d14/processus_pesage_8c_source.html#l00306">306</a> du fichier <a class="el" href="../../da/d14/processus_pesage_8c_source.html">processusPesage.c</a>.</p>
+
+</div>
+</div>
+<a id="ab5e8d684093c630bd88df0961be9e93b" name="ab5e8d684093c630bd88df0961be9e93b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5e8d684093c630bd88df0961be9e93b">&#9670;&#160;</a></span>processusPesage_attendUneRequete()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void processusPesage_attendUneRequete </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>État du processus qui attend une requête de pesé. Il attend d'avoir recu les bons états du service. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../da/d14/processus_pesage_8c_source.html#l00111">111</a> du fichier <a class="el" href="../../da/d14/processus_pesage_8c_source.html">processusPesage.c</a>.</p>
+
+</div>
+</div>
+<a id="a454fb586575c0b3c54a6040f5d3588af" name="a454fb586575c0b3c54a6040f5d3588af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a454fb586575c0b3c54a6040f5d3588af">&#9670;&#160;</a></span>processusPesage_depose()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void processusPesage_depose </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>État du processus qui démarre la détection et qui repose la rondelle sur la balance. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../da/d14/processus_pesage_8c_source.html#l00191">191</a> du fichier <a class="el" href="../../da/d14/processus_pesage_8c_source.html">processusPesage.c</a>.</p>
+
+</div>
+</div>
+<a id="a959e149b704f987547b96ede3fdaa3bd" name="a959e149b704f987547b96ede3fdaa3bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a959e149b704f987547b96ede3fdaa3bd">&#9670;&#160;</a></span>processusPesage_disposeRondelle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void processusPesage_disposeRondelle </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>État du processus qui attend que le bras soit a la position de dépot des rondelles. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../da/d14/processus_pesage_8c_source.html#l00454">454</a> du fichier <a class="el" href="../../da/d14/processus_pesage_8c_source.html">processusPesage.c</a>.</p>
+
+</div>
+</div>
+<a id="ab84d7f374391edbc7fb83f0b8fbf9451" name="ab84d7f374391edbc7fb83f0b8fbf9451"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab84d7f374391edbc7fb83f0b8fbf9451">&#9670;&#160;</a></span>processusPesage_gere()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void processusPesage_gere </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>État du processus qui attend que le bras soit en position avant d'envoyé la commande de laché la rondelle. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../da/d14/processus_pesage_8c_source.html#l00484">484</a> du fichier <a class="el" href="../../da/d14/processus_pesage_8c_source.html">processusPesage.c</a>.</p>
+
+</div>
+</div>
+<a id="ad06ebf41783d7ab6f4f022e76593997e" name="ad06ebf41783d7ab6f4f022e76593997e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad06ebf41783d7ab6f4f022e76593997e">&#9670;&#160;</a></span>processusPesage_initialise()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void processusPesage_initialise </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction publique d'initialisation du Processus Pesage. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../da/d14/processus_pesage_8c_source.html#l00100">100</a> du fichier <a class="el" href="../../da/d14/processus_pesage_8c_source.html">processusPesage.c</a>.</p>
+
+</div>
+</div>
+<a id="ac36fae041e74d2e0f22e4dda60c8fdc7" name="ac36fae041e74d2e0f22e4dda60c8fdc7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac36fae041e74d2e0f22e4dda60c8fdc7">&#9670;&#160;</a></span>processusPesage_prepareMesureBalance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void processusPesage_prepareMesureBalance </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>État du processus qui attend que le bras aille relaché la rondelle avant de préparer la balance pour une lecture. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../da/d14/processus_pesage_8c_source.html#l00275">275</a> du fichier <a class="el" href="../../da/d14/processus_pesage_8c_source.html">processusPesage.c</a>.</p>
+
+</div>
+</div>
+<a id="a6a437f083fb6d5962439fc332d8c5628" name="a6a437f083fb6d5962439fc332d8c5628"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a437f083fb6d5962439fc332d8c5628">&#9670;&#160;</a></span>processusPesage_repriseRondelle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void processusPesage_repriseRondelle </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>État du processus qui attend que le bras redescendre prendre la rondelle <br  />
+ </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../da/d14/processus_pesage_8c_source.html#l00380">380</a> du fichier <a class="el" href="../../da/d14/processus_pesage_8c_source.html">processusPesage.c</a>.</p>
+
+</div>
+</div>
+<a id="a0ae67e1c73c087d9e115c70450f8cc02" name="a0ae67e1c73c087d9e115c70450f8cc02"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ae67e1c73c087d9e115c70450f8cc02">&#9670;&#160;</a></span>processusPesage_repriseRondellePart2()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void processusPesage_repriseRondellePart2 </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>État du processus qui attend que le bras aille repris la rondelle avec la ventouse. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../da/d14/processus_pesage_8c_source.html#l00421">421</a> du fichier <a class="el" href="../../da/d14/processus_pesage_8c_source.html">processusPesage.c</a>.</p>
+
+</div>
+</div>
+<a id="aa2ef06a4ed87977f7daade97fd9795f7" name="aa2ef06a4ed87977f7daade97fd9795f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2ef06a4ed87977f7daade97fd9795f7">&#9670;&#160;</a></span>processusPesage_retourEtatInit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void processusPesage_retourEtatInit </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>État qui attend que la rondelle soit au sol avant de dire au bras de retourner a son état d'initialisation et d'attendre une requête. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../da/d14/processus_pesage_8c_source.html#l00506">506</a> du fichier <a class="el" href="../../da/d14/processus_pesage_8c_source.html">processusPesage.c</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentation des variables</h2>
+<a id="a36cb4363be16f5a772eaa5c19a9fa7ad" name="a36cb4363be16f5a772eaa5c19a9fa7ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36cb4363be16f5a772eaa5c19a9fa7ad">&#9670;&#160;</a></span>commande</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char commande[64]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Tableau de caracère pour mettre la commende a envoyé au bras en USB. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../da/d14/processus_pesage_8c_source.html#l00031">31</a> du fichier <a class="el" href="../../da/d14/processus_pesage_8c_source.html">processusPesage.c</a>.</p>
+
+</div>
+</div>
+<a id="ade857a99d48bcb8cfaa57c4cd8d7d2e8" name="ade857a99d48bcb8cfaa57c4cd8d7d2e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade857a99d48bcb8cfaa57c4cd8d7d2e8">&#9670;&#160;</a></span>compteur</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int compteur = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Compteur pour les délais dans le state Machine. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../da/d14/processus_pesage_8c_source.html#l00027">27</a> du fichier <a class="el" href="../../da/d14/processus_pesage_8c_source.html">processusPesage.c</a>.</p>
+
+</div>
+</div>
+<a id="ac7e472330027293d561a16a78ce725a4" name="ac7e472330027293d561a16a78ce725a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7e472330027293d561a16a78ce725a4">&#9670;&#160;</a></span>reponse</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char reponse[64]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Tableau de caracère pour mettre la réponse recu par le bras en USB. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../da/d14/processus_pesage_8c_source.html#l00029">29</a> du fichier <a class="el" href="../../da/d14/processus_pesage_8c_source.html">processusPesage.c</a>.</p>
+
+</div>
+</div>
+<a id="ad660c90589efbb535c7d55dc032c1b09" name="ad660c90589efbb535c7d55dc032c1b09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad660c90589efbb535c7d55dc032c1b09">&#9670;&#160;</a></span>x2</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int x2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Variable pour la coordonné de la position du bras. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../da/d14/processus_pesage_8c_source.html#l00033">33</a> du fichier <a class="el" href="../../da/d14/processus_pesage_8c_source.html">processusPesage.c</a>.</p>
+
+</div>
+</div>
+<a id="ab01055e87d61c94f71e59f1116867f60" name="ab01055e87d61c94f71e59f1116867f60"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab01055e87d61c94f71e59f1116867f60">&#9670;&#160;</a></span>y2</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int y2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Variable pour la coordonné de la position du bras. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../da/d14/processus_pesage_8c_source.html#l00035">35</a> du fichier <a class="el" href="../../da/d14/processus_pesage_8c_source.html">processusPesage.c</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="../../dir_1960eb5326e5d9e33055aa33e524e3d7.html">Projet-5e-Session</a></li><li class="navelem"><a class="el" href="../../dir_b1633367299bd443e49a3c980b4293f8.html">Centre-De-Pesage</a></li><li class="navelem"><a class="el" href="../../dir_f5061e8fe82dd5444d729c5c23ca051e.html">Programmes</a></li><li class="navelem"><a class="el" href="../../dir_dfd97e55dfc615ca768635a03791caa2.html">PesageBaseDeTemps</a></li><li class="navelem"><a class="el" href="../../da/d14/processus_pesage_8c.html">processusPesage.c</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5 </li>
+  </ul>
+</div>
+</body>
+</html>

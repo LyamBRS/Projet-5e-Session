@@ -1,0 +1,7 @@
+var searchData=
+[
+  ['cb_5fqueuedatainbuffer_0',['CB_QueueDataInBuffer',['../d4/dd2/_service_communication_8c.html#aebff2982a206799f3d174baf9df497b2',1,'CB_QueueDataInBuffer(unsigned char *Buffer, unsigned char sizeOfBuffer, unsigned char *DataToCheck, unsigned char DataValueFromRefStruct):&#160;ServiceCommunication.c'],['../d2/dad/_service_communication_8h.html#aebff2982a206799f3d174baf9df497b2',1,'CB_QueueDataInBuffer(unsigned char *Buffer, unsigned char sizeOfBuffer, unsigned char *DataToCheck, unsigned char DataValueFromRefStruct):&#160;ServiceCommunication.c']]],
+  ['cb_5fupdatebuffer_1',['CB_UpdateBuffer',['../d4/dd2/_service_communication_8c.html#a3d0c93c9577cbca6a1e880d1bbd9a1c8',1,'CB_UpdateBuffer(unsigned char *Buffer, unsigned char sizeOfBuffer):&#160;ServiceCommunication.c'],['../d2/dad/_service_communication_8h.html#a3d0c93c9577cbca6a1e880d1bbd9a1c8',1,'CB_UpdateBuffer(unsigned char *Buffer, unsigned char sizeOfBuffer):&#160;ServiceCommunication.c']]],
+  ['checkifunused_2',['CheckIfUnused',['../d4/dd2/_service_communication_8c.html#a201b752ad8025d5e229b7f3d5d3d85f7',1,'CheckIfUnused(unsigned char *checkedValue, unsigned char wantedNewValue):&#160;ServiceCommunication.c'],['../d2/dad/_service_communication_8h.html#a201b752ad8025d5e229b7f3d5d3d85f7',1,'CheckIfUnused(unsigned char *checkedValue, unsigned char wantedNewValue):&#160;ServiceCommunication.c']]],
+  ['clearcomcan_3',['clearComCAN',['../d0/d29/main_8c.html#aa927783c03eddd97e45da275ca7ff0ba',1,'main.c']]]
+];

@@ -1,0 +1,37 @@
+\hypertarget{interface_bras_8c_source}{}\doxysection{interface\+Bras.\+c}
+\label{interface_bras_8c_source}\index{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Pesage/Programmes/PesageBaseDeTemps/interfaceBras.c@{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Pesage/Programmes/PesageBaseDeTemps/interfaceBras.c}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{interface_bras_8c_source_l00001}00001 }
+\DoxyCodeLine{\Hypertarget{interface_bras_8c_source_l00015}00015 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{main_8h}{main.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{interface_bras_8c_source_l00016}00016 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{interface_bras_8h}{interfaceBras.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{interface_bras_8c_source_l00017}00017 \textcolor{preprocessor}{\#include "{}piloteSerieUSB.h"{}}}
+\DoxyCodeLine{\Hypertarget{interface_bras_8c_source_l00018}00018 }
+\DoxyCodeLine{\Hypertarget{interface_bras_8c_source_l00023}00023 \textcolor{keywordtype}{char} reponseinit[3000];}
+\DoxyCodeLine{\Hypertarget{interface_bras_8c_source_l00024}00024 }
+\DoxyCodeLine{\Hypertarget{interface_bras_8c_source_l00033}\mbox{\hyperlink{interface_bras_8h_a3092c0781c016fb858f5d7afe042f1e2}{00033}} \textcolor{keywordtype}{int} interfaceBras\_ecritUneCommande(\textcolor{keywordtype}{char} *Commande, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} Longueur)}
+\DoxyCodeLine{\Hypertarget{interface_bras_8c_source_l00034}00034 \{}
+\DoxyCodeLine{\Hypertarget{interface_bras_8c_source_l00035}00035 \textcolor{keywordtype}{int} retour;}
+\DoxyCodeLine{\Hypertarget{interface_bras_8c_source_l00036}00036   retour = piloteSerieUSB\_ecrit(Commande, Longueur);}
+\DoxyCodeLine{\Hypertarget{interface_bras_8c_source_l00037}00037   \textcolor{keywordflow}{if} (retour != (\textcolor{keywordtype}{int})Longueur)}
+\DoxyCodeLine{\Hypertarget{interface_bras_8c_source_l00038}00038   \{}
+\DoxyCodeLine{\Hypertarget{interface_bras_8c_source_l00039}00039     \textcolor{keywordflow}{return} -\/1;}
+\DoxyCodeLine{\Hypertarget{interface_bras_8c_source_l00040}00040   \}}
+\DoxyCodeLine{\Hypertarget{interface_bras_8c_source_l00041}00041   piloteSerieUSB\_attendLaFinDeLEcriture();}
+\DoxyCodeLine{\Hypertarget{interface_bras_8c_source_l00042}00042   \textcolor{keywordflow}{return} retour;}
+\DoxyCodeLine{\Hypertarget{interface_bras_8c_source_l00043}00043 \}}
+\DoxyCodeLine{\Hypertarget{interface_bras_8c_source_l00052}\mbox{\hyperlink{interface_bras_8h_a5902721c32f3f5bea70af4a6abf623fe}{00052}} \textcolor{keywordtype}{int} interfaceBras\_recoitUneReponse(\textcolor{keywordtype}{char} *Reponse, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} LongueurMaximale)}
+\DoxyCodeLine{\Hypertarget{interface_bras_8c_source_l00053}00053 \{}
+\DoxyCodeLine{\Hypertarget{interface_bras_8c_source_l00054}00054   \textcolor{keywordflow}{return} piloteSerieUSB\_lit(Reponse, LongueurMaximale);  }
+\DoxyCodeLine{\Hypertarget{interface_bras_8c_source_l00055}00055 \}}
+\DoxyCodeLine{\Hypertarget{interface_bras_8c_source_l00056}00056 }
+\DoxyCodeLine{\Hypertarget{interface_bras_8c_source_l00062}\mbox{\hyperlink{interface_bras_8h_a2d5642ec4df5018562ea8bbd33cdb2e3}{00062}} \textcolor{keywordtype}{int} interfaceBras\_initialise(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{interface_bras_8c_source_l00063}00063 \{}
+\DoxyCodeLine{\Hypertarget{interface_bras_8c_source_l00064}00064     \textcolor{keywordflow}{if}(piloteSerieUSB\_initialise() < 0)}
+\DoxyCodeLine{\Hypertarget{interface_bras_8c_source_l00065}00065     \{}
+\DoxyCodeLine{\Hypertarget{interface_bras_8c_source_l00066}00066       \textcolor{keywordflow}{return} -\/1;}
+\DoxyCodeLine{\Hypertarget{interface_bras_8c_source_l00067}00067     \}}
+\DoxyCodeLine{\Hypertarget{interface_bras_8c_source_l00068}00068     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\Hypertarget{interface_bras_8c_source_l00069}00069 \}}
+
+\end{DoxyCode}

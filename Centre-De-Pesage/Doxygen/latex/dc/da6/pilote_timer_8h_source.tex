@@ -1,0 +1,35 @@
+\hypertarget{pilote_timer_8h_source}{}\doxysection{pilote\+Timer.\+h}
+\label{pilote_timer_8h_source}\index{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Pesage/Programmes/PesageBaseDeTemps/piloteTimer.h@{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Pesage/Programmes/PesageBaseDeTemps/piloteTimer.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{pilote_timer_8h_source_l00001}00001 \textcolor{comment}{/*mytimer.h*/}}
+\DoxyCodeLine{\Hypertarget{pilote_timer_8h_source_l00002}00002 \textcolor{preprocessor}{\#ifndef TIME\_H}}
+\DoxyCodeLine{\Hypertarget{pilote_timer_8h_source_l00003}00003 \textcolor{preprocessor}{\#define TIME\_H}}
+\DoxyCodeLine{\Hypertarget{pilote_timer_8h_source_l00004}00004 \textcolor{preprocessor}{\#include <stdlib.h>}}
+\DoxyCodeLine{\Hypertarget{pilote_timer_8h_source_l00005}00005 }
+\DoxyCodeLine{\Hypertarget{pilote_timer_8h_source_l00006}00006 \textcolor{keyword}{typedef} \textcolor{keyword}{enum}}
+\DoxyCodeLine{\Hypertarget{pilote_timer_8h_source_l00007}00007 \{}
+\DoxyCodeLine{\Hypertarget{pilote_timer_8h_source_l00008}00008 TIMER\_SINGLE\_SHOT = 0, \textcolor{comment}{/*Periodic Timer*/}}
+\DoxyCodeLine{\Hypertarget{pilote_timer_8h_source_l00009}00009 TIMER\_PERIODIC         \textcolor{comment}{/*Single Shot Timer*/}}
+\DoxyCodeLine{\Hypertarget{pilote_timer_8h_source_l00010}00010 \} t\_timer;}
+\DoxyCodeLine{\Hypertarget{pilote_timer_8h_source_l00011}00011 }
+\DoxyCodeLine{\Hypertarget{pilote_timer_8h_source_l00012}00012 \textcolor{keyword}{typedef} void (*time\_handler)(\textcolor{keywordtype}{size\_t} timer\_id, \textcolor{keywordtype}{void} * user\_data);}
+\DoxyCodeLine{\Hypertarget{pilote_timer_8h_source_l00013}00013 }
+\DoxyCodeLine{\Hypertarget{pilote_timer_8h_source_l00014}00014 \textcolor{keywordtype}{int} initialize();}
+\DoxyCodeLine{\Hypertarget{pilote_timer_8h_source_l00015}00015 \textcolor{keywordtype}{size\_t} start\_timer(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} interval, time\_handler handler, t\_timer type, \textcolor{keywordtype}{void} * user\_data);}
+\DoxyCodeLine{\Hypertarget{pilote_timer_8h_source_l00016}00016 \textcolor{keywordtype}{void} stop\_timer(\textcolor{keywordtype}{size\_t} timer\_id);}
+\DoxyCodeLine{\Hypertarget{pilote_timer_8h_source_l00017}00017 \textcolor{keywordtype}{void} finalize();}
+\DoxyCodeLine{\Hypertarget{pilote_timer_8h_source_l00018}00018 \textcolor{keywordtype}{void} piloteTimer\_initialise(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{pilote_timer_8h_source_l00019}00019 }
+\DoxyCodeLine{\Hypertarget{pilote_timer_8h_source_l00020}00020 }
+\DoxyCodeLine{\Hypertarget{pilote_timer_8h_source_l00021}00021 \textcolor{keyword}{extern} void (*piloteTimer\_execute)(void);}
+\DoxyCodeLine{\Hypertarget{pilote_timer_8h_source_l00022}00022 }
+\DoxyCodeLine{\Hypertarget{pilote_timer_8h_source_l00023}00023 \textcolor{keywordtype}{void} piloteTimer\_termine(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{pilote_timer_8h_source_l00024}00024 \textcolor{keywordtype}{void} piloteTimer\_initialise(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{pilote_timer_8h_source_l00025}00025 \textcolor{keywordtype}{void} piloteTimer\_DemarreAvantWhile(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{pilote_timer_8h_source_l00026}00026 }
+\DoxyCodeLine{\Hypertarget{pilote_timer_8h_source_l00027}00027 }
+\DoxyCodeLine{\Hypertarget{pilote_timer_8h_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{pilote_timer_8h_source_l00029}00029 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

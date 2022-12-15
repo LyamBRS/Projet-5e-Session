@@ -1,0 +1,204 @@
+\hypertarget{pilote_c_a_n_8c_source}{}\doxysection{pilote\+CAN.\+c}
+\label{pilote_c_a_n_8c_source}\index{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Pesage/Programmes/PesageBaseDeTemps/piloteCAN.c@{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Pesage/Programmes/PesageBaseDeTemps/piloteCAN.c}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00001}00001 \textcolor{comment}{//piloteCAN}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00002}00002 \textcolor{comment}{//Historique: }}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00003}00003 \textcolor{comment}{// 2021-\/10-\/28, Yves Roy, creation}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00004}00004 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00005}00005 \textcolor{comment}{//INCLUSIONS}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00006}00006 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{main_8h}{main.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00007}00007 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00008}00008 \textcolor{preprocessor}{\#include <stdio.h>}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00009}00009 \textcolor{preprocessor}{\#include <stdlib.h>}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00010}00010 \textcolor{preprocessor}{\#include <unistd.h>}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00011}00011 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00012}00012 \textcolor{preprocessor}{\#include <string.h>}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00013}00013 \textcolor{preprocessor}{\#include <signal.h>}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00014}00014 \textcolor{preprocessor}{\#include <sys/socket.h>}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00015}00015 \textcolor{preprocessor}{\#include <sys/ioctl.h>}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00016}00016 \textcolor{preprocessor}{\#include <linux/can.h>} }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00017}00017 \textcolor{preprocessor}{\#include <linux/can/raw.h>}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00018}00018 \textcolor{preprocessor}{\#include <fcntl.h>}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00019}00019 \textcolor{preprocessor}{\#include <net/if.h>}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00020}00020 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00021}00021 \textcolor{preprocessor}{\#include "{}piloteCAN.h"{}}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00022}00022 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00023}00023 \textcolor{comment}{//Definitions privees}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00024}00024 \textcolor{preprocessor}{\#define PF\_CAN 29}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00025}00025 \textcolor{preprocessor}{\#ifdef PILOTECAN\_INTERFACE\_VIRTUELLE}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00026}00026 \textcolor{preprocessor}{    \#define PILOTECAN\_INTERFACE "{}vcan0"{}}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00027}00027 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00029}00029 \textcolor{preprocessor}{\#ifdef PILOTECAN\_INTERFACE\_REELLE}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00030}00030 \textcolor{preprocessor}{    \#define PILOTECAN\_INTERFACE "{}can0"{}}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00031}00031 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00032}00032 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00033}00033 \textcolor{preprocessor}{\#ifdef PILOTECAN\_INTERFACE\_REELLE\_AVEC\_LOOPBACK}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00034}00034 \textcolor{preprocessor}{    \#define PILOTECAN\_INTERFACE "{}can0"{}}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00035}00035 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00036}00036 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00037}00037 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00038}00038 \textcolor{comment}{//Declarations de fonctions privees:}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00039}00039 \textcolor{keywordtype}{void} piloteCAN\_gereUnSignal(\textcolor{keywordtype}{int} signo);}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00040}00040 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00041}00041 \textcolor{comment}{//Definitions de variables privees:}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00042}00042 \textcolor{keywordtype}{int} piloteCAN\_socket;}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00043}00043 \textcolor{keyword}{struct }sockaddr\_can piloteCAN\_addr;\textcolor{comment}{//structure pour la mise en place du socket CAN}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00044}00044 \textcolor{keyword}{struct }ifreq piloteCAN\_ifr;          \textcolor{comment}{//pour l'ouverture du socket CAN}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00045}00045 \textcolor{keyword}{struct }can\_frame piloteCAN\_messageATransmettre; \textcolor{comment}{//contient l'adresse, les données et le nombre de données}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00046}00046 \textcolor{keyword}{struct }can\_frame piloteCAN\_messageRecu; \textcolor{comment}{//contient l'adresse, les données et le nombre de données}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00047}00047 \textcolor{keyword}{struct }can\_filter piloteCAN\_rfilter; \textcolor{comment}{//contient le filtre à utiliser en réception}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00048}00048 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00049}00049 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00050}00050 \textcolor{comment}{//Definitions de fonctions privees:}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00051}00051 \textcolor{keywordtype}{void} piloteCAN\_gereUnSignal(\textcolor{keywordtype}{int} signo)}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00052}00052 \{}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00053}00053     printf(\textcolor{stringliteral}{"{}piloteCAN: signal reçu \%d\(\backslash\)n"{}}, signo);}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00054}00054     piloteCAN\_etatDuModule = PILOTECAN\_PAS\_EN\_FONCTION;}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00055}00055 \}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00056}00056 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00057}00057 \textcolor{comment}{//Definitions de variables publiques:}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00058}00058 \textcolor{keywordtype}{int} piloteCAN\_etatDuModule;}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00059}00059 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00060}00060 \textcolor{comment}{//Definitions de fonctions publiques:}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00061}00061 \textcolor{keywordtype}{void} piloteCAN\_ouvreUneInterface(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00062}00062 \{}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00063}00063 \textcolor{preprocessor}{\#ifdef PILOTECAN\_INTERFACE\_VIRTUELLE}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00064}00064     printf(\textcolor{stringliteral}{"{}PILOTECAN\_INTERFACE\_VIRTUELLE\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00065}00065     fflush(stdout);}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00066}00066     system(\textcolor{stringliteral}{"{}modprobe can"{}});}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00067}00067     system(\textcolor{stringliteral}{"{}modprobe can-\/dev"{}});}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00068}00068     system(\textcolor{stringliteral}{"{}modprobe can-\/raw"{}});}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00069}00069     system(\textcolor{stringliteral}{"{}ip link add dev vcan0 type vcan"{}});}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00070}00070     system(\textcolor{stringliteral}{"{}ip link set vcan0 up"{}});}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00071}00071 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00072}00072 \textcolor{preprocessor}{\#ifdef PILOTECAN\_INTERFACE\_REELLE}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00073}00073     printf(\textcolor{stringliteral}{"{}sudo PILOTECAN\_INTERFACE\_REELLE\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00074}00074     fflush(stdout);}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00075}00075     system(\textcolor{stringliteral}{"{}sudo modprobe can"{}});}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00076}00076     system(\textcolor{stringliteral}{"{}sudo modprobe can-\/dev"{}});}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00077}00077     system(\textcolor{stringliteral}{"{}sudo modprobe can-\/raw"{}});}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00078}00078     system(\textcolor{stringliteral}{"{}sudo ip link set can0 type can restart-\/ms 5"{}});}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00079}00079     system(\textcolor{stringliteral}{"{}sudo ip link set can0 up type can bitrate 50000"{}});}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00080}00080     system(\textcolor{stringliteral}{"{}sudo ip link set can0 type can loopback off"{}});}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00081}00081     }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00082}00082 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00083}00083 \textcolor{preprocessor}{\#ifdef PILOTECAN\_INTERFACE\_REELLE\_AVEC\_LOOPBACK}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00084}00084     printf(\textcolor{stringliteral}{"{}PILOTECAN\_INTERFACE\_VIRTUELLE\_AVEC\_LOOPBACK\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00085}00085     fflush(stdout);}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00086}00086     system(\textcolor{stringliteral}{"{}modprobe can"{}});}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00087}00087     system(\textcolor{stringliteral}{"{}modprobe can-\/dev"{}});}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00088}00088     system(\textcolor{stringliteral}{"{}modprobe can-\/raw"{}});}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00089}00089     system(\textcolor{stringliteral}{"{}ip link set can0 type can loopback on"{}});}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00090}00090     system(\textcolor{stringliteral}{"{}ip link set can0 up type can bitrate 50000"{}});\textcolor{comment}{//adaptez le "{}bitrate"{} au besoin}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00091}00091 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00092}00092 \}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00093}00093 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00094}00094 \textcolor{keywordtype}{void} piloteCAN\_fermeUneInterface(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00095}00095 \{}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00096}00096 \textcolor{preprocessor}{\#ifdef PILOTECAN\_INTERFACE\_VIRTUELLE}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00097}00097     system(\textcolor{stringliteral}{"{}modprobe vcan"{}});}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00098}00098     system(\textcolor{stringliteral}{"{}ip link set vcan0 down"{}});}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00099}00099     system(\textcolor{stringliteral}{"{}ip link del dev vcan0"{}});}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00100}00100 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00101}00101 \textcolor{preprocessor}{\#ifdef PILOTECAN\_INTERFACE\_REELLE}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00102}00102     system(\textcolor{stringliteral}{"{}sudo modprobe can"{}});}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00103}00103     system(\textcolor{stringliteral}{"{}sudo ip link set can0 down"{}});}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00104}00104     system(\textcolor{stringliteral}{"{}sudo ip link del dev can0"{}});}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00105}00105 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00106}00106 \textcolor{preprocessor}{\#ifdef PILOTECAN\_INTERFACE\_REELLE\_AVEC\_LOOPBACK}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00107}00107     system(\textcolor{stringliteral}{"{}modprobe can"{}});}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00108}00108     system(\textcolor{stringliteral}{"{}ip link set can0 down"{}});}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00109}00109     system(\textcolor{stringliteral}{"{}ip link del dev can0"{}});}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00110}00110 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00111}00111 \}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00112}00112 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00113}00113 \textcolor{keywordtype}{int} piloteCAN\_transmet(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} Adresse, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} *TamponDeTransmission, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} NombreATransmettre)}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00114}00114 \{}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00115}00115     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} indice;}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00116}00116     }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00117}00117     piloteCAN\_messageATransmettre.can\_id = 0x401;}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00118}00118     piloteCAN\_messageATransmettre.can\_dlc = 8;}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00119}00119     \textcolor{keywordflow}{for} (indice = 0; indice < 8; indice++)}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00120}00120     \{}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00121}00121         piloteCAN\_messageATransmettre.data[indice] = TamponDeTransmission[indice];}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00122}00122     \}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00123}00123     \textcolor{keywordflow}{return} write(piloteCAN\_socket, \&piloteCAN\_messageATransmettre, \textcolor{keyword}{sizeof}(piloteCAN\_messageATransmettre));}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00124}00124 \}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00125}00125 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00126}00126 \textcolor{keywordtype}{int} piloteCAN\_recoitUnMessage(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} *Adresse, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} *TamponDeReception, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} *NombreRecu)}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00127}00127 \{}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00128}00128 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} indice;}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00129}00129 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} nombre;}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00130}00130     }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00131}00131     \textcolor{comment}{//printf("{}RX\(\backslash\)n"{});}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00132}00132     \textcolor{comment}{//fflush(stdout);   }}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00133}00133     }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00134}00134     nombre = read(piloteCAN\_socket, \&piloteCAN\_messageRecu, \textcolor{keyword}{sizeof}(piloteCAN\_messageRecu));}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00135}00135     \textcolor{keywordflow}{if} (nombre < 0)}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00136}00136     \{}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00137}00137         \textcolor{keywordflow}{return} -\/1;}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00138}00138     \}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00139}00139     }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00140}00140     *Adresse = piloteCAN\_messageRecu.can\_id;}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00141}00141     *NombreRecu = piloteCAN\_messageRecu.can\_dlc;}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00142}00142     \textcolor{keywordflow}{for} (indice = 0; indice < piloteCAN\_messageRecu.can\_dlc; indice++)}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00143}00143     \{}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00144}00144         TamponDeReception[indice] = piloteCAN\_messageRecu.data[indice];}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00145}00145         piloteCAN\_messageRecu.data[indice] = 0;}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00146}00146         \textcolor{comment}{//printf("{}[\%i]"{},TamponDeReception[indice]);}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00147}00147     \}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00148}00148     \textcolor{keywordflow}{return} nombre;}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00149}00149 \}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00150}00150 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00151}00151 \textcolor{keywordtype}{int} piloteCAN\_typeDeMessageRecu(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00152}00152 \{}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00153}00153     \textcolor{keywordflow}{if} (piloteCAN\_messageRecu.can\_id \& CAN\_RTR\_FLAG)}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00154}00154     \{}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00155}00155         \textcolor{keywordflow}{return} PILOTECAN\_MESSAGE\_SANS\_DONNEES;}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00156}00156     \}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00157}00157     \textcolor{keywordflow}{return} PILOTECAN\_MESSAGE\_AVEC\_DONNEES;}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00158}00158 \}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00159}00159 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00160}00160 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00161}00161 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00162}00162 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00163}00163 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00164}00164 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00165}00165 \textcolor{keywordtype}{int} piloteCAN\_initialise(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00166}00166 \{}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00167}00167     signal(SIGTERM, piloteCAN\_gereUnSignal);}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00168}00168     signal(SIGHUP, piloteCAN\_gereUnSignal);}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00169}00169     }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00170}00170     piloteCAN\_rfilter.can\_id   = \mbox{\hyperlink{main_8h_aef1985ba15edf2099bbdf7e606a00428}{PILOTECAN\_ADRESSE\_EN\_RECEPTION}};}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00171}00171     piloteCAN\_rfilter.can\_mask = \mbox{\hyperlink{main_8h_a247085a3fedca62b7b4910d4823a1edc}{PILOTECAN\_MASQUE\_EN\_RECEPTION}};}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00172}00172     }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00173}00173 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00174}00174     \textcolor{keywordflow}{if} ((piloteCAN\_socket = socket(PF\_CAN, SOCK\_RAW, CAN\_RAW)) < 0) \textcolor{comment}{//ouverture du socket}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00175}00175     \{}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00176}00176         perror(\textcolor{stringliteral}{"{}piloteCAN: erreur lors de la création du socket CAN"{}});}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00177}00177         \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00178}00178     \}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00179}00179     }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00180}00180     setsockopt(piloteCAN\_socket, SOL\_CAN\_RAW, CAN\_RAW\_FILTER, \&piloteCAN\_rfilter, \textcolor{keyword}{sizeof}(piloteCAN\_rfilter));   }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00181}00181     }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00182}00182     piloteCAN\_addr.can\_family = PF\_CAN; \textcolor{comment}{//on indique qu'on veut ouvrir un socket de type CAN}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00183}00183     strcpy(piloteCAN\_ifr.ifr\_name, PILOTECAN\_INTERFACE); \textcolor{comment}{//on indique le nom de l'interface à utiliser}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00184}00184     ioctl(piloteCAN\_socket, SIOCGIFINDEX, \&piloteCAN\_ifr); \textcolor{comment}{//création du socket}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00185}00185     piloteCAN\_addr.can\_ifindex = piloteCAN\_ifr.ifr\_ifindex; \textcolor{comment}{//sauvegarde de l'information qui découle de l'ouverture}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00186}00186 }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00187}00187     \textcolor{keywordflow}{if} (bind(piloteCAN\_socket, (\textcolor{keyword}{struct} sockaddr *)\&piloteCAN\_addr, \textcolor{keyword}{sizeof}(piloteCAN\_addr)) < 0) \textcolor{comment}{//association du socket}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00188}00188     \{}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00189}00189         perror(\textcolor{stringliteral}{"{}piloteCAN: erreur lors de l'association (bind) du socket CAN"{}});}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00190}00190         \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00191}00191     \}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00192}00192     piloteCAN\_etatDuModule = PILOTECAN\_EN\_FONCTION; }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00193}00193     }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00194}00194     fcntl(piloteCAN\_socket, F\_SETFL, fcntl(piloteCAN\_socket, F\_GETFL) | O\_NONBLOCK);}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00195}00195     }
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00196}00196     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00197}00197 \}}
+\DoxyCodeLine{\Hypertarget{pilote_c_a_n_8c_source_l00198}00198 }
+
+\end{DoxyCode}

@@ -1,0 +1,51 @@
+\hypertarget{interface_bras_8h_source}{}\doxysection{interface\+Bras.\+h}
+\label{interface_bras_8h_source}\index{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Pesage/Programmes/PesageBaseDeTemps/interfaceBras.h@{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Pesage/Programmes/PesageBaseDeTemps/interfaceBras.h}}
+\mbox{\hyperlink{interface_bras_8h}{Aller à la documentation de ce fichier.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{interface_bras_8h_source_l00001}00001 }
+\DoxyCodeLine{\Hypertarget{interface_bras_8h_source_l00015}00015 \textcolor{preprocessor}{\#ifndef INTERFACEBRAS\_H}}
+\DoxyCodeLine{\Hypertarget{interface_bras_8h_source_l00016}00016 \textcolor{preprocessor}{\#define INTERFACEBRAS\_H}}
+\DoxyCodeLine{\Hypertarget{interface_bras_8h_source_l00017}00017 }
+\DoxyCodeLine{\Hypertarget{interface_bras_8h_source_l00018}00018 \textcolor{comment}{//PROGRAMME: 247-\/616 L-\/0002}}
+\DoxyCodeLine{\Hypertarget{interface_bras_8h_source_l00019}00019 \textcolor{comment}{//DESCRIPTION: Programme qui permet de tester le module interfaceMalyan}}
+\DoxyCodeLine{\Hypertarget{interface_bras_8h_source_l00020}00020 \textcolor{comment}{//Le programme permet de tester la communication avec une imprimante 3d}}
+\DoxyCodeLine{\Hypertarget{interface_bras_8h_source_l00021}00021 \textcolor{comment}{//de type MALYAN M200.}}
+\DoxyCodeLine{\Hypertarget{interface_bras_8h_source_l00022}00022 \textcolor{comment}{//Appuyer sur la touche:}}
+\DoxyCodeLine{\Hypertarget{interface_bras_8h_source_l00023}00023 \textcolor{comment}{//6: fait tourner le ventilateur (commande M106)}}
+\DoxyCodeLine{\Hypertarget{interface_bras_8h_source_l00024}00024 \textcolor{comment}{//7: arrête le ventilateur (commande M107)}}
+\DoxyCodeLine{\Hypertarget{interface_bras_8h_source_l00025}00025 \textcolor{comment}{//x: x transmet une commande inconnue (commande x000)}}
+\DoxyCodeLine{\Hypertarget{interface_bras_8h_source_l00026}00026 \textcolor{comment}{//Q: termine le programme}}
+\DoxyCodeLine{\Hypertarget{interface_bras_8h_source_l00027}00027 \textcolor{comment}{//Si la commande est complétée, l'imprimante retourne:}}
+\DoxyCodeLine{\Hypertarget{interface_bras_8h_source_l00028}00028 \textcolor{comment}{//  ok N0 P15 B15\(\backslash\)n}}
+\DoxyCodeLine{\Hypertarget{interface_bras_8h_source_l00029}00029 \textcolor{comment}{//Si la commande est inconnue, l'imprimante retourne:}}
+\DoxyCodeLine{\Hypertarget{interface_bras_8h_source_l00030}00030 \textcolor{comment}{//  echo:Unknown command: "{}x000"{}\(\backslash\)n}}
+\DoxyCodeLine{\Hypertarget{interface_bras_8h_source_l00031}00031 \textcolor{comment}{//  ok N0 P15 B15\(\backslash\)n}}
+\DoxyCodeLine{\Hypertarget{interface_bras_8h_source_l00032}00032 \textcolor{comment}{//Pour plus de détails a propos de la configuration du port USB/Serie:}}
+\DoxyCodeLine{\Hypertarget{interface_bras_8h_source_l00033}00033 \textcolor{comment}{//https://en.wikibooks.org/wiki/Serial\_Programming/termios}}
+\DoxyCodeLine{\Hypertarget{interface_bras_8h_source_l00034}00034 }
+\DoxyCodeLine{\Hypertarget{interface_bras_8h_source_l00035}00035 \textcolor{comment}{//HISTORIQUE:}}
+\DoxyCodeLine{\Hypertarget{interface_bras_8h_source_l00036}00036 \textcolor{comment}{// 2018-\/10-\/11, Yves Roy: creation}}
+\DoxyCodeLine{\Hypertarget{interface_bras_8h_source_l00037}00037 \textcolor{comment}{// 2020-\/09-\/06, Yves Roy: reception amelioree}}
+\DoxyCodeLine{\Hypertarget{interface_bras_8h_source_l00038}00038 }
+\DoxyCodeLine{\Hypertarget{interface_bras_8h_source_l00039}00039 \textcolor{comment}{//DEFINITIONS REQUISES PAR LE PROGRAMME:}}
+\DoxyCodeLine{\Hypertarget{interface_bras_8h_source_l00040}00040 }
+\DoxyCodeLine{\Hypertarget{interface_bras_8h_source_l00041}00041 \textcolor{comment}{//Dependances materielles:}}
+\DoxyCodeLine{\Hypertarget{interface_bras_8h_source_l00042}00042 \textcolor{comment}{//pas de dependances materielles}}
+\DoxyCodeLine{\Hypertarget{interface_bras_8h_source_l00043}00043 }
+\DoxyCodeLine{\Hypertarget{interface_bras_8h_source_l00044}00044 \textcolor{comment}{//Dependances logicielles:}}
+\DoxyCodeLine{\Hypertarget{interface_bras_8h_source_l00045}00045 }
+\DoxyCodeLine{\Hypertarget{interface_bras_8h_source_l00046}00046 \textcolor{comment}{//INFORMATION PUBLIQUE:}}
+\DoxyCodeLine{\Hypertarget{interface_bras_8h_source_l00047}00047 \textcolor{comment}{//Definitions publiques:}}
+\DoxyCodeLine{\Hypertarget{interface_bras_8h_source_l00048}00048 \textcolor{comment}{//pas de definitions publiques}}
+\DoxyCodeLine{\Hypertarget{interface_bras_8h_source_l00049}00049 }
+\DoxyCodeLine{\Hypertarget{interface_bras_8h_source_l00050}00050 \textcolor{comment}{//Fonctions publiques:}}
+\DoxyCodeLine{\Hypertarget{interface_bras_8h_source_l00059}00059 \textcolor{comment}{}\textcolor{keywordtype}{int} \mbox{\hyperlink{interface_bras_8h_a3092c0781c016fb858f5d7afe042f1e2}{interfaceBras\_ecritUneCommande}}(\textcolor{keywordtype}{char} *Commande, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} Longueur);}
+\DoxyCodeLine{\Hypertarget{interface_bras_8h_source_l00068}00068 \textcolor{keywordtype}{int} \mbox{\hyperlink{interface_bras_8h_a5902721c32f3f5bea70af4a6abf623fe}{interfaceBras\_recoitUneReponse}}(\textcolor{keywordtype}{char} *Reponse, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} LongueurMaximale);}
+\DoxyCodeLine{\Hypertarget{interface_bras_8h_source_l00074}00074 \textcolor{keywordtype}{int} \mbox{\hyperlink{interface_bras_8h_a2d5642ec4df5018562ea8bbd33cdb2e3}{interfaceBras\_initialise}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{interface_bras_8h_source_l00075}00075 }
+\DoxyCodeLine{\Hypertarget{interface_bras_8h_source_l00076}00076 \textcolor{comment}{//Variables publiques:}}
+\DoxyCodeLine{\Hypertarget{interface_bras_8h_source_l00077}00077 \textcolor{comment}{//pas de variables publiques}}
+\DoxyCodeLine{\Hypertarget{interface_bras_8h_source_l00078}00078 }
+\DoxyCodeLine{\Hypertarget{interface_bras_8h_source_l00079}00079 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

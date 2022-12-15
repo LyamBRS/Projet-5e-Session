@@ -1,0 +1,807 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.5"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Recycling Center: Référence du fichier U:/Sessions/Session 5/Project/Projet_Fin_Session/Projet-5e-Session/Centre-De-Pesage/Programmes/PesageBaseDeTemps/main.h</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../resize.js"></script>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="../../BRS (S) Icon.ico"/></td>
+  <td id="projectalign">
+   <div id="projectname">Recycling Center<span id="projectnumber">&#160;1</span>
+   </div>
+   <div id="projectbrief">Centre de pesage</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.5 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('../../',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('d4/dbf/main_8h.html','../../'); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Chargement...</div>
+<div class="SRStatus" id="Searching">Recherche...</div>
+<div class="SRStatus" id="NoMatches">Aucune correspondance</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Fonctions</a>  </div>
+  <div class="headertitle"><div class="title">Référence du fichier main.h</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Le programme a pour but de contôler un bras robot et une balance avec un beaglebone Blue tout en communiquant les information de ses tâches au autre module du projet de 5eme session de TSO. La communication se fait a l'aide d'un réseau CAN et est gêrer par le <a class="el" href="../../d2/dad/_service_communication_8h.html">ServiceCommunication.h</a>.  
+<a href="#details">Plus de détails...</a></p>
+<div class="textblock"><code>#include &lt;unistd.h&gt;</code><br />
+<code>#include &lt;stdint.h&gt;</code><br />
+<code>#include &lt;stdlib.h&gt;</code><br />
+<code>#include &lt;stdio.h&gt;</code><br />
+<code>#include &lt;fcntl.h&gt;</code><br />
+<code>#include &lt;errno.h&gt;</code><br />
+<code>#include &lt;sys/ioctl.h&gt;</code><br />
+<code>#include &lt;sys/wait.h&gt;</code><br />
+<code>#include &lt;sys/types.h&gt;</code><br />
+<code>#include &lt;string.h&gt;</code><br />
+</div>
+<p><a href="../../d4/dbf/main_8h_source.html">Aller au code source de ce fichier.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a2934047fa0ef36d13344bc9d388ef628"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dbf/main_8h.html#a2934047fa0ef36d13344bc9d388ef628">PILOTESERIEUSB_BAUDRATE_AVEC_B_AU_DEBUT</a>&#160;&#160;&#160;B115200</td></tr>
+<tr class="memdesc:a2934047fa0ef36d13344bc9d388ef628"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définition du baudrate utilisé par <a class="el" href="../../d9/d1d/pilote_serie_u_s_b_8h_source.html">piloteSerieUSB.h</a> nécessite un b au début pour le fonctionnement avec linux <br  />
+  <a href="../../d4/dbf/main_8h.html#a2934047fa0ef36d13344bc9d388ef628">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a2934047fa0ef36d13344bc9d388ef628"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a635570abe91526274a63f4ece8d6aa3d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dbf/main_8h.html#a635570abe91526274a63f4ece8d6aa3d">PILOTEUSBBAL_BAUDRATE_AVEC_B_AU_DEBUT</a>&#160;&#160;&#160;B9600</td></tr>
+<tr class="memdesc:a635570abe91526274a63f4ece8d6aa3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définition du baudrate utilisé par <a class="el" href="../../d8/d12/pilote_u_s_bbal_8h_source.html">piloteUSBbal.h</a> nécessite un b au début pour le fonctionnement avec linux.  <a href="../../d4/dbf/main_8h.html#a635570abe91526274a63f4ece8d6aa3d">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a635570abe91526274a63f4ece8d6aa3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5cac4892b7501c9087aa00c9195183dd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dbf/main_8h.html#a5cac4892b7501c9087aa00c9195183dd">PILOTECAN_INTERFACE_REELLE</a></td></tr>
+<tr class="separator:a5cac4892b7501c9087aa00c9195183dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef1985ba15edf2099bbdf7e606a00428"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dbf/main_8h.html#aef1985ba15edf2099bbdf7e606a00428">PILOTECAN_ADRESSE_EN_RECEPTION</a>&#160;&#160;&#160;0x00</td></tr>
+<tr class="memdesc:aef1985ba15edf2099bbdf7e606a00428"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définition de l'adresse de réception sur le réseau CAN un 0 fais en sorte que le module recoit tous les trame envoyé sur le CAN.  <a href="../../d4/dbf/main_8h.html#aef1985ba15edf2099bbdf7e606a00428">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aef1985ba15edf2099bbdf7e606a00428"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a247085a3fedca62b7b4910d4823a1edc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dbf/main_8h.html#a247085a3fedca62b7b4910d4823a1edc">PILOTECAN_MASQUE_EN_RECEPTION</a>&#160;&#160;&#160;0x00000U</td></tr>
+<tr class="memdesc:a247085a3fedca62b7b4910d4823a1edc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définition du masque de l'adresse de réception CAN.  <a href="../../d4/dbf/main_8h.html#a247085a3fedca62b7b4910d4823a1edc">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a247085a3fedca62b7b4910d4823a1edc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf8630e8417acfd849f302e05baed1b1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dbf/main_8h.html#acf8630e8417acfd849f302e05baed1b1">PILOIECAN_ADRESSE_EN_TRANSMITION</a>&#160;&#160;&#160;0x401</td></tr>
+<tr class="memdesc:acf8630e8417acfd849f302e05baed1b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définition de l'adresse de transmition sur le réseau CAN qui est utilisé par le centre de pesage (décidé par le protocole de com)  <a href="../../d4/dbf/main_8h.html#acf8630e8417acfd849f302e05baed1b1">Plus de détails...</a><br /></td></tr>
+<tr class="separator:acf8630e8417acfd849f302e05baed1b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2e380ef4ffe3c7fda4a9ee941a68ff6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dbf/main_8h.html#ad2e380ef4ffe3c7fda4a9ee941a68ff6">PROCESSUSDETECTION_COMPTEPOURREPONSE_INIT</a>&#160;&#160;&#160;2000</td></tr>
+<tr class="memdesc:ad2e380ef4ffe3c7fda4a9ee941a68ff6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Valeur du compteur pour les attentes dans le processus détection pour attendre la réponse de l'initialisation du bras.  <a href="../../d4/dbf/main_8h.html#ad2e380ef4ffe3c7fda4a9ee941a68ff6">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ad2e380ef4ffe3c7fda4a9ee941a68ff6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a179474829886745c9dc4f956529a71a0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dbf/main_8h.html#a179474829886745c9dc4f956529a71a0">PROCESSUSDETECTION_COMPTEPOURREPONSE_CMD</a>&#160;&#160;&#160;300</td></tr>
+<tr class="memdesc:a179474829886745c9dc4f956529a71a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Valeur du compteur pour les attentes dans le processus détection pour attendre la réponse de l'initialisation du bras.  <a href="../../d4/dbf/main_8h.html#a179474829886745c9dc4f956529a71a0">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a179474829886745c9dc4f956529a71a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f55cccd90fde97bc9c1b75e160127c1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dbf/main_8h.html#a7f55cccd90fde97bc9c1b75e160127c1">PROCESSUSDETECTION_HAUTEUR_DE_SCAN</a>&#160;&#160;&#160;90</td></tr>
+<tr class="memdesc:a7f55cccd90fde97bc9c1b75e160127c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hauteur qui correspond à la coordonné z du bras robot lors de la détection d'une rondelle.  <a href="../../d4/dbf/main_8h.html#a7f55cccd90fde97bc9c1b75e160127c1">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a7f55cccd90fde97bc9c1b75e160127c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad96a89ddfc09cad32ce6caea5b2aa3fd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dbf/main_8h.html#ad96a89ddfc09cad32ce6caea5b2aa3fd">PROCESSUSDETECTION_REQUETE_ACTIVE</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:ad96a89ddfc09cad32ce6caea5b2aa3fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définition pour contrôler les requetes du <a class="el" href="../../d7/df5/processus_detection_8h_source.html">processusDetection.h</a> <br  />
+ Utilisé par la structure processusDetection.  <a href="../../d4/dbf/main_8h.html#ad96a89ddfc09cad32ce6caea5b2aa3fd">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ad96a89ddfc09cad32ce6caea5b2aa3fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a864d40797a0fa75f807c50c12a536010"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dbf/main_8h.html#a864d40797a0fa75f807c50c12a536010">PROCESSUSDETECTION_REQUETE_TRAITE</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:a864d40797a0fa75f807c50c12a536010"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définition pour contrôler les requetes du <a class="el" href="../../d7/df5/processus_detection_8h_source.html">processusDetection.h</a> <br  />
+ Utilisé par la structure processusDetection.  <a href="../../d4/dbf/main_8h.html#a864d40797a0fa75f807c50c12a536010">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a864d40797a0fa75f807c50c12a536010"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a201361e6575847a6fe2cbe12f0b1fec5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dbf/main_8h.html#a201361e6575847a6fe2cbe12f0b1fec5">PROCESSUSDETECTION_MODULE_EN_FONCTION</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:a201361e6575847a6fe2cbe12f0b1fec5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définition utilisé pour savoir l'état du module. Utilisé par la structure processusDetection.  <a href="../../d4/dbf/main_8h.html#a201361e6575847a6fe2cbe12f0b1fec5">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a201361e6575847a6fe2cbe12f0b1fec5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a044ad1171fd977c68cbd41736807a4f0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dbf/main_8h.html#a044ad1171fd977c68cbd41736807a4f0">PROCESSUSDETECTION_MODULE_PAS_EN_FONCTION</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:a044ad1171fd977c68cbd41736807a4f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définition utilisé pour savoir l'état du module. Utilisé par la structure processusDetection.  <a href="../../d4/dbf/main_8h.html#a044ad1171fd977c68cbd41736807a4f0">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a044ad1171fd977c68cbd41736807a4f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a968ae2d9a7d4d9e03d25c187a3b0e309"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dbf/main_8h.html#a968ae2d9a7d4d9e03d25c187a3b0e309">PROCESSUSDETECTION_INFORMATION_CUBEDETECTED</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:a968ae2d9a7d4d9e03d25c187a3b0e309"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définition utilisé pour avoir de l'information du <a class="el" href="../../d7/df5/processus_detection_8h_source.html">processusDetection.h</a> Utilisé par la structure processusDetection Pour savoir si il y a un cube au pas.  <a href="../../d4/dbf/main_8h.html#a968ae2d9a7d4d9e03d25c187a3b0e309">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a968ae2d9a7d4d9e03d25c187a3b0e309"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe50d7bcf3ddfca76f1c839f16862bc5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dbf/main_8h.html#afe50d7bcf3ddfca76f1c839f16862bc5">PROCESSUSDETECTION_INFORMATION_CUBENOTDETECTED</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:afe50d7bcf3ddfca76f1c839f16862bc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définition utilisé pour avoir de l'information du <a class="el" href="../../d7/df5/processus_detection_8h_source.html">processusDetection.h</a> Utilisé par la structure processusDetection Pour savoir si il y a un cube au pas.  <a href="../../d4/dbf/main_8h.html#afe50d7bcf3ddfca76f1c839f16862bc5">Plus de détails...</a><br /></td></tr>
+<tr class="separator:afe50d7bcf3ddfca76f1c839f16862bc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c881f57dd1c677526a6bf6e2eda81aa"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dbf/main_8h.html#a6c881f57dd1c677526a6bf6e2eda81aa">PROCESSUSDETECTION_INFORMATION_CUBEUNUSED</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:a6c881f57dd1c677526a6bf6e2eda81aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définition utilisé pour avoir de l'information du <a class="el" href="../../d7/df5/processus_detection_8h_source.html">processusDetection.h</a> Utilisé par la structure processusDetection Pour savoir si il y a un cube au pas.  <a href="../../d4/dbf/main_8h.html#a6c881f57dd1c677526a6bf6e2eda81aa">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a6c881f57dd1c677526a6bf6e2eda81aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a812b4115f288d6c4873148a9e850acb9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dbf/main_8h.html#a812b4115f288d6c4873148a9e850acb9">PROCESSUSPESAGE_UNITE_OZ</a>&#160;&#160;&#160;'o'</td></tr>
+<tr class="memdesc:a812b4115f288d6c4873148a9e850acb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définition pour savoir si on est en gramme ou en Oz.  <a href="../../d4/dbf/main_8h.html#a812b4115f288d6c4873148a9e850acb9">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a812b4115f288d6c4873148a9e850acb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71d0604fb65e32056a56a21363efe0fc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dbf/main_8h.html#a71d0604fb65e32056a56a21363efe0fc">PROCESSUSPESAGE_UNITE_G</a>&#160;&#160;&#160;'g'</td></tr>
+<tr class="memdesc:a71d0604fb65e32056a56a21363efe0fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définition pour savoir si on est en gramme ou en Oz.  <a href="../../d4/dbf/main_8h.html#a71d0604fb65e32056a56a21363efe0fc">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a71d0604fb65e32056a56a21363efe0fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3966eab1d2f73d128f8de00a35f818fd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dbf/main_8h.html#a3966eab1d2f73d128f8de00a35f818fd">PROCESSUSPESAGE_REQUETE_ACTIVE</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:a3966eab1d2f73d128f8de00a35f818fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définition pour contrôler les requetes du <a class="el" href="../../d6/d7b/processus_pesage_8h.html">processusPesage.h</a> <br  />
+ Utilisé par la structure <a class="el" href="../../d6/d7b/processus_pesage_8h.html#af6d31d94e022c5f2837934ca9e6919d1">processusPesage</a>.  <a href="../../d4/dbf/main_8h.html#a3966eab1d2f73d128f8de00a35f818fd">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a3966eab1d2f73d128f8de00a35f818fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade35ac0d91236f258481b4877d76a704"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dbf/main_8h.html#ade35ac0d91236f258481b4877d76a704">PROCESSUSPESAGE_REQUETE_TRAITE</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:ade35ac0d91236f258481b4877d76a704"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définition pour contrôler les requetes du <a class="el" href="../../d6/d7b/processus_pesage_8h.html">processusPesage.h</a> <br  />
+ Utilisé par la structure <a class="el" href="../../d6/d7b/processus_pesage_8h.html#af6d31d94e022c5f2837934ca9e6919d1">processusPesage</a>.  <a href="../../d4/dbf/main_8h.html#ade35ac0d91236f258481b4877d76a704">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ade35ac0d91236f258481b4877d76a704"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96a2f4bb2206193bc10d237cc597e72a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dbf/main_8h.html#a96a2f4bb2206193bc10d237cc597e72a">PROCESSUSPESAGE_MODULE_EN_FONCTION</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:a96a2f4bb2206193bc10d237cc597e72a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définition utilisé pour savoir l'état du module. Utilisé par la structure <a class="el" href="../../d6/d7b/processus_pesage_8h.html#af6d31d94e022c5f2837934ca9e6919d1">processusPesage</a>.  <a href="../../d4/dbf/main_8h.html#a96a2f4bb2206193bc10d237cc597e72a">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a96a2f4bb2206193bc10d237cc597e72a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97da0021207a7d5900ae20f841febd5c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dbf/main_8h.html#a97da0021207a7d5900ae20f841febd5c">PROCESSUSPESAGE_MODULE_PAS_EN_FONCTION</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:a97da0021207a7d5900ae20f841febd5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définition utilisé pour savoir l'état du module. Utilisé par la structure <a class="el" href="../../d6/d7b/processus_pesage_8h.html#af6d31d94e022c5f2837934ca9e6919d1">processusPesage</a>.  <a href="../../d4/dbf/main_8h.html#a97da0021207a7d5900ae20f841febd5c">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a97da0021207a7d5900ae20f841febd5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ee5db313fccaab14e5997045020f6d6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dbf/main_8h.html#a8ee5db313fccaab14e5997045020f6d6">PILOTETIMER_PERIODE_EN_MS</a>&#160;&#160;&#160;5</td></tr>
+<tr class="memdesc:a8ee5db313fccaab14e5997045020f6d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définition pour la période du pilote Timer. C'est le temps entre chaque apelle de sa fonction handler qui elle meme appelle le <a class="el" href="../../d9/d7e/service_base_de_temps_8h.html">serviceBaseDeTemps.h</a>.  <a href="../../d4/dbf/main_8h.html#a8ee5db313fccaab14e5997045020f6d6">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a8ee5db313fccaab14e5997045020f6d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4e0eb7a8c917b269dbb0756b0884cd3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dbf/main_8h.html#af4e0eb7a8c917b269dbb0756b0884cd3">SERVICEBASEDETEMPS_PERIODE_EN_MS</a>&#160;&#160;&#160;<a class="el" href="../../d4/dbf/main_8h.html#a8ee5db313fccaab14e5997045020f6d6">PILOTETIMER_PERIODE_EN_MS</a></td></tr>
+<tr class="memdesc:af4e0eb7a8c917b269dbb0756b0884cd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Période de la base de temps en Milisecondes.  <a href="../../d4/dbf/main_8h.html#af4e0eb7a8c917b269dbb0756b0884cd3">Plus de détails...</a><br /></td></tr>
+<tr class="separator:af4e0eb7a8c917b269dbb0756b0884cd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6276b0f7c474c476289248b4eecd63ee"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dbf/main_8h.html#a6276b0f7c474c476289248b4eecd63ee">SERVICEBASEDETEMPS_FREQUENCE_EN_HZ</a>&#160;&#160;&#160;200</td></tr>
+<tr class="memdesc:a6276b0f7c474c476289248b4eecd63ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fréquence de la base de temps en Hz. Doit être recalculé si la période du pilote timer <a class="el" href="../../d4/dbf/main_8h.html#a8ee5db313fccaab14e5997045020f6d6">PILOTETIMER_PERIODE_EN_MS</a> est changé.  <a href="../../d4/dbf/main_8h.html#a6276b0f7c474c476289248b4eecd63ee">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a6276b0f7c474c476289248b4eecd63ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9470a0f17392d89a537141466f6f0e98"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dbf/main_8h.html#a9470a0f17392d89a537141466f6f0e98">SERVICEBASEDETEMPS_NOMBRE_DE_PHASES</a>&#160;&#160;&#160;5</td></tr>
+<tr class="memdesc:a9470a0f17392d89a537141466f6f0e98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de phase de la base de temps <a class="el" href="../../d9/d7e/service_base_de_temps_8h.html">serviceBaseDeTemps.h</a>.  <a href="../../d4/dbf/main_8h.html#a9470a0f17392d89a537141466f6f0e98">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a9470a0f17392d89a537141466f6f0e98"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a561647e7b1ac9d4527996d8330a20dfd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dbf/main_8h.html#a561647e7b1ac9d4527996d8330a20dfd">PROCESSUSDETECTION_PHASE</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:a561647e7b1ac9d4527996d8330a20dfd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Numéro de la phase du processus Détection <br  />
+  <a href="../../d4/dbf/main_8h.html#a561647e7b1ac9d4527996d8330a20dfd">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a561647e7b1ac9d4527996d8330a20dfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af51920a460d59f788cd07915830d929c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dbf/main_8h.html#af51920a460d59f788cd07915830d929c">PROCESSUSPESAGE_PHASE</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:af51920a460d59f788cd07915830d929c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Numéro de la phase du processus Pesage.  <a href="../../d4/dbf/main_8h.html#af51920a460d59f788cd07915830d929c">Plus de détails...</a><br /></td></tr>
+<tr class="separator:af51920a460d59f788cd07915830d929c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a400c4661c03ea3126260ccb4e61d977b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dbf/main_8h.html#a400c4661c03ea3126260ccb4e61d977b">PROCESSUSGESTIONCOM_PHASE</a>&#160;&#160;&#160;4</td></tr>
+<tr class="memdesc:a400c4661c03ea3126260ccb4e61d977b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Numéro de la phase du processus de Gestion de COM.  <a href="../../d4/dbf/main_8h.html#a400c4661c03ea3126260ccb4e61d977b">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a400c4661c03ea3126260ccb4e61d977b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6e7d92e268f07cf18c427fee9ff2e88"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dbf/main_8h.html#ab6e7d92e268f07cf18c427fee9ff2e88">SERVICEBASEDETEMPS_NOMBRE_DE_PHASES_DANS_LOOP</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:ab6e7d92e268f07cf18c427fee9ff2e88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de phase dans une période de la base de temps (1 si pas utilisé)  <a href="../../d4/dbf/main_8h.html#ab6e7d92e268f07cf18c427fee9ff2e88">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ab6e7d92e268f07cf18c427fee9ff2e88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dbf/main_8h.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
+<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Point d'entré du programme.  <a href="../../d4/dbf/main_8h.html#a840291bc02cba5474a4cb46a9b9566fe">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p >Le programme a pour but de contôler un bras robot et une balance avec un beaglebone Blue tout en communiquant les information de ses tâches au autre module du projet de 5eme session de TSO. La communication se fait a l'aide d'un réseau CAN et est gêrer par le <a class="el" href="../../d2/dad/_service_communication_8h.html">ServiceCommunication.h</a>. </p>
+<dl class="section author"><dt>Auteur</dt><dd>CamFo Camille Fortin (<a href="#" onclick="location.href='mai'+'lto:'+'cam'+'fo'+'rti'+'n2'+'022'+'@g'+'mai'+'l.'+'com'; return false;">camfo<span class="obfuscator">.nosp@m.</span>rtin<span class="obfuscator">.nosp@m.</span>2022@<span class="obfuscator">.nosp@m.</span>gmai<span class="obfuscator">.nosp@m.</span>l.com</a>) </dd></dl>
+<dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2022-12-15</dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2022 </dd></dl>
+
+<p class="definition">Définition dans le fichier <a class="el" href="../../d4/dbf/main_8h_source.html">main.h</a>.</p>
+</div><h2 class="groupheader">Documentation des macros</h2>
+<a id="acf8630e8417acfd849f302e05baed1b1" name="acf8630e8417acfd849f302e05baed1b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf8630e8417acfd849f302e05baed1b1">&#9670;&#160;</a></span>PILOIECAN_ADRESSE_EN_TRANSMITION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PILOIECAN_ADRESSE_EN_TRANSMITION&#160;&#160;&#160;0x401</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Définition de l'adresse de transmition sur le réseau CAN qui est utilisé par le centre de pesage (décidé par le protocole de com) </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d4/dbf/main_8h_source.html#l00079">79</a> du fichier <a class="el" href="../../d4/dbf/main_8h_source.html">main.h</a>.</p>
+
+</div>
+</div>
+<a id="aef1985ba15edf2099bbdf7e606a00428" name="aef1985ba15edf2099bbdf7e606a00428"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef1985ba15edf2099bbdf7e606a00428">&#9670;&#160;</a></span>PILOTECAN_ADRESSE_EN_RECEPTION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PILOTECAN_ADRESSE_EN_RECEPTION&#160;&#160;&#160;0x00</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Définition de l'adresse de réception sur le réseau CAN un 0 fais en sorte que le module recoit tous les trame envoyé sur le CAN. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d4/dbf/main_8h_source.html#l00068">68</a> du fichier <a class="el" href="../../d4/dbf/main_8h_source.html">main.h</a>.</p>
+
+</div>
+</div>
+<a id="a5cac4892b7501c9087aa00c9195183dd" name="a5cac4892b7501c9087aa00c9195183dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5cac4892b7501c9087aa00c9195183dd">&#9670;&#160;</a></span>PILOTECAN_INTERFACE_REELLE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PILOTECAN_INTERFACE_REELLE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d4/dbf/main_8h_source.html#l00059">59</a> du fichier <a class="el" href="../../d4/dbf/main_8h_source.html">main.h</a>.</p>
+
+</div>
+</div>
+<a id="a247085a3fedca62b7b4910d4823a1edc" name="a247085a3fedca62b7b4910d4823a1edc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a247085a3fedca62b7b4910d4823a1edc">&#9670;&#160;</a></span>PILOTECAN_MASQUE_EN_RECEPTION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PILOTECAN_MASQUE_EN_RECEPTION&#160;&#160;&#160;0x00000U</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Définition du masque de l'adresse de réception CAN. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d4/dbf/main_8h_source.html#l00073">73</a> du fichier <a class="el" href="../../d4/dbf/main_8h_source.html">main.h</a>.</p>
+
+</div>
+</div>
+<a id="a2934047fa0ef36d13344bc9d388ef628" name="a2934047fa0ef36d13344bc9d388ef628"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2934047fa0ef36d13344bc9d388ef628">&#9670;&#160;</a></span>PILOTESERIEUSB_BAUDRATE_AVEC_B_AU_DEBUT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PILOTESERIEUSB_BAUDRATE_AVEC_B_AU_DEBUT&#160;&#160;&#160;B115200</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Définition du baudrate utilisé par <a class="el" href="../../d9/d1d/pilote_serie_u_s_b_8h_source.html">piloteSerieUSB.h</a> nécessite un b au début pour le fonctionnement avec linux <br  />
+ </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d4/dbf/main_8h_source.html#l00046">46</a> du fichier <a class="el" href="../../d4/dbf/main_8h_source.html">main.h</a>.</p>
+
+</div>
+</div>
+<a id="a8ee5db313fccaab14e5997045020f6d6" name="a8ee5db313fccaab14e5997045020f6d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ee5db313fccaab14e5997045020f6d6">&#9670;&#160;</a></span>PILOTETIMER_PERIODE_EN_MS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PILOTETIMER_PERIODE_EN_MS&#160;&#160;&#160;5</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Définition pour la période du pilote Timer. C'est le temps entre chaque apelle de sa fonction handler qui elle meme appelle le <a class="el" href="../../d9/d7e/service_base_de_temps_8h.html">serviceBaseDeTemps.h</a>. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d4/dbf/main_8h_source.html#l00186">186</a> du fichier <a class="el" href="../../d4/dbf/main_8h_source.html">main.h</a>.</p>
+
+</div>
+</div>
+<a id="a635570abe91526274a63f4ece8d6aa3d" name="a635570abe91526274a63f4ece8d6aa3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a635570abe91526274a63f4ece8d6aa3d">&#9670;&#160;</a></span>PILOTEUSBBAL_BAUDRATE_AVEC_B_AU_DEBUT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PILOTEUSBBAL_BAUDRATE_AVEC_B_AU_DEBUT&#160;&#160;&#160;B9600</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Définition du baudrate utilisé par <a class="el" href="../../d8/d12/pilote_u_s_bbal_8h_source.html">piloteUSBbal.h</a> nécessite un b au début pour le fonctionnement avec linux. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d4/dbf/main_8h_source.html#l00051">51</a> du fichier <a class="el" href="../../d4/dbf/main_8h_source.html">main.h</a>.</p>
+
+</div>
+</div>
+<a id="a179474829886745c9dc4f956529a71a0" name="a179474829886745c9dc4f956529a71a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a179474829886745c9dc4f956529a71a0">&#9670;&#160;</a></span>PROCESSUSDETECTION_COMPTEPOURREPONSE_CMD</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PROCESSUSDETECTION_COMPTEPOURREPONSE_CMD&#160;&#160;&#160;300</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Valeur du compteur pour les attentes dans le processus détection pour attendre la réponse de l'initialisation du bras. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d4/dbf/main_8h_source.html#l00095">95</a> du fichier <a class="el" href="../../d4/dbf/main_8h_source.html">main.h</a>.</p>
+
+</div>
+</div>
+<a id="ad2e380ef4ffe3c7fda4a9ee941a68ff6" name="ad2e380ef4ffe3c7fda4a9ee941a68ff6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2e380ef4ffe3c7fda4a9ee941a68ff6">&#9670;&#160;</a></span>PROCESSUSDETECTION_COMPTEPOURREPONSE_INIT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PROCESSUSDETECTION_COMPTEPOURREPONSE_INIT&#160;&#160;&#160;2000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Valeur du compteur pour les attentes dans le processus détection pour attendre la réponse de l'initialisation du bras. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d4/dbf/main_8h_source.html#l00089">89</a> du fichier <a class="el" href="../../d4/dbf/main_8h_source.html">main.h</a>.</p>
+
+</div>
+</div>
+<a id="a7f55cccd90fde97bc9c1b75e160127c1" name="a7f55cccd90fde97bc9c1b75e160127c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f55cccd90fde97bc9c1b75e160127c1">&#9670;&#160;</a></span>PROCESSUSDETECTION_HAUTEUR_DE_SCAN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PROCESSUSDETECTION_HAUTEUR_DE_SCAN&#160;&#160;&#160;90</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Hauteur qui correspond à la coordonné z du bras robot lors de la détection d'une rondelle. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d4/dbf/main_8h_source.html#l00102">102</a> du fichier <a class="el" href="../../d4/dbf/main_8h_source.html">main.h</a>.</p>
+
+</div>
+</div>
+<a id="a968ae2d9a7d4d9e03d25c187a3b0e309" name="a968ae2d9a7d4d9e03d25c187a3b0e309"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a968ae2d9a7d4d9e03d25c187a3b0e309">&#9670;&#160;</a></span>PROCESSUSDETECTION_INFORMATION_CUBEDETECTED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PROCESSUSDETECTION_INFORMATION_CUBEDETECTED&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Définition utilisé pour avoir de l'information du <a class="el" href="../../d7/df5/processus_detection_8h_source.html">processusDetection.h</a> Utilisé par la structure processusDetection Pour savoir si il y a un cube au pas. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d4/dbf/main_8h_source.html#l00129">129</a> du fichier <a class="el" href="../../d4/dbf/main_8h_source.html">main.h</a>.</p>
+
+</div>
+</div>
+<a id="afe50d7bcf3ddfca76f1c839f16862bc5" name="afe50d7bcf3ddfca76f1c839f16862bc5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe50d7bcf3ddfca76f1c839f16862bc5">&#9670;&#160;</a></span>PROCESSUSDETECTION_INFORMATION_CUBENOTDETECTED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PROCESSUSDETECTION_INFORMATION_CUBENOTDETECTED&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Définition utilisé pour avoir de l'information du <a class="el" href="../../d7/df5/processus_detection_8h_source.html">processusDetection.h</a> Utilisé par la structure processusDetection Pour savoir si il y a un cube au pas. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d4/dbf/main_8h_source.html#l00135">135</a> du fichier <a class="el" href="../../d4/dbf/main_8h_source.html">main.h</a>.</p>
+
+</div>
+</div>
+<a id="a6c881f57dd1c677526a6bf6e2eda81aa" name="a6c881f57dd1c677526a6bf6e2eda81aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c881f57dd1c677526a6bf6e2eda81aa">&#9670;&#160;</a></span>PROCESSUSDETECTION_INFORMATION_CUBEUNUSED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PROCESSUSDETECTION_INFORMATION_CUBEUNUSED&#160;&#160;&#160;2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Définition utilisé pour avoir de l'information du <a class="el" href="../../d7/df5/processus_detection_8h_source.html">processusDetection.h</a> Utilisé par la structure processusDetection Pour savoir si il y a un cube au pas. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d4/dbf/main_8h_source.html#l00141">141</a> du fichier <a class="el" href="../../d4/dbf/main_8h_source.html">main.h</a>.</p>
+
+</div>
+</div>
+<a id="a201361e6575847a6fe2cbe12f0b1fec5" name="a201361e6575847a6fe2cbe12f0b1fec5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a201361e6575847a6fe2cbe12f0b1fec5">&#9670;&#160;</a></span>PROCESSUSDETECTION_MODULE_EN_FONCTION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PROCESSUSDETECTION_MODULE_EN_FONCTION&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Définition utilisé pour savoir l'état du module. Utilisé par la structure processusDetection. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d4/dbf/main_8h_source.html#l00118">118</a> du fichier <a class="el" href="../../d4/dbf/main_8h_source.html">main.h</a>.</p>
+
+</div>
+</div>
+<a id="a044ad1171fd977c68cbd41736807a4f0" name="a044ad1171fd977c68cbd41736807a4f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a044ad1171fd977c68cbd41736807a4f0">&#9670;&#160;</a></span>PROCESSUSDETECTION_MODULE_PAS_EN_FONCTION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PROCESSUSDETECTION_MODULE_PAS_EN_FONCTION&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Définition utilisé pour savoir l'état du module. Utilisé par la structure processusDetection. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d4/dbf/main_8h_source.html#l00123">123</a> du fichier <a class="el" href="../../d4/dbf/main_8h_source.html">main.h</a>.</p>
+
+</div>
+</div>
+<a id="a561647e7b1ac9d4527996d8330a20dfd" name="a561647e7b1ac9d4527996d8330a20dfd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a561647e7b1ac9d4527996d8330a20dfd">&#9670;&#160;</a></span>PROCESSUSDETECTION_PHASE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PROCESSUSDETECTION_PHASE&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Numéro de la phase du processus Détection <br  />
+ </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d4/dbf/main_8h_source.html#l00206">206</a> du fichier <a class="el" href="../../d4/dbf/main_8h_source.html">main.h</a>.</p>
+
+</div>
+</div>
+<a id="ad96a89ddfc09cad32ce6caea5b2aa3fd" name="ad96a89ddfc09cad32ce6caea5b2aa3fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad96a89ddfc09cad32ce6caea5b2aa3fd">&#9670;&#160;</a></span>PROCESSUSDETECTION_REQUETE_ACTIVE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PROCESSUSDETECTION_REQUETE_ACTIVE&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Définition pour contrôler les requetes du <a class="el" href="../../d7/df5/processus_detection_8h_source.html">processusDetection.h</a> <br  />
+ Utilisé par la structure processusDetection. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d4/dbf/main_8h_source.html#l00108">108</a> du fichier <a class="el" href="../../d4/dbf/main_8h_source.html">main.h</a>.</p>
+
+</div>
+</div>
+<a id="a864d40797a0fa75f807c50c12a536010" name="a864d40797a0fa75f807c50c12a536010"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a864d40797a0fa75f807c50c12a536010">&#9670;&#160;</a></span>PROCESSUSDETECTION_REQUETE_TRAITE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PROCESSUSDETECTION_REQUETE_TRAITE&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Définition pour contrôler les requetes du <a class="el" href="../../d7/df5/processus_detection_8h_source.html">processusDetection.h</a> <br  />
+ Utilisé par la structure processusDetection. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d4/dbf/main_8h_source.html#l00113">113</a> du fichier <a class="el" href="../../d4/dbf/main_8h_source.html">main.h</a>.</p>
+
+</div>
+</div>
+<a id="a400c4661c03ea3126260ccb4e61d977b" name="a400c4661c03ea3126260ccb4e61d977b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a400c4661c03ea3126260ccb4e61d977b">&#9670;&#160;</a></span>PROCESSUSGESTIONCOM_PHASE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PROCESSUSGESTIONCOM_PHASE&#160;&#160;&#160;4</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Numéro de la phase du processus de Gestion de COM. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d4/dbf/main_8h_source.html#l00219">219</a> du fichier <a class="el" href="../../d4/dbf/main_8h_source.html">main.h</a>.</p>
+
+</div>
+</div>
+<a id="a96a2f4bb2206193bc10d237cc597e72a" name="a96a2f4bb2206193bc10d237cc597e72a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96a2f4bb2206193bc10d237cc597e72a">&#9670;&#160;</a></span>PROCESSUSPESAGE_MODULE_EN_FONCTION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PROCESSUSPESAGE_MODULE_EN_FONCTION&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Définition utilisé pour savoir l'état du module. Utilisé par la structure <a class="el" href="../../d6/d7b/processus_pesage_8h.html#af6d31d94e022c5f2837934ca9e6919d1">processusPesage</a>. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d4/dbf/main_8h_source.html#l00170">170</a> du fichier <a class="el" href="../../d4/dbf/main_8h_source.html">main.h</a>.</p>
+
+</div>
+</div>
+<a id="a97da0021207a7d5900ae20f841febd5c" name="a97da0021207a7d5900ae20f841febd5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97da0021207a7d5900ae20f841febd5c">&#9670;&#160;</a></span>PROCESSUSPESAGE_MODULE_PAS_EN_FONCTION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PROCESSUSPESAGE_MODULE_PAS_EN_FONCTION&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Définition utilisé pour savoir l'état du module. Utilisé par la structure <a class="el" href="../../d6/d7b/processus_pesage_8h.html#af6d31d94e022c5f2837934ca9e6919d1">processusPesage</a>. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d4/dbf/main_8h_source.html#l00175">175</a> du fichier <a class="el" href="../../d4/dbf/main_8h_source.html">main.h</a>.</p>
+
+</div>
+</div>
+<a id="af51920a460d59f788cd07915830d929c" name="af51920a460d59f788cd07915830d929c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af51920a460d59f788cd07915830d929c">&#9670;&#160;</a></span>PROCESSUSPESAGE_PHASE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PROCESSUSPESAGE_PHASE&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Numéro de la phase du processus Pesage. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d4/dbf/main_8h_source.html#l00211">211</a> du fichier <a class="el" href="../../d4/dbf/main_8h_source.html">main.h</a>.</p>
+
+</div>
+</div>
+<a id="a3966eab1d2f73d128f8de00a35f818fd" name="a3966eab1d2f73d128f8de00a35f818fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3966eab1d2f73d128f8de00a35f818fd">&#9670;&#160;</a></span>PROCESSUSPESAGE_REQUETE_ACTIVE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PROCESSUSPESAGE_REQUETE_ACTIVE&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Définition pour contrôler les requetes du <a class="el" href="../../d6/d7b/processus_pesage_8h.html">processusPesage.h</a> <br  />
+ Utilisé par la structure <a class="el" href="../../d6/d7b/processus_pesage_8h.html#af6d31d94e022c5f2837934ca9e6919d1">processusPesage</a>. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d4/dbf/main_8h_source.html#l00159">159</a> du fichier <a class="el" href="../../d4/dbf/main_8h_source.html">main.h</a>.</p>
+
+</div>
+</div>
+<a id="ade35ac0d91236f258481b4877d76a704" name="ade35ac0d91236f258481b4877d76a704"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade35ac0d91236f258481b4877d76a704">&#9670;&#160;</a></span>PROCESSUSPESAGE_REQUETE_TRAITE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PROCESSUSPESAGE_REQUETE_TRAITE&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Définition pour contrôler les requetes du <a class="el" href="../../d6/d7b/processus_pesage_8h.html">processusPesage.h</a> <br  />
+ Utilisé par la structure <a class="el" href="../../d6/d7b/processus_pesage_8h.html#af6d31d94e022c5f2837934ca9e6919d1">processusPesage</a>. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d4/dbf/main_8h_source.html#l00164">164</a> du fichier <a class="el" href="../../d4/dbf/main_8h_source.html">main.h</a>.</p>
+
+</div>
+</div>
+<a id="a71d0604fb65e32056a56a21363efe0fc" name="a71d0604fb65e32056a56a21363efe0fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71d0604fb65e32056a56a21363efe0fc">&#9670;&#160;</a></span>PROCESSUSPESAGE_UNITE_G</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PROCESSUSPESAGE_UNITE_G&#160;&#160;&#160;'g'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Définition pour savoir si on est en gramme ou en Oz. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d4/dbf/main_8h_source.html#l00153">153</a> du fichier <a class="el" href="../../d4/dbf/main_8h_source.html">main.h</a>.</p>
+
+</div>
+</div>
+<a id="a812b4115f288d6c4873148a9e850acb9" name="a812b4115f288d6c4873148a9e850acb9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a812b4115f288d6c4873148a9e850acb9">&#9670;&#160;</a></span>PROCESSUSPESAGE_UNITE_OZ</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PROCESSUSPESAGE_UNITE_OZ&#160;&#160;&#160;'o'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Définition pour savoir si on est en gramme ou en Oz. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d4/dbf/main_8h_source.html#l00149">149</a> du fichier <a class="el" href="../../d4/dbf/main_8h_source.html">main.h</a>.</p>
+
+</div>
+</div>
+<a id="a6276b0f7c474c476289248b4eecd63ee" name="a6276b0f7c474c476289248b4eecd63ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6276b0f7c474c476289248b4eecd63ee">&#9670;&#160;</a></span>SERVICEBASEDETEMPS_FREQUENCE_EN_HZ</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SERVICEBASEDETEMPS_FREQUENCE_EN_HZ&#160;&#160;&#160;200</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fréquence de la base de temps en Hz. Doit être recalculé si la période du pilote timer <a class="el" href="../../d4/dbf/main_8h.html#a8ee5db313fccaab14e5997045020f6d6">PILOTETIMER_PERIODE_EN_MS</a> est changé. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d4/dbf/main_8h_source.html#l00195">195</a> du fichier <a class="el" href="../../d4/dbf/main_8h_source.html">main.h</a>.</p>
+
+</div>
+</div>
+<a id="a9470a0f17392d89a537141466f6f0e98" name="a9470a0f17392d89a537141466f6f0e98"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9470a0f17392d89a537141466f6f0e98">&#9670;&#160;</a></span>SERVICEBASEDETEMPS_NOMBRE_DE_PHASES</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SERVICEBASEDETEMPS_NOMBRE_DE_PHASES&#160;&#160;&#160;5</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Nombre de phase de la base de temps <a class="el" href="../../d9/d7e/service_base_de_temps_8h.html">serviceBaseDeTemps.h</a>. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d4/dbf/main_8h_source.html#l00201">201</a> du fichier <a class="el" href="../../d4/dbf/main_8h_source.html">main.h</a>.</p>
+
+</div>
+</div>
+<a id="ab6e7d92e268f07cf18c427fee9ff2e88" name="ab6e7d92e268f07cf18c427fee9ff2e88"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6e7d92e268f07cf18c427fee9ff2e88">&#9670;&#160;</a></span>SERVICEBASEDETEMPS_NOMBRE_DE_PHASES_DANS_LOOP</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SERVICEBASEDETEMPS_NOMBRE_DE_PHASES_DANS_LOOP&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Nombre de phase dans une période de la base de temps (1 si pas utilisé) </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d4/dbf/main_8h_source.html#l00223">223</a> du fichier <a class="el" href="../../d4/dbf/main_8h_source.html">main.h</a>.</p>
+
+</div>
+</div>
+<a id="af4e0eb7a8c917b269dbb0756b0884cd3" name="af4e0eb7a8c917b269dbb0756b0884cd3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4e0eb7a8c917b269dbb0756b0884cd3">&#9670;&#160;</a></span>SERVICEBASEDETEMPS_PERIODE_EN_MS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SERVICEBASEDETEMPS_PERIODE_EN_MS&#160;&#160;&#160;<a class="el" href="../../d4/dbf/main_8h.html#a8ee5db313fccaab14e5997045020f6d6">PILOTETIMER_PERIODE_EN_MS</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Période de la base de temps en Milisecondes. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d4/dbf/main_8h_source.html#l00190">190</a> du fichier <a class="el" href="../../d4/dbf/main_8h_source.html">main.h</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentation des fonctions</h2>
+<a id="a840291bc02cba5474a4cb46a9b9566fe" name="a840291bc02cba5474a4cb46a9b9566fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a840291bc02cba5474a4cb46a9b9566fe">&#9670;&#160;</a></span>main()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int main </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Point d'entré du programme. </p>
+<dl class="section return"><dt>Renvoie</dt><dd>int </dd></dl>
+
+<p class="definition">Définition à la ligne <a class="el" href="../../d0/d29/main_8c_source.html#l00084">84</a> du fichier <a class="el" href="../../d0/d29/main_8c_source.html">main.c</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="../../dir_1960eb5326e5d9e33055aa33e524e3d7.html">Projet-5e-Session</a></li><li class="navelem"><a class="el" href="../../dir_b1633367299bd443e49a3c980b4293f8.html">Centre-De-Pesage</a></li><li class="navelem"><a class="el" href="../../dir_f5061e8fe82dd5444d729c5c23ca051e.html">Programmes</a></li><li class="navelem"><a class="el" href="../../dir_dfd97e55dfc615ca768635a03791caa2.html">PesageBaseDeTemps</a></li><li class="navelem"><a class="el" href="../../d4/dbf/main_8h.html">main.h</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,54 @@
+\hypertarget{interface_balance_8h_source}{}\doxysection{interface\+Balance.\+h}
+\label{interface_balance_8h_source}\index{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Pesage/Programmes/PesageBaseDeTemps/interfaceBalance.h@{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Pesage/Programmes/PesageBaseDeTemps/interfaceBalance.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{interface_balance_8h_source_l00001}00001 \textcolor{preprocessor}{\#ifndef INTERFACEBALANCE\_H}}
+\DoxyCodeLine{\Hypertarget{interface_balance_8h_source_l00002}00002 \textcolor{preprocessor}{\#define INTERFACEBALANCE\_H}}
+\DoxyCodeLine{\Hypertarget{interface_balance_8h_source_l00003}00003 }
+\DoxyCodeLine{\Hypertarget{interface_balance_8h_source_l00004}00004 \textcolor{comment}{//PROGRAMME: 247-\/616 L-\/0002}}
+\DoxyCodeLine{\Hypertarget{interface_balance_8h_source_l00005}00005 \textcolor{comment}{//DESCRIPTION: Programme qui permet de tester le module interfaceMalyan}}
+\DoxyCodeLine{\Hypertarget{interface_balance_8h_source_l00006}00006 \textcolor{comment}{//Le programme permet de tester la communication avec une imprimante 3d}}
+\DoxyCodeLine{\Hypertarget{interface_balance_8h_source_l00007}00007 \textcolor{comment}{//de type MALYAN M200.}}
+\DoxyCodeLine{\Hypertarget{interface_balance_8h_source_l00008}00008 \textcolor{comment}{//Appuyer sur la touche:}}
+\DoxyCodeLine{\Hypertarget{interface_balance_8h_source_l00009}00009 \textcolor{comment}{//6: fait tourner le ventilateur (commande M106)}}
+\DoxyCodeLine{\Hypertarget{interface_balance_8h_source_l00010}00010 \textcolor{comment}{//7: arrête le ventilateur (commande M107)}}
+\DoxyCodeLine{\Hypertarget{interface_balance_8h_source_l00011}00011 \textcolor{comment}{//x: x transmet une commande inconnue (commande x000)}}
+\DoxyCodeLine{\Hypertarget{interface_balance_8h_source_l00012}00012 \textcolor{comment}{//Q: termine le programme}}
+\DoxyCodeLine{\Hypertarget{interface_balance_8h_source_l00013}00013 \textcolor{comment}{//Si la commande est complétée, l'imprimante retourne:}}
+\DoxyCodeLine{\Hypertarget{interface_balance_8h_source_l00014}00014 \textcolor{comment}{//  ok N0 P15 B15\(\backslash\)n}}
+\DoxyCodeLine{\Hypertarget{interface_balance_8h_source_l00015}00015 \textcolor{comment}{//Si la commande est inconnue, l'imprimante retourne:}}
+\DoxyCodeLine{\Hypertarget{interface_balance_8h_source_l00016}00016 \textcolor{comment}{//  echo:Unknown command: "{}x000"{}\(\backslash\)n}}
+\DoxyCodeLine{\Hypertarget{interface_balance_8h_source_l00017}00017 \textcolor{comment}{//  ok N0 P15 B15\(\backslash\)n}}
+\DoxyCodeLine{\Hypertarget{interface_balance_8h_source_l00018}00018 \textcolor{comment}{//Pour plus de détails a propos de la configuration du port USB/Serie:}}
+\DoxyCodeLine{\Hypertarget{interface_balance_8h_source_l00019}00019 \textcolor{comment}{//https://en.wikibooks.org/wiki/Serial\_Programming/termios}}
+\DoxyCodeLine{\Hypertarget{interface_balance_8h_source_l00020}00020 }
+\DoxyCodeLine{\Hypertarget{interface_balance_8h_source_l00021}00021 \textcolor{comment}{//HISTORIQUE:}}
+\DoxyCodeLine{\Hypertarget{interface_balance_8h_source_l00022}00022 \textcolor{comment}{// 2018-\/10-\/11, Yves Roy: creation}}
+\DoxyCodeLine{\Hypertarget{interface_balance_8h_source_l00023}00023 \textcolor{comment}{// 2020-\/09-\/06, Yves Roy: reception amelioree}}
+\DoxyCodeLine{\Hypertarget{interface_balance_8h_source_l00024}00024 }
+\DoxyCodeLine{\Hypertarget{interface_balance_8h_source_l00025}00025 \textcolor{comment}{//DEFINITIONS REQUISES PAR LE PROGRAMME:}}
+\DoxyCodeLine{\Hypertarget{interface_balance_8h_source_l00026}00026 }
+\DoxyCodeLine{\Hypertarget{interface_balance_8h_source_l00027}00027 \textcolor{comment}{//Dependances materielles:}}
+\DoxyCodeLine{\Hypertarget{interface_balance_8h_source_l00028}00028 \textcolor{comment}{//pas de dependances materielles}}
+\DoxyCodeLine{\Hypertarget{interface_balance_8h_source_l00029}00029 }
+\DoxyCodeLine{\Hypertarget{interface_balance_8h_source_l00030}00030 \textcolor{comment}{//Dependances logicielles:}}
+\DoxyCodeLine{\Hypertarget{interface_balance_8h_source_l00031}00031 }
+\DoxyCodeLine{\Hypertarget{interface_balance_8h_source_l00032}00032 \textcolor{comment}{//INFORMATION PUBLIQUE:}}
+\DoxyCodeLine{\Hypertarget{interface_balance_8h_source_l00033}00033 \textcolor{comment}{//Definitions publiques:}}
+\DoxyCodeLine{\Hypertarget{interface_balance_8h_source_l00034}00034 \textcolor{comment}{//pas de definitions publiques}}
+\DoxyCodeLine{\Hypertarget{interface_balance_8h_source_l00035}00035 }
+\DoxyCodeLine{\Hypertarget{interface_balance_8h_source_l00036}00036 \textcolor{comment}{//Fonctions publiques:}}
+\DoxyCodeLine{\Hypertarget{interface_balance_8h_source_l00037}00037 \textcolor{keywordtype}{void} interfaceBalance\_prepareLecture(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{interface_balance_8h_source_l00038}00038 \textcolor{keywordtype}{void} interfaceBalance\_lit(\textcolor{keywordtype}{char} *reponse);}
+\DoxyCodeLine{\Hypertarget{interface_balance_8h_source_l00039}00039 \textcolor{keywordtype}{void} interfaceBalance\_changeUnite(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{interface_balance_8h_source_l00040}00040 }
+\DoxyCodeLine{\Hypertarget{interface_balance_8h_source_l00041}00041 \textcolor{keywordtype}{int} interfaceBalance\_ecritUneCommande(\textcolor{keywordtype}{char} *Commande, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} Longueur);}
+\DoxyCodeLine{\Hypertarget{interface_balance_8h_source_l00042}00042 \textcolor{keywordtype}{int} interfaceBalance\_recoitUneReponse(\textcolor{keywordtype}{char} *Reponse, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} LongueurMaximale);}
+\DoxyCodeLine{\Hypertarget{interface_balance_8h_source_l00043}00043 \textcolor{keywordtype}{int} interfaceBalance\_initialise(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{interface_balance_8h_source_l00044}00044 }
+\DoxyCodeLine{\Hypertarget{interface_balance_8h_source_l00045}00045 \textcolor{comment}{//Variables publiques:}}
+\DoxyCodeLine{\Hypertarget{interface_balance_8h_source_l00046}00046 \textcolor{comment}{//pas de variables publiques}}
+\DoxyCodeLine{\Hypertarget{interface_balance_8h_source_l00047}00047 }
+\DoxyCodeLine{\Hypertarget{interface_balance_8h_source_l00048}00048 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

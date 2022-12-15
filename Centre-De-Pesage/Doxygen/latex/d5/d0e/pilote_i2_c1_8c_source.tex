@@ -1,0 +1,96 @@
+\hypertarget{pilote_i2_c1_8c_source}{}\doxysection{pilote\+I2\+C1.\+c}
+\label{pilote_i2_c1_8c_source}\index{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Pesage/Programmes/PesageBaseDeTemps/piloteI2C1.c@{U:/Sessions/Session 5/Project/Projet\_Fin\_Session/Projet-\/5e-\/Session/Centre-\/De-\/Pesage/Programmes/PesageBaseDeTemps/piloteI2C1.c}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00001}00001 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{main_8h}{main.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00002}00002 \textcolor{preprocessor}{\#include <linux/i2c-\/dev.h>} \textcolor{comment}{//for IOCTL defs}}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00003}00003 }
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00004}00004 \textcolor{preprocessor}{\#include "{}piloteI2C1.h"{}}}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00005}00005 \textcolor{preprocessor}{\#define PILOTEI2C1\_FICHIER "{}/dev/i2c-\/1"{}} }
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00006}00006 }
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00007}00007 \textcolor{comment}{//variables privées}}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00008}00008 uint8\_t piloteI2C1\_adresse;}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00009}00009 \textcolor{keywordtype}{int} piloteI2C1\_fichier;}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00010}00010 }
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00011}00011 \textcolor{comment}{//fonctions privées}}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00012}00012 \textcolor{comment}{//pas de fonctions privées}}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00013}00013 }
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00014}00014 \textcolor{comment}{//variables publiques}}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00015}00015 \textcolor{comment}{//pas de variables publiques}}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00016}00016 }
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00017}00017 \textcolor{comment}{//fonctions publiques}}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00018}00018 \textcolor{keywordtype}{int} piloteI2C1\_fermeLeBus(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00019}00019 \{}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00020}00020     \textcolor{keywordflow}{if} (close(piloteI2C1\_fichier) < 0)}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00021}00021     \{}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00022}00022         printf(\textcolor{stringliteral}{"{}erreur: piloteI2C1\_fermeLeBus\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00023}00023         \textcolor{keywordflow}{return} -\/1;}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00024}00024     \}}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00025}00025     piloteI2C1\_adresse = 0;}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00026}00026     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00027}00027 \}}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00029}00029 \textcolor{keywordtype}{int} piloteI2C1\_ecritDesOctets(uint8\_t *Source, uint8\_t NombreDOctetsAEcrire)}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00030}00030 \{}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00031}00031     \textcolor{keywordflow}{if}(write(piloteI2C1\_fichier, Source, NombreDOctetsAEcrire) != NombreDOctetsAEcrire)}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00032}00032     \{}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00033}00033         printf(\textcolor{stringliteral}{"{}erreur: piloteI2C1\_ecritDesOctets\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00034}00034         close(piloteI2C1\_fichier);}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00035}00035         \textcolor{keywordflow}{return} -\/1;}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00036}00036     \}}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00037}00037     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00038}00038 \}}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00039}00039 }
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00040}00040 \textcolor{keywordtype}{int} piloteI2C1\_litDesOctets(uint8\_t *Commande, uint8\_t LongueurDeLaCommande,}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00041}00041         uint8\_t *Destination, uint8\_t NombreDOctetsALire)}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00042}00042 \{}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00043}00043     \textcolor{keywordflow}{if} (piloteI2C1\_ecritDesOctets(Commande, LongueurDeLaCommande) < 0)}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00044}00044     \{}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00045}00045         printf(\textcolor{stringliteral}{"{}erreur: piloteI2C1\_litDesOctets 1\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00046}00046         close(piloteI2C1\_fichier);}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00047}00047         \textcolor{keywordflow}{return} -\/1;}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00048}00048     \}}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00049}00049     \textcolor{keywordflow}{if} (read(piloteI2C1\_fichier, Destination, NombreDOctetsALire) != NombreDOctetsALire)}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00050}00050     \{}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00051}00051         printf(\textcolor{stringliteral}{"{}erreur: piloteI2C1\_litDesOctets 2\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00052}00052         close(piloteI2C1\_fichier);}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00053}00053         \textcolor{keywordflow}{return} -\/1;}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00054}00054     \}}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00055}00055     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00056}00056 \}}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00057}00057 }
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00058}00058 \textcolor{keywordtype}{int} piloteI2C1\_configureLAdresse(uint8\_t Adresse)}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00059}00059 \{}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00060}00060     \textcolor{keywordflow}{if}(piloteI2C1\_adresse == Adresse)}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00061}00061     \{}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00062}00062         \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00063}00063     \}}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00064}00064     \textcolor{keywordflow}{if}(ioctl(piloteI2C1\_fichier, I2C\_SLAVE, Adresse) < 0)}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00065}00065     \{}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00066}00066         printf(\textcolor{stringliteral}{"{}erreur: piloteI2C1\_configureLAdresse\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00067}00067         close(piloteI2C1\_fichier);}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00068}00068         \textcolor{keywordflow}{return} -\/1;}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00069}00069     \}}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00070}00070     piloteI2C1\_adresse = Adresse;}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00071}00071     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00072}00072 \}}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00073}00073 }
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00074}00074 \textcolor{keywordtype}{int} piloteI2C1\_initialise(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00075}00075 \{}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00076}00076     piloteI2C1\_adresse = 0x00;}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00077}00077     piloteI2C1\_fichier = open(PILOTEI2C1\_FICHIER, O\_RDWR);}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00078}00078     \textcolor{keywordflow}{if}(piloteI2C1\_fichier == -\/1)}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00079}00079     \{}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00080}00080         printf(\textcolor{stringliteral}{"{}erreur: pilote\_initialilse 1\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00081}00081         \textcolor{keywordflow}{return} -\/1;}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00082}00082     \}}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00083}00083     \textcolor{keywordflow}{if}(ioctl(piloteI2C1\_fichier, I2C\_SLAVE, piloteI2C1\_adresse) < 0)}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00084}00084     \{}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00085}00085         printf(\textcolor{stringliteral}{"{}erreur: piloteI2C1\_initialise 2\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00086}00086         close(piloteI2C1\_fichier);}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00087}00087         \textcolor{keywordflow}{return} -\/1;}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00088}00088     \}}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00089}00089     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\Hypertarget{pilote_i2_c1_8c_source_l00090}00090 \}}
+
+\end{DoxyCode}
