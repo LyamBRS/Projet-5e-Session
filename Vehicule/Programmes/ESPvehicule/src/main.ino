@@ -50,19 +50,24 @@
 //pas de definitions privees
 
 //Declarations de fonctions privees:
+
+/// @brief Fonction qui permet de tester certain module en activant 
+//      leur requête tout de suite après leur initialisation
+/// @param void
 void main_faitUnTest(void)
 {
-  //processusConduite.requete = PROCESSUSCONDUITE_REQUETEACTIVE;
   
 }
+/// @brief Fonction qui fait l'initialisation de tout les modules permettant
+//   au fonctionnement global du véhicule.
+/// @param void
 void main_initialise(void);
-
-
 
 //Definitions de variables privees:
 //pas de variables privees
 
 //Definitions de fonctions privees:
+
 void main_initialise(void)
 {
   serviceTaskServer_initialise();

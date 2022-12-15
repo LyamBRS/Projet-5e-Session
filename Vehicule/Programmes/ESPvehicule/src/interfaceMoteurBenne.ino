@@ -1,7 +1,7 @@
 /**
  * @file interfaceMoteurBenne.ino
  * @author CamFo Camille Fortin (camfortin2022@gmail.com)
- * @brief 
+ * @brief  Interface qui permet d'éteindre et d'allumer le moteur de la benne
  * @version 0.1
  * @date 2022-11-15
  * 
@@ -30,15 +30,27 @@
 //pas de variables publiques
 
 //Definitions de fonctions publiques:
+/**
+ * @brief Fonction qui allume le moteur de la benne
+ * 
+ */
 void interfaceMoteurBenne_allume(void)
 {
   piloteMoteurBenne_Allume();
 }
-
+/**
+ * @brief Fonction qui éteint le moteur de la benne
+ * 
+ */
 void interfaceMoteurBenne_eteint(void)
 {
   piloteMoteurBenne_Eteint();
 }
+/**
+ * @brief Fonction qui initialise le moteur de la benne en 
+ *  arret pret à partir 
+ * 
+ */
 void interfaceMoteurBenne_initialise(void)
 {
   piloteMoteurBenne_initialise();

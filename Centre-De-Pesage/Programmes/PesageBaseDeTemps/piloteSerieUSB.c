@@ -36,6 +36,9 @@ struct termios piloteSerieUSB_configuration;
 //Definitions de fonctions publiques:
 int piloteSerieUSB_initialise(void)
 {
+  //piloteSerieUSB_termine(); // On ferme le pilotes serie USB du bras
+  
+  
   memset(&piloteSerieUSB_configuration,0,sizeof(piloteSerieUSB_configuration));
   piloteSerieUSB_configuration.c_iflag=0;
   piloteSerieUSB_configuration.c_oflag=0;
@@ -48,7 +51,7 @@ int piloteSerieUSB_initialise(void)
   
   if (piloteSerieUSB_fichier == -1)
   {
-    printf("erreur d'ouverture\n");
+    printf("erreur d'ouverture du BRAS\n");
     return 1;
   }
   

@@ -21,6 +21,9 @@
 #include "xserviceBaseDeTemps.h"
 #include "piloteUDP.h"
 
+#include <WiFi.h>
+#include <WiFiUdp.h>
+
 #pragma endregion INCLUDES
 //#############################################################################
 #pragma region EXTERN_DECLARATIONS
@@ -426,7 +429,7 @@ void Parse_CanBusReceptions(unsigned char *Buffer)
                             case(0x06): ModuleData.Mode = Modes.reinitialisation; break;
                             default:
                                         //If received mode matched nothing, an error occured.
-                                        ModuleData.State = States.error;
+                                        //ModuleData.State = States.error;
                                         serviceCommunication_ErrorState = ERROR_RX_MODE_DOESNT_EXIST;
                                         break;                  
                         }
@@ -440,6 +443,7 @@ void Parse_CanBusReceptions(unsigned char *Buffer)
                         }
 
                         // Reset counts and slots indentifications
+                        printf("MODE RECEIVED\n");
                         interruptCount = 0;
                         currentSlot = 0;
                         ModuleData.CantConnect = 0x00;
@@ -510,7 +514,7 @@ void Parse_CanBusReceptions(unsigned char *Buffer)
                                         break;
                             default:
                                         //If received mode matched nothing, an error occured.
-                                        ModuleData.State = States.error;
+                                        //ModuleData.State = States.error;
                                         serviceCommunication_ErrorState = ERROR_RX_COMMAND_DOESNT_EXIST;
                                         break;                  
                         }
@@ -561,7 +565,7 @@ void Parse_CanBusReceptions(unsigned char *Buffer)
                                         break;
                             default:
                                         //If received mode matched nothing, an error occured.
-                                        ModuleData.State = States.error;
+                                        //ModuleData.State = States.error;
                                         serviceCommunication_ErrorState = ERROR_RX_VALUE_DOESNT_EXIST;
                                         break;                  
                         }
@@ -600,7 +604,7 @@ void Parse_CanBusReceptions(unsigned char *Buffer)
                             case(0x10): ModuleData.StatesReceived.empty                       = RECEIVED; break;
                             default:
                                         //If received mode matched nothing, an error occured.
-                                        ModuleData.State = States.error;
+                                        //ModuleData.State = States.error;
                                         serviceCommunication_ErrorState = ERROR_RX_STATE_DOESNT_EXIST;
                                         break;                  
                         }
@@ -636,9 +640,13 @@ void Parse_Interrupts(void)
         currentSlot = ((unsigned char)(timeSinceReset)) / CAN_SLOT_DURATION_MS;
     }
 
-    if(currentSlot > 10)
+    if(currentSlot > 5)
     {
-        ModuleData.CantConnect = 0xFF;
+        //printf("HERE\n");
+        interruptCount = 0;
+        currentSlot = 0;
+        serviceCommunication_ErrorState = ERROR_TIMEDOUT;
+        //ModuleData.CantConnect = 0xFF;
     }
 }
 /**
@@ -686,7 +694,7 @@ void ModuleData_SetUnits(unsigned char UnitsToPutInValues)
     }
     ////////////////////////////////////////////////////////////////////////////
     if(UnitsToPutInValues == Values.unit_Imperial)
-    {
+    {   //Remove Metric from the QUEUE
         if(ModuleData.ValuesToSend.unit_Metric == IN_QUEUE)
         {
             for(int i=0; i<10; ++i)
@@ -704,7 +712,7 @@ void ModuleData_SetUnits(unsigned char UnitsToPutInValues)
     }
     ////////////////////////////////////////////////////////////////////////////
     if(UnitsToPutInValues == Values.unit_Metric)
-    {
+    {   //Remove Imperial from the QUEUE
         if(ModuleData.ValuesToSend.unit_Imperial == IN_QUEUE)
         {
             for(int i=0; i<10; ++i)
@@ -1074,7 +1082,6 @@ void ServiceCommunication_RXParsingHandler(void)
 {
     //########################################## LOCAL VAR
     //##########################################
-
     // CAN DATA IS AVAILABLE
     if(CHECK_MODULE_CAN_RECEPTION) // Doit etre a TRUE
     {
@@ -1112,11 +1119,12 @@ void ServiceCommunication_TXParsingHandler(void)
     static bool sent = 0;
     //Check where we are in the CAN stuff.
     Parse_Interrupts();
-
+    //printf("%i\n",currentSlot);
     if(currentSlot == CAN_ALLOCATED_SLOT)
     {
         if(!sent)
         {
+            //printf("Bruh\n");
             //Parses QUEUE into transmittable buffer
             TX_BuildCANBuffer(MODULE_CAN_TX);
             transUDP1(MODULE_CAN_TX);

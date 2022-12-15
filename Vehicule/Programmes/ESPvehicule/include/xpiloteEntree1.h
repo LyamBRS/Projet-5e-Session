@@ -1,7 +1,7 @@
 /**
  * @file xpiloteEntree1.h
  * @author CamFo Camille Fortin (camfortin2022@gmail.com)
- * @brief 
+ * @brief Pilote qui permettre la lecture d'une entree d'un microcontrôleur en utilisant la librairie Arduino
  * @version 0.1
  * @date 2022-11-15
  * 
@@ -13,7 +13,7 @@
 #define PILOTEENTREE1_H
 
 //MODULE: piloteEntree1
-//DESCRIPTION: pour permettre la lecture d'une entree
+
 //ENVIRONNEMENT ESP32 et Arduino 
 // 2021-04-04, Yves Roy, creation
 
@@ -32,7 +32,13 @@
 // pas de definitions publiques
 
 //Fonctions publiques:
+
+/// @brief Fonction qui permet de savoir l'état logique d'une BROCHE d'un micocontrôleur
+/// @param void \ref PILOTEENTREE1_BROCHE est une définition dans \ref xmain.h  
+/// @return Valeur de la PIN de 1 ou 0 sur un unsigned char  
 unsigned char piloteEntree1_lit(void);
+/// @brief Foncion qui initialise la lecture de la Broche du microcontrôleur
+/// @param void \ref PILOTEENTREE1_BROCHE est une définition dans \ref xmain.h  
 void piloteEntree1_initialise(void);
 
 //Variables publiques:
