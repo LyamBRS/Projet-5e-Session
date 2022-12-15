@@ -270,6 +270,9 @@ void HandleTransmission(void)
 			{
 				rawCharacter = getchar();
 				//printf("[%i]: %i ",index,rawCharacter);
+				
+				if(rawCharacter >= 0xDB && rawCharacter <= 0xFA)
+				{rawCharacter = rawCharacter - 0xDB;}
 
 				if(rawCharacter == 0xFF)
 				{
@@ -300,7 +303,7 @@ void HandleTransmission(void)
 							TransmitCan = 1;
 
 							//If the last character is not \n or EOF, clear getChar buffer
-							if((unsigned char)rawCharacter != '\n' && (unsigned char)rawCharacter != '\r' && (unsigned char)rawCharacter != EOF)
+							if((unsigned char)rawCharacter != '\n' && (unsigned char)rawCharacter != '\r')
 							{
 								printf("\n[-RESET BUFFER-]\n");	
 								char c;
@@ -532,6 +535,7 @@ int main(void)
 	fflush(stdout);	
 	sleep(1);
 	printf("\n");
+	sleep(1);
 	fflush(stdout);
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Ask user, or program if they are executing this manually or not.
@@ -542,16 +546,19 @@ int main(void)
 	{
 		ManualExecution = 0xFF;
 		printf("\n[MANUAL MODE]");
-		sleep(1);
+		sleep(3);
 		printf("\n");
 	}
 	else
 	{
 		ManualExecution = 0x00;
 		printf("\n[AUTOMATIC MODE]");
+		fflush(stdout);
+		sleep(3);
+		printf("\n");
 		sleep(1);
-		printf("\n");		
 	}
+	fflush(stdout);
 //////////////////////////////////////////////////////////////////////////////////////////////////// - WHILE LOOP	
 	processID = fork();
 	if(processID == (pid_t)0)
