@@ -1,0 +1,1257 @@
+\hypertarget{_service_communication_8h}{}\doxysection{Librairies/\+Communications/\+Service\+Communication.h File Reference}
+\label{_service_communication_8h}\index{Librairies/Communications/ServiceCommunication.h@{Librairies/Communications/ServiceCommunication.h}}
+
+
+This service is a c library which goal is to parse data sent or data received for a school project. This file requires premade functions and buffers which are labeled and described in this document in order to work properly or at all. This service\textquotesingle{}s goal is to allow the user to solely use structures in order to check for received info or send info. The communication protocol range from UART to CAN. However, you will need ot parse UART data a bit more.  
+
+
+\doxysubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structst_modes}{st\+Modes}}
+\begin{DoxyCompactList}\small\item\em Struct containing all the possible states that a module can have. This is a list of states and must not be changed, but only refered to. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structst_states}{st\+States}}
+\begin{DoxyCompactList}\small\item\em Struct containing all the possible states that a module can have. This is a list of states and must not be changed, but only referred to. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structst_commands}{st\+Commands}}
+\begin{DoxyCompactList}\small\item\em Struct containing all the possible commands that a module can have. This is a list of commands and must not be changed, but only referred to. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structst_values}{st\+Values}}
+\begin{DoxyCompactList}\small\item\em Struct containing all the possible values that a module can transmit. This is a list of values and must not be changed, Only refer to it when you need to set or change your module\textquotesingle{}s structure values. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structst_module_data}{st\+Module\+Data}}
+\begin{DoxyCompactList}\small\item\em The actual structure used by the module. Used to get/set different values and commands. For example, reading the Mode that the master sent. Checking if receiving info from the CAN etc. Use DEFINES present in this file in order to set Commands or values of such. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{_service_communication_8h_a258bb72419ef143530a2f8f55e7d57af}{NO\+\_\+\+ERROR}}~0
+\begin{DoxyCompactList}\small\item\em Indicates that the library is not currently in any errors. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_service_communication_8h_a5f7b437135029d449beddc789e646bb0}{ERROR\+\_\+\+RX\+\_\+\+MODE\+\_\+\+DOESNT\+\_\+\+EXIST}}~1
+\begin{DoxyCompactList}\small\item\em Indicates that there was an error when parsing a received \mbox{\hyperlink{structst_modes}{st\+Modes}} from a communicating module. The received \mbox{\hyperlink{structst_modes}{st\+Modes}} didn\textquotesingle{}t match availables \mbox{\hyperlink{structst_modes}{st\+Modes}} and couldn\textquotesingle{}t be put in \mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{Module\+Data}}. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_service_communication_8h_ac64ec1978a6f8dee2535e32709e984b3}{ERROR\+\_\+\+RX\+\_\+\+STATE\+\_\+\+DOESNT\+\_\+\+EXIST}}~2
+\begin{DoxyCompactList}\small\item\em Indicates that there was an error when parsing a received \mbox{\hyperlink{structst_states}{st\+States}} from a communicating module. The received \mbox{\hyperlink{structst_states}{st\+States}} didn\textquotesingle{}t match availables \mbox{\hyperlink{structst_states}{st\+States}} and couldn\textquotesingle{}t be put in \mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{Module\+Data}}. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_service_communication_8h_ae558105445f8bf9d95cb6bafefbbd3a8}{ERROR\+\_\+\+RX\+\_\+\+COMMAND\+\_\+\+DOESNT\+\_\+\+EXIST}}~3
+\begin{DoxyCompactList}\small\item\em Indicates that there was an error when parsing a received \mbox{\hyperlink{structst_commands}{st\+Commands}} from a communicating module. The received \mbox{\hyperlink{structst_commands}{st\+Commands}} didn\textquotesingle{}t match availables \mbox{\hyperlink{structst_commands}{st\+Commands}} and couldn\textquotesingle{}t be put in \mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{Module\+Data}}. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_service_communication_8h_a6e5b5d8d27c3b3e4c399de41cac09413}{ERROR\+\_\+\+RX\+\_\+\+VALUE\+\_\+\+DOESNT\+\_\+\+EXIST}}~4
+\begin{DoxyCompactList}\small\item\em Indicates that there was an error when parsing a received \mbox{\hyperlink{structst_values}{st\+Values}} from a communicating module. The received \mbox{\hyperlink{structst_values}{st\+Values}} didn\textquotesingle{}t match availables \mbox{\hyperlink{structst_values}{st\+Values}} and couldn\textquotesingle{}t be put in \mbox{\hyperlink{structst_values}{st\+Values}}. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_service_communication_8h_a7a87e3edee90d8fddbd93d9c0c23d16d}{ERROR\+\_\+\+TIMEDOUT}}~5
+\begin{DoxyCompactList}\small\item\em The library timed out and could not receive an \mbox{\hyperlink{structst_modes}{st\+Modes}} from a CAN slot in the given time. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_service_communication_8h_a1a7963d3c65e2270966f8d0855723f05}{ERROR\+\_\+\+SPECIFIC\+\_\+\+TO\+\_\+\+MODULE}}~6
+\begin{DoxyCompactList}\small\item\em Indicates that the module using this library encountered an error due to factors outside of this library. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_service_communication_8h_adf9947507c8c7b4c8791492bbb73b024}{ERROR\+\_\+\+TX\+\_\+\+COMMAND\+\_\+\+DOESNT\+\_\+\+EXIST}}~7
+\begin{DoxyCompactList}\small\item\em Indicates that there was an error when trying to parse \mbox{\hyperlink{structst_module_data}{st\+Module\+Data}} into the CAN transmission buffer \mbox{\hyperlink{_service_communication_8h_a4806d56d5345eaa5cb1003b550f56864}{MODULE\+\_\+\+CAN\+\_\+\+TX}}. The command \mbox{\hyperlink{_service_communication_8h_af0411b67a2dba87758fee4f77c888558}{IN\+\_\+\+QUEUE}} ~\newline
+ did not exist in the {\ttfamily switch} {\ttfamily case} found in \mbox{\hyperlink{_service_communication_8c_a904c50743563af0963f552442c9c075f}{TX\+\_\+\+Put\+Command\+Queue\+In\+Buffer()}} \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_service_communication_8h_ace81153c3e7c169bccfee7877312da18}{ERROR\+\_\+\+TX\+\_\+\+VALUE\+\_\+\+DOESNT\+\_\+\+EXIST}}~8
+\begin{DoxyCompactList}\small\item\em Indicates that there was an error when trying to parse \mbox{\hyperlink{structst_module_data}{st\+Module\+Data}} into the CAN transmission buffer \mbox{\hyperlink{_service_communication_8h_a4806d56d5345eaa5cb1003b550f56864}{MODULE\+\_\+\+CAN\+\_\+\+TX}}. The value \mbox{\hyperlink{_service_communication_8h_af0411b67a2dba87758fee4f77c888558}{IN\+\_\+\+QUEUE}} ~\newline
+ did not exist in the {\ttfamily switch} {\ttfamily case} found in \mbox{\hyperlink{_service_communication_8c_af3f27beb93d34ec1fbb3cfa2fa1daf5e}{TX\+\_\+\+Put\+Value\+Queue\+In\+Buffer()}} \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_service_communication_8h_addf5ec070e9499d36b7f2009ce736076}{UNUSED}}~0x\+FF
+\begin{DoxyCompactList}\small\item\em Means that the value or commands is not used by this specific module. This is important as the functions use this to figure out which data needs to be send when a CAN slot is \mbox{\hyperlink{_service_communication_8h_a38f81619bc0b028efc4d5222e6cae89f}{AVAILABLE}} for the module. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_service_communication_8h_aafc57d44738df70f43ac87ed969eed47}{QUEUE}}~0x\+FE
+\begin{DoxyCompactList}\small\item\em Specifies that you want a specific command inside \mbox{\hyperlink{structst_commands}{st\+Commands}} queued for the next CAN transmission. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_service_communication_8h_af0411b67a2dba87758fee4f77c888558}{IN\+\_\+\+QUEUE}}~0x\+FD
+\begin{DoxyCompactList}\small\item\em Indicates that the \mbox{\hyperlink{structst_commands}{st\+Commands}} is already in queue for a transmission. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_service_communication_8h_a38f81619bc0b028efc4d5222e6cae89f}{AVAILABLE}}~0x\+AA
+\begin{DoxyCompactList}\small\item\em tells you that this \mbox{\hyperlink{structst_commands}{st\+Commands}} is AVAILABLE for a \mbox{\hyperlink{_service_communication_8h_aafc57d44738df70f43ac87ed969eed47}{QUEUE}} request. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_service_communication_8h_a90ca767ddb3c52ec640e7ed8a09dd5d8}{RECEIVED}}~0x\+BB
+\begin{DoxyCompactList}\small\item\em Tells you that you received a request to execute this specific \mbox{\hyperlink{structst_commands}{st\+Commands}}. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_service_communication_8h_a7f6404e3e6de5aa345a9208af100d4f8}{PARSED}}~0x\+CC
+\begin{DoxyCompactList}\small\item\em Tells the program that you parsed the \mbox{\hyperlink{_service_communication_8h_a90ca767ddb3c52ec640e7ed8a09dd5d8}{RECEIVED}} command in \mbox{\hyperlink{structst_module_data}{st\+Module\+Data}}. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_service_communication_8h_a68de9030c39965958f08402f7d452ad9}{NO\+\_\+\+DATA}}~0x00
+\begin{DoxyCompactList}\small\item\em Tells you that no requests have been received for this specific command. If there was a request, the command would be equal to \mbox{\hyperlink{_service_communication_8h_a90ca767ddb3c52ec640e7ed8a09dd5d8}{RECEIVED}}. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_service_communication_8h_a1a1dd2552832819ef662fee343b48c55}{CHAR\+\_\+\+MODE}}~\textquotesingle{}M\textquotesingle{}
+\begin{DoxyCompactList}\small\item\em Defines the character needed to parse \mbox{\hyperlink{structst_modes}{st\+Modes}} during transmission or reception of data. Refer to P-\/\+S5\+\_\+\+Communications for more details. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_service_communication_8h_ad9d321d90762288d936775d6a9450426}{CHAR\+\_\+\+STATE}}~\textquotesingle{}S\textquotesingle{}
+\begin{DoxyCompactList}\small\item\em Defines the character needed to parse \mbox{\hyperlink{structst_states}{st\+States}} during transmission or reception of data. Refer to P-\/\+S5\+\_\+\+Communications for more details. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_service_communication_8h_a2509a1955825a71b5f73682bfbc49ca6}{CHAR\+\_\+\+VALUE}}~\textquotesingle{}V\textquotesingle{}
+\begin{DoxyCompactList}\small\item\em Defines the character needed to parse \mbox{\hyperlink{structst_values}{st\+Values}} during transmission or reception of data. Refer to P-\/\+S5\+\_\+\+Communications for more details. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_service_communication_8h_a86b6c774f2718558e434c2bc58715565}{CHAR\+\_\+\+COMMAND}}~\textquotesingle{}C\textquotesingle{}
+\begin{DoxyCompactList}\small\item\em Defines the character needed to parse \mbox{\hyperlink{structst_commands}{st\+Commands}} during transmission or reception of data. Refer to P-\/\+S5\+\_\+\+Communications for more details. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_service_communication_8h_a7ded9f050868902fab114fba2fe7a0bd}{CHAR\+\_\+\+WEIGHT}}~\textquotesingle{}W\textquotesingle{}
+\begin{DoxyCompactList}\small\item\em Defines the character needed to parse Weight during transmission or reception of data. Refer to P-\/\+S5\+\_\+\+Communications for more details. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_service_communication_8h_ae5f5cc38a4f590cf0a17c7678dd22f84}{CHAR\+\_\+\+START}}~\textquotesingle{}\$\textquotesingle{}
+\begin{DoxyCompactList}\small\item\em Defines the character needed to parse a data tram during transmission or reception of data when CAN isn\textquotesingle{}t the medium used for the latter. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_service_communication_8h_acfc5bd5d7a0f57b6e6e0f63a28b18473}{TIME\+\_\+\+BASE\+\_\+\+FREQUENCY\+\_\+\+HZ}}~2000
+\begin{DoxyCompactList}\small\item\em The time base frequency. Usually defined in main.\+h Used to automatically calculate CAN slots allocations. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_service_communication_8h_abb3bb528a93b70f6dde1db6c5c694bfe}{TIME\+\_\+\+BASE\+\_\+\+BUFFER\+\_\+\+SIZE}}~7
+\begin{DoxyCompactList}\small\item\em The time base\textquotesingle{}s functions buffer size. Usually defined in main.\+h. Used to figure out the intervals at which the execute function is called to calculate slot\textquotesingle{}s time frames for the CAN protocol. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_service_communication_8h_a081e5fd13e1fee392e6660d0c1c81a4d}{TIME\+\_\+\+BASE\+\_\+\+BUFFER}}~Temporary\+Function\+Buffer
+\begin{DoxyCompactList}\small\item\em The time base\textquotesingle{}s functions buffer size. Usually defined in main.\+h. Used to figure out the intervals at which the execute function is called to calculate slot\textquotesingle{}s time frames for the CAN protocol. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_service_communication_8h_a2181baff0108e65db391889452ebf420}{SCOMMS\+\_\+\+PARSE\+\_\+\+RX\+\_\+\+BUFFER\+\_\+\+ADR}}~0
+\begin{DoxyCompactList}\small\item\em The address from the timebase buffer (index) which will be used to put \mbox{\hyperlink{_service_communication_8c_a1de35ae7bf14532ceef3d4c2b4c08ffc}{Service\+Communication\+\_\+\+RXParsing\+Handler()}} in. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_service_communication_8h_a45b60fe63e05c21feb4d13af7fc9a299}{SCOMMS\+\_\+\+PARSE\+\_\+\+TX\+\_\+\+BUFFER\+\_\+\+ADR}}~1
+\begin{DoxyCompactList}\small\item\em The address from the timebase buffer (index) which will be used to put \mbox{\hyperlink{_service_communication_8c_a44987354dee4c9ad0dfcf7073cc41d8d}{Service\+Communication\+\_\+\+TXParsing\+Handler()}} in. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_service_communication_8h_a0878e3dac0bcbc54e3b0adfc65f888d8}{CAN\+\_\+\+ALLOCATED\+\_\+\+SLOT}}~0
+\begin{DoxyCompactList}\small\item\em The allocated slot for your module considering that the synchronisation slot is 0. Please refer to the datasheet available on google drive in order to figure out your module\textquotesingle{}s time frame. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_service_communication_8h_a0710f3b5e2cc14c23f4da87fdcb32559}{CAN\+\_\+\+SLOT\+\_\+\+DURATION\+\_\+\+MS}}~20
+\begin{DoxyCompactList}\small\item\em Specifies the duration in milliseconds of a slot. See Google drive documentation to put the right value in this. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_service_communication_8h_aedbb61e1e0650e2c3b7705ae7546a97a}{MODULE\+\_\+\+CAN\+\_\+\+RX\+\_\+\+BUFFER}}~temporary\+Module\+Buffer
+\begin{DoxyCompactList}\small\item\em Specify how to access the unsigned char array of 8 bytes which contains your module\textquotesingle{}s received CAN data.~\newline
+this unique buffer must contain whatever info was received by your module\textquotesingle{}s. address. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_service_communication_8h_a8afc8fb8677a3d13b3bbaaca46f109f4}{MASTER\+\_\+\+CAN\+\_\+\+RX\+\_\+\+BUFFER}}~temporary\+Master\+Buffer
+\begin{DoxyCompactList}\small\item\em Specify how to access the unsigned char array of 8 bytes which contains received CAN data from the MASTER\textquotesingle{}s address~\newline
+this unique buffer must contain whatever info was received from the master\textquotesingle{}s address. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_service_communication_8h_a4806d56d5345eaa5cb1003b550f56864}{MODULE\+\_\+\+CAN\+\_\+\+TX}}~temporary\+CANTXBuffer
+\begin{DoxyCompactList}\small\item\em Specify how to access the unsigned char array of 8 bytes which is used to send CAN data during the allocated time frame for your module.~\newline
+Example\+: \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_service_communication_8h_ac8d66c734b139a7df743dec3f730c252}{MODULE\+\_\+\+SEND\+\_\+\+CAN}}
+\begin{DoxyCompactList}\small\item\em Specify how to request a CAN transmission to the other Time\+Base functions. This is either a flag or a function which tells other Time\+Base functions that their \mbox{\hyperlink{_service_communication_8h_a4806d56d5345eaa5cb1003b550f56864}{MODULE\+\_\+\+CAN\+\_\+\+TX}} buffer is ready to be sent.~\newline
+This can also be a function which sends the CAN directly through pilots made for it. the disadvantage of using a dedicated function, is the lack of address changing possibilities. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_service_communication_8h_a4029258177159315b46b6653dcf05a06}{CHECK\+\_\+\+MODULE\+\_\+\+CAN\+\_\+\+RECEPTION}}~0x\+FF
+\begin{DoxyCompactList}\small\item\em Statement which is true only if a CAN message addressed to your module is available. It is false if no messages have been received. MUST CORRESPOND TO \mbox{\hyperlink{_service_communication_8h_aedbb61e1e0650e2c3b7705ae7546a97a}{MODULE\+\_\+\+CAN\+\_\+\+RX\+\_\+\+BUFFER}}. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_service_communication_8h_a6ddb96c13a6bb53d79c56e373866474f}{CHECK\+\_\+\+MASTER\+\_\+\+CAN\+\_\+\+RECEPTION}}~0x\+FF
+\begin{DoxyCompactList}\small\item\em Statement which is true only if a CAN message addressed to your module is available. It is false if no messages have been received. MUST CORRESPOND TO \mbox{\hyperlink{_service_communication_8h_a8afc8fb8677a3d13b3bbaaca46f109f4}{MASTER\+\_\+\+CAN\+\_\+\+RX\+\_\+\+BUFFER}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_service_communication_8h_a3d0c93c9577cbca6a1e880d1bbd9a1c8}{CB\+\_\+\+Update\+Buffer}} (unsigned char $\ast$Buffer, unsigned char size\+Of\+Buffer)
+\begin{DoxyCompactList}\small\item\em Function compressing data downwards in a buffer. It slides data downwards by 1 index if the one below the data is equal to 0x\+FF. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_service_communication_8h_aebff2982a206799f3d174baf9df497b2}{CB\+\_\+\+Queue\+Data\+In\+Buffer}} (unsigned char $\ast$Buffer, unsigned char size\+Of\+Buffer, unsigned char $\ast$Data\+To\+Check, unsigned char Data\+Value\+From\+Ref\+Struct)
+\begin{DoxyCompactList}\small\item\em Adds an unsigned char to the referenced buffer at whichever index is first available for it (0x\+FF). If it\textquotesingle{}s all 0x\+FF, it will be added at the bottom of the buffer. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_service_communication_8h_a1de35ae7bf14532ceef3d4c2b4c08ffc}{Service\+Communication\+\_\+\+RXParsing\+Handler}} (void)
+\begin{DoxyCompactList}\small\item\em Function periodically called via the time base\textquotesingle{}s interruptions. It is important to allocate a buffer address in your time base for this function. Do this via your main.\+h file, and \mbox{\hyperlink{_service_communication_8h}{Service\+Communication.\+h}}. You will need to set SCOMMS\+\_\+\+PARSE\+\_\+\+RX\+\_\+\+BUFFER\+\_\+\+ADR to the appropriated number in your buffer. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_service_communication_8h_a44987354dee4c9ad0dfcf7073cc41d8d}{Service\+Communication\+\_\+\+TXParsing\+Handler}} (void)
+\begin{DoxyCompactList}\small\item\em Function periodically called via the time base\textquotesingle{}s interruptions. It is important to allocate a buffer address in your time base for this function. Do this via your main.\+h file, and \mbox{\hyperlink{_service_communication_8h}{Service\+Communication.\+h}}. You will need to set SCOMMS\+\_\+\+PARSE\+\_\+\+TX\+\_\+\+BUFFER\+\_\+\+ADR to the appropriated number in your buffer. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_service_communication_8h_a873572755106e16f635f8712fde8b8d1}{Service\+Communication\+\_\+initialise}} (void)
+\begin{DoxyCompactList}\small\item\em Function called which initialises all the structures necessary. it is important to call this function before main execution of the program starts as it is necessary to initialise all the data structure used by this service. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_service_communication_8h_a29057fe82a4a52ec4c24eb36d010508d}{Module\+Data\+\_\+\+Set\+All\+\_\+\+Received\+Commands}} (unsigned char Value\+Applied\+To\+All)
+\begin{DoxyCompactList}\small\item\em Sets the received command structure (Module\+Data.\+Commands\+Received) to the same input value. Useful to reset any received commands when a new mode has been received from the master. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_service_communication_8h_a2e812962d5f7419f86ec02de11431fe5}{Module\+Data\+\_\+\+Set\+All\+\_\+\+Sent\+Commands}} (unsigned char Value\+Applied\+To\+All)
+\begin{DoxyCompactList}\small\item\em Sets the queued command structure (Module\+Data.\+Commands\+To\+Send) to the same input value. Useful to reset any queued commands when a new mode has been received from the master. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_service_communication_8h_a3ecde68acd8f3105b7da568e6db317ae}{Module\+Data\+\_\+\+Set\+All\+\_\+\+Values\+To\+Send}} (unsigned char Value\+Applied\+To\+All)
+\begin{DoxyCompactList}\small\item\em Sets the values to send structure of the Module\+Data to the same value. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_service_communication_8h_aeffc3a637225c738529acf463e90160d}{Module\+Data\+\_\+\+Set\+All\+\_\+\+Values\+Received}} (unsigned char Value\+Applied\+To\+All)
+\begin{DoxyCompactList}\small\item\em Sets all the received value structure to the same value. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_service_communication_8h_af91ebf03d5c59428b1019aa2619c9402}{Module\+Data\+\_\+\+Set\+All\+\_\+\+States\+Received}} (unsigned char Value\+Applied\+To\+All)
+\begin{DoxyCompactList}\small\item\em Sets all the states in a \mbox{\hyperlink{structst_states}{st\+States}} structure to the same value. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_service_communication_8h_a05bc85fe1889a6e743299fdaeec706be}{Module\+Data\+\_\+\+Set\+Units}} (unsigned char Units\+To\+Put\+In\+Values)
+\begin{DoxyCompactList}\small\item\em handles the units value sending for you to avoid sending 2 at the time and to automatically remove from QUEUE previous values. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_service_communication_8h_a1692cabce4f427865fabe67b80079c45}{Module\+Data\+\_\+\+Set\+Disc\+Color}} (unsigned char Color\+To\+Put\+In\+Values)
+\begin{DoxyCompactList}\small\item\em handles the disc color value sending for you to avoid sending 2 at the time and to automatically remove from QUEUE previous values. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_service_communication_8h_a6c26b93e2f6b782c74f2f823547e5dab}{Module\+Data\+\_\+\+Set\+Disc\+Detection}} (unsigned char Color\+To\+Put\+In\+Values)
+\begin{DoxyCompactList}\small\item\em handles the disc detection value sending for you to avoid sending 2 at the time and to automatically remove from QUEUE previous values. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_service_communication_8h_a201b752ad8025d5e229b7f3d5d3d85f7}{Check\+If\+Unused}} (unsigned char $\ast$checked\+Value, unsigned char wanted\+New\+Value)
+\begin{DoxyCompactList}\small\item\em Private function checking if a variable is equal to \mbox{\hyperlink{_service_communication_8h_addf5ec070e9499d36b7f2009ce736076}{UNUSED}}. If not, it sets it to a new value. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_service_communication_8h_ad4501640cf1f1053f5d57a8e75f79dda}{Parse\+\_\+\+Interrupts}} (void)
+\begin{DoxyCompactList}\small\item\em Function handling the count of interrupts and slot allocations for CAN communications made for this project. It is important to properly define clock speeds and oscillator speeds in \mbox{\hyperlink{_service_communication_8h}{Service\+Communication.\+h}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+unsigned char \mbox{\hyperlink{_service_communication_8h_a1f422ed2cac01c9cd62a6125e0531c61}{service\+Communication\+\_\+\+Error\+State}}
+\begin{DoxyCompactList}\small\item\em Global extern variable which purpose is to indicate to other portions of the code which state this library is currently in. See\+:~\newline
+\mbox{\hyperlink{_service_communication_8h_a258bb72419ef143530a2f8f55e7d57af}{NO\+\_\+\+ERROR}} .~\newline
+\mbox{\hyperlink{_service_communication_8h_a5f7b437135029d449beddc789e646bb0}{ERROR\+\_\+\+RX\+\_\+\+MODE\+\_\+\+DOESNT\+\_\+\+EXIST}} .~\newline
+\mbox{\hyperlink{_service_communication_8h_ac64ec1978a6f8dee2535e32709e984b3}{ERROR\+\_\+\+RX\+\_\+\+STATE\+\_\+\+DOESNT\+\_\+\+EXIST}} .~\newline
+\mbox{\hyperlink{_service_communication_8h_ae558105445f8bf9d95cb6bafefbbd3a8}{ERROR\+\_\+\+RX\+\_\+\+COMMAND\+\_\+\+DOESNT\+\_\+\+EXIST}} .~\newline
+\mbox{\hyperlink{_service_communication_8h_a6e5b5d8d27c3b3e4c399de41cac09413}{ERROR\+\_\+\+RX\+\_\+\+VALUE\+\_\+\+DOESNT\+\_\+\+EXIST}} .~\newline
+\mbox{\hyperlink{_service_communication_8h_a7a87e3edee90d8fddbd93d9c0c23d16d}{ERROR\+\_\+\+TIMEDOUT}} .~\newline
+\mbox{\hyperlink{_service_communication_8h_a1a7963d3c65e2270966f8d0855723f05}{ERROR\+\_\+\+SPECIFIC\+\_\+\+TO\+\_\+\+MODULE}} .~\newline
+. \end{DoxyCompactList}\item 
+unsigned char \mbox{\hyperlink{_service_communication_8h_a115c2f56dcaf6da3ef0ce4e6b13bc869}{Temporary\+Function\+Buffer}} \mbox{[}7\mbox{]}
+\item 
+unsigned char \mbox{\hyperlink{_service_communication_8h_a1bfc7354d889450b5886c6b3874e964c}{temporary\+CANTXBuffer}} \mbox{[}8\mbox{]}
+\item 
+unsigned char \mbox{\hyperlink{_service_communication_8h_a5381ed509bf973ce17e6e66c09f60aa7}{temporary\+Module\+Buffer}} \mbox{[}8\mbox{]}
+\item 
+unsigned char \mbox{\hyperlink{_service_communication_8h_a4b86a1675d8828177770802176fb50d6}{temporary\+Master\+Buffer}} \mbox{[}8\mbox{]}
+\item 
+\mbox{\hyperlink{structst_modes}{st\+Modes}} \mbox{\hyperlink{_service_communication_8h_a8d263995a90824787239b3b43fd22624}{Modes}}
+\begin{DoxyCompactList}\small\item\em Struct containing all the possible states that a module can have. This is a list of states and must not be changed, but only referred to. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structst_states}{st\+States}} \mbox{\hyperlink{_service_communication_8h_a438a30fee677441c56cb4010275f6811}{States}}
+\begin{DoxyCompactList}\small\item\em Struct containing all the possible states that a module can have. This is a list of states and must not be changed, but only referred to. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structst_commands}{st\+Commands}} \mbox{\hyperlink{_service_communication_8h_a4e1bd1188b94e4bbabbf01c05d2d83db}{Commands}}
+\begin{DoxyCompactList}\small\item\em Struct containing all the possible commands that a module can have. This is a list of commands and must not be changed, but only referred to. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structst_values}{st\+Values}} \mbox{\hyperlink{_service_communication_8h_a3088ff4e4e4ea73770c72f41563fa4e3}{Values}}
+\begin{DoxyCompactList}\small\item\em Struct containing all the possible values that a module can transmit. This is a list of values and must not be changed, Only refer to it when you need to set or change your module\textquotesingle{}s structure values. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structst_module_data}{st\+Module\+Data}} \mbox{\hyperlink{_service_communication_8h_a1720969ebc798c3beb2569c6dd2fca70}{Module\+Data}}
+\begin{DoxyCompactList}\small\item\em The actual structure used by the module. Used to get/set different values and commands. For example, reading the Mode that the master sent. Checking if receiving info from the CAN etc. Use DEFINES present in this file in order to set Commands or values of such. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This service is a c library which goal is to parse data sent or data received for a school project. This file requires premade functions and buffers which are labeled and described in this document in order to work properly or at all. This service\textquotesingle{}s goal is to allow the user to solely use structures in order to check for received info or send info. The communication protocol range from UART to CAN. However, you will need ot parse UART data a bit more. 
+
+\begin{DoxyAuthor}{Author}
+Lyam / Shawn Couture (\href{mailto:cous5830@gmail.com}{\texttt{ cous5830@gmail.\+com}}) 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2022-\/11-\/14 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2022 
+\end{DoxyCopyright}
+
+
+Definition in file \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{_service_communication_8h_a38f81619bc0b028efc4d5222e6cae89f}\label{_service_communication_8h_a38f81619bc0b028efc4d5222e6cae89f}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!AVAILABLE@{AVAILABLE}}
+\index{AVAILABLE@{AVAILABLE}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{AVAILABLE}{AVAILABLE}}
+{\footnotesize\ttfamily \#define AVAILABLE~0x\+AA}
+
+
+
+tells you that this \mbox{\hyperlink{structst_commands}{st\+Commands}} is AVAILABLE for a \mbox{\hyperlink{_service_communication_8h_aafc57d44738df70f43ac87ed969eed47}{QUEUE}} request. 
+
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8h_source_l00110}{110}} of file \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{_service_communication_8h_a0878e3dac0bcbc54e3b0adfc65f888d8}\label{_service_communication_8h_a0878e3dac0bcbc54e3b0adfc65f888d8}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!CAN\_ALLOCATED\_SLOT@{CAN\_ALLOCATED\_SLOT}}
+\index{CAN\_ALLOCATED\_SLOT@{CAN\_ALLOCATED\_SLOT}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{CAN\_ALLOCATED\_SLOT}{CAN\_ALLOCATED\_SLOT}}
+{\footnotesize\ttfamily \#define CAN\+\_\+\+ALLOCATED\+\_\+\+SLOT~0}
+
+
+
+The allocated slot for your module considering that the synchronisation slot is 0. Please refer to the datasheet available on google drive in order to figure out your module\textquotesingle{}s time frame. 
+
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8h_source_l00204}{204}} of file \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{_service_communication_8h_a0710f3b5e2cc14c23f4da87fdcb32559}\label{_service_communication_8h_a0710f3b5e2cc14c23f4da87fdcb32559}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!CAN\_SLOT\_DURATION\_MS@{CAN\_SLOT\_DURATION\_MS}}
+\index{CAN\_SLOT\_DURATION\_MS@{CAN\_SLOT\_DURATION\_MS}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{CAN\_SLOT\_DURATION\_MS}{CAN\_SLOT\_DURATION\_MS}}
+{\footnotesize\ttfamily \#define CAN\+\_\+\+SLOT\+\_\+\+DURATION\+\_\+\+MS~20}
+
+
+
+Specifies the duration in milliseconds of a slot. See Google drive documentation to put the right value in this. 
+
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8h_source_l00209}{209}} of file \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{_service_communication_8h_a86b6c774f2718558e434c2bc58715565}\label{_service_communication_8h_a86b6c774f2718558e434c2bc58715565}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!CHAR\_COMMAND@{CHAR\_COMMAND}}
+\index{CHAR\_COMMAND@{CHAR\_COMMAND}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{CHAR\_COMMAND}{CHAR\_COMMAND}}
+{\footnotesize\ttfamily \#define CHAR\+\_\+\+COMMAND~\textquotesingle{}C\textquotesingle{}}
+
+
+
+Defines the character needed to parse \mbox{\hyperlink{structst_commands}{st\+Commands}} during transmission or reception of data. Refer to P-\/\+S5\+\_\+\+Communications for more details. 
+
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8h_source_l00151}{151}} of file \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{_service_communication_8h_a1a1dd2552832819ef662fee343b48c55}\label{_service_communication_8h_a1a1dd2552832819ef662fee343b48c55}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!CHAR\_MODE@{CHAR\_MODE}}
+\index{CHAR\_MODE@{CHAR\_MODE}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{CHAR\_MODE}{CHAR\_MODE}}
+{\footnotesize\ttfamily \#define CHAR\+\_\+\+MODE~\textquotesingle{}M\textquotesingle{}}
+
+
+
+Defines the character needed to parse \mbox{\hyperlink{structst_modes}{st\+Modes}} during transmission or reception of data. Refer to P-\/\+S5\+\_\+\+Communications for more details. 
+
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8h_source_l00133}{133}} of file \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{_service_communication_8h_ae5f5cc38a4f590cf0a17c7678dd22f84}\label{_service_communication_8h_ae5f5cc38a4f590cf0a17c7678dd22f84}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!CHAR\_START@{CHAR\_START}}
+\index{CHAR\_START@{CHAR\_START}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{CHAR\_START}{CHAR\_START}}
+{\footnotesize\ttfamily \#define CHAR\+\_\+\+START~\textquotesingle{}\$\textquotesingle{}}
+
+
+
+Defines the character needed to parse a data tram during transmission or reception of data when CAN isn\textquotesingle{}t the medium used for the latter. 
+
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8h_source_l00163}{163}} of file \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{_service_communication_8h_ad9d321d90762288d936775d6a9450426}\label{_service_communication_8h_ad9d321d90762288d936775d6a9450426}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!CHAR\_STATE@{CHAR\_STATE}}
+\index{CHAR\_STATE@{CHAR\_STATE}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{CHAR\_STATE}{CHAR\_STATE}}
+{\footnotesize\ttfamily \#define CHAR\+\_\+\+STATE~\textquotesingle{}S\textquotesingle{}}
+
+
+
+Defines the character needed to parse \mbox{\hyperlink{structst_states}{st\+States}} during transmission or reception of data. Refer to P-\/\+S5\+\_\+\+Communications for more details. 
+
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8h_source_l00139}{139}} of file \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{_service_communication_8h_a2509a1955825a71b5f73682bfbc49ca6}\label{_service_communication_8h_a2509a1955825a71b5f73682bfbc49ca6}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!CHAR\_VALUE@{CHAR\_VALUE}}
+\index{CHAR\_VALUE@{CHAR\_VALUE}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{CHAR\_VALUE}{CHAR\_VALUE}}
+{\footnotesize\ttfamily \#define CHAR\+\_\+\+VALUE~\textquotesingle{}V\textquotesingle{}}
+
+
+
+Defines the character needed to parse \mbox{\hyperlink{structst_values}{st\+Values}} during transmission or reception of data. Refer to P-\/\+S5\+\_\+\+Communications for more details. 
+
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8h_source_l00145}{145}} of file \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{_service_communication_8h_a7ded9f050868902fab114fba2fe7a0bd}\label{_service_communication_8h_a7ded9f050868902fab114fba2fe7a0bd}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!CHAR\_WEIGHT@{CHAR\_WEIGHT}}
+\index{CHAR\_WEIGHT@{CHAR\_WEIGHT}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{CHAR\_WEIGHT}{CHAR\_WEIGHT}}
+{\footnotesize\ttfamily \#define CHAR\+\_\+\+WEIGHT~\textquotesingle{}W\textquotesingle{}}
+
+
+
+Defines the character needed to parse Weight during transmission or reception of data. Refer to P-\/\+S5\+\_\+\+Communications for more details. 
+
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8h_source_l00157}{157}} of file \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{_service_communication_8h_a6ddb96c13a6bb53d79c56e373866474f}\label{_service_communication_8h_a6ddb96c13a6bb53d79c56e373866474f}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!CHECK\_MASTER\_CAN\_RECEPTION@{CHECK\_MASTER\_CAN\_RECEPTION}}
+\index{CHECK\_MASTER\_CAN\_RECEPTION@{CHECK\_MASTER\_CAN\_RECEPTION}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{CHECK\_MASTER\_CAN\_RECEPTION}{CHECK\_MASTER\_CAN\_RECEPTION}}
+{\footnotesize\ttfamily \#define CHECK\+\_\+\+MASTER\+\_\+\+CAN\+\_\+\+RECEPTION~0x\+FF}
+
+
+
+Statement which is true only if a CAN message addressed to your module is available. It is false if no messages have been received. MUST CORRESPOND TO \mbox{\hyperlink{_service_communication_8h_a8afc8fb8677a3d13b3bbaaca46f109f4}{MASTER\+\_\+\+CAN\+\_\+\+RX\+\_\+\+BUFFER}}. 
+
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8h_source_l00277}{277}} of file \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{_service_communication_8h_a4029258177159315b46b6653dcf05a06}\label{_service_communication_8h_a4029258177159315b46b6653dcf05a06}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!CHECK\_MODULE\_CAN\_RECEPTION@{CHECK\_MODULE\_CAN\_RECEPTION}}
+\index{CHECK\_MODULE\_CAN\_RECEPTION@{CHECK\_MODULE\_CAN\_RECEPTION}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{CHECK\_MODULE\_CAN\_RECEPTION}{CHECK\_MODULE\_CAN\_RECEPTION}}
+{\footnotesize\ttfamily \#define CHECK\+\_\+\+MODULE\+\_\+\+CAN\+\_\+\+RECEPTION~0x\+FF}
+
+
+
+Statement which is true only if a CAN message addressed to your module is available. It is false if no messages have been received. MUST CORRESPOND TO \mbox{\hyperlink{_service_communication_8h_aedbb61e1e0650e2c3b7705ae7546a97a}{MODULE\+\_\+\+CAN\+\_\+\+RX\+\_\+\+BUFFER}}. 
+
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8h_source_l00270}{270}} of file \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{_service_communication_8h_ae558105445f8bf9d95cb6bafefbbd3a8}\label{_service_communication_8h_ae558105445f8bf9d95cb6bafefbbd3a8}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!ERROR\_RX\_COMMAND\_DOESNT\_EXIST@{ERROR\_RX\_COMMAND\_DOESNT\_EXIST}}
+\index{ERROR\_RX\_COMMAND\_DOESNT\_EXIST@{ERROR\_RX\_COMMAND\_DOESNT\_EXIST}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{ERROR\_RX\_COMMAND\_DOESNT\_EXIST}{ERROR\_RX\_COMMAND\_DOESNT\_EXIST}}
+{\footnotesize\ttfamily \#define ERROR\+\_\+\+RX\+\_\+\+COMMAND\+\_\+\+DOESNT\+\_\+\+EXIST~3}
+
+
+
+Indicates that there was an error when parsing a received \mbox{\hyperlink{structst_commands}{st\+Commands}} from a communicating module. The received \mbox{\hyperlink{structst_commands}{st\+Commands}} didn\textquotesingle{}t match availables \mbox{\hyperlink{structst_commands}{st\+Commands}} and couldn\textquotesingle{}t be put in \mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{Module\+Data}}. 
+
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8h_source_l00041}{41}} of file \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{_service_communication_8h_a5f7b437135029d449beddc789e646bb0}\label{_service_communication_8h_a5f7b437135029d449beddc789e646bb0}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!ERROR\_RX\_MODE\_DOESNT\_EXIST@{ERROR\_RX\_MODE\_DOESNT\_EXIST}}
+\index{ERROR\_RX\_MODE\_DOESNT\_EXIST@{ERROR\_RX\_MODE\_DOESNT\_EXIST}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{ERROR\_RX\_MODE\_DOESNT\_EXIST}{ERROR\_RX\_MODE\_DOESNT\_EXIST}}
+{\footnotesize\ttfamily \#define ERROR\+\_\+\+RX\+\_\+\+MODE\+\_\+\+DOESNT\+\_\+\+EXIST~1}
+
+
+
+Indicates that there was an error when parsing a received \mbox{\hyperlink{structst_modes}{st\+Modes}} from a communicating module. The received \mbox{\hyperlink{structst_modes}{st\+Modes}} didn\textquotesingle{}t match availables \mbox{\hyperlink{structst_modes}{st\+Modes}} and couldn\textquotesingle{}t be put in \mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{Module\+Data}}. 
+
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8h_source_l00029}{29}} of file \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{_service_communication_8h_ac64ec1978a6f8dee2535e32709e984b3}\label{_service_communication_8h_ac64ec1978a6f8dee2535e32709e984b3}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!ERROR\_RX\_STATE\_DOESNT\_EXIST@{ERROR\_RX\_STATE\_DOESNT\_EXIST}}
+\index{ERROR\_RX\_STATE\_DOESNT\_EXIST@{ERROR\_RX\_STATE\_DOESNT\_EXIST}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{ERROR\_RX\_STATE\_DOESNT\_EXIST}{ERROR\_RX\_STATE\_DOESNT\_EXIST}}
+{\footnotesize\ttfamily \#define ERROR\+\_\+\+RX\+\_\+\+STATE\+\_\+\+DOESNT\+\_\+\+EXIST~2}
+
+
+
+Indicates that there was an error when parsing a received \mbox{\hyperlink{structst_states}{st\+States}} from a communicating module. The received \mbox{\hyperlink{structst_states}{st\+States}} didn\textquotesingle{}t match availables \mbox{\hyperlink{structst_states}{st\+States}} and couldn\textquotesingle{}t be put in \mbox{\hyperlink{_service_communication_8c_a1720969ebc798c3beb2569c6dd2fca70}{Module\+Data}}. 
+
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8h_source_l00035}{35}} of file \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{_service_communication_8h_a6e5b5d8d27c3b3e4c399de41cac09413}\label{_service_communication_8h_a6e5b5d8d27c3b3e4c399de41cac09413}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!ERROR\_RX\_VALUE\_DOESNT\_EXIST@{ERROR\_RX\_VALUE\_DOESNT\_EXIST}}
+\index{ERROR\_RX\_VALUE\_DOESNT\_EXIST@{ERROR\_RX\_VALUE\_DOESNT\_EXIST}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{ERROR\_RX\_VALUE\_DOESNT\_EXIST}{ERROR\_RX\_VALUE\_DOESNT\_EXIST}}
+{\footnotesize\ttfamily \#define ERROR\+\_\+\+RX\+\_\+\+VALUE\+\_\+\+DOESNT\+\_\+\+EXIST~4}
+
+
+
+Indicates that there was an error when parsing a received \mbox{\hyperlink{structst_values}{st\+Values}} from a communicating module. The received \mbox{\hyperlink{structst_values}{st\+Values}} didn\textquotesingle{}t match availables \mbox{\hyperlink{structst_values}{st\+Values}} and couldn\textquotesingle{}t be put in \mbox{\hyperlink{structst_values}{st\+Values}}. 
+
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8h_source_l00047}{47}} of file \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{_service_communication_8h_a1a7963d3c65e2270966f8d0855723f05}\label{_service_communication_8h_a1a7963d3c65e2270966f8d0855723f05}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!ERROR\_SPECIFIC\_TO\_MODULE@{ERROR\_SPECIFIC\_TO\_MODULE}}
+\index{ERROR\_SPECIFIC\_TO\_MODULE@{ERROR\_SPECIFIC\_TO\_MODULE}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{ERROR\_SPECIFIC\_TO\_MODULE}{ERROR\_SPECIFIC\_TO\_MODULE}}
+{\footnotesize\ttfamily \#define ERROR\+\_\+\+SPECIFIC\+\_\+\+TO\+\_\+\+MODULE~6}
+
+
+
+Indicates that the module using this library encountered an error due to factors outside of this library. 
+
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8h_source_l00057}{57}} of file \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{_service_communication_8h_a7a87e3edee90d8fddbd93d9c0c23d16d}\label{_service_communication_8h_a7a87e3edee90d8fddbd93d9c0c23d16d}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!ERROR\_TIMEDOUT@{ERROR\_TIMEDOUT}}
+\index{ERROR\_TIMEDOUT@{ERROR\_TIMEDOUT}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{ERROR\_TIMEDOUT}{ERROR\_TIMEDOUT}}
+{\footnotesize\ttfamily \#define ERROR\+\_\+\+TIMEDOUT~5}
+
+
+
+The library timed out and could not receive an \mbox{\hyperlink{structst_modes}{st\+Modes}} from a CAN slot in the given time. 
+
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8h_source_l00052}{52}} of file \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{_service_communication_8h_adf9947507c8c7b4c8791492bbb73b024}\label{_service_communication_8h_adf9947507c8c7b4c8791492bbb73b024}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!ERROR\_TX\_COMMAND\_DOESNT\_EXIST@{ERROR\_TX\_COMMAND\_DOESNT\_EXIST}}
+\index{ERROR\_TX\_COMMAND\_DOESNT\_EXIST@{ERROR\_TX\_COMMAND\_DOESNT\_EXIST}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{ERROR\_TX\_COMMAND\_DOESNT\_EXIST}{ERROR\_TX\_COMMAND\_DOESNT\_EXIST}}
+{\footnotesize\ttfamily \#define ERROR\+\_\+\+TX\+\_\+\+COMMAND\+\_\+\+DOESNT\+\_\+\+EXIST~7}
+
+
+
+Indicates that there was an error when trying to parse \mbox{\hyperlink{structst_module_data}{st\+Module\+Data}} into the CAN transmission buffer \mbox{\hyperlink{_service_communication_8h_a4806d56d5345eaa5cb1003b550f56864}{MODULE\+\_\+\+CAN\+\_\+\+TX}}. The command \mbox{\hyperlink{_service_communication_8h_af0411b67a2dba87758fee4f77c888558}{IN\+\_\+\+QUEUE}} ~\newline
+ did not exist in the {\ttfamily switch} {\ttfamily case} found in \mbox{\hyperlink{_service_communication_8c_a904c50743563af0963f552442c9c075f}{TX\+\_\+\+Put\+Command\+Queue\+In\+Buffer()}} 
+
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8h_source_l00064}{64}} of file \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{_service_communication_8h_ace81153c3e7c169bccfee7877312da18}\label{_service_communication_8h_ace81153c3e7c169bccfee7877312da18}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!ERROR\_TX\_VALUE\_DOESNT\_EXIST@{ERROR\_TX\_VALUE\_DOESNT\_EXIST}}
+\index{ERROR\_TX\_VALUE\_DOESNT\_EXIST@{ERROR\_TX\_VALUE\_DOESNT\_EXIST}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{ERROR\_TX\_VALUE\_DOESNT\_EXIST}{ERROR\_TX\_VALUE\_DOESNT\_EXIST}}
+{\footnotesize\ttfamily \#define ERROR\+\_\+\+TX\+\_\+\+VALUE\+\_\+\+DOESNT\+\_\+\+EXIST~8}
+
+
+
+Indicates that there was an error when trying to parse \mbox{\hyperlink{structst_module_data}{st\+Module\+Data}} into the CAN transmission buffer \mbox{\hyperlink{_service_communication_8h_a4806d56d5345eaa5cb1003b550f56864}{MODULE\+\_\+\+CAN\+\_\+\+TX}}. The value \mbox{\hyperlink{_service_communication_8h_af0411b67a2dba87758fee4f77c888558}{IN\+\_\+\+QUEUE}} ~\newline
+ did not exist in the {\ttfamily switch} {\ttfamily case} found in \mbox{\hyperlink{_service_communication_8c_af3f27beb93d34ec1fbb3cfa2fa1daf5e}{TX\+\_\+\+Put\+Value\+Queue\+In\+Buffer()}} 
+
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8h_source_l00070}{70}} of file \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{_service_communication_8h_af0411b67a2dba87758fee4f77c888558}\label{_service_communication_8h_af0411b67a2dba87758fee4f77c888558}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!IN\_QUEUE@{IN\_QUEUE}}
+\index{IN\_QUEUE@{IN\_QUEUE}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{IN\_QUEUE}{IN\_QUEUE}}
+{\footnotesize\ttfamily \#define IN\+\_\+\+QUEUE~0x\+FD}
+
+
+
+Indicates that the \mbox{\hyperlink{structst_commands}{st\+Commands}} is already in queue for a transmission. 
+
+\begin{DoxyWarning}{Warning}
+Do not put your \mbox{\hyperlink{structst_commands}{st\+Commands}} back to \mbox{\hyperlink{_service_communication_8h_aafc57d44738df70f43ac87ed969eed47}{QUEUE}} while it is equal to this. 
+\end{DoxyWarning}
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8h_source_l00106}{106}} of file \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{_service_communication_8h_a8afc8fb8677a3d13b3bbaaca46f109f4}\label{_service_communication_8h_a8afc8fb8677a3d13b3bbaaca46f109f4}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!MASTER\_CAN\_RX\_BUFFER@{MASTER\_CAN\_RX\_BUFFER}}
+\index{MASTER\_CAN\_RX\_BUFFER@{MASTER\_CAN\_RX\_BUFFER}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{MASTER\_CAN\_RX\_BUFFER}{MASTER\_CAN\_RX\_BUFFER}}
+{\footnotesize\ttfamily \#define MASTER\+\_\+\+CAN\+\_\+\+RX\+\_\+\+BUFFER~temporary\+Master\+Buffer}
+
+
+
+Specify how to access the unsigned char array of 8 bytes which contains received CAN data from the MASTER\textquotesingle{}s address~\newline
+this unique buffer must contain whatever info was received from the master\textquotesingle{}s address. 
+
+\begin{DoxyRefDesc}{Deprecated}
+\item[\mbox{\hyperlink{deprecated__deprecated000001}{Deprecated}}]WAS NOT USED BECAUSE EVERYONE READS FROM EVERYONE \end{DoxyRefDesc}
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8h_source_l00231}{231}} of file \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{_service_communication_8h_aedbb61e1e0650e2c3b7705ae7546a97a}\label{_service_communication_8h_aedbb61e1e0650e2c3b7705ae7546a97a}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!MODULE\_CAN\_RX\_BUFFER@{MODULE\_CAN\_RX\_BUFFER}}
+\index{MODULE\_CAN\_RX\_BUFFER@{MODULE\_CAN\_RX\_BUFFER}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{MODULE\_CAN\_RX\_BUFFER}{MODULE\_CAN\_RX\_BUFFER}}
+{\footnotesize\ttfamily \#define MODULE\+\_\+\+CAN\+\_\+\+RX\+\_\+\+BUFFER~temporary\+Module\+Buffer}
+
+
+
+Specify how to access the unsigned char array of 8 bytes which contains your module\textquotesingle{}s received CAN data.~\newline
+this unique buffer must contain whatever info was received by your module\textquotesingle{}s. address. 
+
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8h_source_l00223}{223}} of file \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{_service_communication_8h_a4806d56d5345eaa5cb1003b550f56864}\label{_service_communication_8h_a4806d56d5345eaa5cb1003b550f56864}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!MODULE\_CAN\_TX@{MODULE\_CAN\_TX}}
+\index{MODULE\_CAN\_TX@{MODULE\_CAN\_TX}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{MODULE\_CAN\_TX}{MODULE\_CAN\_TX}}
+{\footnotesize\ttfamily \#define MODULE\+\_\+\+CAN\+\_\+\+TX~temporary\+CANTXBuffer}
+
+
+
+Specify how to access the unsigned char array of 8 bytes which is used to send CAN data during the allocated time frame for your module.~\newline
+Example\+: 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define MODULE\_CAN\_TX CANToTransmit}}
+
+\end{DoxyCode}
+ \begin{DoxyWarning}{Warning}
+DO NOT PUT SEMI-\/\+COLONS IN THIS DEFINE 
+\end{DoxyWarning}
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8h_source_l00242}{242}} of file \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{_service_communication_8h_ac8d66c734b139a7df743dec3f730c252}\label{_service_communication_8h_ac8d66c734b139a7df743dec3f730c252}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!MODULE\_SEND\_CAN@{MODULE\_SEND\_CAN}}
+\index{MODULE\_SEND\_CAN@{MODULE\_SEND\_CAN}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{MODULE\_SEND\_CAN}{MODULE\_SEND\_CAN}}
+{\footnotesize\ttfamily \#define MODULE\+\_\+\+SEND\+\_\+\+CAN}
+
+
+
+Specify how to request a CAN transmission to the other Time\+Base functions. This is either a flag or a function which tells other Time\+Base functions that their \mbox{\hyperlink{_service_communication_8h_a4806d56d5345eaa5cb1003b550f56864}{MODULE\+\_\+\+CAN\+\_\+\+TX}} buffer is ready to be sent.~\newline
+This can also be a function which sends the CAN directly through pilots made for it. the disadvantage of using a dedicated function, is the lack of address changing possibilities. 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{// Example of Flag style:}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define MODULE\_SEND\_CAN CAN.Requete = REQUETE\_ACTIVE}}
+\DoxyCodeLine{\textcolor{comment}{// Example of Function style:}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define MODULE\_SEND\_CAN pCAN1\_transmetDesDonnes(0x111, MODULE\_CAN\_TX, 8)}}
+
+\end{DoxyCode}
+ \begin{DoxyWarning}{Warning}
+DO NOT PUT SEMI-\/\+COLONS IN THIS DEFINE @ 
+\end{DoxyWarning}
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8h_source_l00259}{259}} of file \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{_service_communication_8h_a68de9030c39965958f08402f7d452ad9}\label{_service_communication_8h_a68de9030c39965958f08402f7d452ad9}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!NO\_DATA@{NO\_DATA}}
+\index{NO\_DATA@{NO\_DATA}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{NO\_DATA}{NO\_DATA}}
+{\footnotesize\ttfamily \#define NO\+\_\+\+DATA~0x00}
+
+
+
+Tells you that no requests have been received for this specific command. If there was a request, the command would be equal to \mbox{\hyperlink{_service_communication_8h_a90ca767ddb3c52ec640e7ed8a09dd5d8}{RECEIVED}}. 
+
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8h_source_l00126}{126}} of file \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{_service_communication_8h_a258bb72419ef143530a2f8f55e7d57af}\label{_service_communication_8h_a258bb72419ef143530a2f8f55e7d57af}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!NO\_ERROR@{NO\_ERROR}}
+\index{NO\_ERROR@{NO\_ERROR}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{NO\_ERROR}{NO\_ERROR}}
+{\footnotesize\ttfamily \#define NO\+\_\+\+ERROR~0}
+
+
+
+Indicates that the library is not currently in any errors. 
+
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8h_source_l00023}{23}} of file \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{_service_communication_8h_a7f6404e3e6de5aa345a9208af100d4f8}\label{_service_communication_8h_a7f6404e3e6de5aa345a9208af100d4f8}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!PARSED@{PARSED}}
+\index{PARSED@{PARSED}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{PARSED}{PARSED}}
+{\footnotesize\ttfamily \#define PARSED~0x\+CC}
+
+
+
+Tells the program that you parsed the \mbox{\hyperlink{_service_communication_8h_a90ca767ddb3c52ec640e7ed8a09dd5d8}{RECEIVED}} command in \mbox{\hyperlink{structst_module_data}{st\+Module\+Data}}. 
+
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8h_source_l00121}{121}} of file \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{_service_communication_8h_aafc57d44738df70f43ac87ed969eed47}\label{_service_communication_8h_aafc57d44738df70f43ac87ed969eed47}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!QUEUE@{QUEUE}}
+\index{QUEUE@{QUEUE}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{QUEUE}{QUEUE}}
+{\footnotesize\ttfamily \#define QUEUE~0x\+FE}
+
+
+
+Specifies that you want a specific command inside \mbox{\hyperlink{structst_commands}{st\+Commands}} queued for the next CAN transmission. 
+
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8h_source_l00100}{100}} of file \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{_service_communication_8h_a90ca767ddb3c52ec640e7ed8a09dd5d8}\label{_service_communication_8h_a90ca767ddb3c52ec640e7ed8a09dd5d8}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!RECEIVED@{RECEIVED}}
+\index{RECEIVED@{RECEIVED}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{RECEIVED}{RECEIVED}}
+{\footnotesize\ttfamily \#define RECEIVED~0x\+BB}
+
+
+
+Tells you that you received a request to execute this specific \mbox{\hyperlink{structst_commands}{st\+Commands}}. 
+
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8h_source_l00116}{116}} of file \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{_service_communication_8h_a2181baff0108e65db391889452ebf420}\label{_service_communication_8h_a2181baff0108e65db391889452ebf420}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!SCOMMS\_PARSE\_RX\_BUFFER\_ADR@{SCOMMS\_PARSE\_RX\_BUFFER\_ADR}}
+\index{SCOMMS\_PARSE\_RX\_BUFFER\_ADR@{SCOMMS\_PARSE\_RX\_BUFFER\_ADR}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{SCOMMS\_PARSE\_RX\_BUFFER\_ADR}{SCOMMS\_PARSE\_RX\_BUFFER\_ADR}}
+{\footnotesize\ttfamily \#define SCOMMS\+\_\+\+PARSE\+\_\+\+RX\+\_\+\+BUFFER\+\_\+\+ADR~0}
+
+
+
+The address from the timebase buffer (index) which will be used to put \mbox{\hyperlink{_service_communication_8c_a1de35ae7bf14532ceef3d4c2b4c08ffc}{Service\+Communication\+\_\+\+RXParsing\+Handler()}} in. 
+
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8h_source_l00193}{193}} of file \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{_service_communication_8h_a45b60fe63e05c21feb4d13af7fc9a299}\label{_service_communication_8h_a45b60fe63e05c21feb4d13af7fc9a299}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!SCOMMS\_PARSE\_TX\_BUFFER\_ADR@{SCOMMS\_PARSE\_TX\_BUFFER\_ADR}}
+\index{SCOMMS\_PARSE\_TX\_BUFFER\_ADR@{SCOMMS\_PARSE\_TX\_BUFFER\_ADR}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{SCOMMS\_PARSE\_TX\_BUFFER\_ADR}{SCOMMS\_PARSE\_TX\_BUFFER\_ADR}}
+{\footnotesize\ttfamily \#define SCOMMS\+\_\+\+PARSE\+\_\+\+TX\+\_\+\+BUFFER\+\_\+\+ADR~1}
+
+
+
+The address from the timebase buffer (index) which will be used to put \mbox{\hyperlink{_service_communication_8c_a44987354dee4c9ad0dfcf7073cc41d8d}{Service\+Communication\+\_\+\+TXParsing\+Handler()}} in. 
+
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8h_source_l00198}{198}} of file \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{_service_communication_8h_a081e5fd13e1fee392e6660d0c1c81a4d}\label{_service_communication_8h_a081e5fd13e1fee392e6660d0c1c81a4d}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!TIME\_BASE\_BUFFER@{TIME\_BASE\_BUFFER}}
+\index{TIME\_BASE\_BUFFER@{TIME\_BASE\_BUFFER}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{TIME\_BASE\_BUFFER}{TIME\_BASE\_BUFFER}}
+{\footnotesize\ttfamily \#define TIME\+\_\+\+BASE\+\_\+\+BUFFER~Temporary\+Function\+Buffer}
+
+
+
+The time base\textquotesingle{}s functions buffer size. Usually defined in main.\+h. Used to figure out the intervals at which the execute function is called to calculate slot\textquotesingle{}s time frames for the CAN protocol. 
+
+\begin{DoxyWarning}{Warning}
+Don\textquotesingle{}t put semi-\/colons after your define. 
+\end{DoxyWarning}
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8h_source_l00188}{188}} of file \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{_service_communication_8h_abb3bb528a93b70f6dde1db6c5c694bfe}\label{_service_communication_8h_abb3bb528a93b70f6dde1db6c5c694bfe}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!TIME\_BASE\_BUFFER\_SIZE@{TIME\_BASE\_BUFFER\_SIZE}}
+\index{TIME\_BASE\_BUFFER\_SIZE@{TIME\_BASE\_BUFFER\_SIZE}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{TIME\_BASE\_BUFFER\_SIZE}{TIME\_BASE\_BUFFER\_SIZE}}
+{\footnotesize\ttfamily \#define TIME\+\_\+\+BASE\+\_\+\+BUFFER\+\_\+\+SIZE~7}
+
+
+
+The time base\textquotesingle{}s functions buffer size. Usually defined in main.\+h. Used to figure out the intervals at which the execute function is called to calculate slot\textquotesingle{}s time frames for the CAN protocol. 
+
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8h_source_l00181}{181}} of file \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{_service_communication_8h_acfc5bd5d7a0f57b6e6e0f63a28b18473}\label{_service_communication_8h_acfc5bd5d7a0f57b6e6e0f63a28b18473}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!TIME\_BASE\_FREQUENCY\_HZ@{TIME\_BASE\_FREQUENCY\_HZ}}
+\index{TIME\_BASE\_FREQUENCY\_HZ@{TIME\_BASE\_FREQUENCY\_HZ}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{TIME\_BASE\_FREQUENCY\_HZ}{TIME\_BASE\_FREQUENCY\_HZ}}
+{\footnotesize\ttfamily \#define TIME\+\_\+\+BASE\+\_\+\+FREQUENCY\+\_\+\+HZ~2000}
+
+
+
+The time base frequency. Usually defined in main.\+h Used to automatically calculate CAN slots allocations. 
+
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8h_source_l00175}{175}} of file \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{_service_communication_8h_addf5ec070e9499d36b7f2009ce736076}\label{_service_communication_8h_addf5ec070e9499d36b7f2009ce736076}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!UNUSED@{UNUSED}}
+\index{UNUSED@{UNUSED}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{UNUSED}{UNUSED}}
+{\footnotesize\ttfamily \#define UNUSED~0x\+FF}
+
+
+
+Means that the value or commands is not used by this specific module. This is important as the functions use this to figure out which data needs to be send when a CAN slot is \mbox{\hyperlink{_service_communication_8h_a38f81619bc0b028efc4d5222e6cae89f}{AVAILABLE}} for the module. 
+
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8h_source_l00094}{94}} of file \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{_service_communication_8h_aebff2982a206799f3d174baf9df497b2}\label{_service_communication_8h_aebff2982a206799f3d174baf9df497b2}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!CB\_QueueDataInBuffer@{CB\_QueueDataInBuffer}}
+\index{CB\_QueueDataInBuffer@{CB\_QueueDataInBuffer}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{CB\_QueueDataInBuffer()}{CB\_QueueDataInBuffer()}}
+{\footnotesize\ttfamily void CB\+\_\+\+Queue\+Data\+In\+Buffer (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{Buffer,  }\item[{unsigned char}]{size\+Of\+Buffer,  }\item[{unsigned char $\ast$}]{Data\+To\+Check,  }\item[{unsigned char}]{Data\+Value\+From\+Ref\+Struct }\end{DoxyParamCaption})}
+
+
+
+Adds an unsigned char to the referenced buffer at whichever index is first available for it (0x\+FF). If it\textquotesingle{}s all 0x\+FF, it will be added at the bottom of the buffer. 
+
+\begin{DoxyAuthor}{Author}
+Lyam / Shawn Couture 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+17/11/2022 
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em Buffer} & Pointer pointing the address of the buffer to queue. \\
+\hline
+{\em size\+Of\+Buffer} & How big is the buffer referenced. \\
+\hline
+{\em Data\+To\+Check} & Pointer to the data that potentially needs queuing. (in Module\+Data) \\
+\hline
+{\em Data\+Value\+From\+Ref\+Struct} & Value associated to this commands or value (\mbox{\hyperlink{structst_commands}{st\+Commands}} or \mbox{\hyperlink{structst_values}{st\+Values}}) \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8c_source_l00174}{174}} of file \mbox{\hyperlink{_service_communication_8c_source}{Service\+Communication.\+c}}.
+
+\mbox{\Hypertarget{_service_communication_8h_a3d0c93c9577cbca6a1e880d1bbd9a1c8}\label{_service_communication_8h_a3d0c93c9577cbca6a1e880d1bbd9a1c8}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!CB\_UpdateBuffer@{CB\_UpdateBuffer}}
+\index{CB\_UpdateBuffer@{CB\_UpdateBuffer}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{CB\_UpdateBuffer()}{CB\_UpdateBuffer()}}
+{\footnotesize\ttfamily void CB\+\_\+\+Update\+Buffer (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{Buffer,  }\item[{unsigned char}]{size\+Of\+Buffer }\end{DoxyParamCaption})}
+
+
+
+Function compressing data downwards in a buffer. It slides data downwards by 1 index if the one below the data is equal to 0x\+FF. 
+
+\begin{DoxyAuthor}{Author}
+Lyam / Shawn Couture 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+17/11/2022 
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em Buffer} & Pointer pointing the address of the buffer to update. \\
+\hline
+{\em size\+Of\+Buffer} & How big is the buffer referenced. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8c_source_l00135}{135}} of file \mbox{\hyperlink{_service_communication_8c_source}{Service\+Communication.\+c}}.
+
+\mbox{\Hypertarget{_service_communication_8h_a201b752ad8025d5e229b7f3d5d3d85f7}\label{_service_communication_8h_a201b752ad8025d5e229b7f3d5d3d85f7}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!CheckIfUnused@{CheckIfUnused}}
+\index{CheckIfUnused@{CheckIfUnused}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{CheckIfUnused()}{CheckIfUnused()}}
+{\footnotesize\ttfamily void Check\+If\+Unused (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{checked\+Value,  }\item[{unsigned char}]{wanted\+New\+Value }\end{DoxyParamCaption})}
+
+
+
+Private function checking if a variable is equal to \mbox{\hyperlink{_service_communication_8h_addf5ec070e9499d36b7f2009ce736076}{UNUSED}}. If not, it sets it to a new value. 
+
+\begin{DoxyAuthor}{Author}
+Lyam / Shawn Couture 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+15/11/2022 
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em checked\+Value} & pointer (\&variable) pointing to a data in a structure \\
+\hline
+{\em wanted\+New\+Value} & value which the data pointed will be set to if not \mbox{\hyperlink{_service_communication_8h_addf5ec070e9499d36b7f2009ce736076}{UNUSED}} \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8c_source_l00656}{656}} of file \mbox{\hyperlink{_service_communication_8c_source}{Service\+Communication.\+c}}.
+
+\mbox{\Hypertarget{_service_communication_8h_a29057fe82a4a52ec4c24eb36d010508d}\label{_service_communication_8h_a29057fe82a4a52ec4c24eb36d010508d}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!ModuleData\_SetAll\_ReceivedCommands@{ModuleData\_SetAll\_ReceivedCommands}}
+\index{ModuleData\_SetAll\_ReceivedCommands@{ModuleData\_SetAll\_ReceivedCommands}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{ModuleData\_SetAll\_ReceivedCommands()}{ModuleData\_SetAll\_ReceivedCommands()}}
+{\footnotesize\ttfamily void Module\+Data\+\_\+\+Set\+All\+\_\+\+Received\+Commands (\begin{DoxyParamCaption}\item[{unsigned char}]{Value\+Applied\+To\+All }\end{DoxyParamCaption})}
+
+
+
+Sets the received command structure (Module\+Data.\+Commands\+Received) to the same input value. Useful to reset any received commands when a new mode has been received from the master. 
+
+\begin{DoxyAuthor}{Author}
+Lyam / Shawn Couture 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+15/11/2022 
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em Value\+Applied\+To\+All} & Value which will be applied to all commands not equal to \mbox{\hyperlink{_service_communication_8h_addf5ec070e9499d36b7f2009ce736076}{UNUSED}} \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8c_source_l00943}{943}} of file \mbox{\hyperlink{_service_communication_8c_source}{Service\+Communication.\+c}}.
+
+\mbox{\Hypertarget{_service_communication_8h_a2e812962d5f7419f86ec02de11431fe5}\label{_service_communication_8h_a2e812962d5f7419f86ec02de11431fe5}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!ModuleData\_SetAll\_SentCommands@{ModuleData\_SetAll\_SentCommands}}
+\index{ModuleData\_SetAll\_SentCommands@{ModuleData\_SetAll\_SentCommands}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{ModuleData\_SetAll\_SentCommands()}{ModuleData\_SetAll\_SentCommands()}}
+{\footnotesize\ttfamily void Module\+Data\+\_\+\+Set\+All\+\_\+\+Sent\+Commands (\begin{DoxyParamCaption}\item[{unsigned char}]{Value\+Applied\+To\+All }\end{DoxyParamCaption})}
+
+
+
+Sets the queued command structure (Module\+Data.\+Commands\+To\+Send) to the same input value. Useful to reset any queued commands when a new mode has been received from the master. 
+
+\begin{DoxyAuthor}{Author}
+Lyam / Shawn Couture 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+15/11/2022 
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em Value\+Applied\+To\+All} & Value which will be applied to all commands not equal to UNUSED \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8c_source_l00978}{978}} of file \mbox{\hyperlink{_service_communication_8c_source}{Service\+Communication.\+c}}.
+
+\mbox{\Hypertarget{_service_communication_8h_af91ebf03d5c59428b1019aa2619c9402}\label{_service_communication_8h_af91ebf03d5c59428b1019aa2619c9402}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!ModuleData\_SetAll\_StatesReceived@{ModuleData\_SetAll\_StatesReceived}}
+\index{ModuleData\_SetAll\_StatesReceived@{ModuleData\_SetAll\_StatesReceived}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{ModuleData\_SetAll\_StatesReceived()}{ModuleData\_SetAll\_StatesReceived()}}
+{\footnotesize\ttfamily void Module\+Data\+\_\+\+Set\+All\+\_\+\+States\+Received (\begin{DoxyParamCaption}\item[{unsigned char}]{Value\+Applied\+To\+All }\end{DoxyParamCaption})}
+
+
+
+Sets all the states in a \mbox{\hyperlink{structst_states}{st\+States}} structure to the same value. 
+
+\begin{DoxyAuthor}{Author}
+Lyam / Shawn Couture 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+15/11/2022 
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em Value\+Applied\+To\+All} & Value which will be applied to all commands not equal to \mbox{\hyperlink{_service_communication_8h_addf5ec070e9499d36b7f2009ce736076}{UNUSED}} \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8c_source_l01049}{1049}} of file \mbox{\hyperlink{_service_communication_8c_source}{Service\+Communication.\+c}}.
+
+\mbox{\Hypertarget{_service_communication_8h_aeffc3a637225c738529acf463e90160d}\label{_service_communication_8h_aeffc3a637225c738529acf463e90160d}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!ModuleData\_SetAll\_ValuesReceived@{ModuleData\_SetAll\_ValuesReceived}}
+\index{ModuleData\_SetAll\_ValuesReceived@{ModuleData\_SetAll\_ValuesReceived}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{ModuleData\_SetAll\_ValuesReceived()}{ModuleData\_SetAll\_ValuesReceived()}}
+{\footnotesize\ttfamily void Module\+Data\+\_\+\+Set\+All\+\_\+\+Values\+Received (\begin{DoxyParamCaption}\item[{unsigned char}]{Value\+Applied\+To\+All }\end{DoxyParamCaption})}
+
+
+
+Sets all the received value structure to the same value. 
+
+\begin{DoxyAuthor}{Author}
+Lyam / Shawn Couture 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+15/11/2022 
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em Value\+Applied\+To\+All} & Value which will be applied to all commands not equal to UNUSED \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8c_source_l01030}{1030}} of file \mbox{\hyperlink{_service_communication_8c_source}{Service\+Communication.\+c}}.
+
+\mbox{\Hypertarget{_service_communication_8h_a3ecde68acd8f3105b7da568e6db317ae}\label{_service_communication_8h_a3ecde68acd8f3105b7da568e6db317ae}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!ModuleData\_SetAll\_ValuesToSend@{ModuleData\_SetAll\_ValuesToSend}}
+\index{ModuleData\_SetAll\_ValuesToSend@{ModuleData\_SetAll\_ValuesToSend}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{ModuleData\_SetAll\_ValuesToSend()}{ModuleData\_SetAll\_ValuesToSend()}}
+{\footnotesize\ttfamily void Module\+Data\+\_\+\+Set\+All\+\_\+\+Values\+To\+Send (\begin{DoxyParamCaption}\item[{unsigned char}]{Value\+Applied\+To\+All }\end{DoxyParamCaption})}
+
+
+
+Sets the values to send structure of the Module\+Data to the same value. 
+
+\begin{DoxyAuthor}{Author}
+Lyam / Shawn Couture 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+15/11/2022 
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em Value\+Applied\+To\+All} & Value which will be applied to all commands not equal to UNUSED \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8c_source_l01011}{1011}} of file \mbox{\hyperlink{_service_communication_8c_source}{Service\+Communication.\+c}}.
+
+\mbox{\Hypertarget{_service_communication_8h_a1692cabce4f427865fabe67b80079c45}\label{_service_communication_8h_a1692cabce4f427865fabe67b80079c45}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!ModuleData\_SetDiscColor@{ModuleData\_SetDiscColor}}
+\index{ModuleData\_SetDiscColor@{ModuleData\_SetDiscColor}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{ModuleData\_SetDiscColor()}{ModuleData\_SetDiscColor()}}
+{\footnotesize\ttfamily void Module\+Data\+\_\+\+Set\+Disc\+Color (\begin{DoxyParamCaption}\item[{unsigned char}]{Color\+To\+Put\+In\+Values }\end{DoxyParamCaption})}
+
+
+
+handles the disc color value sending for you to avoid sending 2 at the time and to automatically remove from QUEUE previous values. 
+
+\begin{DoxyAuthor}{Author}
+Lyam / Shawn Couture 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+18/11/2022 
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em Units\+To\+Put\+In\+Values} & reference from \mbox{\hyperlink{structst_values}{st\+Values}} Can also be \mbox{\hyperlink{_service_communication_8h_addf5ec070e9499d36b7f2009ce736076}{UNUSED}} \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8c_source_l00735}{735}} of file \mbox{\hyperlink{_service_communication_8c_source}{Service\+Communication.\+c}}.
+
+\mbox{\Hypertarget{_service_communication_8h_a6c26b93e2f6b782c74f2f823547e5dab}\label{_service_communication_8h_a6c26b93e2f6b782c74f2f823547e5dab}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!ModuleData\_SetDiscDetection@{ModuleData\_SetDiscDetection}}
+\index{ModuleData\_SetDiscDetection@{ModuleData\_SetDiscDetection}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{ModuleData\_SetDiscDetection()}{ModuleData\_SetDiscDetection()}}
+{\footnotesize\ttfamily void Module\+Data\+\_\+\+Set\+Disc\+Detection (\begin{DoxyParamCaption}\item[{unsigned char}]{Detection\+To\+Put\+In\+Values }\end{DoxyParamCaption})}
+
+
+
+handles the disc detection value sending for you to avoid sending 2 at the time and to automatically remove from QUEUE previous values. 
+
+\begin{DoxyAuthor}{Author}
+Lyam / Shawn Couture 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+18/11/2022 
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em Units\+To\+Put\+In\+Values} & reference from \mbox{\hyperlink{structst_values}{st\+Values}} Can also be \mbox{\hyperlink{_service_communication_8h_addf5ec070e9499d36b7f2009ce736076}{UNUSED}}\\
+\hline
+\end{DoxyParams}
+\begin{DoxyAuthor}{Author}
+Lyam / Shawn Couture 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+18/11/2022 
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em Detection\+To\+Put\+In\+Values} & reference from \mbox{\hyperlink{structst_values}{st\+Values}} Can also be \mbox{\hyperlink{_service_communication_8h_addf5ec070e9499d36b7f2009ce736076}{UNUSED}} \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8c_source_l00853}{853}} of file \mbox{\hyperlink{_service_communication_8c_source}{Service\+Communication.\+c}}.
+
+\mbox{\Hypertarget{_service_communication_8h_a05bc85fe1889a6e743299fdaeec706be}\label{_service_communication_8h_a05bc85fe1889a6e743299fdaeec706be}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!ModuleData\_SetUnits@{ModuleData\_SetUnits}}
+\index{ModuleData\_SetUnits@{ModuleData\_SetUnits}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{ModuleData\_SetUnits()}{ModuleData\_SetUnits()}}
+{\footnotesize\ttfamily void Module\+Data\+\_\+\+Set\+Units (\begin{DoxyParamCaption}\item[{unsigned char}]{Units\+To\+Put\+In\+Values }\end{DoxyParamCaption})}
+
+
+
+handles the units value sending for you to avoid sending 2 at the time and to automatically remove from QUEUE previous values. 
+
+\begin{DoxyAuthor}{Author}
+Lyam / Shawn Couture 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+18/11/2022 
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em Units\+To\+Put\+In\+Values} & reference from \mbox{\hyperlink{structst_values}{st\+Values}} Can also be \mbox{\hyperlink{_service_communication_8h_addf5ec070e9499d36b7f2009ce736076}{UNUSED}} \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8c_source_l00673}{673}} of file \mbox{\hyperlink{_service_communication_8c_source}{Service\+Communication.\+c}}.
+
+\mbox{\Hypertarget{_service_communication_8h_ad4501640cf1f1053f5d57a8e75f79dda}\label{_service_communication_8h_ad4501640cf1f1053f5d57a8e75f79dda}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!Parse\_Interrupts@{Parse\_Interrupts}}
+\index{Parse\_Interrupts@{Parse\_Interrupts}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{Parse\_Interrupts()}{Parse\_Interrupts()}}
+{\footnotesize\ttfamily void Parse\+\_\+\+Interrupts (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Function handling the count of interrupts and slot allocations for CAN communications made for this project. It is important to properly define clock speeds and oscillator speeds in \mbox{\hyperlink{_service_communication_8h}{Service\+Communication.\+h}}. 
+
+\begin{DoxyAuthor}{Author}
+Lyam / Shawn Couture 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+15/11/2022 
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em void} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8c_source_l00626}{626}} of file \mbox{\hyperlink{_service_communication_8c_source}{Service\+Communication.\+c}}.
+
+\mbox{\Hypertarget{_service_communication_8h_a873572755106e16f635f8712fde8b8d1}\label{_service_communication_8h_a873572755106e16f635f8712fde8b8d1}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!ServiceCommunication\_initialise@{ServiceCommunication\_initialise}}
+\index{ServiceCommunication\_initialise@{ServiceCommunication\_initialise}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{ServiceCommunication\_initialise()}{ServiceCommunication\_initialise()}}
+{\footnotesize\ttfamily void Service\+Communication\+\_\+initialise (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Function called which initialises all the structures necessary. it is important to call this function before main execution of the program starts as it is necessary to initialise all the data structure used by this service. 
+
+\begin{DoxyAuthor}{Author}
+Lyam / Shawn Couture 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+14/11/2022 
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em void} & Initialisation functions take no parameters \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8c_source_l01139}{1139}} of file \mbox{\hyperlink{_service_communication_8c_source}{Service\+Communication.\+c}}.
+
+\mbox{\Hypertarget{_service_communication_8h_a1de35ae7bf14532ceef3d4c2b4c08ffc}\label{_service_communication_8h_a1de35ae7bf14532ceef3d4c2b4c08ffc}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!ServiceCommunication\_RXParsingHandler@{ServiceCommunication\_RXParsingHandler}}
+\index{ServiceCommunication\_RXParsingHandler@{ServiceCommunication\_RXParsingHandler}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{ServiceCommunication\_RXParsingHandler()}{ServiceCommunication\_RXParsingHandler()}}
+{\footnotesize\ttfamily void Service\+Communication\+\_\+\+RXParsing\+Handler (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Function periodically called via the time base\textquotesingle{}s interruptions. It is important to allocate a buffer address in your time base for this function. Do this via your main.\+h file, and \mbox{\hyperlink{_service_communication_8h}{Service\+Communication.\+h}}. You will need to set SCOMMS\+\_\+\+PARSE\+\_\+\+RX\+\_\+\+BUFFER\+\_\+\+ADR to the appropriated number in your buffer. 
+
+\begin{DoxyAuthor}{Author}
+Lyam / Shawn Couture 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+14/11/2022 
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em void} & Time base functions take no parameters\\
+\hline
+\end{DoxyParams}
+Function periodically called via the time base\textquotesingle{}s interruptions. It is important to allocate a buffer address in your time base for this function. Do this via your main.\+h file, and \mbox{\hyperlink{_service_communication_8h}{Service\+Communication.\+h}}. You will need to set SCOMMS\+\_\+\+PARSE\+\_\+\+RX\+\_\+\+BUFFER\+\_\+\+ADR to the appropriated number in your buffer.
+
+\begin{DoxyAuthor}{Author}
+Lyam / Shawn Couture 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+14/11/2022 
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em void} & Time base functions take no parameters \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8c_source_l01077}{1077}} of file \mbox{\hyperlink{_service_communication_8c_source}{Service\+Communication.\+c}}.
+
+\mbox{\Hypertarget{_service_communication_8h_a44987354dee4c9ad0dfcf7073cc41d8d}\label{_service_communication_8h_a44987354dee4c9ad0dfcf7073cc41d8d}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!ServiceCommunication\_TXParsingHandler@{ServiceCommunication\_TXParsingHandler}}
+\index{ServiceCommunication\_TXParsingHandler@{ServiceCommunication\_TXParsingHandler}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{ServiceCommunication\_TXParsingHandler()}{ServiceCommunication\_TXParsingHandler()}}
+{\footnotesize\ttfamily void Service\+Communication\+\_\+\+TXParsing\+Handler (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Function periodically called via the time base\textquotesingle{}s interruptions. It is important to allocate a buffer address in your time base for this function. Do this via your main.\+h file, and \mbox{\hyperlink{_service_communication_8h}{Service\+Communication.\+h}}. You will need to set SCOMMS\+\_\+\+PARSE\+\_\+\+TX\+\_\+\+BUFFER\+\_\+\+ADR to the appropriated number in your buffer. 
+
+\begin{DoxyAuthor}{Author}
+Lyam / Shawn Couture 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+15/11/2022 
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em void} & Time base functions take no parameters \\
+\hline
+\end{DoxyParams}
+This variable prevents communications from being sent multiple times per allowed CAN slots. Otherwise, modules spammed their data multiple time per allowed Slots, which caused issues in the Command Center
+
+Definition at line \mbox{\hyperlink{_service_communication_8c_source_l01105}{1105}} of file \mbox{\hyperlink{_service_communication_8c_source}{Service\+Communication.\+c}}.
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{_service_communication_8h_a4e1bd1188b94e4bbabbf01c05d2d83db}\label{_service_communication_8h_a4e1bd1188b94e4bbabbf01c05d2d83db}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!Commands@{Commands}}
+\index{Commands@{Commands}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{Commands}{Commands}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structst_commands}{st\+Commands}} Commands\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Struct containing all the possible commands that a module can have. This is a list of commands and must not be changed, but only referred to. 
+
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8c_source_l00040}{40}} of file \mbox{\hyperlink{_service_communication_8c_source}{Service\+Communication.\+c}}.
+
+\mbox{\Hypertarget{_service_communication_8h_a8d263995a90824787239b3b43fd22624}\label{_service_communication_8h_a8d263995a90824787239b3b43fd22624}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!Modes@{Modes}}
+\index{Modes@{Modes}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{Modes}{Modes}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structst_modes}{st\+Modes}} Modes\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Struct containing all the possible states that a module can have. This is a list of states and must not be changed, but only referred to. 
+
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8c_source_l00030}{30}} of file \mbox{\hyperlink{_service_communication_8c_source}{Service\+Communication.\+c}}.
+
+\mbox{\Hypertarget{_service_communication_8h_a1720969ebc798c3beb2569c6dd2fca70}\label{_service_communication_8h_a1720969ebc798c3beb2569c6dd2fca70}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!ModuleData@{ModuleData}}
+\index{ModuleData@{ModuleData}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{ModuleData}{ModuleData}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structst_module_data}{st\+Module\+Data}} Module\+Data\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+The actual structure used by the module. Used to get/set different values and commands. For example, reading the Mode that the master sent. Checking if receiving info from the CAN etc. Use DEFINES present in this file in order to set Commands or values of such. 
+
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8c_source_l00053}{53}} of file \mbox{\hyperlink{_service_communication_8c_source}{Service\+Communication.\+c}}.
+
+\mbox{\Hypertarget{_service_communication_8h_a1f422ed2cac01c9cd62a6125e0531c61}\label{_service_communication_8h_a1f422ed2cac01c9cd62a6125e0531c61}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!serviceCommunication\_ErrorState@{serviceCommunication\_ErrorState}}
+\index{serviceCommunication\_ErrorState@{serviceCommunication\_ErrorState}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{serviceCommunication\_ErrorState}{serviceCommunication\_ErrorState}}
+{\footnotesize\ttfamily unsigned char service\+Communication\+\_\+\+Error\+State\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Global extern variable which purpose is to indicate to other portions of the code which state this library is currently in. See\+:~\newline
+\mbox{\hyperlink{_service_communication_8h_a258bb72419ef143530a2f8f55e7d57af}{NO\+\_\+\+ERROR}} .~\newline
+\mbox{\hyperlink{_service_communication_8h_a5f7b437135029d449beddc789e646bb0}{ERROR\+\_\+\+RX\+\_\+\+MODE\+\_\+\+DOESNT\+\_\+\+EXIST}} .~\newline
+\mbox{\hyperlink{_service_communication_8h_ac64ec1978a6f8dee2535e32709e984b3}{ERROR\+\_\+\+RX\+\_\+\+STATE\+\_\+\+DOESNT\+\_\+\+EXIST}} .~\newline
+\mbox{\hyperlink{_service_communication_8h_ae558105445f8bf9d95cb6bafefbbd3a8}{ERROR\+\_\+\+RX\+\_\+\+COMMAND\+\_\+\+DOESNT\+\_\+\+EXIST}} .~\newline
+\mbox{\hyperlink{_service_communication_8h_a6e5b5d8d27c3b3e4c399de41cac09413}{ERROR\+\_\+\+RX\+\_\+\+VALUE\+\_\+\+DOESNT\+\_\+\+EXIST}} .~\newline
+\mbox{\hyperlink{_service_communication_8h_a7a87e3edee90d8fddbd93d9c0c23d16d}{ERROR\+\_\+\+TIMEDOUT}} .~\newline
+\mbox{\hyperlink{_service_communication_8h_a1a7963d3c65e2270966f8d0855723f05}{ERROR\+\_\+\+SPECIFIC\+\_\+\+TO\+\_\+\+MODULE}} .~\newline
+. 
+
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8c_source_l00065}{65}} of file \mbox{\hyperlink{_service_communication_8c_source}{Service\+Communication.\+c}}.
+
+\mbox{\Hypertarget{_service_communication_8h_a438a30fee677441c56cb4010275f6811}\label{_service_communication_8h_a438a30fee677441c56cb4010275f6811}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!States@{States}}
+\index{States@{States}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{States}{States}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structst_states}{st\+States}} States\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Struct containing all the possible states that a module can have. This is a list of states and must not be changed, but only referred to. 
+
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8c_source_l00035}{35}} of file \mbox{\hyperlink{_service_communication_8c_source}{Service\+Communication.\+c}}.
+
+\mbox{\Hypertarget{_service_communication_8h_a1bfc7354d889450b5886c6b3874e964c}\label{_service_communication_8h_a1bfc7354d889450b5886c6b3874e964c}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!temporaryCANTXBuffer@{temporaryCANTXBuffer}}
+\index{temporaryCANTXBuffer@{temporaryCANTXBuffer}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{temporaryCANTXBuffer}{temporaryCANTXBuffer}}
+{\footnotesize\ttfamily unsigned char temporary\+CANTXBuffer\mbox{[}8\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8h_source_l00214}{214}} of file \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{_service_communication_8h_a115c2f56dcaf6da3ef0ce4e6b13bc869}\label{_service_communication_8h_a115c2f56dcaf6da3ef0ce4e6b13bc869}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!TemporaryFunctionBuffer@{TemporaryFunctionBuffer}}
+\index{TemporaryFunctionBuffer@{TemporaryFunctionBuffer}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{TemporaryFunctionBuffer}{TemporaryFunctionBuffer}}
+{\footnotesize\ttfamily unsigned char Temporary\+Function\+Buffer\mbox{[}7\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8h_source_l00169}{169}} of file \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{_service_communication_8h_a4b86a1675d8828177770802176fb50d6}\label{_service_communication_8h_a4b86a1675d8828177770802176fb50d6}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!temporaryMasterBuffer@{temporaryMasterBuffer}}
+\index{temporaryMasterBuffer@{temporaryMasterBuffer}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{temporaryMasterBuffer}{temporaryMasterBuffer}}
+{\footnotesize\ttfamily unsigned char temporary\+Master\+Buffer\mbox{[}8\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8h_source_l00216}{216}} of file \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{_service_communication_8h_a5381ed509bf973ce17e6e66c09f60aa7}\label{_service_communication_8h_a5381ed509bf973ce17e6e66c09f60aa7}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!temporaryModuleBuffer@{temporaryModuleBuffer}}
+\index{temporaryModuleBuffer@{temporaryModuleBuffer}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{temporaryModuleBuffer}{temporaryModuleBuffer}}
+{\footnotesize\ttfamily unsigned char temporary\+Module\+Buffer\mbox{[}8\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8h_source_l00215}{215}} of file \mbox{\hyperlink{_service_communication_8h_source}{Service\+Communication.\+h}}.
+
+\mbox{\Hypertarget{_service_communication_8h_a3088ff4e4e4ea73770c72f41563fa4e3}\label{_service_communication_8h_a3088ff4e4e4ea73770c72f41563fa4e3}} 
+\index{ServiceCommunication.h@{ServiceCommunication.h}!Values@{Values}}
+\index{Values@{Values}!ServiceCommunication.h@{ServiceCommunication.h}}
+\doxysubsubsection{\texorpdfstring{Values}{Values}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structst_values}{st\+Values}} Values\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Struct containing all the possible values that a module can transmit. This is a list of values and must not be changed, Only refer to it when you need to set or change your module\textquotesingle{}s structure values. 
+
+
+
+Definition at line \mbox{\hyperlink{_service_communication_8c_source_l00046}{46}} of file \mbox{\hyperlink{_service_communication_8c_source}{Service\+Communication.\+c}}.
+
