@@ -54,14 +54,14 @@ void interfacePassUartToUDP(void)
       printf("\nla criss de donnée: %i\n",ucData);
   }
 
-  if(ucData == 0x08)
+  if(ucData == 0x08) // longueur recu pour debut trame?
   {
     printf("Lenght RX\n");
     ucLongueur = 1;
     i = 0;
   }
 
-  else if(ucLongueur == 1)
+  else if(ucLongueur == 1) // Debut diagramme etat des data recu
   {
     if(ucData == 0x00 && i<1)
     {
@@ -103,7 +103,7 @@ void interfacePassUartToUDP(void)
      ucUarttoUDP[6] = ucData;
      i++;
     }
-    else if(i == 7)
+    else if(i == 7) // Si le 7eme data est recu envoyer transmission udp
     {
      ucUarttoUDP[7] = ucData;
      transUDP(ucUarttoUDP, 8);
@@ -112,7 +112,6 @@ void interfacePassUartToUDP(void)
      ucData = 0x00;
     }
   }
-   //piloteUART2_TX(piloteUART2_RX());
 }
 //Definitions de variables publiques:
 

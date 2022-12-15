@@ -11,7 +11,6 @@ main.pbi: \
   C:\IAR\ARM\8.50\arm\inc\c\stdint.h C:\IAR\ARM\8.50\arm\inc\c\ycheck.h \
   C:\IAR\ARM\8.50\arm\inc\c\yvals.h \
   C:\IAR\ARM\8.50\arm\inc\c\DLib_Defaults.h \
-  C:\IAR\ARM\8.50\arm\inc\c\DLib_Config_Full.h \
   C:\IAR\ARM\8.50\arm\inc\c\DLib_Product.h \
   C:\Projet\Projet-5e-Session\Intermediaire\Programme\com\ stm32\ to\ esp\247-637\ S-0001\ V7\EWARM/../Drivers/CMSIS/Include/cmsis_version.h \
   C:\Projet\Projet-5e-Session\Intermediaire\Programme\com\ stm32\ to\ esp\247-637\ S-0001\ V7\EWARM/../Drivers/CMSIS/Include/cmsis_compiler.h \

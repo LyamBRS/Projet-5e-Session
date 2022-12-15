@@ -43,29 +43,29 @@ void interfaceAscenseur_Descend(void)
     {
         interfaceUsine_EcritUnElement(STEP0_Pin, INTERFACEUSINE_OUTPUT_HIGH);
         interfaceUsine_EcritUnElement(STEP1_Pin, INTERFACEUSINE_OUTPUT_LOW);
-        interfaceUsine_EcritUnElement(STEP2_Pin, INTERFACEUSINE_OUTPUT_HIGH);
+        interfaceUsine_EcritUnElement(STEP2_Pin, INTERFACEUSINE_OUTPUT_LOW);
         interfaceUsine_EcritUnElement(STEP3_Pin, INTERFACEUSINE_OUTPUT_LOW);//FIN PARTIE 1
     }
     else if (ucEtatA == 1)//2eme pas
     {
-        interfaceUsine_EcritUnElement(STEP0_Pin, INTERFACEUSINE_OUTPUT_HIGH);
-        interfaceUsine_EcritUnElement(STEP1_Pin, INTERFACEUSINE_OUTPUT_LOW);
+        interfaceUsine_EcritUnElement(STEP0_Pin, INTERFACEUSINE_OUTPUT_LOW);
+        interfaceUsine_EcritUnElement(STEP1_Pin, INTERFACEUSINE_OUTPUT_HIGH);
         interfaceUsine_EcritUnElement(STEP2_Pin, INTERFACEUSINE_OUTPUT_LOW);
-        interfaceUsine_EcritUnElement(STEP3_Pin, INTERFACEUSINE_OUTPUT_HIGH);//FIN PARTIE 2
+        interfaceUsine_EcritUnElement(STEP3_Pin, INTERFACEUSINE_OUTPUT_LOW);//FIN PARTIE 2
     }
     else if (ucEtatA == 2)//3eme pas
     {
         interfaceUsine_EcritUnElement(STEP0_Pin, INTERFACEUSINE_OUTPUT_LOW);
-        interfaceUsine_EcritUnElement(STEP1_Pin, INTERFACEUSINE_OUTPUT_HIGH);
-        interfaceUsine_EcritUnElement(STEP2_Pin, INTERFACEUSINE_OUTPUT_LOW);
-        interfaceUsine_EcritUnElement(STEP3_Pin, INTERFACEUSINE_OUTPUT_HIGH);//FIN PARTIE 3
+        interfaceUsine_EcritUnElement(STEP1_Pin, INTERFACEUSINE_OUTPUT_LOW);
+        interfaceUsine_EcritUnElement(STEP2_Pin, INTERFACEUSINE_OUTPUT_HIGH);
+        interfaceUsine_EcritUnElement(STEP3_Pin, INTERFACEUSINE_OUTPUT_LOW);//FIN PARTIE 3
     }
     else if (ucEtatA == 3)//4eme pas
     {
         interfaceUsine_EcritUnElement(STEP0_Pin, INTERFACEUSINE_OUTPUT_LOW);
-        interfaceUsine_EcritUnElement(STEP1_Pin, INTERFACEUSINE_OUTPUT_HIGH);
-        interfaceUsine_EcritUnElement(STEP2_Pin, INTERFACEUSINE_OUTPUT_HIGH);
-        interfaceUsine_EcritUnElement(STEP3_Pin, INTERFACEUSINE_OUTPUT_LOW);//FIN PARTIE 4
+        interfaceUsine_EcritUnElement(STEP1_Pin, INTERFACEUSINE_OUTPUT_LOW);
+        interfaceUsine_EcritUnElement(STEP2_Pin, INTERFACEUSINE_OUTPUT_LOW);
+        interfaceUsine_EcritUnElement(STEP3_Pin, INTERFACEUSINE_OUTPUT_HIGH);//FIN PARTIE 4
     }
  /* if(ampoule == 10)                                                                      // Clignote del
   {
@@ -97,30 +97,30 @@ void interfaceAscenseur_Monte(void)
  // interfaceUsine_EcritUnElement(INTERFACEUSINE_ID_AMPOULE,INTERFACEUSINE_OUTPUT_LOW); // Eteint quand monte
       if (ucEtatA == 0)//1er pas
       {
-          interfaceUsine_EcritUnElement(STEP0_Pin, INTERFACEUSINE_OUTPUT_HIGH);
+          interfaceUsine_EcritUnElement(STEP0_Pin, INTERFACEUSINE_OUTPUT_LOW);
           interfaceUsine_EcritUnElement(STEP1_Pin, INTERFACEUSINE_OUTPUT_LOW);
-          interfaceUsine_EcritUnElement(STEP2_Pin, INTERFACEUSINE_OUTPUT_HIGH);
-          interfaceUsine_EcritUnElement(STEP3_Pin, INTERFACEUSINE_OUTPUT_LOW);//FIN PARTIE 1
+          interfaceUsine_EcritUnElement(STEP2_Pin, INTERFACEUSINE_OUTPUT_LOW);
+          interfaceUsine_EcritUnElement(STEP3_Pin, INTERFACEUSINE_OUTPUT_HIGH);//FIN PARTIE 1
       }
       else if (ucEtatA == 1)//2eme pas
       {
-          interfaceUsine_EcritUnElement(STEP0_Pin, INTERFACEUSINE_OUTPUT_HIGH);
+          interfaceUsine_EcritUnElement(STEP0_Pin, INTERFACEUSINE_OUTPUT_LOW);
           interfaceUsine_EcritUnElement(STEP1_Pin, INTERFACEUSINE_OUTPUT_LOW);
-          interfaceUsine_EcritUnElement(STEP2_Pin, INTERFACEUSINE_OUTPUT_LOW);
-          interfaceUsine_EcritUnElement(STEP3_Pin, INTERFACEUSINE_OUTPUT_HIGH);//FIN PARTIE 2
+          interfaceUsine_EcritUnElement(STEP2_Pin, INTERFACEUSINE_OUTPUT_HIGH);
+          interfaceUsine_EcritUnElement(STEP3_Pin, INTERFACEUSINE_OUTPUT_LOW);//FIN PARTIE 2
       }
       else if (ucEtatA == 2)//3eme pas
       {
           interfaceUsine_EcritUnElement(STEP0_Pin, INTERFACEUSINE_OUTPUT_LOW);
           interfaceUsine_EcritUnElement(STEP1_Pin, INTERFACEUSINE_OUTPUT_HIGH);
           interfaceUsine_EcritUnElement(STEP2_Pin, INTERFACEUSINE_OUTPUT_LOW);
-          interfaceUsine_EcritUnElement(STEP3_Pin, INTERFACEUSINE_OUTPUT_HIGH);//FIN PARTIE 3
+          interfaceUsine_EcritUnElement(STEP3_Pin, INTERFACEUSINE_OUTPUT_LOW);//FIN PARTIE 3
       }
       else if (ucEtatA == 3)//4eme pas
       {
-          interfaceUsine_EcritUnElement(STEP0_Pin, INTERFACEUSINE_OUTPUT_LOW);
-          interfaceUsine_EcritUnElement(STEP1_Pin, INTERFACEUSINE_OUTPUT_HIGH);
-          interfaceUsine_EcritUnElement(STEP2_Pin, INTERFACEUSINE_OUTPUT_HIGH);
+          interfaceUsine_EcritUnElement(STEP0_Pin, INTERFACEUSINE_OUTPUT_HIGH);
+          interfaceUsine_EcritUnElement(STEP1_Pin, INTERFACEUSINE_OUTPUT_LOW);
+          interfaceUsine_EcritUnElement(STEP2_Pin, INTERFACEUSINE_OUTPUT_LOW);
           interfaceUsine_EcritUnElement(STEP3_Pin, INTERFACEUSINE_OUTPUT_LOW);//FIN PARTIE 4
       }
 }
@@ -187,7 +187,7 @@ void interfaceAscenseur_gere(void)
          ucCompteurTemps = 0;
      }
 
-     if (nombreDeFoisAvantFinDes <= 400)//Fin descente?
+     if (nombreDeFoisAvantFinDes <= 2000)//Fin descente?
      {
          if (ucDeplaceAscens == 1)
          {

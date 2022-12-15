@@ -64,15 +64,6 @@ void setup(void)
 
 void loop(void) 
 {
-  //Serial2.write('P');
-  unsigned char ucRead = 0x00;
-  
-  if (Serial2.available()) 
-{
-  interfacePassUartToUDP();
-}
-  
-  
     // Read valeur sur buffeur
   serviceTaskServer_gestion.execute();
   serviceBaseDeTemps_gereDansLoop();   
