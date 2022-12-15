@@ -9,7 +9,7 @@
 #include "xinterfaceT1.h"
 #include "interfacePass.h"
 #include "xserviceBaseDeTemps.h"
-#include "xprocessusClignotant.h"
+#include "xprocessusCom.h"
 #include <stdio.h>
 
 //Definitions privees
@@ -35,6 +35,7 @@ void processusClignotant_attendAvantDEteindreLeTemoinLumineux(void);
 //pas de variables publiques
 
 //Definitions de fonctions publiques:
+/******************************************************************************/
 void processusClignotant_attendAvantDAllumerLeTemoinLumineux(void)
 {
   static unsigned char ucControl = 0;
@@ -46,7 +47,7 @@ void processusClignotant_attendAvantDAllumerLeTemoinLumineux(void)
   interfaceT1_allume();
   processusClignotant_compteur = 0;
 }
-
+/******************************************************************************/
 void processusClignotant_attendAvantDEteindreLeTemoinLumineux(void)
 { 
   processusClignotant_compteur++;
@@ -58,8 +59,8 @@ void processusClignotant_attendAvantDEteindreLeTemoinLumineux(void)
   processusClignotant_compteur = 0;
   serviceBaseDeTemps_execute[PROCESSUSCLIGNOTANT_PHASE] = processusClignotant_attendAvantDAllumerLeTemoinLumineux;
 }
-
-void processusClignotant_initialise(void)
+/******************************************************************************/
+void processusCom_initialise(void)
 {
   processusClignotant_compteur = 0;
   interfaceT1_eteint();

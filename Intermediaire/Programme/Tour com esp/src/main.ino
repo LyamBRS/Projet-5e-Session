@@ -15,7 +15,7 @@
 #include "xinterfaceEntree1.h"
 #include "xinterfaceT1.h"
 #include "interfacePass.h"
-#include "xprocessusClignotant.h"
+#include "xprocessusCom.h"
 #include <WiFi.h>
 #include <WiFiUdp.h>
 
@@ -49,7 +49,7 @@ void main_initialise(void)
   serviceProtocole637_initialise();
   interfaceEntree1_initialise();
   interfaceT1_initialise();
-  processusClignotant_initialise();
+  processusCom_initialise();
 }
 
 void setup(void) 
