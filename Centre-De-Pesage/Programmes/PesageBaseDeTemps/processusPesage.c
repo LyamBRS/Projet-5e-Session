@@ -1,6 +1,17 @@
-// ProcessusPesage
-// Fichier contenant le state Machine du centre de pesage
-
+/**
+ * @file processusPesage.c
+ * @author CamFo Camille Fortin (camfortin2022@gmail.com)
+ * 
+ * @brief Le processus Pesage gêre l'entièreté des tâche a effectué avec 
+ *  le centre de pesage. Il est une phase du service base de temps qui est appeler 
+ *  à chaques périodes de la base de temps. Il correspond au diagramme d'état 
+ * 
+ * @version 0.1
+ * @date 2022-12-15
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 
 #include "main.h"
 #include "interfaceBras.h"
@@ -11,22 +22,80 @@
 #include "processusDetection.h"
 
 // Définition des variables privées
+
+/// @brief Compteur pour les délais dans le state Machine
 int compteur = 0;
+/// @brief Tableau de caracère pour mettre la réponse recu par le bras en USB
 char reponse[64];
+/// @brief Tableau de caracère pour mettre la commende a envoyé au bras en USB
 char commande[64];
+/// @brief Variable pour la coordonné de la position du bras
 int x2;
+/// @brief Variable pour la coordonné de la position du bras
 int y2;
 
+/**
+ * @brief État du processus qui attend une requête de pesé. Il attend
+ *   d'avoir recu les bons états du service
+ * 
+ */
 void processusPesage_attendUneRequete(void);
+/**
+ * @brief État du processus qui démarre la détection et qui repose la rondelle
+ * sur la balance
+ * 
+ */
 void processusPesage_depose(void);
+/**
+ * @brief État du processus qui attend que le bras soit à la balance avant de 
+ *  de relaché la rondelle.
+ * 
+ */
 void processusPesage_attendFinDepot(void);
+/**
+ * @brief État du processus qui attend que le bras aille relaché la rondelle 
+ *  avant de préparer la balance pour une lecture.
+ * 
+ */
 void processusPesage_prepareMesureBalance(void);
+/**
+ * @brief État du processus qui attend la fin de la lecture de la balance
+ * 
+ */
 void processusPesage_attendLecture(void);
+/**
+ * @brief État du processus qui attend que le bras redescendre prendre 
+ *  la rondelle  
+ * 
+ */
 void processusPesage_repriseRondelle(void);
+/**
+ * @brief État du processus qui attend que le bras aille repris la rondelle
+ *  avec la ventouse
+ * 
+ */
 void processusPesage_repriseRondellePart2(void);
+/**
+ * @brief État du processus qui attend que le bras soit a la position de 
+ *  dépot des rondelles
+ * 
+ */
 void processusPesage_disposeRondelle(void);
+/**
+ * @brief État du processus qui attend que le bras soit en position avant
+ *  d'envoyé la commande de laché la rondelle 
+ * 
+ */
 void processusPesage_gere(void);
+/**
+ * @brief État qui attend que la rondelle soit au sol avant de dire au
+ *  bras de retourner a son état d'initialisation et d'attendre une requête 
+ * 
+ */
 void processusPesage_retourEtatInit(void);
+
+
+
 
 void processusPesage_initialise(void)
 {

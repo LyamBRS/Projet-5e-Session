@@ -1,14 +1,20 @@
+/**
+ * @file serviceBaseDeTemps.h
+ * @author CamFo Camille Fortin (camfortin2022@gmail.com)
+ * @brief  pour mettre en place un service d'appels periodiques de fonctions
+ *  pointees par un tableau de pointeurs de fonctions. Le service met en place
+ *  une base de temps qui reposent sur l'emploi du \ref piloteTimer.h
+ * 
+ * @version 0.1
+ * @date 2022-11-23
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
+
 #ifndef SERVICEBASEDETEMPS_H
 #define SERVICEBASEDETEMPS_H
 
-//MODULE: serviceBaseDeTemps
-//DESCRIPTION: pour mettre en place un service d'appels periodiques de fonctions
-//pointees par un tableau de pointeurs de fonctions. Le service met en place
-//une base de temps qui reposent sur l'emploi des appels que peut faire le module
-//serviceTaskServer
-
-//HISTORIQUE:
-// 2021-04-07, Yves Roy, creation
 
 //DEFINITIONS REQUISES PAR LE MODULE:
 //Dependances materielles
@@ -30,7 +36,15 @@ void serviceBaseDeTemps_gereDansLoop(void);
 void serviceBaseDeTemps_initialise(void);
 
 //Variables publiques:
+
+/**
+ * @brief Tableau de pointeur de fonction qui peuvent être assigné par leur processus respectif.
+ *  Ce tableau est au centre du fonctionnement de la base de temps. Pour plus d'explication voir 
+ *  le fichier de définition de la base de temps \ref xserviceBaseDeTemps.h
+ * 
+ */
 extern void (*serviceBaseDeTemps_execute[SERVICEBASEDETEMPS_NOMBRE_DE_PHASES])(void);
+
 extern void (*serviceBaseDeTemps_executeDansLoop[SERVICEBASEDETEMPS_NOMBRE_DE_PHASES_DANS_LOOP])(void);
 
 #endif

@@ -1,6 +1,10 @@
 #ifndef PILOTEUSBBAL_H
 #define PILOTEUSBBAL_H
 
+
+//Pour plus de détails a propos de la configuration du port USB/Serie:
+//https://en.wikibooks.org/wiki/Serial_Programming/termios
+
 //MODULE: piloteUSBbal
 //DESCRIPTION: Module qui permet d'envoyer des commandes a une imprimante 3D
 //de marque Malyan (M200) et de recevoir les reponses a ces commandes.

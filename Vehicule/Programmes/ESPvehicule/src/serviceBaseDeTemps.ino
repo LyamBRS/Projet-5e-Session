@@ -1,3 +1,18 @@
+/**
+ * @file serviceBaseDeTemps.ino
+ * @author CamFo Camille Fortin (camfortin2022@gmail.com)
+ * @brief  pour mettre en place un service d'appels periodiques de fonctions
+ *  pointees par un tableau de pointeurs de fonctions. Le service met en place
+ *  une base de temps qui reposent sur l'emploi des appels que peut faire le module
+ *  serviceTaskServer
+ * 
+ * @version 0.1
+ * @date 2022-11-23
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
+
 //serviceBaseDeTemps:
 //Historique: 
 // 2021-04-04, Yves Roy, creation
@@ -18,6 +33,7 @@ void serviceBaseDeTemps_gere(void);
 //pas de variables privees
 
 //Definitions de fonctions privees:
+
 void serviceBaseDeTemps_neFaitRien(void)
 {
 }

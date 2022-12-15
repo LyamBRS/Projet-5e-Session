@@ -1,3 +1,17 @@
+/**
+ * @file main.c
+ * @author CamFo Camille Fortin (camfortin2022@gmail.com)
+ * @brief Program file containing the code defined in \ref main.h
+ *  Please refer to this other file for information necessary 
+ *  in order to make this work.
+ * @version 0.1
+ * @date 2022-12-15
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
+
+
 // Main 
 // 
 
@@ -19,14 +33,26 @@
 #include "processusGestionCom.h"
 
 // Variable Privé
-char commande[64];
+// Aucune 
 
 // Définition privé
+
+/**
+ * @brief Réinitialise la communication CAN 
+ *  pour s'assurer de l'ouvrir correctement 
+ * 
+ * @param void
+ */
 void clearComCAN(void);
+/**
+ * @brief Fonction qui initialise tous les pilotes, interfaces
+ *  et processsus ainsi que les service nécessaire au fonctionnement du programme 
+ * 
+ * @return int 
+ */
 int main_initialise(void);
 
 
-// Fonciton privé
 int main_initialise(void)
 {
     clearComCAN();
@@ -50,7 +76,11 @@ int main_initialise(void)
     return 0;
 }
 
-
+/**
+ * @brief Point d'entré du programme 
+ * 
+ * @return int 
+ */
 int main(void)
 {
     if(main_initialise() < 0)
@@ -69,8 +99,6 @@ int main(void)
 }
 
 
-
-// Fonction de fermeture Can
 void clearComCAN(void)
 {
     system("sudo modprobe vcan");
